@@ -3,10 +3,10 @@
 from odoo import models,fields
 
 class realEstate(models.Model):
-    _name = "real_estate"
+    _name = "real.estate"
     _description = "The Real Estate Advertisement Module"
 
-    name = fields.Char()
+    name = fields.Char('Name', required=True, readonly=True, copy=True)
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date()
