@@ -8,11 +8,11 @@ class test(models.Model):
     
     
     name = fields.Char(required = True)
-    description = fields.Text()
+    description = fields.Text(copy =False)
     postcode = fields.Char()
-    date_availability = fields.Date()
+    date_availability = fields.Date("Last Availability",default=lambda self:fields.Datetime.now())
     expected_price = fields.Float(required=True)
-    selling_price=fields.Float()
+    selling_price=fields.Float(readonly=True)
     bedrooms = fields.Integer()
     living_areas = fields.Integer()
     facades = fields.Integer()
