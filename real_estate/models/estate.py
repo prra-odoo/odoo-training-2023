@@ -18,4 +18,6 @@ class estate(models.Model):
      garage = fields.Boolean()
      garden = fields.Boolean()
      garden_area = fields.Integer()
-     #garden_orientation = fields.Selection()
+     garden_orientation = fields.Selection(
+          selection =[('3BHK', 'Space'), ('House','Type')]
+     )
