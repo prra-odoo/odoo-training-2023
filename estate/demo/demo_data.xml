@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="demo1" model="estate.property">
+            <field name="name">Sector 2A</field>
+            <field name="description">This is a property in sector 2As</field>
+        </record>
+        <record id='demo2' model='estate.property'>
+            <field name='name'>Sector 2B</field>
+            <field name='description'>This is a sample property in sector 2B</field>
+        </record>
+    </data>
+</odoo>

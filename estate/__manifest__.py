@@ -6,12 +6,12 @@
     'author':'Althaf Shaik',
     'category':'Advertising',
     'data':[
-        'data/demo_data.xml',
          'security/ir.model.access.csv',
          'views/estate_property_views.xml',
-      
-        
-       
+         'views/estate_form_tree_views.xml',
+        ],
+    'demo':[
+        'demo/demo_data.xml',
     ],
     'application' : True,
     
