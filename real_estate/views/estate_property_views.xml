@@ -1,10 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    
-    <menuitem id="test_menu_root" name="Real Estate">
-        <menuitem id="test_first_level_menu" name="First Level">
-        <menuitem id="test_model_menu_action" action="test_model_action"/>
-    </menuitem>
-</menuitem>
+    <data>
+        <record id="test_model_action" model="ir.actions.act_window">
+            <field name="name">Create Task</field>
+            <field name="res_model">real.estate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="test_model_action1" model="ir.actions.act_window">
+            <field name="name">Create Task2</field>
+            <field name="res_model">real.estate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
+        <record id="test_model_action01" model="ir.actions.act_window">
+            <field name="name">Create Task3</field>
+            <field name="res_model">real.estate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="test_model_action04" model="ir.actions.act_window">
+            <field name="name">Create Task4</field>
+            <field name="res_model">real.estate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_tree" model="ir.ui.view">
+            <field name="name">Real Estate Form View</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="postcode" optional='hide'/>
+                    <field name="date_availability"  />
+                    <field name="expected_price" optional='hide' />
+                    <field name="selling_price" optional='hide' />
+                    <field name="bedrooms"  optional='hide'/>
+                    <field name="living_area"  optional='hide'/>
+                    <field name="facades" optional='hide'/>
+                    <field name="garage"  optional='hide'/>
+                    <field name="garden" optional='hide' />
+                    <field name="garden_orientation"  optional='hide'/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_form_design" model="ir.ui.view">
+            <field name="name">Real Estate Form View</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                               
+                                <field name="name"/>
+                                <field name="postcode"  />
+                            </group>
+                            <group>
+                                <field name="date_availability" />
+                                 <field name="expected_price" />
+                                <field name="selling_price" />
+                            </group>
+
+                            <notebook>
+                                <page string="Description" >
+                                    <field name="description" placeholder="More Description Regarding Land"></field>
+                                </page>
+                                <page string="Land Deatils">
+                                    <p>Living Area <field name="living_area"
+                                            style="width:auto;margin-left:79px"
+                                            placeholder="Living Area" /></p>
+                                    <p>Facades        
+                                    <field name="facades"   style="width:auto;margin-left:98px"
+                                   /></p>
+                                   <p>Garage
+                                    <field name="garage"  style="width:auto;margin-left:100px"/></p>
+                                    <p>Garden
+                                        <field name="garden"  style="width:auto;margin-left:100px" />
+                                    </p>
+                                    <p>Garden Orientation
+                                    <field name="garden_orientation"  style="width:auto;margin-left:20px"/></p>
+                                </page>
+                                <p>Bedrooms
+                                    <field name="bedrooms" />
+                                </p>
+
+
+                            </notebook>
+
+
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- <menuitem id="test_menu_root" name="Real Estate">
+        <menuitem
+        id="test_first_level_menu" name="First Level">
+        <menuitem id="test_model_menu_action"
+        action="test_model_action"/>
+    </menuitem>
+</menuitem> -->
+    </data>
 </odoo>
