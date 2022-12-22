@@ -7,7 +7,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-         <record id="test_model_action3" model="ir.actions.act_window">
+        <record id="test_model_action3" model="ir.actions.act_window">
             <field name="name">Test action3</field>
             <field name="res_model">real.estate</field>
             <field name="view_mode">tree,form</field>
@@ -27,5 +27,69 @@
             <field name="res_model">real.estate</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+        <record id="model_view_tree" model="ir.ui.view">
+            <field name="name">Tree.View</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="postcode" />
+                    <field name="date_availability" optional='hide' />
+                    <field name="expected_price" optional='hide' />
+                    <field name="selling_price" optional='hide' />
+                    <field name="bedrooms" optional='hide' />
+                </tree>
+            </field>
+        </record>
+
+        <record id="model_view_form" model="ir.ui.view">
+            <field name="name">Form View</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <form string="Real Estate">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="facades" />
+                                <field name="date_availability" />
+                                <field name="expected_price" />
+                                <field name="selling_price" />
+                            </group>
+                            <group>
+                                <field name="postcode" />
+                                <field name="garage" />
+                                <field name="bedrooms" />
+                                <field name="living_area" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"></field>
+                            </page>
+                            <page string="Garden">
+                                <group>
+                                    <group>
+                                        <field name="garden" />
+                                        <field name="garden_orientation" />
+                                    </group>
+                                    <group>
+                                        <field name="garden_area" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
     </data>
 </odoo>

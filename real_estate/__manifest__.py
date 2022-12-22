@@ -12,5 +12,8 @@
         'views/action_estate_model.xml',
         
         ],
+    'demo' : [
+        'demo/real_estate_demo_data.xml',
+    ],
     'application' : True,
 }

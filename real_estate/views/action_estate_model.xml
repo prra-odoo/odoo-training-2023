@@ -2,17 +2,18 @@
 <odoo>
     <menuitem id="test_menu_root" name="Real Estate">
         <menuitem id="test_first_level_menu" name="First Level">
-        <menuitem id="test_model_menu_action" action="test_model_action"/>
+            <menuitem id="test_model_menu_action" action="test_model_action" />
+        </menuitem>
+        <menuitem id="test_first_level_menu3" name="sec Level">
+            <menuitem id="test_model_menu_action3" action="test_model_action3" />
+            <menuitem id="test_model_menu_action4" action="test_model_action4" />
+
+        </menuitem>
+        <menuitem id="third_level_menu" name="third level">
+            <menuitem id="third_level_1" action="third_level2" />
+            <menuitem id="third_level_2" action="third_level3" />
+        </menuitem>
+
     </menuitem>
-    <menuitem id="test_first_level_menu3" name="sec Level">
-        <menuitem id="test_model_menu_action3" action="test_model_action3"/>
-        <menuitem id="test_model_menu_action4" action="test_model_action4"/>
-        
-    </menuitem>
-    <menuitem id="third_level_menu" name="third level">
-        <menuitem id="third_level_1" action="third_level2"/>
-        <menuitem id="third_level_2" action="third_level3"/>
-    </menuitem>
-</menuitem>
 
 </odoo>
