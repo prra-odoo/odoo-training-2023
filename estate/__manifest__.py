@@ -7,5 +7,9 @@
         'security/ir.model.access.csv',
         # 'data/estate_demodata.xml',
         'views/estate-view.xml',
+        'views/estate_view_action.xml',
+    ],
+    'demo' : [
+        'demo/estate_demodata.xml',
     ],
 }
