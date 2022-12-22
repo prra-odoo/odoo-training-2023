@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record model="real.estate" id="realestate_data">
+            <field name="name">Renil</field>
+            <field name="description">Hello</field>
+            <field name="postcode">fewf</field>
+            <field name="expected_price">20</field>
+            <field name="selling_price">15</field>
+
+        </record>
+</odoo>

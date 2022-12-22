@@ -3,7 +3,7 @@
     <data>
         <record id="test_model_action" model="ir.actions.act_window">
             <field name="name">Real Estate</field>
-            <field name="res_model">real_estate</field>
+            <field name="res_model">real.estate</field>
             <field name="view_mode">tree,form</field>
         </record>
     </data>

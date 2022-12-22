@@ -1,8 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="test_menu_root" name="Real Estate">
-        <menuitem id="test_first_level_menu" name="Menu">
-        <menuitem id="test_model_menu_action" action="test_model_action"/>
-    </menuitem>
-</menuitem>
+    <data>
+        <record id="test_model_action" model="ir.actions.act_window">
+            <field name="name">Property List</field>
+            <field name="res_model">real.estate</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="model_view_tree" model="ir.ui.view">
+            <field name="name">Real Estate</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="postcode"/>
+                    <field name="date_availability" optional="hide"/>
+                    <field name="expected_price" optional="hide"/>
+                    <field name="selling_price" optional="hide"/>
+                    <field name="bedrooms" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+        <record id="model_view_form" model="ir.ui.view">
+            <field name="name">Real Estate Form</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="facades" />
+                                <field name="date_availability" />
+                                <field name="expected_price" />
+                                <field name="selling_price" />
+                            </group>
+                            <group>
+                                <field name="postcode" />
+                                <field name="garage" />
+                                <field name="bedrooms" />
+                                <field name="living_area" />
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"></field>
+                            </page>
+                            <page string="Others">
+                                <group>
+                                    <group>
+                                        <field name="garden" />
+                                        <field name="garden_orientation" />
+                                    </group>
+                                    <group>
+                                        <field name="garden_area" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
 </odoo>

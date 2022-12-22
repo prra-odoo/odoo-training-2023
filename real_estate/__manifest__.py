@@ -6,7 +6,11 @@
     'data': [
                 'data/estate_data.xml',
                 'views/estate_property_views.xml',
-                'security/ir.model.access.csv',
+                'views/action_estate_property.xml',
+                'security/ir.model.access.csv'
+            ],
+    'demo': [
+                'demo/demo.xml'
             ],
     'application' : True,
     'installable': True,
