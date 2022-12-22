@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data>
+        <record model="real.estate" id="real_estate_demo_data_1">
+            <field name="name">Odoo</field>
+            <field name="expected_price">12</field>
+            <field name="selling_price">10</field>
+        </record>
+        <record model="real.estate" id="real_estate_demo_data_2">
+            <field name="name">Sanket</field>
+            <field name="expected_price">120</field>
+            <field name="selling_price">100</field>
+        </record>
+        <record model="real.estate" id="real_estate_demo_data_3">
+            <field name="name">Ravi</field>
+            <field name="expected_price">120</field>
+            <field name="selling_price">100</field>
+        </record>
+        </data>
+</odoo>

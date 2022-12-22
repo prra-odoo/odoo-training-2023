@@ -5,9 +5,12 @@
     'summary' : 'Manage Real Estate Properties',
     'depends' : ['base'],
     'data' : [
-        'data/estate_demo_data.xml',
         'security/ir.model.access.csv',
         'views/estate_menus.xml',
+        'views/estate_views.xml'
+    ],
+    'demo': [
+        'demo/estate_property_demo.xml',
     ],
     'installable' : True,
     'application' : True,
