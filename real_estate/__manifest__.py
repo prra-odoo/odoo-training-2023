@@ -4,8 +4,12 @@
     'author': "Ravi Bhingradiya",
     'data' : [
             'security/ir.model.access.csv',
-            'data/estate_property_view.xml',
+            'views/estate_property_view.xml',
             'views/estate_menus.xml',
+    ],
+
+    'demo' : [ 
+            'data/real_estate_demo_data.xml'
     ],
     'application' : True,
     'installable': True,

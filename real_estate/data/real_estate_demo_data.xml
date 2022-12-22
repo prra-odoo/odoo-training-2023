@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record model="estate.model" id="estate_demo_data">
+            <field name="name">Harsh</field>
+            <field name = "description"> Buy 2 Property</field>
+            <field name="postcode">123456</field>
+            <field name="bedrooms"> 3</field>
+            <field name="living_area"> 6</field>
+            <field name="expected_price">23999</field>
+            <field name="selling_price">458888</field>
+            <!-- <field name="date_availability">2002/2/23</field> -->
+            <field name="garden_area">123</field>
+        </record>
+        <record model="estate.model" id="estate_demo_data1">
+            <field name="name">demo</field>
+            <field name="postcode">121456</field>
+            <field name = "description"> Buy 5 Property</field>
+            <field name="bedrooms"> 7</field>
+            <field name="living_area"> 16</field>
+            <field name="expected_price">63999</field>
+            <field name="selling_price">458688</field>
+            <!-- <field name="date_availability">2002/2/23</field> -->
+            <field name="garden_area">123</field>
+        </record>
+        <record model="estate.model" id="estate_demo_data2">
+            <field name="name">odoo</field>
+            <field name="postcode">125456</field>
+            <field name = "description"> Buy 2 Property</field>
+            <field name="bedrooms">65</field>
+            <field name="living_area"> 3</field>
+            <field name="expected_price">28799</field>
+            <field name="selling_price">758888</field>
+            <!-- <field name="date_availability">2002/2/23</field> -->
+            <field name="garden_area">123</field>
+        </record>
+    </data>
+</odoo>

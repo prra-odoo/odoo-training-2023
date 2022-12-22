@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="estate_model_action" model="ir.actions.act_window">
+            <field name="name">Task 1</field>
+            <field name="res_model">estate.model</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <record id="estate_model_action_task2" model="ir.actions.act_window">
+            <field name="name">Task 2</field>
+            <field name="res_model">estate.model</field>
+            <field name="view_mode">list,form</field>
+        </record>
+        <record id="estate_model_action_task3" model="ir.actions.act_window">
+            <field name="name">Task 3</field>
+            <field name="res_model">estate.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="estate_model_action_task4" model="ir.actions.act_window">
+            <field name="name">Task 4</field>
+            <field name="res_model">estate.model</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+        <record id="estate_view_tree" model="ir.ui.view">
+            <field name="name">Real Estate</field>
+            <field name="model">estate.model</field>
+            <field name="arch" type="xml">
+                <tree string="Real Estate">
+                    <field name="name"></field>
+                    <field name="postcode" />
+                    <field name="bedrooms" />
+                    <field name="living_area"></field>
+                    <field name="expected_price"></field>
+                    <field name="selling_price"></field>
+                    <field name="date_availability"></field>
+                    <field name="garden_area" optional='hide'></field>
+                </tree>
+            </field>
+        </record>
+        <record id="estate_view_form" model="ir.ui.view">
+            <field name="name">Real Estate</field>
+            <field name="model">estate.model</field>
+            <field name="arch" type="xml">
+                <form string="Real_Estate">
+                    <sheet>
+                        <group>
+                            <h2>
+                                <field name="name" placeholder="Name"></field>
+                            </h2>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="date_availability"></field>
+                            </group>
+                            <group>
+                                <field name="postcode"></field>
+                            </group>
+                        </group>
+                        <br></br>
+                        <group>
+                            <group>
+                                <field name="expected_price"></field>
+                            </group>
+                            <group>
+                                <field name="selling_price"></field>
+                            </group>
+                        </group>
+                        <br></br>
+                        <group>
+                            <group>
+                                <field name="bedrooms"></field>
+                            </group>
+                            <group>
+                                <field name="living_area"></field>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" placeholder="Descrption"></field>
+                            </page>
+                            <page string="Others">
+                                <group>
+                                    <group>
+                                        <field name="facades"></field>
+                                    </group>
+                                    <group>
+                                        <field name="garage"></field>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="garden"></field>
+                                    </group>
+                                    <group>
+                                        <field name="garden_area"></field>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="garden_orientation"></field>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
