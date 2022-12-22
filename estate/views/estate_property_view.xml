@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="test_model_action" model="ir.actions.act_window">
+            <field name="name">Properties</field>
+            <field name="res_model">estate.property</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+        <menuitem id="test_menu_root" name="Real Estate">
+            <menuitem id="test_first_level_menu" name="Advertisement">
+                <menuitem id="test_model_menu_action" action="test_model_action"/>
+            </menuitem>
+        </menuitem>
+
+        <record id="real_estate_list_view" model="ir.ui.view">
+            <field name="name">Real Estate List view</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <tree string= "Real Estate">
+                    <field name="name"/>
+                    <field name="date_availability"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="real_estate_form_view" model="ir.ui.view">
+            <field name="name">Property form view</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="date_availability"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="expected_price"/>
+                            </group>
+                            <group>
+                                <field name="selling_price"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="postcode"/>
+                            </group>
+                            <group>
+                                <field name="bedrooms"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="living_area"/>
+                            </group>
+                            <group>
+                                <field name="facades"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="garage"/>
+                            </group>
+                            <group>
+                                <field name="garden"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="garden_area"/>
+                            </group>
+                            <group>
+                                <field name="garden_orientation"/>
+                            </group>
+                        </group>
+                            <notebook>
+                                <page string="Description">
+                                    <field name="description"/>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+</odoo>
