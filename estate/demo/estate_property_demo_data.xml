@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="real_estate_demo_data_1" model="real.state">
+            <field name="name">Farm Villa</field>
+            <field name="expected_price">12000</field>
+            <field name="selling_price">11000</field>
+            <field name="garage">1</field>
+            <field name="garden_area">1</field>
+            <field name="living_area">1</field>
+        </record>
+        <record id="real_estate_demo_data_2" model="real.state">
+            <field name="name">Renting House</field>
+            <field name="expected_price">14000</field>
+            <field name="selling_price">19000</field>
+            <field name="garage">1</field>
+            <field name="garden_area">1</field>
+            <field name="living_area">1</field>
+        </record>
+        <record id="real_estate_demo_data_3" model="real.state">
+            <field name="name">Silver Villa</field>
+            <field name="expected_price">12000</field>
+            <field name="selling_price">11000</field>
+            <field name="garage">1</field>
+            <field name="garden_area">1</field>
+            <field name="living_area">1</field>
+        </record>
+        <record id="real_estate_demo_data_4" model="real.state">
+            <field name="name">Odoo</field>
+            <field name="expected_price">12000</field>
+            <field name="selling_price">11000</field>
+            <field name="garage">1</field>
+            <field name="garden_area">1</field>
+            <field name="living_area">1</field>
+        </record>
+        <record id="real_estate_demo_data_5" model="real.state">
+            <field name="name">Odoo In</field>
+            <field name="expected_price">12000</field>
+            <field name="selling_price">11000</field>
+            <field name="garage">1</field>
+            <field name="garden_area">1</field>
+            <field name="living_area">1</field>
+        </record>
+
+    </data>
+</odoo>

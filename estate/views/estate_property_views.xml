@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <menuitem id="test_menu_root" name="Real Estate">
-            <menuitem id="test_first_level_menu" name="Menu">
-            <menuitem id="test_model_menu_action" action="test_model_action"/>
+
+
+    <record id="real_estate_tree_view" model="ir.ui.view">
+        <field name="name">Real Estate</field>
+        <field name="model">real.state</field>
+        <field name="arch" type="xml">
+            <tree string="Real Estate">
+                <field name="name" />
+                <field name="description" />
+                <field name="date_availability" />
+                <field name="selling_price" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="real_estate_form_view" model="ir.ui.view">
+        <field name="name">Real Estate</field>
+        <field name="model">real.state</field>
+        <field name="arch" type="xml">
+            <form string="Real Estate">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="facades" />
+                            <field name="date_availability" />
+                            <field name="expected_price" />
+                            <field name="selling_price" />
+                        </group>
+                        <group>
+                            <field name="postcode" />
+                            <field name="garage" />
+                            <field name="bedrooms" />
+                            <field name="living_area" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"></field>
+                        </page>
+                        <page string="Garden">
+                            <group>
+                                <group>
+                                    <field name="garden" />
+                                    <field name="garden_orientation" />
+                                </group>
+                                <group>
+                                    <field name="garden_area" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <menuitem id="real_estate_menu_root" name="Real Estate">
+        <menuitem id="real_estate_first_level_menu" name="Menu">
+            <menuitem id="real_estate_menu_action" action="real_estate_action" />
         </menuitem>
-        </menuitem>
-        
-</odoo>
+    </menuitem>
+
+</odoo>         
