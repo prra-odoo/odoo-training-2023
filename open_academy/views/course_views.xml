@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="academy_course_tree_view" model="ir.ui.view">
+			<field name="name">Course List View</field>
+			<field name="model">academy.course</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" optional="show"></field>
+					<field name="description"></field>
+				</tree>
+			</field>
+		</record>
+
+		<record id="academy_course_form_view" model="ir.ui.view">
+			<field name="name">Course Form View</field>
+			<field name="model">academy.course</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"></field>
+							</group>
+							<group>
+								<field name="date"></field>
+							</group>
+						</group>	
+						<notebook>
+							<page string="Description">
+								<field name="description"></field>
+							</page>
+						</notebook>					
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="academy_course_view_action" model="ir.actions.act_window">
+			<field name="name">Academy Course List</field>
+			<field name="res_model">academy.course</field>
+			<field name="view_mode">list,form</field>
+		</record>
+
+		<menuitem id="academy_course_root_menu" name="Open Academy" sequence="1">
+			<menuitem id="academy_course_menu" name="Course" sequence="2">
+				<menuitem id="academy_course_submenu1" name="Course List 1" sequence="3" action="academy_course_view_action"/>
+				<menuitem id="academy_course_submenu2" name="Course List 2" sequence="2" action="academy_course_view_action"/>
+				<menuitem id="academy_course_submenu3" name="Course List 3" sequence="1" action="academy_course_view_action"/>
+			</menuitem>
+		</menuitem>
+	</data>
+</odoo>
+
+<!-- 
+<record id="MODEL_view_TYPE" model="ir.ui.view">
+  <field name="name">NAME</field>
+  <field name="model">MODEL</field>
+  <field name="arch" type="xml">
+    <VIEW_TYPE>
+      <VIEW_SPECIFICATIONS/>
+    </VIEW_TYPE>
+  </field>
+</record> -->

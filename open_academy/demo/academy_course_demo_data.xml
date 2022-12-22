@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="basic_course" model="academy.course">
+            <field name="name">Basic Course</field>
+            <field name="description">New Description</field>
+        </record>
+        <record id="advance_course" model="academy.course">
+            <field name="name">Advance Course</field>
+            <field name="description">It is an Advance Course</field>
+        </record>
+    </data>
+</odoo>
