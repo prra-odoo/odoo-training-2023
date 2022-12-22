@@ -4,9 +4,12 @@
     'name':'real_estate',
     'data': [
         'security/ir.model.access.csv',
-        'data/estate_data.xml',
-        'views/estate_view.xml',
+        'views/estate_menu_view.xml',
+        'views/estate_menu.xml',
         
+    ],
+    'demo': [
+        'demo/estate_demo_data.xml',
     ],
     'application':True,
     'installable':True,
