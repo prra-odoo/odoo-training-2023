@@ -4,6 +4,7 @@
         <field name="name">estate.model.form</field>
         <field name="model">test.model</field>
         <field name="arch" type="xml">
+            
         <form string="estate_form">
             <sheet>
                 <group>
