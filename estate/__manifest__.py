@@ -10,10 +10,8 @@
             'views/estate_property_views_action.xml',
             'security/ir.model.access.csv',
         ],
-
     'demo' : [
             'demo/estate_property_demo.xml',
         ],    
-
     'application' : True,
 }

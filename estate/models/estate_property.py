@@ -2,16 +2,16 @@
 
 from odoo import models, fields
 from dateutil.relativedelta import relativedelta
-# import datetime
 
 class EstateModel(models.Model):
-    _name = "estate.model"
+    _name = "estate.property"
     _description = "Estate Model"
 
     name = fields.Char('Name',required = True)
     description = fields.Text()
+    note = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date('Date availability', readonly = True, default = lambda self: fields.datetime.now())
+    date_availability = fields.Date('Date availability', readonly = True, default=lambda self: fields.datetime.now()+ relativedelta(months=6) )
     expected_price = fields.Float('Expected price', required = True)
     selling_price = fields.Float('Selling price', copy = False)
     bedrooms = fields.Integer()
@@ -21,6 +21,10 @@ class EstateModel(models.Model):
     garden = fields.Boolean()
     garden_area = fields.Integer('Garden area')
     garden_orientation = fields.Selection(
-        string='Garden orientation type',
-        selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')]
+            string='Garden orientation type',
+            selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')]
+        )
+    active = fields.Boolean(default=True)
+    state = fields.Selection(
+            selection=[('new', 'New'), ('in_progress', 'In Progress'), ('done', 'Done')], default="new"
         )

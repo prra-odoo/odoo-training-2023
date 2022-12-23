@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-    <record model="estate.model" id="estate_demo_data">
+    <record model="estate.property" id="estate_demo_data_0">
         <field name="name">Saurabh demo</field>
         <field name="expected_price">10000.00</field>
+    </record>
+
+    <record model="estate.property" id="estate_demo_data_1">
+        <field name="name">Marc demo</field>
+        <field name="expected_price">15000.00</field>
     </record>
 </odoo>
