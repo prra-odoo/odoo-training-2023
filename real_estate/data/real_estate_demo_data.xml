@@ -2,7 +2,7 @@
 
 <odoo>
     <data>
-        <record model="estate.model" id="estate_demo_data">
+        <record model="estate.property" id="estate_demo_data">
             <field name="name">Harsh</field>
             <field name = "description"> Buy 2 Property</field>
             <field name="postcode">123456</field>
@@ -13,7 +13,7 @@
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
         </record>
-        <record model="estate.model" id="estate_demo_data1">
+        <record model="estate.property" id="estate_demo_data1">
             <field name="name">demo</field>
             <field name="postcode">121456</field>
             <field name = "description"> Buy 5 Property</field>
@@ -24,7 +24,7 @@
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
         </record>
-        <record model="estate.model" id="estate_demo_data2">
+        <record model="estate.property" id="estate_demo_data2">
             <field name="name">odoo</field>
             <field name="postcode">125456</field>
             <field name = "description"> Buy 2 Property</field>

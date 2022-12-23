@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-
+        <record id="real_estate_model_action" model="ir.actions.act_window">
+            <field name="name">Real Estate</field>
+            <field name="res_model">estate.property</field>
+            <field name="view_mode">list,form</field>
+        </record>
         <record id="estate_model_action" model="ir.actions.act_window">
             <field name="name">Task 1</field>
-            <field name="res_model">estate.model</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
         </record>
         <record id="estate_model_action_task2" model="ir.actions.act_window">
             <field name="name">Task 2</field>
-            <field name="res_model">estate.model</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
         </record>
         <record id="estate_model_action_task3" model="ir.actions.act_window">
             <field name="name">Task 3</field>
-            <field name="res_model">estate.model</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <record id="estate_model_action_task4" model="ir.actions.act_window">
-            <field name="name">Task 4</field>
-            <field name="res_model">estate.model</field>
+        <record id="estate_model_action_help" model="ir.actions.act_window">
+            <field name="name">Help</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
         </record>
 
 
         <record id="estate_view_tree" model="ir.ui.view">
             <field name="name">Real Estate</field>
-            <field name="model">estate.model</field>
+            <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree string="Real Estate">
                     <field name="name"></field>
@@ -40,17 +44,21 @@
                 </tree>
             </field>
         </record>
+
         <record id="estate_view_form" model="ir.ui.view">
             <field name="name">Real Estate</field>
-            <field name="model">estate.model</field>
+            <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <form string="Real_Estate">
+                <form string="Real Estate">
+                    <header>
+                        <field name="state" widget="statusbar"></field>
+                    </header>
                     <sheet>
-                        <group>
-                            <h2>
-                                <field name="name" placeholder="Name"></field>
-                            </h2>
-                        </group>
+                        <label for="name" string="name" />
+                        <h1>
+                            <field name="name" placeholder="Name"></field>
+                        </h1>
+
                         <group>
                             <group>
                                 <field name="date_availability"></field>
@@ -59,7 +67,7 @@
                                 <field name="postcode"></field>
                             </group>
                         </group>
-                        <br></br>
+                        <!-- <br></br> -->
                         <group>
                             <group>
                                 <field name="expected_price"></field>
@@ -68,28 +76,36 @@
                                 <field name="selling_price"></field>
                             </group>
                         </group>
-                        <br></br>
-                        <group>
-                            <group>
-                                <field name="bedrooms"></field>
-                            </group>
-                            <group>
-                                <field name="living_area"></field>
-                            </group>
-                        </group>
+
                         <notebook>
                             <page string="Description">
-                                <field name="description" placeholder="Descrption"></field>
-                            </page>
-                            <page string="Others">
                                 <group>
-                                    <group>
-                                        <field name="facades"></field>
-                                    </group>
                                     <group>
                                         <field name="garage"></field>
                                     </group>
+                                    <group>
+                                        <field name="facades"></field>
+                                    </group>
                                 </group>
+                                <group>
+                                    <group>
+                                        <field name="bedrooms"></field>
+                                    </group>
+                                    <group>
+                                        <field name="living_area"></field>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field nolabel='0' name="description"
+                                            placeholder="Description"></field>
+                                    </group>
+
+                                </group>
+
+                            </page>
+                            <page string="Garden">
+
                                 <group>
                                     <group>
                                         <field name="garden"></field>
@@ -107,6 +123,31 @@
                         </notebook>
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <record id="estate_view_search" model="ir.ui.view">
+            <field name="name">Real Estate</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search string="Real_Estate">
+                    <field name="name"></field>
+                    <field name="postcode"></field>
+                    <field name="expected_price"></field>
+                    <field name="bedrooms"></field>
+                    <field name="living_area"></field>
+                    <field name="facades"></field>
+                    <separator />
+                    <filter string="Active" name="inactive" domain="[('garage', '=', True)]" />
+                    <group expand="1" string="Group By">
+                        <filter string="Bed Rooms" name="bedrooms" context="{'group_by':'bedrooms'}" />
+                        <filter string="Name" name="name" context="{'group_by':'name'}" />
+                        <filter name="selling_price" string="Selling Price"
+                            context="{'group_by':'selling_price'}" />
+                        <filter name="expected_price" string="Expected Price"
+                            context="{'group_by':'expected_price'}" />
+                    </group>
+                </search>
             </field>
         </record>
     </data>
