@@ -3,25 +3,31 @@
 from odoo import models , fields
 
 class test(models.Model):
-    _name = "test.model"
+    _name = "estate.property"
     _description = "Advertisment module of real estate"
     
     
     name = fields.Char(required = True)
-    postcode = fields.Char()
-    description = fields.Text(required = True)
+    postcode = fields.Integer(default = 1001)
+    description = fields.Text("Estate Property",required = True)
     date_availability = fields.Date("Last Availability Date",default=lambda self:fields.Datetime.now())
     expected_price = fields.Float(default = 550000)
     selling_price=fields.Float(default = 500000)
-    bedrooms = fields.Integer(required = True, default = 50)
+    bedrooms = fields.Integer(default = 50)
     living_area = fields.Integer(default = 2)
     facades = fields.Integer(default = 5)
     garage = fields.Boolean(default= False)
     garden_area = fields.Integer(default = 1)
+    Other_info = fields.Text("Others info",required=True)
     garage_orientation = fields.Selection(
-        string = 'Type',
-        selection=[('North','East'),('South','West')],
-        help = 'Type is used to separate the Directions'
+        string = 'Garage_Orientation',
+        selection=[('north','North'),('south','South'),('east','East'),('west','West')]
     )
+    state = fields.Selection(
+        string='Type',
+        selection=[('new','New'),('confirm','Confirm'),('done','Done')]
+    )
+    active = fields.Boolean(default=True)
     
     
+     

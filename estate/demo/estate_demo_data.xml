@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record model="test.model" id="estate_model">
+    <data>
+        <record model="estate.property" id="estate_model">
             <field name="name">Estate Property</field>
             <field name="description">Real Estate Property</field>
+            <field name="Other_info">Other infromation</field>
         </record>  
             
-        <record model="test.model" id = "estate_model01">
-            <field name ="name">New Estate Property</field>
-            <field name="description">New Real Estate Property</field>
+        <record model="estate.property" id = "estate_model02">
+            <field name ="name">Estate New Property</field>
+            <field name="description">New Property</field>
+            <field name="Other_info">Other information</field>
         </record>
+    </data>
 </odoo>    

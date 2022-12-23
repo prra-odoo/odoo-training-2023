@@ -1,44 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="estate_model_form" model="ir.ui.view">
-        <field name="name">estate.model.form</field>
-        <field name="model">test.model</field>
-        <field name="arch" type="xml">
-            
-        <form string="estate_form">
-            <sheet>
-                <group>
-                    <group>
-                        <field name="name"/>
-                        <field name="postcode"/>
-                    </group>
-                    <group>
-                        <field name="date_availability"/>
-                        <field name="expected_price"/>
-                    </group>
-                    <group>
-                        <field name="selling_price"/>
-                        <field name="bedrooms"/>
-                    </group>
-                    <group>
-                        <field name="living_area"/>
-                        <field name="facades"/>
-                    </group>
-                    <group>
-                        <field name="garage"/>
-                        <field name="garden_area"/>
-                    </group>
-                    <group>
-                        <field name="garage_orientation"/>
-                    </group>
-                </group>
-                <notebook>
-                    <page string="Description">
-                        <field name="description"/>
-                    </page>
-                </notebook>
-            </sheet>
-        </form>
-        </field>
-    </record>
+    <data>
+
+        ------------------------ TREE VIEW ---------------------
+
+        <record id="estate_property_view_tree" model="ir.ui.view">
+            <field name="name">Name</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <tree string="tree view">
+                <field name="name"></field>
+                <field name="postcode"></field>
+                <field name="bedrooms"></field>
+                <field name="living_area" ></field>
+                <field name="garden_area" optional="hide"></field>
+                <field name="date_availability" optional="hide"></field>
+                <field name="expected_price"></field>
+                </tree>
+            </field>
+        </record>
+
+
+          ---------------------- FORM VIEW --------------------------------
+
+        <record id="estate_model_form" model="ir.ui.view">
+            <field name="name">Property Form View</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+
+                <form string="estate_form">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header> 
+                    <sheet>
+                        
+                        <group>
+                            <group> 
+                                <label for="name"></label>
+                                <h1><field name="name"/></h1>
+                                <field name="postcode"/>
+                            </group>
+                            <group>
+                                <field name="date_availability"/>
+                                <field name="expected_price"/>
+                            </group>
+                            <group>
+                                <field name="selling_price"/>
+                                <field name="bedrooms"/>
+                            </group>
+                            <group>
+                                <field name="living_area"/>
+                                <field name="facades"/>
+                            </group>
+                            <group>
+                                <field name="garage"/>
+                                <field name="garden_area"/>
+                            </group>
+                            <group>
+                                <field name="garage_orientation"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                                <group>
+                                    <group style="Margin-top-30px">
+                                        <field name="garage"/>
+                                    </group>
+                                    <group style="Margin-top-30px">
+                                        <field name="living_area"/>
+
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Other_info">
+                                <field name="Other_info"/>
+                                <group>
+                                    <group style="Margin-top-30px">
+                                        <field name="facades"/>
+                                    </group>
+                                    <group style="Margin-top-30px">
+                                        <field name="garage_orientation"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
 </odoo>
