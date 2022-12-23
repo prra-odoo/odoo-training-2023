@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="estate_model_action" model="ir.actions.act_window">
+                <field name="name">Properties</field>
+                <field name="res_model">estate.property</field>
+                <field name="view_mode">tree,form</field>
+        </record>
+<!-- ____________________________Tree View______________________________________ !-->
+        <record id="estate_view_tree" model="ir.ui.view">
+            <field name="name">estate.view.tree</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/> 
+                    <field name="description"/>
+                    <field name="postcode"/>
+                    <field name="expected_price"/>
+                    <field name="selling_price"/>
+                    <field name="bedrooms"/>
+                </tree>
+            </field>
+        </record>
+<!-- ____________________________Form View______________________________________ !-->
+    <record id="estate_model_form" model="ir.ui.view">
+        <field name="name">estate.property.form</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+        <form string="estate_form">
+        <!-- Header Section -->
+            <header>
+                <field name="state" widget="statusbar"/>            
+            </header>
+        <!-- / Header Section -->
+            <sheet>
+                <group>
+                    <group>
+                        <label for="name" string="Name"/>
+                        <h2><field name="name" nolabel="1"/></h2>
+                        <field name="postcode"/>
+                    </group>
+                    <group>
+                        <field name="date_availability"/>
+                        <field name="expected_price"/>
+                    </group>
+                    <group>
+                        <field name="selling_price"/>
+                        <field name="bedrooms"/>
+                    </group>
+                    <group>
+                        <field name="living_area"/>
+                        <field name="facades"/>
+                    </group>
+                    <group>
+                        <field name="garage"/>
+                        <field name="garden"/>
+                    </group>
+                    <group> 
+                        <field name="garden_area" />
+                        <field name="garage_orientation"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Description">
+                        <field name="description" nolabel="1"/>
+                    </page>
+                    <page string="Comment">
+                        <field name="description" nolabel="1"/>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+        </field>
+    </record> 
+<!-- ____________________________Search View______________________________________ !-->
+        <record id="view_estate_model_search" model="ir.ui.view">
+            <field name="name">estate.property.search</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search string="Search Property">
+                    <field name="name" />
+                    <field name="postcode"/>
+                    <field name="bedrooms"/>
+                    <field name="facades"/>
+                    <field name="garage"/>
+                    <field name="garden"/>
+                    <field name="garage_orientation"/>
+        <!-- Filter and Group_by View !-->    
+                    <filter name="bedroom" string="Bedrooms" />
+                    <group expand="1" string="Group By">
+                        <filter string="Postal Code" name="postcode" context="{'group_by':'postcode','residual':'True'}"/>
+                    </group>
+        <!-- //Filter and Group_by View !-->
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>
+

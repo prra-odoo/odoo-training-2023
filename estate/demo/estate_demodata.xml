@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record model="estate.model" id="estate_demo_data">
+    <record model="estate.property" id="estate_demo_data">
         <field name="name">Aditya</field>
         <field name="description">A short description</field>
         <field name="postcode">10001</field>
@@ -8,7 +8,9 @@
         <field name="selling_price">2000</field>
         <field name="bedrooms">3</field>
     </record>
-    <record model="estate.model" id="estate_demo_data_twos">
+
+    
+    <record model="estate.property" id="estate_demo_data_twos">
         <field name="name">Mauryas</field>
         <field name="description">A short description</field>
         <field name="postcode">10001</field>
