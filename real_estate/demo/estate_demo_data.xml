@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-        <record model="estate.model" id="estate_demo_data">
+        <record model="estate.property" id="estate_demo_data">
             <field name="name">Small Property</field>
             <field name="description">This Property is in gandhinagar.</field>
         </record>

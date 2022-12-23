@@ -3,29 +3,29 @@
     <data>    
         <record id="estate_model_action_small" model="ir.actions.act_window">
             <field name="name">Small Property</field>
-            <field name="res_model">estate.model</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
         </record>
         <record id="estate_model_action_large" model="ir.actions.act_window">
             <field name="name">Large Property</field>
-            <field name="res_model">estate.model</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
         </record>
 
         <record id="estate_model_action_contact" model="ir.actions.act_window">
             <field name="name">Contact us</field>
-            <field name="res_model">estate.model</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
         </record>
         <record id="estate_model_action_care" model="ir.actions.act_window">
             <field name="name">Customer care</field>
-            <field name="res_model">estate.model</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
         </record>
 
         <record id="estate_tree_view" model="ir.ui.view">
             <field name="name">Real Estate</field>
-            <field name="model">estate.model</field>
+            <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree string="Real Estate">
                     <field name="name" />
@@ -39,68 +39,52 @@
                     <field name = "garden_area" optional = 'hide'></field>
                 </tree>
             </field>
-
         </record>
 
         <record id="estate_form_view" model="ir.ui.view">
             <field name="name">Real Estate</field>
-            <field name="model">estate.model</field>
+            <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <field name="state" widget="statusbar"></field>
+                    </header>
                     <sheet>
+                        <label for="name" string="Name:"></label>
+                        <h1><field name="name"></field></h1>
                     <group>
                         <group>
-                            <field name="name"></field>
+                            
+                            <field name="date_availability"></field>
+                            <field name="selling_price"></field>
+                            
                         </group>
                         <group>
                             <field name="postcode"></field>
-                        </group>
-                        
-
-                        <group>
-                            <field name="date_availability"></field>
-                        </group>
-                        <group>
                             <field name="expected_price"></field>
-                        </group>
-
-                        
-                        <group>
-                            <field name="selling_price"></field>
-                        </group>
-                        <group>
-                            <field name="bedrooms"></field>
-                        </group>
-
-                        
-                        <group>
-                            <field name="living_area"></field>
-                        </group>
-                        <group>
-                            <field name="facades"></field>
-                        </group>
-
-                        
-                        <group>
-                            <field name="garage"></field>
-                        </group>   
+                              
+                        </group>  
                     </group>
                     <notebook>
                         <page string="Description">
                             <group>
                             <field name="description"></field>
+                            <field name="living_area"></field>
+                            <field name="facades"></field>
+                            <field name="bedrooms"></field>
+                            <field name="garage"></field>
                             </group>
                         </page>
 
                         <page string="Garden Details">
                             <group>
-                            <field name="garden_area"></field>
+                                <field name="garden_area"></field>
                             </group>
-                           <group> 
-                            <field name="garden"></field>
+                            <group> 
+                                <field name="garden"></field>
                             </group>
                             <group>
-                            <field name="garden_orientation"></field>
+                                <field name="garden_orientation"></field>
                             </group>
                         </page>
                     </notebook>
