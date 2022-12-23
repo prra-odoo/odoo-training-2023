@@ -11,6 +11,8 @@
                 <field name="description" />
                 <field name="date_availability" />
                 <field name="selling_price" />
+                <field name="postcode" optional="hide"/>
+                <field name="facades" optional="hide" />    
             </tree>
         </field>
     </record>
@@ -21,14 +23,13 @@
         <field name="model">real.state</field>
         <field name="arch" type="xml">
             <form string="Real Estate">
+                <header>
+                    <field name="state" widget="statusbar"></field>
+                </header>
                 <sheet>
-                    <group>
-                        <group>
-                            <field name="name"/>
-                        </group>
-                    </group>
-
-                    <group>
+                    <label for="name" >Name</label>
+                    <h1><field name="name"/></h1>
+                    <group> 
                         <group>
                             <field name="facades" />
                             <field name="date_availability" />
@@ -64,11 +65,24 @@
         </field>
     </record>
 
+    <record id="real_estate_search" model="ir.ui.view">
+        <field name="name">Real Estate</field>
+        <field name="model">real.state</field>
+        <field name="arch" type="xml">
+            <search string="Real Estate">
+                <field name="name" />
+                <field name="date_availability" />
+                <field name="selling_price" />
+                <filter string="Garden" name="garden" domain="[('garden', '=', True)]"/>
+                <filter string="Available" name="state" domain="['!',('state', '=', 'New'),('state', '=', 'Offer Received')]"/>
+                <filter name="date_availability" date="create_date" string="Date"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Post Code" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                </group>
+            </search>
 
-    <menuitem id="real_estate_menu_root" name="Real Estate">
-        <menuitem id="real_estate_first_level_menu" name="Menu">
-            <menuitem id="real_estate_menu_action" action="real_estate_action" />
-        </menuitem>
-    </menuitem>
+        </field>
+    </record>
 
 </odoo>         

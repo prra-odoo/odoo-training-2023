@@ -9,6 +9,7 @@
         'security/ir.model.access.csv',
         'data/estate_menus.xml',
         'views/estate_property_views.xml',
+        'views/estate_property_menuitem.xml',
     ],
     'demo' :[
 
