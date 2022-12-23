@@ -17,8 +17,12 @@ class RealEstateAd  (models.Model):
      facades=fields.Integer(string='Facades')
      garage=fields.Boolean(string='Garage')
      garden=fields.Boolean(string='Garden')
+     
      garden_area =fields.Integer(string='Garden Area')
      garden_orientation =fields.Selection(
           string='Type',
           selection=[('south','South'),('west', 'West'),('north','North'),('east', 'East')]   
           )
+     state =fields.Selection(
+          selection=[('new','New'),('confirm', 'Confirm'),('cancel','Cancel')],default="new"   
+          )     

@@ -3,7 +3,7 @@
     <data>
         <record model="real.estate" id="demo_data_form">
             <field name="name">Name</field>
-            <field name="description">hel</field>
+            <!-- <field name="description">hel</field> -->
         </record>
     </data>
 </odoo>

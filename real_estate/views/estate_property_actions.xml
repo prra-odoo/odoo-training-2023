@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <menuitem id="test_menu_root" name="Real Estate">
-            <menuitem id="test_first_level_menu" name="First Level">
-                <menuitem id="test_model_menu_action" action="test_model_action" />
-                <menuitem id="test_model_menu_action1" action="test_model_action1" />
-                
-
+        <menuitem id="menu_root" name="Real Estate">
+            <menuitem id="Land_space__first_level_menu" name="Land space">
+                <menuitem id="Land_space_model_menu_action_1" action="Create_task_model_action" />
+                <menuitem id="Land_space_model_menu_action_2" action="Create_task_model_action_2" />
             </menuitem>
-            <menuitem id="test_first_level_menu1" name="second Level">
-                <menuitem id="test_model_menu_action1" action="test_model_action1" />
-                <menuitem id="test_model_menu_action01" action="test_model_action01" />
+            <menuitem id="house_second_level_menu" name="House">
+                <menuitem id="house_model_menu_action" action="Create_task_model_action_3" />
             </menuitem>
-            <menuitem id="test_first_level_menu4" name="Testing" action="test_model_action04">
+            <menuitem id="others_third_level_menu" name="Others" action="Create_task_model_action_4">
             </menuitem>
         </menuitem>
-
     </data>
 </odoo>
