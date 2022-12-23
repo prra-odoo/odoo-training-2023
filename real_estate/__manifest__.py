@@ -2,9 +2,9 @@
 
 {
     'name': 'Real Estate',
-    'description': 'Cozy Appartment in brussels surroundings',
+    'description': 'The Real Estate Advertisement Module',
+    'author': 'Renilkumar Kajavadra',
     'data': [
-                'data/estate_data.xml',
                 'views/estate_property_views.xml',
                 'views/action_estate_property.xml',
                 'security/ir.model.access.csv'
@@ -14,5 +14,6 @@
             ],
     'application' : True,
     'installable': True,
+    'license': 'LGPL-3'
 
 }

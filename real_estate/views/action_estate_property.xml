@@ -2,7 +2,10 @@
 <odoo>
     <menuitem id="test_menu_root" name="Real Estate">
         <menuitem id="property_menu" name="Property">
-            <menuitem id="test_model_menu_action" action="test_model_action"/>
+            <menuitem id="property_list_menu_action" action="property_list_action"/>
+        </menuitem>
+        <menuitem id="contact_us_menu" name="Contact us">
+            <menuitem id="contact_us_menu_action" action="contact_us_action"/>
         </menuitem>
     </menuitem>
-</odoo> 
+</odoo>

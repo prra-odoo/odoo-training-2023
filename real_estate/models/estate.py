@@ -2,11 +2,11 @@
 
 from odoo import models,fields
 
-class realestate(models.Model):
-    _name = "real.estate"
+class realEstate(models.Model):
+    _name = "estate.property"
     _description = "The Real Estate Advertisement Module"
 
-    name = fields.Char('Name', required=True, readonly=True, copy=True)
+    name = fields.Char('Name', required=True, copy=True)
     description = fields.Text('Description')
     postcode = fields.Char('Postcode')
     date_availability = fields.Date('Date Availability', default=lambda self: fields.Datetime.now())
@@ -18,8 +18,11 @@ class realestate(models.Model):
     garage = fields.Boolean('Garage')
     garden = fields.Boolean()
     garden_area = fields.Integer()
-    garden_orientation = fields.Selection(string='Type',
+    garden_orientation = fields.Selection(string='Garden Orientation',
         selection=[('lead', 'Lead'), ('opportunity', 'Opportunity')]
+        )
+    state = fields.Selection(selection=[('new', 'New'), ('in progress', 'In Progress'), ('cancel', 'Cancel')],
+                                        default='new'
         )
 
 
