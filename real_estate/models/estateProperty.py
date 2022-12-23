@@ -1,24 +1,29 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields
+from odoo.tools.date_utils import add
 
-class estate(models.Model):
-    _name = "real.estate"
+class estateProperty(models.Model):
+    _name = "estate.property"
     _description = "This is a regarding Real Estate"
 
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date()
+    date_availability = fields.Date(default=lambda self: add(fields.Datetime.now(), months=3))
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float()
-    bedrooms = fields.Integer()
+    selling_price = fields.Float(readonly=True, copy=False)
+    bedrooms = fields.Integer(required=True, default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(
-        string='Type',
+        string='Garden Orientation',
         selection = [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')]
+    )
+    state = fields.Selection(
+        selection = [('draft', 'Draft'), ('in_progress', 'In Progress'), ('done', 'Done'), ('cancel', 'Cancel')],
+        default='draft'
     )
