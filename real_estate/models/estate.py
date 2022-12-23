@@ -9,7 +9,7 @@ class realEstate(models.Model):
      name = fields.Char(string='Name')
      description = fields.Text(string='Description')
      postcode = fields.Integer(string='Postcode')
-     date_availability = fields.Date(string='Date Available',default=lambda self: fields.Datetime.now())
+     date_availability = fields.Date(string='Date Available', default=lambda self: fields.Datetime.now())
      expected_price = fields.Float(string='Price')
      selling_price = fields.Float(string='Selling Price')
      bedrooms = fields.Integer(string='Bedrooms')

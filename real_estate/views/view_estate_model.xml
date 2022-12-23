@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="test_model_action" model="ir.actions.act_window">
-            <field name="name">Test action</field>
+            <field name="name">Real Estate</field>
             <field name="res_model">real.estate</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -36,7 +36,7 @@
                     <field name="name" />
                     <field name="description" />
                     <field name="postcode" />
-                    <field name="date_availability" optional='hide' />
+                    <field name="date_availability"  class="text-center" optional='hide' />
                     <field name="expected_price" optional='hide' />
                     <field name="selling_price" optional='hide' />
                     <field name="bedrooms" optional='hide' />
@@ -72,6 +72,11 @@
                         <notebook>
                             <page string="Description">
                                 <field name="description"></field>
+                            </page>
+                            <page string="Bedrooms">
+                                <group>
+                                    <field name="bedrooms"></field>
+                                </group>
                             </page>
                             <page string="Garden">
                                 <group>
