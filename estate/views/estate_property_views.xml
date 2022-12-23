@@ -1,128 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="estate_model_action" model="ir.actions.act_window">
-            <field name="name">Estate</field>
-            <field name="res_model">estate.property</field>
-            <field name="view_mode">tree,form</field>
+        <field name="name">Estate</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
     </record>
-
-
-
+    <record id ="estate_model_action_quality" model="ir.actions.act_window">
+        <field name="name">Quality</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="estate_model_action_quantity" model="ir.actions.act_window">
+        <field name="name">Quantity</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="estate_model_action_availability" model="ir.actions.act_window">
+        <field name="name">Availability</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
     <!-- ________________________Tree_View____________________ -->
 
-
     <record id="estate_property_view_tree" model="ir.ui.view">
-        <field name="name">Name</field>
+        <field name="name">estate.property.treeview</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-             <tree string="tree view">
-             <field name="name"></field>
-             <field name="postcode"></field>
-             <field name="bedrooms"></field>
-             <field name="living_area" ></field>
-             <field name="garden_area" optional="hide"></field>
-             <field name="date_availability" optional="hide"></field>
-             <field name="expected_price"></field>
-             </tree>
-
+            <tree string="tree view">
+                <field name="name"></field>
+                <field name="postcode"></field>
+                <field name="bedrooms"></field>
+                <field name="living_area"></field>
+                <field name="garden_area" optional="hide"></field>
+                <field name="date_availability" optional="hide"></field>
+                <field name="expected_price"></field>
+            </tree>
         </field>
-
-
     </record>
 
-   
-    
-    <!-- <menuitem id="estate_menu_root" name="Real Estate">
-        <menuitem id="estate_first_level_menu" name="Menu">
-        <menuitem id="estate_model_menu_action" action="estate_model_action"/>
-    </menuitem>
-    
-</menuitem> -->
+    <!-- ________________________FORM VIEW____________________ -->
 
 
-
-<!-- ________________________FORM VIEW____________________ -->
-
-
-<record id="estate_model_form" model="ir.ui.view">
+    <record id="estate_model_form" model="ir.ui.view">
         <field name="name">estate.model.form</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-        <form string="estate_form">
-            <sheet>
-                 
-                <group>
-                   <group style ="margin-top:30px">
-
-                      <field name="name"/>
-                   </group>
-                   
+            <form string="estate_form">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <label for="name"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group style="margin-top:30px">
+                            <field name="postcode"/>
+                        </group>
+                        <group style="margin-top:30px">
+                            <field name="date_availability"/>
+                        </group>
+                        <group style="margin-top:30px">
+                            <field name="expected_price"/>
+                        </group>
+                        <group style="margin-top:30px">
+                            <field name="selling_price"/>
+                        </group>
+                    </group>
                     <group style="margin-top:30px">
-
-                      <field name="postcode"/>
-                   </group>
-                   <group style="margin-top:30px">
-
-                      <field name="date_availability"/>
-                   </group>
-                   <group style="margin-top:30px">
-
-                      <field name="expected_price"/>
-                   </group>
-                   <group style="margin-top:30px">
-
-                      <field name="selling_price"/>
-                   </group>
-
-                    
-                </group>
-                <group style="margin-top:30px">
-                   <field name="description"/>
-
-                </group>
-                
-
-                <notebook>
-                     <page string="Property  Descriptions">
-                         <group>
-                            <group style="margin-top:30px">
-                                <field name="bedrooms"/>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Property  Descriptions">
+                            <group>
+                                <group style="margin-top:30px">
+                                    <field name="bedrooms"/>
+                                </group>
+                                <group style="margin-top:30px">
+                                    <field name="living_area"/>
+                                </group>
+                                <group style="margin-top:30px">
+                                    <field name="facades"/>
+                                </group>
+                                <group style="margin-top:30px">
+                                    <field name="garage"/>
+                                </group>   
                             </group>
-                            <group style="margin-top:30px">
-                                <field name="living_area"/>
+                        </page>
+                        <page string="garden descriptions">
+                            <group>
+                                <group style="margin-top:30px">
+                                    <field name="garden"/>
+                                </group>
+                                <group style="margin-top:30px">
+                                    <field name="garden_area"/>
+                                </group>
+                                <group style="margin-top:30px">
+                                    <field name="garden_orientation"/>
+                                </group>
                             </group>
-                            <group style="margin-top:30px">
-                                <field name="facades"/>
-                            </group>
-                            
-                            <group style="margin-top:30px">
-                                 <field name="garage"/>
-                            </group>
-                             <group style="margin-top:30px">
-                                 <field name="garden"/>
-                            </group>
-                            <group style="margin-top:30px">
-                                 <field name="garden_area"/>
-                            </group>
-                            
-                            <group style="margin-top:30px">
-                                 <field name="garden_orientation"/>
-                            </group>
-                            
-                            
-                            
-                            
-
-                         </group>
-                          
-                        
-
-                     </page>
-                </notebook>
-            </sheet>
-        </form>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
-
 </odoo>

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
- <menuitem id="estate_menu_root" name="Real Estate">
-        <menuitem id="estate_first_level_menu" name="Menu">
-        <menuitem id="estate_model_menu_action" action="estate_model_action"/>
+    <menuitem id="estate_menu_root" name="Real Estate">
+        <menuitem id="estate_first_level_menu" name="Apartments">
+            <menuitem id="estate_model_menu_action" action="estate_model_action"/>
+        </menuitem>
+        <menuitem id="estate_second_level_menu" name="Row Houses">
+            <menuitem id="estate_second_level_menu_action_first" action="estate_model_action_quality"/>
+            <menuitem id="estate_second_level_menu_action_second" action="estate_model_action_quantity"/>
+            <menuitem id="estate_second_level_menu_action_third" action="estate_model_action_availability"/>
+        </menuitem>
     </menuitem>
-    
-</menuitem>
 </odoo>

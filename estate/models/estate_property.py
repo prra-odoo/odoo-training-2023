@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 class estatePropertyModel(models.Model):
     _name = "estate.property"
-    _description = "Esate propert model"
+    _description = "Esate property model"
 
     name = fields.Char('Name:',required=True)
     postcode = fields.Char()
@@ -15,7 +15,7 @@ class estatePropertyModel(models.Model):
     expected_price = fields.Float('Expected Price', required=True)
     selling_price = fields.Float('Selling Price')
     bedrooms = fields.Integer(default=2)
-    living_area = fields.Integer('Living area')
+    living_area = fields.Integer('Living area' ,copy=False)
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
@@ -24,4 +24,9 @@ class estatePropertyModel(models.Model):
         string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'),
                    ('east', 'East'), ('west', 'West')],
+    )
+    active= fields.Boolean(default=True)
+    state = fields.Selection(
+        selection=[('new','New'),('development','Development'),('done','Done')],
+        default='new',
     )
