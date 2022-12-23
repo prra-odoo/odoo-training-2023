@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-
 from odoo import fields,models
 
 class realEstate(models.Model):
      _name = "real.estate"
      _description = "This is regarding the real_estate"
 
-     name = fields.Char(string='Name')
+     name = fields.Char(string='Name',required = True)
      description = fields.Text(string='Description')
      postcode = fields.Integer(string='Postcode')
-     date_availability = fields.Date(string='Date Available', default=lambda self: fields.Datetime.now())
-     expected_price = fields.Float(string='Price')
-     selling_price = fields.Float(string='Selling Price')
+     date_availability = fields.Date(string='Date Available',default=lambda self: fields.Datetime.now())
+     expected_price = fields.Float(string='Price',required = True)
+     selling_price = fields.Float(string='Selling Price',required = True)
      bedrooms = fields.Integer(string='Bedrooms')
      living_area = fields.Integer(string='Living Area')
      facades = fields.Integer(string='Facades')
@@ -19,5 +18,15 @@ class realEstate(models.Model):
      garden = fields.Boolean(string='Garden')
      garden_area = fields.Integer(string='Garden Area')
      garden_orientation = fields.Selection(
-          selection =[('3BHK', 'Space'), ('House','Type')]
+          selection =[('new', 'New'), ('delete','Delete')]
      )
+     active = fields.Boolean(default = True  )
+     state = fields.Selection(selection = [('new', 'New'),
+           ('offer_received', 'Offer Received'),
+           ('offer_accepted', 'Offer Accepted'),
+           ('sold', 'Sold'),('cancel','Cancelled')],default='new'
+           )
+     
+
+
+     

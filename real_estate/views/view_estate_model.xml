@@ -35,11 +35,11 @@
                 <tree>
                     <field name="name" />
                     <field name="description" />
-                    <field name="postcode" />
-                    <field name="date_availability"  class="text-center" optional='hide' />
+                    <field name="postcode"  optional='hide'/>
+                    <field name="date_availability" optional='hide' />
                     <field name="expected_price" optional='hide' />
                     <field name="selling_price" optional='hide' />
-                    <field name="bedrooms" optional='hide' />
+                    <field name="bedrooms"/>
                 </tree>
             </field>
         </record>
@@ -49,12 +49,14 @@
             <field name="model">real.estate</field>
             <field name="arch" type="xml">
                 <form string="Real Estate">
+                    <header>
+                        <field name="state" widget="statusbar" />
+                    </header>
                     <sheet>
-                        <group>
-                            <group>
-                                <field name="name"/>
-                            </group>
-                        </group>
+                        <label for="name">Name</label>
+                        <h1>
+                            <field name="name" />
+                        </h1>
                         <group>
                             <group>
                                 <field name="facades" />
@@ -95,6 +97,23 @@
             </field>
         </record>
 
+        <record id="real_estate_search" model="ir.ui.view">
+            <field name="name">Real Estate</field>
+            <field name="model">real.estate</field>
+            <field name="arch" type="xml">
+                <search string="Real Estate">
+                    <field name="name" />
+                    <field name="date_availability" />
+                    <field name="selling_price" />
+                    <field name="bedrooms" />
+
+                    <filter string="Garden" name="garden" domain="[('garden', '=', True)]" />
+                    <filter string="Bedrooms" name="bedrooms" domain="[('bedrooms', '=', 3)]" />
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+                </search>
+
+            </field>
+        </record>
 
     </data>
 </odoo>
