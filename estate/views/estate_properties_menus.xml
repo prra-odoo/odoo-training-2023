@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="estate_menu_root" name="Real Estate">
+        <menuitem id="gandhinagar_properties_menu" name="Gandhinagar properties">
+            <menuitem id="Sector2A_menu_action" action="estate_property_action" name="Sector2A" />
+            <menuitem id="Sector2B_menu_action" action="estate_property_action" name="Sector2B" />
+        </menuitem>
+        <menuitem id="vadodara_properties_menu" name="Vadodara properties">
+            <menuitem id="vrundavan_menu_action" action="estate_property_action" name="Vrundavan"></menuitem>
+            <menuitem id="Waghodia_menu_action" action="estate_property_action" name="Waghodia"></menuitem>
+        </menuitem>
+    </menuitem>
+</odoo>

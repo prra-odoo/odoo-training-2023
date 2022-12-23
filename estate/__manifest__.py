@@ -7,12 +7,12 @@
     'category':'Advertising',
     'data':[
          'security/ir.model.access.csv',
-         'views/estate_property_views.xml',
-         'views/estate_form_tree_views.xml',
+         'views/estate_properties_views.xml',
+         'views/estate_properties_menus.xml',
         ],
     'demo':[
         'demo/demo_data.xml',
-    ],
+        ],
     'application' : True,
     
 }

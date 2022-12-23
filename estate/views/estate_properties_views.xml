@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!--  ______________________tree View____________________________________  -->
+
+    
+    <record id="estate_property_view_tree" model="ir.ui.view">
+        <field name="name">Estate Tree View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="tree view">
+            <field name="name"></field>
+            <field name="postcode"></field>
+            <field name="bedrooms"></field>
+            <field name="living_area" ></field>
+            <field name="garden_area" optional="hide"></field>
+            <field name="date_availability" optional="hide"></field>
+            <field name="expected_price"></field>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+
+
+<!--  ___________________________________Form View __________________________________________________     -->
+    
+
+
+    <record id="estate_property_form_view" model="ir.ui.view">
+        <field name="name">Estate Form view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="estate_form">
+                <header >
+                    <field name="state" widget="statusbar"></field>
+                </header>
+                <sheet>
+                    <label for="name"></label>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group style="margin-top:10px">
+                            <field name="postcode" />
+                            <field name="expected_price"/>
+                        </group>
+                        <group style="margin-top:10px">
+                            <field name="date_availability"/>
+                            <field name="selling_price"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <group style="margin-top:10px">
+                                <field name="bedrooms"></field>
+                                <field name="living_area"></field>
+                                <field name="facades"></field>
+                            </group>
+                        </page>
+                        <page string="Garden">
+                            <group style="margin-top:10px">
+                                <field name="garage"></field>
+                                <field name="garden_orientation" ></field>
+                                <field name="garden_area"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+
+    </record>
+</odoo>
