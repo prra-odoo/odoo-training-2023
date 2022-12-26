@@ -51,10 +51,10 @@
             <field name="arch" type="xml">
                 <form string="Real Estate">
                     <header>
-                        <field name="state" widget="statusbar"></field>
+                        <field name="state" widget="statusbar" options = "{'clickable': '1'}"></field>
                     </header>
                     <sheet>
-                        <label for="name" string="name" />
+                        <label for="name" string="Name" />
                         <h1>
                             <field name="name" placeholder="Name"></field>
                         </h1>
@@ -136,9 +136,12 @@
                     <field name="expected_price"></field>
                     <field name="bedrooms"></field>
                     <field name="living_area"></field>
+                    <field name="description"></field>
                     <field name="facades"></field>
-                    <separator />
-                    <filter string="Active" name="inactive" domain="[('garage', '=', True)]" />
+                    
+                    <separator/>
+                    <filter string="Active" name="active" domain="[('garage', '=', True)]" />
+                    <filter string="Less than 5 rooms" name="bedrooms" domain="[('bedrooms', '&lt;', 5)]" />
                     <group expand="1" string="Group By">
                         <filter string="Bed Rooms" name="bedrooms" context="{'group_by':'bedrooms'}" />
                         <filter string="Name" name="name" context="{'group_by':'name'}" />

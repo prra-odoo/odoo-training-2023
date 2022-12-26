@@ -13,6 +13,17 @@
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
         </record>
+        <record model="estate.property" id="estate_demo_data3">
+            <field name="name">Raj</field>
+            <field name = "description"> Buy 4 Property</field>
+            <field name="postcode">654321</field>
+            <field name="bedrooms">8</field>
+            <field name="living_area"> 16</field>
+            <field name="expected_price">76999</field>
+            <field name="selling_price">258888</field>
+            <!-- <field name="date_availability">2002/2/23</field> -->
+            <field name="garden_area">123</field>
+        </record>
         <record model="estate.property" id="estate_demo_data1">
             <field name="name">demo</field>
             <field name="postcode">121456</field>
