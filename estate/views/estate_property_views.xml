@@ -27,6 +27,7 @@
             <tree>
                 <field name="name"/>
                 <field name="description"/>
+                <field name="postcode"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="bedrooms" optional="show"/>
@@ -43,7 +44,7 @@
 
             <form string="estate_form_view">
                 <header>
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>
 
                 <sheet>
@@ -95,6 +96,28 @@
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+<!-- ________________________SEARCH VIEW___________________________ -->
+
+    <record id="estate_view_search" model="ir.ui.view">
+        <field name="name">estate.view.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="search property">
+                <field name="name" string="Title"/>
+                <field name="postcode"/>
+                <field name="expected_price"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <filter name="state" string="Available property" domain="[('state', '=', 'new')]"/>
+                <filter name="expected_price" string="Expensive property" domain="[('expected_price', '>=', '15000')]"/>
+                <group expand="1" string="group by">
+                    <filter name="postcode" string="Postal code" context="{'group_by':'postcode' ,'resiidual':'True'}"/>
+                </group>
+            </search>
         </field>
     </record>
 </odoo>
