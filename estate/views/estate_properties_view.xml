@@ -2,7 +2,6 @@
 <odoo>
 
     <!--  ______________________tree View____________________________________  -->
-
     
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">Estate Tree View</field>
@@ -13,6 +12,7 @@
             <field name="postcode"></field>
             <field name="bedrooms"></field>
             <field name="living_area" ></field>
+            <field name="facades" optional="hide"></field>
             <field name="garden_area" optional="hide"></field>
             <field name="date_availability" optional="hide"></field>
             <field name="expected_price"></field>
@@ -20,22 +20,15 @@
         </field>
     </record>
 
-
-
-
-
-
 <!--  ___________________________________Form View __________________________________________________     -->
     
-
-
     <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">Estate Form view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="estate_form">
                 <header >
-                    <field name="state" widget="statusbar"></field>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
                 </header>
                 <sheet>
                     <label for="name"></label>
@@ -70,5 +63,29 @@
             </form>
         </field>
 
+    </record>
+
+    <!--        _______________________Search View________________________________                                    -->
+
+    <record id="estate_property_search_view" model="ir.ui.view">
+        <field name="name">Estate search view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="property">
+                <field name="name" filter_domain="[('name', 'ilike', self)]" string="property name"></field>
+                <field name="postcode" filter_domain="[('postcode','ilike',self)]"></field>
+                <field name="bedrooms"></field>
+                <field name="facades"></field>
+                <filter name="filter_date_availablity" date="date_availability" string="Avilable Date" domain="[]" />
+                <filter name="Living_area_filter" string="Living Area" domain="[('living_area','>=',2)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Facades" name="facades" context="{'group_by':'facades'}"/>
+                    <filter string="Living Area" name="living_area" domain="[]" context="{'group_by':'living_area'}"/>
+                </group>
+                
+                
+            </search>
+        </field>
+        
     </record>
 </odoo>
