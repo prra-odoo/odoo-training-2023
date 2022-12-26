@@ -2,7 +2,7 @@
 
 from odoo import models,fields
 
-class realEstate(models.Model):
+class estateProperty(models.Model):
     _name = "estate.property"
     _description = "The Real Estate Advertisement Module"
 
@@ -19,7 +19,7 @@ class realEstate(models.Model):
     garden = fields.Boolean()
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(string='Garden Orientation',
-        selection=[('lead', 'Lead'), ('opportunity', 'Opportunity')]
+        selection=[('east', 'East'), ('west', 'West'), ('north', 'North'), ('south', 'South')]
         )
     state = fields.Selection(selection=[('new', 'New'), ('in progress', 'In Progress'), ('cancel', 'Cancel')],
                                         default='new'

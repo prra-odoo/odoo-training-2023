@@ -6,7 +6,7 @@
     'author': 'Renilkumar Kajavadra',
     'data': [
                 'views/estate_property_views.xml',
-                'views/action_estate_property.xml',
+                'views/estate_property_menus.xml',
                 'security/ir.model.access.csv'
             ],
     'demo': [

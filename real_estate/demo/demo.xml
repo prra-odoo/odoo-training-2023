@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-        <record model="estate.property" id="realestate_data">
-            <field name="name">Renil</field>
-            <field name="description">Real Estate Description</field>
-            <field name="postcode">fewf</field>
-            <field name="expected_price">20</field>
-            <field name="selling_price">15</field>
+    <record model="estate.property" id="realestate_data1">
+        <field name="name">Renil</field>
+        <field name="description">Real Estate Description</field>
+        <field name="postcode">fewf</field>
+        <field name="expected_price">20</field>
+        <field name="selling_price">15</field>
+    </record>
 
-        </record>
+    <record model="estate.property" id="realestate_data2">
+        <field name="name">ABCD</field>
+        <field name="description">Real Estate Description</field>
+        <field name="postcode">abcd</field>
+        <field name="expected_price">200</field>
+        <field name="selling_price">150</field>
+    </record>
+
+    <record model="estate.property" id="realestate_data3">
+        <field name="name">XYZ</field>
+        <field name="description">Real Estate Description</field>
+        <field name="postcode">xyz</field>
+        <field name="expected_price">1000</field>
+        <field name="selling_price">1500</field>
+    </record>
 </odoo>
