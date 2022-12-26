@@ -3,22 +3,14 @@
     <data>
         <record id="real_estate_action" model="ir.actions.act_window">
             <field name="name">Real Estate</field>
-            <field name="res_model">real.state</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record id="real_estate_property_menu" model="ir.actions.act_window">
-            <field name="name">Property</field>
-            <field name="res_model">real.state</field>
+        <record id="real_estate_settings_menu" model="ir.actions.act_window">
+            <field name="name">Property Type</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-        <record id="real_estate_dealer_menu" model="ir.actions.act_window">
-            <field name="name">Real Estate</field>
-            <field name="res_model">real.state</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-
     </data>
 </odoo>

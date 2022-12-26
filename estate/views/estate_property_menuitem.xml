@@ -6,8 +6,8 @@
             <menuitem id="real_estate_menu_action" action="real_estate_action" />
         </menuitem>
         
-        <menuitem id="real_estate_property_menu_root" name="Property">
-            <menuitem id="real_estate_property_sub_menu" action="real_estate_property_menu" />
+        <menuitem id="real_estate_settings_menu_root" name="Settings">
+            <menuitem id="real_estate_settings_sub_menu" action="real_estate_settings_menu" />
         </menuitem>
     </menuitem>
 

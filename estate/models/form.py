@@ -6,7 +6,7 @@ from odoo.tools.date_utils import add
 
 
 class realEstate(models.Model):
-    _name = "real.state"
+    _name = "estate.property"
     _description = "This is the Database for the all clients and their requirements"
 
     name = fields.Char("Name", required=True)
@@ -19,7 +19,7 @@ class realEstate(models.Model):
     living_area = fields.Integer("Living Area", default="1")
     facades = fields.Integer("Facades")
     garage = fields.Boolean("Garage")
-    garden = fields.Boolean("Garden", default=1)
+    garden = fields.Boolean("Garden")
     garden_area = fields.Integer("Garden Area")
     garden_orientation = fields.Selection(
         selection=[('small', 'Small'), ('big', 'Big')]
@@ -31,5 +31,5 @@ class realEstate(models.Model):
             ('offer_received', 'Offer Received'), 
             ('offer_accepted', 'Offer Accepted'), 
             ('sold', 'Sold'), 
-            ('canceled', 'Canceled')], default='New'
+            ('canceled', 'Canceled')],default="new"
     )   
