@@ -18,13 +18,13 @@ class realEstate(models.Model):
      garden = fields.Boolean(string='Garden')
      garden_area = fields.Integer(string='Garden Area')
      garden_orientation = fields.Selection(
-          selection =[('new', 'New'), ('delete','Delete')]
+          selection =[('north', 'North'), ('south','South'),('east','East'),('west','West')]
      )
-     active = fields.Boolean(default = True  )
+     active = fields.Boolean(default = True)
      state = fields.Selection(selection = [('new', 'New'),
            ('offer_received', 'Offer Received'),
            ('offer_accepted', 'Offer Accepted'),
-           ('sold', 'Sold'),('cancel','Cancelled')],default='new'
+           ('sold', 'Sold'),('cancel','Cancelled')],default='new',required = True
            )
      
 
