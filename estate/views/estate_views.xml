@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
         ------------------------ TREE VIEW ---------------------
         <record id="estate_property_view_tree" model="ir.ui.view">
             <field name="name">Name</field>
@@ -18,40 +17,34 @@
                 </tree>
             </field>
         </record>
-
-        ------------------------ SEARCH VIEW ---------------------
+        
+        ----------------------- SEARCH VIEW ---------------------
         <record id="estate_property_view_search" model="ir.ui.view">
-                <field name="name">Name</field>
-                <field name="model">estate.property</field>
-                <field name="arch" type="xml">
-                    <search string = "estate_search">
-                        <field name="name" string="estate"/>
-                        <field name="bedrooms"/>
-                        <field name="facades"/>
-                        <field name="garage"/>
-                        <field name="garden_area"/>
-                        <field name="expected_price"/>
-                        <field name="selling_price"/>
-                        <separator/>
+            <field name="name">Name</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search string = "estate_search">
+                    <field name="name" string="estate"/>
+                    <field name="bedrooms"/>
+                    <field name="facades"/>
+                    <field name="garage"/>
+                    <field name="garden_area"/>
+                    <field name="expected_price"/>
+                    <field name="selling_price"/>
+                    <separator/>
                         <filter string="Postcode" name="active" domain="[('active', '=', True)]"/>
                         <group expand="1" string="Group By">
                             <filter string="Estate_bedroom" name="bedroom" context="{'group_by':'living_area', 'garage':True}"/>
                         </group>
-                    </search>
-                </field>
+                </search>
+            </field>
         </record>
 
-
-
-
-
         ------------------------ FORM VIEW ---------------------
-
         <record id="estate_model_form" model="ir.ui.view">
             <field name="name">Property Form View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-
                 <form string="estate_form">
                     <header>
                         <field name="state" widget="statusbar" options ="{'clickable':'1'}"/>
@@ -59,11 +52,7 @@
                     <sheet>
                         <label for="name"></label>
                                 <h1><field name="name"/></h1>   
-                        
                         <group>
-                            <!-- <group> 
-                                
-                            </group> -->
                             <group style="Margin-top:30px">
                                 <field name="postcode"/>
                             </group>
@@ -106,14 +95,14 @@
                             </page>
                             <!-- <page string="Log Note">
                                 <field name="log_note"/>
-                            </page> -->
-                            <!-- <page string="Other information">
+                            </page>
+                                <page string="Other information">
                                 <field name="Other_info"/>
                                 <group>
-                                    <group style="Margin-top-30px">
+                                    <group style="Margin-top:30px">
                                         <field name="facades"/>
                                     </group>
-                                    <group style="Margin-top-30px">
+                                    <group style="Margin-top:30px">
                                         <field name="garage_orientation"/>
                                     </group>
                                 </group>
