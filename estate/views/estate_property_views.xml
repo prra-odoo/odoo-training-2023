@@ -48,7 +48,7 @@
         <field name="arch" type="xml">
             <form string="estate_form">
                 <header>
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" options= "{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <label for="name"/>
@@ -98,7 +98,7 @@
                                     <field name="garden_area"/>
                                 </group>
                                 <group style="margin-top:30px">
-                                    <field name="garden_orientation"/>
+                                    <field name="garden_orientation" />
                                 </group>
                             </group>
                         </page>
@@ -107,4 +107,26 @@
             </form>
         </field>
     </record>
+
+     <!-- ________________________Search VIEW____________________ -->
+
+     <record id="estate_model_search" model="ir.ui.view">
+        <field name="name">estate.model.search_view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="estate_search">
+                <field name="name" string="Title"/>
+                <field name="postcode"/>
+                <field name="expected_price"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <filter name="state" string = "Available" domain="['|', ('state', '=', 'new'),('state', '=', 'development')]"/>
+                <filter name="expected_price" string = "high rate property" domain="[('expected_price', '>=', '300001')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                </group>
+            </search>
+        </field>
+     </record>
 </odoo>
