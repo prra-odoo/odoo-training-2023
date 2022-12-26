@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record model="real.estate" id="demo_data_form">
+        <record model="estate.property" id="demo_data_form">
             <field name="name">Name</field>
             <!-- <field name="description">hel</field> -->
         </record>

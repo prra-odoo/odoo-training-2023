@@ -3,7 +3,8 @@
 from odoo import models,fields  
 
 class RealEstateAd  (models.Model): 
-     _name = "real.estate"
+     _name = "estate.property"
+     # real.estate
      _description = "Real Estate Advertisement module" 
 
      name = fields.Char(string='Name') 
@@ -20,7 +21,7 @@ class RealEstateAd  (models.Model):
      
      garden_area =fields.Integer(string='Garden Area')
      garden_orientation =fields.Selection(
-          string='Type',
+          string='Garden Orientation',
           selection=[('south','South'),('west', 'West'),('north','North'),('east', 'East')]   
           )
      state =fields.Selection(

@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <!-- creating new action -->
         <record id="Create_task_model_action" model="ir.actions.act_window">
             <field name="name">Create Task</field>
-            <field name="res_model">real.estate</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
+
         <record id="Create_task_model_action_2" model="ir.actions.act_window">
             <field name="name">Create Task2</field>
-            <field name="res_model">real.estate</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
+
         <record id="Create_task_model_action_3" model="ir.actions.act_window">
             <field name="name">Create Task3</field>
-            <field name="res_model">real.estate</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
+
         <record id="Create_task_model_action_4" model="ir.actions.act_window">
             <field name="name">Create Task4</field>
-            <field name="res_model">real.estate</field>
+            <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+        <!-- Data display fro ref call -->
         <record id="view_tree" model="ir.ui.view">
             <field name="name">Real Estate Form View</field>
-            <field name="model">real.estate</field>
+            <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name" />
@@ -41,78 +47,104 @@
                 </tree>
             </field>
         </record>
-        <record id="view_form_design" model="ir.ui.view">
+
+        <!--  design form  -->
+        <record id="real_estate_view_form_design" model="ir.ui.view">
             <field name="name">Real Estate Form View</field>
-            <field name="model">real.estate</field>
+            <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="state" widget="statusbar" />
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}" />
                     </header>
                     <sheet>
+                        <!-- <group> -->
                         <group>
                             <group>
-                                <group>
-                                    <label for="name" string="Customer Name" />
-                                    <field name="name" style="font-size:39px" nolabel="1" />
-                                    <label for="postcode" string="PostCode" />
-                                    <field name="postcode" nolabel="1" />
-                                </group>
-                                <group>
-                                    <label for="expected_price" string="Expected Price" />
-                                    <field name="expected_price" nolabel="1" />
-                                    <label for="selling_price" string="Sell Price" />
-                                    <field name="selling_price" nolabel="1" />
-                                    <label for="date_availability" string="Date" />
-                                    <field name="date_availability" nolabel="1" />
-                                </group>
+                                <label for="name" string="Customer Name" />
+                                <field name="name" style="font-size:39px" nolabel="1" />
+                                <label for="postcode" string="PostCode" />
+                                <field name="postcode" nolabel="1" />
                             </group>
-                            <notebook>
-                                <page string="Description">
-                                    <field name="description"
-                                        placeholder="More Description Regarding Land"></field>
-                                </page>
-                                <page string="Land Deatils">
-                                    <group>
-                                        <group>
-                                            <label for="bedrooms" string="Bedroom"
-                                                style="margin-left:50px" />
-                                            <field name="bedrooms" nolabel="1" />
-                                            <label for="facades" string="Facade" />
-                                            <field name="facades" nolabel="1" />
-                                            <label for="garden" string="Garden" />
-                                            <field name="garden" nolabel="1" />
-                                        </group>
-                                        <group>
-                                            <label for="living_area" string="Living Area"
-                                                style="margin-left:50px" />
-                                            <field name="living_area" nolabel="1" />
-                                            <label for="garage" string="Garage" />
-                                            <field name="garage" nolabel="1" />
-                                            <label for="garden_orientation"
-                                                string="Garden Orientation" />
-                                            <field name="garden_orientation" nolabel="1" />
-                                        </group>
-                                    </group>
-                                </page>
-                            </notebook>
-                            <notebook>
-                                <page string="Send Message">
-                                    <input type="text" id="fname" name="fname"
-                                        style="height:100px;width:1000px;margin-left:11px"
-                                        placeholder="Send Message"></input>
-                                    <button type="submit" value="Submit" style="margin:46px">SEND</button>
-                                </page>
-                                <page string="Log Note">
-                                    <hr></hr>
-                                    <label>Today</label>
-                                </page>
-                                <page string="Archive">
-                                </page>
-                            </notebook>
+                            <group>
+                                <label for="expected_price" string="Expected Price" />
+                                <field name="expected_price" nolabel="1" />
+                                <label for="selling_price" string="Sell Price" />
+                                <field name="selling_price" nolabel="1" />
+                                <label for="date_availability" string="Date" />
+                                <field name="date_availability" nolabel="1" />
+                            </group>
                         </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"
+                                    placeholder="More Description Regarding Land"></field>
+                            </page>
+                            <page string="Land Deatils">
+                                <group>
+                                    <group>
+                                        <label for="bedrooms" string="Bedroom"
+                                            style="margin-left:50px" />
+                                        <field name="bedrooms" nolabel="1" />
+                                        <label for="facades" string="Facade" />
+                                        <field name="facades" nolabel="1" />
+                                        <label for="garden" string="Garden" />
+                                        <field name="garden" nolabel="1" />
+                                    </group>
+                                    <group>
+                                        <label for="living_area" string="Living Area"
+                                            style="margin-left:50px" />
+                                        <field name="living_area" nolabel="1" />
+                                        <label for="garage" string="Garage" />
+                                        <field name="garage" nolabel="1" />
+                                        <label for="garden_orientation"
+                                            string="Garden Orientation" />
+                                        <field name="garden_orientation" nolabel="1" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                        <notebook>
+                            <page string="Send Message">
+                                <input type="text" id="fname" name="fname"
+                                    style="height:100px;width:1000px;margin-left:11px"
+                                    placeholder="Send Message"></input>
+                                <button type="submit" name="send" value="Submit" style="margin:46px">
+                                    SEND</button>
+                            </page>
+                            <page string="Log Note">
+                                <hr></hr>
+                                <p></p>
+                            </page>
+                            <page string="Archive">
+                            </page>
+                        </notebook>
+                        <!-- </group> -->
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <!-- search engine for , search,filer and  group  -->
+        <record id="real_estate__search" model="ir.ui.view">
+            <field name="name">estate.property.search</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search string="demo">
+                    <field name="name" string="Name" />
+                    <filter name="state" string="Available" domain="[('state', '=', 'new')]" />
+                    <filter string="selling price" name="selling_price"
+                        domain="[('selling_price', '>', '5000')]" />
+                    <filter name="date_availability" string="Date"
+                        domain="[('date_availability','=',datetime.datetime.now())]" />
+                    <group expand="0" string="Group By">
+                        <filter string="postcode" name="postcode"
+                            context="{'group_by':'postcode', 'residual_visible':True}" />
+                    </group>
+                    <searchpanel>
+                        <field name="state" icon="fa-users" enable_counters="1" string="Name" />
+                    </searchpanel>
+                </search>
             </field>
         </record>
     </data>
