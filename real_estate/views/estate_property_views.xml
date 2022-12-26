@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="property_list_action" model="ir.actions.act_window">
-            <field name="name">Property list</field>
+            <field name="name">Property List</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -13,7 +13,7 @@
         </record>
 
         <record id="model_view_tree" model="ir.ui.view">
-            <field name="name">Real Estate</field>
+            <field name="name">Real Estate Tree</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree>
@@ -33,6 +33,26 @@
                 </tree>
             </field>
         </record>
+
+        <record id="model_view_search" model="ir.ui.view">
+            <field name="name">Real Estate Search</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="name"/>
+                    <field name="last_seen"/>
+                    <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Selling Price" name="selling_price" domain="[('selling_price', '&lt;', 200)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
+                        <separator/>
+                        <filter string="Creation Date" name="date_availability" context="{'group_by':'create_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="model_view_form" model="ir.ui.view">
             <field name="name">Real Estate Form</field>
             <field name="model">estate.property</field>

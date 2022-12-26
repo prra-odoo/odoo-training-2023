@@ -8,7 +8,7 @@ class estateProperty(models.Model):
 
     name = fields.Char('Name', required=True, copy=True)
     description = fields.Text('Description')
-    postcode = fields.Char('Postcode')
+    postcode = fields.Integer('Postcode')
     date_availability = fields.Date('Date Availability', default=lambda self: fields.Datetime.now())
     expected_price = fields.Float('Expected Price')
     selling_price = fields.Float('Selling Price')
@@ -24,7 +24,6 @@ class estateProperty(models.Model):
     state = fields.Selection(selection=[('new', 'New'), ('in progress', 'In Progress'), ('cancel', 'Cancel')],
                                         default='new'
         )
-
-
-
-
+    last_seen = fields.Char('Last seen')
+    active = fields.Boolean(default = True)
+    
