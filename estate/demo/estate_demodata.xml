@@ -10,7 +10,7 @@
     </record>
 
     
-    <record model="estate.property" id="estate_demo_data_twos">
+    <record model="estate.property" id="estate_demo_data_two">
         <field name="name">Mauryas</field>
         <field name="description">A short description</field>
         <field name="postcode">10001</field>

@@ -22,56 +22,56 @@
             </field>
         </record>
 <!-- ____________________________Form View______________________________________ !-->
-    <record id="estate_model_form" model="ir.ui.view">
-        <field name="name">estate.property.form</field>
-        <field name="model">estate.property</field>
-        <field name="arch" type="xml">
-        <form string="estate_form">
-        <!-- Header Section -->
-            <header>
-                <field name="state" widget="statusbar"/>            
-            </header>
-        <!-- / Header Section -->
-            <sheet>
-                <group>
-                    <group>
-                        <label for="name" string="Name"/>
-                        <h2><field name="name" nolabel="1"/></h2>
-                        <field name="postcode"/>
-                    </group>
-                    <group>
-                        <field name="date_availability"/>
-                        <field name="expected_price"/>
-                    </group>
-                    <group>
-                        <field name="selling_price"/>
-                        <field name="bedrooms"/>
-                    </group>
-                    <group>
-                        <field name="living_area"/>
-                        <field name="facades"/>
-                    </group>
-                    <group>
-                        <field name="garage"/>
-                        <field name="garden"/>
-                    </group>
-                    <group> 
-                        <field name="garden_area" />
-                        <field name="garage_orientation"/>
-                    </group>
-                </group>
-                <notebook>
-                    <page string="Description">
-                        <field name="description" nolabel="1"/>
-                    </page>
-                    <page string="Comment">
-                        <field name="description" nolabel="1"/>
-                    </page>
-                </notebook>
-            </sheet>
-        </form>
-        </field>
-    </record> 
+        <record id="estate_model_form" model="ir.ui.view">
+            <field name="name">estate.property.form</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <form string="estate_form">
+                <!-- Header Section -->
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}"/>            
+                    </header>
+                <!-- / Header Section -->
+                    <sheet>
+                        <group>
+                            <group>
+                                <label for="name" string="Name"/>
+                                <h2><field name="name" nolabel="1"/></h2>
+                                <field name="postcode"/>
+                            </group>
+                            <group>
+                                <field name="date_availability"/>
+                                <field name="expected_price"/>
+                            </group>
+                            <group>
+                                <field name="selling_price"/>
+                                <field name="bedrooms"/>
+                            </group>
+                            <group>
+                                <field name="living_area"/>
+                                <field name="facades"/>
+                            </group>
+                            <group>
+                                <field name="garage"/>
+                                <field name="garden"/>
+                            </group>
+                            <group> 
+                                <field name="garden_area" />
+                                <field name="garage_orientation"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="Comment">
+                                <field name="description"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record> 
 <!-- ____________________________Search View______________________________________ !-->
         <record id="view_estate_model_search" model="ir.ui.view">
             <field name="name">estate.property.search</field>
@@ -86,9 +86,11 @@
                     <field name="garden"/>
                     <field name="garage_orientation"/>
         <!-- Filter and Group_by View !-->    
-                    <filter name="bedroom" string="Bedrooms" />
-                    <group expand="1" string="Group By">
-                        <filter string="Postal Code" name="postcode" context="{'group_by':'postcode','residual':'True'}"/>
+                    <filter name="selling_price" string="Selling Price" domain="[('selling_price', '>', '3000')]"/>
+                    <filter name="state" string="Available" domain="[('state', '=', 'new')]"/>
+                    <!-- <filter name="bedrooms" string="Bedrooms" /> -->
+                    <group expand="2" string="Group By">
+                        <filter string="Postal Code" name="postcode" context="{'group_by':'postcode','residual':'False'}"/>
                     </group>
         <!-- //Filter and Group_by View !-->
                 </search>
