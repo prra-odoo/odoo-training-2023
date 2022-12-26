@@ -3,7 +3,6 @@
     <data>
 
         ------------------------ TREE VIEW ---------------------
-
         <record id="estate_property_view_tree" model="ir.ui.view">
             <field name="name">Name</field>
             <field name="model">estate.property</field>
@@ -20,8 +19,33 @@
             </field>
         </record>
 
+        ------------------------ SEARCH VIEW ---------------------
+        <record id="estate_property_view_search" model="ir.ui.view">
+                <field name="name">Name</field>
+                <field name="model">estate.property</field>
+                <field name="arch" type="xml">
+                    <search string = "estate_search">
+                        <field name="name" string="estate"/>
+                        <field name="bedrooms"/>
+                        <field name="facades"/>
+                        <field name="garage"/>
+                        <field name="garden_area"/>
+                        <field name="expected_price"/>
+                        <field name="selling_price"/>
+                        <separator/>
+                        <filter string="Postcode" name="active" domain="[('active', '=', True)]"/>
+                        <group expand="1" string="Group By">
+                            <filter string="Estate_bedroom" name="bedroom" context="{'group_by':'living_area', 'garage':True}"/>
+                        </group>
+                    </search>
+                </field>
+        </record>
 
-          ---------------------- FORM VIEW --------------------------------
+
+
+
+
+        ------------------------ FORM VIEW ---------------------
 
         <record id="estate_model_form" model="ir.ui.view">
             <field name="name">Property Form View</field>
@@ -30,50 +54,60 @@
 
                 <form string="estate_form">
                     <header>
-                        <field name="state" widget="statusbar"/>
+                        <field name="state" widget="statusbar" options ="{'clickable':'1'}"/>
                     </header> 
                     <sheet>
+                        <label for="name"></label>
+                                <h1><field name="name"/></h1>   
                         
                         <group>
-                            <group> 
-                                <label for="name"></label>
-                                <h1><field name="name"/></h1>
+                            <!-- <group> 
+                                
+                            </group> -->
+                            <group style="Margin-top:30px">
                                 <field name="postcode"/>
                             </group>
-                            <group>
+                            <group style="Margin-top:30px">
                                 <field name="date_availability"/>
+                            </group>
+                            <group style="Margin-top:30px">
                                 <field name="expected_price"/>
                             </group>
-                            <group>
+                            <group style="Margin-top:30px">
                                 <field name="selling_price"/>
-                                <field name="bedrooms"/>
                             </group>
-                            <group>
-                                <field name="living_area"/>
-                                <field name="facades"/>
-                            </group>
-                            <group>
-                                <field name="garage"/>
+                            <group style="Margin-top:30px">
                                 <field name="garden_area"/>
-                            </group>
-                            <group>
-                                <field name="garage_orientation"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="Description">
                                 <field name="description"/>
                                 <group>
-                                    <group style="Margin-top-30px">
+                                    <group style="Margin-top:30px">
                                         <field name="garage"/>
                                     </group>
-                                    <group style="Margin-top-30px">
+                                    <group style="Margin-top:30px">
                                         <field name="living_area"/>
-
+                                    </group>
+                                    <group style="Margin-top:30px">
+                                        <field name="garden_area"/>
+                                    </group>
+                                    <group style="Margin-top:30px">
+                                        <field name="bedrooms"/>
+                                    </group>
+                                    <group style="Margin-top:30px">
+                                        <field name="facades"/>
+                                    </group>
+                                    <group style="Margin-top:30px">
+                                        <field name="garage_orientation"/>
                                     </group>
                                 </group>
                             </page>
-                            <page string="Other_info">
+                            <!-- <page string="Log Note">
+                                <field name="log_note"/>
+                            </page> -->
+                            <!-- <page string="Other information">
                                 <field name="Other_info"/>
                                 <group>
                                     <group style="Margin-top-30px">
@@ -83,7 +117,7 @@
                                         <field name="garage_orientation"/>
                                     </group>
                                 </group>
-                            </page>
+                            </page> -->
                         </notebook>
                     </sheet>
                 </form>
