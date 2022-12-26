@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
+    <!-- List View -->
     <record id="real_estate_list_view" model="ir.ui.view">
         <field name="name">Real Estate List View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Real Estate">
+            <tree string="Real Estate" expand="1">
                 <field name="name"/>
                 <field name="description"/>
                 <field name="expected_price" optional="show"/>
             </tree>
         </field>
     </record>
+
+    <!-- Form View -->
     <record id="real_estate_form_view" model="ir.ui.view">
         <field name="name">Real Estate Form View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}" />
                 </header>
                 <sheet>
                     <label for="name" string="Name"/>
@@ -55,6 +59,27 @@
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="real_estate_search_view" model="ir.ui.view">
+        <field name="name">estate.property.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Available">
+                <field name="name" string="Title"/>
+                <field name="postcode" string="Postcode" />
+                <field name="expected_price" string="Expected Price" />
+                <field name="bedrooms" string="Bedrooms" />
+                <field name="living_area" string="Living Area (sqm)" />
+                <field name="facades" string="Facades" />
+                <separator />
+                <filter string="Available" name="name" domain="['|',('state', '=', 'new'),('state', '=', 'offer_received')]" />
+                <group expand="1" string="Postcode">
+                    <filter string="Postcode" name="name" context="{'group_by':'postcode'}"/>
+                </group>
+            </search>
         </field>
     </record>
 </odoo>

@@ -7,7 +7,7 @@
     'data' : [
         'security/ir.model.access.csv',
         'views/estate_menus.xml',
-        'views/estate_views.xml'
+        'views/estate_property_views.xml'
     ],
     'demo': [
         'demo/estate_property_demo.xml',

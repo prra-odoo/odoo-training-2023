@@ -6,11 +6,12 @@ from odoo.tools.date_utils import add
 class estateProperty(models.Model):
     _name = "estate.property"
     _description = "This is a regarding Real Estate"
+    active = fields.Boolean(default=True)
 
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date(default=lambda self: add(fields.Datetime.now(), months=3))
+    date_availability = fields.Date(default=lambda self: add(fields.Datetime.now(), months=3), copy=False)
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(required=True, default=2)
@@ -22,8 +23,9 @@ class estateProperty(models.Model):
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection = [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')]
+        # selection=[('north', 1), ('south', 2)]
     )
     state = fields.Selection(
-        selection = [('draft', 'Draft'), ('in_progress', 'In Progress'), ('done', 'Done'), ('cancel', 'Cancel')],
-        default='draft'
+        selection = [('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')],
+        default='new'
     )
