@@ -18,7 +18,7 @@ class test(models.Model):
     facades = fields.Integer(default = 5)
     garage = fields.Boolean(default= False)
     garden_area = fields.Integer(default = 1)
-    Other_info = fields.Text("Others info",required=True)
+    Other_info = fields.Text("Others info")
     log_note=fields.Text("Log Note")
     garage_orientation = fields.Selection(
         string = 'Garage_Orientation',
