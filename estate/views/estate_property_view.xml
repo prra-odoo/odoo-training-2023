@@ -11,6 +11,10 @@
             <menuitem id="estate_first_level_menu" name="Advertisement">
                 <menuitem id="estate_model_menu_action" action="estate_property_model_action"/>
             </menuitem>
+            <menuitem id="estate_first_level_menu2" name="Settings">
+                <menuitem id="estate_model_menu_action2" action="estate_property_model_action1"/>
+                <!-- add tag meny here -->
+            </menuitem>
         </menuitem>
         
         <record id="real_estate_list_view" model="ir.ui.view">
@@ -20,6 +24,7 @@
                 <tree string= "Real Estate">
                     <field name="name" optional="show"/>
                     <field name="date_availability" optional="show"/>
+                    <field name="property_type_id" optional="show"/>
                 </tree>
             </field>
         </record>
@@ -30,6 +35,7 @@
             <field name="arch" type="xml">
                 <search string="Estate property">
                     <field name="name" string="Title" />
+                    <field name="property_type_id"/>
                     <field name="postcode"/>
                     <field name="expected_price"/>
                     <field name="bedrooms"/>
@@ -37,9 +43,8 @@
                     <field name="facades"/>
                     <separator/>
                     <filter string="Available" name="Available_property" domain="['|',('state', '=', 'new'),('state', '=', 'offer_received')]"/>
-                    <!-- <filter string="Bedrooms" name="bedrooms" domain="[('bedrooms', '>', '3')]"/> -->
                     <group expand="1" string="Group By">
-                        <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                        <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                     </group>
                 </search>
             </field>
@@ -59,6 +64,9 @@
                                 <h1><field name="name" style="width:800%"/></h1>
                             </group>                    
                         <group>
+                            <group>
+                                <field name="property_type_id"/>
+                            </group>
                             <group>
                                 <field name="date_availability"/>
                             </group>
@@ -98,6 +106,14 @@
                                 </group>
                                 <group>
                                     <field name="garden_orientation"/>
+                                </group>
+                            </page>
+                            <page string="Other Info">
+                                <group>
+                                    <field name="user_id"/>
+                                </group>
+                                <group>
+                                    <field name="partner_id"/>
                                 </group>
                             </page>
                         </notebook>

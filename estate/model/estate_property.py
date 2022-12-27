@@ -7,6 +7,9 @@ class EstateProperty(models.Model):
     _description = "Real estate advertisement module"
 
     name = fields.Char('Name',required=True)
+    user_id = fields.Many2one('res.users', string='Salesman', index=True, default=lambda self: self.env.user)
+    partner_id = fields.Many2one('res.partner', string='Buyer', index=True)
+    property_type_id = fields.Many2one('estate.property.type', string='Property Type')
     description = fields.Text('Details',copy=False)
     postcode = fields.Char('Postcode')
     date_availability = fields.Date('Date availability',default=lambda self:fields.Datetime.now(),readonly=True)
