@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import estate_module
+from . import estate_property,estate_property_type

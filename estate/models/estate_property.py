@@ -25,6 +25,7 @@ class estateModel(models.Model):
         string='Garden Orientation:',
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
         help="Type is used to separate Leads and Opportunities")
+    propertyid=fields.Many2one("estate.property.type", string="Property")
 
 
     
