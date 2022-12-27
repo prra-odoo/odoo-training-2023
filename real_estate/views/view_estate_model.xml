@@ -28,6 +28,25 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <record id="property_test_model_action" model="ir.actions.act_window">
+            <field name="name">Advertisements</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="property_test_model_action3" model="ir.actions.act_window">
+            <field name="name">Property Types</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="property_test_model_action4" model="ir.actions.act_window">
+            <field name="name">Property Tags</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
         <record id="model_view_tree" model="ir.ui.view">
             <field name="name">Tree.View</field>
             <field name="model">real.estate</field>
@@ -60,7 +79,7 @@
                         <group>
                             <group>
                                 <field name="postcode" />
-                                <field name="date_availability"  date = 'create_date'/>
+                                <field name="date_availability" date='create_date' />
                             </group>
                             <group>
                                 <field name="expected_price" />
@@ -72,12 +91,15 @@
                                 <group>
                                     <field name="description"></field>
                                 </group>
-
                                 <group>
-                                    <field name="bedrooms"></field>
-                                    <field name="facades" />
-                                    <field name="garage" />
-                                    <field name="living_area" />
+                                    <group>
+                                        <field name="bedrooms"></field>
+                                        <field name="facades" />
+                                    </group>
+                                    <group>
+                                        <field name="garage" />
+                                        <field name="living_area" />
+                                    </group>
                                 </group>
                             </page>
                             <page string="Garden">
@@ -109,9 +131,12 @@
 
                     <filter string="Garden" name="garden" domain="[('garden', '=', True)]" />
                     <separator />
-                    <filter string="Bedrooms" name="bedrooms" domain="[('bedrooms', '=', 3)]" />
+                    <filter string="Bedrooms" name="bedrooms" domain="[('bedrooms', '&lt;', 3)]" />
                     <separator />
                     <filter string="Archived" name="active" domain="[('active', '=', False)]" />
+                    <separator />
+                    <filter string="selling price" name="selling_price"
+                        domain="[('selling_price', '>', '50')]" />
 
                     <group expand="1" string="Group By">
                         <filter string="Post Code" name="postcode" context="{'group_by':'postcode'}" />
@@ -120,7 +145,6 @@
                             context="{'group_by': 'create_date'}" />
                     </group>
                 </search>
-               
             </field>
         </record>
 
