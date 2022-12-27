@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- List View -->
     <record id="real_estate_list_view" model="ir.ui.view">
         <field name="name">Real Estate List View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Real Estate" expand="1">
+            <tree string="Real Estate">
                 <field name="name"/>
                 <field name="description"/>
                 <field name="expected_price" optional="show"/>
@@ -14,7 +13,6 @@
         </field>
     </record>
 
-    <!-- Form View -->
     <record id="real_estate_form_view" model="ir.ui.view">
         <field name="name">Real Estate Form View</field>
         <field name="model">estate.property</field>
@@ -26,8 +24,10 @@
                 <sheet>
                     <label for="name" string="Name"/>
                     <h1><field name="name"/></h1>
+                    <field name="tag_ids" widget="many2many_tags" />
                     <group>
-                        <group> 
+                        <group>
+                            <field name="property_type_id"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -56,13 +56,18 @@
                                 <field name="garden_orientation"/>
                             </group>
                         </page>
+                        <page string="Other info">
+                            <group>
+                                <field name="sales_person"/>
+                                <field name="buyer"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <!-- Search View -->
     <record id="real_estate_search_view" model="ir.ui.view">
         <field name="name">estate.property.search</field>
         <field name="model">estate.property</field>

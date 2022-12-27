@@ -5,9 +5,23 @@
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <record id="property_type_action" model="ir.actions.act_window">
+        <field name="name">Property Type</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="property_tag_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
     <menuitem id="real_estate_root" name="Real Estate">
         <menuitem id="test_first_level_menu" name="Advertisement">
             <menuitem id="properties_menu_action" action="properties_action" name="Properties"/>
+        </menuitem>
+        <menuitem id="setting_menu" name="Setting">
+            <menuitem id="property_types_menu_action" action="property_type_action" name="Property Types" />
+            <menuitem id="property_tags_menu_action" action="property_tag_action" name="Property Tags" />
         </menuitem>
     </menuitem>
 </odoo>
