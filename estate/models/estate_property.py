@@ -10,6 +10,7 @@ class estateProperty(models.Model):
 
     name = fields.Char(required=True)
     id = fields.Integer()
+    property_type_id=fields.Integer("Property Type Id")
     postcode = fields.Char()
     description = fields.Text(copy=False)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))

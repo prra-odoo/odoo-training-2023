@@ -2,7 +2,7 @@
 {
     'name' : 'real estate',
     'description' : " Real estate module",
-    'version' : '1.0',
+    'version' :'',
     'author':'Althaf Shaik',
     'category':'Advertising',
     'data':[

@@ -4,7 +4,13 @@
         <field name="name">Estate List View</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
-    </record>    
+    </record>  
+    
+    <record id="property_type_action" model="ir.actions.act_window">
+        <field name="name">property Type</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
     
     
     <menuitem id="estate_menu_root" name="Real Estate">
@@ -15,6 +21,9 @@
         <menuitem id="vadodara_properties_menu" name="Vadodara properties">
             <menuitem id="vrundavan_menu_action" action="estate_property_action" name="Vrundavan"></menuitem>
             <menuitem id="Waghodia_menu_action" action="estate_property_action" name="Waghodia"></menuitem>
+        </menuitem>
+        <menuitem id="Settings_menu" name="Settings">
+            <menuitem id="property_type_menu_action" action="property_type_action" name="Property Type"/>
         </menuitem>
     </menuitem>
 </odoo>
