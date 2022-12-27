@@ -4,13 +4,12 @@
 
         <menuitem id="estate_first_level_menu" name="Property">
         <menuitem id="estate_model_menu_action" action="estate_model_action"/>
-        <menuitem id="estate_model_menu_subaction" action="estate_model_action_task2"/>
-
+        
     </menuitem>
 
-    <menuitem id="estate_menu_child" name="Configuration">
-        <menuitem id="estate_model_menu_subaction_config" action="estate_model_action_task2"/>
-        <menuitem id="estate_model_menu_sub_action" action="estate_model_action_task3"/>
+    <menuitem id="estate_menu_child" name="Settings">
+        <menuitem id="estate_model_menu_property_type" action="estate_model_action_property_type"/>
+        <menuitem id="estate_model_menu_sub_action" action="estate_model_action_property_tags"/>
     </menuitem>
 
      <menuitem id="estate_menu_child_task" name= " Help" action="estate_model_action_help"/>
