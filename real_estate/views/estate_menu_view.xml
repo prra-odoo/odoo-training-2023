@@ -27,7 +27,7 @@
             <field name="name">Real Estate</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree string="Real Estate">
+                <tree expand="1" string="Real Estate">
                     <field name="name" />
                     <field name="description" />
                     <field name="postcode"/>
@@ -53,8 +53,14 @@
                     <field name = "living_area"></field>
                     <field name = "expected_price"></field>
                     <field name = "selling_price"></field>
-                <filter string="Postcode" name="postcode" domain="[('postcode', '=' , '360450')]" >
+                <filter string="Postcode" name="postcode" domain="[('postcode', '>' , '0')]" >
                 </filter>
+                <group string= "Group By"> 
+                    <filter name='name' string='Name' context="{'group_by':'name'}"/>
+                    <filter name='garden' string='Garden' context="{'group_by':'garden'}"/>
+                    <filter name='garage' string='Garage' context="{'group_by':'garage'}"/>
+
+                </group>
                 </search>
             </field>
         </record>
