@@ -16,7 +16,7 @@
             <field name="name">Real Estate Tree</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree expand="1">
                     <field name="name"/>
                     <field name="description"/>
                     <field name="postcode"/>
@@ -70,12 +70,10 @@
                             <group>
                                 <field name="date_availability"></field>
                                 <field name="expected_price"></field>
-
                             </group>
                             <group>
                                 <field name="postcode"></field>
                                 <field name="selling_price"></field>
-
                             </group>
                         </group>
 
