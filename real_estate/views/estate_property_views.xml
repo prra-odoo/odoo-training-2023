@@ -44,6 +44,9 @@
                     <field name="garage" optional='hide' />
                     <field name="garden" optional='hide' />
                     <field name="garden_orientation" optional='hide' />
+                    <field name="property_buyer" />
+                    <field name="property_seller" />
+                    <field name="property_type" />
                 </tree>
             </field>
         </record>
@@ -65,6 +68,8 @@
                                 <field name="name" style="font-size:39px" nolabel="1" />
                                 <label for="postcode" string="PostCode" />
                                 <field name="postcode" nolabel="1" />
+                                <label for="property_type" string="Property Type" />
+                                <field name="property_type" nolabel="1" />
                             </group>
                             <group>
                                 <label for="expected_price" string="Expected Price" />
@@ -101,6 +106,17 @@
                                             string="Garden Orientation" />
                                         <field name="garden_orientation" nolabel="1" />
                                     </group>
+                                </group>
+                            </page>
+                            <page string="Other Info">
+                                <group>
+                                    
+                                        <label for="property_buyer" string="Buyer" />
+                                        <field name="property_buyer" nolabel="1"></field>
+                                    
+                                        <label for="property_seller" string="Salemen" />
+                                        <field name="property_seller" nolabel="1"></field>
+                                    
                                 </group>
                             </page>
                         </notebook>
@@ -147,5 +163,34 @@
                 </search>
             </field>
         </record>
+
+        <!-- estate.property.type record  -->
+        <record id="Create_estate_property_type_model_action" model="ir.actions.act_window">
+            <field name="name">property type</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_tree_estate_property_type" model="ir.ui.view">
+            <field name="name">Real Estate Form View</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="real_estate_view_form_design" model="ir.ui.view">
+            <field name="name">Real Estate Form View</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <sheet>
+                    <field name="name" />
+
+                </sheet>
+            </field>
+        </record>
+
+
     </data>
 </odoo>
