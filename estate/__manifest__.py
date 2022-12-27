@@ -8,8 +8,8 @@
     "data": [
         # 'data/demo_data.xml',
         'security/ir.model.access.csv',
-        'views/estate_action.xml',
         'views/estate_property_views.xml',
+        'views/estate_action.xml',
         
     ],
     'demo':[

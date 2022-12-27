@@ -21,6 +21,14 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+
+    <record id="estate_model_action_property_type" model="ir.actions.act_window">
+        <field name="name">Property types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
     <!-- ________________________Tree_View____________________ -->
 
     <record id="estate_property_view_tree" model="ir.ui.view">
@@ -29,6 +37,7 @@
         <field name="arch" type="xml">
             <tree string="tree view">
                 <field name="name"></field>
+                <field name="property_type_id"/>
                 <field name="postcode"></field>
                 <field name="bedrooms"></field>
                 <field name="living_area"></field>
@@ -48,7 +57,7 @@
         <field name="arch" type="xml">
             <form string="estate_form">
                 <header>
-                    <field name="state" widget="statusbar" options= "{'clickable': '1'}"/>
+                    <field name="state" widget="statusbar"  options= "{'clickable': '1'}" />
                 </header>
                 <sheet>
                     <label for="name"/>
@@ -56,6 +65,9 @@
                         <field name="name"/>
                     </h1>
                     <group>
+                        <group style="margin-top:30px">
+                            <field name="property_type_id"/>
+                        </group>
                         <group style="margin-top:30px">
                             <field name="postcode"/>
                         </group>
@@ -102,6 +114,16 @@
                                 </group>
                             </group>
                         </page>
+                        <page string="sale info">
+                            <group>
+                                <group style="margin-top:30px" >
+                                    <field name="buyer"/>
+                                </group>
+                                <group style="margin-top:30px">
+                                    <field name="salesperson"/>
+                                </group>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -121,7 +143,10 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="facades"/>
+                <field name="property_type_id"/>
+                
                 <filter name="state" string = "Available" domain="['|', ('state', '=', 'new'),('state', '=', 'development')]"/>
+                <separator/>
                 <filter name="expected_price" string = "high rate property" domain="[('expected_price', '>=', '300001')]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
