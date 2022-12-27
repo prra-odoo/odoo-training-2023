@@ -14,41 +14,18 @@
 
     <record id="estate_model_action01" model="ir.actions.act_window">
         <field name="name">Views</field>
-        <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="estate_model_action02" model="ir.actions.act_window">
-        <field name="name">models</field>
-        <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="estate_model_action03" model="ir.actions.act_window">
-        <field name="name">Directories1</field>
-        <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="estate_model_action04" model="ir.actions.act_window">
-        <field name="name">Directories2</field>
-        <field name="res_model">estate.property</field>
+        <field name="res_model">estate.property.type</field>
         <field name="view_mode">tree,form</field>
     </record>
 
 
         <menuitem id="estate_menu_root" name="Real Estate">
-            <menuitem id="estate_first_level_menu" sequence = "1" name="Menu">
+            <menuitem id="estate_first_level_menu" sequence = "1" name="Advertisments">
                 <menuitem id="estate_model_menu_action" sequence="2" action="estate_model_action"/>
                 <menuitem id="estate_model_menu_action1" sequence="1" action="estate_model_action1"/>
             </menuitem>
-            <menuitem id="estate_first_level_menu1" sequence="3" name="Settings">
+            <menuitem id="estate_first_level_menu1" sequence="2" name="Settings">
                 <menuitem id="estate_model_menu_action01" action="estate_model_action01"/>
-                <menuitem id="estate_model_menu_action02" action="estate_model_action02"/>
-            </menuitem>
-            <menuitem id="estate_first_level_menu2" sequence="2" name="Directories">
-                <menuitem id="estate_model_menu_action03" action="estate_model_action03"/>
-                <menuitem id="estate_model_menu_action04" action="estate_model_action04"/>
             </menuitem>
 
         </menuitem>

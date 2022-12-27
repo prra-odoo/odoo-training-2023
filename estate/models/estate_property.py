@@ -2,7 +2,7 @@
 
 from odoo import models , fields
 
-class test(models.Model):
+class estateModel(models.Model):
     _name = "estate.property"
     _description = "Advertisment module of real estate"
     
@@ -28,7 +28,10 @@ class test(models.Model):
         string='Type',
         selection=[('new','New'),('confirm','Confirm'),('done','Done')]
     )
+    property_type_id = fields.Many2one("estate.property.type", string="Property type")
+    Sales= fields.Many2one("res.partner",string="Sales")
+    buyers=fields.Many2one("res.users",string="Buyers")
     active = fields.Boolean(default=True)
     
     
-     
+      
