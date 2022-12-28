@@ -7,8 +7,8 @@ class EstateProperty(models.Model):
     _description = "Real estate advertisement module"
 
     name = fields.Char('Name',required=True)
-    user_id = fields.Many2one('res.users', string='Salesman', index=True, default=lambda self: self.env.user)
-    partner_id = fields.Many2one('res.partner', string='Buyer', index=True)
+    salesperson_id = fields.Many2one('res.users', string='Salesperson', index=True, default=lambda self: self.env.user)
+    buyer_id = fields.Many2one('res.partner', string='Buyer', index=True)
     property_type_id = fields.Many2one('estate.property.type', string='Property Type')
     description = fields.Text('Details',copy=False)
     postcode = fields.Char('Postcode')
@@ -21,6 +21,7 @@ class EstateProperty(models.Model):
     garage = fields.Boolean('Garage')
     garden = fields.Boolean('Garden')
     garden_area = fields.Integer('Garden area')
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],

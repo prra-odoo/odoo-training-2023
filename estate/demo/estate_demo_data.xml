@@ -6,6 +6,7 @@
             <field name="expected_price">800</field>
             <field name="postcode">000000</field>
             <field name="bedrooms">5</field>
+            <field name="selling_price">750</field>
         </record>
        <record model="estate.property" id="property_model_demo1" >
              <field name="name">New house</field>

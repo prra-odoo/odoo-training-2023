@@ -2,10 +2,37 @@
 <odoo>
     <data>
         <!--  property actions -->
-        <record id="estate_property_model_action1" model="ir.actions.act_window">
+        <record id="property_type_model_action" model="ir.actions.act_window">
             <field name="name">Property Types</field>
             <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
         </record>
     </data>
+
+            <!-- tree view -->
+    <record id="property_type_list_view" model="ir.ui.view">
+        <field name="name">Property Type List view</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string= "Property Type">
+                <field name="name" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- form view -->
+    <record id="property_type_form_view" model="ir.ui.view">
+        <field name="name">Property type form view</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet> 
+                    <label for="name" string="Name" />
+                        <group>
+                            <h1><field name="name" style="width:800%"/></h1>
+                        </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>
