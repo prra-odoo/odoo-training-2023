@@ -44,9 +44,9 @@
                     <field name="garage" optional='hide' />
                     <field name="garden" optional='hide' />
                     <field name="garden_orientation" optional='hide' />
-                    <field name="property_buyer" />
-                    <field name="property_seller" />
-                    <field name="property_type" />
+                    <field name="property_buyer_id" />
+                    <field name="property_seller_id" />
+                    <field name="property_type_id" />
                 </tree>
             </field>
         </record>
@@ -68,8 +68,8 @@
                                 <field name="name" style="font-size:39px" nolabel="1" />
                                 <label for="postcode" string="PostCode" />
                                 <field name="postcode" nolabel="1" />
-                                <label for="property_type" string="Property Type" />
-                                <field name="property_type" nolabel="1" />
+                                <label for="property_type_id" string="Property Type" />
+                                <field name="property_type_id" nolabel="1" />
                             </group>
                             <group>
                                 <label for="expected_price" string="Expected Price" />
@@ -111,11 +111,11 @@
                             <page string="Other Info">
                                 <group>
                                     
-                                        <label for="property_buyer" string="Buyer" />
-                                        <field name="property_buyer" nolabel="1"></field>
+                                        <label for="property_buyer_id" string="Buyer" />
+                                        <field name="property_buyer_id" nolabel="1"></field>
                                     
-                                        <label for="property_seller" string="Salemen" />
-                                        <field name="property_seller" nolabel="1"></field>
+                                        <label for="property_seller_id" string="Salemen" />
+                                        <field name="property_seller_id" nolabel="1"></field>
                                     
                                 </group>
                             </page>
