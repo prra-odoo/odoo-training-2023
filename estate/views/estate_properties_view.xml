@@ -11,6 +11,7 @@
             <field name="name"></field>
             <field name="postcode"></field>
             <field name="bedrooms"></field>
+            <field name="property_type_id"></field>
             <field name="living_area" ></field>
             <field name="facades" optional="hide"></field>
             <field name="garden_area" optional="hide"></field>
@@ -35,13 +36,17 @@
                     <h1><field name="name"/></h1>
                     <group>
                         <group style="margin-top:10px">
+                            <field name="property_type_id"></field>
                             <field name="postcode" />
                             <field name="expected_price"/>
-                            <field name="property_type_id"></field>
                         </group>
                         <group style="margin-top:10px">
                             <field name="date_availability"/>
                             <field name="selling_price"/>
+                        </group>
+                        <group style="Margin-top:10px">
+                            <field name="salesman_id"/>
+                            <field name="buyer_id"/>
                         </group>
                     </group>
                     <notebook>
@@ -82,7 +87,7 @@
                 <filter name="Selling_price_filter" string="Selling Price" domain="[('selling_price','>=',2000001)]"/>
                 <group expand="1" string="Group By">
                     <filter string="Facades" name="facades" context="{'group_by':'facades'}"/>
-                    <filter string="Living Area" name="living_area" domain="[]" context="{'group_by':'living_area'}"/>
+                    <filter string="Living Area" name="living_area" context="{'group_by':'living_area'}"/>
                 </group>
                 
                 

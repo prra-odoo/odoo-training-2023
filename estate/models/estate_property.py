@@ -10,9 +10,11 @@ class estateProperty(models.Model):
 
     name = fields.Char(required=True)
     id = fields.Integer()
-    property_type_id=fields.Integer("Property Type Id")
     postcode = fields.Char()
     description = fields.Text(copy=False)
+    property_type_id=fields.Many2one("estate.property.type",string="Property Type")
+    buyer_id = fields.Many2one("res.partner", string="Buyer")
+    salesman_id = fields.Many2one('res.users', string='Salesman')
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     # date_avilability = fields.Date('Date Avilability',default=lambda self:add(fields.datetime.today(),months=3))
     expected_price = fields.Float("Expected Price")

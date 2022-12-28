@@ -7,6 +7,6 @@ class estatePropertyType(models.Model):
     _description="This model defines the property type for Estate Property Module"
 
     name = fields.Char(required=True)
-    description = fields.Text()
+    
 
 
