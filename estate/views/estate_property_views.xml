@@ -117,10 +117,10 @@
                         <page string="sale info">
                             <group>
                                 <group style="margin-top:30px" >
-                                    <field name="buyer"/>
+                                    <field name="buyer_id"/>
                                 </group>
                                 <group style="margin-top:30px">
-                                    <field name="salesperson"/>
+                                    <field name="salesperson_id"/>
                                 </group>
                             </group>
                         </page>
