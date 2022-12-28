@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 from odoo import fields, models
 
@@ -23,3 +22,5 @@ class estateProperty(models.Model):
         help="Type is used to separate Leads and Opportunities")
     state = fields.Selection(string = "state", selection = [('new', 'New'), ('confirm', 'Confirm'), ('cancel', 'Cancel')], default= "new")
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    salesman_id = fields.Many2one("res.users", string="Salesman" ,default=lambda self: self.env.user)
+    buyer_id = fields.Many2one("res.partner", string="Buyers")
