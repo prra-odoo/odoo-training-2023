@@ -58,8 +58,8 @@
                         </page>
                         <page string="Other info">
                             <group>
-                                <field name="sales_person"/>
-                                <field name="buyer"/>
+                                <field name="salesperson_id"/>
+                                <field name="buyer_id"/>
                             </group>
                         </page>
                     </notebook>

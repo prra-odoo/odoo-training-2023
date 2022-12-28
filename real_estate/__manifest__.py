@@ -12,6 +12,8 @@
     ],
     'demo': [
         'demo/estate_property_demo.xml',
+        'demo/estate_property_tags_demo.xml',
+        'demo/estate_property_type_demo.xml',
     ],
     'installable' : True,
     'application' : True,
