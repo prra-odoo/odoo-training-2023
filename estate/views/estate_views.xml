@@ -11,10 +11,10 @@
                     <field name="postcode"></field>
                     <field name="bedrooms"></field>
                     <field name="living_area" ></field>
+                    <field name="property_type_id"></field>
                     <field name="garden_area" optional="hide"></field>
                     <field name="date_availability" optional="hide"></field>
                     <field name="expected_price"></field>
-                    <field name="property_type_id"/>
                 </tree>
             </field>
         </record>
@@ -71,7 +71,12 @@
                             <group style="Margin-top:30px">
                                 <field name="property_type_id"/>
                             </group>
-                            
+                            <group style="Margin-top:30px">
+                                <field name="salesperson_id"/>
+                            </group>
+                            <group style="Margin-top:30px">
+                                <field name="buyers_id"/>
+                            </group>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -101,9 +106,6 @@
                                         <field name="garage_orientation"/>
                                     </group>
                                 </group>
-                            </page>
-                            <page string="Sales info">
-                                <field name="Sales"/>
                             </page>
                         </notebook>
                     </sheet>
