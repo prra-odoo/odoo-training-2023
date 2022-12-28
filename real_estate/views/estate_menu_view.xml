@@ -12,16 +12,17 @@
             <field name="view_mode">list,form</field>
         </record>
 
-        <record id="estate_model_action_contact" model="ir.actions.act_window">
-            <field name="name">Contact us</field>
-            <field name="res_model">estate.property</field>
+        <record id="estate_model_action_property_types" model="ir.actions.act_window">
+            <field name="name">Property types</field>
+            <field name="res_model">estate.property.type</field>
             <field name="view_mode">list,form</field>
         </record>
-        <record id="estate_model_action_care" model="ir.actions.act_window">
-            <field name="name">Customer care</field>
-            <field name="res_model">estate.property</field>
+        <record id="estate_model_action_property_tags" model="ir.actions.act_window">
+            <field name="name">Property Tags</field>
+            <field name="res_model">estate.property.type</field>
             <field name="view_mode">list,form</field>
         </record>
+
 
         <record id="estate_tree_view" model="ir.ui.view">
             <field name="name">Real Estate</field>
@@ -81,6 +82,7 @@
                             
                             <field name="date_availability"></field>
                             <field name="selling_price"></field>
+                            <field name="property_type_id"></field>
                             
                         </group>
                         <group>
@@ -97,6 +99,13 @@
                             <field name="facades"></field>
                             <field name="bedrooms"></field>
                             <field name="garage"></field>
+                            </group>
+                        </page>
+
+                        <page string="Other Info">
+                            <group>
+                            <field name="salesman_id"></field>
+                            <field name="buyer_id"></field>
                             </group>
                         </page>
 

@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-        <record model="estate.property" id="estate_demo_data">
+        <!-- <record model="estate.property" id="estate_demo_data">
             <field name="name">Small Property</field>
             <field name="description">This Property is in gandhinagar.</field>
+
+        </record> -->
+        <record model="estate.property" id="estate_demo_data2">
+            <field name="name">om</field>
+            <field name = "description"> This is good Property</field>
+            <field name="postcode">123456</field>
+            <field name="bedrooms"> 3</field>
+            <field name="living_area"> 10</field>
+            <field name="expected_price">10000</field>
+            <field name="selling_price">20000</field>
+            <field name="garden_area">12</field>
+        </record>
+        <record model="estate.property" id="estate_demo_data3">
+            <field name="name">jeel</field>
+            <field name = "description"> Buy thisProperty</field>
+            <field name="postcode">360450</field>
+            <field name="bedrooms">2</field>
+            <field name="living_area">10</field>
+            <field name="expected_price">300000</field>
+            <field name="selling_price">400000</field>
+            <field name="garden_area">3</field>
+        </record>
+        <record model="estate.property.type" id="estate_property_type_demo_data">
+            <field name="name">apartment</field>
         </record>
 </odoo>

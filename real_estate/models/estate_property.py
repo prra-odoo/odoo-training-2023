@@ -23,3 +23,6 @@ class estateProperty(models.Model):
         help="Type is used to separate Leads and Opportunities")
     state = fields.Selection(selection= [('new','New'),('confirm','Confirm'),('cancel','Cancel')], default="new")
     activate = fields.Boolean(default=True)
+    property_type_id = fields.Many2one("estate.property.type",string= "Property type")
+    salesman_id=fields.Many2one("res.users",string="salesman",default=lambda self: self.env.user)
+    buyer_id = fields.Many2one("res.partner", string="Buyers")
