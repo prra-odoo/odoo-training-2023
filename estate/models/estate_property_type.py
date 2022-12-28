@@ -7,4 +7,3 @@ class estate_property_type(models.Model):
     _description="Property types module"
 
     name = fields.Char(string="Name",required=True)
-    description=fields.Text(string="Description",required=True)

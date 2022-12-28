@@ -26,6 +26,9 @@ class estateModel(models.Model):
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
         help="Type is used to separate Leads and Opportunities")
     propertyid=fields.Many2one("estate.property.type", string="Property")
+    sales=fields.Many2one("res.partner",string="Sales")
+    buyers=fields.Many2one("res.users",string="Buyers")
+
 
 
     
