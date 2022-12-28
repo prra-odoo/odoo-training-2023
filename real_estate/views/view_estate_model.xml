@@ -84,6 +84,7 @@
                             <group>
                                 <field name="expected_price" />
                                 <field name="selling_price" />
+                                <field name="property_type_id" />
                             </group>
                         </group>
                         <notebook>
@@ -111,6 +112,12 @@
                                     <group>
                                         <field name="garden_area" />
                                     </group>
+                                </group>
+                            </page>
+                            <page string="Other Information">
+                                <group>
+                                    <field name="buyer_id"/>
+                                    <field name="salesperson_id"/>
                                 </group>
                             </page>
                         </notebook>
