@@ -7,10 +7,11 @@
             <field name="view_mode">tree,form</field>
         </record>
         <record id="contact_us_action" model="ir.actions.act_window">
-            <field name="name">Help</field>
-            <field name="res_model">estate.property</field>
+            <field name="name">Type</field>
+            <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
         </record>
+
 
         <record id="model_view_tree" model="ir.ui.view">
             <field name="name">Real Estate Tree</field>
@@ -59,35 +60,36 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                     </header>
                     <sheet>
                         <label for="name">Name</label>
                         <h1>
-                            <field name="name"></field>
+                            <field name="name"/>
                         </h1>
                         <group>
                             <group>
-                                <field name="date_availability"></field>
-                                <field name="expected_price"></field>
+                                <field name="date_availability"/>
+                                <field name="expected_price"/>
+                                <field name="property_type_id"/>
                             </group>
                             <group>
-                                <field name="postcode"></field>
-                                <field name="selling_price"></field>
+                                <field name="postcode"/>
+                                <field name="selling_price"/>
                             </group>
                         </group>
 
                         <notebook>
                             <page string="Description">
-                                <field name="description"></field>
+                                <field name="description"/>
                                 <group>
                                     <group>
-                                        <field name="facades"></field>
-                                        <field name="garage"></field>
+                                        <field name="facades"/>
+                                        <field name="garage"/>
                                     </group>
                                     <group>
-                                        <field name="bedrooms"></field>
-                                        <field name="living_area"></field>
+                                        <field name="bedrooms"/>
+                                        <field name="living_area"/>
                                     </group>
                                 </group>
 
@@ -95,11 +97,19 @@
                             <page string="Garden">
                                 <group>
                                     <group>
-                                        <field name="garden"></field>
-                                        <field name="garden_orientation"></field>
+                                        <field name="garden"/>
+                                        <field name="garden_orientation"/>
                                     </group>
                                     <group>
-                                        <field name="garden_area"></field>
+                                        <field name="garden_area"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Other Info">
+                                <group>
+                                    <group>
+                                        <field name="salesman_id"/>
+                                        <field name="buyer_id"/>
                                     </group>
                                 </group>
                             </page>

@@ -26,4 +26,7 @@ class estateProperty(models.Model):
         )
     last_seen = fields.Char('Last seen')
     active = fields.Boolean(default = True)
+    property_type_id = fields.Many2one("estate.property.type", string='Property Type')
+    buyer_id = fields.Many2one("res.partner",string="Buyer")
+    salesman_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user )
     
