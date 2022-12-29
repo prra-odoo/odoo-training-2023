@@ -8,4 +8,5 @@
     'summary': "This is a Real Esate App developed in odoo(OWL Framework)",
     'installable': True,
     'application': True,
+    'demo' :[],
 }
