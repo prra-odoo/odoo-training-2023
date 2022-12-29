@@ -11,6 +11,12 @@
             <field name="bedrooms">2</field>
             <field name="expected_price">3000000</field>
         </record>
+        <record model="estate.property.tag" id="estate_property_tag_demo_first">
+            <field name='name'>Furnished</field>
+        </record>
+        <record model="estate.property.tag" id="estate_property_tag_demo_second">
+            <field name='name'>Unfurnished</field>
+        </record>
 
     </data>
         

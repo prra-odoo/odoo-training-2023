@@ -28,6 +28,12 @@
         <field name="view_mode">tree,form</field>
 
     </record>
+    <record id="estate_model_action_property_tag" model="ir.actions.act_window">
+        <field name="name">Property tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
 
     <!-- ________________________Tree_View____________________ -->
 
@@ -67,6 +73,9 @@
                     <group>
                         <group style="margin-top:30px">
                             <field name="property_type_id"/>
+                        </group>
+                        <group style="margin-top:30px">
+                            <field name="tag_ids" widget="many2many_tags"/>
                         </group>
                         <group style="margin-top:30px">
                             <field name="postcode"/>
