@@ -8,4 +8,10 @@
     'summary':'hello',
     'installable':'true',
     'application':'true',
+    'data': [
+
+    ],
+    'demo':[
+
+    ],
 }
