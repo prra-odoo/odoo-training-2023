@@ -1,10 +1,16 @@
 {
     'name': 'real_estate',
     'version': '1.0',
-    'category': 'Sales',
+    'category': 'Marketing',
     'summary': 'Find rates of real estates',
-    'description': "",
+    'description': "App for Real Estate management",
     'author': 'sami',
+    'data': [
+
+    ],
+    'demo': [
+
+    ],
     'installable': True,
     'application': True,
     'auto_install': False
