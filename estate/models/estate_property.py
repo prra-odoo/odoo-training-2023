@@ -15,6 +15,7 @@ class estateProperty(models.Model):
     property_type_id=fields.Many2one("estate.property.type",string="Property Type")
     buyer_id = fields.Many2one("res.partner", string="Buyer")
     salesman_id = fields.Many2one('res.users', string='Salesman')
+    # tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     # date_avilability = fields.Date('Date Avilability',default=lambda self:add(fields.datetime.today(),months=3))
     expected_price = fields.Float("Expected Price")

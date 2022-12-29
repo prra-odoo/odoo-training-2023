@@ -11,8 +11,8 @@
             <field name="name"></field>
             <field name="postcode"></field>
             <field name="bedrooms"></field>
-            <field name="property_type_id"></field>
             <field name="living_area" ></field>
+            <field name="property_type_id" optional="hide"></field>
             <field name="facades" optional="hide"></field>
             <field name="garden_area" optional="hide"></field>
             <field name="date_availability" optional="hide"></field>
@@ -44,10 +44,6 @@
                             <field name="date_availability"/>
                             <field name="selling_price"/>
                         </group>
-                        <group style="Margin-top:10px">
-                            <field name="salesman_id"/>
-                            <field name="buyer_id"/>
-                        </group>
                     </group>
                     <notebook>
                         <page string="Description">
@@ -63,6 +59,17 @@
                                 <field name="garden_orientation" ></field>
                                 <field name="garden_area"/>
                             </group>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <group>
+                                    <field name="buyer_id"></field>
+                                </group>
+                                <group>
+                                    <field name="salesman_id" />
+                                </group>
+                            </group>
+
                         </page>
                     </notebook>
                 </sheet>
