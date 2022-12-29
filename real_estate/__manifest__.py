@@ -1,10 +1,13 @@
 {
     'name': 'Real Estate',
-    'version': '1.2',
-    'category': 'Sales/CRM',
-    'depends':['contacts','calender'],
+    'version': '1.0',
+    'category': 'Marketing',
+    'depends':[
+        'calendar',
+        'contacts',
+       ],
     'author': 'Archana',
-    'summary': 'Track leads and close opportunities',
+    'summary': 'Track estate properties',
     'description': 'Real estate module',
     'installable': True,
     'application': True,
