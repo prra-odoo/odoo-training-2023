@@ -47,6 +47,7 @@
                     <field name="property_buyer_id" />
                     <field name="property_seller_id" />
                     <field name="property_type_id" />
+                    <field name="tag_ids"/>
                 </tree>
             </field>
         </record>
@@ -57,9 +58,9 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form>
-                    <header>
-                        <field name="state" widget="statusbar" options="{'clickable':'1'}" />
-                    </header>
+                        <header>
+                            <field name="state" widget="statusbar" options="{'clickable':'1'}" />
+                        </header>
                     <sheet>
                         <!-- <group> -->
                         <group>
@@ -86,7 +87,7 @@
                                     placeholder="More Description Regarding Land"></field>
                             </page>
                             <page string="Land Deatils">
-                                <group>
+                                <group> 
                                     <group>
                                         <label for="bedrooms" string="Bedroom"
                                             style="margin-left:50px" />
@@ -116,6 +117,8 @@
                                     
                                         <label for="property_seller_id" string="Salemen" />
                                         <field name="property_seller_id" nolabel="1"></field>
+                                        <label for="tag_ids" string="Tags" />
+                                        <field name="tag_ids" nolabel="1" />
                                     
                                 </group>
                             </page>

@@ -28,7 +28,8 @@ class RealEstateAd  (models.Model):
           selection=[('new','New'),('confirm', 'Confirm'),('cancel','Cancel')],default="new"   
           )     
      property_buyer_id = fields.Many2one("res.partner", string="Buyer")
-     property_seller_id = fields.Many2one("res.users", string="Salesman")
+     property_seller_id = fields.Many2one("res.users", string="Salesman",default=lambda self: self.env.user)
      property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+     # tag_ids = fields.Many2many("estate.property.tag", string="Tag")
 
      
