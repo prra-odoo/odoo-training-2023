@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="real_estate_tree_view" model="ir.ui.view">
+            <field name="name">Real Estate</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <tree expand="1" string="Real Estate">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
+        

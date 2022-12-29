@@ -5,11 +5,13 @@
             <field name="name">Real Estate</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree  expand="1" string="Real Estate">
+                <tree expand="1" string="Real Estate">
                     <field name="name" />
                     <field name="description" />
-                    <field name="date_availability" />
                     <field name="selling_price" />
+                    <field name="buyer_id" />
+                    <field name="tag_ids" />
+                    <field name="property_type_id" optional="hide"/>
                     <field name="postcode" optional="hide" />
                     <field name="facades" optional="hide" />
                 </tree>
@@ -33,10 +35,12 @@
                             <group>
                                 <field name="date_availability" />
                                 <field name="expected_price" />    
+                                <field name="property_type_id" />    
                             </group>
                             <group>
                                 <field name="postcode" />
                                 <field name="selling_price" />
+                                <field name="tag_ids" widget="many2many_tags"/>
                             </group>
                         </group>
                         <notebook>
@@ -63,6 +67,21 @@
                                         <field name="garden_area" />
                                     </group>
                                 </group>
+                            </page>
+                            <page string="Other Info.">
+                                <group>
+                                    <field name="salesperson_id"></field>
+                                    <field name="buyer_id"></field>
+                                </group>
+                            </page>
+                            <page string="Offers">
+                                    <field name="offer_ids">
+                                        <tree>
+                                            <field name="price" />
+                                            <field name="partner_id" />
+                                            <field name="status" />
+                                        </tree>
+                                    </field>
                             </page>
                         </notebook>
                     </sheet>

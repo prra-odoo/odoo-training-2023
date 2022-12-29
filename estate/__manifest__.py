@@ -12,7 +12,9 @@
         'views/estate_property_menuitem.xml',
     ],
     'demo' :[
-        'demo/estate_property_demo_data.xml'
+        'demo/estate_property_demo_data.xml',
+        'demo/estate_property_type_demo_data.xml',
+        'demo/estate_property_tags_demo_data.xml',
     ],
     'application': True,
     'installable': True,
