@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 class estateModel(models.Model):
     _name = "estate.property"
     _description = "Real Estate Module"
-
+    
     name = fields.Char('Name',required=True)
     description = fields.Text('Description',copy=False,required=True)
     postcode = fields.Char('Post Code',required=True)
@@ -25,7 +25,8 @@ class estateModel(models.Model):
         string='Garden Orientation:',
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
         help="Type is used to separate Leads and Opportunities")
-    propertyid=fields.Many2one("estate.property.type", string="Property")
+    property_id=fields.Many2one("estate.property.type", string="Property")
+    tags_ids=fields.Many2many("estate.property.tags",string="Tags")
     sales=fields.Many2one("res.partner",string="Sales")
     buyers=fields.Many2one("res.users",string="Buyers")
 
