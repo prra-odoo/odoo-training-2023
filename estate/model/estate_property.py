@@ -8,8 +8,11 @@ class EstateProperty(models.Model):
 
     name = fields.Char('Name',required=True)
     salesperson_id = fields.Many2one('res.users', string='Salesperson', index=True, default=lambda self: self.env.user)
-    buyer_id = fields.Many2one('res.partner', string='Buyer', index=True)
+    buyer_id = fields.Many2one('res.partner', string='Buyer')
     property_type_id = fields.Many2one('estate.property.type', string='Property Type')
+    partner_ids = fields.One2many("estate.property.offer", "partner_id", string="Partner")
+    price_ids = fields.One2many("estate.property.offer", "price", string="Price")
+    status_ids = fields.One2many("estate.property.offer", "status", string="Status")
     description = fields.Text('Details',copy=False)
     postcode = fields.Char('Postcode')
     date_availability = fields.Date('Date availability',default=lambda self:fields.Datetime.now(),readonly=True)
@@ -29,6 +32,6 @@ class EstateProperty(models.Model):
     active = fields.Boolean(default=True)
     state = fields.Selection(
         string='state',
-        selection=[('new', 'New'), ('offer_received', 'Offer Received'),('confirm', 'Confirmed'), ('cancelled', 'Cancelled')],
+        selection=[('new', 'New'), ('offer_received', 'Offer Received'),('offer_accepted', 'Offer Accepted'),('sold', 'Sold'), ('canceled', 'Canceled')],
         default='new',
     )

@@ -19,7 +19,7 @@
                 </tree>
             </field>
         </record>
-
+                    <!-- search,filter,group by -->
         <record id="real_estate_property_search" model="ir.ui.view">
             <field name="name">estate.property.search</field>
             <field name="model">estate.property</field>
@@ -41,6 +41,7 @@
             </field>
         </record>
         
+                    <!-- form view -->
         <record id="real_estate_form_view" model="ir.ui.view">
             <field name="name">Property form view</field>
             <field name="model">estate.property</field>
@@ -99,6 +100,19 @@
                                 <group>
                                     <field name="garden_orientation"/>
                                 </group>
+                            </page>
+                            <page string="Offer">
+                                <record id="estate_offer_list_view" model="ir.ui.view">
+                                    <field name="name">Real Estate Offer List view</field>
+                                        <field name="model">estate.property</field>
+                                        <field name="arch" type="xml">  
+                                        <tree string= "offers">
+                                            <field name="price_ids" optional="show"/>
+                                            <field name="status_ids" optional="show"/>
+                                            <field name="partner_ids" optional="show"/>
+                                        </tree>
+                                        </field>
+                                    </record>                                
                             </page>
                             <page string="Other Info">
                                 <group>
