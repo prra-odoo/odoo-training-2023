@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import real_estate
+from . import real_estate_price
