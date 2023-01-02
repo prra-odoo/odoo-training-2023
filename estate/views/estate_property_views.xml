@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="estate_model_menu_home" model="ir.actions.act_window">
-            <field name="name">Home</field>
+    <record id="estate_model_ad_property1" model="ir.actions.act_window">
+            <field name="name">Property 1</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
     </record>
 
-    <record id="estate_model_menu_edit" model="ir.actions.act_window">
-            <field name="name">Edit</field>
+    <record id="estate_model_ad_property2" model="ir.actions.act_window">
+            <field name="name">Property 2</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
     </record>
 
-    <record id="estate_model_action_property" model="ir.actions.act_window">
-            <field name="name">Options</field>
-            <field name="res_model">estate.property</field>
+    <record id="estate_model_settings_types" model="ir.actions.act_window">
+            <field name="name">Property Types</field>
+            <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="estate_model_settings_tags" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tags</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 <!-- ___________________________TREE VIEW___________________________ -->
 
-    <record id="estate_view_tree" model="ir.ui.view">
-        <field name="name">estate.view.tree</field>
+    <record id="estate_property_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.view.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree>
@@ -37,8 +43,8 @@
 
 <!-- __________________________FORM VIEW__________________________ -->
 
-    <record id="estate_view_form" model="ir.ui.view">
-        <field name="name">estate.view.form</field>
+    <record id="estate_property_view_form" model="ir.ui.view">
+        <field name="name">estate.property.view.form</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
 
@@ -53,6 +59,12 @@
                     <field name="date_availability" nolabel="1"/>
 
                     <group>
+                        <group>
+                            <field name="property_type_id"/>
+                        </group>
+                        <group>
+                            <field name="tags_ids" widget="many2many_tags"/>
+                        </group>
                         <group>
                             <field name="postcode"/>
                         </group>
@@ -90,8 +102,13 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Note">
-                            <field name="note"/>
+                        <page string="Other info">
+                            <group>
+                                <field name="sales_id"/>
+                            </group>
+                            <group>
+                                <field name="buyers_id"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
@@ -101,8 +118,8 @@
 
 <!-- ________________________SEARCH VIEW___________________________ -->
 
-    <record id="estate_view_search" model="ir.ui.view">
-        <field name="name">estate.view.search</field>
+    <record id="estate_property_view_search" model="ir.ui.view">
+        <field name="name">estate.property.view.search</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <search string="search property">

@@ -5,11 +5,10 @@ from dateutil.relativedelta import relativedelta
 
 class EstateModel(models.Model):
     _name = "estate.property"
-    _description = "Estate Model"
+    _description = "Estate Property Model"
 
     name = fields.Char('Name',required = True)
     description = fields.Text()
-    note = fields.Text()
     postcode = fields.Char(required=True)
     date_availability = fields.Date('Date availability', readonly = True, default=lambda self: fields.datetime.now()+ relativedelta(months=3) )
     expected_price = fields.Float('Expected price', required = True)
@@ -28,3 +27,7 @@ class EstateModel(models.Model):
     state = fields.Selection(
             selection=[('new', 'New'), ('in_progress', 'In Progress'), ('done', 'Done')], default="new"
         )
+    property_type_id = fields.Many2one('estate.property.type')
+    buyers_id = fields.Many2one("res.partner", string="Buyer", copy=False)
+    sales_id = fields.Many2one("res.users", string="Salesman", default=lambda self: self.env.uid)
+    tags_ids = fields.Many2many("estate.property.tags", string="Tags")

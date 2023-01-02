@@ -12,4 +12,8 @@
         <field name="expected_price">15000.00</field>
         <field name="postcode">100002</field>
     </record>
+
+    <record model="estate.property.type" id="estate_demo_data_2">
+        <field name="name">Houses</field>
+    </record>
 </odoo>
