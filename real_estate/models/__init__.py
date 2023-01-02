@@ -6,3 +6,4 @@ from . import property_type
 from . import property_buyer 
 from . import property_seller
 from . import estate_property_tag
+from . import estate_property_offer

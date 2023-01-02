@@ -47,7 +47,13 @@
                     <field name="property_buyer_id" />
                     <field name="property_seller_id" />
                     <field name="property_type_id" />
-                    <field name="tag_ids"/>
+                    <field name="tag_ids" />
+                    <field name="offer_price"/>
+                    <field name="status"/>
+                    <field name="partner_id"/>
+                    
+
+
                 </tree>
             </field>
         </record>
@@ -58,9 +64,9 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form>
-                        <header>
-                            <field name="state" widget="statusbar" options="{'clickable':'1'}" />
-                        </header>
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}" />
+                    </header>
                     <sheet>
                         <!-- <group> -->
                         <group>
@@ -73,6 +79,7 @@
                                 <field name="property_type_id" nolabel="1" />
                             </group>
                             <group>
+                            
                                 <label for="expected_price" string="Expected Price" />
                                 <field name="expected_price" nolabel="1" />
                                 <label for="selling_price" string="Sell Price" />
@@ -87,7 +94,7 @@
                                     placeholder="More Description Regarding Land"></field>
                             </page>
                             <page string="Land Deatils">
-                                <group> 
+                                <group>
                                     <group>
                                         <label for="bedrooms" string="Bedroom"
                                             style="margin-left:50px" />
@@ -111,16 +118,36 @@
                             </page>
                             <page string="Other Info">
                                 <group>
-                                    
-                                        <label for="property_buyer_id" string="Buyer" />
-                                        <field name="property_buyer_id" nolabel="1"></field>
-                                    
-                                        <label for="property_seller_id" string="Salemen" />
-                                        <field name="property_seller_id" nolabel="1"></field>
-                                        <label for="tag_ids" string="Tags" />
-                                        <field name="tag_ids" nolabel="1" />
-                                    
+
+                                    <label for="property_buyer_id" string="Buyer" />
+                                    <field name="property_buyer_id" nolabel="1"></field>
+
+                                    <label for="property_seller_id" string="Salemen" />
+                                    <field name="property_seller_id" nolabel="1"></field>
+
+
                                 </group>
+                            </page>
+                            <page string="Tag">
+                                <label for="tag_ids" string="Tag" />
+                                <field name="tag_ids" nolabel="1"></field>
+                            </page>
+                            <page string="Offer">
+                                <group>
+                            <group>
+                                <label for="partner_id" string="Partner" />
+                                <field name="partner_id" nolabel="1"></field>
+                            </group>    
+                            <group>
+                                <label for="offer_price" string="Price" />
+                                <field name="offer_price" nolabel="1"></field>
+                                
+                            </group> 
+                            <group>
+                                <label for="status" string="Status" />
+                                <field name="status" nolabel="1"></field>
+                            </group>
+                            </group>    
                             </page>
                         </notebook>
                         <notebook>
@@ -174,7 +201,7 @@
             <field name="view_mode">tree,form</field>
         </record>
         <record id="view_tree_estate_property_type" model="ir.ui.view">
-            <field name="name">Real Estate Form View</field>
+            <field name="name">Real Estate type Form View</field>
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
                 <tree>
@@ -184,7 +211,7 @@
         </record>
 
         <record id="real_estate_view_form_design" model="ir.ui.view">
-            <field name="name">Real Estate Form View</field>
+            <field name="name">Real Estate type Form View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <sheet>
@@ -194,6 +221,39 @@
             </field>
         </record>
 
+        <!-- estate.property.tag record  -->
+        <record id="Create_estate_property_tag_model_action" model="ir.actions.act_window">
+            <field name="name">Tag</field>
+            <field name="res_model">estate.property.tag</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
+        <record id="estate_property_tag_model" model="ir.ui.view">
+            <field name="name">tag view form </field>
+            <field name="model">estate.property.tag</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="t_name" />
+                    <field name="description" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="estate_property_tag_model_design" model="ir.ui.view">
+            <field name="name">tag design</field>
+            <field name="model">estate.property.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <label for="t_name" string="Company Name"></label>
+                            <field name="t_name" nolabel="1" />
+                            <label for="description" string="description Name"></label>
+                            <field name="description" nolabel="1" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
     </data>
 </odoo>
