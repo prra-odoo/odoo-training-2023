@@ -86,6 +86,9 @@
                                     <group>
                                         <field name="facades"/>
                                     </group>
+                                    <group>
+                                        <field name="total_area"/>
+                                    </group>
                             </page>                              
                             <page string="Garden">
                                 <group>
@@ -102,17 +105,13 @@
                                 </group>
                             </page>
                             <page string="Offer">
-                                <record id="estate_offer_list_view" model="ir.ui.view">
-                                    <field name="name">Real Estate Offer List view</field>
-                                        <field name="model">estate.property</field>
-                                        <field name="arch" type="xml">  
-                                        <tree string= "offers">
-                                            <field name="price_ids" optional="show"/>
-                                            <field name="status_ids" optional="show"/>
-                                            <field name="partner_ids" optional="show"/>
-                                        </tree>
+                                <field name="offer_ids">
+                                            <tree string= "offers">
+                                                <field name="price" optional="show"/>
+                                                <field name="status" optional="show"/>
+                                                <field name="partner_id" optional="show"/>
+                                            </tree>
                                         </field>
-                                    </record>                                
                             </page>
                             <page string="Other Info">
                                 <group>
