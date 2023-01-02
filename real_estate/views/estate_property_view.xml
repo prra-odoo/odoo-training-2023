@@ -23,7 +23,7 @@
         </record>
         <record id="estate_model_action_help" model="ir.actions.act_window">
             <field name="name">Help</field>
-            <field name="res_model">estate.property</field>
+            <field name="res_model">estate.property.offer</field>
             <field name="view_mode">list,form</field>
         </record>
 
@@ -40,6 +40,7 @@
                     <field name="expected_price"></field>
                     <field name="selling_price"></field>
                     <field name="date_availability"></field>
+                    <field name="offer_ids"></field>
                     <field name="garden_area" optional='hide'></field>
                 </tree>
             </field>
@@ -99,9 +100,7 @@
                                     <group>
                                         <field name="bedrooms"></field>
                                     </group>
-                                    <group>
-                                        <field name="living_area"></field>
-                                    </group>
+                                   
                                 </group>
                                 <group>
                                     <group>
@@ -126,7 +125,26 @@
                                     <group>
                                         <field name="garden_orientation"></field>
                                     </group>
+                                    <group>
+                                        <field name="living_area"></field>
+                                    </group>
                                 </group>
+                                <group>
+                                    <group>
+                                        <field name="total_area"></field>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Offer">
+                                
+                                    <field name="offer_ids" type="xml">
+                                        <tree expand="1">
+                                            <field name="price"></field>
+                                            <field name="partner_id" />
+                                            <field name="status" />
+                                        </tree>
+                                    </field>
+                                
                             </page>
                             <page string="Other Info">
                                 <group>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields, models
+from odoo import api,fields, models
 
 class estateProperty(models.Model):
     _name = "estate.property"
@@ -17,6 +17,7 @@ class estateProperty(models.Model):
     garage = fields.Boolean('Garage')
     garden = fields.Boolean('Garden')
     garden_area = fields.Integer('Garden area', default = "2500")
+    total_area = fields.Integer('Total Area', compute="_compute_total")
     garden_orientation = fields.Selection(string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('west', 'West'), ('east', 'East')],
         help="Type is used to separate Leads and Opportunities")
@@ -25,3 +26,9 @@ class estateProperty(models.Model):
     salesman_id = fields.Many2one("res.users", string="Salesman" ,default=lambda self: self.env.user)
     buyer_id = fields.Many2one("res.partner", string="Buyers")
     tag_ids = fields.Many2many("estate.property.tag")
+    offer_ids = fields.One2many("estate.property.offer","property_id")
+
+    @api.depends("garden_area","living_area")
+    def _compute_total(self):
+        for record in self:
+            record.total_area = record.garden_area + record.living_area
