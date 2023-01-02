@@ -9,9 +9,9 @@
     'website': 'https://www.odoo.com/',
     'summary': 'The Real Estate Advertisement module',
     'depends': [],
-    'data': [],
+    'data': ['security/ir.model.access.csv',
+             'views/estate_property_views.xml'],
     'demo': [],
     'installable': True,
     'application': True,
-}   
-
+}
