@@ -54,6 +54,37 @@
         </field>
     </record>
 
+     <!-- ________________________Tree VIEW estate_property_offer____________________ -->
+
+     <!-- <record id="estate_property_offer_tree_view" model ="ir.ui.view">
+        <field name= "name">estate.property.offer.treeview</field>
+        <field name= "model">estate.property.offer</field>
+        <field name="arch" type = "xml">
+            <tree>
+                <field name="price"/>
+                <field name="partner_id"/>
+                <field name="status"/>
+            </tree>
+        </field>
+     </record> -->
+
+      <!-- ________________________FORM VIEW estate_property_offer____________________ -->
+      <!-- <record id="estate_property_offer_form_view" model = "ir.ui.view">
+        <field name="name">estate.property.offer.formview</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="price" />
+                    <field name="partner_id"/>
+                    <field name='status' />
+                </sheet>
+            </form>
+        </field>
+      </record> -->
+
+
+
     <!-- ________________________FORM VIEW____________________ -->
 
 
@@ -132,6 +163,25 @@
                                     <field name="salesperson_id"/>
                                 </group>
                             </group>
+                        </page>
+                        <page string="Offers" >
+                            <field name="offer_ids">
+                                <tree>
+                                    <field name="price"/>
+                                    <field name="partner_id"/>
+                                    <field name="status"/>
+                                </tree>
+                                <!-- <form>
+                                    <sheet>
+                                        <field name="price"/>
+                                        <field name="partner_id"/>
+                                        <field name="status"/>
+                                    </sheet>
+                                </form> -->
+
+                            </field>
+
+                            
                         </page>
                     </notebook>
                 </sheet>
