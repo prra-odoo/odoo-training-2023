@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="estate_model_action" model="ir.actions.act_window">
-        <field name="name">Properties</field>
-        <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record id="estate_model_action1" model="ir.actions.act_window">
-        <field name="name">Items</field>
+        <field name="name">Views</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <record id="estate_model_action01" model="ir.actions.act_window">
-        <field name="name">Views</field>
+        <field name="name">Property Type</field>
         <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="estate_model_action02" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tag</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -22,12 +22,11 @@
         <menuitem id="estate_menu_root" name="Real Estate">
             <menuitem id="estate_first_level_menu" sequence = "1" name="Advertisments">
                 <menuitem id="estate_model_menu_action" sequence="2" action="estate_model_action"/>
-                <menuitem id="estate_model_menu_action1" sequence="1" action="estate_model_action1"/>
             </menuitem>
             <menuitem id="estate_first_level_menu1" sequence="2" name="Settings">
                 <menuitem id="estate_model_menu_action01" action="estate_model_action01"/>
+                <menuitem id="estate_model_menu_action02" action="estate_model_action02"/>
             </menuitem>
-
         </menuitem>
     
 </odoo>

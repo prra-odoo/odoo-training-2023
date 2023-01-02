@@ -60,6 +60,9 @@
                                 <field name="postcode"/>
                             </group>
                             <group style="Margin-top:30px">
+                                <field name="tags_ids" widget ="many2many_tags" />
+                            </group>         
+                            <group style="Margin-top:30px">
                                 <field name="date_availability"/>
                             </group>
                             <group style="Margin-top:30px">
@@ -106,6 +109,15 @@
                                         <field name="garage_orientation"/>
                                     </group>
                                 </group>
+                            </page>
+                            <page string="Offer">
+                                <field name="offer_ids">
+                                    <tree>
+                                        <field name ="price"/>
+                                        <field name ="partner_id"/>
+                                        <field name ="status"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
