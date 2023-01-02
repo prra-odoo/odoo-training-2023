@@ -23,4 +23,16 @@
         <field name="expected_price">1000</field>
         <field name="selling_price">1500</field>
     </record>
+    <record model="estate.property.type" id="realestate_type1">
+        <field name='name'>Flat</field>
+    </record>
+    <record model="estate.property.type" id="realestate_type2">
+        <field name='name'>House</field>
+    </record>
+    <record model="estate.property.tag" id="property_tags1">
+        <field name='name'>cozy</field>
+    </record>
+    <record model="estate.property.tag" id="property_tags2">
+        <field name='name'>renovated</field>
+    </record>
 </odoo>

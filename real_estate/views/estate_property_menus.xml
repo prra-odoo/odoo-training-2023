@@ -4,8 +4,9 @@
         <menuitem id="property_menu" name="Property">
             <menuitem id="property_list_menu_action" action="property_list_action"/>
         </menuitem>
-        <menuitem id="contact_us_menu" name="Contact us">
-            <menuitem id="contact_us_menu_action" action="contact_us_action"/>
+        <menuitem id="setting_menu" name="Setting">
+            <menuitem id="setting_menu_action1" action="setting_action1"/>
+            <menuitem id="setting_menu_action2" action="setting_action2"/>
         </menuitem>
     </menuitem>
 </odoo>

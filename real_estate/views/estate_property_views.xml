@@ -6,13 +6,16 @@
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <record id="contact_us_action" model="ir.actions.act_window">
-            <field name="name">Type</field>
+        <record id="setting_action1" model="ir.actions.act_window">
+            <field name="name">Property Types</field>
             <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
         </record>
-
-
+        <record id="setting_action2" model="ir.actions.act_window">
+            <field name="name">Property Tags</field>
+            <field name="res_model">estate.property.tag</field>
+            <field name="view_mode">tree,form</field>
+        </record>
         <record id="model_view_tree" model="ir.ui.view">
             <field name="name">Real Estate Tree</field>
             <field name="model">estate.property</field>
@@ -67,6 +70,7 @@
                         <h1>
                             <field name="name"/>
                         </h1>
+                        <field name="tag_ids" widget="many2many_tags"/>
                         <group>
                             <group>
                                 <field name="date_availability"/>
@@ -113,10 +117,21 @@
                                     </group>
                                 </group>
                             </page>
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-    </data>
+                            <page string="Offers">
+                                <field name="offer_ids">
+                                    <tree>
+                                        <field name="price"/>
+                                        <field name="property_id"/>
+                                        <field name="status"/>
+                                    </tree>
+
+                                </field>
+                            </page>
+                        
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</data>
 </odoo>
