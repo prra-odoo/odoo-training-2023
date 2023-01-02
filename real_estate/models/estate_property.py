@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import models, fields, api
 from odoo.tools.date_utils import add
 
 class estateProperty(models.Model):
@@ -33,3 +33,18 @@ class estateProperty(models.Model):
     salesperson_id = fields.Many2one('res.users', string="Sales Person", default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag', string="Tags")
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offer")
+
+    total_area = fields.Integer(compute="_compute_total_area")
+    @api.depends('living_area', 'garden_area')
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+    
+    # @api.onchange("garden")
+    # def _onchange_garden(self):
+    #     if self.garden == True:
+    #         self.garden_area = 10
+    #         self.garden_orientation = 'north'
+    #     else:
+    #         self.garden_area = 0
+    #         self.garden_orientation = ''

@@ -43,16 +43,17 @@
                                 <field name="description"/>
                                 <group>
                                     <field name="bedrooms"/>
-                                    <field name="living_area"/>
+                                    <field name="living_area" string="Living Area (sqm)"/>
                                     <field name="garage"/>
                                     <field name="facades"/>
+                                    <field name="total_area"/>
                                 </group>
                             </group>
                         </page>
                         <page string="Garden">
                             <group>
                                 <field name="garden"/>
-                                <field name="garden_area"/>
+                                <field name="garden_area" string="Garden Area (sqm)"/>
                                 <field name="garden_orientation"/>
                             </group>
                         </page>
@@ -61,6 +62,8 @@
                                 <tree>
                                     <field name="price"/>
                                     <field name="partner_id"/>
+                                    <field name="validity"/>
+                                    <field name="date_deadline"/>
                                     <field name="status"/>
                                 </tree>
                             </field>
