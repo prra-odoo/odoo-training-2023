@@ -2,7 +2,7 @@
 
 from odoo import models, fields
 
-class estate_property_type(models.Model):
+class estatepropertytype(models.Model):
     _name = "estate.property.type"
     _description="Property types module"
 

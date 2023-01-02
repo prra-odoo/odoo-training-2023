@@ -73,13 +73,17 @@
                                 <field name="property_id"/>
                             </group>
                             <group> 
-                                <field name="tags_ids" widget="many2many_tags"/>
+                                <field name="tags_id" widget="many2many_tags"/>
+                            </group>
+                            
+                            <group> 
+                                <field name="sales_id"/>
                             </group>
                             <group> 
-                                <field name="sales"/>
+                                <field name="buyers_id"/>
                             </group>
-                            <group> 
-                                <field name="buyers"/>
+                            <group>
+                            <field name="offer_ids"/>
                             </group>
                         </group>
                         <notebook>

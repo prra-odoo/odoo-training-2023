@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+<!-- ____________________________Tree View______________________________________ !-->
+        <record id="estate_view11_tree" model="ir.ui.view">
+            <field name="name">estate.offers.tree</field>
+            <field name="model">estate.property.offer</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="price"/> 
+                    <field name="partner_id"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>   
+<!-- ____________________________Form View______________________________________ !-->
+        <record id="estate_model8_form" model="ir.ui.view">
+            <field name="name">estate.offer.form</field>
+            <field name="model">estate.property.offer</field>
+            <field name="arch" type="xml">
+                <form string="estate_form">
+                <!-- Header Section -->
+                    <header>
+                        <field name="status" widget="statusbar" options="{'clickable':'1'}"/>            
+                    </header>
+                <!-- / Header Section -->
+                    <sheet>
+                    <label for="price" string="Price"/>
+                                <h2><field name="price" nolabel="1"/></h2>
+                           <group>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="status"/>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
+

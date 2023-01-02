@@ -25,10 +25,15 @@ class estateModel(models.Model):
         string='Garden Orientation:',
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
         help="Type is used to separate Leads and Opportunities")
+
     property_id=fields.Many2one("estate.property.type", string="Property")
-    tags_ids=fields.Many2many("estate.property.tags",string="Tags")
-    sales=fields.Many2one("res.partner",string="Sales")
-    buyers=fields.Many2one("res.users",string="Buyers")
+
+    tags_id=fields.Many2many("estate.property.tags",string="Tags")
+    offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers")
+
+
+    sales_id=fields.Many2one("res.users",string="Sales",default=lambda self: self.env.user)
+    buyers_id=fields.Many2one("res.partner",string="Buyers")
 
 
 
