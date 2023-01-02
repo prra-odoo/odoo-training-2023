@@ -6,6 +6,7 @@
     'description': "App for Real Estate management",
     'author': 'sami',
     'data': [
+        'security/ir.model.access.csv',
 
     ],
     'demo': [

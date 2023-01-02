@@ -18,4 +18,6 @@ class Real_estate(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     garden_area = fields.Integer()
+    garden_orientation = fields.Selection(string='orientation',
+    selection=[('North','A'),('East','B'),('West','C'),('South','D')])
 
