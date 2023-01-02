@@ -5,9 +5,11 @@
     'description' : 'This app will help you to find the best deal for your properties',
     'version' : '1.0',
     'author' : 'THSH',
-    'data' : [    ],
+    'data' : [    
+        'security/ir.model.access.csv'],
     'demo' : [     ],
-    'depends' : [     ],
+    'depends' : [   
+      ],
     'installable' : True,
     'application' : True,
     'auto_install' : False

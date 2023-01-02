@@ -18,4 +18,8 @@ class real_Esate_Properties(models.Model):
 	garage=fields.Boolean()
 	gardan=fields.Boolean()
 	gardan_area=fields.Integer()
+	garden_orientation=fields.Selection(
+		string='Orientation',
+		selection=[('1','North'),('2','South'),('3','East'),('4','West')])
+	
 	
