@@ -5,6 +5,7 @@
     'author': 'mobe',
     'category' :'Marketing',
     'data' : [
+         'security/ir.model.access.csv'
 
     ],
     'demo' : [
