@@ -8,5 +8,6 @@
     'summary': "This is a Real Esate App developed in odoo(OWL Framework)",
     'installable': True,
     'application': True,
+    'data':['./security/ir.model.access.csv'],
     'demo' :[],
 }
