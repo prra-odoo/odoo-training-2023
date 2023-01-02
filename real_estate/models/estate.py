@@ -23,6 +23,8 @@ class realEstate(models.Model):
      garden_orientation = fields.Selection(
           selection =[('north', 'North'), ('south','South'),('east','East'),('west','West')]
      )
+     tag_ids=fields.Many2many("estate.property.tag",string="Property Tags")
+     offer_ids=fields.One2many("estate.property.offer", "property_id", string="Estate Offer")
      active = fields.Boolean(default = True)
      state = fields.Selection(selection = [('new', 'New'),
            ('offer_received', 'Offer Received'),
