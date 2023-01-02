@@ -48,10 +48,10 @@
                     <field name="property_seller_id" />
                     <field name="property_type_id" />
                     <field name="tag_ids" />
-                    <field name="offer_price"/>
+                    <!-- <field name="offer_price"/>
                     <field name="status"/>
-                    <field name="partner_id"/>
-                    
+                    <field name="partner_id"/> -->
+                    <field name="offer_ids" />
 
 
                 </tree>
@@ -73,13 +73,15 @@
                             <group>
                                 <label for="name" string="Customer Name" />
                                 <field name="name" style="font-size:39px" nolabel="1" />
+                                <label for="tag_ids" string="Tag" />
+                                <field name="tag_ids" nolabel="1" widget="many2many_tags"></field>
                                 <label for="postcode" string="PostCode" />
                                 <field name="postcode" nolabel="1" />
                                 <label for="property_type_id" string="Property Type" />
                                 <field name="property_type_id" nolabel="1" />
                             </group>
                             <group>
-                            
+
                                 <label for="expected_price" string="Expected Price" />
                                 <field name="expected_price" nolabel="1" />
                                 <label for="selling_price" string="Sell Price" />
@@ -128,26 +130,22 @@
 
                                 </group>
                             </page>
-                            <page string="Tag">
-                                <label for="tag_ids" string="Tag" />
-                                <field name="tag_ids" nolabel="1"></field>
-                            </page>
                             <page string="Offer">
                                 <group>
-                            <group>
-                                <label for="partner_id" string="Partner" />
-                                <field name="partner_id" nolabel="1"></field>
-                            </group>    
-                            <group>
-                                <label for="offer_price" string="Price" />
-                                <field name="offer_price" nolabel="1"></field>
-                                
-                            </group> 
-                            <group>
-                                <label for="status" string="Status" />
-                                <field name="status" nolabel="1"></field>
-                            </group>
-                            </group>    
+                                  
+                                    <group>
+
+                                        <field name="offer_ids" type="xml">
+                                            <tree>
+                                                <field name="price" />
+                                                <field name="status" />
+                                                <field name="partner_id" />
+                                            </tree>
+                                        </field>
+
+                                    </group>
+                            
+                                </group>
                             </page>
                         </notebook>
                         <notebook>
@@ -233,7 +231,7 @@
             <field name="model">estate.property.tag</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="t_name" />
+                    <field name="name" />
                     <field name="description" />
                 </tree>
             </field>
@@ -246,8 +244,8 @@
                 <form>
                     <sheet>
                         <group>
-                            <label for="t_name" string="Company Name"></label>
-                            <field name="t_name" nolabel="1" />
+                            <label for="name" string="Company Name"></label>
+                            <field name="name" nolabel="1" />
                             <label for="description" string="description Name"></label>
                             <field name="description" nolabel="1" />
                         </group>

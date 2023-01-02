@@ -1,6 +1,6 @@
 #-*- coding:utf:8 -*- 
 
-from odoo import models,fields  
+from odoo import models,fields,api
 
 class RealEstateAd  (models.Model): 
      _name = "estate.property"
@@ -16,7 +16,7 @@ class RealEstateAd  (models.Model):
      bedrooms =fields.Integer(string='Bedrooms')
      living_area=fields.Integer(string='Living Area')
      facades=fields.Integer(string='Facades')
-     garage=fields.Boolean(string='Garage')
+     garage=fields.Boolean(string='Garage')  
      garden=fields.Boolean(string='Garden')
      
      garden_area =fields.Integer(string='Garden Area')
@@ -32,10 +32,9 @@ class RealEstateAd  (models.Model):
      property_type_id = fields.Many2one("estate.property.type", string="Property Type")
      tag_ids = fields.Many2many("estate.property.tag", string="Tag")
      #estate_property_offer
-     offer_price = fields.Float()
-     status= fields.Selection(
-          selection=[('accepted','Accepted'),('refused', 'Refused')]   
-          )
-     partner_id=fields.Many2one('res.partner')
+     offer_ids = fields.One2many('estate.property.offer','property_id')
+     # status= fields.One2many('estate.property.offer')
+     # partner_id=fields.One2many('estate.property.offer')
 
+     # Api depends
      
