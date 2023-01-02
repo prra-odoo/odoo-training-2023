@@ -19,7 +19,7 @@
         </record>
         <record id="estate_model_action_property_tags" model="ir.actions.act_window">
             <field name="name">Property Tags</field>
-            <field name="res_model">estate.property.type</field>
+            <field name="res_model">estate.property.tag</field>
             <field name="view_mode">list,form</field>
         </record>
 
@@ -77,18 +77,18 @@
                     <sheet>
                         <label for="name" string="Name:"></label>
                         <h1><field name="name"></field></h1>
+                        <label for="tag_ids" string="Property tag:"></label>
+                        <field name="tag_ids" widget="many2many_tags"></field>         
+
                     <group>
-                        <group>
-                            
+                        <group>    
                             <field name="date_availability"></field>
                             <field name="selling_price"></field>
-                            <field name="property_type_id"></field>
-                            
+                            <field name="property_type_id"></field>    
                         </group>
                         <group>
                             <field name="postcode"></field>
                             <field name="expected_price"></field>
-                              
                         </group>  
                     </group>
                     <notebook>
@@ -107,6 +107,18 @@
                             <field name="salesman_id"></field>
                             <field name="buyer_id"></field>
                             </group>
+                        </page>
+
+                        <page string="Offers">
+                          
+                             <field name ="offer_ids" type="xml" nolabel="1">
+                                <tree expand="1" >
+                                    <field name="price"></field>
+                                    <field name="partner_id"></field> 
+                                    <field name="status"></field> 
+                                </tree>
+                             </field>
+                          
                         </page>
 
                         <page string="Garden Details">

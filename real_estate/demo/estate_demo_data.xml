@@ -29,4 +29,7 @@
         <record model="estate.property.type" id="estate_property_type_demo_data">
             <field name="name">apartment</field>
         </record>
+        <record model="estate.property.tag" id="estate_property_tag_demo_data">
+            <field name="name">renoveted</field>
+        </record>
 </odoo>
