@@ -13,6 +13,7 @@
             <field name="bedrooms"></field>
             <field name="living_area" ></field>
             <field name="property_type_id" optional="hide"></field>
+            <!-- <field name="property_tag_ids" optional="hide" widget="many2many_tags"</field> -->
             <field name="facades" optional="hide"></field>
             <field name="garden_area" optional="hide"></field>
             <field name="date_availability" optional="hide"></field>
@@ -43,6 +44,7 @@
                         <group style="margin-top:10px">
                             <field name="date_availability"/>
                             <field name="selling_price"/>
+                            <field name="property_tag_ids" widget="many2many_tags"/>
                         </group>
                     </group>
                     <notebook>
@@ -60,6 +62,12 @@
                                 <field name="garden_area"/>
                             </group>
                         </page>
+                        <page string="Offers">
+                            <group>
+                                <field name="offer_ids"></field>
+                            </group>
+                                
+                        </page>
                         <page string="Other Info">
                             <group>
                                 <group>
@@ -69,7 +77,6 @@
                                     <field name="salesman_id" />
                                 </group>
                             </group>
-
                         </page>
                     </notebook>
                 </sheet>

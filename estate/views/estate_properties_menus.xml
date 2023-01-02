@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="estate_property_action" model="ir.actions.act_window">
-        <field name="name">Estate List View</field>
+        <field name="name">Estate Property</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
     </record>  
@@ -9,6 +9,11 @@
     <record id="property_type_action" model="ir.actions.act_window">
         <field name="name">property Type</field>
         <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="property_tag_action" model="ir.actions.act_window">
+        <field name="name">Property tag</field>
+        <field name="res_model">estate.property.tag</field>
         <field name="view_mode">tree,form</field>
     </record>
     
@@ -24,6 +29,7 @@
         </menuitem>
         <menuitem id="Settings_menu" name="Settings">
             <menuitem id="property_type_menu_action" action="property_type_action" name="Property Type"/>
+            <menuitem id="property_tag_menu_action" action="property_tag_action" name="Property Tag"/>
         </menuitem>
     </menuitem>
 </odoo>

@@ -12,10 +12,7 @@ class estateProperty(models.Model):
     id = fields.Integer()
     postcode = fields.Char()
     description = fields.Text(copy=False)
-    property_type_id=fields.Many2one("estate.property.type",string="Property Type")
-    buyer_id = fields.Many2one("res.partner", string="Buyer")
-    salesman_id = fields.Many2one('res.users', string='Salesman')
-    # tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     # date_avilability = fields.Date('Date Avilability',default=lambda self:add(fields.datetime.today(),months=3))
     expected_price = fields.Float("Expected Price")
@@ -33,4 +30,10 @@ class estateProperty(models.Model):
     state = fields.Selection( 
         string='State', 
     selection = [('new', 'New'),('in_progress', 'In Progress'),('cancel', 'Cancelled'),('done', 'Done')])
+
+    property_type_id=fields.Many2one("estate.property.type",string="Property Type")
+    buyer_id = fields.Many2one("res.partner", string="Buyer")
+    salesman_id = fields.Many2one('res.users', string='Salesman')
+    property_tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    offer_ids=fields.One2many('estate.property.offer','property_id',string="Offers")
 
