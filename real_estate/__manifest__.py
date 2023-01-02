@@ -9,6 +9,7 @@
     'installable':'true',
     'application':'true',
     'data': [
+        'security/ir.model.access.csv'
 
     ],
     'demo':[
