@@ -36,7 +36,7 @@
             <field name="garden_area">123</field>
         </record>
         <record model="estate.property" id="estate_demo_data2">
-            <field name="name">odoo</field>
+            <field name="name">demo2</field>
             <field name="postcode">125456</field>
             <field name = "description"> Buy 2 Property</field>
             <field name="bedrooms">65</field>
