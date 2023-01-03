@@ -65,6 +65,7 @@
                             <group>
                                 <field name="expected_price" />
                                 <field name="selling_price" />
+                                <field name="best_offer"/>
                                 <field name="property_type_id" />
                             </group>
                         </group>
@@ -77,6 +78,8 @@
                                     <group>
                                         <field name="bedrooms"></field>
                                         <field name="facades" />
+                                        <field name="total_area"/>
+                                       
                                     </group>
                                     <group>
                                         <field name="garage" />
@@ -91,6 +94,8 @@
                                                 <field name="price" />
                                                 <field name="property_id" />
                                                 <field name="status" />
+                                                <field name="validity"/>
+                                                <field name="date_deadline"/>
                                             </tree>
                                         </field>
                                 

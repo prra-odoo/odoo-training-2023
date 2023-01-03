@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import fields,models
+from odoo import api,fields,models
 
 class realEstate(models.Model):
      _name = "real.estate"
@@ -31,7 +31,16 @@ class realEstate(models.Model):
            ('offer_accepted', 'Offer Accepted'),
            ('sold', 'Sold'),('cancel','Cancelled')],default='new',required = True
            )
+     total_area = fields.Integer(string='Total Area', compute="_compute_total")
+     best_offer = fields.Float(string='Best Offer',compute="_compute_best_offer",default=0)
      
-
+     @api.depends("living_area","garden_area")
+     def _compute_total(self):
+          for record in self:
+               record.total_area= record.living_area + record.garden_area
+     
+     def _compute_best_offer(self):
+          for record in self:
+               record.best_offer = max(self.offer_ids.mapped('price'))
 
      
