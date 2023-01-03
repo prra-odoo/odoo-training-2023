@@ -31,6 +31,15 @@
                         <group>
                             <h1><field name="name" style="width:800%"/></h1>
                         </group>
+                        <notebook>
+                            <page string="Property">
+                                <field name="property_ids">
+                                    <tree string= "Property Name">
+                                        <field name="name" optional="show"/>   
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                 </sheet>
             </form>
         </field>

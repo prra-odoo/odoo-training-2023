@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import UserError, AccessError
+from datetime import datetime, time
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -34,9 +36,7 @@ class EstateProperty(models.Model):
     )
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offers")
     total_area = fields.Float('Total Area(sqm)',compute='_compute_area')
-
-    # offernew_ids = self.env['estate.property.offer'].search([])
-    # offer_names = offernew_ids.mapped('name')
+    best_price = fields.Float("Best Price",compute="_compute_best_price")
 
     # method to calculate total area
     @api.depends('living_area', 'garden_area')
@@ -44,4 +44,23 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
-#  writeoff_amount = sum(writeoff_lines.mapped('amount_currency'))
+    @api.depends('offer_ids.price')
+    def _compute_best_price(self):
+        for record in self:
+            record.best_price = max(self.offer_ids.mapped('price'),default=0)
+
+    def property_sold(self):
+        for record in self:
+            if record.state == 'canceled':
+                raise UserError(('Cancelled property can not be sold.'))
+            else:    
+                record.state = 'sold'
+        return True
+        
+    def property_cancel(self):
+        for record in self:
+            if record.state == 'sold':
+                raise UserError(('Sold property can not be cancelled.'))
+            else:
+                record.state = 'canceled'
+        return True

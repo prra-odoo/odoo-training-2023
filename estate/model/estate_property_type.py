@@ -6,3 +6,5 @@ class EstatePropertyType(models.Model):
     _description = "Real estate advertisement module types"
 
     name = fields.Char('Name',required=True)
+
+    property_ids = fields.One2many('estate.property', 'property_type_id', string="Property Name")
