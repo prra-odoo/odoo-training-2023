@@ -1,21 +1,25 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields
-from dateutil.relativedelta import relativedelta
+from odoo import models, fields, api
+# from dateutil.relativedelta import relativedelta
+from odoo.tools.date_utils import add
+from odoo.exceptions import ValidationError
+
 
 
 class estatePropertyModel(models.Model):
     _name = "estate.property"
     _description = "Esate property model"
 
-    name = fields.Char('Name:',required=True)
+    name = fields.Char('Name:', required=True)
     postcode = fields.Char()
     description = fields.Text()
     date_availability = fields.Date(
-        'Date availability', default=lambda self: fields.datetime.now() + relativedelta(months=6)+relativedelta(days=5))
+        'Date availability', default=lambda self: add(fields.datetime.now(), months=3))
+    # + relativedelta(months=6)+relativedelta(days=5)
     expected_price = fields.Float('Expected Price', required=True)
     selling_price = fields.Float('Selling Price')
     bedrooms = fields.Integer(default=2)
-    living_area = fields.Integer('Living area' ,copy=False)
+    living_area = fields.Integer('Living area', copy=False)
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
@@ -25,14 +29,56 @@ class estatePropertyModel(models.Model):
         selection=[('north', 'North'), ('south', 'South'),
                    ('east', 'East'), ('west', 'West')],
     )
-    active= fields.Boolean(default=True)
+    total_area = fields.Float(compute="_total_area")
+    active = fields.Boolean(default=True)
     state = fields.Selection(
-        selection=[('new','New'),('development','Development'),('done','Done')],
+        selection=[('new', 'New'), ('development',
+                                    'Development'), ('done', 'Done'),('sold','Sold'),('cancelled','Cancelled')],
         default='new',
     )
 
-    property_type_id= fields.Many2one("estate.property.type", string="Type")
-    salesperson_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user)
-    buyer_id= fields.Many2one("res.partner", string="Buyers" ,copy= False)
+    property_type_id = fields.Many2one("estate.property.type", string="Type")
+    salesperson_id = fields.Many2one(
+        "res.users", string="Salesperson", default=lambda self: self.env.user)
+    buyer_id = fields.Many2one("res.partner", string="Buyers", copy=False)
     tag_ids = fields.Many2many('estate.property.tag')
-    offer_ids = fields.One2many('estate.property.offer', 'property_id', string="offers")
+    offer_ids = fields.One2many(
+        'estate.property.offer', 'property_id', string="offers")
+    best_offers = fields.Float(compute="_best_offer" , default =0)
+    # listing_property = fields.Many2one('estate.property.type')
+
+    @api.depends("living_area", "garden_area")
+    def _total_area(self):
+        for record in self:
+            record.total_area = record.living_area+record.garden_area
+
+    @api.depends("offer_ids.price", "offer_ids.status")
+    def _best_offer(self):
+        for record in self:
+            record.best_offers = max(record.offer_ids.mapped('price'),default=0)
+            
+                # for offer in record.offer_ids:
+                #     if offer.status == "accepted" :
+                #         if offer.price > record.best_offers:
+                #             record.best_offers = offer.price
+                #         elif offer.price < record.best_offers:
+                #             pass
+                #         else:
+                #             record.best_offers = 0
+                
+    def sold_product(self):
+        for record in self:
+            if record.state == 'cancelled':
+                raise ValidationError("Cancelled properties cannot be sold")
+            else:
+                record.state = 'sold'
+        
+    def cancelled_product(self):
+        for record in self:
+            if record.state == 'sold':
+                raise ValidationError("Sold Properties cannot cancelled")
+            else:
+                record.state='cancelled'
+
+                   
+

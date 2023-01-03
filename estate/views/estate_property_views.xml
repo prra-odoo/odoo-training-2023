@@ -94,6 +94,8 @@
         <field name="arch" type="xml">
             <form string="estate_form">
                 <header>
+                    <button name ="sold_product" string="Sold" type="object"/>
+                    <button name ="cancelled_product" string="cancelled" type="object"/>
                     <field name="state" widget="statusbar"  options= "{'clickable': '1'}" />
                 </header>
                 <sheet>
@@ -102,6 +104,9 @@
                         <field name="name"/>
                     </h1>
                     <group>
+                        <group>
+                            <field name="state"/>
+                        </group>
                         <group style="margin-top:30px">
                             <field name="property_type_id"/>
                         </group>
@@ -119,6 +124,9 @@
                         </group>
                         <group style="margin-top:30px">
                             <field name="selling_price"/>
+                        </group>
+                        <group style="margin-top:30px">
+                            <field name="best_offers"/>
                         </group>
                     </group>
                     <group style="margin-top:30px">
@@ -138,7 +146,10 @@
                                 </group>
                                 <group style="margin-top:30px">
                                     <field name="garage"/>
-                                </group>   
+                                </group> 
+                                <group style="margin-top:30px">
+                                    <field name="total_area"/>
+                                </group>  
                             </group>
                         </page>
                         <page string="garden descriptions">
@@ -160,16 +171,21 @@
                                     <field name="buyer_id"/>
                                 </group>
                                 <group style="margin-top:30px">
-                                    <field name="salesperson_id"/>
+                                    <field name="salesperson_id" widget="many2one_avatar"/>
                                 </group>
                             </group>
                         </page>
                         <page string="Offers" >
                             <field name="offer_ids">
-                                <tree>
+                                <tree >
+                                    
                                     <field name="price"/>
                                     <field name="partner_id"/>
+                                    <button name="accepted_offer" type = "object" string="accept" icon ="fa-check"/>
+                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times"/>
                                     <field name="status"/>
+                                    <field name="validity"/>
+                                    <field name="date_deadline"/>
                                 </tree>
                                 <!-- <form>
                                     <sheet>
@@ -188,6 +204,29 @@
             </form>
         </field>
     </record>
+
+    <!-- ________________________Form view estate_property_type____________________ -->
+    <record id="estate_property_type_model_form" model="ir.ui.view">
+        <field name="name">estate.property.typemodel.search_view</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="name"/>
+                    <notebook>
+                        <page string ="properties">
+                            
+                            <field name="list_property"/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                
+
+            </form>
+        </field>
+    </record>
+
 
      <!-- ________________________Search VIEW____________________ -->
 
