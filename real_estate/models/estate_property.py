@@ -2,6 +2,7 @@
 
 from odoo import api,models,fields
 from datetime import date
+from odoo.exceptions import UserError
 
 class estateProperty(models.Model):
     _name = "estate.property"
@@ -32,8 +33,10 @@ class estateProperty(models.Model):
     salesman_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user )
     tag_ids=fields.Many2many("estate.property.tag", string='property Tags')
     offer_ids=fields.One2many("estate.property.offer","property_id")
-    total_area=fields.Float(string='Total Area', compute="_compute_total", inverse="_inverse_total")
-    best_offer=fields.Float(string='Best Offer',compute="_compute_best_offer")
+    total_area=fields.Float(string="Total Area", compute="_compute_total", inverse="_inverse_total")
+    best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
+    status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
+
 
     @api.depends("living_area", "garden_area")
     def _compute_total(self):
@@ -43,4 +46,20 @@ class estateProperty(models.Model):
     def _compute_best_offer(self):
         for record in self:
             record.best_offer = max(self.offer_ids.mapped('price'), default=0)
+
+    def sold_button(self):
+        for record in self:
+            if record.status=='cancel':
+                raise UserError(('Cancelled property can not be sold.'))
+            else:
+                record.status = 'sold'
+
+    def cancel_button(self):
+        for record in self:
+            if record.status=='sold':
+                raise UserError(('Sold property can not be sold.'))
+            else:
+                record.status = 'cancel'
+
+   
              

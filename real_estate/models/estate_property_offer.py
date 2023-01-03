@@ -26,7 +26,3 @@ class estatePropertyOffer(models.Model):
         for record in self:
            day = record.date_deadline - record.create_date
            record.validity = day.days
-
-
-
-

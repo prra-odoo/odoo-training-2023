@@ -5,6 +5,11 @@
             <field name="name">Property List</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a New Property !!!!
+                </p>
+            </field>
         </record>
         <record id="setting_action1" model="ir.actions.act_window">
             <field name="name">Property Types</field>
@@ -63,6 +68,8 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+                        <button name="sold_button" type="object" string="Sold"/>
+                        <button name="cancel_button" type="object" string="Cancel"/>
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                     </header>
                     <sheet>
@@ -76,6 +83,7 @@
                                 <field name="date_availability"/>
                                 <field name="expected_price"/>
                                 <field name="property_type_id"/>
+                                <field name="status"/>
                             </group>
                             <group>
                                 <field name="postcode"/>
@@ -114,14 +122,14 @@
                             <page string="Other Info">
                                 <group>
                                     <group>
-                                        <field name="salesman_id"/>
+                                        <field name="salesman_id" widget="many2one_avatar"/>
                                         <field name="buyer_id"/>
                                     </group>
                                 </group>
                             </page>
                             <page string="Offers">
                                 <field name="offer_ids">
-                                    <tree>
+                                    <tree editable="top">
                                         <field name="price"/>
                                         <field name="partner_id"/>
                                         <field name="status" optional='hide'/>

@@ -35,4 +35,9 @@
     <record model="estate.property.tag" id="property_tags2">
         <field name='name'>renovated</field>
     </record>
+    <!-- <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Create a New Property!!!!
+        </p>
+    </field> -->
 </odoo>
