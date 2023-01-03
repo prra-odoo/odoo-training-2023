@@ -1,10 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<record id="real_estate_property_view" model="ir.actions.act_window">
-    <field name="name">Test action</field>
-    <field name="res_model">real_estate.property</field>
-    <field name="view_mode">tree,form</field>
-</record>
-
+    <!-- <record id="real_estate_property_view" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="res_model">real.estate.property</field>
+        <field name="view_mode">tree,form</field>
+    </record> -->
+    <record id="real_estate_property_search" model="ir.ui.view">
+        <field name="name">real.estate.property.search</field>
+        <field name="model">real.estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Property">
+                <field name="name" string="Property Name"/>
+                <field name="expected_price"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <field name="state"/>
+               <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <separator/>
+                <group expand="1" string="Group By">
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="real_estate_property_view_tree" model="ir.ui.view">
+        <field name="name">real.estate.property.tree</field>
+        <field name="model">real.estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Channel" >
+                <field name="name"/>
+                <field name="date_availability"/>
+                <field name="state"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <field name="garage"/>
+                <field name="garden"/>
+                <field name="garden_orientation"/>
+            </tree>
+        </field>
+    </record>
+    <record id="real_estate_property_view_form" model="ir.ui.view">
+        <field name="name">real.estate.property.form</field>
+        <field name="model">real.estate.property</field>
+        <field name="arch" type="xml">
+            <form string="Property">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Property Name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="postcode"/>
+                        </group>
+                        <group>
+                            <field name="date_availability"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                        </group>
+                        <group>
+                            <field name="selling_price"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    
+                    <notebook>
+                        <page name="Description">
+                            <group>                      
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="bedrooms"/>
+                            </group>
+                            <group>
+                                <field name="living_area"/>
+                            </group>
+                            <group>
+                                <field name="facades"/>
+                            </group>
+                            <group>
+                                <field name="garage"/>
+                            </group>
+                            <group>
+                                <field name="garden"/>
+                            </group>
+                            <group>
+                                <field name="garden_orientation"/>
+                            </group> 
+                        </page>
+                    </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+   
+    <record id="real_estate_property_view" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="res_model">real.estate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Define a new property
+          </p>
+          <p>
+            Enter property area,garden orientation,etc.
+          </p>
+        </field>
+    </record>
+   
 </odoo>
