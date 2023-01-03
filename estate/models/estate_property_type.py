@@ -7,6 +7,7 @@ class estatePropertyType(models.Model):
     _description="This model defines the property type for Estate Property Module"
 
     name = fields.Char(required=True)
+    property_list_ids=fields.One2many('estate.property','property_type_id',string="Property List")
     
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!--  ______________________tree View____________________________________  -->
+    <!--  ______________________Estate Property tree View____________________________________  -->
     
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">Estate Tree View</field>
@@ -22,7 +22,7 @@
         </field>
     </record>
 
-<!--  ___________________________________Form View __________________________________________________     -->
+<!--  ____________________________Estate PropertyForm View _____________________________________     -->
     
     <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">Estate Form view</field>
@@ -30,7 +30,10 @@
         <field name="arch" type="xml">
             <form string="estate_form">
                 <header >
+                    <button name="sold" type='object' string="Sold" ></button>
+                    <button name="cancle" type="object" string="Cancle"></button> 
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
+
                 </header>
                 <sheet>
                     <label for="name"></label>
@@ -40,6 +43,7 @@
                             <field name="property_type_id"></field>
                             <field name="postcode" />
                             <field name="expected_price"/>
+                            <field name="best_price"/>
                         </group>
                         <group style="margin-top:10px">
                             <field name="date_availability"/>
@@ -53,6 +57,7 @@
                                 <field name="bedrooms"></field>
                                 <field name="living_area"></field>
                                 <field name="facades"></field>
+                                <field name="total_area"></field>
                             </group>
                         </page>
                         <page string="Garden">
@@ -64,17 +69,19 @@
                         </page>
                         <page string="Offers">
                             <group>
-                                <field name="offer_ids"></field>
+                                <field name="offer_ids">
+                                    
+                                </field>
                             </group>
                                 
                         </page>
                         <page string="Other Info">
                             <group>
                                 <group>
-                                    <field name="buyer_id"></field>
+                                    <field name="buyer_id" widget="many2one_avatar"></field>
                                 </group>
                                 <group>
-                                    <field name="salesman_id" />
+                                    <field name="salesman_id" widget="many2one_avatar"/>
                                 </group>
                             </group>
                         </page>
@@ -85,7 +92,7 @@
 
     </record>
 
-    <!--        _______________________Search View________________________________                                    -->
+    <!--        _______________________Search View_______________________________                 -->
 
     <record id="estate_property_search_view" model="ir.ui.view">
         <field name="name">Estate search view</field>
