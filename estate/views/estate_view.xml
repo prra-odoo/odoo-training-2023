@@ -37,61 +37,89 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="estate_form">
-                <!-- Header Section -->
                     <header>
-                        <field name="state" widget="statusbar" options="{'clickable':'1'}"/>            
-                    </header>
-                <!-- / Header Section -->
+                        <field name="state" widget="statusbar" options ="{'clickable':'1'}"/>
+                        <button name="action_to_sold" type="object" string="Sold"/>
+                        <button name="action_to_cancel" type="object" string="Cancel"/>
+                    </header> 
                     <sheet>
-                    <label for="name" string="Name"/>
-                                <h2><field name="name" nolabel="1"/></h2>
+                        <label for="name"></label>
+                            <h1><field name="name"/></h1>   
                         <group>
-                           <group>
+                            <group>
+                                <field name="tags_ids" widget ="many2many_tags" />
+                            </group>  
+                            <group>
                                 <field name="postcode"/>
-                            </group>
+                            </group>  
                             <group>
                                 <field name="date_availability"/>
+                            </group>
+                            <group>
                                 <field name="expected_price"/>
                             </group>
                             <group>
                                 <field name="selling_price"/>
-                                <field name="bedrooms"/>
                             </group>
                             <group>
-                                <field name="living_area"/>
-                                <field name="facades"/>
-                            </group>
-                            <group>
-                                <field name="garage"/>
-                                <field name="garden"/>
-                            </group>
-                            <group> 
-                                <field name="garden_area" />
-                                <field name="garage_orientation"/>
-                            </group>
-                            <group> 
                                 <field name="property_id"/>
                             </group>
-                            <group> 
-                                <field name="tags_id" widget="many2many_tags"/>
-                            </group>
-                            
-                            <group> 
+                            <group>
                                 <field name="sales_id"/>
                             </group>
-                            <group> 
+                            <group>
                                 <field name="buyers_id"/>
                             </group>
                             <group>
-                            <field name="offer_ids"/>
+                                <field name="best_price"/>
                             </group>
+                            <!-- <group>
+                                <field name="sellprice"/>
+                            </group> -->
                         </group>
                         <notebook>
                             <page string="Description">
                                 <field name="description"/>
+                                <group>
+                                    <group>
+                                        <field name="garage"/>
+                                    </group>
+                                    <group>
+                                        <field name="living_area"/>
+                                    </group>
+                                    <group>
+                                        <field name="garden_area"/>
+                                    </group>
+                                    <group>
+                                        <field name="bedrooms"/>
+                                    </group>
+                                    <group>
+                                        <field name="total_area"/>
+                                    </group>
+                                </group>
                             </page>
-                            <page string="Comment">
-                                <field name="description"/>
+                                <page string="Other information">
+                                <group>
+                                    <group>
+                                        <field name="facades"/>
+                                    </group>
+                                    <group>
+                                        <field name="garage_orientation"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Offer">
+                                <field name="offer_ids">
+                                    <tree editable="bottom">
+                                        <field name ="price"/>
+                                        <field name ="partner_id"/>
+                                        <field name="validity"/>
+                                        <field name ="date_deadline"/>
+                                        <field name ="status"/>
+                                        <button name="action_accept" string="Accept" type="object" icon="fa-check"/>
+                                        <button name="action_refuse" string="Refuse" type="object" icon="fa-times"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>

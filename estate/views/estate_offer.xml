@@ -9,7 +9,7 @@
                 <tree>
                     <field name="price"/> 
                     <field name="partner_id"/>
-                    <field name="status"/>
+                    <!-- <button name="action_refuse" string="Rejected" states="refuse" type="object" icon="fa-check"/> -->
                 </tree>
             </field>
         </record>   
@@ -19,11 +19,6 @@
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
                 <form string="estate_form">
-                <!-- Header Section -->
-                    <header>
-                        <field name="status" widget="statusbar" options="{'clickable':'1'}"/>            
-                    </header>
-                <!-- / Header Section -->
                     <sheet>
                     <label for="price" string="Price"/>
                                 <h2><field name="price" nolabel="1"/></h2>
@@ -33,6 +28,13 @@
                             <group>
                                 <field name="status"/>
                             </group>
+                            <group>
+                                <field name="validity"/>
+                            </group>
+                            
+                            <group>
+                                <field name="date_deadline"/>
+                            </group> 
                     </sheet>
                 </form>
             </field>
