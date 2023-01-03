@@ -2,19 +2,12 @@
 <odoo>
     <data>
         <menuitem id="menu_root" name="Real Estate">
-            <menuitem id="Land_space__first_level_menu" name="Land space">
-                <menuitem id="Land_space_model_menu_action_1" action="Create_task_model_action" />
-                <menuitem id="Land_space_model_menu_action_2" action="Create_task_model_action_2" />
-            </menuitem>
-            <menuitem id="house_second_level_menu" name="House">
-                <menuitem id="house_model_menu_action" action="Create_task_model_action_3" />
-            </menuitem>
-            <!-- estate.property.type  -->
-            <menuitem id="others_third_level_menu" name="Setting">
-                <menuitem id="property_type_model_menu_action" action="Create_estate_property_type_model_action" />
-                <menuitem id="property_tag_model_menu_action" action="Create_estate_property_tag_model_action" />
-                
-            </menuitem>
+            <menuitem id="advertisement__first_level_menu" name="Advertisement"  action="advertisement_Create_task_model_action"/>
+
+            <menuitem id="setting_first_level_menu" name="Setting" >
+            <menuitem id="property_type_model_menu_action" action="Create_estate_property_type_model_action" />
+            <menuitem id="property_tag_model_menu_action" action="Create_estate_property_tag_model_action" />
+        </menuitem>
         </menuitem>
     </data>
 </odoo>

@@ -2,24 +2,21 @@
 <odoo>
     <data>
         <record model="estate.property" id="demo_data_form">
+            <field name="name">The Laurels</field>
+            <field name="expected_price">100.00</field>
+            <field name="postcode">390021</field>
+        </record>
 
-            <field name="name">Sanket Brahmbhatt</field>
-            <!-- <field name="description"></field> -->
-            <field name="postcode" >390021</field>
-           <!--  <field name="date_availability" />
-            <field name="expected_price" optional='hide' />
-            <field name="selling_price" optional='hide' />
-            <field name="bedrooms" optional='hide' />
-            <field name="living_area" optional='hide' />
-            <field name="facades" optional='hide' />
-            <field name="garage" optional='hide' />
-            <field name="garden" optional='hide' />
-            <field name="garden_orientation" optional='hide' />
-            <field name="property_buyer_id" />
-            <field name="property_seller_id" />
-            <field name="property_type_id" />
-            <field name="tag_ids" />
-            <field name="offer_ids" /> -->
+        <record model="estate.property" id="demo_data_form1">
+            <field name="name">The Coach House</field>
+            <field name="expected_price">100000.00</field>
+            <field name="postcode">390022</field>
+        </record>
+
+        <record model="estate.property" id="demo_data_form2">
+            <field name="name">Orchard House</field>
+            <field name="expected_price">1000.00</field>
+            <field name="postcode">390023</field>
         </record>
     </data>
 </odoo>

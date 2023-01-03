@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!-- creating new action -->
-        <record id="Create_task_model_action" model="ir.actions.act_window">
-            <field name="name">Create Task</field>
+        <record id="advertisement_Create_task_model_action" model="ir.actions.act_window">
+            <field name="name">Advertisement</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <record id="Create_task_model_action_2" model="ir.actions.act_window">
-            <field name="name">Create Task2</field>
-            <field name="res_model">estate.property</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <record id="Create_task_model_action_3" model="ir.actions.act_window">
-            <field name="name">Create Task3</field>
-            <field name="res_model">estate.property</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <record id="Create_task_model_action_4" model="ir.actions.act_window">
-            <field name="name">Create Task4</field>
-            <field name="res_model">estate.property</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <!-- Data display fro ref call -->
-        <record id="view_tree" model="ir.ui.view">
+        <record id="fields_view_tree" model="ir.ui.view">
             <field name="name">Real Estate Form View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
@@ -40,25 +20,22 @@
                     <field name="selling_price" optional='hide' />
                     <field name="bedrooms" optional='hide' />
                     <field name="living_area" optional='hide' />
+                    <field name="garden_area" optional='hide' />
                     <field name="facades" optional='hide' />
                     <field name="garage" optional='hide' />
                     <field name="garden" optional='hide' />
                     <field name="garden_orientation" optional='hide' />
-                    <field name="property_buyer_id" />
-                    <field name="property_seller_id" />
+                    <field name="state" />
                     <field name="property_type_id" />
+                    <field name="buyer_id" />
+                    <field name="salesperson_id" />
                     <field name="tag_ids" />
-                    <!-- <field name="offer_price"/>
-                    <field name="status"/>
-                    <field name="partner_id"/> -->
-                    <field name="offer_ids" />
-
+                    <field name="total_area"/>
 
                 </tree>
             </field>
         </record>
 
-        <!--  design form  -->
         <record id="real_estate_view_form_design" model="ir.ui.view">
             <field name="name">Real Estate Form View</field>
             <field name="model">estate.property</field>
@@ -68,26 +45,20 @@
                         <field name="state" widget="statusbar" options="{'clickable':'1'}" />
                     </header>
                     <sheet>
-                        <!-- <group> -->
                         <group>
                             <group>
                                 <label for="name" string="Customer Name" />
                                 <field name="name" style="font-size:39px" nolabel="1" />
-                                <label for="tag_ids" string="Tag" />
-                                <field name="tag_ids" nolabel="1" widget="many2many_tags"></field>
                                 <label for="postcode" string="PostCode" />
                                 <field name="postcode" nolabel="1" />
-                                <label for="property_type_id" string="Property Type" />
-                                <field name="property_type_id" nolabel="1" />
+                                <label for="tag_ids" string="Tag" />
+                                <field name="tag_ids" nolabel="1" widget="many2many_tags" />
                             </group>
                             <group>
-
-                                <label for="expected_price" string="Expected Price" />
-                                <field name="expected_price" nolabel="1" />
-                                <label for="selling_price" string="Sell Price" />
-                                <field name="selling_price" nolabel="1" />
                                 <label for="date_availability" string="Date" />
                                 <field name="date_availability" nolabel="1" />
+                                <label for="total_area" string="Total Area" />
+                                <field name="total_area" nolabel="1" />
                             </group>
                         </group>
                         <notebook>
@@ -105,11 +76,15 @@
                                         <field name="facades" nolabel="1" />
                                         <label for="garden" string="Garden" />
                                         <field name="garden" nolabel="1" />
+
                                     </group>
                                     <group>
                                         <label for="living_area" string="Living Area"
                                             style="margin-left:50px" />
                                         <field name="living_area" nolabel="1" />
+                                        <label for="garden_area" string="Garden Area"
+                                            style="margin-left:50px" />
+                                        <field name="garden_area" nolabel="1" />
                                         <label for="garage" string="Garage" />
                                         <field name="garage" nolabel="1" />
                                         <label for="garden_orientation"
@@ -120,32 +95,25 @@
                             </page>
                             <page string="Other Info">
                                 <group>
+                                    <group>
+                                        <field name="salesperson_id" widget="many2one_avatar_user" />
+                                        <field name="buyer_id" />
+                                    </group>
+                                    <group>
 
-                                    <label for="property_buyer_id" string="Buyer" />
-                                    <field name="property_buyer_id" nolabel="1"></field>
-
-                                    <label for="property_seller_id" string="Salemen" />
-                                    <field name="property_seller_id" nolabel="1"></field>
-
-
+                                    </group>
                                 </group>
                             </page>
                             <page string="Offer">
-                                <group>
-                                  
-                                    <group>
-
-                                        <field name="offer_ids" type="xml">
-                                            <tree>
-                                                <field name="price" />
-                                                <field name="status" />
-                                                <field name="partner_id" />
-                                            </tree>
-                                        </field>
-
-                                    </group>
-                            
-                                </group>
+                                <field name="offer_ids" type="xml" nolabel="1">
+                                    <tree expand="1" editable="top">
+                                        <field name="price"></field>
+                                        <field name="partner_id" widget="many2one_avatar"></field>
+                                        <field name="status"></field>
+                                        <field name="validity"></field>
+                                        <field name="date_deadline"></field>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                         <notebook>
@@ -163,7 +131,6 @@
                             <page string="Archive">
                             </page>
                         </notebook>
-                        <!-- </group> -->
                     </sheet>
                 </form>
             </field>
@@ -192,66 +159,5 @@
             </field>
         </record>
 
-        <!-- estate.property.type record  -->
-        <record id="Create_estate_property_type_model_action" model="ir.actions.act_window">
-            <field name="name">property type</field>
-            <field name="res_model">estate.property.type</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-        <record id="view_tree_estate_property_type" model="ir.ui.view">
-            <field name="name">Real Estate type Form View</field>
-            <field name="model">estate.property.type</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="name" />
-                </tree>
-            </field>
-        </record>
-
-        <record id="real_estate_view_form_design" model="ir.ui.view">
-            <field name="name">Real Estate type Form View</field>
-            <field name="model">estate.property</field>
-            <field name="arch" type="xml">
-                <sheet>
-                    <field name="name" />
-
-                </sheet>
-            </field>
-        </record>
-
-        <!-- estate.property.tag record  -->
-        <record id="Create_estate_property_tag_model_action" model="ir.actions.act_window">
-            <field name="name">Tag</field>
-            <field name="res_model">estate.property.tag</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <record id="estate_property_tag_model" model="ir.ui.view">
-            <field name="name">tag view form </field>
-            <field name="model">estate.property.tag</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="name" />
-                    <field name="description" />
-                </tree>
-            </field>
-        </record>
-
-        <record id="estate_property_tag_model_design" model="ir.ui.view">
-            <field name="name">tag design</field>
-            <field name="model">estate.property.tag</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <label for="name" string="Company Name"></label>
-                            <field name="name" nolabel="1" />
-                            <label for="description" string="description Name"></label>
-                            <field name="description" nolabel="1" />
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
     </data>
 </odoo>
