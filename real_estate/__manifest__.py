@@ -9,6 +9,7 @@
         'views/estate_menus.xml',
         'views/estate_property_views.xml',
         'views/estate_property_type_views.xml',
+        'views/estate_property_offer_views.xml'
     ],
     'demo': [
         'demo/estate_property_demo.xml',

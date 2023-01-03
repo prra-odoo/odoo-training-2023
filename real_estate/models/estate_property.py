@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.tools.date_utils import add
+from odoo.exceptions import UserError
 
 class estateProperty(models.Model):
     _name = "estate.property"
@@ -40,11 +41,22 @@ class estateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
     
-    # @api.onchange("garden")
-    # def _onchange_garden(self):
-    #     if self.garden == True:
-    #         self.garden_area = 10
-    #         self.garden_orientation = 'north'
-    #     else:
-    #         self.garden_area = 0
-    #         self.garden_orientation = ''
+    best_offer = fields.Float(compute="_compute_best_offer", default=0)
+    @api.depends('offer_ids.price')
+    def _compute_best_offer(self):
+        for record in self:
+            record.best_offer = max(record.offer_ids.mapped('price'), default=0)
+
+    def action_property_sold(self):
+        for record in self:
+            if record.state == 'canceled':
+                raise UserError("Canceled Properties cannot be sold")
+            record.state = 'sold'
+        return True
+
+    def action_property_cancel(self):
+        for record in self:
+            if record.state == 'sold':
+                raise UserError("Sold Properties cannot be canceled")
+            record.state = 'canceled'
+        return True
