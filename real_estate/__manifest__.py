@@ -1,5 +1,5 @@
 {
-    'name': 'REAL_ESTATE',
+    'name': 'REAL ESTATE',
     'version': '2.0',
     'description': 'Real Estate Module',
     'author': 'odoo',
@@ -12,6 +12,8 @@
     ],
 
     'data': [
+        'views/estate_property_form_view.xml',
+        'views/estate_menu.xml',
         'views/estate_property_views.xml',
         'security/ir.model.access.csv',
 

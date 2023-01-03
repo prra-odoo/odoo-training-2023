@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="real_estate_menu_root" name="real estate">
+        <menuitem id="estate_first_level_menu_file" name="Advertisement">
+            <menuitem id="estate_model_menu_action_property" action="estate_property_action" name="Property"/>
+        </menuitem>
+        <menuitem id="estate_first_level_menu_file_action" name="Action">
+            <menuitem id="estate_model_menu_action_overview" action="estate_property_action" name="overview"/>
+            <menuitem id="estate_model_menu_action_qotation" action="estate_property_action" name="qotation"/>
+            <menuitem id="estate_model_menu_action_order" action="estate_property_action" name="order"/>
+        </menuitem>
+        <menuitem id="estate_first_level_menu_file_window" name="Window">
+            <menuitem id="estate_model_menu_action_home" action="estate_property_action" name="home"/>
+            <menuitem id="estate_model_menu_action_contactus" action="estate_property_action" name="contac us"/>
+            <menuitem id="estate_model_menu_action_help" action="estate_property_action" name="help"/>    
+        </menuitem>
+    </menuitem>
+</odoo> 
