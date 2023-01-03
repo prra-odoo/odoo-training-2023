@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="real_estate_action" model="ir.actions.act_window">
-        <field name="name">Property</field>
+        <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Property, the first step of a new property!
+            </p>
+        </field>
     </record>
 
-    <menuitem id="estate_menu_root" name="Real Estate">
-    <menuitem id="estate_first_level_menu" name="Advertisement">
-        <menuitem id="estate_model_menu_action" action="real_estate_action"/>
-    </menuitem>
-</menuitem>
+
+ <menuitem id="estate_menu_root" name="Real Estate">
+        <menuitem id="estate_first_level_menu" name="Advertisement">
+            <menuitem id="estate_advertisement_menu_action" action="real_estate_action" name="Selling Resedential" />
+            <menuitem id="estate_sellCommercial_menu_action" action="real_estate_action" name="Selling Commercial" />
+        </menuitem>
+        <menuitem id="estate_first_level2_menu" name="Rent Property">
+            <menuitem id="estate_rentCommercial_menu_action" action="real_estate_action" name="Renting Resedential"/>
+            <menuitem id="estate_rentResidential_menu_action" action="real_estate_action" name="Renting Commercial"/>
+        </menuitem>
+        <menuitem id="estate_first_level3_menu" name="Lease Property">
+            <menuitem id="estate_leaseCommercial_menu_action" action="real_estate_action" name="leasing Resedential"/>
+            <menuitem id="estate_leaseResidential_menu_action" action="real_estate_action" name="leasing Commercial"/>
+        </menuitem>
+       </menuitem>
 </odoo>
