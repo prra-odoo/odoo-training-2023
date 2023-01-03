@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<record id="real_estate_model_action" model="ir.actions.act_window">
-    <field name="name">account.journal.dashboard.kanban</field>
-    <field name="res_model">real_estate.property</field>
-    <field name="view_mode">tree,form</field>
-</record>
+
+    <record id="real_estate_property_view_tree" model="ir.ui.view">
+        <field name="name">real.estate.tree</field>
+        <field name="model">real.estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date_availability"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <field name="garage"/>
+                <field name="garden_orientation"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="real_estate_property_view_form" model="ir.ui.view">
+        <field name="name">real.estate.form</field>
+        <field name="model">real.estate.property</field>
+        <field name="arch" type="xml">
+            <form string="Property">
+                <sheet>
+                <group name="name" string="string">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="postcode"/>
+                    <field name="date_availability"/>
+                    <field name="expected_price"/>
+                    <field name="selling_price"/>
+                    <field name="bedrooms"/>
+                    <field name="living_area"/>
+                    <field name="facades"/>
+                    <field name="garage"/>
+                    <field name="garden"/>
+                    <field name="garden_area"/>
+                    <field name="garden_orientation"/>
+                    <field name="active"/>
+                    <field name="state"/>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="real_estate_model_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">real.estate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new property, the first step of a new project!
+            </p>
+            <p>
+                Once the property is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>
 </odoo>
 
