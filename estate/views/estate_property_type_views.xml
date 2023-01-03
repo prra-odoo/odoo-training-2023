@@ -17,6 +17,11 @@
             <form>
                 <sheet>
                     <h1><field name="name"/></h1>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="list_property"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

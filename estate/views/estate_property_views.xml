@@ -50,6 +50,8 @@
 
             <form string="estate_form_view">
                 <header>
+                    <button name="action_sold" type="object" string="Sold"/>
+                    <button name="action_canceled" type="object" string="Cancel"/>
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>
 
@@ -104,11 +106,28 @@
                         </page>
                         <page string="Other info">
                             <group>
-                                <field name="sales_id"/>
+                                <field name="sales_id" widget="many2one_avatar"/>
                             </group>
                             <group>
                                 <field name="buyers_id"/>
                             </group>
+                            <group>
+                                <field name="total_area"/>
+                            </group>
+                            <group>
+                                <field name="best_price"/>
+                            </group>
+                        </page>
+                        <page string="Offers">
+                            <field name="offer_ids">
+                                <tree editable="1">
+                                    <field name="price"/>
+                                    <field name="partner_id"/>
+                                    <button name="action_accept" type="object" string="Accept" icon="fa-check"/>
+                                    <button name="action_refuse" type="object" string="Refuse" icon="fa-times"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
