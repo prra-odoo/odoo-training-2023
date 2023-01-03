@@ -2,7 +2,7 @@ from odoo import fields,models
 
 class real_Esate_Properties(models.Model):
 
-	_name='real.state.properties'
+	_name='real.estate.properties'
 	_description="Selling your properties"
 
 
