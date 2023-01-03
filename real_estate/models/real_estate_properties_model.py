@@ -1,18 +1,20 @@
+# -*- coding: utf-8 -*-
 from odoo import fields,models
-
+from datetime import date
+from dateutil.relativedelta import relativedelta
 class real_Esate_Properties(models.Model):
 
 	_name='real.estate.properties'
 	_description="Selling your properties"
 
 
-	name=fields.Char(required=True)
+	name=fields.Char(required=True,default="Unknown")
 	description=fields.Text()
 	Postcode=fields.Char()
-	date_availablity=fields.Date()
+	date_availablity=fields.Date(copy=False,default=fields.date.today()+relativedelta(months=3))
 	expected_price=fields.Float(required=True)
-	selling_price=fields.Float()
-	bedroom=fields.Integer()
+	selling_price=fields.Float(readonly=True,copy=False)
+	bedroom=fields.Integer(default="2")
 	living_area=fields.Integer()
 	facades=fields.Integer()
 	garage=fields.Boolean()
@@ -20,6 +22,15 @@ class real_Esate_Properties(models.Model):
 	gardan_area=fields.Integer()
 	garden_orientation=fields.Selection(
 		string='Orientation',
-		selection=[('1','North'),('2','South'),('3','East'),('4','West')])
-	
-	
+		selection=[('north','North'),('south','South'),('east','East'),('west','West')]
+	)
+	active=fields.Boolean(default=True)
+	state=fields.Selection(
+		string='State',
+		selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancled','Canceled')],
+		required=True,
+		copy=False,
+		default='new'
+	)
+
+

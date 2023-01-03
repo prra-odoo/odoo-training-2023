@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 {
     'name' : 'RealEstate',
     'category' : 'Sales',
@@ -6,7 +8,10 @@
     'version' : '1.0',
     'author' : 'THSH',
     'data' : [    
-        'security/ir.model.access.csv'],
+        'security/ir.model.access.csv',
+        'views/estate_property_views.xml',
+        'views/estate_menus.xml'
+        ],
     'demo' : [     ],
     'depends' : [   
       ],
