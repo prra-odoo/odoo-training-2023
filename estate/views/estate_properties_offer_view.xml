@@ -7,8 +7,10 @@
 		<field name="arch" type="xml">
 			<tree string="Tree View" editable="top">
 				<field name="partner_id"/>
-				<field name="price"/>
-				<field name="status"/>
+				<field name="price" optional="hide"/>
+				<field name="status" optional="hide"/>
+				<button name="accepted_action" type="object" title="accept" icon="fa-check"></button>
+				<button name="refused_action" type="object" title='refuse'  icon="fa-times"></button>
 				<field name="validity"/>
 			</tree>
 		</field>
