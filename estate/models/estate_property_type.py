@@ -8,3 +8,8 @@ class EstateModel(models.Model):
 
     name = fields.Char('Name',required = True)
     list_property = fields.One2many("estate.property", "property_type_id")
+
+    _sql_constraints = [
+        ('unique_property_type_name', 'unique(name)',
+         'The property type name should be unique')
+    ]

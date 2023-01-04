@@ -2,16 +2,17 @@
 
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 
 class EstateModel(models.Model):
     _name = "estate.property"
     _description = "Estate Property Model"
+    _inherit = "mail.thread"
 
     name = fields.Char('Name',required = True)
     description = fields.Text()
     postcode = fields.Char(required=True)
-    date_availability = fields.Date('Date availability', readonly = True, default=lambda self: fields.datetime.now()+ relativedelta(months=3) )
+    date_availability = fields.Date('Date availability', readonly = True, default=lambda self: fields.datetime.now()+ relativedelta(months=3))
     expected_price = fields.Float('Expected price', required = True)
     selling_price = fields.Float('Selling price', copy = False)
     bedrooms = fields.Integer()
@@ -36,6 +37,13 @@ class EstateModel(models.Model):
     total_area = fields.Float(compute="_compute_total_area")
     best_price = fields.Float(compute="_compute_max_price", default=0)
 
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price >= 0)',
+         'The expected price should be positive'),
+        ('check_selling_price', 'CHECK(selling_price >= 0)',
+         'The selling price should be positive')
+    ]
+
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
         for record in self:
@@ -49,7 +57,7 @@ class EstateModel(models.Model):
     def action_sold(self):
         for record in self:
             if record.state == "canceled":
-                raise ValidationError("Canceled property cannot be sold")
+                raise UserError("Canceled property cannot be sold")
             else:
                 record.state = "sold"
         return True
@@ -57,8 +65,14 @@ class EstateModel(models.Model):
     def action_canceled(self):
         for record in self:
             if record.state == "sold":
-                raise ValidationError("Sold property cannot be canceled")
+                raise UserError("Sold property cannot be canceled")
             else:
                 record.state = "canceled"
-        return True    
+        return True 
+
+    @api.constrains('selling_price', 'expected_price')
+    def _check_selling_price(self):
+        for record in self:
+            if record.selling_price < (0.9)*record.expected_price:
+                raise UserError("Selling price should be greater than 90 percentage of expected price")
 
