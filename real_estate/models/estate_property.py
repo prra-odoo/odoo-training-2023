@@ -19,7 +19,7 @@ class Real_estate(models.Model):
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
-    state=fields.Selection(
+    state_sel = state=fields.Selection(
         string='State',
         selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancled','Canceled')],
         required=True,
