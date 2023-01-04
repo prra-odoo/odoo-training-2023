@@ -4,16 +4,16 @@
         <field name="name">Renil</field>
         <field name="description">Real Estate Description</field>
         <field name="postcode">395006</field>
-        <field name="expected_price">2000</field>
-        <field name="selling_price">1500</field>
+        <field name="expected_price">200000</field>
+        <field name="selling_price">250000</field>
     </record>
 
     <record model="estate.property" id="realestate_data2">
         <field name="name">Dhrumil</field>
         <field name="description">Real Estate Description</field>
         <field name="postcode">395010</field>
-        <field name="expected_price">200</field>
-        <field name="selling_price">150</field>
+        <field name="expected_price">100000</field>
+        <field name="selling_price">200000</field>
     </record>
 
     <record model="estate.property" id="realestate_data3">

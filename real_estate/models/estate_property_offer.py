@@ -2,6 +2,7 @@
 
 from odoo import api,fields,models
 from odoo.tools.date_utils import add
+from odoo.exceptions import UserError
 
 class estatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -28,11 +29,18 @@ class estatePropertyOffer(models.Model):
            record.validity = day.days
 
     def action_accept(self):
-        for record in self:
-            record.status='accepted'
-            record.property_id.selling_price=record.price
-            record.property_id.buyer_id=record.partner_id
-
+        if "accepted" in self.mapped("property_id.offer_ids.status"):
+            raise UserError("this is error")
+        else:
+            for record in self:
+                record.status='accepted'
+                record.property_id.selling_price=record.price
+                record.property_id.buyer_id=record.partner_id
+ 
     def action_refuse(self):
         for record in self:
             record.status='refused'
+
+    _sql_constraints = [
+        ('price', 'CHECK(price >= 0)', 'A Offer price should be positive.')
+    ]

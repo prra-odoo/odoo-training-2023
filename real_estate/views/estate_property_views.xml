@@ -90,6 +90,7 @@
                     <header>
                         <button name="sold_button" type="object" string="Sold"/>
                         <button name="cancel_button" type="object" string="Cancel"/>
+                        <button type="action" name="%(offers_action)d" string="Offers"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -152,8 +153,8 @@
                                     <tree editable="top">
                                         <field name="price"/>
                                         <field name="partner_id"/>
-                                        <button name="action_accept" type="object" icon="fa-check"/>
-                                        <button name="action_refuse" type="object" icon="fa-times"/>
+                                        <button name="action_accept" title="Accept" type="object" icon="fa-check"/>
+                                        <button name="action_refuse" title="Refuse" type="object" icon="fa-times"/>
                                         <field name="status" optional='hide'/>
                                         <field name="validity"/>
                                         <field name="date_deadline"/>
@@ -162,6 +163,11 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>

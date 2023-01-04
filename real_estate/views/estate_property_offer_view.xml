@@ -8,8 +8,8 @@
                 <tree editable="bottom">
                     <field name="price"/>
                     <field name="partner_id"/>
-                    <button name="action_accept" type="object" icon="fa-check"/>
-                    <button name="action_refuse" type="object" icon="fa-times"/>
+                    <button name="action_accept" title="accept" type="object" icon="fa-check"/>
+                    <button name="action_refuse" title="refuse" type="object" icon="fa-times"/>
                     <field name="status" optional='hide'/>
                     <field name="validity"/>
                     <field name="date_deadline"/>

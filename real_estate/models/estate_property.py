@@ -2,11 +2,13 @@
 
 from odoo import api,models,fields
 from datetime import date
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
+from odoo.tools import float_compare, float_is_zero
 
 class estateProperty(models.Model):
     _name = "estate.property"
     _description = "The Real Estate Advertisement Module"
+    _inherit = ["mail.thread","mail.activity.mixin"]
 
     name = fields.Char(string='Name', required=True, copy=True)
     description = fields.Text(string='Description')
@@ -35,7 +37,7 @@ class estateProperty(models.Model):
     offer_ids=fields.One2many("estate.property.offer","property_id")
     total_area=fields.Float(string="Total Area", compute="_compute_total", inverse="_inverse_total")
     best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
-    status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
+    status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")], tracking=True)
 
     @api.depends("living_area", "garden_area")
     def _compute_total(self):
@@ -59,3 +61,15 @@ class estateProperty(models.Model):
                 raise UserError(('Sold property can not be sold.'))
             else:
                 record.status = 'cancel'
+
+    _sql_constraints = [
+        ('expected_price', 'CHECK(expected_price >= 0)', 'A property expected price should be positive.'),
+        ('selling_price', 'CHECK(selling_price >= 0)', 'A property selling price should be positive.')
+    ]
+
+    @api.constrains("expected_price", "selling_price")
+    def _check_price_difference(self):
+        for record in self:
+            if (not float_is_zero(record.selling_price, precision_rounding=0.01) and float_compare(record.selling_price, record.expected_price * 90.0 / 100.0, precision_rounding=0.01) < 0):
+                raise ValidationError("The selling price must be at least 90% of the expected price! "
+                                        + "You must reduce the expected price if you want to accept this offer.")

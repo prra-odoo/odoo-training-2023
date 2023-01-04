@@ -4,6 +4,7 @@
     'name': 'Real Estate',
     'description': 'The Real Estate Advertisement Module',
     'author': 'Renilkumar Kajavadra',
+    'depends':['base','mail'],
     'data': [
                 'views/estate_property_views.xml',
                 'views/estate_property_menus.xml',
