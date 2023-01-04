@@ -7,8 +7,86 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No property found, Please add your property over here</p>
             <p>Use the top left
-                <strong>Create</strong> button to add new property!!!
+                <strong>CREATE</strong> button to add new property!!!
             </p>
+        </field>
+    </record>
+    <!-- List view -->
+    <record id="estate_property_model_tree_view" model="ir.ui.view">
+        <field name="name">Real Estate List View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="List View">
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="garden_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="date_availability"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Form view -->
+    <record id="estate_property_model_form_view" model="ir.ui.view">
+        <field name="name">Real Estate Form View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="Property">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="e.g. Cozy Apartment in Ahmedabad"/>
+                    </h1>
+                    <br/>
+                    <group>
+                        <group>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                        </group>
+                        <group>
+                            <field name="selling_price"/>
+                            <field name="expected_price"/>
+                        </group>
+                    </group>
+                    <br/>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <group>
+                                <field name="description"/>
+                                <field name="bedrooms"/>
+                                <field name="living_area"/>
+                                <field name="facades"/>
+                                <field name="garage"/>
+                                <field name="garden"/>
+                                <field name="garden_area"/>
+                                <field name="garden_orientation"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Search view -->
+    <record id="estate_property_search" model="ir.ui.view">
+        <field name="name">Estate Property Search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Estate Property Search">
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="garden_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="date_availability"/>
+                <filter string="Available" name="available" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Stage" name="stage" context="{'group_by': 'postcode'}"/>
+                <separator/>
+            </search>
         </field>
     </record>
 </odoo>
