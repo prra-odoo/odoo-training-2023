@@ -28,12 +28,16 @@ class estatePropertyoffer(models.Model):
      
      def offer_accepted(self):
           for record in self:
-               record.status="accepted"
-          record.property_id.selling_price=record.price
-          record.property_id.buyer_id=record.partner_id
+               if "accepted" in self.mapped("property_id.offer_ids.status"):
+                    raise UserError("Its an Error")
+               else: 
+                    for record in self:
+                     record.status="accepted"
+                     record.property_id.selling_price=record.price
+                     record.property_id.buyer_id=record.partner_id
      
      def offer_refused(self):
           for record in self:
                record.status="refused"
                
-     
+     _sql_constraints = [('price','CHECK(price>=0)','Offer Price should be positive')]

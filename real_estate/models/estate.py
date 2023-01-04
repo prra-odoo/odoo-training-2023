@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError , ValidationError
+from odoo.tools import float_compare, float_is_zero
 
 
 class realEstate(models.Model):
     _name = "real.estate"
     _description = "This is regarding the real_estate"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
     postcode = fields.Integer(string='Postcode')
     date_availability = fields.Date(
         string='Date Available', default=lambda self: fields.Datetime.now())
-    expected_price = fields.Float(string='Price', required=True)
+    expected_price = fields.Float(string=' Expected Price', required=True)
     selling_price = fields.Float(string='Selling Price', required=True)
     bedrooms = fields.Integer(string='Bedrooms')
     living_area = fields.Integer(string='Living Area')
@@ -43,7 +45,7 @@ class realEstate(models.Model):
         string='Best Offer', compute="_compute_best_offer")
 
     status = fields.Selection(
-        selection=[('sold', 'Sold'), ('cancel', 'Cancel')])
+        selection=[('sold', 'Sold'), ('cancel', 'Cancel')], tracking=True)
 
     @api.depends("living_area", "garden_area")
     def _compute_total(self):
@@ -67,3 +69,18 @@ class realEstate(models.Model):
                 raise UserError(('Sold property can not be sold.'))
             else:
                 record.status = 'cancel'
+
+    _sql_constraints = [('expected_price', 'CHECK(expected_price>=0)', 'Expected Price should be positive'),
+                        ('selling_price', 'CHECK(selling_price>=0)',
+                         'Selling Price should be positive')
+                        ]
+
+    @api.constrains("expected_price", "selling_price")
+    def _price_difference(self):
+        for record in self:
+            if ((not float_is_zero(record.selling_price, precision_rounding=0.01))
+                    and float_compare(record.selling_price, record.expected_price*0.9, precision_rounding=0.01) < 0
+                    ):
+             raise ValidationError(
+                "The selling price must be at least 90% of the expected price!"
+            )

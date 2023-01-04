@@ -6,7 +6,7 @@
             <field name="description">Hello Odooers</field>
             <field name="postcode">1234</field>
             <field name="expected_price">12</field>
-            <field name="selling_price">10</field>
+            <field name="selling_price">11</field>
             <field name="bedrooms">3</field>
         </record>
         <record model="real.estate" id="real_estate_demo_data_2">
@@ -14,7 +14,7 @@
             <field name="description">Hello Dhrumil</field>
             <field name="postcode">1234</field>
             <field name="expected_price">120</field>
-            <field name="selling_price">100</field>
+            <field name="selling_price">110</field>
             <field name="bedrooms">2</field>
         </record>
         <record model="real.estate" id="real_estate_demo_data_3">
@@ -22,7 +22,7 @@
             <field name="description">Hello Shah</field>
             <field name="postcode">1234</field>
             <field name="expected_price">120</field>
-            <field name="selling_price">100</field>
+            <field name="selling_price">110</field>
             <field name="bedrooms">4</field>
         </record>
     </data>

@@ -33,7 +33,7 @@
 
         <record id="property_test_model_action4" model="ir.actions.act_window">
             <field name="name">Property Tags</field>
-            <field name="res_model">estate.property.type</field>
+            <field name="res_model">estate.property.tag</field>
             <field name="view_mode">tree,form</field>
         </record>
 
@@ -66,6 +66,7 @@
                             string='Sold' type='object' />
                         <button name="cancel_button" widget="statusbar" options="{'clickable':'1'}"
                             string='Cancel' type='object' />
+                            <button type="action" name="%(property_offer_action)d" string="Redirect"/>
                     </header>
                     <sheet>
                         <label for="name">Name</label>
@@ -138,6 +139,12 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                      </div>
                 </form>
             </field>
         </record>

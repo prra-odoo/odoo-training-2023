@@ -3,10 +3,9 @@
 {
     'name' : 'Real Estate',
     'author' : 'Dhrumil Shah',
-    'depends' : ['base'],
+    'depends' : ['base','mail'],
     'version' : '1.0',
     'data': [
-        # 'data/estate.xml',
         'security/ir.model.access.csv',
         'views/view_estate_model.xml',
         'views/action_estate_model.xml',
@@ -19,4 +18,5 @@
         'demo/real_estate_demo_data.xml',
     ],
     'application' : True,
+    'license' : ''
 }
