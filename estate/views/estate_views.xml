@@ -52,6 +52,7 @@
                     <header>
                         <button name="action_sold" type="object" string ="Sold"/>
                         <button name="action_cancel" type="object" string ="Cancel"/>
+                        <button name="%(estate.estate_model_action01)d" type="action" string="My Action"/>
                         <field name="state" widget="statusbar" options ="{'clickable':'1'}"/>
                     </header> 
                     <sheet>
@@ -80,7 +81,7 @@
                                 <field name="salesperson_id" widget="many2one_avatar"/>
                             </group>
                             <group style="Margin-top:30px">
-                                <field name="buyers_id"/>
+                                <field name="buyers_id" widget="many2one_avatar"/>
                             </group>
                             <group style="Margin-top:30px">
                                 <field name="best_offer"/>
@@ -88,8 +89,10 @@
                         </group>
                         <notebook>
                             <page string="Description">
-                                <field name="description"/>
                                 <group>
+                                    <group style="Margin-top:30px">
+                                        <field name="description"/>
+                                    </group>
                                     <group style="Margin-top:30px">
                                         <field name="garage"/>
                                     </group>
@@ -125,14 +128,18 @@
                                         <field name ="partner_id"/>
                                         <field name="validity"/>
                                         <field name ="date_deadline"/>
-                                        <button name="state" string="accepted" type="object" icon="fa-check"/>
-                                        <button name="state" string="refused" type="object" icon="fa-times"/>
+                                        <button name="action_accept" string='accepted' type="object" icon="fa-check"/>
+                                        <button name="action_refused" string='refused' type="object"  icon="fa-times"/>
                                         <field name ="status"/>
                                     </tree>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        </div>
                 </form>
             </field>
         </record>

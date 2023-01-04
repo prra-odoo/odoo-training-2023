@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields , api
+from odoo import models,_,fields , api
 from dateutil.relativedelta import relativedelta
 from odoo.tools.date_utils import add,subtract
+from odoo.exceptions import ValidationError
 
 class estateOffer(models.Model):
     _name="estate.property.offer"
     _description = "This is the estate property offer model"
-    
+    _sql_constraints=[
+       ( ('check_price'),'CHECK(price>0)','The offer price must be positive')
+    ]
+
     price = fields.Float()
     status = fields.Selection(string = "status",selection = [('accepted','Accepted'),('refused','Refused')])
     create_date = fields.Date(default = lambda self: fields.datetime.today(),readonly=True)
@@ -15,7 +19,6 @@ class estateOffer(models.Model):
     date_deadline = fields.Date("Deadline" ,compute="_compute_deadline_" , inverse = "_compute_validty_changes_")
     partner_id = fields.Many2one("res.partner",string="Partner id",)
     property_id= fields.Many2one("estate.property",string="Property id")
-    state = fields.Selection(string='Status',selection=[('accepted','Accepted'),('refused','Refused')])
     
     @api.depends('create_date','validity','date_deadline')
     def _compute_deadline_(self):
@@ -26,5 +29,27 @@ class estateOffer(models.Model):
     def _compute_validty_changes_(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
+    
+    @api.depends('status')
+    def action_accept(self):
+        for record in self.search([('status','=','accepted')]):
+            raise ValidationError(("cannot accept more than one offer"))
+        self.status='accepted'
+        self.property_id.selling_price = self.price
+        self.property_id.buyers_id = self.partner_id
+
+
+    def action_refused(self):
+        for record in self:
+            if record.status == 'accepted':
+                record.status = 'refused'
+    
+  
+                
+        
+            
+            
+            
+    
             
     
