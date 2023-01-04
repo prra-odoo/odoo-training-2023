@@ -6,7 +6,7 @@
         <field name="name">real.estare.view.form</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <form string="Lost Reason">
+            <form string="Estate Property">
                 <sheet>
                     <h1>
                         <field name="name"/>
