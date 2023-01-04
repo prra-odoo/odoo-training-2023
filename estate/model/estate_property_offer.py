@@ -29,13 +29,23 @@ class EstatePropertyOffer(models.Model):
     def _inverse_date(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
-
+    #         @api.depends('validity')
+    #          def _inverse_validity(self):
+    #           for record in self:
+    #               record.date_deadline = record.date_availability + relativedelta(days =+ record.validity)
+    
     def action_accepted(self):
         for record in self:
             record.status = 'accepted'
+            record.property_id.selling_price = record.price
+            record.property_id.buyer_id = record.partner_id
         return True
 
     def action_refused(self):
         for record in self:
             record.status = 'refused'
         return True
+    
+    _sql_constraints = [
+        ('check_price', 'CHECK(price > 0)', 'The offer price must be stricly positive.'),
+    ]

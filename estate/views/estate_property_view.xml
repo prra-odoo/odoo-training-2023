@@ -55,7 +55,8 @@
                     <header>
                         <button name="property_cancel" type="object" string="Cancel"/>
                         <button name="property_sold" type="object" string="Sold"/>
-                        <field name="state" widget="statusbar" options = "{'clickable' : '1'}"/>
+                        <field name="state" widget="statusbar"/>
+                        <!-- options = "{'clickable' : '1'}" -->
                     </header>
                     <sheet> 
                         <label for="name" string="Name" />
@@ -88,7 +89,7 @@
                             <group>
                                 <field name="best_price"/>
                             </group>
-                        </group>                        
+                        </group>     
                         <notebook>
                             <page string="Description">
                                     <group>
@@ -130,6 +131,7 @@
                                             <field name="partner_id" optional="show"/>
                                             <button name="action_accepted" type="object" title="ac" icon="fa-check"/>
                                             <button name="action_refused" type="object" title="re" icon="fa-times"/>
+                                            <!-- attrs="{'invisible': [('status', '=', 'accepted')]}" -->
                                             <field name="status" optional="show"/>
                                         </tree>
                                 </field>

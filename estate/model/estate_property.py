@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from odoo.exceptions import UserError, AccessError
+from odoo.exceptions import UserError, ValidationError
 from datetime import datetime, time
+from odoo.tools.float_utils import float_compare
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -16,7 +17,7 @@ class EstateProperty(models.Model):
     postcode = fields.Char('Postcode')
     date_availability = fields.Date('Date availability',default=lambda self:fields.Datetime.now(),readonly=True)
     expected_price = fields.Float('Expected price',required=True)
-    selling_price = fields.Float('Selling price',readonly=True)
+    selling_price = fields.Float('Selling price') #,compute='_compute_selling_price'
     bedrooms = fields.Integer('Bedroom',default='2')
     living_area = fields.Integer('Living area (sqm)')
     facades = fields.Integer('Facades')
@@ -36,7 +37,7 @@ class EstateProperty(models.Model):
     )
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offers")
     total_area = fields.Float('Total Area(sqm)',compute='_compute_area')
-    best_price = fields.Float("Best Price",compute="_compute_best_price")
+    best_price = fields.Float('Best Price',compute='_compute_best_price')
 
     # method to calculate total area
     @api.depends('living_area', 'garden_area')
@@ -64,3 +65,21 @@ class EstateProperty(models.Model):
             else:
                 record.state = 'canceled'
         return True
+
+    # constraint
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)', 'The expected price must be stricly positive.'),
+        ('check_selling_price', 'CHECK(selling_price > 0)', 'The selling price must be stricly positive.'),
+    ]
+    # python constraint
+    @api.constrains('selling_price')
+    def check_selling(self):
+        for record in self:
+            if (record.selling_price < record.expected_price * 0.9):
+                raise ValidationError('The serial number has already been assigned')
+
+    #if float_compare(record.expected_price - record.selling_price, ordered_qty, precision_digits=precision) >= 0:
+    #     raise ValidationError('The serial number has already been assigned')
+            
+
+    
