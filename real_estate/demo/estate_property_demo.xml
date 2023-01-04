@@ -5,19 +5,19 @@
             <field name="name">Odoo</field>
             <field name="description">Hello Oddoers!!!!</field>
             <field name="expected_price">12</field>
-            <field name="selling_price">10</field>
+            <!-- <field name="selling_price">10</field> -->
         </record>
         <record model="estate.property" id="real_estate_demo_data_2">
             <field name="name">First Property</field>
             <field name="description">This is Property 1</field>
             <field name="expected_price">120</field>
-            <field name="selling_price">100</field>
+            <!-- <field name="selling_price">0</field> -->
         </record>
         <record model="estate.property" id="real_estate_demo_data_3">
             <field name="name">Second Property</field>
             <field name="description">This is Property 2</field>
             <field name="expected_price">120</field>
-            <field name="selling_price">100</field>
+            <!-- <field name="selling_price">100</field> -->
         </record>
     </data>
 </odoo>

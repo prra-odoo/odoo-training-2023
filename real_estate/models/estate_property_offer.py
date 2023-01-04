@@ -2,11 +2,12 @@
 
 from odoo import models, fields, api
 from odoo.tools.date_utils import add
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 class estatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Property offer is the amount of a potential buyer offers to the seller."
+    _order = "price desc"
 
     price = fields.Float(required=True)
     status = fields.Selection(
@@ -28,13 +29,25 @@ class estatePropertyOffer(models.Model):
     def _inverse_date_deadline(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
-
-    def action_offer_accepted(self):
-        for record in self:
-            record.status = 'accepted'
-        return True
     
     def action_offer_rejected(self):
         for record in self:
-            record.status = 'refused'
+            if record.status == 'accepted':
+                record.status = 'refused'
+                record.property_id.selling_price = 0
+        return True
+
+    _sql_constraints = [
+        ('check_offer_price', 'CHECK(price>=0)', 'Offer price must be Strictly Positive!')
+    ]
+
+    def action_offer_accepted(self):
+        if 'accepted' in self.mapped("property_id.offer_ids.status"):
+            raise UserError("Cannot Accept Offers from Multiple Properties!!")
+        else:
+            for record in self:
+                record.status = 'accepted'
+                record.property_id.selling_price = record.price
+                record.property_id.buyer_id = record.partner_id
+                record.property_id.state = 'offer_accepted'                    
         return True
