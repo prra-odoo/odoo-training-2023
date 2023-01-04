@@ -5,6 +5,7 @@
     'author': "Sanket Brahmbhatt(sabr)",
     'summary': "Creating Real Estate Model",
     'version': '1.0',
+    'depends' : ['mail'],  
     'data': [
         #   'data/estate_demodata.xml',
         'views/estate_property_views.xml',

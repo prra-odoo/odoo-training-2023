@@ -11,11 +11,11 @@
             <field name="name">Real Estate Form View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree default_order="name desc">
                     <field name="name" />
-                    <field name="description" />
+                    <field name="description" optional='hide' />
                     <field name="postcode" optional='hide' />
-                    <field name="date_availability" />
+                    <field name="date_availability" optional='hide' />
                     <field name="expected_price" optional='hide' />
                     <field name="selling_price" optional='hide' />
                     <field name="bedrooms" optional='hide' />
@@ -25,12 +25,12 @@
                     <field name="garage" optional='hide' />
                     <field name="garden" optional='hide' />
                     <field name="garden_orientation" optional='hide' />
-                    <field name="state" />
-                    <field name="property_type_id" />
+                    <field name="state" optional='hide' />
+                    <field name="property_type_id"  optional='hide'/>
                     <field name="buyer_id" />
-                    <field name="salesperson_id" />
-                    <field name="tag_ids" />
-                    <field name="total_area"/>
+                    <field name="salesperson_id" optional='hide' />
+                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="total_area" optional='hide' />
 
                 </tree>
             </field>
@@ -42,6 +42,12 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+                        <button name="action_sold" type="object" string="Sold" states="new"></button>
+                        <button name="action_cancel" type="object" string="Cancel" states="new"></button>
+                        <button type="action" name="%(Create_estate_property_tag_model_action)d"
+                            string="Property Tag" />
+                        <button type="action" name="%(Create_estate_property_type_model_action)d"
+                            string="Property Type" />
                         <field name="state" widget="statusbar" options="{'clickable':'1'}" />
                     </header>
                     <sheet>
@@ -52,13 +58,20 @@
                                 <label for="postcode" string="PostCode" />
                                 <field name="postcode" nolabel="1" />
                                 <label for="tag_ids" string="Tag" />
-                                <field name="tag_ids" nolabel="1" widget="many2many_tags" />
+                                <field name="tag_ids" nolabel="1" widget="many2many_tags"
+                                    options="{'color_field': 'color'}" />
                             </group>
                             <group>
                                 <label for="date_availability" string="Date" />
                                 <field name="date_availability" nolabel="1" />
                                 <label for="total_area" string="Total Area" />
                                 <field name="total_area" nolabel="1" />
+                                <label for="best_price" string="Best Price" />
+                                <field name="best_price" nolabel="1" />
+                                <label for="expected_price" string="Expected Price" />
+                                <field name="expected_price" nolabel="1" />
+                                <label for="selling_price" string="Selling Price" />
+                                <field name="selling_price" nolabel="1" />
                             </group>
                         </group>
                         <notebook>
@@ -84,12 +97,12 @@
                                         <field name="living_area" nolabel="1" />
                                         <label for="garden_area" string="Garden Area"
                                             style="margin-left:50px" />
-                                        <field name="garden_area" nolabel="1" />
+                                        <field name="garden_area" nolabel="1"   attrs="{'invisible': [('garden', '=', False)]}"/>
                                         <label for="garage" string="Garage" />
                                         <field name="garage" nolabel="1" />
                                         <label for="garden_orientation"
-                                            string="Garden Orientation" />
-                                        <field name="garden_orientation" nolabel="1" />
+                                            string="Garden Orientation"  />
+                                        <field name="garden_orientation" nolabel="1"  attrs="{'invisible': [('garden', '=', False)]}"/>/>
                                     </group>
                                 </group>
                             </page>
@@ -105,33 +118,29 @@
                                 </group>
                             </page>
                             <page string="Offer">
-                                <field name="offer_ids" type="xml" nolabel="1">
-                                    <tree expand="1" editable="top">
-                                        <field name="price"></field>
+                                <field name="offer_ids" type="xml" nolabel="1" >
+                                    <tree expand="1" editable="top" decoration-success="status == 'accepted'" decoration-danger="status=='refused'">
                                         <field name="partner_id" widget="many2one_avatar"></field>
-                                        <field name="status"></field>
+                                        <field name="price"></field>
                                         <field name="validity"></field>
                                         <field name="date_deadline"></field>
+                                        <button name="action_accept" type="object" string="Accept"
+                                            icon="fa-check"  ></button>
+                                        <button name="action_refuse" type="object" string="Refuse"
+                                            icon="fa-times"></button>
+                                        <field name="status" decoration-success="status == 'accepted'" decoration-danger="status=='refused'" ></field>
                                     </tree>
                                 </field>
                             </page>
+
                         </notebook>
-                        <notebook>
-                            <page string="Send Message">
-                                <input type="text" id="fname" name="fname"
-                                    style="height:100px;width:1000px;margin-left:11px"
-                                    placeholder="Send Message"></input>
-                                <button type="submit" name="send" value="Submit" style="margin:46px">
-                                    SEND</button>
-                            </page>
-                            <page string="Log Note">
-                                <hr></hr>
-                                <p></p>
-                            </page>
-                            <page string="Archive">
-                            </page>
-                        </notebook>
+
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="message_ids" />
+                        <field name="activity_ids" />
+                    </div>
                 </form>
             </field>
         </record>

@@ -1,12 +1,17 @@
 # -*- coding:utf:8 -*-
 
 from odoo import models, fields, api
-
+from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Advertisement module"
+    _order = "id desc"
+    _inherit = ["mail.thread","mail.activity.mixin"]
+
 
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
@@ -14,7 +19,7 @@ class EstateProperty(models.Model):
     date_availability = fields.Date(
         string='Date Available', default=lambda self: fields.Datetime.now())
     expected_price = fields.Float(string='Price', required=True)
-    selling_price = fields.Float(string='Selling Price')
+    selling_price = fields.Float(string='Selling Price',readonly=True)
     bedrooms = fields.Integer(string='Bedrooms')
     living_area = fields.Integer(string='Living Area')
     garden_area = fields.Integer(string='Living Area')
@@ -28,8 +33,8 @@ class EstateProperty(models.Model):
                    ('north', 'North'), ('east', 'East')]
     )
     state = fields.Selection(
-        selection=[('new', 'New'), ('confirm', 'Confirm'),
-                   ('cancel', 'Cancel')], default="new"
+        selection=[('new', 'New'), ('confirm', 'Confirm'), ('sold', 'Sold'),
+                   ('cancel', 'Cancel')], default="new",tracking=True
     )
     property_type_id = fields.Many2one(
         "estate.property.type", string="Property Type")
@@ -37,15 +42,56 @@ class EstateProperty(models.Model):
     salesperson_id = fields.Many2one(
         'res.users', string="Sales Person", default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag', string="Tags")
-    offer_ids = fields.One2many("estate.property.offer","property_id")
+    offer_ids = fields.One2many("estate.property.offer", "property_id")
 
     total_area = fields.Integer(compute="_compute_total_area")
+    best_price = fields.Float(compute='_compute_best_price')
+
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price >= 0)',
+         'UserError : Enter the Validate Price')
+    ]
+    _sql_constraints = [
+        ('check_selling_price', 'CHECK(selling_price >= 0)',
+         'UserError : Enter the Validate Price')
+    ]
+
+    # @api.depends('expected_price','offer_ids.price')
+    # def check_expected_price(self):
+    #     for record in self:
+    #         if record.expected_price >= record.offer_ids.price():
+    #              raise ValidationError("The end date cannot be set in the past"
+
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for record in self:
-            record.total_area = record.living_area + record.garden_area 
+            record.total_area = record.living_area + record.garden_area
 
     @api.depends('offer_ids.price')
     def _compute_best_price(self):
         for record in self:
-            record.best_price = max(record.offer_ids.mapped('price'),default=0)
+            record.best_price = max(
+                record.offer_ids.mapped('price'), default=0)
+
+    def action_sold(self):
+        for record in self:
+            if record.state == 'cancel':
+                raise UserError("cancel Properties cannot be sold")
+            record.state = 'sold'
+        return True
+
+    def action_cancel(self):
+        for record in self:
+            if record.state == 'sold':
+                raise UserError("sold Properties cannot be canceled")
+            record.state = 'cancel'
+        return True
+
+    @api.constrains("expected_price", "selling_price")
+    def _check_selleing_price(self):
+        if self.selling_price != 0:
+            if float_compare(self.selling_price, (self.expected_price * 0.9), precision_digits=3) < 0:
+                raise ValidationError(
+                    "selling price cannot be lower than 90% of the expected price")
+        else:
+            pass

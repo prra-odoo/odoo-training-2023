@@ -6,13 +6,27 @@
             <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <record id="view_tree_estate_property_type" model="ir.ui.view">
+        <record id="demo_view_tree_estate_property_type" model="ir.ui.view">
             <field name="name">Real Estate type Form View</field>
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree editable="top">
+                    <field name="sequence" widget="handle"/>
                     <field name="name" />
-                </tree>
+                    
+                 </tree>
+            </field>
+        </record>
+        <record id="view_tree_estate_property_type_design" model="ir.ui.view">
+            <field name="name">Real Estate type Form View</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                    <field name="name" />   
+                    <field name="offer_ids"/>
+                </sheet>
+                </form>
             </field>
         </record>
     </data>
