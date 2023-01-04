@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import fields,models
 
-class estateProperty(models.Model):
+class estatePropertyType(models.Model):
      _name = "estate.property.type"
      _description = "This is regarding the real_estate"
 
      name = fields.Char(string='Name',required = True)
+     details=fields.One2many('real.estate','property_type_id')
