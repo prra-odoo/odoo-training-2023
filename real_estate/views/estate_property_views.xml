@@ -11,4 +11,114 @@
             </p>
         </field>
     </record>
+
+
+    <!-- Creating tree/list view -->
+    <record id="estate_property_tree_view" model="ir.ui.view">
+        <field name="name">estate.property.tree.view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Title"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area" string="Living Area (sqm)"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="date_availability"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- creating form view -->
+    <record id="estate_property_form_view" model="ir.ui.view">
+        <field name="name">estate.property.form.view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1><field name="name" string="Name" default="New Property"/></h1>
+                    
+
+                    <group>
+                        <group>
+                            <field name="postcode" />
+                        </group>
+                        <group class="oe_right">
+                            <field name="expected_price" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_availability" />
+                        </group>
+                        <group class="oe_right">
+                            <field name="selling_price" />
+                        </group>
+                    </group>
+                    
+                    
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description" />
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="living_area" string="Living Area (sqm)" />
+                                </group>
+                                <group class="oe_right">
+                                    <field name="bedrooms" />
+                                </group>
+                            </group>
+                            
+                            <group>
+                                <group>
+                                    <field name="facades"/>
+                                </group>
+                                <group class="oe_right">
+                                    <field name="garage" />
+                                </group>
+                            </group>
+
+                            <group>
+                                <group>
+                                    <field name="garden" />
+                                </group>
+                                <group class="oe_right">
+                                    <field name="garden_area" string="Garden Area (sqm)" />
+                                </group>
+                            </group>
+                            
+                            <group>
+                                <group>
+                                    <field name="garden_orientation" />
+                                </group>
+                            </group>
+                                    
+                        </page>
+                        <page string="Optional">
+                            <!-- few more pages -->
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Creating search view -->
+    <record id="estate_property_search" model="ir.ui.view">
+        <field name="name">Estate Property Search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Title"/>
+                <field name="postcode" />
+                <field name="expected_price" />
+                <field name="bedrooms" />
+                <field name="living_area" />
+                <field name="facades" />
+            </search>
+            <!-- <filter name="garden" string="With Garden" domain="[('garden', '=', True)]" /> -->
+        </field>
+    </record>
 </odoo>
