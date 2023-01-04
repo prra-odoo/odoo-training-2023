@@ -37,7 +37,6 @@ class estateProperty(models.Model):
     best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
     status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
 
-
     @api.depends("living_area", "garden_area")
     def _compute_total(self):
         for record in self:
@@ -60,6 +59,3 @@ class estateProperty(models.Model):
                 raise UserError(('Sold property can not be sold.'))
             else:
                 record.status = 'cancel'
-
-   
-             

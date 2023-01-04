@@ -15,11 +15,31 @@
             <field name="name">Property Types</field>
             <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a Property Type !!!!
+                </p>
+            </field>
         </record>
         <record id="setting_action2" model="ir.actions.act_window">
             <field name="name">Property Tags</field>
             <field name="res_model">estate.property.tag</field>
             <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a New Property Tag !!!!
+                </p>
+            </field>
+        </record>
+        <record id="offers_action" model="ir.actions.act_window">
+            <field name="name">Offers</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a New Property Offer !!!!
+                </p>
+            </field>
         </record>
         <record id="model_view_tree" model="ir.ui.view">
             <field name="name">Real Estate Tree</field>
@@ -70,7 +90,7 @@
                     <header>
                         <button name="sold_button" type="object" string="Sold"/>
                         <button name="cancel_button" type="object" string="Cancel"/>
-                        <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                        <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <label for="name">Name</label>
@@ -132,6 +152,8 @@
                                     <tree editable="top">
                                         <field name="price"/>
                                         <field name="partner_id"/>
+                                        <button name="action_accept" type="object" icon="fa-check"/>
+                                        <button name="action_refuse" type="object" icon="fa-times"/>
                                         <field name="status" optional='hide'/>
                                         <field name="validity"/>
                                         <field name="date_deadline"/>

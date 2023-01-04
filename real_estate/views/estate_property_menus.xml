@@ -8,5 +8,6 @@
             <menuitem id="setting_menu_action1" action="setting_action1"/>
             <menuitem id="setting_menu_action2" action="setting_action2"/>
         </menuitem>
+        <menuitem id="offers_menu" name="Offers" action="offers_action"/>
     </menuitem>
 </odoo>
