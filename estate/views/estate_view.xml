@@ -38,9 +38,10 @@
             <field name="arch" type="xml">
                 <form string="estate_form">
                     <header>
-                        <field name="state" widget="statusbar" options ="{'clickable':'1'}"/>
+                        <field name="state" widget="statusbar" track_visibility='onchange'/>
                         <button name="action_to_sold" type="object" string="Sold"/>
                         <button name="action_to_cancel" type="object" string="Cancel"/>
+                        <button type="action" name="%(estate_first_level_model_action)d" string="Properties"/>
                     </header> 
                     <sheet>
                         <label for="name"></label>
@@ -65,17 +66,20 @@
                                 <field name="property_id"/>
                             </group>
                             <group>
-                                <field name="sales_id"/>
+                                <field name="sales_id" widget="many2one_avatar"/>
                             </group>
                             <group>
-                                <field name="buyers_id"/>
+                                <field name="buyers_id" widget="many2one_avatar"/>
                             </group>
                             <group>
-                                <field name="best_price"/>
+                                <!-- <field name="best_price"/> -->
                             </group>
-                            <!-- <group>
-                                <field name="sellprice"/>
-                            </group> -->
+                            <group>
+                                 <!-- <field name="accept_selling_price_id"/>  -->
+                            </group>
+                            <group>                           
+                                <!-- <field name="buyers_name_id"/> -->
+                            </group>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -123,6 +127,11 @@
                             </page>
                         </notebook>
                     </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="state"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
                 </form>
             </field>
         </record> 

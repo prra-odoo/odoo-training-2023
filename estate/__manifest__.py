@@ -2,7 +2,8 @@
 {
     'name' : 'Real Estate',
     'description' : 'Real Estate Advertising Module',
-    'application' : True,   
+    'application' : True, 
+    'depends': ['base', 'mail'], 
     'data' : [
         'security/ir.model.access.csv',
         'views/estate_view.xml',

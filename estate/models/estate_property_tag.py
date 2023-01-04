@@ -7,3 +7,7 @@ class estatepropertytags(models.Model):
     _description="Property tags module"
 
     name = fields.Char(string="Name",required=True)
+
+    _sql_constraints = [
+        ('check_tag', 'unique (name)', "Tag name cannot be repeated!"),
+   ]
