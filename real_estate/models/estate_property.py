@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 class estateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate model"
+    _inherit = ["mail.thread","mail.activity.mixin"]
 
     name = fields.Char('Name :', required = True)
     description = fields.Text('Description ')
@@ -23,7 +24,7 @@ class estateProperty(models.Model):
     garden_orientation = fields.Selection(string="Orientation ",
         selection=[('north', 'North'), ('south', 'South'), ('east','East'), ('west','West')],
         help="Type is used to separate Leads and Opportunities")
-    state = fields.Selection(selection= [('new','New'),('confirm','Confirm'),('cancel','Cancel'),('sold_action','Sold'),('cancel_action','Cancel')], default="new")
+    state = fields.Selection(selection= [('new','New'),('confirm','Confirm'),('cancel','Cancel')], default="new")
     activate = fields.Boolean(default=True)
     property_type_id = fields.Many2one("estate.property.type",string= "Property type")
     salesman_id=fields.Many2one("res.users",string="salesman",default=lambda self: self.env.user)
@@ -46,18 +47,19 @@ class estateProperty(models.Model):
 
     def sold_action(self):
         for record in self:
-            if record.state=='cancel':
+            if record.status=='cancel':
                 raise UserError(('Cancel Property can not be sold'))
             else:
-                record.state='sold_action'
+                record.status='Sold'
 
     def cancel_action(self):
         for record in self:
-            if record.state=='sold':
+            if record.status=='sold':
                 raise UserError(("Sold property can't be canceled"))
             else:
-                record.state='cancel_action'
+                record.status='Cancel'
             
-    # def accept_action(self):
-    #     for record in self:
-    #         record.
+    _sql_constraints = [
+        ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be positive"),
+        ("check_selling_price", "CHECK(selling_price >= 0)", "The selling price must be positive"),
+    ]

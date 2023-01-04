@@ -1,10 +1,16 @@
 from odoo import fields, models 
 from odoo import api
 from odoo.tools.date_utils import add
+from odoo.exceptions import UserError
+from odoo.tools import float_compare
+
 
 class propertyoffer(models.Model):
     _name="estate.property.offer"
     _description = "property offer model"
+    _sql_constraints = [
+        ("check_price", "CHECK(price > 0)", "The price must be positive"),
+    ]
 
     price = fields.Float("Price")
     partner_id = fields.Many2one("res.partner" ,required=True)
@@ -31,3 +37,5 @@ class propertyoffer(models.Model):
     def refused_action(self):
         for record in self:
             record.status='refused'
+
+    
