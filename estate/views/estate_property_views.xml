@@ -96,6 +96,8 @@
                 <header>
                     <button name ="sold_product" string="Sold" type="object"/>
                     <button name ="cancelled_product" string="cancelled" type="object"/>
+                    <button name="%(estate_model_action_property_type)d" type ="action" string="type" />
+
                     <field name="state" widget="statusbar"  options= "{'clickable': '1'}" />
                 </header>
                 <sheet>
@@ -177,7 +179,7 @@
                         </page>
                         <page string="Offers" >
                             <field name="offer_ids">
-                                <tree >
+                                <tree editable = "bottom">
                                     
                                     <field name="price"/>
                                     <field name="partner_id"/>

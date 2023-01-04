@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from odoo import models, fields, api
-# from dateutil.relativedelta import relativedelta
+from dateutil.relativedelta import relativedelta
 from odoo.tools.date_utils import add
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
+from odoo.tools.float_utils import float_compare
 
 
 
@@ -14,7 +16,7 @@ class estatePropertyModel(models.Model):
     postcode = fields.Char()
     description = fields.Text()
     date_availability = fields.Date(
-        'Date availability', default=lambda self: add(fields.datetime.now(), months=3))
+        'Date availability', default=lambda self: fields.datetime.now()+relativedelta(months=3))
     # + relativedelta(months=6)+relativedelta(days=5)
     expected_price = fields.Float('Expected Price', required=True)
     selling_price = fields.Float('Selling Price')
@@ -69,16 +71,48 @@ class estatePropertyModel(models.Model):
     def sold_product(self):
         for record in self:
             if record.state == 'cancelled':
-                raise ValidationError("Cancelled properties cannot be sold")
+                raise UserError("Cancelled properties cannot be sold")
             else:
                 record.state = 'sold'
         
     def cancelled_product(self):
         for record in self:
             if record.state == 'sold':
-                raise ValidationError("Sold Properties cannot cancelled")
+                raise UserError("Sold Properties cannot cancelled")
             else:
                 record.state='cancelled'
+            
+    _sql_constraints=[
+        ('check_selling_price' , 'CHECK(selling_price>=0)',
+        'Selling price must be positive'),
+        (
+             'check_expected_price' , 'CHECK(expected_price>=0)',
+             'Expected Price must be Positive'
+        )
+
+
+    # Adding the python constraints so that the selling 
+  
+       
+
+    ]
+    @api.constrains("selling_price","expected_price")
+    def _check_sellind_price(self):
+        for record in self:
+            if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
+                raise UserError("Selling Price must 90percent of the expected price")
+            
+
+
+        
+        
+    # _sql_constraints=[
+    #     (
+    #         'check_expected_price' , 'CHECK(expected_price>=0)',
+    #         'Expected Price must be Positive'
+    #     )
+    # ]
+
 
                    
 
