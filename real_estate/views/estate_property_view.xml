@@ -42,7 +42,7 @@
             </field>
         </record>
         <record id="estate_model_action_help" model="ir.actions.act_window">
-            <field name="name">Help</field>
+            <field name="name">Offer</field>
             <field name="res_model">estate.property.offer</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
@@ -73,14 +73,16 @@
         </record>
 
         <record id="estate_view_form" model="ir.ui.view">
-            <field name="name">Real Estate</field>
+            <field name="name">estate.view.form</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="Real Estate">
                     <header>
-                        <field name="state" widget="statusbar" options="{'clickable': '1'}"></field>
+                        <field name="state" widget="statusbar"></field>
                         <button name="action_sold" type="object" string="Sold" />
                         <button name="action_cancel" type="object" string="Cancel" />
+                        <button type="action" name="%(estate_model_action_property_type)d" string="Go"/>
+
                     </header>
                     <sheet>
                         <label for="name" string="Name" />
@@ -201,6 +203,11 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                     </div>
                 </form>
             </field>
         </record>

@@ -6,6 +6,11 @@ from odoo.tools.date_utils import add
 class estatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offer Model"
+    _order = "price desc"
+
+    _sql_constraints = [
+        ('check_price', 'CHECK(price > 0)','The Offer Price must be Positive')
+    ]
 
     price = fields.Float('Price')
     status = fields.Selection(strig="Status", selection=[('accepted','Accepted'), ('refused','Refused')], copy = False)
@@ -15,6 +20,7 @@ class estatePropertyOffer(models.Model):
     date_deadline = fields.Date('Date Deadline', compute="_compute_deadline", inverse = '_inverse_deadline')
     create_date = fields.Date(default=fields.Datetime.now(),string="Create Date",readonly=True)
 
+   
     @api.depends("validity")
     def _compute_deadline(self):
         for record in self:

@@ -4,7 +4,7 @@
     <data>
         <record model="estate.property" id="estate_demo_data">
             <field name="name">Harsh</field>
-            <field name = "description"> Buy 2 Property</field>
+            <field name = "description"> 11 Floor Tower</field>
             <field name="postcode">123456</field>
             <field name="bedrooms"> 3</field>
             <field name="living_area"> 6</field>
@@ -14,8 +14,8 @@
             <field name="garden_area">123</field>
         </record>
         <record model="estate.property" id="estate_demo_data3">
-            <field name="name">Raj</field>
-            <field name = "description"> Buy 4 Property</field>
+            <field name="name">Arena</field>
+            <field name = "description"> 7 tower campus</field>
             <field name="postcode">654321</field>
             <field name="bedrooms">8</field>
             <field name="living_area"> 16</field>
@@ -25,9 +25,9 @@
             <field name="garden_area">123</field>
         </record>
         <record model="estate.property" id="estate_demo_data1">
-            <field name="name">demo</field>
+            <field name="name">PentHouse</field>
             <field name="postcode">121456</field>
-            <field name = "description"> Buy 5 Property</field>
+            <field name = "description"> 5 BHK House</field>
             <field name="bedrooms"> 7</field>
             <field name="living_area"> 16</field>
             <field name="expected_price">63999</field>
@@ -36,9 +36,9 @@
             <field name="garden_area">123</field>
         </record>
         <record model="estate.property" id="estate_demo_data2">
-            <field name="name">demo2</field>
+            <field name="name">Small Bungalows</field>
             <field name="postcode">125456</field>
-            <field name = "description"> Buy 2 Property</field>
+            <field name = "description"> Raw Houses</field>
             <field name="bedrooms">65</field>
             <field name="living_area"> 3</field>
             <field name="expected_price">28799</field>

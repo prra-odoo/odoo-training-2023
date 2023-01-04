@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+
+        <record id="estate_type_view_tree" model="ir.ui.view">
+            <field name="name">Type</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <tree expand="1" string="Type">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"></field>
+                     
+                </tree>
+            </field>
+        </record>
+
         <record id="property_type_view_form" model="ir.ui.view">
             <field name="name">Property Types</field>
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
+                
                 <form string="Property type">
                     <sheet>
                         <label for="name" string="Name" />
@@ -14,17 +28,17 @@
 
                         <notebook>
                             <page string="Details">
-                                
-                                    <field name="details" type="xml">
-                                        <tree expand="1">
-                                            <field name="name"></field>
-                                            <field name="postcode" />
-                                            <field name="salesman_id" />
-                                            <field name = "buyer_id"></field>
-                                            
-                                        </tree>
-                                    </field>
-                                
+
+                                <field name="property_ids" type="xml">
+                                    <tree expand="1">
+                                        <field name="name"></field>
+                                        <field name="salesman_id" widget="many2one_avatar" />
+                                        <field name="buyer_id"></field>
+                                        <field name="expected_price"></field>
+                                        <field name="status" />
+                                    </tree>
+                                </field>
+
                             </page>
                         </notebook>
                     </sheet>

@@ -12,7 +12,7 @@
         <menuitem id="estate_model_menu_sub_action" action="estate_model_action_property_tags"/>
     </menuitem>
 
-     <menuitem id="estate_menu_child_task" name= " Help" action="estate_model_action_help"/>
+     <menuitem id="estate_menu_child_task" name= "Offer" action="estate_model_action_help"/>
        
 </menuitem>
 </odoo>
