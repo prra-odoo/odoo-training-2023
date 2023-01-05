@@ -11,7 +11,7 @@
             </p>
         </field>
     </record>
-    <!-- List view -->
+    <!--** List view **-->
     <record id="estate_property_model_tree_view" model="ir.ui.view">
         <field name="name">Real Estate List View</field>
         <field name="model">estate.property</field>
@@ -28,7 +28,7 @@
             </tree>
         </field>
     </record>
-    <!-- Form view -->
+    <!--** Form view **-->
     <record id="estate_property_model_form_view" model="ir.ui.view">
         <field name="name">Real Estate Form View</field>
         <field name="model">estate.property</field>
@@ -68,8 +68,8 @@
             </form>
         </field>
     </record>
-    <!-- Search view -->
-    <record id="estate_property_search" model="ir.ui.view">
+    <!--** Search view **-->
+    <record id="estate_property_model_search" model="ir.ui.view">
         <field name="name">Estate Property Search</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
@@ -82,9 +82,9 @@
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability"/>
-                <filter string="Available" name="available" domain="[('active', '=', False)]"/>
+                <filter string="Available" name="available" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]"/>
                 <separator/>
-                <filter string="Stage" name="stage" context="{'group_by': 'postcode'}"/>
+                <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
                 <separator/>
             </search>
         </field>

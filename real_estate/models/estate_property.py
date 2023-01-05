@@ -20,6 +20,6 @@ class EstateProperty(models.Model):
     garden = fields.Boolean(string="Garden")
     garden_area = fields.Integer(string="Garden Area (sqm)", help="How much Area does your Garden contain?")
     garden_orientation = fields.Selection(string="Garden Orientation", selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
-    active = fields.Boolean(string="Active", default=False)
-    state = fields.Selection(string="", required=True, copy=False, default="new", selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')])
-    
+    active = fields.Boolean(string="Active", default=True)
+    state = fields.Selection(string="", required=True, copy=False, selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')], default="sold")
+    property_type_id = fields.Many2one('estate.property.type', string='Type')
