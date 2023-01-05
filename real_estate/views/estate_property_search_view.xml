@@ -9,11 +9,13 @@
                     <field name="name"/>
                     <field name="bedrooms"/>
                     <field name="description"/>
+                    <field name="date_availability"/>
                     <separator/>
                     <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <filter string="date" name="date_availability"/>
                     <group expand="1" string="Group By">
-                        <filter string="Property name" name="name" context="{'group_by':'name', 'residual_visible':True}"/>
-                        <filter string="Bedrooms" name="bedrooms" context="{'group_by':'bedrooms','residual_visible':True}"/>
+                        <filter string="Property name" name="name" context="{'group_by':'name'}"/>
+                        <filter string="Bedrooms" name="bedrooms" context="{'group_by':'bedrooms'}"/>
                     </group>
                 </search>
             </field>

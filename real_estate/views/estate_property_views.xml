@@ -17,13 +17,13 @@
             <menuitem id="estate_advertisement_menu_action" action="real_estate_action" name="Selling Resedential" />
             <menuitem id="estate_sellCommercial_menu_action" action="real_estate_action" name="Selling Commercial" />
         </menuitem>
-        <menuitem id="estate_first_level2_menu" name="Rent Property">
-            <menuitem id="estate_rentCommercial_menu_action" action="real_estate_action" name="Renting Resedential"/>
+        <menuitem id="estate_first_level2_menu" name="Settings">
+            <menuitem id="estate_rentCommercial_menu_action" action="real_estate_action" name="Property type"/>
             <menuitem id="estate_rentResidential_menu_action" action="real_estate_action" name="Renting Commercial"/>
         </menuitem>
-        <menuitem id="estate_first_level3_menu" name="Lease Property">
+        <!-- <menuitem id="estate_first_level3_menu" name="Lease Property">
             <menuitem id="estate_leaseCommercial_menu_action" action="real_estate_action" name="leasing Resedential"/>
             <menuitem id="estate_leaseResidential_menu_action" action="real_estate_action" name="leasing Commercial"/>
-        </menuitem>
+        </menuitem> -->
        </menuitem>
 </odoo>

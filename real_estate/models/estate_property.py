@@ -7,6 +7,7 @@ class estate_property(models.Model):
     _name = 'estate.property'
     _description = "Real Estate Module"
 
+    property_type = fields.Many2one('estate_property_type',string='property type')
     name = fields.Char('Property Name',required=True)
     description = fields.Char('Description')
     postcode = fields.Char('PostCode')
