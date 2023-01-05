@@ -20,9 +20,9 @@
             <menuitem id="sold_menu1" action="estate_property_action" name="My Quotations"/>
             <menuitem id="sold_menu2" action="estate_property_action" name="Sold"/>
         </menuitem>
-         <menuitem id="estate_first_level_menu3" name="Configuration">
-            <menuitem id="configuration_menu1" action="estate_property_action" name="Users"/>
-            <menuitem id="configuration_menu2" action="estate_property_action" name="Settings"/>
+         <menuitem id="estate_first_level_menu3" name="Settings">
+            <menuitem id="configuration_menu1" action="estate_types_action" name="Property Types"/>
+            <!-- <menuitem id="configuration_menu2" action="estate_property_action" name="Settings"/> -->
         </menuitem>
     </menuitem>
 </odoo>

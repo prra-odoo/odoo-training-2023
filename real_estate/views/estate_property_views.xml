@@ -37,7 +37,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <h1><field name="name" string="Name" default="New Property"/></h1>
+                    <h1><field name="name" string="Name" default="New Property" placeholder="For Say : Name of the Property"/></h1>
                     
 
                     <group>
@@ -94,6 +94,9 @@
                                 <group>
                                     <field name="garden_orientation" />
                                 </group>
+                                <group>
+                                    <field name="state" />
+                                </group>
                             </group>
                                     
                         </page>
@@ -117,8 +120,16 @@
                 <field name="bedrooms" />
                 <field name="living_area" />
                 <field name="facades" />
+            <!-- Adding a filter which will show available properties for buying -->
+                <filter string="Available" name="new_property" domain = "[('state', '=', 'new')]" />
+                <filter string="Garden" name="with_garden" domain="[('garden', '=', True)]"/>
+                <group>
+                    <filter name="postcode" string="Postcode" context="{'group_by' : 'postcode'}" />
+                    <separator />
+                    <filter name="bedrooms" string="No of Bedrooms" context="{'group_by' : 'bedrooms'}" />
+                </group>
             </search>
-            <!-- <filter name="garden" string="With Garden" domain="[('garden', '=', True)]" /> -->
+            
         </field>
     </record>
 </odoo>
