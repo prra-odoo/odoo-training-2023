@@ -10,16 +10,16 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Advertisement module"
     _order = "id desc"
-    _inherit = ["mail.thread","mail.activity.mixin"]
-
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
     postcode = fields.Char(string='Postcode')
     date_availability = fields.Date(
         string='Date Available', default=lambda self: fields.Datetime.now())
-    expected_price = fields.Float(string='Price', required=True)
-    selling_price = fields.Float(string='Selling Price',readonly=True)
+    expected_price = fields.Float(
+        string='Price', required=True)
+    selling_price = fields.Float(string='Selling Price', readonly=True)
     bedrooms = fields.Integer(string='Bedrooms')
     living_area = fields.Integer(string='Living Area')
     garden_area = fields.Integer(string='Living Area')
@@ -33,8 +33,8 @@ class EstateProperty(models.Model):
                    ('north', 'North'), ('east', 'East')]
     )
     state = fields.Selection(
-        selection=[('new', 'New'), ('confirm', 'Confirm'), ('sold', 'Sold'),
-                   ('cancel', 'Cancel')], default="new",tracking=True
+        selection=[('new', 'New'), ('confirm', 'Confirm'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'),
+                   ('cancel', 'Cancel')], default="new", tracking=True
     )
     property_type_id = fields.Many2one(
         "estate.property.type", string="Property Type")
@@ -49,12 +49,11 @@ class EstateProperty(models.Model):
 
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price >= 0)',
+         'UserError : Enter the Validate Price'),
+         ('check_selling_price', 'CHECK(selling_price >= 0)',
          'UserError : Enter the Validate Price')
     ]
-    _sql_constraints = [
-        ('check_selling_price', 'CHECK(selling_price >= 0)',
-         'UserError : Enter the Validate Price')
-    ]
+    
 
     # @api.depends('expected_price','offer_ids.price')
     # def check_expected_price(self):

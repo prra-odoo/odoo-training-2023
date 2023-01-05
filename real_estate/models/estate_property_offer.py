@@ -44,7 +44,7 @@ class EstatePropertyOffer(models.Model):
             self.property_id.selling_price = self.price
             self.property_id.buyer_id = self.partner_id
             self.status = "accepted"
-            self.property_id.state = "sold"
+            self.property_id.state = "offer_accepted"
         # for record in self:
         #     if record.status == "accepted":
         #         record.property_id.buyer_id = record.partner_id
@@ -56,5 +56,6 @@ class EstatePropertyOffer(models.Model):
             # if record.status == " accepted":
             self.status = 'refused'
             self.property_id.selling_price = 0
+            self.property_id.state = "cancel"
 
    

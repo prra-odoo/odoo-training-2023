@@ -10,7 +10,7 @@
             <field name="name">Real Estate type Form View</field>
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
-                <tree editable="top">
+                <tree>
                     <field name="sequence" widget="handle"/>
                     <field name="name" />
                     
@@ -20,9 +20,15 @@
         <record id="view_tree_estate_property_type_design" model="ir.ui.view">
             <field name="name">Real Estate type Form View</field>
             <field name="model">estate.property.type</field>
+            
             <field name="arch" type="xml">
                 <form>
-                    <sheet>
+                    <sheet>   
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button name="action_offers" type="object" class="oe_stat_button">
+                                <span widget="statinfo">offers</span>
+                            </button>
+                        </div>   -->
                     <field name="name" />   
                     <field name="offer_ids"/>
                 </sheet>

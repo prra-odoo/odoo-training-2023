@@ -10,6 +10,7 @@ class EstatePropertyTag(models.Model):
 
     name = fields.Char(required=True)
     color = fields.Integer(string="color")
+    color_2 = fields.Char(string="color 2")
 
 
     _sql_constraints = [
