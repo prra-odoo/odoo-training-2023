@@ -15,6 +15,7 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <tree string= "Property Type">
+                <field name="sequence" widget="handle"/>
                 <field name="name" optional="show"/>
             </tree>
         </field>
@@ -34,8 +35,10 @@
                         <notebook>
                             <page string="Property">
                                 <field name="property_ids">
-                                    <tree string= "Property Name">
-                                        <field name="name" optional="show"/>   
+                                    <tree string= "Properties">
+                                        <field name="name" optional="show"/>
+                                        <field name="expected_price" optional="show"/> 
+                                        <field name="state" optional="show"/>  
                                     </tree>
                                 </field>
                             </page>

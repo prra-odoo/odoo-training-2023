@@ -2,11 +2,13 @@
 
 from odoo import models, fields, api
 from datetime import datetime, time
+from odoo.exceptions import UserError
 from odoo.tools.date_utils import add,subtract
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Property offers"
+    _order = "price desc"
 
     price = fields.Float('Price')
     status = fields.Selection(

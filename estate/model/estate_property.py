@@ -8,16 +8,19 @@ from odoo.tools.float_utils import float_compare
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real estate advertisement module"
+    _inherit = 'mail.thread'
+    _order = "sequence desc, property_type_id desc"
 
     name = fields.Char('Name',required=True)
     salesperson_id = fields.Many2one('res.users', string='Salesperson', index=True, default=lambda self: self.env.user)
-    buyer_id = fields.Many2one('res.partner', string='Buyer')
+    buyer_id = fields.Many2one('res.partner', string='Buyer',tracking=True)
     property_type_id = fields.Many2one('estate.property.type', string='Property Type') #inverse in property type
     description = fields.Text('Details',copy=False)
     postcode = fields.Char('Postcode')
     date_availability = fields.Date('Date availability',default=lambda self:fields.Datetime.now(),readonly=True)
-    expected_price = fields.Float('Expected price',required=True)
-    selling_price = fields.Float('Selling price') #,compute='_compute_selling_price'
+    expected_price = fields.Float('Expected price')
+    selling_price = fields.Float('Selling price')
+    sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
     bedrooms = fields.Integer('Bedroom',default='2')
     living_area = fields.Integer('Living area (sqm)')
     facades = fields.Integer('Facades')
@@ -33,7 +36,7 @@ class EstateProperty(models.Model):
     state = fields.Selection(
         string='state',
         selection=[('new', 'New'), ('offer_received', 'Offer Received'),('offer_accepted', 'Offer Accepted'),('sold', 'Sold'), ('canceled', 'Canceled')],
-        default='new',
+        default='new',tracking=True
     )
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offers")
     total_area = fields.Float('Total Area(sqm)',compute='_compute_area')
@@ -72,14 +75,9 @@ class EstateProperty(models.Model):
         ('check_selling_price', 'CHECK(selling_price > 0)', 'The selling price must be stricly positive.'),
     ]
     # python constraint
-    @api.constrains('selling_price')
-    def check_selling(self):
+    @api.constrains('selling_price','expected_price')
+    def _check_selling(self):
         for record in self:
-            if (record.selling_price < record.expected_price * 0.9):
-                raise ValidationError('The serial number has already been assigned')
-
-    #if float_compare(record.expected_price - record.selling_price, ordered_qty, precision_digits=precision) >= 0:
-    #     raise ValidationError('The serial number has already been assigned')
+            if float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
+                raise ValidationError('The selling price must be 90% of the expected price')
             
-
-    

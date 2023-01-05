@@ -18,6 +18,8 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree string= "Real Estate">
+                    <!-- <tree default_order="date desc"> -->
+                        <!-- arrange by order -->
                     <field name="name" optional="show"/>
                     <field name="date_availability" optional="show"/>
                     <field name="property_type_id" optional="show"/>
@@ -53,7 +55,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="property_cancel" type="object" string="Cancel"/>
+                        <button name="property_cancel" type="object" string="Cancel" />
                         <button name="property_sold" type="object" string="Sold"/>
                         <field name="state" widget="statusbar"/>
                         <!-- options = "{'clickable' : '1'}" -->
@@ -63,7 +65,7 @@
                             <group>
                                 <h1><field name="name" style="width:800%"/></h1>
                             </group>
-                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <group>
                             <group>
                                 <field name="state"/>
@@ -71,7 +73,7 @@
                         </group>    
                         <group>
                             <group>
-                                <field name="property_type_id"/>
+                                <field name="property_type_id" options="{'no_create': True}"/>
                             </group>
                             <group>
                                 <field name="date_availability"/>
@@ -89,7 +91,7 @@
                             <group>
                                 <field name="best_price"/>
                             </group>
-                        </group>     
+                        </group>  
                         <notebook>
                             <page string="Description">
                                     <group>
@@ -146,7 +148,11 @@
                             </page>
                         </notebook>
                     </sheet>
-                </form>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                 </form>
             </field>
         </record>
 </odoo>
