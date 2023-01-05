@@ -11,6 +11,7 @@ from odoo.tools.float_utils import float_compare
 class estatePropertyModel(models.Model):
     _name = "estate.property"
     _description = "Esate property model"
+    _order = "id desc"
 
     name = fields.Char('Name:', required=True)
     postcode = fields.Char()
@@ -34,9 +35,9 @@ class estatePropertyModel(models.Model):
     total_area = fields.Float(compute="_total_area")
     active = fields.Boolean(default=True)
     state = fields.Selection(
-        selection=[('new', 'New'), ('development',
-                                    'Development'), ('done', 'Done'),('sold','Sold'),('cancelled','Cancelled')],
-        default='new',
+        selection=[('new', 'New'), ('offer_recieved',
+                                    'Offer recieved'), ('offer_accepted', 'Offer accepted'),('sold','Sold'),('cancelled','Cancelled')],
+        default='new', string ="Status"
     )
 
     property_type_id = fields.Many2one("estate.property.type", string="Type")

@@ -9,6 +9,7 @@ from odoo.exceptions import ValidationError
 class estatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "estate Property Offer"
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection( selection = [("accepted","Accepted"),("refused","Refused")],copy = False)
@@ -38,11 +39,18 @@ class estatePropertyOffer(models.Model):
     
 
     def accepted_offer(self):
-        for record in self.search([('status','=','accepted')]):
-            raise ValidationError("Only one should be accepted at a time")
-        self.status = "accepted"
-        self.property_id.selling_price=self.price
-        self.property_id.buyer_id = self.partner_id
+        for record in self:
+            if record.search([('status','=' , 'accepted')]) and id==record.id:
+                raise ValidationError("only offer should be accepted at a  time")
+            else:
+                record.status = "accepted"
+                record.property_id.selling_price = record.price
+                record.property_id.buyer_id = record.partner_id
+        # for record in self.search([('status','=','accepted')]):
+        #     raise ValidationError("Only one should be accepted at a time")
+        # self.status = "accepted"
+        # self.property_id.selling_price=self.price
+        # self.property_id.buyer_id = self.partner_id
             
 
     def rejected_offer(self):

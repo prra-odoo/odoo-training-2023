@@ -3,6 +3,7 @@ from odoo import models,fields
 class estatePropertyTag(models.Model):
     _name = "estate.property.tag"
     _description = "Property tag"
+    _order = "name"
 
     name = fields.Char(required = True)
 

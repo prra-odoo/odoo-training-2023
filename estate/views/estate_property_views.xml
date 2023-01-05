@@ -98,7 +98,8 @@
                     <button name ="cancelled_product" string="cancelled" type="object"/>
                     <button name="%(estate_model_action_property_type)d" type ="action" string="type" />
 
-                    <field name="state" widget="statusbar"  options= "{'clickable': '1'}" />
+                    <field name="state" widget="statusbar"   />
+                    <!-- options= "{'clickable': '1'}" -->
                 </header>
                 <sheet>
                     <label for="name"/>
@@ -218,7 +219,14 @@
                     <notebook>
                         <page string ="properties">
                             
-                            <field name="list_property"/>
+                            <field name="property_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                                
+                            </field>
                         </page>
                     </notebook>
 
@@ -255,3 +263,4 @@
         </field>
      </record>
 </odoo>
+
