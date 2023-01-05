@@ -12,6 +12,7 @@
                     <field name="bedrooms"></field>
                     <field name="living_area" ></field>
                     <field name="property_type_id"></field>
+                    <field name="tags_ids" widget ="many2many_tags" options="{'color_field': 'colors'}" />
                     <field name="garden_area" optional="hide"></field>
                     <field name="date_availability" optional="hide"></field>
                     <field name="expected_price"></field>
@@ -50,17 +51,17 @@
             <field name="arch" type="xml">
                 <form string="estate_form">
                     <header>
-                        <button name="action_sold" type="object" string ="Sold"/>
-                        <button name="action_cancel" type="object" string ="Cancel"/>
+                        <button name="action_sold" type="object" string ="Sold" states="new,offer_recieved" class="oe_highlight"/>
+                        <button name="action_cancel" type="object" string ="Cancel" states="new.offer_recieved,offer_accepted"/>
                         <button name="%(estate.estate_model_action01)d" type="action" string="My Action"/>
-                        <field name="state" widget="statusbar" options ="{'clickable':'1'}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                     </header> 
                     <sheet>
                         <label for="name"></label>
                             <h1><field name="name"/></h1>   
                         <group>
                             <group style="Margin-top:30px">
-                                <field name="tags_ids" widget ="many2many_tags" />
+                                <field name="tags_ids" widget ="many2many_tags" options="{'color_field': 'colors'}" />
                             </group>  
                             <group style="Margin-top:30px">
                                 <field name="postcode"/>
@@ -75,7 +76,7 @@
                                 <field name="selling_price"/>
                             </group>
                             <group style="Margin-top:30px">
-                                <field name="property_type_id"/>
+                                <field name="property_type_id" options="{'no_create': True, 'no_edit': True}"/>
                             </group>
                             <group style="Margin-top:30px">
                                 <field name="salesperson_id" widget="many2one_avatar"/>
@@ -139,6 +140,7 @@
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids"/>
                         </div>
                 </form>
             </field>

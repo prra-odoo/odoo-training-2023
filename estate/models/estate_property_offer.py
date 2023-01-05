@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class estateOffer(models.Model):
     _name="estate.property.offer"
     _description = "This is the estate property offer model"
+    _order = "price desc"
     _sql_constraints=[
        ( ('check_price'),'CHECK(price>0)','The offer price must be positive')
     ]
@@ -19,6 +20,8 @@ class estateOffer(models.Model):
     date_deadline = fields.Date("Deadline" ,compute="_compute_deadline_" , inverse = "_compute_validty_changes_")
     partner_id = fields.Many2one("res.partner",string="Partner id",)
     property_id= fields.Many2one("estate.property",string="Property id")
+    # offer_ids = fields.One2many("estate.property.type","property_id",string = "Property offer")
+    
     
     @api.depends('create_date','validity','date_deadline')
     def _compute_deadline_(self):
@@ -41,8 +44,7 @@ class estateOffer(models.Model):
 
     def action_refused(self):
         for record in self:
-            if record.status == 'accepted':
-                record.status = 'refused'
+            record.status = 'refused'
     
   
                 

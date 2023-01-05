@@ -7,8 +7,9 @@
         'security/ir.model.access.csv',
         'views/estate_views_actions.xml',
         'views/estate_views.xml',
-        # 'views/estate_property_type_views.xml'
+        'views/estate_property_type_views.xml'
     ],
+    'depends' : ['mail'],
     'demo' :[
         'demo/estate_demo_data.xml',
         ],

@@ -3,23 +3,26 @@
 from odoo import models , fields,api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 class estate_property(models.Model):
     _name = "estate.property"
     _description = "Advertisment module of real estate"
     active = fields.Boolean(default=True)
+    _order = "id desc"
     _sql_constraints = [
         ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be strictly positive"),
         ("check_selling_price", "CHECK(selling_price > 0)", "The selling price must be positive"),
     ]
-    _inherit = ['mail.thread'] 
+    _inherit = ['mail.thread','mail.activity.mixin'] 
+    
     
     
     name = fields.Char()
     postcode = fields.Integer(default = 104,readonly=True)
     description = fields.Text(copy=False)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=6))
-    expected_price = fields.Float(default = 550000)
+    expected_price = fields.Float(default = 550)
     selling_price=fields.Float(default = 50000)
     bedrooms = fields.Integer(default = 50)
     living_area = fields.Integer(default = 2)
@@ -35,14 +38,15 @@ class estate_property(models.Model):
         selection=[('north','North'),('south','South'),('east','East'),('west','West')]
     )
     state = fields.Selection(
-        string='Type',
-        selection=[('new','New'),('confirm','Confirm'),('done','Done'),('sold','Sold'),('cancel','Cancel')]
+        string='Status',
+        selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')]
     )
     property_type_id = fields.Many2one("estate.property.type", string="Property type")
     salesperson_id= fields.Many2one("res.users",string="Sales")
     buyers_id=fields.Many2one("res.partner",string="Buyers")
     tags_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer","property_id",string = "Property offer")
+    # type_ids = fields.One2many("estate.property.type","property_id",string="Properites")
     
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
@@ -70,6 +74,11 @@ class estate_property(models.Model):
             else:
                  record.state == 'cancel'
         return True
+    @api.constrains("selling_price","expected_price")
+    def _check_sellind_price(self):
+        for record in self:
+            if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
+                raise UserError("Selling Price must 90percent of the expected price")
     
 
               
