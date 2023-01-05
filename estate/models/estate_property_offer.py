@@ -8,6 +8,7 @@ class EstateModel(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offer Model"
     _inherit = "mail.thread"
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection(
@@ -35,7 +36,12 @@ class EstateModel(models.Model):
 
     def action_accept(self):
         for record in self.search([('status', '=', 'accepted')]):
-            raise UserError("one offer already accepted")
+            if record.property_id == self.property_id:
+                for rec in record.search([('status', '=', 'accepted')]):
+                    if rec.partner_id != record.partner_id:
+                        raise UserError("one offer already accepted")
+                    else:
+                        rec.status = "refused"
         self.status = "accepted"
         self.property_id.buyers_id = self.partner_id
         self.property_id.selling_price = self.price

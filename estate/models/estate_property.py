@@ -8,6 +8,7 @@ class EstateModel(models.Model):
     _name = "estate.property"
     _description = "Estate Property Model"
     _inherit = "mail.thread"
+    _order = "id desc"
 
     name = fields.Char('Name',required = True)
     description = fields.Text()
@@ -27,7 +28,7 @@ class EstateModel(models.Model):
         )
     active = fields.Boolean(default=True)
     state = fields.Selection(
-            selection=[('new', 'New'), ('in_progress', 'In Progress'), ('sold', 'Sold'), ('canceled', 'Canceled')], default="new"
+            selection=[('new', 'New'), ('in_progress', 'In Progress'), ('sold', 'Sold'), ('canceled', 'Canceled')], default="new", tracking=True
         )
     property_type_id = fields.Many2one('estate.property.type')
     buyers_id = fields.Many2one("res.partner", string="Buyer", copy=False)
