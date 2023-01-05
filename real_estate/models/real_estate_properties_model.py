@@ -15,11 +15,11 @@ class real_Esate_Properties(models.Model):
 	expected_price=fields.Float(required=True)
 	selling_price=fields.Float(readonly=True,copy=False)
 	bedroom=fields.Integer(default="2")
-	living_area=fields.Integer()
+	living_area=fields.Integer(string="Living Area (sqm)")
 	facades=fields.Integer()
 	garage=fields.Boolean()
-	gardan=fields.Boolean()
-	gardan_area=fields.Integer()
+	gardan=fields.Boolean(string="Garden")
+	gardan_area=fields.Integer(string="Garden Area (sqm)")
 	garden_orientation=fields.Selection(
 		string='Orientation',
 		selection=[('north','North'),('south','South'),('east','East'),('west','West')]
@@ -30,7 +30,7 @@ class real_Esate_Properties(models.Model):
 		selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancled','Canceled')],
 		required=True,
 		copy=False,
-		default='new'
+		default='offer_recieved'
 	)
 
 
