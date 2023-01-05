@@ -9,6 +9,7 @@ from odoo.exceptions import ValidationError
 class estatepropertyoffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offers Model"
+    _order = "id desc"
 
     price = fields.Float(string="Property Price:")
     status = fields.Selection(selection=[('accepted','Accepted'),('refuse','Refused')])
@@ -34,7 +35,13 @@ class estatepropertyoffer(models.Model):
     @api.depends('status')
     def action_accept(self):
         for rec in self.search([('status','=','accepted')]):
-            raise ValidationError(_("cannot accept more than one offer"))
+            if rec.property_id == self.property_id:
+                for record in rec.search([('status','=','accepted')]):
+                    if record.partner_id != self.partner_id:
+                        raise ValidationError(_("cannot accept more than one offer"))
+                    else:
+                        for i in record:
+                            rec.status='refuse'
         self.status='accepted'
         self.property_id.selling_price = self.price
         self.property_id.buyers_id = self.partner_id

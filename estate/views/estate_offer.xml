@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-<!-- ____________________________Tree View______________________________________ !-->
+        <!-- ____________________________Tree View______________________________________ !-->
         <record id="estate_view11_tree" model="ir.ui.view">
             <field name="name">estate.offers.tree</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="price"/> 
-                    <field name="partner_id"/>
-                    <!-- <button name="action_refuse" string="Rejected" states="refuse" type="object" icon="fa-check"/> -->
+                    <field name="price" />
+                    <field name="partner_id" />
+                    <!-- <button name="action_refuse" string="Rejected" states="refuse"
+                    type="object" icon="fa-check"/> -->
                 </tree>
             </field>
-        </record>   
-<!-- ____________________________Form View______________________________________ !-->
+        </record>
+        <!-- ____________________________Form View______________________________________ !-->
         <record id="estate_model8_form" model="ir.ui.view">
             <field name="name">estate.offer.form</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
                 <form string="estate_form">
                     <sheet>
-                    <label for="price" string="Price"/>
-                                <h2><field name="price" nolabel="1"/></h2>
-                           <group>
-                                <field name="partner_id" widget="many2one_avatar"/>
-                            </group>
-                            <group>
-                                <field name="status"/>
-                            </group>
-                            <group>
-                                <field name="validity"/>
-                            </group>
-                            <group>
-                                <field name="date_deadline"/>
-                            </group> 
+                        <label for="price" string="Price" />
+                        <h2>
+                            <field name="price" nolabel="1" />
+                        </h2>
+                        <group>
+                            <field name="partner_id" widget="many2one_avatar" />
+                        </group>
+                        <group>
+                            <field name="status" />
+                        </group>
+                        <group>
+                            <field name="validity" />
+                        </group>
+                        <group>
+                            <field name="date_deadline" />
+                        </group>
                     </sheet>
                 </form>
             </field>
         </record>
     </data>
 </odoo>
-

@@ -2,163 +2,164 @@
 <odoo>
     <data>
         <record id="estate_first_level_model_action" model="ir.actions.act_window">
-                <field name="name">Properties</field>
-                <field name="res_model">estate.property</field>
-                <field name="view_mode">tree,form</field>
+            <field name="name">Properties</field>
+            <field name="res_model">estate.property</field>
+            <field name="view_mode">tree,form</field>
         </record>
         <record id="estate_second_level_model_action" model="ir.actions.act_window">
-                <field name="name">Property Types</field>
-                <field name="res_model">estate.property.type</field>
-                <field name="view_mode">tree,form</field>
+            <field name="name">Property Types</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
         </record>
         <record id="estate_second_level_model_action01" model="ir.actions.act_window">
-                <field name="name">Property Tags</field>
-                <field name="res_model">estate.property.tags</field>
-                <field name="view_mode">tree,form</field>
+            <field name="name">Property Tags</field>
+            <field name="res_model">estate.property.tags</field>
+            <field name="view_mode">tree,form</field>
         </record>
-<!-- ____________________________Tree View______________________________________ !-->
+        <!-- ____________________________Tree View______________________________________ !-->
         <record id="estate_view_tree" model="ir.ui.view">
             <field name="name">estate.view.tree</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/> 
-                    <field name="description"/>
-                    <field name="postcode"/>
-                    <field name="expected_price"/>
-                    <field name="selling_price"/>
-                    <field name="bedrooms"/>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="postcode" />
+                    <field name="expected_price" />
+                    <field name="selling_price" />
+                    <field name="bedrooms" />
                 </tree>
             </field>
-        </record>   
-<!-- ____________________________Form View______________________________________ !-->
+        </record>
+        <!-- ____________________________Form View______________________________________ !-->
         <record id="estate_model_form" model="ir.ui.view">
             <field name="name">estate.property.form</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="estate_form">
                     <header>
-                        <field name="state" widget="statusbar" track_visibility='onchange'/>
-                        <button name="action_to_sold" type="object" string="Sold"/>
-                        <button name="action_to_cancel" type="object" string="Cancel"/>
-                        <button type="action" name="%(estate_first_level_model_action)d" string="Properties"/>
-                    </header> 
+                        <field name="state" widget="statusbar" track_visibility='onchange' />
+                        <button name="action_to_sold" type="object" string="Sold" />
+                        <button name="action_to_cancel" type="object" string="Cancel" />
+                        <button type="action" name="%(estate_first_level_model_action)d"
+                            string="Properties" />
+                    </header>
                     <sheet>
                         <label for="name"></label>
-                            <h1><field name="name"/></h1>   
+                        <h1>
+                            <field name="name" options="{'color_field': 'colors'}"/>
+                        </h1>
                         <group>
                             <group>
-                                <field name="tags_ids" widget ="many2many_tags" />
-                            </group>  
-                            <group>
-                                <field name="postcode"/>
-                            </group>  
-                            <group>
-                                <field name="date_availability"/>
+                                <field name="tags_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             </group>
                             <group>
-                                <field name="expected_price"/>
+                                <field name="postcode" />
                             </group>
                             <group>
-                                <field name="selling_price"/>
+                                <field name="date_availability" />
                             </group>
                             <group>
-                                <field name="property_id"/>
+                                <field name="expected_price" />
                             </group>
                             <group>
-                                <field name="sales_id" widget="many2one_avatar"/>
+                                <field name="selling_price" />
                             </group>
                             <group>
-                                <field name="buyers_id" widget="many2one_avatar"/>
+                                <field name="property_id" options="{'no_create': True}"/>
                             </group>
                             <group>
-                                <!-- <field name="best_price"/> -->
+                                <field name="sales_id" widget="many2one_avatar" />
                             </group>
                             <group>
-                                 <!-- <field name="accept_selling_price_id"/>  -->
-                            </group>
-                            <group>                           
-                                <!-- <field name="buyers_name_id"/> -->
+                                <field name="buyers_id" widget="many2one_avatar" />
                             </group>
                         </group>
                         <notebook>
                             <page string="Description">
-                                <field name="description"/>
+                                <field name="description" />
                                 <group>
                                     <group>
-                                        <field name="garage"/>
+                                        <field name="garage" />
                                     </group>
                                     <group>
-                                        <field name="living_area"/>
+                                        <field name="garden" />
                                     </group>
                                     <group>
-                                        <field name="garden_area"/>
+                                        <field name="living_area" />
                                     </group>
                                     <group>
-                                        <field name="bedrooms"/>
+                                        <field name="garden_area"  attrs="{'invisible': [('garden', '=', False)]}"/>
                                     </group>
                                     <group>
-                                        <field name="total_area"/>
+                                        <field name="bedrooms" />
+                                    </group>
+                                    <group>
+                                        <field name="total_area" />
                                     </group>
                                 </group>
                             </page>
-                                <page string="Other information">
+                            <page string="Other information">
                                 <group>
                                     <group>
-                                        <field name="facades"/>
+                                        <field name="facades" />
                                     </group>
                                     <group>
-                                        <field name="garage_orientation"/>
+                                        <field name="garage_orientation" />
                                     </group>
                                 </group>
                             </page>
                             <page string="Offer">
                                 <field name="offer_ids">
                                     <tree editable="bottom">
-                                        <field name ="price"/>
-                                        <field name ="partner_id"/>
-                                        <field name="validity"/>
-                                        <field name ="date_deadline"/>
-                                        <field name ="status"/>
-                                        <button name="action_accept" string="Accept" type="object" icon="fa-check"/>
-                                        <button name="action_refuse" string="Refuse" type="object" icon="fa-times"/>
+                                        <field name="price" />
+                                        <field name="partner_id" />
+                                        <field name="validity" />
+                                        <field name="date_deadline" />
+                                        <field name="status" />
+                                        <button name="action_accept" string="Accept" type="object"
+                                            icon="fa-check" />
+                                        <button name="action_refuse" string="Refuse" type="object"
+                                            icon="fa-times" />
                                     </tree>
                                 </field>
                             </page>
                         </notebook>
                     </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="state"/>
-                    <field name="message_ids" widget="mail_thread"/>
-                </div>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="state" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
                 </form>
             </field>
-        </record> 
-<!-- ____________________________Search View______________________________________ !-->
+        </record>
+        <!-- ____________________________Search View______________________________________ !-->
         <record id="view_estate_model_search" model="ir.ui.view">
             <field name="name">estate.property.search</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <search string="Search Property">
                     <field name="name" />
-                    <field name="postcode"/>
-                    <field name="bedrooms"/>
-                    <field name="facades"/>
-                    <field name="garage"/>
-                    <field name="garden"/>
-                    <field name="garage_orientation"/>
-        <!-- Filter and Group_by View !-->    
-                    <filter name="selling_price" string="Selling Price" domain="[('selling_price', '>', '3000')]"/>
-                    <filter name="state" string="Available" domain="[('state', '=', 'new')]"/>
+                    <field name="postcode" />
+                    <field name="bedrooms" />
+                    <field name="facades" />
+                    <field name="garage" />
+                    <field name="garden" />
+                    <field name="garage_orientation" />
+                    <!-- Filter and Group_by View !-->
+                    <filter name="selling_price" string="Selling Price"
+                        domain="[('selling_price', '>', '3000')]" />
+                    <filter name="state" string="Available" domain="[('state', '=', 'new')]" />
                     <!-- <filter name="bedrooms" string="Bedrooms" /> -->
                     <group expand="0" string="Group By">
-                        <filter string="Postal Code" name="postcode" context="{'group_by':'postcode','residual':'False'}"/>
+                        <filter string="Postal Code" name="postcode"
+                            context="{'group_by':'postcode','residual':'False'}" />
                     </group>
-        <!-- //Filter and Group_by View !-->
+                    <!-- //Filter and Group_by View !-->
                 </search>
             </field>
         </record>
+        
     </data>
 </odoo>
-

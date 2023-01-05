@@ -7,7 +7,8 @@ from odoo.exceptions import ValidationError
 class estateModel(models.Model):
     _name = "estate.property"
     _description = "Real Estate Module"
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread','mail.activity.mixin']
+    _order = "id desc"
     
     name = fields.Char('Name',required=True)
     description = fields.Text('Description',copy=False,required=True)
@@ -22,7 +23,7 @@ class estateModel(models.Model):
     garden = fields.Boolean('Garden')
     garden_area = fields.Integer('Garden Area')
     active = fields.Boolean(default=True)
-    state=fields.Selection(selection=[('new', 'New'), ('inprogress', 'In Progress'),('sold','Sold'),('cancel','Cancel')],default='new')
+    state=fields.Selection(selection=[('new', 'New'), ('inprogress', 'In Progress'),('sold','Sold'),('cancel','Cancel')],default='new',tracking=True)
     garage_orientation = fields.Selection(
         string='Garden Orientation:',
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
@@ -33,11 +34,10 @@ class estateModel(models.Model):
     offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers")
     sales_id=fields.Many2one("res.users",string="Sales",default=lambda self: self.env.user)
     buyers_id=fields.Many2one("res.partner",string="Buyers")
+    colors=fields.Integer()
 
     _sql_constraints=[
-        ('check_expected_price','CHECK(expected_price >= 0)','Expected Price cannot be negative')
-    ]
-    _sql_constraints=[
+        ('check_expected_price','CHECK(expected_price >= 0)','Expected Price cannot be negative'),
         ('check_selling_price','CHECK(selling_price >= 0)','Selling cannot be negative')
     ]
 
