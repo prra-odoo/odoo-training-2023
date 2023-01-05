@@ -32,8 +32,8 @@ class estatePropertyOffer(models.Model):
     
     def action_offer_rejected(self):
         for record in self:
+            record.status = 'refused'
             if record.status == 'accepted':
-                record.status = 'refused'
                 record.property_id.selling_price = 0
         return True
 

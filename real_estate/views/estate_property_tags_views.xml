@@ -4,8 +4,9 @@
         <field name="name">Real Estate Tag List View</field>
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
-            <tree string="Property Type">
+            <tree string="Property Type" editable="bottom">
                 <field name="name" />
+                <field name="Color" widget="color_picker"/>
             </tree>
         </field>
     </record>

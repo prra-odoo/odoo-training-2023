@@ -5,10 +5,18 @@
         <field name="name">Real Estate List View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Real Estate">
+            <tree string="Real Estate" decoration-success="state in ('offer_received', 'offer_accepted')" decoration-bf="state == 'offer_accepted'" decoration-danger="state=='canceled'">
+                <field name="state" invisible="1"/>
                 <field name="name"/>
-                <field name="description"/>
-                <field name="expected_price" optional="show"/>
+                <field name="property_type_id" />
+                <field name="postcode"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'Color', 'no_create':True}"/>
+                <field name="bedrooms" />
+                <field name="living_area" string="Living Area (sqm)"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="expected_price"/>
+                <field name="date_availability" optional="hide" string="Available From"/>
             </tree>
         </field>
     </record>
@@ -24,13 +32,13 @@
                     <button type="action" name="%(property_type_action)d" string="Property Types"/>
                     <field name="state" widget="statusbar" />
                 </header>
-                <sheet>
+                <sheet>"
                     <label for="name" string="Name"/>
                     <h1><field name="name"/></h1>
-                    <field name="tag_ids" widget="many2many_tags" options="{'color_field':'Color'}" />
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field':'Color', 'no_create':True}" />
                     <group>
                         <group>
-                            <field name="property_type_id" />
+                            <field name="property_type_id" options="{'no_create':True, 'no_open':True}" />
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -62,7 +70,7 @@
                             </group>
                         </page>
                         <page string="Offer">
-                            <field name="offer_ids" string="offers"/>                                
+                            <field name="offer_ids" string="offers" attrs="{'readonly':['|', ('state', '=', 'offer_accepted'), '|', ('state', '=', 'sold'), ('state', '=', 'canceled')]}"/>                                
                         </page>
                         <page string="Other info">
                             <group>
@@ -90,10 +98,10 @@
                 <field name="postcode" string="Postcode" />
                 <field name="expected_price" string="Expected Price" />
                 <field name="bedrooms" string="Bedrooms" />
-                <field name="living_area" string="Living Area (sqm)" />
+                <field name="living_area" string="Living Area (sqm)" filter_domain="[('living_area', '>', self) ]" />
                 <field name="facades" string="Facades" />
                 <separator />
-                <filter string="Available" name="name" domain="['|',('state', '=', 'new'),('state', '=', 'offer_received')]" />
+                <filter string="Available" name="available" domain="['|',('state', '=', 'new'),('state', '=', 'offer_received')]" />
                 <group expand="1" string="Postcode">
                     <filter string="Postcode" name="name" context="{'group_by':'postcode'}"/>
                 </group>

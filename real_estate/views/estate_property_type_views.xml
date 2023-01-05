@@ -3,9 +3,9 @@
     <record id="real_estate_type_list_view" model="ir.ui.view">
         <field name="name">Real Estate Type List View</field>
         <field name="model">estate.property.type</field>
-        <field name="arch" type="xml">
+        <field name="arch" type="xml" >
             <tree string="Property Type">
-                <field name="name" />
+                <field name="name"/>
                 <field name="sequence" widget="handle" />
             </tree>
         </field>
@@ -17,6 +17,11 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <!-- <div class="oe_button_box" name="button_box">
+                        <button name="action_offers" type="object" class="oe_stat_button">
+                            <span widget="statinfo">Offers</span>
+                        </button>
+                    </div> -->
                     <h1><field name="name"/></h1>
                     <notebook>
                         <page string="Properties">
