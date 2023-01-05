@@ -7,11 +7,11 @@
             <menuitem id="real_estate_model2" action="real_estate_action" name="Property Names"/>
     </menuitem>
 
-    <menuitem id="real_estate_second_level" name="settings">
-        <menuitem id="real_estate_form" action="real_estate_action" name="lists"/>
+    <menuitem id="real_estate_second_level" name="Settings">
+        <menuitem id="real_estate_form" action="real_estate_action" name="Property Types"/>
     </menuitem>
 
-    <menuitem id="real_estate_Third_level" name="State">
+    <menuitem id="real_estate_Third_level" name="Avertisement">
         <menuitem id="real_estate_form1" action="real_estate_action" name="lists of state"/>
     </menuitem>
 
