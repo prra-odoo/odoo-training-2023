@@ -21,7 +21,7 @@
                <separator/>
                     <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                     <separator/>
-                <group expand="1" string="Group By">
+                <group string="Group By">
                         <filter string="State" name="state" context="{'group_by':'state'}"/>
                 </group>
             </search>
@@ -45,14 +45,22 @@
         </field>
     </record>
     <record id="real_estate_property_view_form" model="ir.ui.view">
+        
         <field name="name">real.estate.property.form</field>
         <field name="model">real.estate.property</field>
         <field name="arch" type="xml">
             <form string="Property">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable':'true'}" />
+                </header>
                 <sheet>
+                   
                     <h1>
                         <field name="name" placeholder="Property Name"/>
                     </h1>
+                    <group>
+                        <field name="tags_id" widget="many2many_tags"/>
+                    </group>
                     <group>
                         <group>
                             <field name="postcode"/>
@@ -61,7 +69,7 @@
                             <field name="date_availability"/>
                         </group>
                         <group>
-                            <field name="state"/>
+                            <!-- <field name="state"/> -->
                         </group>
                         <group>
                             <field name="expected_price"/>
@@ -72,7 +80,9 @@
                         <group>
                             <field name="active"/>
                         </group>
-                    
+                        <group>
+                            <field name="type_id"/>
+                        </group>
                     <notebook>
                         <page name="Description">
                             <group>                      
@@ -96,6 +106,19 @@
                             <group>
                                 <field name="garden_orientation"/>
                             </group> 
+                        </page>
+                        <page name="Other Info">
+                            <group>
+                                <field name="salesman_id"/>
+                            </group>
+                            <group>
+                                <field name="buyer_id"/>
+                            </group>
+                        </page>
+                        <page name="Offer">
+                           
+                                <field name="offers_ids"/>
+                           
                         </page>
                     </notebook>
                     </group>

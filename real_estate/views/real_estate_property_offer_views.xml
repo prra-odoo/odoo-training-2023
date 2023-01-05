@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="real_estate_property_offer_view_form" model="ir.ui.view">
+        <field name="name">real.estate.property.offer.form</field>
+        <field name="model">real.estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="Property Offer">
+                <sheet>
+                    <group>
+                        <group><field name="price"/></group>
+                        <group><field name="partner_id"/></group>
+                        <group><field name="status"/></group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="real_estate_property_offer_view_tree" model="ir.ui.view">
+        <field name="name">real.estate.property.offer.tree</field>
+        <field name="model">real.estate.property.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Channel" >
+                <field name="price"/>
+                <field name="partner_id"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="real_estate_property_offer_view" model="ir.actions.act_window">
+        <field name="name">Property Offers</field>
+        <field name="res_model">real.estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new property type
+            </p>
+            <p>
+                i.e. House,Office,etc.
+            </p>
+            </field>
+    </record>
+</odoo>

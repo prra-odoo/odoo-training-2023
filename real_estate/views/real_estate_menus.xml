@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="real_estate_menu_root" name="Real Estate">
-        <menuitem id="porperty_first_level_menu" name="Property">
+        <menuitem id="real_estate_property_menu" name="Property">
             <menuitem id="real_estate_property_menu_view" action="real_estate_property_view" name="Property Tree View"/>
         </menuitem>
-        <!-- <menuitem id="porperty_second_level_menu" name="Property">
-            <menuitem id="real_estate_property_menu_form" action="real_estate_property_view" name="Property Tree View"/>
+        <menuitem id="real_estate_settings_menu" name="Settings">
+            <menuitem id="real_estate_settings_menu_property_type" action="real_estate_property_type_view" name="Property Type"/>
+            <menuitem id="real_estate_settings_menu_property_tags" action="real_estate_property_tags_view" name="Property Tags"/>
         </menuitem>
-        <menuitem id="porperty_third_level_menu" name="Property">
+        <!-- <menuitem id="porperty_third_level_menu" name="Property">
             <menuitem id="real_estate_property_menu_search" action="real_estate_property_view" name="Property Tree View"/>
         </menuitem> -->
     </menuitem>
