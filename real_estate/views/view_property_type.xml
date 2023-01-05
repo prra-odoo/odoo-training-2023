@@ -1,5 +1,15 @@
 <odoo>
     <data>
+        <record id="property_type_view" model="ir.ui.view">
+            <field name="name">Tree.View</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <tree string="Property Types">
+                    <field name="sequence" widget="handle"/>
+                    <field name = "name" />
+                </tree>
+                </field>
+        </record>
         <record id="model_property_type_view_tree" model="ir.ui.view">
             <field name="name">Tree.View</field>
             <field name="model">estate.property.type</field>

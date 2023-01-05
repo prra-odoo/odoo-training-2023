@@ -5,6 +5,7 @@ from odoo.tools.date_utils import add
 class estatePropertyoffer(models.Model):
      _name = "estate.property.offer"
      _description = "This is regarding the real_estate"
+     _order = "price desc"
 
      price = fields.Float(string='Price')
      status = fields.Selection(selection=[('accepted','Accepted'),('refused','Refused')])

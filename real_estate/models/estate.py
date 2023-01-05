@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
-from odoo.exceptions import UserError , ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare, float_is_zero
 
 
@@ -8,6 +8,7 @@ class realEstate(models.Model):
     _name = "real.estate"
     _description = "This is regarding the real_estate"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = "id desc"
 
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
@@ -23,7 +24,7 @@ class realEstate(models.Model):
     garden = fields.Boolean(string='Garden')
     garden_area = fields.Integer(string='Garden Area')
     property_type_id = fields.Many2one(
-        "estate.property.type", string="Property Type")
+        "estate.property.type", string="Property Type" )
     salesperson_id = fields.Many2one(
         "res.users", string="Salesperson", default=lambda self: self.env.user, copy=False)
     buyer_id = fields.Many2one("res.partner", string="Buyer")
@@ -81,6 +82,6 @@ class realEstate(models.Model):
             if ((not float_is_zero(record.selling_price, precision_rounding=0.01))
                     and float_compare(record.selling_price, record.expected_price*0.9, precision_rounding=0.01) < 0
                     ):
-             raise ValidationError(
-                "The selling price must be at least 90% of the expected price!"
-            )
+                raise ValidationError(
+                    "The selling price must be at least 90% of the expected price!"
+                )
