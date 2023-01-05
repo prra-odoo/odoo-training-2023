@@ -5,6 +5,7 @@
     'version' :'',
     'author':'Althaf Shaik',
     'category':'Advertising',
+    'depends':['mail',],
     'data':[
          'security/ir.model.access.csv',
          'views/estate_properties_view.xml',

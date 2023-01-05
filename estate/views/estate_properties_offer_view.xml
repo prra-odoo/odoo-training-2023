@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-	<!-- __________Tree view ___________ -->
+
+	<!-- __________Estate Property Offer Tree view ___________ -->
 	<record id="estate_property_offer_tree_view" model="ir.ui.view">
 		<field name="name">Property Offer Tree View</field>
 		<field name="model">estate.property.offer</field>
@@ -12,31 +13,56 @@
 				<button name="accepted_action" type="object" title="accept" icon="fa-check"></button>
 				<button name="refused_action" type="object" title='refuse'  icon="fa-times"></button>
 				<field name="validity"/>
+				<field name="create_date"/>
+				<field name="date_deadline"/>
 			</tree>
 		</field>
 	</record>
-	<!-- ____________Form View_______________ -->
+
+	<!-- ____________Estate Property Offer Form View_______________ -->
 	<record id="estate_property_offer_form_view" model="ir.ui.view">
 		<field name="name">Property Offer Form View</field>
 		<field name="model">estate.property.offer</field>
 		<field name="arch" type="xml">
-		<form string="Form View">
-			<sheet>
-				<group style="margin-top:10px">
-					<group>
-						<field name="partner_id"/>
-						<field name="price" />
-						<field name="status"/>
+			<form string="Form View">
+				<sheet>
+					<group style="margin-top:10px">
+						<group>
+							<field name="partner_id"/>
+							<field name="price" />
+							<field name="status"/>
+						</group>
+						<group>
+							<field name="validity"/>
+							<field name="create_date"/>
+							<field name="date_deadline"/>
+						</group>
 					</group>
-					<group>
-						<field name="validity"/>
-						<field name="create_date"/>
-						<field name="date_deadline"/>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+<!-- __________________Estate Property Type Form View___________ -->
+
+	<record id="estate_property_type_form_view" model="ir.ui.view">
+		<field name="name">Property Type Form View</field>
+		<field name="model">estate.property.type</field>
+		<field name="arch" type="xml">
+			<form string="Form View">
+				<sheet>
+					<group style ="margin-top:10px">
+						<group><field name="name"/></group>
 					</group>
-				</group>
-			</sheet>
-		</form>
-	</field>
-</record>
-	
+					<notebook>
+						<page string="Properties List">
+							<group>
+								<feild name="property_list_ids"></feild>
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
 </odoo>

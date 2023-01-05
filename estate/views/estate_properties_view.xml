@@ -87,9 +87,13 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="state"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
-
     </record>
 
     <!--        _______________________Search View_______________________________                 -->
@@ -103,17 +107,14 @@
                 <field name="postcode" filter_domain="[('postcode','ilike',self)]"></field>
                 <field name="bedrooms"></field>
                 <field name="facades"></field>
-                <filter name="filter_date_availablity" date="date_availability" string="Avilable Date"/>
+                <filter name="filter_date_availablity" date="date_availability" string="Avilable Date"></filter>
                 <filter name="Living_area_filter" string="Living Area" domain="[('living_area','>=',1)]"/>
                 <filter name="Selling_price_filter" string="Selling Price" domain="[('selling_price','>=',2000001)]"/>
                 <group expand="1" string="Group By">
-                    <filter string="Facades" name="facades" context="{'group_by':'facades'}"/>
-                    <filter string="Living Area" name="living_area" context="{'group_by':'living_area'}"/>
+                    <filter string="Facades" name="facades" context="{'group_by':'facades'}"></filter>
+                    <filter string="Living Area" name="living_area" context="{'group_by':'living_area'}"></filter>
                 </group>
-                
-                
             </search>
         </field>
-        
     </record>
 </odoo>
