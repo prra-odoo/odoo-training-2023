@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="estate_property_model_action" model="ir.actions.act_window">
-        <field name="name">Real Estate</field>
+        <field name="name">Properties</field>
         <field name="res_model">estate.property.model</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -16,14 +16,13 @@
        <field name="model">estate.property.model</field>
        <field name="arch" type="xml">
             <tree string="Channel" >
-                <field name="name"/>
-                <field name="description"/>
+                <field name="name" string="Title"/>
                 <field name="postcode"/>
-                <field name="bedrooms"/>
-                <field name="date_availability"/>
-                <field name="description"/>
-                <field name="living_area"/>
+                <field name="bedrooms" string="Bedrooms"/>
+                <field name="living_area" string="Living Area (sqm)"/>
                 <field name="expected_price"/>
+                <field name="selling_price" string="Selling Price"/>    
+                <field name="date_availability" string="Available From"/>  
             </tree>
         </field>
     </record>
