@@ -30,6 +30,8 @@ class estate_Property(models.Model):
         selection=[('New','new'),('Offer Received','offer received'),('Offer Accepted','offer accepted'),
         ('Sold','sold'),('Canceled','canceled')],
       )
+      salesman=fields.Char(default="mitchell admin")
+      buyer=fields.Char(default="azure interior")
 
 
 
