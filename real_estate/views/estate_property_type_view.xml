@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <record id="property_type_view" model="ir.ui.view">
+            <field name="name">Tree.View</field>
+            <field name="model">estate.property.type</field>
+            <field name="arch" type="xml">
+                <tree string="Property Types">
+                    <field name="sequence" widget="handle"/>
+                    <field name = "name" />
+                </tree>
+                </field>
+        </record>
         <record id="model_estate_property_type_view_form" model="ir.ui.view">
-            <field name="name">Real Estate Form</field>
+            <field name="name">Real Estate Property Type Form</field>
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
                 <form>
@@ -12,13 +22,13 @@
                             <field name="name"/>
                         </h1>
                         <notebook>
-                            <page string="Details">
-                                <field name="details" type="xml">
+                            <page string="Properties">
+                                <field name="property_ids" type="xml">
                                     <tree editable="bottom">
                                         <field name="name"/>
-                                        <field name="postcode"/>
                                         <field name="salesman_id" widget="many2one_avatar"/>
-                                        <field name="buyer_id"/>
+                                        <field name="expected_price"/>
+                                        <field name="state"/>
                                     </tree>
                                 </field>
                             </page>

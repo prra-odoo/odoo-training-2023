@@ -9,6 +9,7 @@ class estateProperty(models.Model):
     _name = "estate.property"
     _description = "The Real Estate Advertisement Module"
     _inherit = ["mail.thread","mail.activity.mixin"]
+    _order = "id desc"
 
     name = fields.Char(string='Name', required=True, copy=True)
     description = fields.Text(string='Description')
@@ -25,7 +26,7 @@ class estateProperty(models.Model):
     garden_orientation = fields.Selection(string='Garden Orientation',
         selection=[('east', 'East'), ('west', 'West'), ('north', 'North'), ('south', 'South')]
         )
-    state = fields.Selection(selection=[('new', 'New'), ('in progress', 'In Progress'), ('cancel', 'Cancel')],
+    state = fields.Selection(selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')],
                                         default='new'
         )
     last_seen = fields.Char(string='Last seen')
@@ -33,7 +34,7 @@ class estateProperty(models.Model):
     property_type_id = fields.Many2one("estate.property.type", string='Property Type')
     buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
     salesman_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user )
-    tag_ids=fields.Many2many("estate.property.tag", string='property Tags')
+    tag_ids=fields.Many2many("estate.property.tag", string='Tags')
     offer_ids=fields.One2many("estate.property.offer","property_id")
     total_area=fields.Float(string="Total Area", compute="_compute_total", inverse="_inverse_total")
     best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
