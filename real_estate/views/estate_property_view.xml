@@ -53,21 +53,21 @@
         </record>
 
 
-
-        <record id="estate_view_tree" model="ir.ui.view">
-            <field name="name">Real Estate</field>
+        <record id="estate_property_view_tree" model="ir.ui.view">
+            <field name="name">estate.property.tree</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree expand="1" string="Real Estate">
-                    <field name="name"></field>
-                    <field name="postcode" />
-                    <field name="bedrooms" />
-                    <field name="living_area"></field>
-                    <field name="expected_price"></field>
-                    <field name="selling_price"></field>
-                    <field name="date_availability"></field>
-                    <field name="offer_ids"></field>
-                    <field name="garden_area" optional='hide'></field>
+                <tree string="Properties" decoration-success="state in ('received', 'accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'accepted'">
+                    <field name="name"/>
+                    <field name="property_type_id"/>
+                    <field name="postcode"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="bedrooms"/>
+                    <field name="living_area"/>
+                    <field name="expected_price"/>
+                    <field name="selling_price"/>
+                    <field name="date_availability" optional="hide"/>
+                    <field name="state" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -78,7 +78,7 @@
             <field name="arch" type="xml">
                 <form string="Real Estate">
                     <header>
-                        <field name="state" widget="statusbar"></field>
+                        <field name="state" widget="statusbar" options="{'clickable' : '1'}"></field>
                         <button name="action_sold" type="object" string="Sold" />
                         <button name="action_cancel" type="object" string="Cancel" />
                         <button type="action" name="%(estate_model_action_property_type)d" string="Go"/>
@@ -90,7 +90,7 @@
                             <field name="name" placeholder="Name"></field>
                         </h1>
 
-                        <field name="tag_ids" widget="many2many_tags"></field>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"></field>
 
                         <group>
                             <group>
@@ -102,7 +102,7 @@
                         </group>
                         <group>
                             <group>
-                                <field name="property_type_id" colspan='2'></field>
+                                <field name="property_type_id" options="{'no_create_edit': True, 'no_create': True}"></field>
                             </group>
                             <group>
                                 <field name="best_price"></field>
@@ -137,6 +137,9 @@
                                     <group>
                                         <field name="bedrooms"></field>
                                     </group>
+                                    <group>
+                                        <field name="living_area"></field>
+                                    </group>
 
                                 </group>
                                 <group>
@@ -152,19 +155,17 @@
 
                                 <group>
                                     <group>
-                                        <field name="garden"></field>
+                                        <field name="garden" ></field>
                                     </group>
                                     <group>
-                                        <field name="garden_area"></field>
+                                        <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"></field>
                                     </group>
                                 </group>
                                 <group>
                                     <group>
-                                        <field name="garden_orientation"></field>
+                                        <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"></field>
                                     </group>
-                                    <group>
-                                        <field name="living_area"></field>
-                                    </group>
+                                    
                                 </group>
                                 <group>
                                     <group>
@@ -174,16 +175,16 @@
                             </page>
                             <page string="Offer">
 
-                                <field name="offer_ids" type="xml">
-                                    <tree expand="1" multi_edit='1' sample='1' editable = 'bottom'>
+                                <field name="offer_ids" type="xml" attrs="{'readonly': [('state', 'in', ('accepted', 'sold', 'cancel'))]}">
+                                    <tree expand="1" multi_edit='1' sample='1' editable = 'bottom'  decoration-success="status == 'accepted'" decoration-danger = "status == 'refused'">
                                         <field name="price"></field>
                                         <field name="partner_id" />
                                         <field name="property_id"></field>
                                         <field name="validity"></field>
                                         <field name="date_deadline"></field>
-                                        <button name="action_accept" type="object" icon='fa-check' />
-                                        <button name="action_refused"  type="object" icon='fa-times' />
-                                        <field name="status" />
+                                        <button name="action_accept" type="object" icon='fa-check'  attrs="{'invisible': [('status', '!=', False)]}"/>
+                                        <button name="action_refused"  type="object" icon='fa-times' attrs="{'invisible': [('status', '!=', False)]}" />
+                                        <field name="status" invisible='1'/>
                                     </tree>
                                 </field>
 
@@ -227,8 +228,7 @@
 
                     <separator />
                     <filter string="Active" name="active" domain="[('garage', '=', True)]" />
-                    <filter string="Test" name="active"
-                        domain="['&amp;' , ('bedrooms', '&gt;', 2),('bedrooms', '&lt;', 10)]" />
+                    <filter string="Available" name="available" domain="[('state', 'in', ('new', 'received'))]"/>
                     <filter string="Less than 5 rooms" name="bedrooms"
                         domain="[('bedrooms', '&lt;', 5)]" />
                     <group string="Group By">
