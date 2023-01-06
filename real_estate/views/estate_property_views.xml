@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
+    <!-- FOR SEARCHING -->
     <record id="view_real_estate_property_search" model="ir.ui.view">
-            <field name="name">real.estate.search</field>
-            <field name="model">real.estate.property</field>
-            <field name="arch" type="xml">
-                <search string="Properties">
-                    <field name="name" string="Name"/>
-                    <field name="description"/>
-                    <!-- <field name="date_availability"/> -->
-                    <field name="expected_price"/>
-                    <field name="selling_price"/>
-                    <field name="bedrooms"/>
-                    <!-- <field name="living_area"/> -->
-                    <!-- <field name="facades"/> -->
-                    <field name="garage"/>
-                    <!-- <field name="garden_orientation"/> -->
-                    <!-- <field name="state"/> -->
-                    <separator/>
-                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-                    <group expand="1" string="Group By">
-                        <filter string="Ye dekh" name="Laxuary" context="{'group_by':'name', 'residual_visible':True}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-
-
+        <field name="name">real_estate_search_module</field>
+        <field name="model">real.estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Properties">
+                <field name="name" string="Title"/>
+                <field name="postcode"/>
+                <field name="property_type_id"/>
+                <!-- <field name="description"/> -->
+                <!-- <field name="date_availability"/> -->
+                <field name="expected_price"/>
+                <!-- <field name="selling_price"/> -->
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <!-- <field name="garage"/>
+                <field name="garden_orientation"/>
+                <field name="state"/> -->
+                <separator/>
+                <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
+                <filter string="bedrooms" name="bedrooms" domain="[('bedrooms', '&gt;', 0 )]"/>
+                <filter string="Garage" name="garage" domain="[('garage', '=', True)]"/>
+                <!-- <filter name="state" string="State" domain="['|',('state', '=', 'new') ,('state' ,'=', 'offer_accepted')]" /> -->
+                <filter name="state" string="State" domain="['|',('state', '=', ['new' , 'offer_accepted'])]" />
+                <filter string="Garden" name="garden" domain="[('garden', '
+                    =', True)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="postcode" name="postcode" context="{'group_by':'postcode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- FOR TREE VIEW -->
     <record id="real_estate_property_view_tree" model="ir.ui.view">
         <field name="name">real.estate.tree</field>
         <field name="model">real.estate.property</field>
@@ -40,20 +47,26 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="facades"/>
-                <field name="garage"/>
+                <field name="property_type_id"/>
+                <!-- <field name="garage"/> -->
                 <field name="garden_orientation"/>
                 <field name="state"/>
             </tree>
         </field>
     </record>
-
+    <!-- FOR FORM VIEW -->
     <record id="real_estate_property_view_form" model="ir.ui.view">
         <field name="name">real.estate.form</field>
         <field name="model">real.estate.property</field>
         <field name="arch" type="xml">
             <form string="Property">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
                 <sheet>
-                 <h1><field name="name" /></h1>
+                    <h1>
+                        <field name="name" />
+                    </h1>
                     <group>
                         <group>
                             <field name="postcode"/>
@@ -63,33 +76,32 @@
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                         </group>
-                            <notebook>
-                                <page name="Description" string="Description">
+                        <notebook>
+                            <page name="Description" string="Description">
+                                <group>
                                     <group>
-                                        <group>
-                                            <field name="description" string="Description"/>
-                                            <field name="bedrooms"/>
-                                            <field name="living_area"/>
-                                            <field name="facades"/>
-                                            <field name="garage"/>
-                                        </group>
-                                        <group>
-                                            <field name="garden"/>
-                                            <field name="garden_area"/>
-                                            <field name="garden_orientation"/>
-                                            <field name="active"/>
-                                            <field name="state"/>
-                                        </group>
+                                        <field name="description" string="Description"/>
+                                        <field name="bedrooms"/>
+                                        <field name="living_area"/>
+                                        <field name="property_type_id"/>
+                                        <field name="facades"/>
+                                        <field name="garage"/>
                                     </group>
-                                </page>
-                            </notebook>
+                                    <group>
+                                        <field name="garden"/>
+                                        <field name="garden_area"/>
+                                        <field name="garden_orientation"/>
+                                        <field name="active" invisible="1"/>
+                                        <field name="state"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-
-
     <record id="real_estate_model_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">real.estate.property</field>
@@ -99,9 +111,9 @@
                 Create a new property, the first step of a new project!
             </p>
             <p>
-                Once the property is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+                Once the property is confirmed by the customer, it becomes a sales order.
+                <br/> You will be able to create an invoice and collect the payment.
             </p>
         </field>
     </record>
 </odoo>
-

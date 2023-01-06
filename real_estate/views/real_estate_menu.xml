@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="real_estate_root" name="Real Esatate" sequence="10">
+    <menuitem id="real_estate_root" name="Real Esatate">
         <menuitem id="real_estate_first_level_menu" name="Advertisements">
-            <menuitem id="real_estate_menu_action_1" action="real_estate_model_action"  name="Property"/>
-            <menuitem id="real_estate_menu_action_2" action="real_estate_model_action"  name="Buy Property"/>    
-            <menuitem id="real_estate_menu_action_3"  action="real_estate_model_action" name="Post Property"/>
+            <menuitem id="real_estate_menu_property" action="real_estate_model_action"  name="Property"/>
         </menuitem>
-
-        <!-- <menuitem id="real_estate_Second_level_menu" name="Property">
-            <menuitem id="real_estate_menu_action_11" action="real_estate_model_action"  name="Property"/>
-            <menuitem id="real_estate_menu_action_22" action="real_estate_model_action"  name="Buy Property"/>    
-            <menuitem id="real_estate_menu_action_33"  action="real_estate_model_action" name="Post Property"/>
+        <menuitem id="real_estate_Second_level_menu" name="Setting">
+            <menuitem id="real_estate_menu_property_type" action="real_estate_property_type_model_action"  name="Property Types" />
         </menuitem>
-
-        <menuitem id="real_estate_third_level_menu" name="Searching">
-            <menuitem id="real_estate_menu_action_111" action="real_estate_model_action"  name="Property"/>
-            <menuitem id="real_estate_menu_action_222" action="real_estate_model_action"  name="Buy Property"/>    
-            <menuitem id="real_estate_menu_action_333"  action="real_estate_model_action" name="Post Property"/>
-        </menuitem> -->
     </menuitem>
 </odoo>
