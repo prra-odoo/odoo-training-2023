@@ -4,11 +4,15 @@
         <menuitem id="estate_menu_root" name="Real Estate">
             <menuitem id="estate_first_level_menu" name="Advertisements">
                 <menuitem id="estate_model_menu_action1" action="estate_property_model_action" name="Properties"/>
-                <menuitem id="estate_model_menu_action2" action="estate_property_model_action" name="Real Estate practice2"/>
-                <menuitem id="estate_model_menu_action3" action="estate_property_model_action" name="Real Estate practice3"/>
-                <menuitem id="estate_model_menu_action4" action="estate_property_model_action" name="Real Estate practice4"/>
             </menuitem>
+
+            <menuitem id="estate_property_level_menu" name="Settings">
+                <menuitem id="property_type_menu_action1" action="estate_property_type_action" name="Property types"/>
+            </menuitem>  
+
         </menuitem>
-    
+ 
+           
+          
 </odoo>
 

@@ -19,7 +19,7 @@ class Real_estate(models.Model):
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
-    state_sel = state=fields.Selection(
+    state=fields.Selection(
         string='State',
         selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancled','Canceled')],
         required=True,
@@ -30,4 +30,6 @@ class Real_estate(models.Model):
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(string='orientation',
     selection=[('north','North'),('east','East'),('west','West'),('south','South')])
+    type_id=fields.Many2one("estate.property.type")
+
 

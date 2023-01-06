@@ -34,6 +34,9 @@
         <field name="arch" type="xml">
 
             <form string="test">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
                 <sheet>
                     <h1> 
                         <field name="name" />
@@ -47,6 +50,9 @@
                         <group> <field name="expected_price"/></group>
                         <group> <field name="selling_price" string="selling price"/></group>
                         
+                    </group>
+                    <group>
+                        <field name="type_id"/>
                     </group>
 
                     <notebook>
@@ -67,6 +73,26 @@
             </form>
         </field>
     </record>
+
+    <record id="estate_property_search_view" model="ir.ui.view">
+        <field name="name">Estate Property Form View</field>
+        <field name="model">estate.property.model</field>
+        <field name="arch" type="xml">
+            <search  string="Search View">
+                <field name="name" string="Title"/>
+                <field name="postcode" string="Postcode"/>
+                <field name="expected_price" string="Expected Price"/>
+                <field name="bedrooms" string="Bedrooms"/>
+                <field name="living_area" string="Living Area (sqm)"/>
+                <field name="facades" string="Facades"/>
+                <filter string="Available" name="state" domain="[('state', '=' , ['new','offer_recieved'])]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
 
     
     
