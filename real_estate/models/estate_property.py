@@ -7,7 +7,8 @@ class estate_property(models.Model):
     _name = 'estate.property'
     _description = "Real Estate Module"
 
-    property_type = fields.Many2one('estate_property_type',string='property type')
+    property_type_id = fields.Many2one('estate.property.type',string='property type')
+
     name = fields.Char('Property Name',required=True)
     description = fields.Char('Description')
     postcode = fields.Char('PostCode')
@@ -22,8 +23,12 @@ class estate_property(models.Model):
     garden = fields.Boolean('Garden',default=True)
     garden_area = fields.Integer('Garden_area')
     garden_orientation = fields.Selection(
-            string='Garden_orientation',
+            string='Garden_orientation',default="North",
             selection=[('North','North'),('South','South'),('East','East'),('West','West')],
             help="This type is saparate north ,south,east and wast")
     active = fields.Boolean('Active',default=True)
+
+    status = fields.Selection(
+            string='Status',copy=False,default='New',
+            selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('offer cancelled','offer cancelled'),('Sold','Sold')])
     #,default=lambda self: fields.Datetime.now()

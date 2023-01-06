@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="estate_property_data" model="estate.property">
+            <field name="name">new hotel</field>
+            <field name="description">first new hotel</field>
+            <field name="bedrooms">2</field>
+            <field name="living_area">3</field>
+            <field name="facades">0</field>
+            <field name="garden_area">1</field>
+            <field name="postcode">3wed23l</field>
+            <!-- <field name="garden_orientation">South</field> -->
+            <field name="status">New</field>
+            <field name="garage">t</field>
+            <field name="garden">t</field>
+            <field name="selling_price">100000</field>
+            <field name="expected_price">1200000</field>
+            <field name="property_type_id">1</field>
+        </record>
+    </data>
+
+</odoo>
