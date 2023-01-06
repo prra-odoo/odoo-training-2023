@@ -10,6 +10,7 @@
         </p>
       </field>
     </record>
+   
     <record id="real_estate_search" model="ir.ui.view">
               <field name="name">estate.property.search</field>
               <field name="model">estate.property</field>
@@ -21,6 +22,9 @@
                     <field name="date_availability"/>
                     <field name="selling_price"/>
                     <field name="description"/>
+                    <field name="type_id"/> 
+                   <!--<field name="tag_id" widget="many2many_tags"/> -->
+
                     <field name="bedroom"/>
                     <field name="living_area"/>
                     <field name="facades"/>
@@ -32,10 +36,11 @@
                       <separator/>
                       <filter string="price filter" name="expeccted_price" domain="[('expeccted_price', '=', 120000)]"/>
                       <filter string="pin" name="postcode" domain="[('postcode', '!=', 656565)]"/>
-                      <filter name="filter_create_date" date="date_availability" string="available Date"/>
-                      <group expand="2" string="Group By">
+                      <filter name="filter_date_availability" date="date_availability" string="available Date"/>
+                      <filter name="filter_create_date" date="create_date" string=" Date"/>
+                      <!--<group expand="2" string="Group By">
                           <filter string="expected price" name="expeccted_price" context="{'group_by':'expeccted_price', 'residual_visible':True}"/>
-                      </group>
+                      </group>-->
                   </search>
               </field>
           </record>

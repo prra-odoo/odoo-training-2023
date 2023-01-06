@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+
 <odoo>
 <record id="real_estate_view_tree" model="ir.ui.view">
         <field name="name">real.estate.view.tree</field>
@@ -11,6 +11,8 @@
                 <field name="date_availability"/>
                 <field name="selling_price"/>
                 <field name="description"/>
+                <field name="type_id"/>
+                <!--<field name="tag_id" widget="many2many_tags"/>-->
                 <field name="bedroom"/>
                 <field name="living_area"/>
                 <field name="facades"/>
@@ -19,6 +21,8 @@
                 <field name="garden_area"/>
                 <field name="garden_orientation"/>
                 <field name="state"/>
+               <!-- <field name="salesperson"/>
+                <field name="buyer"/>-->
             </tree>
         </field>
     </record>

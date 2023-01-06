@@ -6,6 +6,9 @@
             <field name="arch" type="xml">
                 <form string="Lost Reason">
                     <sheet>
+                    <header >
+                    <field name='state' widget='statusbar' options="{'clickable': '1'}" />
+                    </header>
                         <h1>
                             <label for="name" string="Product Name" />
                             <field name="name" nolable="1"/>
@@ -30,22 +33,25 @@
                                         <notebook>
                                             <page string="Description">
                                                 <group>
-                                                    <field name="description"/>                                                                                              
+                                                    <field name="description"/> 
+                                                    <!--<field name="type_id"/>-->
+                                                    <field name="type_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                                    <!--<field name="tag_id" widget="many2many_tags"/> -->                                                                                            
                                                     <field name="living_area"/>                                                
                                                     <field name="facades"/>                                                
                                                     <field name="garage"/>                                                
                                                     <field name="garden"/>
                                                      <field name="garden_area"/>                                                
                                                     <field name="garden_orientation"/>                                                
-                                                    <field name="state"/>
+                                                    <!--<field name="state"/>-->
                                                 </group>  
                                                                              
                                             </page>
                                             <page string="Other Info.">
-                                            <group>
-                                                   <field name="salesman"/>                                                
+                                            <!--<group>
+                                                   <field name="salesperson"/>                                                
                                                     <field name="buyer"/>
-                                                </group>   
+                                                </group>   -->
                                             </page>   
                                         </notebook>
                                     

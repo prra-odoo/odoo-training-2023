@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<odoo>
+   <data>
+    <record id="estate_demo" model="estate.property">
+        <field name="name">my demo</field>
+        <field name="expeccted_price">240000</field>
+        <field name="selling_price">1200000</field>
+    </record>
+    <record id="estate_anaya" model="estate.property">
+        <field name="name">ananya</field>
+        <field name="expeccted_price">240000</field>
+        <field name="selling_price">1200000</field>
+    </record>
+    <record id="estate_shilp" model="estate.property">
+        <field name="name">shilp</field>
+        <field name="expeccted_price">240000</field>
+        <field name="selling_price">1200000</field>
+    </record>
+    <record id="estate_treasure" model="estate.property">
+        <field name="name">treasure</field>
+        <field name="expeccted_price">240000</field>
+        <field name="selling_price">1200000</field>
+    </record>
+   </data>
+</odoo>
