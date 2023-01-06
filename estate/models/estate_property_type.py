@@ -14,6 +14,6 @@ class estate_property_Type(models.Model):
     description = fields.Char()
     sequence = fields.Integer("Sequence",default = 10)
     title= fields.Char()
-    propertyName_id = fields.One2many('estate.property','property_type_id')
+    propertyName_ids = fields.One2many('estate.property','property_type_id')
     
     

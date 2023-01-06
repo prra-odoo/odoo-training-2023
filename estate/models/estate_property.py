@@ -28,7 +28,7 @@ class estate_property(models.Model):
     living_area = fields.Integer(default = 2)
     facades = fields.Integer(default = 5)
     garage = fields.Boolean(default= False)
-    garden_area = fields.Integer(default = 1)
+    garden_area = fields.Integer("Garden area(sqm)")
     total_area = fields.Float(compute="_compute_total_area")
     best_offer =  fields.Float(compute= "_compute_offer_price",default=0)
     Other_info = fields.Text("Others info")
@@ -39,14 +39,15 @@ class estate_property(models.Model):
     )
     state = fields.Selection(
         string='Status',
-        selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')]
+        selection=[('new','New'),('offer_received','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')],
+        default="new"
     )
     property_type_id = fields.Many2one("estate.property.type", string="Property type")
     salesperson_id= fields.Many2one("res.users",string="Sales")
     buyers_id=fields.Many2one("res.partner",string="Buyers")
     tags_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer","property_id",string = "Property offer")
-    # type_ids = fields.One2many("estate.property.type","property_id",string="Properites")
+    
     
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

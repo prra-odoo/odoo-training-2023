@@ -20,24 +20,31 @@ class estateOffer(models.Model):
     date_deadline = fields.Date("Deadline" ,compute="_compute_deadline_" , inverse = "_compute_validty_changes_")
     partner_id = fields.Many2one("res.partner",string="Partner id",)
     property_id= fields.Many2one("estate.property",string="Property id")
-    # offer_ids = fields.One2many("estate.property.type","property_id",string = "Property offer")
+    # property_type_id = fields.Many2one("estate.property.type",related = property_id.property_type_id,string="Property Type")
+    # # offer_ids = fields.One2many("estate.property.type","property_id",string = "Property offer")
     
     
     @api.depends('create_date','validity','date_deadline')
     def _compute_deadline_(self):
         for record in self:
-            record.date_deadline = add(record.create_date,days=record.validity)
-            # record.date_deadline = record.create_date + relativedelta( months =+ record.validity)
+            record.date_deadline = record.create_date + relativedelta( months =+ record.validity)
             
     def _compute_validty_changes_(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
     
-    @api.depends('status')
+    # @api.depends('status')
     def action_accept(self):
         for record in self.search([('status','=','accepted')]):
-            raise ValidationError(("cannot accept more than one offer"))
+            if record.property_id == self.property_id:
+                for record in self.search([('status','=','accepted')]):
+                    if record.partner_id!= self.property_id:
+                        raise ValidationError("Cant accept more than one")
+                    else:
+                        for i in record:
+                            record.status='refuse'
         self.status='accepted'
+        self.property_id.state='offer_accepted'
         self.property_id.selling_price = self.price
         self.property_id.buyers_id = self.partner_id
 
