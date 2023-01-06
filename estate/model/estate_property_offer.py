@@ -39,6 +39,7 @@ class EstatePropertyOffer(models.Model):
     def action_accepted(self):
         for record in self:
             record.status = 'accepted'
+            record.property_id.state = 'offer_accepted'
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
         return True

@@ -8,7 +8,7 @@ from odoo.tools.float_utils import float_compare
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real estate advertisement module"
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = "sequence desc, property_type_id desc"
 
     name = fields.Char('Name',required=True)
@@ -17,7 +17,7 @@ class EstateProperty(models.Model):
     property_type_id = fields.Many2one('estate.property.type', string='Property Type') #inverse in property type
     description = fields.Text('Details',copy=False)
     postcode = fields.Char('Postcode')
-    date_availability = fields.Date('Date availability',default=lambda self:fields.Datetime.now(),readonly=True)
+    date_availability = fields.Date('Available From',default=lambda self:fields.Datetime.now(),readonly=True)
     expected_price = fields.Float('Expected price')
     selling_price = fields.Float('Selling price')
     sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")

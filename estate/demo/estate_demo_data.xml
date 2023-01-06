@@ -6,7 +6,7 @@
             <field name="postcode">000000</field>
             <field name="bedrooms">5</field>
         </record>
-       <record model="estate.property" id="property_model_demo1" >
+        <record model="estate.property" id="property_model_demo1" >
              <field name="name">New house</field>
         </record>
         <record model="estate.property" id="property_model_demo2" >
