@@ -23,7 +23,8 @@ class estateModel(models.Model):
     garden = fields.Boolean('Garden')
     garden_area = fields.Integer('Garden Area')
     active = fields.Boolean(default=True)
-    state=fields.Selection(selection=[('new', 'New'), ('inprogress', 'In Progress'),('sold','Sold'),('cancel','Cancel')],default='new',tracking=True)
+    state=fields.Selection(selection=[('new', 'New'), ('offerrecieved', 'Offer Recieved'),('offeraccepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')],
+        default='new',tracking=True,required=True)
     garage_orientation = fields.Selection(
         string='Garden Orientation:',
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
@@ -31,10 +32,10 @@ class estateModel(models.Model):
     total_area = fields.Float(compute="_compute_total_area")
     property_id=fields.Many2one("estate.property.type", string="Property")
     tags_ids=fields.Many2many("estate.property.tags",string="Tags")
-    offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers")
+    offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers",readonly=False)
     sales_id=fields.Many2one("res.users",string="Sales",default=lambda self: self.env.user)
     buyers_id=fields.Many2one("res.partner",string="Buyers")
-    colors=fields.Integer()
+
 
     _sql_constraints=[
         ('check_expected_price','CHECK(expected_price >= 0)','Expected Price cannot be negative'),
@@ -76,6 +77,12 @@ class estateModel(models.Model):
         for record in self:
             if record.selling_price < (90/100)*(self.expected_price):
                 raise ValidationError("Selling price cannot be less than 90 percent of expected price")
+
+    # @api.depends('offer_ids.price')
+    # def _compute_state(self):
+    #     for record in self:
+    #         if self.offer_ids.price>0:
+    #             record.state='offerrecieved'
 
     # @api.depends('offer_ids.status')
     # def _compute_selling_price(self):

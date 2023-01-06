@@ -10,6 +10,7 @@
         'views/estate_view_action.xml',
         'views/estate_offer.xml',
         'views/estate_type.xml',
+        'views/estate_tags.xml',
     ],
     'demo' : [
         'demo/estate_demodata.xml',
