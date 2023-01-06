@@ -13,6 +13,7 @@
 
     ],
     'demo' : [
+        'demo/estate_properties_demo.xml'
 
     ],
     'application' : True,

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="estate_properties_demo1" model="estate.properties">
+            <field name="name">odoo office</field>
+            <field name="description">Wonderful office at Infocity,Gandhinagar</field>
+            <field name="postcode">123456</field>
+            <field name="expected_price">1000000</field>
+            <field name="selling_price">1200000</field>
+            <!-- <field name="garden">True</field>
+            <field name="active">True</field> -->
+            <field name="state">new</field>
+        </record>
+        <record id="estate_properties_demo2" model="estate.properties">
+            <field name="name">party plot</field>
+            <field name="description">We provide plot to organize your events and parties</field>
+            <field name="postcode">3456</field>
+            <field name="expected_price">1200000</field>
+            <field name="selling_price">1500000</field>
+            <!-- <field name="garden">True</field>
+            <field name="active">True</field> -->
+            <field name="state">new</field>
+        </record>
+        <record id="estate_properties_demo3" model="estate.properties">
+            <field name="name">appartment on 5th floor</field>
+            <field name="description">sea facing flat at juhu beach</field>
+            <field name="postcode">1236</field>
+            <field name="expected_price">155000</field>
+            <field name="selling_price">160000</field>
+            <!-- <field name="garden">True</field>
+            <field name="active">True</field> -->
+            <field name="state">offer_received</field>
+        </record>
+        <record id="estate_properties_demo4" model="estate.properties">
+            <field name="name">office</field>
+            <field name="description">office with Wonderful infrastructure and design</field>
+            <field name="postcode">5678</field>
+            <field name="expected_price">234566</field>
+            <field name="selling_price">334564</field>
+            <!-- <field name="garden">True</field>
+            <field name="active">True</field> -->
+            <field name="state">offer_accepted</field>
+        </record>
+        <record id="estate_properties_demo5" model="estate.properties">
+            <field name="name">3 BHK house</field>
+            <field name="description">Fully furnished 3 BHK house</field>
+            <field name="postcode">123456</field>
+            <field name="expected_price">1000000</field>
+            <field name="selling_price">1200000</field>
+            <!-- <field name="garden">True</field>
+            <field name="active">True</field> -->
+            <field name="state">new</field>
+        </record>
+    </data>
+</odoo>
