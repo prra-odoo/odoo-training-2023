@@ -21,5 +21,35 @@
             </tree>
         </field>
     </record>
-    <!--** List view **-->
+    <!--** Form view **-->
+    <record id="estate_property_type_model_form_view" model="ir.ui.view">
+        <field name="name">Real Estate Property Types Form View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Property Types Form">
+                <sheet>
+                    <br/>
+                    <h1>
+                        <field name="name" placeholder="e.g. House, Apartment..."/>
+                    </h1>
+                    <br/>
+                    <notebook>
+                        <page name="description" string="Description">
+                            
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--** Search view **-->
+    <record id="estate_property_type_model_tree_view" model="ir.ui.view">
+        <field name="name">Real Estate Property Types List View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <search string="Property Type Search">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
 </odoo>

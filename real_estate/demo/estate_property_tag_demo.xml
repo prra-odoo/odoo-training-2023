@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- 1 -->
+        <record id="estate_property_tag_demo_data_1" model="estate.property.tag">
+            <field name="name">Cozy</field>
+        </record>
+        <!-- 2 -->
+        <record id="estate_property_tag_demo_data_2" model="estate.property.tag">
+            <field name="name">Renovated</field>
+        </record>
+    </data>
+</odoo>

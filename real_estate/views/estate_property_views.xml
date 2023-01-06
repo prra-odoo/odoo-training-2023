@@ -34,17 +34,27 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Property">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
                 <sheet>
+                    <br/>
+                    <label for="name" string="Name"/>
                     <h1>
-                        <field name="name" placeholder="e.g. Cozy Apartment in Ahmedabad"/>
+                        <field name="name" string="Name" placeholder="e.g. Cozy Apartment in Ahmedabad"/>
                     </h1>
+                    <label for="tag_ids" string="Tags"/>
+                    <field name="tag_ids" widget="many2many_tags" string="Tags" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                    <br/>
                     <br/>
                     <group>
                         <group>
+                            <field name="property_type_id" string="Property Type"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
                         <group>
+                            <field name="state" string="State"/>
                             <field name="selling_price"/>
                             <field name="expected_price"/>
                         </group>

@@ -8,6 +8,7 @@
         </menuitem>
         <menuitem id="estate_property_first_level_menu_set" name="Settings">
             <menuitem id="estate_property_menu_action_4" action="estate_property_type_model_action" name="Property Types" sequence="1"/>
+            <menuitem id="estate_property_menu_action_5" action="estate_property_tag_model_action" name="Property Tags" sequence="2"/>
         </menuitem>
     </menuitem>
 </odoo>
