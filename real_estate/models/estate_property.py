@@ -29,12 +29,13 @@ class estateProperty(models.Model):
     garden_orientation = fields.Selection(string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('west', 'West'), ('east', 'East')],
         help="Type is used to separate Leads and Opportunities")
-    state = fields.Selection(string = "state", selection = [('new', 'New'), ('received', 'Offer Received'), ('accepted', 'Offer Accepted'), ('sold', 'Sold'),('cancel', 'Cancel')], default= "new")
+    state = fields.Selection(string = "state", selection = [('new', 'New'), ('received', 'Offer Received'), ('accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')], default= "new")
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
     salesman_id = fields.Many2one("res.users", string="Salesman" ,default=lambda self: self.env.user)
     buyer_id = fields.Many2one("res.partner", string="Buyers")
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer","property_id")
+    # active = fields.Boolean('Active', default=False)
 
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)',
@@ -52,7 +53,6 @@ class estateProperty(models.Model):
         for record in self:
             record.best_price = max(record.offer_ids.mapped('price'), default=0)
             # if record.offer_ids.status == 'accepted':
-
 
 
     def action_sold(self):
@@ -84,3 +84,12 @@ class estateProperty(models.Model):
                     "The selling price must be at least 90% of the expected price! "
                     + "You must reduce the expected price if you want to accept this offer."
                 )
+
+    
+    @api.ondelete(at_uninstall=True)
+    def _check_state(self):
+        for asset in self:
+            if asset.state not in ['new', 'cancel']:
+                raise UserError(_(
+                    'You cannot delete a data in this state.',
+                ))

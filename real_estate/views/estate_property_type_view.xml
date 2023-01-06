@@ -21,6 +21,12 @@
                 
                 <form string="Property type">
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(real_estate.estate_model_action_offer)d" type="action"
+                                class="oe_stat_button" icon="fa-money">
+                                <field name="offer_count" widget="statinfo" string="Offers" />
+                            </button>
+                        </div>
                         <label for="name" string="Name" />
                         <h1>
                             <field name="name" placeholder="Name"></field>
