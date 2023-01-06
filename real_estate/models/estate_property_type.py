@@ -4,5 +4,7 @@ class EstateTypeProperty(models.Model):
     _name="real.estate.property.type"
     _description="Property Type Model"
 
-    name=fields.Char(string="Title",required=True)
+    name=fields.Char(string="name",required=True)
     description=fields.Text('Description')
+    
+    

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
+
     <menuitem id="real_estate" name="Real Estate">
         <menuitem id="real_estate_first_level" name="Property">
-            <menuitem id="real_estate_model" action="real_estate_action" name="Property List"/>
-            <menuitem id="real_estate_model2" action="real_estate_action" name="Property Names"/>
-    </menuitem>
+            <menuitem id="real_estate_model" action="real_estate_action" name="Property List" />
+            <menuitem id="real_estate_model2" action="real_estate_action" name="Property Names" />
+        </menuitem>
 
-    <menuitem id="real_estate_second_level" name="Settings">
-        <menuitem id="real_estate_form" action="real_estate_action" name="Property Types"/>
-    </menuitem>
+        <menuitem id="real_estate_type_first_level" name="Settings">
+            <menuitem id="real_estate_type_model" action="real_estate_type_action" name="Property Type"/>
+            <menuitem id="real_estate_type_model2" action="real_estate_type_action" name="Property Names1"/>
+        </menuitem>
+       
 
-    <menuitem id="real_estate_Third_level" name="Avertisement">
-        <menuitem id="real_estate_form1" action="real_estate_action" name="lists of state"/>
-    </menuitem>
+        <menuitem id="real_estate_Third_level" name="Avertisement">
+            <menuitem id="real_estate_form1" action="real_estate_action" name="lists of state" />
+        </menuitem>
 
     </menuitem>
     
+
 </odoo> 

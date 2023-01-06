@@ -17,6 +17,7 @@ class Estate(models.Model):
     facades=fields.Integer('Facades')
     garage=fields.Boolean('Garage')
     garden=fields.Boolean('Garden')
+    type_id=fields.Many2one('real.estate.property.type',string="Property type")
     garden_orientation=fields.Selection(selection=[('north','North'), ('south','South'), ('east','East'),('west','West')],default='north')
     active=fields.Boolean(default=True)
-    state=fields.Selection(selection=[('new','New'),('offer recevied','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],default='new' ,required=True,copy=False)
+    state=fields.Selection(selection=[('new','New'),('offer recevied','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],default='new' ,copy=False)
