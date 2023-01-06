@@ -20,6 +20,11 @@ class estatePropertyOffer(models.Model):
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline")
     create_date = fields.Date(default=fields.Datetime.now(), readonly=True, copy=False)
+    property_type_id = fields.Many2one("estate.property.type", store=True)
+
+    _sql_constraints = [
+        ('check_offer_price', 'CHECK(price>=0)', 'Offer price must be Strictly Positive!')
+    ]
 
     @api.depends('validity', 'date_deadline', 'create_date')
     def _compute_date_deadline(self):
@@ -37,10 +42,6 @@ class estatePropertyOffer(models.Model):
                 record.property_id.selling_price = 0
         return True
 
-    _sql_constraints = [
-        ('check_offer_price', 'CHECK(price>=0)', 'Offer price must be Strictly Positive!')
-    ]
-
     def action_offer_accepted(self):
         if 'accepted' in self.mapped("property_id.offer_ids.status"):
             raise UserError("Cannot Accept Offers from Multiple Properties!!")
@@ -49,5 +50,5 @@ class estatePropertyOffer(models.Model):
                 record.status = 'accepted'
                 record.property_id.selling_price = record.price
                 record.property_id.buyer_id = record.partner_id
-                record.property_id.state = 'offer_accepted'                    
+                record.property_id.state = 'offer_accepted'
         return True

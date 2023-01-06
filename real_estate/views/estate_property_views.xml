@@ -27,12 +27,21 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_property_sold" string="Sold" type="object" />
-                    <button name="action_property_cancel" string="Cancel" type="object" />
-                    <button type="action" name="%(property_type_action)d" string="Property Types"/>
                     <field name="state" widget="statusbar" />
+                    <!-- <t t-if="state != 'sold'"> -->
+                        <span attrs="{'invisible':['|',('state', '=', 'sold'), ('state', '=', 'canceled')]}">
+                          <button name="action_property_sold" string="Sold" type="object" attrs="{'invisible': [('state', '=', 'offer_accepted')]}" />
+                             <button name="action_property_sold" string="Sold" type="object" class="oe_highlight"  attrs="{'invisible': [('state', '!=', 'offer_accepted')]}" />
+                    <!-- </t> -->
+                    <button name="action_property_cancel" string="Cancel" type="object" />
+                </span>
+                    <!-- <button type="action" name="%(property_type_action)d" string="Property Types"/> -->
                 </header>
-                <sheet>"
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible':[('active', '=', True)]}" />
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state', '!=', 'sold')]}" />
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
+                    <field name="active" invisible="1" />
                     <label for="name" string="Name"/>
                     <h1><field name="name"/></h1>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field':'Color', 'no_create':True}" />
