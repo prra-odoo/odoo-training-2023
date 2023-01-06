@@ -5,7 +5,7 @@
             <menuitem id="real_estate_first_level_menu" name="Menu">
                 <menuitem id="real_estate_menu_action" action="real_estate_action" />
             </menuitem>
-            <menuitem id="estate_property_type_first_level_menu" name="Settings">
+            <menuitem id="estate_property_type_first_level_menu" name="Others">
                 <menuitem id="estate_property_type_menu_action" action="estate_property_type_action" />
                 <menuitem id="estate_property_tag_menu_action" action="estate_property_tag_action" />
             </menuitem>

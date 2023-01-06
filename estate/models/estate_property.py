@@ -2,7 +2,7 @@
 
 
 from odoo import models, fields, api
-from odoo.tools.date_utils import add
+from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
 
@@ -17,7 +17,7 @@ class realEstate(models.Model):
     description = fields.Text("Description")
     postcode = fields.Char("Post Code")
     date_availability = fields.Date(
-        "Available From", default=add(fields.Datetime.now(), months=3))
+        "Available From", default=fields.Datetime.now()+relativedelta(months = 3 ))
     expected_price = fields.Float("Excepted Price")
     selling_price = fields.Float("Selling Price", readonly=True,tracking=True)
     bedrooms = fields.Integer("Bedrooms")
@@ -59,30 +59,34 @@ class realEstate(models.Model):
 
     @api.constrains("expected_price", "selling_price")
     def _check_selleing_price(self):
-        if self.selling_price != 0:
-            if float_compare(self.selling_price, (self.expected_price * 0.9), precision_digits=3) < 0:
-                raise ValidationError(
-                    "selling price cannot be lower than 90% of the expected price")
-        else:
-            pass
+        for rec in self:
+            if rec.selling_price != 0:
+                if float_compare(rec.selling_price, (rec.expected_price * 0.9), precision_digits=3) < 0:
+                    raise ValidationError(
+                        "selling price cannot be lower than 90% of the expected price")
+            else:
+                pass
 
     # Compute Functions
     @api.depends("living_area", "garden_area")
     def _total_area(self):
-        self.total_area = self.living_area + self.garden_area
+        for rec in self:
+            rec.total_area = rec.living_area + rec.garden_area
 
     @api.depends("garden")
     def _garden_area_total(self):
-        if self.garden:
-            self.garden_area = 1
-        else:
-            self.garden_area = 0
+        for rec in self:
+            if rec.garden:
+                rec.garden_area = 1
+            else:
+                rec.garden_area = 0
 
     def _inverse_garden_area(self):
-        if self.garden_area > 0:
-            self.garden = True
-        else:
-            self.garden = False
+        for rec in self:
+            if rec.garden_area > 0:
+                rec.garden = True
+            else:
+                rec.garden = False
 
     @api.depends("offer_ids.price")
     def _best_price(self):
@@ -92,15 +96,23 @@ class realEstate(models.Model):
     # Buttons
 
     def action_cancel_button_header(self):
-        if self.state == "sold":
-            raise UserError("Sold Property can't be calceld")
-        else:
-            self.state = "canceled"
-        return True
+        for rec in self:
+            if rec.state == "sold":
+                raise UserError("Sold Property can't be calceld")
+            else:
+                rec.state = "canceled"
+            return True
 
     def action_sold_button_header(self):
-        if self.state == "canceled":
-            raise UserError("Canceld property can't be sold")
-        else:
-            self.state = "sold"
-        return True
+        for rec in self:
+            if rec.state == "canceled":
+                raise UserError("Canceld property can't be sold")
+            else:
+                rec.state = "sold"
+            return True
+
+    @api.ondelete(at_uninstall=False)
+    def _delete_property(self):
+        for rec in self:
+            if not (rec.state=="new" or rec.state =="canceled"):
+                raise UserError("Can't Remove The Property.")
