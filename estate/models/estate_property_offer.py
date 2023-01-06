@@ -30,6 +30,7 @@ class EstateModel(models.Model):
         for record in self:
             record.date_deadline = record.create_date + relativedelta(days = record.validity)
 
+
     def _inverse_deadline(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
@@ -45,9 +46,9 @@ class EstateModel(models.Model):
         self.status = "accepted"
         self.property_id.buyers_id = self.partner_id
         self.property_id.selling_price = self.price
-            
-        
+        self.property_id.state = "offer_accepted"
 
     def action_refuse(self):
         for record in self:
             record.status = "refused"
+
