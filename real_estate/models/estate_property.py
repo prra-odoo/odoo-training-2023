@@ -33,7 +33,7 @@ class EstateProperty(models.Model):
                    ('north', 'North'), ('east', 'East')]
     )
     state = fields.Selection(
-        selection=[('new', 'New'), ('confirm', 'Confirm'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'),
+        selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'),
                    ('cancel', 'Cancel')], default="new", tracking=True
     )
     property_type_id = fields.Many2one(
@@ -43,7 +43,7 @@ class EstateProperty(models.Model):
         'res.users', string="Sales Person", default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag', string="Tags")
     offer_ids = fields.One2many("estate.property.offer", "property_id")
-
+    active = fields.Boolean(default=True)
     total_area = fields.Integer(compute="_compute_total_area")
     best_price = fields.Float(compute='_compute_best_price')
 
@@ -94,3 +94,15 @@ class EstateProperty(models.Model):
                     "selling price cannot be lower than 90% of the expected price")
         else:
             pass
+
+        def unlink(self):
+            for record in self:
+                if record.state not in ['new','canceled']:
+                    raise UserError("Not Possible!!!!!!!!!!")
+            return super().unlink()
+    
+    # @api.model
+    # def create(self, vals):
+    #     self.env['state'].browse(vals['offer_received']).check_granting()
+    #     return super().create(vals)
+    

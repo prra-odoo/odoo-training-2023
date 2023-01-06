@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from odoo.tools.date_utils import add
 from odoo.exceptions import UserError,ValidationError
-
+from odoo.tools import float_compare
 from dateutil.relativedelta import relativedelta
 
 
@@ -14,13 +14,14 @@ class EstatePropertyOffer(models.Model):
 
     price = fields.Float("Price")
     partner_id = fields.Many2one("res.partner", required=True)
-    property_id = fields.Many2one("estate.property", required=True)
+    property_id = fields.Many2one("estate.property",required=True)
     status = fields.Selection(
         selection=[('accepted', 'Accepted'), ('refused', 'Refused')])
     validity = fields.Integer()
     date_deadline = fields.Date(
         "Date Deadline", compute='_compute_date_deadline', inverse='_inverse_date_deadline')
     create_date = fields.Date(default=fields.Datetime.now(), readonly=True)
+    property_type_id =fields.Many2one('estate.property.type')
 
     _sql_constraints = [
         ('check_price', 'CHECK(price >= 0)',

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="Create_estate_property_offer_model_action" model="ir.actions.act_window">
+            <field name="name">Property offer</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_tree_estate_property_offer" model="ir.ui.view">
+            <field name="name">Real Estate offer Form View</field>
+            <field name="model">estate.property.offer</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="price" />
+                    <field name="partner_id" />
+                    <field name="property_id" />
+                    <field name="status" />
+                    <field name="validity" />
+                    <field name="date_deadline" />
+                    <field name="create_date" />
+                    <field name="property_type_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_tree_estate_property_offer" model="ir.ui.view">
+            <field name="name">Real Estate offer Form View</field>
+            <field name="model">estate.property.offer</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="price" />
+                            <field name="partner_id" />
+                            <field name="property_id"  type="xml"/>
+                            <field name="status" />
+                        </group>
+                        <group>
+                            <field name="validity" />
+                            <field name="date_deadline" />
+                            <field name="create_date" />
+                            <field name="property_type_id" />
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
