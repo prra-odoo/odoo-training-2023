@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record model="estate.property" id="realestate_data1">
+    <record model="estate.property" id="realestate_odoo">
         <field name="name">Odoo</field>
         <field name="description">Real Estate Description</field>
         <field name="postcode">395006</field>
@@ -8,7 +8,7 @@
         <field name="selling_price">250000</field>
     </record>
 
-    <record model="estate.property" id="realestate_data2">
+    <record model="estate.property" id="realestate_newhouse">
         <field name="name">New House</field>
         <field name="description">Real Estate Description</field>
         <field name="postcode">395010</field>
@@ -16,23 +16,26 @@
         <field name="selling_price">200000</field>
     </record>
 
-    <record model="estate.property" id="realestate_data3">
+    <record model="estate.property" id="realestate_oldhouse">
         <field name="name">Old House</field>
         <field name="description">Real Estate Description</field>
         <field name="postcode">395001</field>
         <field name="expected_price">1000</field>
         <field name="selling_price">1500</field>
     </record>
-    <record model="estate.property.type" id="realestate_type1">
+    <record model="estate.property.type" id="realestate_flat">
         <field name='name'>Flat</field>
     </record>
-    <record model="estate.property.type" id="realestate_type2">
+    <record model="estate.property.type" id="realestate_house">
         <field name='name'>House</field>
     </record>
-    <record model="estate.property.tag" id="property_tags1">
+    <record model="estate.property.type" id="realestate_penthouse">
+        <field name='name'>Pent House</field>
+    </record>
+    <record model="estate.property.tag" id="property_tags_cozy">
         <field name='name'>cozy</field>
     </record>
-    <record model="estate.property.tag" id="property_tags2">
+    <record model="estate.property.tag" id="property_tags_renovated">
         <field name='name'>renovated</field>
     </record>
 </odoo>

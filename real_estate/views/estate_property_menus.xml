@@ -5,8 +5,8 @@
             <menuitem id="property_list_menu_action" action="property_list_action"/>
         </menuitem>
         <menuitem id="setting_menu" name="Setting">
-            <menuitem id="setting_menu_action1" action="setting_action1"/>
-            <menuitem id="setting_menu_action2" action="setting_action2"/>
+            <menuitem id="property_types_menu_action" action="property_types_action"/>
+            <menuitem id="property_tags_menu_action" action="property_tags_action"/>
         </menuitem>
         <menuitem id="offers_menu" name="Offers" action="offers_action"/>
     </menuitem>

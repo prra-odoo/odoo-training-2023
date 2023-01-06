@@ -14,11 +14,11 @@ class estateProperty(models.Model):
     name = fields.Char(string='Name', required=True, copy=True)
     description = fields.Text(string='Description')
     postcode = fields.Integer(string='Postcode')
-    date_availability = fields.Date(string='Date Availability', default=lambda self: fields.Datetime.now())
+    date_availability = fields.Date(string='Available From', default=lambda self: fields.Datetime.now())
     expected_price = fields.Float(string='Expected Price')
     selling_price = fields.Float(string='Selling Price')
     bedrooms = fields.Integer(string='Bedrooms')
-    living_area = fields.Integer(string='Living Area')
+    living_area = fields.Integer(string='Living Area(sqm)')
     facades = fields.Integer(string='Facades')
     garage = fields.Boolean(string='Garage')
     garden=fields.Boolean(string='Garden')
@@ -29,16 +29,20 @@ class estateProperty(models.Model):
     state = fields.Selection(selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')],
                                         default='new'
         )
-    last_seen = fields.Char(string='Last seen')
     active = fields.Boolean(default = True)
     property_type_id = fields.Many2one("estate.property.type", string='Property Type')
     buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
     salesman_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user )
     tag_ids=fields.Many2many("estate.property.tag", string='Tags')
-    offer_ids=fields.One2many("estate.property.offer","property_id")
-    total_area=fields.Float(string="Total Area", compute="_compute_total", inverse="_inverse_total")
+    offer_ids=fields.One2many("estate.property.offer","property_id", string="Offer")
+    total_area=fields.Float(string="Total Area", compute="_compute_total")
     best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
     status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")], tracking=True)
+
+    _sql_constraints = [
+        ('expected_price', 'CHECK(expected_price >= 0)', 'A property expected price should be positive.'),
+        ('selling_price', 'CHECK(selling_price >= 0)', 'A property selling price should be positive.')
+    ]
 
     @api.depends("living_area", "garden_area")
     def _compute_total(self):
@@ -62,11 +66,6 @@ class estateProperty(models.Model):
                 raise UserError(('Sold property can not be sold.'))
             else:
                 record.status = 'cancel'
-
-    _sql_constraints = [
-        ('expected_price', 'CHECK(expected_price >= 0)', 'A property expected price should be positive.'),
-        ('selling_price', 'CHECK(selling_price >= 0)', 'A property selling price should be positive.')
-    ]
 
     @api.constrains("expected_price", "selling_price")
     def _check_price_difference(self):

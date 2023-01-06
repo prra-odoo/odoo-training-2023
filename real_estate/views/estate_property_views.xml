@@ -5,13 +5,14 @@
             <field name="name">Property List</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_available': 1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Create a New Property !!!!
                 </p>
             </field>
         </record>
-        <record id="setting_action1" model="ir.actions.act_window">
+        <record id="property_types_action" model="ir.actions.act_window">
             <field name="name">Property Types</field>
             <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
@@ -21,7 +22,7 @@
                 </p>
             </field>
         </record>
-        <record id="setting_action2" model="ir.actions.act_window">
+        <record id="property_tags_action" model="ir.actions.act_window">
             <field name="name">Property Tags</field>
             <field name="res_model">estate.property.tag</field>
             <field name="view_mode">tree,form</field>
@@ -41,19 +42,20 @@
                 </p>
             </field>
         </record>
-        <record id="model_view_tree" model="ir.ui.view">
-            <field name="name">Real Estate Tree</field>
+        <record id="estate_property_tree_view" model="ir.ui.view">
+            <field name="name">Real Estate Tree View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree expand="1">
+                <tree expand="1" decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'">
                     <field name="name"/>
                     <field name="property_type_id"/>
                     <field name="postcode"/>
-                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <field name="bedrooms"/>
                     <field name="living_area"/>
                     <field name="expected_price"/>
                     <field name="selling_price"/>
+                    <field name="state" invisible="1"/>
                     <field name="description" optional="hide"/>
                     <field name="date_availability" optional="hide"/>
                     <field name="facades" optional='hide'/>
@@ -65,13 +67,14 @@
             </field>
         </record>
 
-        <record id="model_view_search" model="ir.ui.view">
-            <field name="name">Real Estate Search</field>
+        <record id="estate_property_search_view" model="ir.ui.view">
+            <field name="name">Real Estate Search View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <search string="Search">
                     <field name="name"/>
-                    <field name="last_seen"/>
+                    <field name="property_type_id"/>
+                    <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
                     <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
                     <separator/>
                     <filter string="Selling Price" name="selling_price" domain="[('selling_price', '&lt;', 200)]"/>
@@ -79,13 +82,15 @@
                         <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                         <separator/>
                         <filter string="Creation Date" name="date_availability" context="{'group_by':'create_date'}"/>
+                        <separator/>
+                        <filter string="Available" name="available" domain="['|',('state', '=', 'new'),('state', '=', 'offer_received')]"/>
                     </group>
                 </search>
             </field>
         </record>
 
-        <record id="model_view_form" model="ir.ui.view">
-            <field name="name">Real Estate Form</field>
+        <record id="estate_property_form_view" model="ir.ui.view">
+            <field name="name">Real Estate Form View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form>
@@ -96,6 +101,9 @@
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                     </header>
                     <sheet>
+                        <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', 'not in', ('sold'))]}"/>
+                        <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', 'not in', ('cancel'))]}"/>
+                        <field name="active" invisible='1'/>
                         <label for="name">Name</label>
                         <h1>
                             <field name="name"/>

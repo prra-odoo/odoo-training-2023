@@ -18,6 +18,11 @@ class estatePropertyOffer(models.Model):
     date_deadline=fields.Date(string="Deadline", compute="_date_deadline", inverse="_inverse_date_deadline")
     validity=fields.Integer(string="Validity(Days)", default=7)
     create_date=fields.Date(string='Create Date', default=fields.Datetime.now())
+    property_type_id=fields.Many2one("estate.property.type", related="property_id.property_type_id", string="Property Type", store=True)
+
+    _sql_constraints = [
+        ('price', 'CHECK(price >= 0)', 'A Offer price should be positive.')
+    ]
 
     @api.depends("validity",)
     def _date_deadline(self):
@@ -41,7 +46,3 @@ class estatePropertyOffer(models.Model):
     def action_refuse(self):
         for record in self:
             record.status='refused'
-
-    _sql_constraints = [
-        ('price', 'CHECK(price >= 0)', 'A Offer price should be positive.')
-    ]
