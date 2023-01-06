@@ -10,19 +10,21 @@ class estateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property module "
     _inherit= ['mail.thread','mail.activity.mixin']
+    _order = "id desc"
 
-    name = fields.Char(required=True)
+    name = fields.Char( string="Title",required=True)
     id = fields.Integer()
     postcode = fields.Char()
     description = fields.Text(copy=False)
     # date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     date_availability = fields.Date(string='Date Avilability',default=lambda self:add(fields.datetime.today(),months=3))
     expected_price = fields.Float(string="Expected Price")
-    selling_price = fields.Float(string="Selling Price",default=2000000)
+    selling_price = fields.Float(string="Selling Price")
     bedrooms = fields.Integer(default=3)
     living_area = fields.Integer(string="Lving Area")
     facades = fields.Integer(string="Facades")
-    garage = fields.Boolean(string="Garage")
+    garage = fields.Boolean(string="Garage",default=False)
+    garden = fields.Boolean(string="Garden")
     garden_area = fields.Integer(string="Garden Area")
     other_info=fields.Text(string='Other Info')
     garden_orientation = fields.Selection(
@@ -30,7 +32,7 @@ class estateProperty(models.Model):
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     state = fields.Selection( 
         string='State', 
-    selection = [('new', 'New'),('in_progress', 'In Progress'),('sold', 'Sold'),('cancel', 'Cancelled')],tracking=True)
+    selection = [('new', 'New'),('offer_accepted', 'Offer Accepted'),('sold', 'Sold'),('cancel', 'Cancelled')],tracking=True)
     property_type_id=fields.Many2one("estate.property.type",string="Property Type")
     buyer_id = fields.Many2one("res.partner", string="Buyer")
     salesman_id = fields.Many2one('res.users', string='Salesman')
@@ -48,7 +50,7 @@ class estateProperty(models.Model):
     @api.depends('offer_ids.price')
     def _compute_best_price(self):
         for record in self:
-            record.best_price=max(record.offer_ids.mapped('price'))
+            record.best_price=max(record.offer_ids.mapped('price'),default=0)
 
     def sold_button(self):
         for record in self:
@@ -71,11 +73,11 @@ class estateProperty(models.Model):
     ('check_selling_price','CHECK(selling_price>0)','Selling Price must be positive.'),
     ('check_living_area','CHECK(living_area>0)','Living Area must be positive.')]
 
-    @api.constrains("selling_price","expected_price")
-    def _check_selling_price(self):
-        for record in self:
-            if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) <= -1:
-                raise ValidationError("Selling Price must be atleast 90% of the expected price")
+    # @api.constrains("selling_price","expected_price")
+    # def _check_selling_price(self):
+    #     for record in self:
+    #         if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
+    #             raise ValidationError("Expected Price must be atleast 90% of the Selling price")
 
 
 

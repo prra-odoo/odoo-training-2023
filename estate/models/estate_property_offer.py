@@ -10,6 +10,7 @@ from odoo.exceptions import UserError, ValidationError
 class esattePropertyOffer(models.Model):
 	_name="estate.property.offer"
 	_description="This model defines the estate property offers"
+	_order = "price desc"
 	
 	price=fields.Float("Offer Price")
 	status=fields.Selection(
@@ -18,7 +19,7 @@ class esattePropertyOffer(models.Model):
 	partner_id=fields.Many2one('res.partner',required=True,string="Buyer")
 	property_id=fields.Many2one('estate.property',required=True)
 	validity=fields.Integer("Validity",default='7')
-	create_date=fields.Date()
+	create_date=fields.Date(default=lambda self: fields.datetime.today())
 	date_deadline=fields.Date("Date deadline",default=fields.datetime.today(),compute='_compute_deadline_date',inverse='_inverse_deadline_date')
 
 	@api.depends('create_date','validity')
@@ -33,11 +34,12 @@ class esattePropertyOffer(models.Model):
 			record.validity=(record.date_deadline -record.create_date).days
 
 	def accepted_action(self):
-		for record in self.search[('status','==','accepted')]:
-			raise UserError(('Only one time is accepted'))
-		self.status='accepted'
-		record.property_id.selling_price=record.price
-		record.property_id.buyer_id=record.partner_id
+		# for record in self.search[('status','==','accepted')]:
+		# 	raise UserError(('Only one time is accepted'))
+		for record in self:
+			record.status='accepted'
+			record.property_id.selling_price=record.price
+			record.property_id.buyer_id=record.partner_id
 		return True
 
 	def refused_action(self):
