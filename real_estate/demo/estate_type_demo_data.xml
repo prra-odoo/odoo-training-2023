@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="estate_type_data1" model="estate.type">
+        <field name="name">Bungalow</field>
+    </record>
+
+    <record id="estate_type_data2" model="estate.type">
+        <field name="name">Duplex</field>
+    </record>
+
+    <record id="estate_type_data3" model="estate.type">
+        <field name="name">Farm House</field>
+    </record>
+
+    <record id="estate_type_data4" model="estate.type">
+        <field name="name">Flat</field>
+    </record>
+
+    <record id="estate_type_data1" model="estate.type">
+        <field name="name">Villa</field>
+    </record>
+
+</odoo>

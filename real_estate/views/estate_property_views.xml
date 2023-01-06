@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Estate</field>
         <field name="res_model">estate.property</field>
@@ -15,12 +16,13 @@
 
     <!-- Creating tree/list view -->
     <record id="estate_property_tree_view" model="ir.ui.view">
-        <field name="name">estate.property.tree.view</field>
+        <field name="name">estate_tree_view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
+                <field name="property_type_id" string="Property Type"/>
                 <field name="bedrooms"/>
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="expected_price"/>
@@ -32,29 +34,38 @@
 
     <!-- creating form view -->
     <record id="estate_property_form_view" model="ir.ui.view">
-        <field name="name">estate.property.form.view</field>
+        <field name="name">estate_form_view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable' : 1}"/>
+                </header>
                 <sheet>
                     <h1><field name="name" string="Name" default="New Property" placeholder="For Say : Name of the Property"/></h1>
                     
 
                     <group>
                         <group>
-                            <field name="postcode" />
+                            <field name="property_type_id" string="Property Type" />
                         </group>
-                        <group class="oe_right">
-                            <field name="expected_price" />
+                        <group>
+                            <field name="expected_price"/>
                         </group>
+                        <br/>
                     </group>
+
                     <group>
                         <group>
-                            <field name="date_availability" />
+                            <field name="postcode" />
                         </group>
-                        <group class="oe_right">
-                            <field name="selling_price" />
+                        <group>
+                            <field name="selling_price"/>
                         </group>
+                    </group>
+
+                    <group>
+                        <group><field name="date_availability" string="Available From"/></group>
                     </group>
                     
                     
@@ -100,14 +111,21 @@
                             </group>
                                     
                         </page>
-                        <page string="Optional">
-                            <!-- few more pages -->
+                        <page string="Other Info">
+                            <group>
+                                <group>
+                                    <field name="seller_id" string="Salesman"/>
+                                    <field name="buyer_id" string="Buyer" />
+                                </group>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+
+
     <!-- Creating search view -->
     <record id="estate_property_search" model="ir.ui.view">
         <field name="name">Estate Property Search</field>
@@ -120,6 +138,7 @@
                 <field name="bedrooms" />
                 <field name="living_area" />
                 <field name="facades" />
+                <field name="property_type_id"/>
             <!-- Adding a filter which will show available properties for buying -->
                 <filter string="Available" name="new_property" domain = "[('state', '=', 'new')]" />
                 <filter string="Garden" name="with_garden" domain="[('garden', '=', True)]"/>

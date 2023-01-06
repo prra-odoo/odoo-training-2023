@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Creating demo data for estate property -->
+<odoo>
+    <data>
+        <record id="estate_property_demo_data1" model="estate.property">
+            <field name="name">Luxurious 3BHK Flat</field>
+            <field name="postcode">123</field>
+            <field name="expected_price">1234567</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">214</field>
+            <field name="garden">False</field>
+            <field name="state">new</field>
+            <!-- <field name="property_type_id">4</field> -->
+        </record>
+    
+    
+        <record id="estate_property_demo_data2" model="estate.property">
+            <field name="name">Luxurious 4BHK Flat</field>
+            <field name="postcode">433</field>
+            <field name="expected_price">9234567</field>
+            <field name="bedrooms">4</field>
+            <field name="living_area">434</field>
+            <field name="garden">False</field>
+            <field name="state">recieved</field>
+            <!-- <field name="property_type_id">4</field> -->
+        </record>
+    
+    
+        <record id="estate_property_demo_data3" model="estate.property">
+            <field name="name">Luxurious Villa</field>
+            <field name="postcode">544</field>
+            <field name="expected_price">987654324</field>
+            <field name="bedrooms">8</field>
+            <field name="living_area">9875</field>
+            <field name="garden">True</field>
+            <field name="state">sold</field>
+            <field name="garden_orientation">north</field>
+            <!-- <field name="property_type_id">5</field> -->
+        </record>
+    
+    
+        <record id="estate_property_demo_data4" model="estate.property">
+            <field name="name">Farm House</field>
+            <field name="postcode">098</field>
+            <field name="expected_price">98789098</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">8764</field>
+            <field name="garden">True</field>
+            <field name="state">accepted</field>
+            <!-- <field name="property_type_id">3</field> -->
+        </record>
+    
+    
+        <record id="estate_property_demo_data5" model="estate.property">
+            <field name="name">Luxurious 3BHK Flat</field>
+            <field name="postcode">746</field>
+            <field name="expected_price">65456789</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">765</field>
+            <field name="garden">False</field>
+            <field name="state">new</field>
+            <!-- <field name="property_type_id">4</field> -->
+        </record>
+    </data>
+</odoo>
