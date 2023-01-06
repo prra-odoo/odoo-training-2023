@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data> 
+        <record model="real.estate.properties" id="demo_data_1">
+            <field name="name">Royal House</field>
+            <field name="description">Royal</field>
+            <field name="Postcode">380008</field>
+            <field name="expected_price">100000000</field>
+            <field name="bedroom">9</field>
+            <field name="living_area">5000000</field>
+            <field name="gardan_area">1000</field>
+            <field name="state">new</field>
+        </record>
+        <record model="real.estate.properties" id="demo_data_2">
+            <field name="name">Om</field>
+            <field name="description">nice home</field>
+            <field name="Postcode">3812390</field>
+            <field name="expected_price">10000000</field>
+            <field name="bedroom">5</field>
+            <field name="living_area">500000</field>
+            <field name="gardan_area">100</field>
+            <field name="state">offer_recieved</field>
+        </record>
+        <record model="real.estate.properties" id="demo_data_3">
+            <field name="name">Antillia</field>
+            <field name="description">Ambani Ka Ghar</field>
+            <field name="Postcode">489976</field>
+            <field name="expected_price">800000000000</field>
+            <field name="bedroom">54</field>
+            <field name="living_area">500000000</field>
+            <field name="gardan_area">100000</field>
+            <field name="state">new</field>
+        </record>
+        <record model="real.estate.properties" id="demo_data_4">
+            <field name="name">Rude House</field>
+            <field name="description">Why are u Reading it </field>
+            <field name="Postcode">3804568</field>
+            <field name="expected_price">67800000</field>
+            <field name="bedroom">9</field>
+            <field name="living_area">12345678</field>
+            <field name="gardan_area">456</field>
+            <field name="state">new</field>
+        </record>
+        <record model="real.estate.properties" id="demo_data_5">
+            <field name="name">Shanti Niwas</field>
+            <field name="description">just go and check it out</field>
+            <field name="Postcode">380008</field>
+            <field name="expected_price">45000000</field>
+            <field name="bedroom">9</field>
+            <field name="living_area">3400000</field>
+            <field name="gardan_area">345</field>
+            <field name="state">offer_recieved</field>
+        </record>  
+    </data> 
+</odoo> 

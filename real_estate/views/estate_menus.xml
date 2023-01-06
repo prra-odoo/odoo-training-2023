@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="estate_root_menu" name="Real_Estate">
+    <menuitem id="estate_root_menu" name="Real Estate">
         <menuitem id="estate_level1_menu_property" name="Sell Property">
-            <menuitem id="estate_model_sellresedential_menu_action" action="estate_property_action" name="Selling Resedential" />
-            <menuitem id="estate_model_sellCommercial_menu_action" action="estate_property_action" name="Selling Commercial" />
-        </menuitem>
-        <menuitem id="estate_level1_Rent_property" name="Rent Property">
-            <menuitem id="estate_model_rentCommercial_menu_action" action="estate_property_action" name="Renting Resedential"/>
-            <menuitem id="estate_model_rentResidential_menu_action" action="estate_property_action" name="Renting Commercial"/>
-        </menuitem>        
-         <menuitem id="estate_level1_lease_property" name="Lease Property">
-            <menuitem id="estate_model_leaseCommercial_menu_action" action="estate_property_action" name="leasing Resedential"/>
-            <menuitem id="estate_model_leaseResidential_menu_action" action="estate_property_action" name="leasing Commercial"/>
-        </menuitem>        
-       </menuitem>
+            <menuitem id="estate_model_sellresedential_menu_action" action="estate_property_action" name="Estate Property" />
+       </menuitem>     
+       <menuitem id="settings" name="settings">
+            <menuitem id="property_type" action="estate_property_type_action" name="Property Type" />
+       </menuitem>  
+    </menuitem>
 </odoo>

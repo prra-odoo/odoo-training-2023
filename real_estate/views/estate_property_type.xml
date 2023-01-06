@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Real Estate Type</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                There is no record of any Property 
+            </p>
+        </field>
+    </record>
+   <!-- Tree View-->
+    <record id="Estate_property_type_tree_view" model="ir.ui.view">
+        <field name="name">Estate Property Type</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Type"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Form view -->
+     <record id="Estate_property_form_view" model="ir.ui.view">
+        <field name="name">Estate.Property Type</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Types">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

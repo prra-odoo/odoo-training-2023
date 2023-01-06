@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 class real_Esate_Properties(models.Model):
 
 	_name='real.estate.properties'
-	_description="Selling your properties"
+	_description="Property Details"
 
 
 	name=fields.Char(required=True,default="Unknown")
@@ -32,5 +32,9 @@ class real_Esate_Properties(models.Model):
 		copy=False,
 		default='offer_recieved'
 	)
+	type_id=fields.Many2one("estate.property.type",)
+
+		
+	
 
 

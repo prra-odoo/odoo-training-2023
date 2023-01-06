@@ -10,7 +10,7 @@
             </p>
         </field>
     </record>
-<!-- Tree View-->
+   <!-- Tree View-->
     <record id="Estate_property_tree_view" model="ir.ui.view">
         <field name="name">Estate.Property</field>
         <field name="model">real.estate.properties</field>
@@ -26,13 +26,16 @@
             </tree>
         </field>
     </record>
-
+    
 <!--Form View -->
-    <record id="Estate_property_form_view" model="ir.ui.view"> 
+    <record id="Estate_property_form_view" model="ir.ui.view">
         <field name="name">Estate.Property</field>
         <field name="model">real.estate.properties</field>
         <field name="arch" type="xml">
             <form string="Property List">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable' : 1}" />
+                </header>
                 <sheet>
                     <h1><field name="name"/></h1>
                     <group>
@@ -43,6 +46,12 @@
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price" />
+                        </group>
+                        <group>
+                            <field name="type_id" />
+                        </group>
+                        <group>
+                            <field name="state" />
                         </group>
                         <notebook>
                             <page string="Description">
@@ -56,8 +65,6 @@
                                     <field name="gardan_area" string="Garden Area (sqm)"/>
                                     <field name="garden_orientation"/>
                                 </group>
-                            </page>
-                            <page string="my info">
                             </page>
                         </notebook>
                     </group>
