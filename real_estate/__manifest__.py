@@ -18,5 +18,5 @@
         'demo/real_estate_demo_data.xml',
     ],
     'application' : True,
-    'license' : ''
+    'license' : 'LGPL-3'
 }

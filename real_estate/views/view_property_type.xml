@@ -7,6 +7,7 @@
                 <tree string="Property Types">
                     <field name="sequence" widget="handle"/>
                     <field name = "name" />
+                    <field name="offer_count"/>
                 </tree>
                 </field>
         </record>
@@ -16,9 +17,15 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(property_offer_action)d" type="action" class="oe_stat_button"  icon="fa-money">
+                                <span widget="statinfo" ><h3>offers</h3></span>
+                            </button>
+                        </div>
                         <label for="name" string="Name"/>
                         <h1>
-                            <field name="name" placeholder="Name"></field>
+                            <field name="name" placeholder="Name" />
+                            <field name="offer_count"></field>
                         </h1>
                         <notebook>
                             <page string="Details">
@@ -33,6 +40,7 @@
                             </page>
                         </notebook>
                     </sheet>
+
                 </form>
             </field>
         </record> 
