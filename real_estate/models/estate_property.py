@@ -39,8 +39,9 @@ class estateProperty(models.Model):
 
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)',
-         'The expected Price must be Positive'),('check_selling_price', 'CHECK(selling_price > 0)',
-         'The Selling Price must be Positive')
+         'The expected Price must be Positive'),
+        ('check_selling_price', 'CHECK(selling_price > 0)',
+         'The Selling Price must be Positive'),
     ]
 
     @api.depends("garden_area","living_area")
@@ -62,7 +63,7 @@ class estateProperty(models.Model):
             else:
                 record.status = "Sold"
                 record.state = 'sold'
-        return True
+      
     
     def action_cancel(self):
         for record in self:
@@ -71,7 +72,7 @@ class estateProperty(models.Model):
             else:
                 record.status = "Canceled"
                 record.state = 'cancel'
-        return True
+        
     
     @api.constrains("expected_price", "selling_price")
     def _check_price_difference(self):

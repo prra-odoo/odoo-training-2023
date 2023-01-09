@@ -1,6 +1,8 @@
 
 from odoo import fields, models, api
-from odoo.tools.date_utils import add
+from dateutil.relativedelta import relativedelta
+
+from odoo.exceptions import UserError
 
 
 class estatePropertyOffer(models.Model):
@@ -23,10 +25,10 @@ class estatePropertyOffer(models.Model):
     create_date = fields.Date(default=fields.Datetime.now(),string="Create Date",readonly=True)
 
    
-    @api.depends("validity")
+    @api.depends('validity')
     def _compute_deadline(self):
         for record in self:
-            record.date_deadline = add(record.create_date, days=record.validity)
+            record.date_deadline = record.create_date + relativedelta(days =+ record.validity)
 
     def _inverse_deadline(self):
         for record in self:
@@ -36,12 +38,27 @@ class estatePropertyOffer(models.Model):
     
     def action_accept(self):
         for record in self:
-            record.status = "accepted"
-            record.property_id.selling_price = record.price
-            record.property_id.buyer_id = record.partner_id
+            if "accepted" in self.mapped("property_id.offer_ids.status"):
+                raise UserError('no')
+            else:
+                
+                record.status = "accepted"
+                record.property_id.selling_price = record.price
+                record.property_id.buyer_id = record.partner_id
         return True
     
     def action_refused(self):
         for record in self:
             record.status = "refused"
         return True
+
+    # @api.model
+    # def create(self, vals):
+    #     max_offer = 0
+    #     if vals.get("property_id") and vals.get("price"):
+    #         rec = self.env['estate.property'].browse(vals['property_id'])
+    #         max_offer = max(rec.mapped("offer_ids.price"))
+    #         if max_offer > vals['price'] :
+    #             raise UserError('The offer must be higher than %.2f" % max_offer')
+    #     rec.state = 'received'
+    #     return super().create(vals)
