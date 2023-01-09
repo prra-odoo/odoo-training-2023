@@ -3,6 +3,7 @@
 from odoo import api,fields,models
 from odoo.tools.date_utils import add
 from odoo.exceptions import UserError
+from dateutil.relativedelta import relativedelta
 
 class estatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -24,25 +25,24 @@ class estatePropertyOffer(models.Model):
         ('price', 'CHECK(price >= 0)', 'A Offer price should be positive.')
     ]
 
-    @api.depends("validity",)
+    @api.depends('validity')
     def _date_deadline(self):
         for record in self:
-            record.date_deadline = add(fields.Datetime.now(), days=record.validity)
+            record.date_deadline = record.create_date + relativedelta(days =+ record.validity)
 
     def _inverse_date_deadline(self):
         for record in self:
-           day = record.date_deadline - record.create_date
-           record.validity = day.days
+           record.validity = (record.date_deadline - record.create_date).days
 
     def action_accept(self):
         if "accepted" in self.mapped("property_id.offer_ids.status"):
-            raise UserError("this is error")
+            raise UserError("You can't accept multiple offers.")
         else:
             for record in self:
                 record.status='accepted'
                 record.property_id.selling_price=record.price
                 record.property_id.buyer_id=record.partner_id
- 
+
     def action_refuse(self):
         for record in self:
             record.status='refused'

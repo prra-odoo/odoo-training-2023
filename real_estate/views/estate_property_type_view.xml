@@ -19,16 +19,13 @@
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                             <button name="%(offers_action)d" type="action" class="oe_stat_button" icon="fa-money">
-                                <span widget="statinfo">
-                                    <h3>offers</h3>
-                                </span>
+                                <field name="offer_count" widget="statinfo" string="Offers" />
                             </button>
                         </div>
                         <label for="name">Name</label>
                         <h1>
                             <field name="name"/>
                         </h1>
-                        <field name="offer_count"/>
                         <notebook>
                             <page string="Properties">
                                 <field name="property_ids" type="xml">

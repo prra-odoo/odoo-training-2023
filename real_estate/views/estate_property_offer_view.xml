@@ -6,6 +6,7 @@
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
                 <tree editable="bottom">
+                    <field name="property_id"/>
                     <field name="price"/>
                     <field name="partner_id"/>
                     <button name="action_accept" title="accept" type="object" icon="fa-check" attrs="{'invisible': [('status', 'in', ('accepted', 'refused'))]}"/>

@@ -59,6 +59,7 @@ class estateProperty(models.Model):
                 raise UserError(('Cancelled property can not be sold.'))
             else:
                 record.status = 'sold'
+                record.state  = 'sold'
 
     def cancel_button(self):
         for record in self:
@@ -66,6 +67,7 @@ class estateProperty(models.Model):
                 raise UserError(('Sold property can not be sold.'))
             else:
                 record.status = 'cancel'
+                record.state = 'cancel'
 
     @api.constrains("expected_price", "selling_price")
     def _check_price_difference(self):
