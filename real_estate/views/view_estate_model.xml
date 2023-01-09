@@ -43,7 +43,7 @@
             <field name="name">Tree.View</field>
             <field name="model">real.estate</field>
             <field name="arch" type="xml">
-                <tree string="Real Estate" decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'">
+                <tree string="Real Estate" decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'" decoration-danger="state=='cancel'">
                     <field name="name" />
                     <field name="description" />
                     <field name="postcode" optional='hide' />
@@ -74,12 +74,10 @@
                         <button type="action" name="%(property_offer_action)d" string="Redirect" />
                     </header>
                     <sheet>
-                        <widget name="web_ribbon" title="cancel" bg_color="bg-danger" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
-                        <widget name="web_ribbon" title="sold" bg_color="bg-success" attrs="{'invisible': [('state', '=', 'sold')]}"/>
+                        <widget name="web_ribbon" title="cancel" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+                        <widget name="web_ribbon" title="sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                         <field name="active" invisible='1' />
-                        <!-- <field name="cancel" invisible='1'/> -->
-                        <!-- <field name="sold" invisible='1'/> -->
                         <label for="name">Name</label>
                         <h1>
                             <field name="name" />
@@ -123,8 +121,8 @@
                                     <tree editable='bottom' decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                                         <field name="price" />
                                         <field name="partner_id" />
-                                        <button name="offer_accepted" type="object" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
-                                        <button name="offer_refused" type="object" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}"/>
+                                        <button name="offer_accepted" title = "Accept" type="object" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
+                                        <button name="offer_refused" title = "Refuse" type="object" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}"/>
                                         <field name="status" />
                                         <field name="validity" />
                                         <field name="property_type_id" />
