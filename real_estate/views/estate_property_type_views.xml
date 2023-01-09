@@ -5,8 +5,8 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <tree string="Property Type">
-                <field name="name"/>
                 <field name="sequence" widget="handle" />
+                <field name="name"/>
             </tree>
         </field>
     </record>
@@ -18,8 +18,8 @@
             <form>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_offers" type="object" class="oe_stat_button" icon="fa-money">
-                            <field name="offer_count" widget="statinfo">Offers</field>
+                        <button name="%(property_offers_action)d" type="action" class="oe_stat_button" icon="fa-money">
+                            <field name="offer_count" widget="statinfo" string="Offers"/>
                         </button>
                     </div>
                     <h1><field name="name"/></h1>

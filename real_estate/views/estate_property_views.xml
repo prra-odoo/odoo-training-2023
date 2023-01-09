@@ -28,13 +28,14 @@
             <form>
                 <header>
                     <field name="state" widget="statusbar" />
-                    <!-- <t t-if="state != 'sold'"> -->
-                        <span attrs="{'invisible':['|',('state', '=', 'sold'), ('state', '=', 'canceled')]}">
-                          <button name="action_property_sold" string="Sold" type="object" attrs="{'invisible': [('state', '=', 'offer_accepted')]}" />
-                             <button name="action_property_sold" string="Sold" type="object" class="oe_highlight"  attrs="{'invisible': [('state', '!=', 'offer_accepted')]}" />
-                    <!-- </t> -->
-                    <button name="action_property_cancel" string="Cancel" type="object" />
-                </span>
+                    <span states="new,offer_received,offer_accepted">
+                    <!-- <span attrs="{'invisible':['|',('state', '=', 'sold'), ('state', '=', 'canceled')]}"> -->
+                        <!-- <button name="action_property_sold" string="Sold" type="object" attrs="{'invisible': [('state', '=', 'offer_accepted')]}" /> -->
+                        <!-- <button name="action_property_sold" string="Sold" type="object" class="oe_highlight"  attrs="{'invisible': [('state', '!=', 'offer_accepted')]}" /> -->
+                        <button name="action_property_sold" string="Sold" type="object" states="new,offer_received,sold,canceled" />
+                        <button name="action_property_sold" string="Sold" type="object" class="oe_highlight" states="offer_accepted" />
+                        <button name="action_property_cancel" string="Cancel" type="object" />
+                    </span>
                     <!-- <button type="action" name="%(property_type_action)d" string="Property Types"/> -->
                 </header>
                 <sheet>
@@ -110,7 +111,7 @@
                 <field name="living_area" string="Living Area (sqm)" filter_domain="[('living_area', '>', self) ]" />
                 <field name="facades" string="Facades" />
                 <separator />
-                <filter string="Available" name="available" domain="['|',('state', '=', 'new'),('state', '=', 'offer_received')]" />
+                <filter string="Available" name="available" domain="[('state', 'in', ['offer_received', 'new'])]" />
                 <group expand="1" string="Postcode">
                     <filter string="Postcode" name="name" context="{'group_by':'postcode'}"/>
                 </group>

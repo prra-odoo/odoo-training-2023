@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from odoo.tools.date_utils import add
+from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 
@@ -16,7 +16,7 @@ class estateProperty(models.Model):
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date(default=lambda self: add(fields.Datetime.now(), months=3), copy=False)
+    date_availability = fields.Date(default=lambda self: fields.Datetime.now() + relativedelta(months=3), copy=False)
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(required=True, default=2)
@@ -46,6 +46,12 @@ class estateProperty(models.Model):
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer = fields.Float(compute="_compute_best_offer", default=0)
 
+    # SQL Constraints
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price >= 0)', 'The expected Price must be strictly positive!'),
+        ('check_selling_price', 'CHECK(selling_price >=0)', 'The Selling Price must be positive!')
+    ]
+
     # Computed Methods
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
@@ -72,15 +78,21 @@ class estateProperty(models.Model):
             record.state = 'canceled'
         return True
 
-    # SQL Constraints
-    _sql_constraints = [
-        ('check_expected_price', 'CHECK(expected_price >= 0)', 'The expected Price must be strictly positive!'),
-        ('check_selling_price', 'CHECK(selling_price >=0)', 'The Selling Price must be positive!')
-    ]
-
     # Python Constraints
     @api.constrains('expected_price', 'selling_price')
     def _check_expected_price(self):
         for record in self:
             if not float_is_zero(record.selling_price, precision_digits = 2) and float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                 raise ValidationError("The selling price must be 90 % of Expected Price")
+
+    @api.ondelete(at_uninstall=False)
+    def _prevent_deletion(self):
+        for record in self:
+            if record.state != 'new' and record.state != 'canceled':
+                raise UserError("Only New and Canceled Properties can be deleted!")
+
+    # def unlink(self):
+    #     for record in self:
+    #         if record.state != 'new' and record.state != 'canceled':
+    #             raise UserError("Only New and Canceled Properties can be deleted!")
+    #     return super().unlink()

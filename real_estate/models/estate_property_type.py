@@ -22,5 +22,5 @@ class estatePropertyType(models.Model):
         for record in self:
             record.offer_count = len(record.offer_ids)
 
-    def action_offers(self):
-        return
+    # def action_offers(self):
+    #     return

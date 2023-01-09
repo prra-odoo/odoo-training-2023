@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from odoo.tools.date_utils import add
+from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 
 class estatePropertyOffer(models.Model):
@@ -20,7 +20,7 @@ class estatePropertyOffer(models.Model):
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline")
     create_date = fields.Date(default=fields.Datetime.now(), readonly=True, copy=False)
-    property_type_id = fields.Many2one("estate.property.type", store=True)
+    property_type_id = fields.Many2one("estate.property.type", related="property_id.property_type_id", store=True)
 
     _sql_constraints = [
         ('check_offer_price', 'CHECK(price>=0)', 'Offer price must be Strictly Positive!')
@@ -29,7 +29,7 @@ class estatePropertyOffer(models.Model):
     @api.depends('validity', 'date_deadline', 'create_date')
     def _compute_date_deadline(self):
         for record in self:
-            record.date_deadline = add(record.create_date, days=record.validity)
+            record.date_deadline = record.create_date + relativedelta(days=record.validity)
 
     def _inverse_date_deadline(self):
         for record in self:
@@ -52,3 +52,8 @@ class estatePropertyOffer(models.Model):
                 record.property_id.buyer_id = record.partner_id
                 record.property_id.state = 'offer_accepted'
         return True
+
+    # def create(self, vals):
+    #     for val in vals:
+    #     # how to get value of current price???????????
+    #         # self.env['estate.property'].browse(vals['property_id.offer_ids.price'])
