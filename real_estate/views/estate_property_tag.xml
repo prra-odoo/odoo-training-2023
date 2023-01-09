@@ -7,10 +7,11 @@
             <form string="type">
                     <sheet>
                         <h1>
-                            <label for="name" string="Product tag Name" />
+                            <label for="name" string="Product Tag Name"/>
                             <field name="name" nolable="1"/>
                         </h1>
                     </sheet>
             </form>
+            </field>
     </record>
     </odoo>                

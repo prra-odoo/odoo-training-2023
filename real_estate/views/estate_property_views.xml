@@ -24,7 +24,8 @@
                     <field name="description"/>
                     <field name="type_id"/> 
                    <!--<field name="tag_id" widget="many2many_tags"/> -->
-
+                    <field name="sales_id"/>
+                    <field name="buyer_id"/>
                     <field name="bedroom"/>
                     <field name="living_area"/>
                     <field name="facades"/>

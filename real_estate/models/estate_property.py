@@ -30,13 +30,14 @@ class estate_Property(models.Model):
         selection=[('New','new'),('Offer Received','offer received'),('Offer Accepted','offer accepted'),
         ('Sold','sold'),('Canceled','canceled')],
       )
-      #salesperson = fields.Many2one('res.user', string='Salesperson', index=True, tracking=True, default=lambda self: self.env.user)
-      #buyer=fields.Many2one('res.users', string='buyer', index=True, tracking=True, default=lambda self: self.env.user)
+      sales_id = fields.Many2one('estate.property.sales', string='Salesperson')
+      buyer_id=fields.Many2one('estate.property.buyer', string='buyer')
 
       type_id=fields.Many2one('estate.property.type',string="product type")
-      #tag_id=fields.Many2many(
-       # 'estate.property.type', string='Tags',
-        #help="Classify and analyze your lead/opportunity categories like: Training, Service")
+      tag_ids=fields.Many2many(
+       'estate.property.tag', string='Tags',
+      help="Classify and analyze your lead/opportunity categories like: Training, Service")
+      offer_ids= fields.One2many('estate.property.offer','property_id')
 
 
 

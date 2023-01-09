@@ -12,7 +12,7 @@
                 <field name="selling_price"/>
                 <field name="description"/>
                 <field name="type_id"/>
-                <!--<field name="tag_id" widget="many2many_tags"/>-->
+                <field name="tag_ids" widget="many2many_tags"/>
                 <field name="bedroom"/>
                 <field name="living_area"/>
                 <field name="facades"/>
@@ -21,9 +21,10 @@
                 <field name="garden_area"/>
                 <field name="garden_orientation"/>
                 <field name="state"/>
-               <!-- <field name="salesperson"/>
-                <field name="buyer"/>-->
+                 <field name="sales_id"/>
+                <field name="buyer_id"/> 
             </tree>
         </field>
     </record>
+    
 </odoo>

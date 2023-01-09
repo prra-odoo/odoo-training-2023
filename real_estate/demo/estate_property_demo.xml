@@ -21,5 +21,37 @@
         <field name="expeccted_price">240000</field>
         <field name="selling_price">1200000</field>
     </record>
+    <record id="estate_hotel" model="estate.property.type">
+        <field name="name">hotel</field>
+        
+    </record>
+    <record id="estate_res" model="estate.property.type">
+        <field name="name">restaurent</field>
+        
+    </record>
+    <record id="estate_bunglow" model="estate.property.type">
+        <field name="name">bunglow</field>
+        
+    </record>
+    <record id="estate_3BHK" model="estate.property.tag">
+        <field name="name">3BHK</field>
+        
+    </record>
+    <record id="estate_4BHK" model="estate.property.tag">
+        <field name="name">4BHK</field>
+        
+    </record>
+    <record id="estate_mical" model="estate.property.sales">
+        <field name="name">mical</field>
+        
+    </record>
+    <record id="estate_james" model="estate.property.sales">
+        <field name="name">james</field>
+        
+    </record>
+    <record id="estate_henny" model="estate.property.buyer">
+        <field name="name">henny</field>
+        
+    </record>
    </data>
 </odoo>

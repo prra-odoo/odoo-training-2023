@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+    <odoo>
+    <record id="estate_buyer" model="ir.ui.view">
+            <field name="name">real.estate.buyer.form</field>
+            <field name="model">estate.property.buyer</field>
+             
+            <field name="arch" type="xml">
+            <form string="type">
+                    <sheet>
+                        <h1>
+                            <label for="name" string="buyer type Name" />
+                            <field name="name" nolable="1"/>
+                            
+                        </h1>
+                        </sheet>
+                        </form>
+                        </field>
+                        </record>
+    <record id="estate_buyer_view_tree" model="ir.ui.view">
+        <field name="name">estate.buyer.view.tree</field>
+        <field name="model">estate.property.buyer</field>
+        <field name="arch" type="xml">
+            <tree string="Estate_Property">
+                <field name="name"/>
+            </tree>
+            </field>
+     </record>
+</odoo>

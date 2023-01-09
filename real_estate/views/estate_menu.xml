@@ -20,14 +20,39 @@
         </p>
       </field>
     </record>
+    
+     <record id="estate_property_sales" model="ir.actions.act_window">
+      <field name="name">real estate sale</field>
+      <field name="res_model">estate.property.sales</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+                  Create a new quotation, the first step of a new sale!
+        </p>
+      </field>
+    </record>
+    
+     <record id="estate_property_buyer" model="ir.actions.act_window">
+      <field name="name">real estate buyer</field>
+      <field name="res_model">estate.property.buyer</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+                  Create a new quotation, the first step of a new sale!
+        </p>
+      </field>
+    </record>
 
-    <menuitem id="real_estate_menu_root" name="real estate">
+<menuitem id="real_estate_menu_root" name="real estate">
         <menuitem id="estate_first_level_menu_file" name="Advertisement">
             <menuitem id="estate_model_menu_action_property" action="estate_property_action" name="Property"/>
         </menuitem>
         <menuitem id="estate_first_level_menu_setting" name="setting">
-            <menuitem id="estate_action_property_type" action="estate_property_type" name="Property Type"/>
+            <menuitem id="estate_action_property_type" action="estate_property_type" 
+            name="Property Type"/>
             <menuitem id="estate_action_property_tag" action="estate_property_tag" name="Property tag"/>
+           <menuitem id="estate_action_property_sales" action="estate_property_sales" name="salesperson"/>
+            <menuitem id="estate_action_property_buyer" action="estate_property_buyer" name="buyer"/> 
         </menuitem>
         
     </menuitem>

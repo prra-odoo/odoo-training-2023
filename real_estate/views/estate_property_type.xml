@@ -10,7 +10,24 @@
                             <label for="name" string="Product  type Name" />
                             <field name="name" nolable="1"/>
                         </h1>
+                         <group>
+                         <field name="sales_id"/>
+                         <field name="buyer_id"/>
+                        </group> 
                     </sheet>
             </form>
+            </field>
     </record>
+    <record id="estate_type_view_tree" model="ir.ui.view">
+        <field name="name">estate.type.view.tree</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="Estate_Property">
+            <field name="name"/>
+         <field name="sales_id"/>
+            <field name="buyer_id"/> 
+            </tree>
+        </field>
+     </record>
+
     </odoo>                

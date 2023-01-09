@@ -4,7 +4,7 @@
             <field name="name">real.estare.view.form</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <form string="Lost Reason">
+                <form string="Lost _">
                     <sheet>
                     <header >
                     <field name='state' widget='statusbar' options="{'clickable': '1'}" />
@@ -36,22 +36,28 @@
                                                     <field name="description"/> 
                                                     <!--<field name="type_id"/>-->
                                                     <field name="type_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
-                                                    <!--<field name="tag_id" widget="many2many_tags"/> -->                                                                                            
+                                                    <field name="tag_ids" widget="many2many_tags" string="Tag Name"/>                                                                                            
                                                     <field name="living_area"/>                                                
                                                     <field name="facades"/>                                                
                                                     <field name="garage"/>                                                
                                                     <field name="garden"/>
-                                                     <field name="garden_area"/>                                                
-                                                    <field name="garden_orientation"/>                                                
-                                                    <!--<field name="state"/>-->
+                                                    <field name="garden_area"/>                                                
+                                                    <field name="garden_orientation"/>                                              
+                                                    
                                                 </group>  
                                                                              
                                             </page>
+                                            <page string="offer.">
+                                            <group>
+                                            <field name="offer_ids"/>                                                
+                                                    
+                                                </group>   
+                                            </page>   
                                             <page string="Other Info.">
-                                            <!--<group>
-                                                   <field name="salesperson"/>                                                
-                                                    <field name="buyer"/>
-                                                </group>   -->
+                                            <group>
+                                                   <field name="sales_id"/>                                                
+                                                    <field name="buyer_id"/>
+                                                </group>   
                                             </page>   
                                         </notebook>
                                     
