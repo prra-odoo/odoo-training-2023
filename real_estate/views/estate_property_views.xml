@@ -42,6 +42,8 @@
                         <field name="name" />
                     </h1>
                     <br/>
+                    <field name="tag_ids"  widget="many2many_tags"/>    
+                    <br/>
                     <group>
                         <group> <field name="postcode"/></group>
                         <group> <field name="date_availability"/></group>
@@ -57,17 +59,26 @@
 
                     <notebook>
                         <page string="Description">
-                            <group>
-                                <field name="description"/>
-                                <field name="bedrooms"/>
-                                <field name="living_area"/>
-                                <field name="facades"/>
-                                <field name="garage"/>
-                                <field name="garden"/>
-                                <field name="garden_area"/>
-                                <field name="garden_orientation"/>
-                            </group>
+                                <group>
+                                    <field name="description"/>
+                                    <field name="bedrooms"/>
+                                    <field name="living_area"/>
+                                    <field name="facades"/>
+                                    <field name="garage"/>
+                                    <field name="garden"/>
+                                    <field name="garden_area"/>
+                                    <field name="garden_orientation"/>
+                                </group>
                         </page>
+                        <page string="Offers">
+                           <field name="offer_ids" />
+                        </page>
+                         <page string="Other Info">
+                            <group>
+                                <field name="buyer" string="Buyer" />
+                                <field name="salesperson" string="Salesperson" />
+                            </group>
+                         </page>
                     </notebook>
                 </sheet>
             </form>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="estate_property_offer_view" model="ir.ui.view">
+        <field name="name">Estate Property Offer List View</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Channel" >
+                    <field name="price" string="Price"/>
+                    <field name="partner_id" string="Partner"/>
+                    <field name="status" string="Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- create form view for estate property offer -->
+
+
+    
+
+
+</odoo>
