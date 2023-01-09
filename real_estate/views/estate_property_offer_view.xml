@@ -4,13 +4,15 @@
         <record id="Create_estate_property_offer_model_action" model="ir.actions.act_window">
             <field name="name">Property offer</field>
             <field name="res_model">estate.property.offer</field>
+            <field name="domain">[('property_type_id', '=', active_id)]</field>
             <field name="view_mode">tree,form</field>
         </record>
         <record id="view_tree_estate_property_offer" model="ir.ui.view">
             <field name="name">Real Estate offer Form View</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree decoration-success="status == 'accepted'"
+                    decoration-danger="status=='refused'">
                     <field name="price" />
                     <field name="partner_id" />
                     <field name="property_id" />
@@ -32,7 +34,7 @@
                         <group>
                             <field name="price" />
                             <field name="partner_id" />
-                            <field name="property_id"  type="xml"/>
+                            <field name="property_id" type="xml" />
                             <field name="status" />
                         </group>
                         <group>

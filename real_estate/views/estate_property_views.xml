@@ -5,14 +5,15 @@
             <field name="name">Advertisement</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_state': 1}</field>
         </record>
 
         <record id="fields_view_tree" model="ir.ui.view">
             <field name="name">Real Estate Form View</field>
             <field name="model">estate.property</field>
-            <field name="arch" type="xml" >
+            <field name="arch" type="xml">
                 <tree decoration-success="state == 'offer_accepted'"
-                    decoration-danger="state=='cancel'" >
+                    decoration-danger="state=='cancel'">
                     <field name="name" />
                     <field name="description" optional='hide' />
                     <field name="postcode" optional='hide' />
@@ -33,7 +34,7 @@
                     <field name="salesperson_id" optional='hide' />
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
                     <field name="total_area" optional='hide' />
-                    </tree>
+                </tree>
             </field>
         </record>
 
@@ -43,14 +44,15 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible':[('active', '=', True)]}"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible':[('active', '=', True)]}" />
                         <button name="action_sold" type="object" string="Sold" states="new"></button>
                         <button name="action_cancel" type="object" string="Cancel" states="new"></button>
                         <button type="action" name="%(Create_estate_property_tag_model_action)d"
                             string="Property Tag" />
                         <button type="action" name="%(Create_estate_property_type_model_action)d"
                             string="Property Type" />
-                        <field name="state" widget="statusbar" /> 
+                        <field name="state" widget="statusbar"  />
                     </header>
                     <sheet>
                         <group>
@@ -62,7 +64,7 @@
                                 <label for="tag_ids" string="Tag" />
                                 <field name="tag_ids" nolabel="1" widget="many2many_tags"
                                     options="{'color_field': 'color'}" />
-                                    <field name="active" invisible="1"/>
+                                <field name="active" invisible="1" />
                             </group>
                             <group>
                                 <label for="date_availability" string="Date" />
@@ -140,7 +142,7 @@
                                         <field name="status"
                                             decoration-success="status == 'accepted'"
                                             decoration-danger="status=='refused'"></field>
-                                            <field name="property_type_id" />   
+                                        <field name="property_type_id" />
                                     </tree>
                                 </field>
                             </page>
@@ -161,7 +163,6 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <search string="demo">
-                    <!-- <widget name="web_ribbon" title="Archived" bg_color="bg-danger" /> -->
                     <field name="name" string="Name" />
                     <field name="living_area" string="Living Area"
                         filter_domain="[('living_area','>=', self)]" />
@@ -170,13 +171,13 @@
                         domain="[('selling_price', '>', '5000')]" />
                     <filter name="date_availability" string="Date"
                         domain="[('date_availability','=',datetime.datetime.now())]" />
-                    <group expand="0" string="Group By">    
+                    <group expand="0" string="Group By">
                         <filter string="postcode" name="postcode"
                             context="{'group_by':'postcode', 'residual_visible':True}" />
                     </group>
-                        <searchpanel>
-                            <field name="state" icon="fa-users" enable_counters="1" string="Name" />
-                        </searchpanel>
+                    <searchpanel>
+                        <field name="state" icon="fa-users" enable_counters="1" string="Name" />
+                    </searchpanel>
                 </search>
             </field>
         </record>

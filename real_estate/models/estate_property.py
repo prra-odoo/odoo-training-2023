@@ -50,16 +50,17 @@ class EstateProperty(models.Model):
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price >= 0)',
          'UserError : Enter the Validate Price'),
-         ('check_selling_price', 'CHECK(selling_price >= 0)',
+        ('check_selling_price', 'CHECK(selling_price >= 0)',
          'UserError : Enter the Validate Price')
     ]
-    
 
     # @api.depends('expected_price','offer_ids.price')
     # def check_expected_price(self):
     #     for record in self:
     #         if record.expected_price >= record.offer_ids.price():
     #              raise ValidationError("The end date cannot be set in the past"
+
+    
 
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
@@ -97,12 +98,11 @@ class EstateProperty(models.Model):
 
         def unlink(self):
             for record in self:
-                if record.state not in ['new','canceled']:
+                if record.state not in ['new', 'canceled']:
                     raise UserError("Not Possible!!!!!!!!!!")
             return super().unlink()
-    
+
     # @api.model
     # def create(self, vals):
     #     self.env['state'].browse(vals['offer_received']).check_granting()
     #     return super().create(vals)
-    
