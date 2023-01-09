@@ -6,6 +6,7 @@
         </menuitem>
         <menuitem id="real_estate_Second_level_menu" name="Setting">
             <menuitem id="real_estate_menu_property_type" action="real_estate_property_type_model_action"  name="Property Types" />
+            <menuitem id="real_estate_menu_property_tags" action="real_estate_property_tags_model_action"  name="Property Tags" />
         </menuitem>
     </menuitem>
 </odoo>

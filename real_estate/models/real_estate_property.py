@@ -32,5 +32,15 @@ class RealEstateProperty(models.Model):
                              'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')], default='new', required=True, copy=False)
     property_type_id = fields.Many2one(
         'real.estate.property.type', string='Property Type')
-    # salesman_id = fields.Many2one("", string="P")
-    # buyer_id = fields.Many2one("res.")
+    salesperson_id = fields.Many2one(
+        "res.users", string="Salesman", default=lambda self: self.env.user)
+    buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
+    tag_ids = fields.Many2many("real.estate.property.tags")
+    offer_ids = fields.One2many(
+        "real.estate.property.offer", "property_id", string="Offers")
+    tatal_area = fields.Float(compute="_compute_total_area")
+
+    # @api.depends(living_area)
+    # def _compute_total_area(self):
+    #     for record in self:
+    #         record.total = 2.0 * record.amount
