@@ -17,7 +17,8 @@
             <menuitem id="advertisements_menu1" action="estate_property_action" name="Properties" />
         </menuitem>
         <menuitem id="estate_first_level_menu2" name="Settings">
-            <menuitem id="sold_menu1" action="estate_types_action" name="Property Types"/>
+            <menuitem id="settings_menu1" action="estate_type_action" name="Property Types"/>
+            <menuitem id="settings_menu2" action="estate_tag_action" name="Property Tags"/>
         </menuitem>
     </menuitem>
 </odoo>

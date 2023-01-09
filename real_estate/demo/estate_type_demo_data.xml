@@ -2,23 +2,23 @@
 
 <odoo>
 
-    <record id="estate_type_data1" model="estate.type">
-        <field name="name">Bungalow</field>
+    <record id="estate_type_data1" model="estate.property.type">
+        <field name="name">House</field>
     </record>
 
-    <record id="estate_type_data2" model="estate.type">
-        <field name="name">Duplex</field>
+    <record id="estate_type_data2" model="estate.property.type">
+        <field name="name">Apartment</field>
     </record>
 
-    <record id="estate_type_data3" model="estate.type">
-        <field name="name">Farm House</field>
+    <record id="estate_type_data3" model="estate.property.type">
+        <field name="name">Penthouse</field>
     </record>
 
-    <record id="estate_type_data4" model="estate.type">
-        <field name="name">Flat</field>
+    <record id="estate_type_data4" model="estate.property.type">
+        <field name="name">Castle</field>
     </record>
 
-    <record id="estate_type_data1" model="estate.type">
+    <record id="estate_type_data1" model="estate.property.type">
         <field name="name">Villa</field>
     </record>
 

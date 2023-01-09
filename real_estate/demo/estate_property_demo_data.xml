@@ -11,7 +11,6 @@
             <field name="living_area">214</field>
             <field name="garden">False</field>
             <field name="state">new</field>
-            <!-- <field name="property_type_id">4</field> -->
         </record>
     
     
@@ -23,7 +22,6 @@
             <field name="living_area">434</field>
             <field name="garden">False</field>
             <field name="state">recieved</field>
-            <!-- <field name="property_type_id">4</field> -->
         </record>
     
     
@@ -36,7 +34,6 @@
             <field name="garden">True</field>
             <field name="state">sold</field>
             <field name="garden_orientation">north</field>
-            <!-- <field name="property_type_id">5</field> -->
         </record>
     
     
@@ -48,7 +45,6 @@
             <field name="living_area">8764</field>
             <field name="garden">True</field>
             <field name="state">accepted</field>
-            <!-- <field name="property_type_id">3</field> -->
         </record>
     
     
@@ -60,7 +56,6 @@
             <field name="living_area">765</field>
             <field name="garden">False</field>
             <field name="state">new</field>
-            <!-- <field name="property_type_id">4</field> -->
         </record>
     </data>
 </odoo>

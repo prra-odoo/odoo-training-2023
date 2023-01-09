@@ -23,6 +23,7 @@
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
                 <field name="property_type_id" string="Property Type"/>
+                <field name="tag_ids" string="Property Tag" widget="many2many_tags"/>
                 <field name="bedrooms"/>
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="expected_price"/>
@@ -43,6 +44,7 @@
                 </header>
                 <sheet>
                     <h1><field name="name" string="Name" default="New Property" placeholder="For Say : Name of the Property"/></h1>
+                    <field name="tag_ids" widget="many2many_tags"/>
                     
 
                     <group>
@@ -111,6 +113,11 @@
                             </group>
                                     
                         </page>
+
+                        <page string="Offers">
+                            <field name="offer_ids" />   
+                        </page>
+
                         <page string="Other Info">
                             <group>
                                 <group>
@@ -142,6 +149,7 @@
             <!-- Adding a filter which will show available properties for buying -->
                 <filter string="Available" name="new_property" domain = "[('state', '=', 'new')]" />
                 <filter string="Garden" name="with_garden" domain="[('garden', '=', True)]"/>
+
                 <group>
                     <filter name="postcode" string="Postcode" context="{'group_by' : 'postcode'}" />
                     <separator />
