@@ -8,6 +8,7 @@ from odoo.tools import float_compare
 class propertyoffer(models.Model):
     _name="estate.property.offer"
     _description = "property offer model"
+    _order = "price desc"
     _sql_constraints = [
         ("check_price", "CHECK(price > 0)", "The price must be positive"),
     ]
@@ -33,9 +34,12 @@ class propertyoffer(models.Model):
     def accept_action(self):
         for record in self:
             record.status='accepted'
+            # record.state='offer recieved'
+        return True
     
     def refused_action(self):
         for record in self:
             record.status='refused'
+            # record.state='offer accepted'
 
     

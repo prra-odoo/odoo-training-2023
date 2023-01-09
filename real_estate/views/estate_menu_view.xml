@@ -34,7 +34,7 @@
             <field name="name">Real Estate</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree expand="1" string="Real Estate">
+                <tree string="Real Estate" >
                     <field name="name" />
                     <field name="description" />
                     <field name="postcode"/>
@@ -57,9 +57,9 @@
                     <field name="description" />
                     <field name="postcode"/>
                     <field name="bedrooms" />
-                    <field name = "living_area"></field>
-                    <field name = "expected_price"></field>
-                    <field name = "selling_price"></field>
+                    <field name = "living_area"/>
+                    <field name = "expected_price"/>
+                    <field name = "selling_price"/>
                 <filter string="Postcode" name="postcode" domain="[('postcode', '>' , '0')]" >
                 </filter>
                 <group string= "Group By"> 
@@ -80,12 +80,12 @@
                     <header>
                         <button name="sold_action" type="object" string="Sold"/>
                         <button name="cancel_action" type="object" string="Cancel"/>
-                        <field name="state" widget="statusbar"></field>
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
                     </header>
                     <sheet>
                         <label for="name" string="Name:"></label>
                         <h1><field name="name"></field></h1>
-                        <field name="tag_ids" widget="many2many_tags"></field>         
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"></field>         
 
                     <group>
                         <group>    
@@ -121,15 +121,14 @@
 
                         <page string="Offers">
                           
-                             <field name ="offer_ids" type="xml" nolabel="1" >
-                                <tree expand="1" editable="top">
+                             <field name ="offer_ids" type="xml" nolabel="1" attrs="{'readonly': [('state','in', ('offer accepted', 'sold', 'cancel'))]}">
+                                <tree expand="1" editable="top" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                                     <field name="price"></field>
                                     <field name="partner_id" widget="many2one_avatar"></field> 
                                     <field name="status"></field> 
                                     <field name="validity"></field>
-                                    <button name="accept_action" type="object" icon="fa-check"/>
-                                    <button name="refused_action" type="object" icon="fa-times"/>
-
+                                    <button name="accept_action" type="object" icon="fa-check" title="Accept" attrs="{'invisible': [('status', '!=', False)]}"/>
+                                    <button name="refused_action" type="object" icon="fa-times" title="Refused" attrs="{'invisible': [('status', '!=', False)]}"/>
                                     <field name="date_deadline"></field>
                                     <!-- <field name="create_date"></field> -->
                                 </tree>
@@ -138,13 +137,13 @@
 
                         <page string="Garden Details">
                             <group>
-                                <field name="garden_area"></field>
+                                <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"></field>
                             </group>
                             <group> 
                                 <field name="garden"></field>
                             </group>
                             <group>
-                                <field name="garden_orientation"></field>
+                                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"></field>
                             </group>
                         </page>
                     </notebook>

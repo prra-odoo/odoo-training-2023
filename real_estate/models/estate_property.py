@@ -1,12 +1,15 @@
 # -- coding: utf-8 --
 
+from xml.dom import ValidationErr
 from odoo import fields, models
 from odoo import api
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_compare, float_is_zero
 
 class estateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate model"
+    _order = "id desc"
     _inherit = ["mail.thread","mail.activity.mixin"]
 
     name = fields.Char('Name :', required = True)
@@ -24,7 +27,7 @@ class estateProperty(models.Model):
     garden_orientation = fields.Selection(string="Orientation ",
         selection=[('north', 'North'), ('south', 'South'), ('east','East'), ('west','West')],
         help="Type is used to separate Leads and Opportunities")
-    state = fields.Selection(selection= [('new','New'),('confirm','Confirm'),('cancel','Cancel')], default="new")
+    state = fields.Selection(selection= [('new','New'),('cancel','Cancel'),('offer recieved','Offer Recieved'),('offer accepted','Offer Accepted'),('sold','Sold')], default="new")
     activate = fields.Boolean(default=True)
     property_type_id = fields.Many2one("estate.property.type",string= "Property type")
     salesman_id=fields.Many2one("res.users",string="salesman",default=lambda self: self.env.user)
@@ -51,6 +54,7 @@ class estateProperty(models.Model):
                 raise UserError(('Cancel Property can not be sold'))
             else:
                 record.status='Sold'
+                record.state='sold'
 
     def cancel_action(self):
         for record in self:
@@ -58,6 +62,20 @@ class estateProperty(models.Model):
                 raise UserError(("Sold property can't be canceled"))
             else:
                 record.status='Cancel'
+                record.state='cancel'
+
+
+    @api.constrains("expected_price", "selling_price")
+    def _check_price_difference(self):
+        for prop in self:
+            if (
+                not float_is_zero(prop.selling_price, precision_rounding=0.01)
+                and float_compare(prop.selling_price, prop.expected_price * 90.0 / 100.0, precision_rounding=0.01) < 0
+            ):
+                raise ValidationError(
+                    "The selling price must be at least 90% of the expected price! "
+                    + "You must reduce the expected price if you want to accept this offer."
+                )
             
     _sql_constraints = [
         ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be positive"),
