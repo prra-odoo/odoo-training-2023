@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models,fields
 
-from dateutil.relativedelta import relativedelta
-
 class estate_property(models.Model):
     _name = 'estate.property'
     _description = "Real Estate Module"
@@ -13,7 +11,6 @@ class estate_property(models.Model):
     description = fields.Char('Description')
     postcode = fields.Char('PostCode')
     date_availability = fields.Date('Date',copy=False)
-    #from dateutil.relativedelta(months=3)
     expected_price = fields.Float('Expected Price',required=True)
     selling_price = fields.Float('Selling Price',readonly=True,copy=False)
     bedrooms = fields.Integer('Bedrooms',default='2')
@@ -31,4 +28,9 @@ class estate_property(models.Model):
     status = fields.Selection(
             string='Status',copy=False,default='New',
             selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('offer cancelled','offer cancelled'),('Sold','Sold')])
-    #,default=lambda self: fields.Datetime.now()
+    
+    salesperson = fields.Many2one('res.users',string="Salesperson",default=lambda self:self.env.user)
+    buyer = fields.Many2one('res.company',string="Buyer",copy=False)
+
+    property_tag_ids = fields.Many2many('estate.property.tags',string='property tags')
+    offer_ids = fields.One2many('estate.property.offer','property_id',string='property offer')

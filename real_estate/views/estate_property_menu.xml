@@ -6,8 +6,8 @@
                 <menuitem id="estate_sellCommercial_menu_action" action="real_estate_action" name="Selling Commercial" />
             </menuitem>
             <menuitem id="estate_first_level2_menu" name="Settings">
-                <menuitem id="estate_rentCommercial_menu_action" action="estate_property_type_action" name="Property type"/>
-            <menuitem id="estate_rentResidential_menu_action" action="real_estate_action" name="Renting Commercial"/>
+                <menuitem id="estate_menu_action" action="estate_property_type_action" name="Property type"/>
+                <menuitem id="estate_property_menu_action" action="estate_property_tag_action" name="Property tags"/>
             </menuitem>
        </menuitem>
 </odoo>

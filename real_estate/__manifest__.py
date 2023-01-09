@@ -14,11 +14,15 @@
     'data':[
          'security/ir.model.access.csv',
          'views/estate_property_actions.xml',
+         'views/estate_property_menu.xml',
          'views/estate_property_views.xml',
         #  'views/estate_property_form_view.xml',
         #  'views/estate_property_search_view.xml',
-         'views/estate_property_menu.xml',
+        #  'views/estate_property_menu.xml',
          'data/estate_property_data.xml',
          'data/estate_property_type_data.xml',
+         'views/estate_property_type_view.xml',
+         'views/estate_property_tags_view.xml',
+         'views/estate_property_offer_view.xml',
     ]
 }
