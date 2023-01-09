@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 from odoo.tools.date_utils import add
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
 from odoo.tools.float_utils import float_compare
 
 
@@ -12,6 +12,7 @@ class estatePropertyModel(models.Model):
     _name = "estate.property"
     _description = "Esate property model"
     _order = "id desc"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char('Name:', required=True)
     postcode = fields.Char()
@@ -37,7 +38,7 @@ class estatePropertyModel(models.Model):
     state = fields.Selection(
         selection=[('new', 'New'), ('offer_recieved',
                                     'Offer recieved'), ('offer_accepted', 'Offer accepted'),('sold','Sold'),('cancelled','Cancelled')],
-        default='new', string ="Status"
+        default='new', string ="Status", tracking=True
     )
 
     property_type_id = fields.Many2one("estate.property.type", string="Type")
@@ -103,7 +104,11 @@ class estatePropertyModel(models.Model):
             if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
                 raise UserError("Selling Price must 90percent of the expected price")
             
-
+    @api.ondelete(at_uninstall=False)
+    def _deleting_the_record(self):
+        for record in self:
+            if record.state == 'offer_recieved' or record.state =='offer_accepted' or record.state=="done":
+                raise ValidationError("you can delete the record in new or cancelled stage")
 
         
         

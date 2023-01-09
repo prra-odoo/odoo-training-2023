@@ -12,6 +12,7 @@
         <menuitem id="estate_third_level_menu" name="Setting">
             <menuitem id="estate_third_level_menu_action_first" action="estate_model_action_property_type"/>
             <menuitem id = "estate_third_level_menu_action_second" action ="estate_model_action_property_tag"/>
+            <!-- <menuitem id = "estate_third_level_menu_action_third" action ="estate_model_action_property_offer"/> -->
         </menuitem>
     </menuitem>
 </odoo>

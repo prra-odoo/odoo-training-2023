@@ -1,7 +1,7 @@
 from odoo import models,fields,api
 from odoo.tools.date_utils import add
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 
@@ -18,6 +18,7 @@ class estatePropertyOffer(models.Model):
     validity = fields.Integer(default= 7)
     date_deadline = fields.Date(compute = "_deadline", inverse ="_validity_change")
     create_date = fields.Date(default=fields.Datetime.now())
+    property_type_id = fields.Many2one('estate.property.type',related="property_id.property_type_id" , store=True,string="property Type id")
 
 
     _sql_constraints=[
@@ -39,7 +40,6 @@ class estatePropertyOffer(models.Model):
     
 
     def accepted_offer(self):
-
         for record in self.search([('status', '=', 'accepted')]):
             if record.property_id == self.property_id:
                 for rec in record.search([('status', '=', 'accepted')]):
@@ -62,6 +62,8 @@ class estatePropertyOffer(models.Model):
     def rejected_offer(self):
         for record in self:
             record.status = "refused"
+    
+  
 
   
 
