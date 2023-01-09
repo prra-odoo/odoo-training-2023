@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="estate.property.type" id="property_type_demo_1">
+            <field name="name">House</field>
+        </record>
+
+        <record model="estate.property.type" id="property_type_demo_2">
+            <field name="name">Bunglow</field>
+        </record>
+
+        <record model="estate.property.type" id="property_type_demo_3">
+            <field name="name">Flat</field>
+        </record>
+
+        <record model="estate.property.type" id="property_type_demo_4">
+            <field name="name">Pent House</field>
+        </record>
+
+        <record model="estate.property.type" id="property_type_demo_5">
+            <field name="name">Tenament</field>
+        </record>
+
+        <record model="estate.property.type" id="property_type_demo_6">
+            <field name="name">Villa</field>
+        </record>
+    </data>
+</odoo>

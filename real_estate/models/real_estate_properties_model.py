@@ -32,8 +32,12 @@ class real_Esate_Properties(models.Model):
 		copy=False,
 		default='offer_recieved'
 	)
-	type_id=fields.Many2one("estate.property.type",)
-
+	property_type_id=fields.Many2one("estate.property.type")
+	buyer=fields.Many2one("res.partner",copy=False)
+	salesperson=fields.Many2one("res.users",default=lambda self: self.env.user)
+	tag_ids=fields.Many2many("estate.property.tag")
+	offer_ids=fields.One2many("estate.property.offer","property_id")
+	# total_area=fie
 		
 	
 

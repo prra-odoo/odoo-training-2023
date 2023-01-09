@@ -34,10 +34,11 @@
         <field name="arch" type="xml">
             <form string="Property List">
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable' : 1}" />
+                    <field color="blue" name="state" widget="statusbar" options="{'clickable' : 1,'color' : 'red'   }"  />
                 </header>
                 <sheet>
                     <h1><field name="name"/></h1>
+                    <field name="tag_ids" widget="many2many_tags"/>
                     <group>
                         <group>
                             <field name="Postcode"/>
@@ -48,7 +49,7 @@
                             <field name="selling_price" />
                         </group>
                         <group>
-                            <field name="type_id" />
+                            <field name="property_type_id" />
                         </group>
                         <group>
                             <field name="state" />
@@ -64,6 +65,15 @@
                                     <field name="gardan" string="Garden"/>
                                     <field name="gardan_area" string="Garden Area (sqm)"/>
                                     <field name="garden_orientation"/>
+                                </group>
+                            </page>
+                            <page string="offer">
+                                <field name="offer_ids"/>
+                            </page>
+                            <page string="other info">
+                                <group>
+                                    <field name="buyer"/>
+                                    <field name="salesperson"/>
                                 </group>
                             </page>
                         </notebook>
