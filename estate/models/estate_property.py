@@ -116,3 +116,4 @@ class realEstate(models.Model):
         for rec in self:
             if not (rec.state=="new" or rec.state =="canceled"):
                 raise UserError("Can't Remove The Property.")
+                

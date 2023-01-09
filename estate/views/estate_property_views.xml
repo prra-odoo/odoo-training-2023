@@ -26,7 +26,7 @@
             <field name="arch" type="xml">
                 <form string="Real Estate">
                     <header>
-                        <field name="state" widget="statusbar" options="{'clickable':1}"></field>
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
                         <button name="action_sold_button_header" type="object" string="Sold"
                             states="new,offer_received,offer_accepted" />
                         <button name="action_cancel_button_header" type="object" string="Cancel"
@@ -85,9 +85,9 @@
                                 </group>
                             </page>
                             <page string="Offers">
-                                <field name="offer_ids"
-                                    attrs="{'readonly':['|',('state','=','sold'),'|',('state','=','canceled'),('state','=','offer_accepted')]}">
-                                    <tree 
+                                <field name="offer_ids" 
+                                    attrs="{'readonly':[('state','in',['sold','canceled','offer_accepted'])]}">
+                                    <tree editable="bottom"
                                         decoration-success="status == 'accepted'"
                                         decoration-danger="status == 'refused'">
                                         <field name="price" />
@@ -107,7 +107,7 @@
                             </page>
                             <page string="Other Info.">
                                 <group>
-                                    <field name="salesperson_id" widget="many2one_avatar"></field>
+                                    <field name="salesperson_id" widget="many2one_avatar_user"></field>
                                     <field name="buyer_id" widget="many2one_avatar"></field>
                                 </group>
                             </page>
@@ -135,7 +135,7 @@
                     <filter string="Garden" name="garden" domain="[('garden', '=', True)]" />
                     <separator />
                     <filter string="Available" name="available"
-                        domain="['|',('state', '=', 'new'),('state', '=', 'offer_received')]" />
+                        domain="[('state','in',['new','offer_received'])]" />
                     <separator />
                     <filter name="date_availability" date="create_date" string="Date" />
                     <separator />

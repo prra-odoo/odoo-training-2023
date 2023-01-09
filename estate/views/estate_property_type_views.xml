@@ -8,8 +8,8 @@
                 <tree expand="1" string="Real Estate">
                     <field name="sequence" widget="handle"/>
                     <field name="name" />
-                    <!-- <field name="offer_count" />
-                    <field name="offer_ids" /> -->
+                    <field name="offer_count" />
+                    <!-- <field name="offer_ids" /> -->
                 </tree>
             </field>
         </record>

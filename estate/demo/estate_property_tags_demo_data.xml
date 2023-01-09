@@ -3,12 +3,15 @@
     <data>
         <record id="estate_property_tag_demo_data_1" model="estate.property.tag">
             <field name="name">New</field>
+            <field name="color">2</field>
         </record>
         <record id="estate_property_tag_demo_data_2" model="estate.property.tag">
             <field name="name">Old</field>
+            <field name="color">4</field>
         </record>
         <record id="estate_property_tag_demo_data_3" model="estate.property.tag">
             <field name="name">Renovated</field>
+            <field name="color">6</field>
         </record>
     </data>
 </odoo>
