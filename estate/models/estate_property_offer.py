@@ -18,6 +18,7 @@ class estatepropertyoffer(models.Model):
     validity = fields.Integer(string="Validity in Months",default=7)
     date_deadline = fields.Date(compute="_compute_deadline_date",inverse="_inverse_deadline_date")
     create_date=fields.Date(default=lambda self:fields.Datetime.today())
+    property_type_id = fields.Many2one('estate.property.type',related="property_id.property_type_id", store=True)
 
     _sql_constraints=[
         ('check_Offer_price','CHECK(price >= 0)','Offer Price cannot be negative')
@@ -35,13 +36,8 @@ class estatepropertyoffer(models.Model):
     @api.depends('status','property_id.status')
     def action_accept(self):
         for rec in self.search([('status','=','accepted')]):
-            if rec.property_id == self.property_id:
-                for record in rec.search([('status','=','accepted')]):
-                    if record.partner_id != self.partner_id:
-                        raise ValidationError(_("cannot accept more than one offer"))
-                    else:
-                        for i in record:
-                            rec.status='refuse'
+            for i in rec:
+                self.status='refuse'
         self.status='accepted'
         self.property_id.state='offeraccepted'
         self.property_id.selling_price = self.price
@@ -51,7 +47,23 @@ class estatepropertyoffer(models.Model):
         for record in self:
             record.status = 'refuse'
 
-    @api.depends
-    def state(self,price):
-        if len(self.price)>0:
-            print('Hello')
+    @api.model
+    def create(self,vals):  
+        self.env['estate.property'].browse(vals['property_id']).state = 'offerrecieved'
+        for record in vals:
+            maxnum = max(self.price())
+        return super().create(vals)
+
+    # for record in rec.search([('status','=','accepted')]):
+    #                 if record.partner_id != self.partner_id:
+    #                     raise ValidationError(_("cannot accept more than one offer"))
+    
+    
+        
+
+    # @api.depends
+    # def state(self,price):
+    #     if len(self.price)>0:
+    #         print('Hello')
+
+    

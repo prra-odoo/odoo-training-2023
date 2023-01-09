@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <record id="estate_stat_button" model="ir.actions.act_window">
+            <field name="name">Offers</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('property_type_id','=',active_id)]</field>
+        </record>
         <record id="estate_first_level_model_action" model="ir.actions.act_window">
             <field name="name">Properties</field>
             <field name="res_model">estate.property</field>
@@ -23,7 +29,7 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree decoration-success="state=='offeraccepted',state=='offerrecieved'"
-                    decoration-bf="state=='offeraccepted'" decoration-muted="state=='sold'">
+                    decoration-bf="state=='offeraccepted'" decoration-danger="state=='cancel'" decoration-muted="state=='sold'">
                     <field name="name" />
                     <field name="description" />
                     <field name="tags_ids" widget="many2many_tags"
@@ -79,10 +85,13 @@
                                 <field name="selling_price" />
                             </group>
                             <group>
-                                <field name="property_id" options="{'no_create': True}" />
+                                <field name="property_type_id" options="{'no_create': True}" />
                             </group>
                             <group>
                                 <field name="sales_id" widget="many2one_avatar" />
+                            </group>
+                            <group>
+                                <field name="best_price"></field>
                             </group>
                             <group>
                                 <field name="buyers_id" widget="many2one_avatar" />
@@ -130,7 +139,7 @@
                                         decoration-danger="status=='refuse'">
                                         <field name="price"/>
                                         <field name="partner_id" />
-                                        <field name="property_id"/>
+                                        <!-- <field name="property_id"/> -->
                                         <field name="validity" />
                                         <field name="date_deadline" />
                                         <button name="action_accept" string="Accept" type="object"
@@ -147,7 +156,7 @@
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" />
-                        <field name="state" />
+                        <field name="activity_ids"></field>
                         <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>

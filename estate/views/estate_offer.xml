@@ -6,11 +6,10 @@
             <field name="name">estate.offers.tree</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
-                <tree>
-                    <field name="price" />
+                <tree decoration-success="status=='accepted'" decoration-danger="status=='refuse'">
+                    <field name="price"/>
                     <field name="partner_id" />
-                    <!-- <button name="action_refuse" string="Rejected" states="refuse"
-                    type="object" icon="fa-check"/> -->
+                    <field name="status"/>
                 </tree>
             </field>
         </record>

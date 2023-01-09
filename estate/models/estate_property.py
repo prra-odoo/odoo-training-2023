@@ -3,6 +3,7 @@
 from odoo import api,models,_,fields
 from datetime import datetime, timedelta
 from odoo.exceptions import ValidationError
+from dateutil.relativedelta import relativedelta
 
 class estateModel(models.Model):
     _name = "estate.property"
@@ -13,7 +14,7 @@ class estateModel(models.Model):
     name = fields.Char('Name',required=True)
     description = fields.Text('Description',copy=False,required=True)
     postcode = fields.Char('Post Code',required=True)
-    date_availability = fields.Date('Last Availability',default=lambda self:fields.Datetime.today())
+    date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     expected_price = fields.Float('Expected Price',required=True)
     selling_price = fields.Float('Selling Price',default=0)
     bedrooms = fields.Integer('Bedrooms',required=True)
@@ -30,12 +31,12 @@ class estateModel(models.Model):
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
         help="Type is used to separate Leads and Opportunities")
     total_area = fields.Float(compute="_compute_total_area")
-    property_id=fields.Many2one("estate.property.type", string="Property")
+    best_price = fields.Float(compute="_compute_best_price")
+    property_type_id=fields.Many2one("estate.property.type", string="Property")
     tags_ids=fields.Many2many("estate.property.tags",string="Tags")
-    offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers",readonly=False)
+    offer_ids=fields.One2many("estate.property.offer","property_type_id",string="Property Offers",readonly=False)
     sales_id=fields.Many2one("res.users",string="Sales",default=lambda self: self.env.user)
     buyers_id=fields.Many2one("res.partner",string="Buyers")
-
 
     _sql_constraints=[
         ('check_expected_price','CHECK(expected_price >= 0)','Expected Price cannot be negative'),
@@ -49,7 +50,7 @@ class estateModel(models.Model):
             record.total_area = record.living_area + record.garden_area
 
     @api.depends('offer_ids.price')
-    def _compute_bestprice(self):
+    def _compute_best_price(self):
         for record in self:
             record.best_price = max(self.offer_ids.mapped('price'),default=0)
 
@@ -77,6 +78,23 @@ class estateModel(models.Model):
         for record in self:
             if record.selling_price < (90/100)*(self.expected_price):
                 raise ValidationError("Selling price cannot be less than 90 percent of expected price")
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_excep_new_cancled_user(self):
+        for record in self:
+            if record.state=='new' or record.state=='cancel' :
+                pass    
+            else:
+                raise ValidationError("Error")
+        # if((self.state=='offerrecieved') | (self.state=='cancel')):
+        #     raise ValidationError("No new and canceld  record can be deleted")
+
+    # @api.model
+    # def create(self,vals):
+    #     if(self.price < self.best_price):
+    #         raise ValidationError("error")
+    #     return super().create(self,vals)
+
 
     # @api.depends('offer_ids.price')
     # def _compute_state(self):
