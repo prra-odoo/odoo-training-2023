@@ -1,4 +1,4 @@
-from odoo import models,fields
+from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 class RealEstateProperty(models.Model):
     _name='real.estate.property'
@@ -21,20 +21,31 @@ class RealEstateProperty(models.Model):
     buyer_id = fields.Many2one("res.partner", string="Buyer")
     salesman_id=fields.Many2one("res.users",string="Salesman")
     type_id=fields.Many2one("real.estate.property.type",string="Property Type")
-    tags_id=fields.Many2many("real.estate.property.tags")
+    tags_ids=fields.Many2many("real.estate.property.tags")
     offers_ids=fields.One2many("real.estate.property.offer","property_id",string="Offers")
-class propertyType(models.Model):
-    _name="real.estate.property.type"
-    _description="Property Type"
-    name=fields.Char(string='Property Type',required=True)
-class propertyTags(models.Model):
-    _name="real.estate.property.tags"
-    _description="Property Tags"
-    name=fields.Char(string="Property Tags",required=True)
-class propertyOffer(models.Model):
-    _name="real.estate.property.offer"
-    _description="Property Offer"
-    price=fields.Float()
-    status=fields.Selection(selection=[("accepted","Accepted"),("refused","Refused")],copy=False)
-    partner_id=fields.Many2one("res.partner",required=True)
-    property_id=fields.Many2one("real.estate.property",required=True)
+    total_area=fields.Integer(compute="_compute_total_area",inverse="_inverse_total_area")
+    best_offer=fields.Float(compute="_compute_best_offer")
+    @api.depends("living_area","garden_area")
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area=record.living_area+record.garden_area
+    def _inverse_total_area(self):
+        for record in self:
+            record.living_area=record.total_area-record.garden_area
+    @api.depends("offers_ids")
+    def _compute_best_offer(self):
+        for record in self:
+            offer=record.offers_ids.mapped('price')
+            if offer:
+                record.best_offer=max(offer)
+            else:
+                record.best_offer=0
+    @api.onchange("garden")
+    def _onchange_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area=10
+                record.garden_orientation='north'
+            else:
+                record.garden_area=0
+                record.garden_orientation=''
