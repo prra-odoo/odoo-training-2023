@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 class EstateModel(models.Model):
     _name = "estate.property"
     _description = "Estate Property Model"
-    _inherit = "mail.thread"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = "id desc"
 
     name = fields.Char('Name',required = True)
@@ -77,3 +77,10 @@ class EstateModel(models.Model):
             if record.selling_price < (0.9)*record.expected_price:
                 raise UserError("Selling price should be greater than 90 percentage of expected price")
 
+    @api.ondelete(at_uninstall=False)
+    def _deleting_the_record(self):
+        for record in self:
+            if record.state == 'new' or record.state == 'canceled':
+                pass
+            else :
+                raise UserError("only new and canceled property can be deleted")
