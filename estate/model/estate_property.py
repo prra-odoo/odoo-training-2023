@@ -9,7 +9,7 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real estate advertisement module"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _order = "sequence desc, property_type_id desc"
+    _order = "sequence, property_type_id desc"
 
     name = fields.Char('Name',required=True)
     salesperson_id = fields.Many2one('res.users', string='Salesperson', index=True, default=lambda self: self.env.user)
@@ -20,7 +20,7 @@ class EstateProperty(models.Model):
     date_availability = fields.Date('Available From',default=lambda self:fields.Datetime.now(),readonly=True)
     expected_price = fields.Float('Expected price')
     selling_price = fields.Float('Selling price')
-    sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
+    sequence = fields.Integer('Sequence', default=1, help="Used to order proeprty. Lower is better.")
     bedrooms = fields.Integer('Bedroom',default='2')
     living_area = fields.Integer('Living area (sqm)')
     facades = fields.Integer('Facades')
@@ -80,4 +80,14 @@ class EstateProperty(models.Model):
         for record in self:
             if float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
                 raise ValidationError('The selling price must be 90% of the expected price')
+                
+    #ondelete
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_or_cancel(self):
+        for record in self:
+            if record.state not in ['new', 'canceled']:
+                raise UserError("Only new and canceled property can be deleted.")
+
+
+    
             

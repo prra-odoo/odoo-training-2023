@@ -18,8 +18,9 @@ class EstatePropertyOffer(models.Model):
     )
     property_id = fields.Many2one('estate.property',required=True)
     partner_id = fields.Many2one('res.partner',required=True)
+    property_type_id = fields.Many2one('estate.property.type',related='property_id.property_type_id',string='Property type', store=True)
 
-    validity = fields.Integer('Validity',default='7')
+    validity = fields.Integer('Validity(days)',default='7')
     date_deadline = fields.Date(compute='_compute_date', inverse='_inverse_date')
     create_date = fields.Date('Date availability',default=fields.Datetime.now())
 
@@ -38,6 +39,8 @@ class EstatePropertyOffer(models.Model):
     
     def action_accepted(self):
         for record in self:
+            if "accepted" in self.mapped("property_id.offer_ids.status"):
+                raise UserError("An offer as already been accepted.")
             record.status = 'accepted'
             record.property_id.state = 'offer_accepted'
             record.property_id.selling_price = record.price
@@ -52,3 +55,11 @@ class EstatePropertyOffer(models.Model):
     _sql_constraints = [
         ('check_price', 'CHECK(price > 0)', 'The offer price must be stricly positive.'),
     ]
+
+    # @api.model
+    # def create(self, vals_list):
+    #     for vals in vals_list:
+    #         if 'price' in vals:
+    #             for record in self:
+    #                 record.property_id.state = 'offer_received'
+    #     return super().create(vals)

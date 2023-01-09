@@ -11,7 +11,7 @@
                   Empty!
                 </p>
               </field>
-        </record> 
+        </record>
     </data>
             <!-- tree view -->
         <record id="real_estate_list_view" model="ir.ui.view">
@@ -21,16 +21,18 @@
                 <tree string= "Real Estate" decoration-success="state in ['offer_accepted', 'offer_received']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
                     <!-- <tree default_order="date desc"> -->
                         <!-- arrange by order -->
-                    <field name="name"/>
-                    <field name="property_type_id"/>
-                    <field name="postcode"/>
-                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                    <field name="bedrooms"/>
-                    <field name="living_area"/>
-                    <field name="expected_price"/>
-                    <field name="selling_price"/>
-                    <field name="date_availability" optional="hide"/>
-                    <field name="state" optional="hide"/>
+                    
+                    <field name="sequence" widget="handle"/>    
+                        <field name="name"/>
+                        <field name="property_type_id"/>
+                        <field name="postcode"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="bedrooms"/>
+                        <field name="living_area"/>
+                        <field name="expected_price"/>
+                        <field name="selling_price"/>
+                        <field name="date_availability" optional="hide"/>
+                        <field name="state" optional="hide"/>
                 </tree>
             </field>
         </record>
@@ -61,6 +63,7 @@
             <field name="name">Property form view</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
+              
                 <form>
                     <header>
                         <button name="property_cancel" type="object" string="Cancel" states='new,offer_received,offer_accepted,sold'/>
@@ -68,7 +71,7 @@
                         <field name="state" widget="statusbar" options = "{'clickable' : '1'}"/>
                         <!-- options = "{'clickable' : '1'}" -->
                     </header>
-                    <sheet> 
+                    <sheet>
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success"
                         attrs="{'invisible': [('state','not in',('sold'))]}"/>
                         <widget name="web_ribbon" title="Canceled" bg_color="bg-danger"
@@ -140,7 +143,7 @@
                                             <field name="partner_id" optional="show"/>
                                             <button name="action_accepted" type="object" title="ac" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
                                             <button name="action_refused" type="object" title="re" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}"/>
-                                            <field name="status" optional="hide"/>
+                                            <field name="status" optional="show"/>
                                         </tree>
                                 </field>
                             </page>

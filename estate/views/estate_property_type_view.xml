@@ -27,7 +27,7 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <form>
-                <sheet> 
+                <sheet>
                     <label for="name" string="Name" />
                         <group>
                             <h1><field name="name" style="width:800%"/></h1>
@@ -38,7 +38,7 @@
                                     <tree string= "Properties">
                                         <field name="name" optional="show"/>
                                         <field name="expected_price" optional="show"/> 
-                                        <field name="state" optional="show"/>  
+                                        <!-- <field name="state" optional="show"/>   -->
                                     </tree>
                                 </field>
                             </page>

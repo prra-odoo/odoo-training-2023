@@ -2,15 +2,34 @@
 <odoo>
     <data>
         <record model="estate.property" id="property_model_demo" >
-            <field name="name">ABC</field>
+            <field name="name">House1</field>
             <field name="postcode">000000</field>
-            <field name="bedrooms">5</field>
+            <field name="bedrooms">3</field>
         </record>
         <record model="estate.property" id="property_model_demo1" >
              <field name="name">New house</field>
+             <field name="postcode">000005</field>
+             <field name="bedrooms">5</field>
         </record>
-        <record model="estate.property" id="property_model_demo2" >
+        <record model="estate.property" id="property_model_demo3" >
             <field name="name">New House2</field>
+            <field name="postcode">000004</field>
+            <field name="bedrooms">5</field>
        </record>
+       <record model="estate.property" id="property_model_demo4" >
+            <field name="name">New House3</field>
+            <field name="postcode">000003</field>
+            <field name="bedrooms">5</field>
+        </record>
+        <record model="estate.property" id="property_model_demo5" >
+             <field name="name">New House4</field>
+             <field name="postcode">000002</field>
+             <field name="bedrooms">5</field>
+        </record>
+        <record model="estate.property" id="property_model_demo6" >
+            <field name="name">New House5</field>
+            <field name="postcode">000001</field>
+            <field name="bedrooms">5</field>
+        </record>
     </data>
 </odoo>
