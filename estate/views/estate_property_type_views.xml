@@ -6,7 +6,16 @@
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
                 <form string="form view">
-                    <sheet>
+                    <sheet> 
+                        <div class="oe_button_box" name="button_box">
+                            <button
+                            name="%(estate.action_property_offer)d"
+                            type="action"
+                            class="oe_stat_button"
+                            icon="fa-money">
+                            <field name="offer_count" widget="statinfo" string="offers"/>
+                            </button>
+                        </div>
                         <label for="name"></label>
                             <h1><field name="name"/></h1>   
                         <notebook>
@@ -26,12 +35,13 @@
             </field>
         </record>
 
-        <record id="estate_property_type_view_tree" model="ir.ui.view">
-            <field name="name">Property Type Tree View</field>
+        <record id = "estate_property_type_tree_view" model="ir.ui.view">
+            <field name="name">Name</field>
             <field name="model">estate.property.type</field>
             <field name="arch" type="xml">
-                <tree string="Property Types">
-                    <field name="sequence" widget="handle"/>    
+                <tree string = "tree view">
+                    <field name="name"/>
+                    <field name="sequence" widget="handle"/>
                 </tree>
             </field>
         </record>

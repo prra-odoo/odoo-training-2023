@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="action_property_offer" model="ir.actions.act_window">
+        <field name="name">Property offer</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+
+    </record>
+
     <record id="estate_model_action" model="ir.actions.act_window">
         <field name="name">Views</field>
         <field name="res_model">estate.property</field>
@@ -31,6 +39,7 @@
             <menuitem id="estate_first_level_menu1" sequence="2" name="Settings">
                 <menuitem id="estate_model_menu_action01" action="estate_model_action01"/>
                 <menuitem id="estate_model_menu_action02" action="estate_model_action02"/>
+
             </menuitem>
         </menuitem>
     

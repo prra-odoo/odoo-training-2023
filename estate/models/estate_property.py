@@ -3,7 +3,7 @@
 from odoo import models , fields,api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools.float_utils import float_compare, float_is_zero
+from odoo.tools.float_utils import float_compare
 
 class estate_property(models.Model):
     _name = "estate.property"
@@ -22,8 +22,8 @@ class estate_property(models.Model):
     postcode = fields.Integer(default = 104,readonly=True)
     description = fields.Text(copy=False)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=6))
-    expected_price = fields.Float(default = 550)
-    selling_price=fields.Float(default = 50000)
+    expected_price = fields.Float(default= 100)
+    selling_price=fields.Float(default = 100000)
     bedrooms = fields.Integer(default = 50)
     living_area = fields.Integer(default = 2)
     facades = fields.Integer(default = 5)
@@ -32,7 +32,7 @@ class estate_property(models.Model):
     total_area = fields.Float(compute="_compute_total_area")
     best_offer =  fields.Float(compute= "_compute_offer_price",default=0)
     Other_info = fields.Text("Others info")
-    log_note=fields.Text("Log Note")
+    sequence = fields.Integer("sequence")
     garage_orientation = fields.Selection(
         string = 'Garage_Orientation',
         selection=[('north','North'),('south','South'),('east','East'),('west','West')]
@@ -73,13 +73,20 @@ class estate_property(models.Model):
             if record.state == 'sold':
                 raise UserError("Sold properties cannot be canceled")
             else:
-                 record.state == 'cancel'
+                record.state == 'cancel'
         return True
+    
     @api.constrains("selling_price","expected_price")
     def _check_sellind_price(self):
         for record in self:
             if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
                 raise UserError("Selling Price must 90percent of the expected price")
+        
+    def unlink(self):
+        for record in self:
+            if record.state not in {'new','cancel'}:
+                raise UserError("Only new and canceled properties can be deleted")
+        return super().unlink()
     
 
               

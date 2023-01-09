@@ -11,4 +11,4 @@ class estateTag(models.Model):
     ]
     name = fields.Char("Name",required=True)
     colors = fields.Integer("Color Index")
-    
+    sequences = fields.Integer("Sequence")

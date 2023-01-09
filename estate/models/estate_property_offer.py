@@ -3,7 +3,8 @@
 from odoo import models,_,fields , api
 from dateutil.relativedelta import relativedelta
 from odoo.tools.date_utils import add,subtract
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError,UserError
+from odoo.tools.float_utils import float_compare
 
 class estateOffer(models.Model):
     _name="estate.property.offer"
@@ -20,9 +21,7 @@ class estateOffer(models.Model):
     date_deadline = fields.Date("Deadline" ,compute="_compute_deadline_" , inverse = "_compute_validty_changes_")
     partner_id = fields.Many2one("res.partner",string="Partner id",)
     property_id= fields.Many2one("estate.property",string="Property id")
-    # property_type_id = fields.Many2one("estate.property.type",related = property_id.property_type_id,string="Property Type")
-    # # offer_ids = fields.One2many("estate.property.type","property_id",string = "Property offer")
-    
+    property_type_id = fields.Many2one("estate.property.type",related = "property_id.property_type_id",store=True,string="Property Type")
     
     @api.depends('create_date','validity','date_deadline')
     def _compute_deadline_(self):
@@ -39,10 +38,10 @@ class estateOffer(models.Model):
             if record.property_id == self.property_id:
                 for record in self.search([('status','=','accepted')]):
                     if record.partner_id!= self.property_id:
-                        raise ValidationError("Cant accept more than one")
+                        raise ValidationError("Can't accept more than one")
                     else:
                         for i in record:
-                            record.status='refuse'
+                            record.status='refused'
         self.status='accepted'
         self.property_id.state='offer_accepted'
         self.property_id.selling_price = self.price
@@ -52,6 +51,13 @@ class estateOffer(models.Model):
     def action_refused(self):
         for record in self:
             record.status = 'refused'
+            
+    
+                
+            
+   
+        
+        
     
   
                 

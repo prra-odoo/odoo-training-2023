@@ -6,8 +6,8 @@
             <field name="name">Name</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree expand= "1" string="tree view" decoration-success = "state in ('offer_received', 'offer_accepted')" 
-                decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
+                <tree expand= "1" string="tree view" decoration-success = "state in ('sold','offer_accepted','offer_received')" 
+                decoration-bf="state=='offer_accepted'" decoration-muted="state=='cancel'">
                     <field name="name"/>
                     <field name="postcode"/>
                     <field name="bedrooms"/>
@@ -18,7 +18,8 @@
                     <field name="date_availability" optional="hide"/>
                     <field name="expected_price"/>
                     <field name="selling_price"/>
-                    <field name="state"/>
+                    <!-- <field name="sequence" widget="handle"/> -->
+                    <field name="state" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -36,11 +37,12 @@
                     <field name="garden_area"/>
                     <field name="expected_price"/>
                     <field name="selling_price"/>
-                    <field name="living_area"/>
+                    <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
                     <separator/>
                         <filter string="Postcode" name="active" />
                         <separator/>
-                        <filter string="Available" name="available" domain ="[('state', 'in', ('new','sold'))]"/>
+                        <filter string="Available" name="available" domain = "[('state','in',('new','offer_received'))]"
+                        />
                         <separator/>
                         <filter string="bedrooms" name="bedrooms"  />
                         <group expand="1" string="Group By">
@@ -58,13 +60,13 @@
                 <form string="estate_form">
                     <header>
                         <button name="action_sold" type="object" string ="Sold" attrs="{'invisible': ['|',('state', '==', 'sold'),('state', '==', 'cancel')]}"/>
-                        <button name="action_cancel" type="object" string ="Cancel" attrs="{'invisible': ['|',('state', '==', 'cancel'),('state', '==', 'sold')]}" />
+                        <button name="action_cancel" type="object" string ="Cancel" attrs="{'invisible': ['|',('state', '==', 'cancel'),('state', '==', 'sold')]}"/>
                         <button name="%(estate.estate_model_action01)d" type="action" string="My Action"/>
                         <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold,cancel"  options="{'clickable': '1'}"/>
                     </header> 
                     <sheet>
-                        <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':['|',('state','=','new'),'|',('state','=','offer_recieved'),'|',('state','=','offer_accepted'),('state','=','cancel')]}" />
-                        <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible':['|',('state','=','new'),'|',('state','=','offer_recieved'),'|',('state','=','offer_accepted'),('state','=','sold')]}" />
+                        <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state','in',('new','offer_received','offer_accepted','cancel'))]}" />
+                        <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible':[('state','in',('new','offer_received','offer_accepted','sold'))]}" />
                         <label for="name"></label>
                             <h1><field name="name" nolabe="1"/></h1>   
                         <group>
@@ -137,7 +139,7 @@
                                         <field name ="partner_id"/>
                                         <field name="validity"/>
                                         <field name ="date_deadline"/>
-                                        <!-- <field name="property_type_id"/> -->
+                                        <field name="property_type_id"/>
                                         <button name="action_accept" string='accepted' type="object" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
                                         <button name="action_refused" string='refused' type="object" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}"/>
                                         <field name ="status"/>
