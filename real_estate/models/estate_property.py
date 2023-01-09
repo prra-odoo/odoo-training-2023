@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models,fields
 
-class estate_Property(models.Model):
+class EstateProperty(models.Model):
     _name="estate.properties"
     _description="Real estate properties"
 
@@ -21,6 +21,9 @@ class estate_Property(models.Model):
     type_id=fields.Many2one('estate.property.type', string='property type')
     garden_orientation = fields.Selection(string="Garden Orientation", selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     active= fields.Boolean('active', default=True)
-    state=fields.Selection(string="State",selection=[('new','New'),('offer_received','Offer received'),('offer_accepted','Offer accepted'),('sold','Sold',),('canceled','Canceled')],default='new',required=True)
-
+    state=fields.Selection(string="State",selection=[('new','New'),('offer_received','Offer received'),('offer_accepted','Offer accepted'),('sold','Sold'),('canceled','Canceled')],default='new',required=True)
+    buyer_id=fields.Many2one('res.partner', copy=False, string='user')
+    salesperson_id=fields.Many2one('res.users', string='salesperson', default=lambda self: self.env.user)
+    tag_ids=fields.Many2many('estate.property.tags', string='property tags')
+    offer_ids=fields.One2many("estate.property.offer","property_id", string="Offers")
 

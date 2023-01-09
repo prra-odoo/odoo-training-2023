@@ -47,6 +47,9 @@
                         <field name="name" placeholder="Enter Property Name"/>
                     </h1>
                     <group>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
                         <group>
                             <field name="postcode"/>
                         </group>
@@ -95,6 +98,19 @@
                                 <field name="garden_orientation"/>
                             </group> 
                         </page>
+                        <page name="Offers">
+                        
+                                <field name="offer_ids"/>
+
+                        </page>
+                        <page name="Other details">
+                            <group>
+                                <field name="salesperson_id"/>
+                            </group>
+                            <group>
+                                <field name="buyer_id"/>
+                            </group>
+                        </page>
                     </notebook>
                     </group>
                 </sheet>
@@ -118,43 +134,4 @@
             </search>
         </field>
     </record>
-    <record id="estate_property_type_action" model="ir.actions.act_window">
-        <field name="name">Property Types</field>
-        <field name="res_model">estate.property.type</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">No property type found, Please add your property type over here</p>
-            <p>Use the top left
-                <strong>CREATE</strong> button to add new property type!!!
-            </p>
-        </field>
-    </record>
-    <record id="property_type_tree_view" model="ir.ui.view">
-        <field name="name">Property Type</field>
-        <field name="model">estate.property.type</field>
-        <field name="arch" type="xml">
-            <tree string="Property type">
-                <field name="name"/>
-                <field name="active"/>
-            </tree>
-        </field>
-    </record>
-    <record id="property_type_form_view" model="ir.ui.view">
-        <field name="name">New property type</field>
-        <field name="model">estate.property.type</field>
-        <field name="arch" type="xml">
-            <form string="property type">
-                <sheet>
-                    <h1>
-                        <field name="name" placeholder="Enter property type"/>
-                    </h1>
-                    <notebook>
-                        <page name="description" string="Description">
-                            <field name="active"/>
-                        </page>
-                    </notebook>
-                </sheet>
-            </form>
-        </field>
-    </record>  
 </odoo>
