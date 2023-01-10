@@ -8,15 +8,30 @@
             <tree string="Channel" >
                     <field name="price" string="Price"/>
                     <field name="partner_id" string="Partner"/>
+                    <field name="validity" string="Validity (days)"/>
+                    <field name="date_deadline" string="Deadline"/>
                     <field name="status" string="Status"/>
             </tree>
         </field>
     </record>
 
-    <!-- create form view for estate property offer -->
-
-
-    
-
-
+     <record id="estate_property_offer_form" model="ir.ui.view">
+        <field name="name">Estate Property Offer Form</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="form">
+                <sheet>
+                    <group>
+                         <field name="price"/>
+                         <field name="partner_id"/>
+                         <field name="validity"/>
+                         <field name="date_deadline"/>
+                         <field name="status"/>
+                        
+                    </group>
+                </sheet>
+            </form>
+            
+        </field>
+    </record>
 </odoo>
