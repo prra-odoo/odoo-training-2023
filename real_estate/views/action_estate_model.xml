@@ -11,7 +11,7 @@
             <menuitem id="property_model_menu_action3" action="property_test_model_action3" />
             <menuitem id="property_model_menu_action4" action="property_test_model_action4" />
         </menuitem>
-        <menuitem id="property_offer_menu" name="Offer" action="property_offer_action"></menuitem>
+        <!-- <menuitem id="property_offer_menu" name="Offer" action="property_offer_action"></menuitem> -->
     </menuitem>
 
 </odoo>

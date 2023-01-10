@@ -87,3 +87,9 @@ class realEstate(models.Model):
                 raise ValidationError(
                     "The selling price must be at least 90% of the expected price!"
                 )
+    @api.ondelete(at_uninstall=True)
+    def _check_state(self):
+        for record in self:
+            if record.state not in ['new','cancel']:
+                raise UserError("Oops!! You can't delete the data",)
+        

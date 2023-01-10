@@ -7,13 +7,15 @@
                 <tree>
                     <field name="price" />
                     <field name="partner_id" />
-                    <button name="offer_accepted" title = "Accept" type="object" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}" />
-                    <button name="offer_refused" title = "Refuse" type="object" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}"/>
-                    <field name="status" invisible="1"/>
+                    <button name="offer_accepted" title="Accept" type="object" icon="fa-check"
+                        attrs="{'invisible': [('status', '!=', False)]}" />
+                    <button name="offer_refused" title="Refuse" type="object" icon="fa-times"
+                        attrs="{'invisible': [('status', '!=', False)]}" />
+                    <field name="status" invisible="1" />
                     <field name="validity" />
                     <field name="date_deadline" />
                 </tree>
-                </field>
-                </record>
+            </field>
+        </record>
     </data>
 </odoo>

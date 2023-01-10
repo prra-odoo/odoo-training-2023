@@ -32,12 +32,13 @@ class estatePropertyoffer(models.Model):
      def offer_accepted(self):
           for record in self:
                if "accepted" in self.mapped("property_id.offer_ids.status"):
-                    raise UserError("Its an Error")
+                    raise UserError("Its an Error") 
                else: 
                     for record in self:
                      record.status="accepted"
                      record.property_id.selling_price=record.price
                      record.property_id.buyer_id=record.partner_id
+                     record.property_id.state = 'offer_accepted'
      
      def offer_refused(self):
           for record in self:
