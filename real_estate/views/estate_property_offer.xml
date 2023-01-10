@@ -12,6 +12,8 @@
                                 <field name="price"/>
                                 <field name="partner_id"/>
                                <field name="status"/>
+                               <field name="date_deadline"/>
+                               <field name="validity"/>
                             </group>
                         </sheet>
                 </form>
@@ -24,8 +26,11 @@
         <field name="arch" type="xml">
             <tree string="Estate_Property_offer">
                 <field name="price"/>
-                 <field name="partner_id"/>
+                <field name="partner_id"/>
                 <field name="status"/>
+                <!-- <field name="date_deadline"/> -->
+                <field name="date_deadline"/>
+                 <field name="validity"/>
                 </tree>
                 </field>
                 </record>
