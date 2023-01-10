@@ -9,7 +9,7 @@
         'views/estate_type_view.xml',
         
     ],
-    'depends': ['mail'],
+    'depends': ['mail','base'],
     'demo': [
         'demo/estate_demo_data.xml',
     ],

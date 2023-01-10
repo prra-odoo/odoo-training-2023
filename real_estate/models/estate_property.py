@@ -1,8 +1,6 @@
 # -- coding: utf-8 --
 
-from xml.dom import ValidationErr
-from odoo import fields, models
-from odoo import api
+from odoo import fields, models ,api
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare, float_is_zero
 
@@ -27,7 +25,7 @@ class estateProperty(models.Model):
     garden_orientation = fields.Selection(string="Orientation ",
         selection=[('north', 'North'), ('south', 'South'), ('east','East'), ('west','West')],
         help="Type is used to separate Leads and Opportunities")
-    state = fields.Selection(selection= [('new','New'),('cancel','Cancel'),('offer recieved','Offer Recieved'),('offer accepted','Offer Accepted'),('sold','Sold')], default="new")
+    state = fields.Selection(selection= [('new','New'),('cancel','Cancel'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold')], default="new",tracking=True)
     activate = fields.Boolean(default=True)
     property_type_id = fields.Many2one("estate.property.type",string= "Property type")
     salesman_id=fields.Many2one("res.users",string="salesman",default=lambda self: self.env.user)

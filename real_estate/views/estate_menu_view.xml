@@ -2,18 +2,19 @@
 <odoo>
     <data>    
         <record id="estate_model_action_small" model="ir.actions.act_window">
-            <field name="name">Small Property</field>
+            <field name="name">Property list</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
+            <field name="context">{'search_default_available': 1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">No Property found. Let's create one!</p>
             </field>
         </record>
-        <record id="estate_model_action_large" model="ir.actions.act_window">
+        <!-- <record id="estate_model_action_large" model="ir.actions.act_window">
             <field name="name">Large Property</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">list,form</field>
-        </record>
+        </record> -->
 
         <record id="estate_model_action_property_tags" model="ir.actions.act_window">
             <field name="name">Property Tags</field>
@@ -29,12 +30,20 @@
                     Create a property type
                 </p>
             </field>
-    </record>
+        </record>
+
+        <record id="estate_property_offer_action" model="ir.actions.act_window">
+            <field name="name">Property offer</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
         <record id="estate_tree_view" model="ir.ui.view">
             <field name="name">Real Estate</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree string="Real Estate" >
+                <!-- decoration-success="state in ('offer recieved', 'offer accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer accepted'" -->
                     <field name="name" />
                     <field name="description" />
                     <field name="postcode"/>
@@ -57,16 +66,17 @@
                     <field name="description" />
                     <field name="postcode"/>
                     <field name="bedrooms" />
-                    <field name = "living_area"/>
+                    <field name = "living_area" filter_domain="[('living_area', '>=', self)]"/>
                     <field name = "expected_price"/>
                     <field name = "selling_price"/>
+                    <filter string="Available" name="available" domain="[('state', 'in', ('new', 'offer_received'))]"/>
+
                 <filter string="Postcode" name="postcode" domain="[('postcode', '>' , '0')]" >
                 </filter>
                 <group string= "Group By"> 
                     <filter name='name' string='Name' context="{'group_by':'name'}"/>
                     <filter name='garden' string='Garden' context="{'group_by':'garden'}"/>
                     <filter name='garage' string='Garage' context="{'group_by':'garage'}"/>
-
                 </group>
                 </search>
             </field>
@@ -83,6 +93,8 @@
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
                     </header>
                     <sheet>
+                        <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', 'not in', ('sold'))]}"/>
+                        <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', 'not in', ('cancel'))]}"/>
                         <label for="name" string="Name:"></label>
                         <h1><field name="name"></field></h1>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"></field>         

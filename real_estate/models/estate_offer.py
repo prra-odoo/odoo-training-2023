@@ -20,6 +20,7 @@ class propertyoffer(models.Model):
     validity = fields.Integer()
     date_deadline = fields.Date("Date Deadline", compute='_compute_date_deadline',inverse='_inverse_date_deadline')
     create_date = fields.Date(default=fields.Datetime.now(),readonly =True)
+    property_type_id=fields.Many2one("estate.property.type", related = "property_id.property_type_id", store=True)
 
     @api.depends('validity','create_date')
     def _compute_date_deadline(self):
@@ -34,12 +35,14 @@ class propertyoffer(models.Model):
     def accept_action(self):
         for record in self:
             record.status='accepted'
+            record.property_id.state='offer_accepted'
             # record.state='offer recieved'
         return True
     
     def refused_action(self):
         for record in self:
             record.status='refused'
+            
             # record.state='offer accepted'
 
     

@@ -3,7 +3,7 @@
     <menuitem id="estate_root_menu" name="Real Estate">
         <menuitem id="estate__menu" name="Property">
             <menuitem  id="estate_submenu_small" action="estate_model_action_small" />
-            <menuitem  id="estate_submenu_large" action="estate_model_action_large" />
+            <!-- <menuitem  id="estate_submenu_large" action="estate_model_action_large" /> -->
         </menuitem>
 
         <menuitem id="estate__setting" name="Setting">
