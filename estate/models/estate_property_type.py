@@ -21,7 +21,3 @@ class estatepropertytype(models.Model):
     def _compute_offer_count(self):
         self.offer_count = len(self.offer_ids)
         print(self.offer_count)
-
-
-
-    

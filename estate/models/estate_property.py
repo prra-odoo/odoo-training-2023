@@ -27,14 +27,13 @@ class estateModel(models.Model):
     state=fields.Selection(selection=[('new', 'New'), ('offerrecieved', 'Offer Recieved'),('offeraccepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')],
         default='new',tracking=True,required=True)
     garage_orientation = fields.Selection(
-        string='Garden Orientation:',
-        selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')],
-        help="Type is used to separate Leads and Opportunities")
+        string='Garden Orientation:',   
+        selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')])
     total_area = fields.Float(compute="_compute_total_area")
     best_price = fields.Float(compute="_compute_best_price")
     property_type_id=fields.Many2one("estate.property.type", string="Property")
     tags_ids=fields.Many2many("estate.property.tags",string="Tags")
-    offer_ids=fields.One2many("estate.property.offer","property_type_id",string="Property Offers",readonly=False)
+    offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers",readonly=False)
     sales_id=fields.Many2one("res.users",string="Sales",default=lambda self: self.env.user)
     buyers_id=fields.Many2one("res.partner",string="Buyers")
 
@@ -76,7 +75,7 @@ class estateModel(models.Model):
     @api.constrains('selling_price')
     def _check_constrains_SP(self):
         for record in self:
-            if record.selling_price < (90/100)*(self.expected_price):
+            if record.selling_price <= (90/100)*(record.expected_price):
                 raise ValidationError("Selling price cannot be less than 90 percent of expected price")
 
     @api.ondelete(at_uninstall=False)
@@ -86,32 +85,3 @@ class estateModel(models.Model):
                 pass    
             else:
                 raise ValidationError("Error")
-        # if((self.state=='offerrecieved') | (self.state=='cancel')):
-        #     raise ValidationError("No new and canceld  record can be deleted")
-
-    # @api.model
-    # def create(self,vals):
-    #     if(self.price < self.best_price):
-    #         raise ValidationError("error")
-    #     return super().create(self,vals)
-
-
-    # @api.depends('offer_ids.price')
-    # def _compute_state(self):
-    #     for record in self:
-    #         if self.offer_ids.price>0:
-    #             record.state='offerrecieved'
-
-    # @api.depends('offer_ids.status')
-    # def _compute_selling_price(self):
-    #     for record in self:
-    #         if self.offer_ids.status == 'accepted':
-    #             record.accept_selling_price_id = self.offer_ids.price
-
-
-    # @api.depends('status')
-    # def action_accept(self):
-    #     for rec in self.search([('status','=','accepted')]):
-    #         raise ValidationError(_("cannot accept more than one offer"))
-    #         pass
-    #     self.status='accepted'

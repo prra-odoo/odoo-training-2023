@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!-- ____________________________Tree View______________________________________ !-->
-        <record id="estate_view11_tree" model="ir.ui.view">
+        <record id="estate_offer_tree" model="ir.ui.view">
             <field name="name">estate.offers.tree</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
