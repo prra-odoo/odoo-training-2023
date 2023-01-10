@@ -54,6 +54,6 @@ class estatePropertyOffer(models.Model):
         return True
 
     # def create(self, vals):
-    #     for val in vals:
-    #     # how to get value of current price???????????
-    #         # self.env['estate.property'].browse(vals['property_id.offer_ids.price'])
+        # for val in vals:
+        # how to get value of current price???????????
+            # self.env['estate.property'].browse(vals['property_id.offer_ids.price'])

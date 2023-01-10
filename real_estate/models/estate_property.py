@@ -8,12 +8,12 @@ from odoo.tools.float_utils import float_compare, float_is_zero
 class estateProperty(models.Model):
     _name = "estate.property"
     _description = "This is a regarding Real Estate"
-    active = fields.Boolean(default=True)
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = "id desc"
 
     # Fields
     name = fields.Char(required=True)
+    active = fields.Boolean(default=True)
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(default=lambda self: fields.Datetime.now() + relativedelta(months=3), copy=False)
@@ -39,7 +39,7 @@ class estateProperty(models.Model):
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
     buyer_id = fields.Many2one('res.partner', string="Buyer", copy=False, readonly=True)
     salesperson_id = fields.Many2one('res.users', string="Sales Person", default=lambda self: self.env.user)
-    tag_ids = fields.Many2many('estate.property.tag', string="Tags")
+    tag_ids = fields.Many2many('estate.property.tag','property_tags_rel','ta_id','prop_id', string="Tags")
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offer")
 
     # Computed Fields
@@ -63,6 +63,9 @@ class estateProperty(models.Model):
         for record in self:
             record.best_offer = max(record.offer_ids.mapped('price'), default=0)
 
+    '''A public method should always return something so that it can be called through XML-RPC. 
+        When in doubt, just return True.'''
+        
     # Action Methods
     def action_property_sold(self):
         for record in self:
