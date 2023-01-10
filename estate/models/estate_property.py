@@ -91,19 +91,18 @@ class estatePropertyModel(models.Model):
              'check_expected_price' , 'CHECK(expected_price>=0)',
              'Expected Price must be Positive'
         )
-
-
-    # Adding the python constraints so that the selling 
-  
-       
-
     ]
+    # Adding the python constraints so that the selling 
     @api.constrains("selling_price","expected_price")
-    def _check_sellind_price(self):
+    def _check_selling_price(self):
         for record in self:
             if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
                 raise UserError("Selling Price must 90percent of the expected price")
-            
+
+
+
+
+           
     @api.ondelete(at_uninstall=False)
     def _deleting_the_record(self):
         for record in self:
@@ -112,12 +111,7 @@ class estatePropertyModel(models.Model):
 
         
         
-    # _sql_constraints=[
-    #     (
-    #         'check_expected_price' , 'CHECK(expected_price>=0)',
-    #         'Expected Price must be Positive'
-    #     )
-    # ]
+    
 
 
                    

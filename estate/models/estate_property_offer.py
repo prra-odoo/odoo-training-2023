@@ -1,8 +1,7 @@
 from odoo import models,fields,api
 from odoo.tools.date_utils import add
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError, ValidationError
-
+from odoo.exceptions import UserError
 
 
 
@@ -20,7 +19,6 @@ class estatePropertyOffer(models.Model):
     create_date = fields.Date(default=fields.Datetime.now())
     property_type_id = fields.Many2one('estate.property.type',related="property_id.property_type_id" , store=True,string="property Type id")
 
-
     _sql_constraints=[
          (
             'check_offer_price' , 'CHECK(price>=0)',
@@ -33,7 +31,6 @@ class estatePropertyOffer(models.Model):
             record.date_deadline = record.create_date + relativedelta(days = record.validity)
             
 
-    # @api.depends("validity","date_deadline","create_date")
     def _validity_change(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days 
@@ -51,39 +48,16 @@ class estatePropertyOffer(models.Model):
         self.property_id.buyer_id = self.partner_id
         self.property_id.selling_price = self.price
         self.property_id.state = "offer_accepted"
-        
-        # for record in self.search([('status','=','accepted')]):
-        #     raise ValidationError("Only one should be accepted at a time")
-        # self.status = "accepted"
-        # self.property_id.selling_price=self.price
-        # self.property_id.buyer_id = self.partner_id
-            
+      
 
     def rejected_offer(self):
         for record in self:
             record.status = "refused"
-    
-  
 
-  
+#   inheritance
+    @api.model
+    def create(self, vals):
+        self.env['estate.property'].browse(vals['property_id']).state='offer_recieved'
+        return super().create(vals)
+        
 
-
-
-
-
-
-
-
-
-# x=0
-#         for record in self:
-            
-#             if record.status == "accepted":
-#                 x=x+1
-
-#         if x==0:
-#             for record in self:
-#                  record.status = "accepted"
-#                  record.property_id.selling_price=record.price
-#                  record.property_id.buyer_id = record.partner_id
-    
