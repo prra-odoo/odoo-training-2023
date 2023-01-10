@@ -11,7 +11,7 @@ class estateOffer(models.Model):
     _description = "This is the estate property offer model"
     _order = "price desc"
     _sql_constraints=[
-       ( ('check_price'),'CHECK(price>0)','The offer price must be positive')
+       ( ('check_price'),'CHECK(price>0)','The offer price must be have some value')
     ]
 
     price = fields.Float()
@@ -52,8 +52,11 @@ class estateOffer(models.Model):
         for record in self:
             record.status = 'refused'
             
+    @api.model
+    def create(self,vals):
+        self.env['estate.property'].browse(vals['property_id']).state = 'offer_received' 
+        return super().create(vals)         
     
-                
             
    
         

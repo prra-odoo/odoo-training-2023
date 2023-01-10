@@ -11,7 +11,6 @@
         'views/estate_property_tag_views.xml',
         'views/estate_property_offer_views.xml',
     ],
-    'depends' : ['mail'],
     'demo' :[
         'demo/estate_demo_data.xml',
         ],

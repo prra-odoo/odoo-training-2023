@@ -6,9 +6,39 @@
             <field name="description">Real Estate Property</field>
         </record>  
             
-        <record model="estate.property" id = "estate_model02">
+        <record model="estate.property" id = "estate_model002">
             <field name ="name">Estate New Property</field>
             <field name="description">New Property</field>
+        </record>
+
+        <record model="estate.property.tag" id= "estate_tag_model">
+            <field name="name">Cozy</field>
+        </record>
+        <record model="estate.property.tag" id= "estate_tag_model1">
+            <field name="name">Renovated</field>
+        </record>
+        <record model="estate.property.tag" id= "estate_tag_model2">
+            <field name="name">Furnished</field>
+        </record>
+        <record model="estate.property.tag" id= "estate_tag_model3">
+            <field name="name">office</field>
+        </record>
+        <record model="estate.property.tag" id= "estate_tag_model4">
+            <field name="name">Painted</field>
+        </record>
+
+
+        <record model="estate.property.type" id= "estate_type_model01">
+            <field name="name">flat</field>
+        </record>
+        <record model="estate.property.type" id= "estate_type_model02">
+            <field name="name">house</field>
+        </record>
+        <record model="estate.property.type" id= "estate_type_model03">
+            <field name="name">bunglow</field>
+        </record>
+        <record model="estate.property.type" id= "estate_type_model04">
+            <field name="name">Apartment</field>
         </record>
 
     </data>

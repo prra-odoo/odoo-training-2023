@@ -15,7 +15,7 @@
         <field name="context">{"search_default_available":1}</field>
         <field name="help" type="html">             
             <p class="o_view_nocontent_smiling_face"> 
-            Create a new Property, the first step of a new property!</p>         
+            Create a new Property,Please!</p>         
         </field>
     </record>
 
@@ -32,15 +32,13 @@
     </record>
 
 
-        <menuitem id="estate_menu_root" name="Real Estate">
-            <menuitem id="estate_first_level_menu" sequence = "1" name="Advertisments">
-                <menuitem id="estate_model_menu_action" sequence="2" action="estate_model_action"/>
-            </menuitem>
-            <menuitem id="estate_first_level_menu1" sequence="2" name="Settings">
-                <menuitem id="estate_model_menu_action01" action="estate_model_action01"/>
-                <menuitem id="estate_model_menu_action02" action="estate_model_action02"/>
-
-            </menuitem>
+    <menuitem id="estate_menu_root" name="Real Estate" web_icon="estate,static/description/deal.png">
+        <menuitem id="estate_first_level_menu" name="Advertisments">
+            <menuitem id="estate_model_menu_action" action="estate_model_action"/>
         </menuitem>
-    
+        <menuitem id="estate_first_level_menu1" name="Settings">
+            <menuitem id="estate_model_menu_action01" action="estate_model_action01"/>
+            <menuitem id="estate_model_menu_action02" action="estate_model_action02"/>
+        </menuitem>
+    </menuitem>
 </odoo>
