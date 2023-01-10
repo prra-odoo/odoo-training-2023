@@ -52,7 +52,7 @@
                             <field name="property_type_id" />
                         </group>
                         <group>
-                            <field name="state" />
+                            <field name="best_price" />
                         </group>
                         <notebook>
                             <page string="Description">
@@ -65,6 +65,7 @@
                                     <field name="gardan" string="Garden"/>
                                     <field name="gardan_area" string="Garden Area (sqm)"/>
                                     <field name="garden_orientation"/>
+                                    <field name="total_area" />
                                 </group>
                             </page>
                             <page string="offer">
