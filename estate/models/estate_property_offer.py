@@ -53,3 +53,12 @@ class EstateModel(models.Model):
         for record in self:
             record.status = "refused"
 
+    @api.model
+    def create(self, vals):
+        self.env['estate.property'].browse(vals['property_id']).state = 'offer_received'
+        return super().create(vals)
+        
+        # for record in self:
+        #     for rec in record:
+        #         if rec.price > record.price:
+        #             raise UserError("offer price should be greater than"+record.price)

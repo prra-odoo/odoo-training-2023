@@ -7,9 +7,9 @@
             <menuitem id="estate_model_ad_action_1" sequence="1" action="estate_model_ad_property2"/>
         </menuitem>
         <menuitem id="estate_second_level_menu" name="Settings">
-            <menuitem id="estate_model_settings_action_0" action="estate_model_settings_types"/>
-            <menuitem id="estate_model_settings_action_1" action="estate_model_settings_tags"/>
-            <menuitem id="estate_model_settings_action_2" action="estate_model_settings_offer"/>
+            <menuitem id="estate_model_settings_action_types" action="estate_model_settings_types"/>
+            <menuitem id="estate_model_settings_action_tags" action="estate_model_settings_tags"/>
+            <menuitem id="estate_model_settings_action_offer" action="estate_model_settings_offer"/>
         </menuitem>
     </menuitem>
 </odoo>

@@ -39,10 +39,10 @@ class EstateModel(models.Model):
     best_price = fields.Float(compute="_compute_max_price", default=0)
 
     _sql_constraints = [
-        ('check_expected_price', 'CHECK(expected_price >= 0)',
-         'The expected price should be positive'),
-        ('check_selling_price', 'CHECK(selling_price >= 0)',
-         'The selling price should be positive')
+        ('check_expected_selling_price', 'CHECK(expected_price >= 0 AND selling_price >=0)',
+         'The price should be positive'),
+        # ('check_sp', 'CHECK(selling_price < 0.9*expected_price)',
+        #  'selling price should be grater than 90 percentage of expected price')
     ]
 
     @api.depends("living_area", "garden_area")
@@ -79,8 +79,5 @@ class EstateModel(models.Model):
 
     @api.ondelete(at_uninstall=False)
     def _deleting_the_record(self):
-        for record in self:
-            if record.state == 'new' or record.state == 'canceled':
-                pass
-            else :
-                raise UserError("only new and canceled property can be deleted")
+        if self.state in ['offer_received', 'offer_accepted', 'sold']:
+            raise UserError("only new and canceled property can be deleted")
