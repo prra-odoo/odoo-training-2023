@@ -49,7 +49,7 @@
 
                     <group>
                         <group>
-                            <field name="property_type_id" string="Property Type" />
+                            <field name="property_type_id" string="Property Type" options="{'no_quick_create': True, 'no_create_edit' : True}" />
                         </group>
                         <group>
                             <field name="expected_price"/>
@@ -68,6 +68,7 @@
 
                     <group>
                         <group><field name="date_availability" string="Available From"/></group>
+                        <group><field name="best_offer" /></group>
                     </group>
                     
                     
@@ -110,6 +111,10 @@
                                 <group>
                                     <field name="state" />
                                 </group>
+                            </group>
+
+                            <group>
+                                <field name="total_area" string="Total Area (sqm)" />
                             </group>
                                     
                         </page>

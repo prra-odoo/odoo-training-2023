@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from dateutil.relativedelta import relativedelta
 
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class EstateProperty(models.Model):
@@ -32,5 +32,18 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer", 'property_id')
 
+    # computed fields
+    # Note: By Default values of compute fields are read only 
+    total_area = fields.Integer(compute="_compute_area")
+    best_offer = fields.Float(compute="_compute_best_offer")
 
+    @api.depends("living_area", "garden_area")
+    def _compute_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
 
+    
+    @api.depends("offer_ids")
+    def _compute_best_offer(self):
+        for record in self:
+            record.best_offer = max(record.offer_ids.mapped('price'), default=0)
