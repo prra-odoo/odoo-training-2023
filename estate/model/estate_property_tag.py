@@ -8,7 +8,7 @@ class EstatePropertyTags(models.Model):
 
     name = fields.Char('Name',required=True)
     color = fields.Integer('Color')
-    sequence = fields.Integer('Sequence', default=1, help='order property tags')
+    sequence = fields.Integer('Sequence')
 
 
     _sql_constraints = [

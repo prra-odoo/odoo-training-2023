@@ -18,6 +18,5 @@
                 <field name="name" optional="show"/>
             </tree>
         </field>
-    </record>
-            
+    </record>     
 </odoo>

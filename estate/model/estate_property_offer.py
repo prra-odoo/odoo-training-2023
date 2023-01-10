@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from datetime import datetime, time
 from odoo.exceptions import UserError
-from odoo.tools.date_utils import add,subtract
+from odoo.tools.date_utils import add
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -55,11 +55,3 @@ class EstatePropertyOffer(models.Model):
     _sql_constraints = [
         ('check_price', 'CHECK(price > 0)', 'The offer price must be stricly positive.'),
     ]
-
-    # @api.model
-    # def create(self, vals_list):
-    #     for vals in vals_list:
-    #         if 'price' in vals:
-    #             for record in self:
-    #                 record.property_id.state = 'offer_received'
-    #     return super().create(vals)

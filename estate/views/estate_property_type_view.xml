@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!--  property actions -->
+        <!--  property action -->
         <record id="property_type_model_action" model="ir.actions.act_window">
             <field name="name">Property Types</field>
             <field name="res_model">estate.property.type</field>
@@ -28,6 +28,11 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(estate_property_offer_model_action)d" type="action" class="oe_stat_button"  icon="fa-money">
+                            <field string="Offers" name="offer_count" widget="statinfo"/>                        
+                        </button>
+                    </div>
                     <label for="name" string="Name" />
                         <group>
                             <h1><field name="name" style="width:800%"/></h1>
@@ -38,7 +43,7 @@
                                     <tree string= "Properties">
                                         <field name="name" optional="show"/>
                                         <field name="expected_price" optional="show"/> 
-                                        <!-- <field name="state" optional="show"/>   -->
+                                        <field name="state" optional="show"/>  
                                     </tree>
                                 </field>
                             </page>
