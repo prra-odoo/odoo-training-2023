@@ -26,7 +26,7 @@
             <field name="arch" type="xml">
                 <form string="Real Estate">
                     <header>
-                        <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
+                        <field name="state" widget="statusbar"></field>
                         <button name="action_sold_button_header" type="object" string="Sold"
                             states="new,offer_received,offer_accepted" />
                         <button name="action_cancel_button_header" type="object" string="Cancel"
@@ -41,7 +41,7 @@
                         <label for="name">Name</label>
                         <h1>
                             <field name="name" />
-                        </h1>
+                        </h1>   
                         <group>
                             <group>
                                 <field name="state" />

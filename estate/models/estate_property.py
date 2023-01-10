@@ -11,7 +11,7 @@ class realEstate(models.Model):
     _name = "estate.property"
     _description = "This is the Database for the all clients and their requirements"
     _order = "id desc"
-    _inherit = ["mail.thread","mail.activity.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char("Name", required=True)
     description = fields.Text("Description")
@@ -19,7 +19,7 @@ class realEstate(models.Model):
     date_availability = fields.Date(
         "Available From", default=fields.Datetime.now()+relativedelta(months = 3 ))
     expected_price = fields.Float("Excepted Price")
-    selling_price = fields.Float("Selling Price", readonly=True,tracking=True)
+    selling_price = fields.Float("Selling Price", readonly=True, tracking=True)
     bedrooms = fields.Integer("Bedrooms")
     living_area = fields.Integer("Living Area", default="1")
     facades = fields.Integer("Facades")
@@ -47,8 +47,8 @@ class realEstate(models.Model):
             ('offer_received', 'Offer Received'),
             ('offer_accepted', 'Offer Accepted'),
             ('sold', 'Sold'),
-            ('canceled', 'Canceled')], default="new", readonly=True,tracking=True
-    )
+            ('canceled', 'Canceled')], default="new", readonly=True, tracking=True
+    )   
 
     _sql_constraints = [
         ("check_excepted_price", "CHECK(selling_price > 0)",
@@ -114,6 +114,5 @@ class realEstate(models.Model):
     @api.ondelete(at_uninstall=False)
     def _delete_property(self):
         for rec in self:
-            if not (rec.state=="new" or rec.state =="canceled"):
+            if not (rec.state == "new" or rec.state == "canceled"):
                 raise UserError("Can't Remove The Property.")
-                
