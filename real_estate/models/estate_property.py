@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models,fields
+from odoo import api,models,fields
 
 class EstateProperty(models.Model):
     _name="estate.properties"
@@ -26,4 +26,17 @@ class EstateProperty(models.Model):
     salesperson_id=fields.Many2one('res.users', string='salesperson', default=lambda self: self.env.user)
     tag_ids=fields.Many2many('estate.property.tags', string='property tags')
     offer_ids=fields.One2many("estate.property.offer","property_id", string="Offers")
+    total_area=fields.Float(compute="_compute_total_area",)
+    best_offer=fields.Float(compute="_compute_best_offer")
+
+    @api.depends('living_area','garden_area')
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+
+    @api.depends('offer_ids.price')
+    def _compute_best_offer(self):
+        for record in self:
+            record.best_offer=max(record.offer_ids.mapped('price'),default=0)
+
 

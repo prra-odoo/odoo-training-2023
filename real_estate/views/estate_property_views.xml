@@ -66,6 +66,9 @@
                             <field name="selling_price"/>
                         </group>
                         <group>
+                            <field name="best_offer"/>
+                        </group>
+                        <group>
                             <field name="state"/>
                         </group>
                         <group>
@@ -97,6 +100,9 @@
                             <group>
                                 <field name="garden_orientation"/>
                             </group> 
+                            <group>
+                                <field name="total_area"/>
+                            </group>
                         </page>
                         <page name="Offers">
                         
