@@ -44,5 +44,3 @@ class propertyoffer(models.Model):
             record.status='refused'
             
             # record.state='offer accepted'
-
-    
