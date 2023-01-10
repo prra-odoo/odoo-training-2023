@@ -108,6 +108,7 @@
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability"/>
+                <!-- <field name="context">{"search_default_name_of_the_filter":1}</field> -->
                 <filter string="Available" name="available" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]"/>
                 <separator/>
                 <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
