@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
     <!--  ______________________Estate Property tree View______________________  -->
-    
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">Estate Tree View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="tree view" expand="1" decoration-success="state in ['offer_accepted', 'offer_received']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
+            <tree string="tree view" expand="1" decoration-success="state in ['offer_accepted', 'offer_received']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'" decoration-danger="state=='cancel'">
                 <field name="name"></field>
                 <field name="postcode"></field>
                 <field name="bedrooms"></field>
@@ -23,30 +21,34 @@
         </field>
     </record>
 
-<!--  ____________________________Estate PropertyForm View _______________________-->
+<!--____________________________Estate Property Form View _______________________-->
 
     <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">Estate Form view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="estate_form">
-                <header >
+                <header>
                     <button name="sold_button" type='object' string="Sold" class="oe_highlight" attrs="{'invisible':[('state','in',['sold','cancel'])]}"/>
                     <button name="cancelled_button" type="object" string="Cancle" attrs="{'invisible':[('state','in',['sold','cancel'])]}"/>
                     <button name="%(property_type_action)d" type="action" string="Property type"/> 
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <label for="name"></label>
-                    <h1><field name="name"/></h1>
+                    <widget name="web_ribbon" title="sold" bg_color="bg-danger" attrs="{'invisible': [('state','in',['new','offer_accepted','offer_recieved','cancel'])]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state','in',['new','offer_accepted','offer_recieved','sold'])]}"/>
+                    <div class="oe_title">
+                        <label for="name"></label>
+                        <h1><field name="name"/></h1>
+                    </div>
                     <group>
-                        <group style="margin-top:10px">
+                        <group>
                             <field name="property_type_id" options="{'no_create': 'True','can_edit':'True'}"></field>
                             <field name="postcode" />
                             <field name="expected_price"/>
                             <field name="best_price"/>
                         </group>
-                        <group style="margin-top:10px">
+                        <group>
                             <field name="date_availability"/>
                             <field name="selling_price"/>
                             <field name="property_tag_ids" widget="many2many_tags" options="{'no_create':'True','no_edit':'True','color_field':'color'}"/>
@@ -71,7 +73,7 @@
                         </page>
                         <page string="Offer">
                             <group>
-                                <field name="offer_ids" attrs="{'readonly':[('state','in',['cancel','sold'])]}"></field>
+                                <field name="offer_ids" attrs="{'readonly' : [('state','in',['cancel','sold'])]}"></field>
                             </group>   
                         </page>
                         <page string="Other Info">
@@ -107,7 +109,7 @@
                 <field name="bedrooms"></field>
                 <field name="facades"></field>
                 <filter name="filter_date_availablity" date="date_availability" string="Avilable Date"></filter>
-                <filter name="Living_area_filter" string="Living Area" domain="[('living_area','>=',1)]"/>
+                <field name="living_area" string="Living Area" filter_domain="[('living_area','>',self)]"/>
                 <filter name="Selling_price_filter" string="Selling Price" domain="[('selling_price','>=',2000001)]"/>
                 <filter string="avilable" name="avilable_filter" domain="[('state','in',['new','offer_accepted'])]"/>
                 <group expand="1" string="Group By">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="action_property_offer" model="ir.actions.act_window">
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
         <field name="name">Property offer</field>
         <field name="res_model">estate.property.offer</field>
         <field name="view_mode">tree,form</field>

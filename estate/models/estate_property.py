@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models,fields,api,_
 from dateutil.relativedelta import relativedelta
-from odoo.tools.date_utils import add
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare, float_is_zero
+from odoo.tools import float_compare
 
 class estateProperty(models.Model):
     _name = "estate.property"
@@ -12,11 +11,9 @@ class estateProperty(models.Model):
     _order = "id desc"
 
     name = fields.Char( string="Title",required=True)
-    id = fields.Integer()
     postcode = fields.Char()
     description = fields.Text(copy=False)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
-    # date_availability = fields.Date(string='Date Avilability',default=lambda self:add(fields.datetime.today(),months=3))
     expected_price = fields.Float(string="Expected Price")
     selling_price = fields.Float(string="Selling Price")
     bedrooms = fields.Integer(default=3)
@@ -31,7 +28,7 @@ class estateProperty(models.Model):
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     state = fields.Selection( 
         string='State', 
-    selection = [('new', 'New'),('offer_recieved', 'Offer Recieved'),('offer_accepted','Offer Accepted'),('sold', 'Sold'),('cancel', 'Cancelled')],tracking=True)
+    selection = [('new', 'New'),('offer_recieved', 'Offer Recieved'),('offer_accepted','Offer Accepted'),('sold', 'Sold'),('cancel', 'Cancelled')],default='new',tracking=True)
     property_type_id=fields.Many2one("estate.property.type",string="Property Type")
     buyer_id = fields.Many2one("res.partner", string="Buyer")
     salesman_id = fields.Many2one('res.users', string='Salesman')
@@ -41,15 +38,15 @@ class estateProperty(models.Model):
     best_price=fields.Float("Best Offer",compute="_compute_best_price", default =0)
 
     #constraints
-    _sql_constraints = [('check_expected_price','CHECK(expected_price>0)','Expected Price must be positive.'),
-    ('check_selling_price','CHECK(selling_price>0)','Selling Price must be positive.'),
-    ('check_living_area','CHECK(living_area>0)','Living Area must be positive.')]
+    _sql_constraints = [('check_expected_price','CHECK(expected_price>=0)','Expected Price must be positive.'),
+    ('check_selling_price','CHECK(selling_price>=0)','Selling Price must be positive.'),
+    ('check_living_area','CHECK(living_area>=0)','Living Area must be positive.')]
 
-    # @api.constrains("selling_price","expected_price")
-    # def _check_selling_price(self):
-    #     for record in self:
-    #         if  float_compare(record.selling_price,record.expected_price*0.9,precision_digits =2) == -1:
-    #             raise ValidationError("Expected Price must be atleast 90% of the Selling price")
+    @api.constrains("selling_price","expected_price")
+    def _check_selling_price(self):
+        for record in self:
+            if  float_compare(record.selling_price,record.expected_price*0.9,precision_digits =2) == -1:
+                raise ValidationError("Selling Price must be atleast 90% of the Expected price")
 
     #compute fields
     @api.depends('garden_area','living_area')
@@ -75,20 +72,13 @@ class estateProperty(models.Model):
             if record.state=="sold":
                 raise UserError(("Sold property cannot be Cancelled!"))
             else:
-                record.state=="cancel"
+                record.state ="cancel"
         return True
 
-    #python constraints to set expected price must be greater than 90% of selling price
-    @api.constrains('selling_price','exected_price')
-    def _check_selling_price(self):
-        for record in self:
-            if (record.expected_price < (0.9*record.selling_price)):
-                raise ValidationError("Expected Price must be atleast 90% of the Selling price")
-
-    @api.ondelete(at_uninstall=True)
+    @api.ondelete(at_uninstall=False)
     def _unlink_except_state_new_cancel(self):
-        if self.state in ['offer_created','offer_recieved']:
-            raise UserError("You cant delete if the state is in offer recieved or offer accepted")
+        if self.state in ['offer_created','offer_recieved','sold']:
+            raise UserError("You can delete if the state is in new or cancel")
 
 
 
