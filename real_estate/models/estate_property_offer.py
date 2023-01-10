@@ -47,22 +47,16 @@ class EstatePropertyOffer(models.Model):
             self.property_id.buyer_id = self.partner_id
             self.status = "accepted"
             self.property_id.state = "offer_accepted"
-        # for record in self:
-        #     if record.status == "accepted":
-        #         record.property_id.buyer_id = record.partner_id
-        #         record.property_id.selling_price = record.price
-        #     record.status = 'accepted'
 
     def action_refuse(self):
-        # for record in self:
-        # if record.status == " accepted":
         self.status = 'refused'
         self.property_id.selling_price = 0
         self.property_id.state = "new"
 
     @api.model
     def create(self, vals):
-        result = self.env['estate.property.offer'].filtered([]).mapped('price')
+        domain=['property_id', '=', vals['property_id']]
+        result = self.env['estate.property.offer'].search([domain]).mapped('price')
         # result.sorted(lambda r: r.price < 'price')
         # print("redult s",)
         for record in result:

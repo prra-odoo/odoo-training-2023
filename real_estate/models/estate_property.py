@@ -54,14 +54,6 @@ class EstateProperty(models.Model):
          'UserError : Enter the Validate Price')
     ]
 
-    # @api.depends('expected_price','offer_ids.price')
-    # def check_expected_price(self):
-    #     for record in self:
-    #         if record.expected_price >= record.offer_ids.price():
-    #              raise ValidationError("The end date cannot be set in the past"
-
-    
-
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for record in self:
@@ -102,7 +94,3 @@ class EstateProperty(models.Model):
                     raise UserError("Not Possible!!!!!!!!!!")
             return super().unlink()
 
-    # @api.model
-    # def create(self, vals):
-    #     self.env['state'].browse(vals['offer_received']).check_granting()
-    #     return super().create(vals)

@@ -5,7 +5,7 @@
             <field name="name">Advertisement</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_state': 1}</field>
+            <field name="context">{"search_default_name_of_the_filter":1}</field>
         </record>
 
         <record id="fields_view_tree" model="ir.ui.view">
@@ -13,7 +13,7 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree decoration-success="state == 'offer_accepted'"
-                    decoration-danger="state=='cancel'">
+                    decoration-danger="state=='new'">
                     <field name="name" />
                     <field name="description" optional='hide' />
                     <field name="postcode" optional='hide' />
@@ -52,7 +52,7 @@
                             string="Property Tag" />
                         <button type="action" name="%(Create_estate_property_type_model_action)d"
                             string="Property Type" />
-                        <field name="state" widget="statusbar"  />
+                        <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
                         <group>
@@ -65,6 +65,7 @@
                                 <field name="tag_ids" nolabel="1" widget="many2many_tags"
                                     options="{'color_field': 'color'}" />
                                 <field name="active" invisible="1" />
+                                <field name="state" />
                             </group>
                             <group>
                                 <label for="date_availability" string="Date" />
@@ -166,7 +167,7 @@
                     <field name="name" string="Name" />
                     <field name="living_area" string="Living Area"
                         filter_domain="[('living_area','>=', self)]" />
-                    <filter name="state" string="Available" domain="[('state', '=', 'new')]" />
+                    <filter name="name_of_the_filter" string="Available" domain="[('state', '=', 'new')]"  />
                     <filter string="selling price" name="selling_price"
                         domain="[('selling_price', '>', '5000')]" />
                     <filter name="date_availability" string="Date"
