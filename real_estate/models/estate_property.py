@@ -27,7 +27,7 @@ class estateProperty(models.Model):
         selection=[('east', 'East'), ('west', 'West'), ('north', 'North'), ('south', 'South')]
         )
     state = fields.Selection(selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')],
-                                        default='new'
+                                        default='new', tracking=True
         )
     active = fields.Boolean(default = True)
     property_type_id = fields.Many2one("estate.property.type", string='Property Type')
@@ -37,7 +37,7 @@ class estateProperty(models.Model):
     offer_ids=fields.One2many("estate.property.offer","property_id", string="Offer")
     total_area=fields.Float(string="Total Area", compute="_compute_total")
     best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
-    status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")], tracking=True)
+    status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
 
     _sql_constraints = [
         ('expected_price', 'CHECK(expected_price >= 0)', 'A property expected price should be positive.'),
@@ -75,3 +75,14 @@ class estateProperty(models.Model):
             if (not float_is_zero(record.selling_price, precision_rounding=0.01) and float_compare(record.selling_price, record.expected_price * 90.0 / 100.0, precision_rounding=0.01) < 0):
                 raise ValidationError("The selling price must be at least 90% of the expected price! "
                                         + "You must reduce the expected price if you want to accept this offer.")
+   
+    @api.ondelete(at_uninstall=True)
+    def _delete(self):
+            for record in self:
+                if record.state not in ['new', 'cancel']:
+                    raise UserError("Only New and Canceled Properties can be deleted.")
+
+    @api.model
+    def create(self, vals):
+
+        return super().create(vals)

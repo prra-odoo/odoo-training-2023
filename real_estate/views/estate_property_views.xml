@@ -43,6 +43,7 @@
                 </p>
             </field>
         </record>
+
         <record id="estate_property_tree_view" model="ir.ui.view">
             <field name="name">Real Estate Tree View</field>
             <field name="model">estate.property</field>
