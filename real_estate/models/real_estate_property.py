@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -24,6 +24,7 @@ class RealEstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
+    tatal_area = fields.Float(compute="_compute_total_area")
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(
         [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')], default="north")
@@ -38,9 +39,17 @@ class RealEstateProperty(models.Model):
     tag_ids = fields.Many2many("real.estate.property.tags")
     offer_ids = fields.One2many(
         "real.estate.property.offer", "property_id", string="Offers")
-    tatal_area = fields.Float(compute="_compute_total_area")
+    best_price = fields.Float(compute="_compute_best_price")
 
-    # @api.depends(living_area)
-    # def _compute_total_area(self):
-    #     for record in self:
-    #         record.total = 2.0 * record.amount
+    @api.depends("living_area", "garden_area")
+    def _compute_total_area(self):
+        for record in self:
+            record.tatal_area = record.living_area + record.garden_area
+
+    @api.depends("offer_ids")
+    def _compute_best_price(self):
+        for record in self:
+            if not record.offer_ids.mapped('price'):
+                record.best_price = 0.0
+            else:
+                record.best_price = max(record.offer_ids.mapped('price'))

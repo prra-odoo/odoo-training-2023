@@ -69,14 +69,16 @@
                     <h1>
                         <field name="name" />
                     </h1>
-                    <field name="tag_ids"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
                     <group>
                         <group>
                             <field name="postcode"/>
+                            <field name="property_type_id"/>
                             <field name="date_availability"/>
                         </group>
                         <group>
                             <field name="expected_price"/>
+                            <field name="best_price" string="Best Offer"/>
                             <field name="selling_price"/>
                         </group>
                         <notebook>
@@ -85,9 +87,9 @@
                                     <group>
                                         <field name="description" string="Description"/>
                                         <field name="bedrooms"/>
-                                        <field name="living_area"/>
-                                        <field name="property_type_id"/>
+                                        <field name="living_area" string="Living Area(sqm)"/>
                                         <field name="facades"/>
+                                        <field name="tatal_area" string="Total Area(sqm)" />
                                         <field name="garage"/>
                                     </group>
                                     <group>

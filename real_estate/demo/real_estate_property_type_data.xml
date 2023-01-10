@@ -10,5 +10,11 @@
         <record id="property_type_data_3" model="real.estate.property.type">
             <field name="name">office</field>
         </record>
+        <record id="property_type_data_4" model="real.estate.property.type">
+            <field name="name">Tenament</field>
+        </record>
+        <record id="property_type_data_5" model="real.estate.property.type">
+            <field name="name">Penthouse</field>
+        </record>
     </data>
 </odoo>

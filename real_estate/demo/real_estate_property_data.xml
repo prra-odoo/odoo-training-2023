@@ -2,34 +2,40 @@
 <odoo>
     <data>
         <record id="property_data_1" model="real.estate.property">
-            <field name="name">5 BHK flat </field>
+            <field name="name">5 BHK </field>
             <field name="expected_price">50000000.00</field>
             <field name="state">new</field>
-            <field name="property_type_id" ref='property_type_data_1' ></field>
+            <field name="property_type_id" ref='property_type_data_4' ></field>
         </record>
         <record id="property_data_2" model="real.estate.property">
-            <field name="name">office</field>
+            <field name="name">2bhk</field>
             <field name="expected_price">6000000.00</field>
             <field name="state">offer_received</field>
             <field name="property_type_id" ref='property_type_data_3' />
         </record>
-        <record id="property_data_2" model="real.estate.property">
+        <record id="property_data_3" model="real.estate.property">
             <field name="name">3 BHk flat</field>
-            <field name="expected_price">4000000.00</field>
+            <field name="expected_price">5000000.00</field>
             <field name="state">offer_accepted</field>
-            <field name="property_type_id" ref='property_type_data_3' />
+            <field name="property_type_id" ref='property_type_data_2' />
         </record>
         <record id="property_data_4" model="real.estate.property">
-            <field name="name">3 BHk flat</field>
-            <field name="expected_price">4000000.00</field>
+            <field name="name">2 BHk</field>
+            <field name="expected_price">3000000.00</field>
             <field name="state">offer_accepted</field>
             <field name="property_type_id" ref='property_type_data_3' />
         </record>
         <record id="property_data_5" model="real.estate.property">
-            <field name="name">3 BHk flat</field>
-            <field name="expected_price">4000000.00</field>
+            <field name="name">1 BHk</field>
+            <field name="expected_price">2000000.00</field>
             <field name="state">offer_accepted</field>
-            <field name="property_type_id" ref='property_type_data_3' />
+            <field name="property_type_id" ref='property_type_data_1' />
+        </record>
+        <record id="property_data_6" model="real.estate.property">
+            <field name="name">4 BHk</field>
+            <field name="expected_price">12000000.00</field>
+            <field name="state">offer_accepted</field>
+            <field name="property_type_id" ref='property_type_data_1' />
         </record>
     </data>
 </odoo>

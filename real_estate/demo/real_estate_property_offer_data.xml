@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="property_offers_data_1" model="real.estate.property.offer">
+            <field name="price">20000</field>
+            <field name="status">accepted</field>
+            <!-- <field name="partner_id">2</field>
+            <field name="property_id">2</field> -->
+        </record>
+        <record id="property_offers_data_2" model="real.estate.property.offer">
+            <field name="price">30000</field>
+            <field name="status">accepted</field>
+            <!-- <field name="partner_id">2</field>
+            <field name="property_id">2</field> -->
+        </record>
+        <record id="property_offers_data_3" model="real.estate.property.offer">
+            <field name="price">3000</field>
+            <field name="status">refused</field>
+            <!-- <field name="partner_id">2</field>
+            <field name="property_id">2</field> -->
+        </record>
+    </data>
+</odoo>
