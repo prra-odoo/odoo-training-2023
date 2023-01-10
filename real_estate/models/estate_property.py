@@ -91,6 +91,6 @@ class estateProperty(models.Model):
     def _check_state(self):
         for asset in self:
             if asset.state not in ['new', 'cancel']:
-                raise UserError(_(
+                raise UserError(
                     'You cannot delete a data in this state.',
-                ))
+                )

@@ -35,30 +35,34 @@ class estatePropertyOffer(models.Model):
             if record.date_deadline:
                 record.validity = (record.date_deadline - record.create_date).days
 
-    
+    @api.depends("property_id.buyer_id", "property.selling_price", "property_id.state", 'property_id.offer_ids')    
     def action_accept(self):
-        for record in self:
-            if "accepted" in self.mapped("property_id.offer_ids.status"):
-                raise UserError('no')
-            else:
-                
-                record.status = "accepted"
-                record.property_id.selling_price = record.price
-                record.property_id.buyer_id = record.partner_id
-        return True
+        domain = ['property_id.offer_ids', '=', self.id]
+        records = self.env['estate.property.offer'].search([domain])
+        for rec in self:
+            
+                rec.status = "accepted"
+                rec.property_id.selling_price = rec.price
+                rec.property_id.buyer_id = rec.partner_id
+                rec.property_id.state = "accepted"
+            
+        for rec in records:
+            if rec.status!='accepted':
+                rec.status = 'refused'
+
     
     def action_refused(self):
         for record in self:
             record.status = "refused"
         return True
 
-    # @api.model
-    # def create(self, vals):
-    #     max_offer = 0
-    #     if vals.get("property_id") and vals.get("price"):
-    #         rec = self.env['estate.property'].browse(vals['property_id'])
-    #         max_offer = max(rec.mapped("offer_ids.price"))
-    #         if max_offer > vals['price'] :
-    #             raise UserError('The offer must be higher than %.2f" % max_offer')
-    #     rec.state = 'received'
-    #     return super().create(vals)
+    @api.model
+    def create(self, vals):
+        max_offer = 0
+        if vals.get("property_id") and vals.get("price"):
+            rec = self.env['estate.property'].browse(vals['property_id'])
+            max_offer = max(rec.mapped("offer_ids.price"))
+            if max_offer > vals['price'] :
+                raise UserError(f'The offer must be higher than {max_offer}')
+        rec.state = 'received'
+        return super().create(vals)
