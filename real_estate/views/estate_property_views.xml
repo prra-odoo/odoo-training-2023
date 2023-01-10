@@ -54,7 +54,9 @@
                                 <group>
                                     <field name="selling_price"/>
                                 </group>
-
+                                <group>
+                                    <field name="best_offer"/>
+                                </group>
                                     <notebook>
                                         <page string="Description">
                                             <group>
@@ -66,22 +68,24 @@
                                             <group>
                                                 <field name="living_area"/>
                                             </group>  
-                                             <group>
+                                            <group>
                                                 <field name="facades"/>
                                             </group>  
-                                             <group>
+                                            <group>
                                                 <field name="garage"/>
                                             </group> 
-                                             <group>
+                                            <group>
                                                 <field name="garden"/>
                                             </group>  
-                                             <group>
+                                            <group>
                                                 <field name="garden_area"/>
                                             </group>  
-                                             <group>
+                                            <group>
                                                 <field name="garden_orientation"/>
                                             </group>   
-                                                                        
+                                            <group>
+                                                <field name="total_area"/>
+                                            </group>                             
                                         </page>
 
                                         <page string="offers">

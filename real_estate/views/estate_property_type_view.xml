@@ -8,8 +8,7 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <tree string="Estate_Property">
-                <!-- <field name="property_type_id"/> -->
-                <field name="name"/>
+               <field name="name"/>
             </tree>
         </field>
     </record>

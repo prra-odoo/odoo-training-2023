@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models,fields
+from odoo import models,fields,api
 
 class estate_property(models.Model):
     _name = 'estate.property'
@@ -20,7 +20,7 @@ class estate_property(models.Model):
     garden = fields.Boolean('Garden',default=True)
     garden_area = fields.Integer('Garden_area')
     garden_orientation = fields.Selection(
-            string='Garden_orientation',default="North",
+            string='Garden_orientation',default="South",
             selection=[('North','North'),('South','South'),('East','East'),('West','West')],
             help="This type is saparate north ,south,east and wast")
     active = fields.Boolean('Active',default=True)
@@ -34,3 +34,27 @@ class estate_property(models.Model):
 
     property_tag_ids = fields.Many2many('estate.property.tags',string='property tags')
     offer_ids = fields.One2many('estate.property.offer','property_id',string='property offer')
+    total_area = fields.Float(compute="_compute_total_area")
+    best_offer = fields.Float(default=0,compute="_compute_best_offer")
+
+
+    @api.depends("garden")
+    def _onchange_garden(self):
+            if self.garden == True:
+                    self.garden = 10
+                    self.garden_orientation = 'North'
+
+
+    
+    @api.depends("living_area","garden_area")
+    def _compute_total_area(self):
+            for record in self:
+                    record.total_area = record.living_area + record.garden_area
+
+    @api.depends("offer_ids")
+    def _compute_best_offer(self):
+             for record in self:
+                     record.best_offer = max(record.offer_ids.mapped('price'))
+
+    
+     
