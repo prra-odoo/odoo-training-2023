@@ -60,7 +60,9 @@
                         <group>
                             <field name="type_id"/>
                         </group>
-                        
+                        <group>
+                            <field name="best_offer"/>
+                        </group>
                     
                         <notebook>
                             <page string="Description">
@@ -81,10 +83,17 @@
                                 </group>
                                 <group>
                                     <field name="garden"/>
-                                </group>
+                                </group>  
+                                <group>
+                                    <field name="garden_area"/>
+                                </group> 
                                 <group>
                                     <field name="garden_orientation"/>
                                 </group>
+                                <group>
+                                    <field name="total_area"/>
+                                </group>
+                                
                             </page>
                             <page string="Other Details">
                                 <group>

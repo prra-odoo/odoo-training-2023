@@ -19,5 +19,6 @@
      'demo':[
         'demo/estate_demo.xml',
         'demo/estate_propertytype_demo.xml',
+        'demo/estate_propertytag_demo.xml',
      ]
 }

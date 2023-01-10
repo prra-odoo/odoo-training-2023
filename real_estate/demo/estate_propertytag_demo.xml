@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_propertytag_demo" model="real.estate.property.tag">
+        <field name="name">House</field>
+        <field name="description">Hiiiiii</field>
+     </record>
+     <record id="estate_propertytag_demo" model="real.estate.property.tag">
+        <field name="name">5BHK</field>
+        <field name="description"></field>
+     </record>
+     <record id="estate_propertytag_demo" model="real.estate.property.tag">
+        <field name="name">Riverfacing</field>
+        <field name="description"></field>
+     </record>
+     <record id="estate_propertytag_demo" model="real.estate.property.tag">
+        <field name="name">LargeCabins</field>
+        <field name="description"></field>
+     </record>
+</odoo>
