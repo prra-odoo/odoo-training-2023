@@ -113,7 +113,7 @@
                                 <field name="date_availability"></field>
                             </group>
                             <group>
-                                <field name="expected_price" colspan='2'></field>
+                                <field name="expected_price"></field>
                                 <field name="best_price"></field>
                                 <field name="selling_price"></field>
                             </group>
@@ -124,7 +124,7 @@
                                     <group>
                                         <field name="garage"></field>
                                         <field name="bedrooms"></field>
-                                        <field nolabel='0' name="description"
+                                        <field name="description"
                                             placeholder="Description"></field>
                                     </group>
                                     <group>
@@ -152,7 +152,7 @@
 
                                 <field name="offer_ids" type="xml"
                                     attrs="{'readonly': [('state', 'in', ('accepted', 'sold', 'cancel'))]}">
-                                    <tree expand="1" multi_edit='1' sample='1' editable='bottom'
+                                    <tree expand="1" editable='bottom'
                                         decoration-success="status == 'accepted'"
                                         decoration-danger="status == 'refused'">
                                         <field name="price"></field>
