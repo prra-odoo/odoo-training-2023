@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -14,6 +15,25 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one("estate.property", required=True)
     validity = fields.Integer(string="Validity (days)", default=7)
     date_deadline = fields.Date(string="Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
+    
+    _sql_constraints = [
+        ('best_price_positive', 'check (price > 0)', "The offer price must be strictly positive.")
+    ]
+    
+    # Functions
+    
+    def action_accept_btn(self):
+        for record in self:
+            record.property_id.offer_ids.status = 'refused'
+            record.status = 'accepted'
+            record.property_id.selling_price = record.price
+            record.property_id.buyer_id = record.partner_id
+        return True
+    
+    def action_refuse_btn(self):
+        for record in self:
+            record.status = 'refused'
+        return True
     
     # Method Decorators
 

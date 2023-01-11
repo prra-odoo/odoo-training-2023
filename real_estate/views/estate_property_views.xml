@@ -36,6 +36,8 @@
             <form string="Property">
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button name="action_sold_btn" type="object" string="SOLD"/>
+                    <button name="action_cancel_btn" type="object" string="CANCEL"/>
                 </header>
                 <sheet>
                     <br/>
