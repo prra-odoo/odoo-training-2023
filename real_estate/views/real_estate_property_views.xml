@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- <record id="real_estate_property_view" model="ir.actions.act_window">
-        <field name="name">Property</field>
-        <field name="res_model">real.estate.property</field>
-        <field name="view_mode">tree,form</field>
-    </record> -->
     <record id="real_estate_property_search" model="ir.ui.view">
         <field name="name">real.estate.property.search</field>
         <field name="model">real.estate.property</field>
@@ -54,7 +49,11 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable':'true'}" />
+                    <!-- <field name="state" widget="statusbar" options="{'clickable':'true'}" /> -->
+                    <button name="action_state_sold" type="object" string="Sold"/>
+
+                    <button name="action_state_canceled" type="object" string="Cancel"/>
+
                 </header>
                 <sheet>
                    
@@ -107,13 +106,13 @@
                                 <field name="garden"/>
                             </group>
                             <group>
-                                <field name="garden_area"/>
+                                <field name="garden_area" attrs="{'readonly':[('garden','=',False)]}"/>
                             </group>
                             <group>
                                 <field name="total_area"/>
                             </group>
                             <group>
-                                <field name="garden_orientation"/>
+                                <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
                             </group> 
                         </page>
                         <page name="Other Info">

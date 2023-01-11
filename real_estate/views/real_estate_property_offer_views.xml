@@ -24,6 +24,8 @@
             <tree string="Channel" >
                 <field name="price"/>
                 <field name="partner_id"/>
+                <button icon="fa-check" name="action_status_accepted" type="object"/>
+                <button icon="fa-times" name="action_status_refused" type="object"/>
                 <field name="status"/>
                 <field name="validity"/>
                 <field name="date_deadline"/>

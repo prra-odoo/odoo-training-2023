@@ -1,4 +1,5 @@
-from odoo import models,fields,api
+from odoo import models,fields,api,_
+from odoo.exceptions import UserError,ValidationError
 from dateutil.relativedelta import relativedelta
 class RealEstateProperty(models.Model):
     _name='real.estate.property'
@@ -14,7 +15,7 @@ class RealEstateProperty(models.Model):
     facades=fields.Integer()
     garage=fields.Boolean()
     garden=fields.Boolean()
-    garden_area=fields.Integer()
+    garden_area=fields.Integer(compute='_compute_garden',store=True)
     garden_orientation=fields.Selection(selection=[('north','North'),('south','South'),('east','East'),('west','West')])
     active=fields.Boolean(default=True)
     state=fields.Selection(selection=[('new','New'), ('offer_received','Offer Received'), ('offer_accepted','Offer Accepted'), ('sold','Sold'),('canceled','Canceled')],default='new')
@@ -25,6 +26,23 @@ class RealEstateProperty(models.Model):
     offers_ids=fields.One2many("real.estate.property.offer","property_id",string="Offers")
     total_area=fields.Integer(compute="_compute_total_area",inverse="_inverse_total_area")
     best_offer=fields.Float(compute="_compute_best_offer")
+    _sql_constraints=[('expected_price_positive','CHECK(expected_price>0)','Expected Price must be strictly positive'),('selling_price_positive','CHECK(selling_price>=0)','Selling price must be positive')]    
+    @api.constrains("selling_price","expected_price")
+    def _check_selling_price(self):
+        for record in self:
+            if record.selling_price<=(record.expected_price*90/100) and record.offers_ids:
+                raise ValidationError(_("the selling price cannot be lower than 90% of the expected price."))
+    
+    def action_state_sold(self):
+        for record in self:
+            if record.state=='canceled':
+                raise UserError(_("A canceled property cannot be set as sold"))
+            record.state='sold'
+    def action_state_canceled(self):
+        for record in self:
+            if record.state=='sold':
+                raise UserError(_("A sold property cannot be set as canceled"))
+            record.state='canceled'
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
         for record in self:
@@ -40,8 +58,8 @@ class RealEstateProperty(models.Model):
                 record.best_offer=max(offer)
             else:
                 record.best_offer=0
-    @api.onchange("garden")
-    def _onchange_garden(self):
+    @api.depends("garden")
+    def _compute_garden(self):
         for record in self:
             if record.garden:
                 record.garden_area=10
