@@ -26,7 +26,7 @@ class estatepropertyoffer(models.Model):
     @api.depends('validity','date_deadline')
     def _compute_deadline_date(self):
         for record in self:
-            record.date_deadline= add(fields.Datetime.today(),days=record.validity)
+            record.date_deadline= record.create_date + relativedelta(days=record.validity)
 
     def _inverse_deadline_date(self):
         for record in self:
@@ -53,5 +53,7 @@ class estatepropertyoffer(models.Model):
 
     @api.model
     def create(self,vals):
+        # if estatepropertyoffer.search([('price','>',vals.get('price'))]):
+        #     raise ValidationError("Error")
         self.env['estate.property'].browse(vals['property_id']).state = 'offerrecieved'
         return super().create(vals)
