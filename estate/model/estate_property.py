@@ -58,7 +58,7 @@ class EstateProperty(models.Model):
     def property_sold(self):
         for record in self: #self --> recordset/collection --> gives record one by one
             if record.state == 'canceled':
-                raise UserError(('Cancelled property can not be sold.'))
+                raise UserError('Cancelled property can not be sold.')
             else:    
                 record.state = 'sold'
         return True
@@ -66,7 +66,7 @@ class EstateProperty(models.Model):
     def property_cancel(self):
         for record in self:
             if record.state == 'sold':
-                raise UserError(('Sold property can not be cancelled.'))
+                raise UserError('Sold property can not be cancelled.')
             else:
                 record.state = 'canceled'
         return True
@@ -80,7 +80,7 @@ class EstateProperty(models.Model):
     @api.constrains('selling_price','expected_price')
     def _check_selling(self):
         for record in self:
-            if float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
+            if float_compare(record.selling_price,0.9*record.expected_price,precision_digits=2) == -1:
                 raise ValidationError('The selling price must be 90% of the expected price')
                 
     #ondelete 

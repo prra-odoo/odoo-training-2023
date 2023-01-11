@@ -5,6 +5,7 @@ from datetime import datetime, time
 from odoo.exceptions import UserError
 from odoo.tools.date_utils import add
 
+
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Property offers"
@@ -19,6 +20,11 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one('estate.property',required=True)
     partner_id = fields.Many2one('res.partner',required=True)
     property_type_id = fields.Many2one('estate.property.type',related='property_id.property_type_id',string='Property type', store=True)
+        # equivalent to -->
+        # @api.depends("property_id.property_type_id")
+        # def _compute_description(self):
+        # for record in self:
+        #     record.property_type_id = property_id.property_type_id
 
     validity = fields.Integer('Validity(days)',default='7')
     date_deadline = fields.Date(compute='_compute_date', inverse='_inverse_date')
@@ -40,7 +46,7 @@ class EstatePropertyOffer(models.Model):
     def action_accepted(self):
         for record in self:
             if "accepted" in self.mapped("property_id.offer_ids.status"):
-                raise UserError("An offer as already been accepted.")
+                raise UserError("An offer is already been accepted.")
             record.status = 'accepted'
             record.property_id.state = 'offer_accepted'
             record.property_id.selling_price = record.price
