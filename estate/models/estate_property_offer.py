@@ -38,12 +38,16 @@ class esattePropertyOffer(models.Model):
 			record.validity=(record.date_deadline -record.create_date).days
 
 	def accepted_action(self):
-			if self.property_id.selling_price==0:
-				self.property_id.selling_price = self.price
-				self.property_id.buyer_id = self.partner_id
-				self.status = "accepted"
-				self.property_id.state= "offer_accepted"
-		return True
+		for record in self.search([('status','=','accepted')]):
+			if record.property_id == self.property_id:
+				raise ValidationError("Can't accept more than one offer")
+			else:
+				for i in record:
+					record.status='refused'
+			self.status='accepted'
+			self.property_id.selling_price = self.price
+			self.property_id.buyer_id = self.partner_id
+			self.property_id.state='offer_accepted'
 
 	def refused_action(self):
 		for record in self:

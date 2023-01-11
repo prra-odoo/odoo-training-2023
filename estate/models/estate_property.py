@@ -22,7 +22,6 @@ class estateProperty(models.Model):
     garage = fields.Boolean(string="Garage",default=False)
     garden = fields.Boolean(string="Garden")
     garden_area = fields.Integer(string="Garden Area")
-    other_info=fields.Text(string='Other Info')
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
@@ -46,7 +45,7 @@ class estateProperty(models.Model):
     def _check_selling_price(self):
         for record in self:
             if  float_compare(record.selling_price,record.expected_price*0.9,precision_digits =2) == -1:
-                raise ValidationError("Selling Price must be atleast 90% of the Expected price")
+                raise ValidationError(_("Selling Price must be atleast 90% of the Expected price"))
 
     #compute fields
     @api.depends('garden_area','living_area')

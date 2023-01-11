@@ -43,7 +43,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="property_type_id" options="{'no_create': 'True','can_edit':'True'}"></field>
+                            <field name="property_type_id" options="{'no_create': 'True','no_edit':'True'}"></field>
                             <field name="postcode" />
                             <field name="expected_price"/>
                             <field name="best_price"/>
