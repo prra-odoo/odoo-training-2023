@@ -3,7 +3,13 @@
     <record id="estate_propertytype_demo" model="real.estate.property.type">
         <field name="name">House</field>
         <field name="description">Hiiiiii</field>
-        
-        
-    </record>
+     </record>
+     <record id="estate_propertytype_demo1" model="real.estate.property.type">
+        <field name="name">Office</field>
+        <field name="description">Good Office</field>
+     </record>
+     <record id="estate_propertytype_demo2" model="real.estate.property.type">
+        <field name="name">Flat</field>
+        <field name="description">Good Flat</field>
+     </record>
 </odoo>

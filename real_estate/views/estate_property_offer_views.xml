@@ -15,24 +15,26 @@
         <field name="name">Property Offers</field>
         <field name="model">real.estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="Property Offer">
+            <tree>
                 <field name="price"/>
                 <field name="partner_id"/>
-                <field name="status"/>
                 <field name="validity"/>
                 <field name="date_deadline"/>
+                <button type= "object" name="action_accepted" string=" " icon="fa-check"/>
+                <button type= "object" name="action_refused" string=" " icon="fa-times"/>
+                <field name="status"/>
             </tree>
         </field>
     </record>
 
     <record id="real_estate_view_form1" model="ir.ui.view">
-        <field name="name">Property Offer form</field>
+        <field name="name">Property Offer</field>
         <field name="model">real.estate.property.offer</field>
         <field name="arch" type="xml">
             <form string="real_estate_form">
                 
                 <sheet>
-                    
+                   
                     <group>
                         <group>
                             <field name="price"/>

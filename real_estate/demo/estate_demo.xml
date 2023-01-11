@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
     <record id="estate_property_demo" model="real.estate.properties">
-        <field name="name">Home</field> 
-        <field name="description">Hellloooo</field>
+        <field name="name">Luxury House</field> 
+        <field name="description">Luxury Big House</field>
         <field name="postcode">3456789</field> 
         <!-- <field name="date_availability">04/06/2023</field> /> -->
         <field name="expected_price">15</field> 
         <field name="selling_price">20</field> 
         <field name="bedrooms">4</field>    
     </record>
-    <record id="estate_property_demo" model="real.estate.properties">
-        <field name="name">House</field> 
-        <field name="description">Heeeeeeeeellllllooooooooo</field>
+    
+    <record id="estate_property_demo1" model="real.estate.properties">
+        <field name="name">Normal House</field> 
+        <field name="description">Normal regular House</field>
         <field name="postcode">3456789999999</field> 
         <!-- <field name="date_availability">04/06/2023</field> /> -->
         <field name="expected_price">16</field> 
         <field name="selling_price">21</field> 
         <field name="bedrooms">3</field>    
     </record>
+    </data>
 </odoo>

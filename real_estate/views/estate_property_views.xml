@@ -9,6 +9,7 @@
                 Create a New Property Using CREATE Button!!
             </p>
            </field>
+           
     </record>
 
     <record id="real_estate_view_tree" model="ir.ui.view">
@@ -33,6 +34,10 @@
         <field name="model">real.estate.properties</field>
         <field name="arch" type="xml">
             <form string="real_estate_form">
+                <header>
+                <button type="object" name="action_sold" string="Sold"/>
+                <button type="object" name="action_canceled" string="Canceled"/>
+                </header>
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable' : 1}"/>
                 </header>
@@ -105,9 +110,9 @@
                             </page>   
                        
                             <page string="Offers">
-                                <group>
+                                
                                     <field name="offer_ids"/>
-                                </group>
+                                
                             </page>   
                             </notebook>
 
@@ -131,7 +136,7 @@
                 <separator/>
                     <filter string="Available" name="Available" domain="[('active', '=', False)]"/>
                 <separator/>   
-                <group expand="1" string="Group By">
+                <group string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                 </group>
             </search>
