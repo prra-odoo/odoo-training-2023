@@ -53,5 +53,6 @@
         <field name="name">henny</field>
         
     </record>
+    
    </data>
 </odoo>

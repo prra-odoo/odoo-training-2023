@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-    <odoo>
+<odoo>
     <record id="real_estate_type_form" model="ir.ui.view">
             <field name="name">real.estare.view.form</field>
             <field name="model">estate.property.type</field>
@@ -24,10 +24,9 @@
         <field name="arch" type="xml">
             <tree string="Estate_Property">
             <field name="name"/>
-         <field name="sales_id"/>
+            <field name="sales_id"/>
             <field name="buyer_id"/> 
             </tree>
         </field>
      </record>
-
-    </odoo>                
+</odoo>                

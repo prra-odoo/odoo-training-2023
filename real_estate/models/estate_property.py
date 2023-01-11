@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from odoo import models,fields
 from dateutil.relativedelta import relativedelta
-
 from odoo import api
-
+from odoo.exceptions import UserError
 
 class estate_Property(models.Model):
       _name = "estate.property"
       _description = "Real estate based advertisedment module"
-
+      
       name = fields.Char(required=True)  
       description = fields.Text()
       postcode = fields.Char()
@@ -29,9 +28,8 @@ class estate_Property(models.Model):
       active = fields.Boolean('Active',default=True)
       state =fields.Selection(
         string='State',
-        selection=[('New','new'),('Offer Received','offer received'),('Offer Accepted','offer accepted'),
-        ('Sold','sold'),('Canceled','canceled')],
-      )
+        selection=[('new','New'),('Offer Received','offer received'),('Offer Accepted','offer accepted'),
+        ('sold','Sold'),('canceled','Canceled')])
       sales_id = fields.Many2one('res.partner', string='Salesperson')
       buyer_id=fields.Many2one('res.users', string='buyer')
 
@@ -43,17 +41,46 @@ class estate_Property(models.Model):
       total_area=fields.Float(compute='_compute_total_area')
 
       @api.depends('living_area', 'garden_area')
-
       def _compute_total_area(self):
-
         for rec in self:
-
-          rec.total_area = rec.living_area+rec.garden_area
+         rec.total_area = rec.living_area+rec.garden_area
       best_price=fields.Float(compute='_compute_best_price')
       @api.depends('offer_ids.price')
       def _compute_best_price(self):
           for record in self:
             record.best_price = max(self.offer_ids.mapped('price'),default=0)
+      @api.onchange('garden','garden_area','garden_orientation')
+      def _onchange_garder(self):
+       
+        if self.garden_area == 10 and self.garden_orientation == "north":
+           self.garden=True
+
+      def sold_action(self):
+       if self.state == 'sold':
+        self.state = 'sold'
+       else:
+        raise UserError('cenceled property can not be sold')
+       
+      def canceled_action(self):
+       if self.state == 'canceled':
+        self.state = 'canceled'         
+       else:
+        raise UserError('sold  property can not be canceled')
+
+
+       
+      
+
+       
+       
+
+
+        
+       
+
+          
+ 
+      
        
         
 
