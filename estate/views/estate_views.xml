@@ -37,11 +37,13 @@
                     <field name="garden_area"/>
                     <field name="expected_price"/>
                     <field name="selling_price"/>
+                    <field name="tags_ids"/>
+                    <field name="property_type_id"/>
                     <field name="living_area" filter_domain="[('living_area','>',self)]"/>
                     <separator/>
                         <filter string="Postcode" name="active" />
                         <separator/>
-                        <filter string="Available" name="available" domain = "[('state','in',('new','offer_received'))]"
+                        <filter string="Available" name="available" domain = "[('state','in',('new','sold'))]"
                         />
                         <separator/>
                         <filter string="bedrooms" name="bedrooms"  />
@@ -101,39 +103,22 @@
                         <notebook>
                             <page string="Description">
                                 <group>
-                                    <group style="Margin-top:30px">
-                                        <field name="description"/>
-                                    </group>
-                                    <group style="Margin-top:30px">
-                                        <field name="living_area"/>
-                                    </group>
-                                    <group style="Margin-top:30px">
-                                        <field name="garden_area"/>
-                                    </group>
-                                    <group style="Margin-top:30px">
-                                        <field name="bedrooms"/>
-                                    </group>
-                                    <group style="Margin-top:30px">
-                                        <field name="total_area"/>
-                                    </group>
+                                    <field name="description"/>
+                                    <field name="living_area"/>
+                                    <field name="garden_area"/>
+                                    <field name="bedrooms"/>
+                                    <field name="facades"/>
+                                    <field name="garage"/>
+                                    <field name="garage_orientation" attrs="{'invisible': [('garage', '=', False)]}"/>
+                                    <field name="total_area"/>
                                 </group>
                             </page>
-                            <page string="Other information">
-                                <field name="Other_info"/>
-                                <group>
-                                    <group style="Margin-top:30px">
-                                        <field name="facades"/>
-                                    </group>
-                                    <group style="Margin-top:30px">
-                                        <field name="garage"/>
-                                    </group>
-                                    <group style="Margin-top:30px">
-                                        <field name="garage_orientation" attrs="{'invisible': [('garage', '=', False)]}"/>
-                                    </group>
-                                </group>
+                            <page string="Other Information">
+                                <label for="other_info"></label>
+                                <field name="other_info"></field>
                             </page>
                             <page string="Offer">
-                                <field name="offer_ids">
+                                <field name="offer_ids" attrs="{'readonly':[('state','in',('offer_received','offer_accepted','sold'))]}">
                                     <tree editable="top" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                                         <field name ="price"/>
                                         <field name ="partner_id"/>

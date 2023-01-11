@@ -21,18 +21,18 @@ class estate_property(models.Model):
     name = fields.Char()
     postcode = fields.Integer(default = 104,readonly=True)
     description = fields.Text(copy=False)
-    date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=6))
+    date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     expected_price = fields.Float(default= 100)
     selling_price=fields.Float(default = 100000)
     bedrooms = fields.Integer(default = 50)
     living_area = fields.Integer(default = 2)
     facades = fields.Integer(default = 5)
     garage = fields.Boolean(default= False)
-    garden_area = fields.Integer("Garden area(sqm)")
+    garden_area = fields.Integer("Garden area(sqm)", tracking = True)
     total_area = fields.Float(compute="_compute_total_area")
     best_offer =  fields.Float(compute= "_compute_offer_price",default=0)
-    Other_info = fields.Text("Others info")
     sequence = fields.Integer("sequence")
+    other_info = fields.Text("Other Information")
     garage_orientation = fields.Selection(
         string = 'Garage_Orientation',
         selection=[('north','North'),('south','South'),('east','East'),('west','West')]

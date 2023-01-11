@@ -13,7 +13,7 @@
                             type="action"
                             class="oe_stat_button"
                             icon="fa-money">
-                            <field name="offer_count" widget="statinfo" string="offers"/>
+                            <field name="offer_count" widget="statinfo" string="All offers"/>
                             </button>
                         </div>
                         <label for="name"></label>

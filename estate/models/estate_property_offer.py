@@ -26,22 +26,19 @@ class estateOffer(models.Model):
     @api.depends('create_date','validity','date_deadline')
     def _compute_deadline_(self):
         for record in self:
-            record.date_deadline = record.create_date + relativedelta( months =+ record.validity)
+            record.date_deadline = record.create_date + relativedelta( days =+ record.validity)
             
     def _compute_validty_changes_(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
     
-    # @api.depends('status')
     def action_accept(self):
         for record in self.search([('status','=','accepted')]):
             if record.property_id == self.property_id:
-                for record in self.search([('status','=','accepted')]):
-                    if record.partner_id!= self.property_id:
-                        raise ValidationError("Can't accept more than one")
-                    else:
-                        for i in record:
-                            record.status='refused'
+                raise ValidationError("Can't accept more than one")
+            else:
+                for i in record:
+                    record.status='refused'
         self.status='accepted'
         self.property_id.state='offer_accepted'
         self.property_id.selling_price = self.price
