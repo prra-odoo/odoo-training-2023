@@ -4,9 +4,26 @@
         <field name="name">estate.property.tags.view.tree</field>
         <field name="model">estate.property.tags</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <tree>
                 <field name="name"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="estate_property_tags_view_form" model="ir.ui.view">
+        <field name="name">estate.property.tags.view.form</field>
+        <field name="model">estate.property.tags</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1><field name="name"/></h1>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="list_properties"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
 </odoo>

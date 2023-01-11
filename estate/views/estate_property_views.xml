@@ -171,7 +171,7 @@
                 <filter name="state" string="Available property" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]"/>
                 <filter name="expected_price" string="Expensive property" domain="[('expected_price', '>=', '15000')]"/>
                 <group expand="1" string="group by">
-                    <filter name="postcode" string="Postal code" context="{'group_by':'postcode' ,'resiidual':'True'}"/>
+                    <filter name="postcode" string="Postal code" context="{'group_by':'postcode'}"/>
                 </group>
             </search>
         </field>

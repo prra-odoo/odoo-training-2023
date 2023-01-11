@@ -9,6 +9,7 @@ class EstateModel(models.Model):
 
     name = fields.Char('Name',required = True)
     color = fields.Integer()
+    list_properties = fields.One2many('estate.property', 'tags_ids')
 
     _sql_constraints = [
         ('unique_property_tags_name', 'unique(name)',
