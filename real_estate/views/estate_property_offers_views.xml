@@ -10,6 +10,8 @@
             <tree>
                 <field name="price" />
                 <field name="partner_id" string="Partner" />
+                <button name="action_confirm" string="Confirm" type="object" icon="fa-check" />
+                <button name="action_reject" string="Reject" type="object" icon="fa-times" />
                 <field name="status" />
             </tree>
         </field>

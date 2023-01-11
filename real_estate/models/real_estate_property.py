@@ -2,6 +2,7 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 
 class EstateProperty(models.Model):
@@ -37,7 +38,8 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(compute="_compute_area")
     best_offer = fields.Float(compute="_compute_best_offer")
 
-    @api.depends("living_area", "garden_area")
+
+    @api.depends("living_area")
     def _compute_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
@@ -47,3 +49,34 @@ class EstateProperty(models.Model):
     def _compute_best_offer(self):
         for record in self:
             record.best_offer = max(record.offer_ids.mapped('price'), default=0)
+
+
+    # Creating onchange functionality
+    @api.onchange("garden")
+    def _onchange_garden_toggle(self):
+        if self.garden:
+            self.garden_area = 10
+            self.garden_orientation = 'north'
+        else:
+            self.garden_orientation = ''
+            self.garden_area = 0
+
+
+    
+    # Creating two button methods
+    @api.depends('state')
+    def sold_click(self):
+        print(f"length of self : {len(self)}")
+        for record in self:
+            if record.state == "cancel":
+                raise UserError("Once the property is Canceled it cannot be Sold!")
+            else:
+                record.state = "sold"
+
+
+    def cancel_click(self):
+        for record in self:
+            if record.state == "sold":
+                raise UserError("Once the property is Sold it cannot be Canceled!")
+            else:
+                record.state = "cancel"
