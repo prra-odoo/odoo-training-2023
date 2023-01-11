@@ -10,7 +10,8 @@ class estate_property_offer(models.Model):
     status=fields.Selection(
         string="Status of the offer",
         selection=[("accepted","Accepted"),("refuse","Refused")],
-        copy=False
+        copy=False,
+        default=" "
     )
     partner_id=fields.Many2one("res.partner",required=True)
     property_id=fields.Many2one("real.estate.properties",required=True)
@@ -29,3 +30,18 @@ class estate_property_offer(models.Model):
         for record in self:
             diff = record.date_deadline-record.create_date.date()
             record.validity=int(diff.days)
+    
+    def reject_action(self):
+        for record in self:
+            record.status="refuse"
+
+    def accept_action(self):
+        for record in self:
+            record.property_id.offer_ids.status='refuse'
+            record.status="accepted"
+            record.property_id.selling_price=record.price
+            record.property_id.buyer=record.partner_id
+
+    
+    
+    

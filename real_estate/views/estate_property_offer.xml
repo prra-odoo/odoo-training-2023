@@ -6,8 +6,10 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="price"/> 
-                <field name="status"/>
                 <field name="partner_id"/>
+                <button name="accept_action" string=" " type="object" icon="fa-check"/>
+                <button name="reject_action" string=" " type="object" icon="fa-times"/> 
+                <field name="status" />
             </tree>
         </field>
     </record>
