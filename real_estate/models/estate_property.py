@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models,fields,api
+from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 class estate_property(models.Model):
     _name = 'estate.property'
@@ -17,7 +19,7 @@ class estate_property(models.Model):
     living_area = fields.Integer('living area')
     facades = fields.Integer('Facades')
     garage = fields.Boolean('Garage',default=True)
-    garden = fields.Boolean('Garden',default=True)
+    garden = fields.Boolean('Garden')
     garden_area = fields.Integer('Garden_area')
     garden_orientation = fields.Selection(
             string='Garden_orientation',default="South",
@@ -27,10 +29,10 @@ class estate_property(models.Model):
 
     status = fields.Selection(
             string='Status',copy=False,default='New',
-            selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('offer cancelled','offer cancelled'),('Sold','Sold')])
+            selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('cancelled','cancelled'),('Sold','Sold')])
     
     salesperson = fields.Many2one('res.users',string="Salesperson",default=lambda self:self.env.user)
-    buyer = fields.Many2one('res.company',string="Buyer",copy=False)
+    buyer = fields.Many2one('res.partner',string="Buyer",copy=False)
 
     property_tag_ids = fields.Many2many('estate.property.tags',string='property tags')
     offer_ids = fields.One2many('estate.property.offer','property_id',string='property offer')
@@ -38,12 +40,15 @@ class estate_property(models.Model):
     best_offer = fields.Float(default=0,compute="_compute_best_offer")
 
 
-    @api.depends("garden")
+    _sql_constraints = [('check_expected_price','CHECK(expected_price >= 0)','A property expected price must be strictly positive.')]
+    _sql_constraints = [('check_selling_price','CHECK(selling_price >= 0)','A property selling price must be strictly positive.')]
+
+
+    @api.onchange("garden")
     def _onchange_garden(self):
             if self.garden == True:
-                    self.garden = 10
+                    self.garden_area = 10
                     self.garden_orientation = 'North'
-
 
     
     @api.depends("living_area","garden_area")
@@ -54,7 +59,24 @@ class estate_property(models.Model):
     @api.depends("offer_ids")
     def _compute_best_offer(self):
              for record in self:
-                     record.best_offer = max(record.offer_ids.mapped('price'))
+                     if record.offer_ids:
+                             record.best_offer = max(record.offer_ids.mapped('price'))
+                     else:
+                             record.best_offer = 0
 
+
+    def action_canceled(self):
+            if self.status == 'New':
+                    self.status = 'cancelled'
+            else:
+                    raise UserError("sold property is not canceled")
+
+
+    def action_sold(self):
+            if self.status == 'New':
+                    self.status = 'Sold'
+            else:
+                    raise UserError("cancelled property can not be sold")
+                    
     
      

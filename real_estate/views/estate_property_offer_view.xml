@@ -8,10 +8,11 @@
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
             <tree string="Estate_Property">
-                <!-- <field name="property_type_id"/> -->
                 <field name="price"/>
                 <field name="partner_id" string="partner"/>
-                <field name="status"/>
+                <button name="action_accepted" type="object" icon="fa-check"/>
+                <button name="action_refuse" type="object" icon="fa-times"/>
+                <field name="status"/>    
             </tree>
         </field>
     </record>
