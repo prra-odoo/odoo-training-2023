@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api,fields, models
+from odoo import api,fields, models,exceptions
 from datetime import date
 from dateutil.relativedelta import relativedelta
+
 
 class Real_estate(models.Model):
     _name="estate.property.model" # according to the naming conventions we do not add model in model's name
@@ -13,7 +14,7 @@ class Real_estate(models.Model):
     postcode = fields.Char()
     date_availability = fields.Date(copy=False,default=fields.date.today()+relativedelta(months=3))
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float("200",readonly=True,copy=False)
+    selling_price = fields.Float("200",readonly=False,copy=False)
     bedrooms = fields.Integer(default="2")
     active = fields.Boolean(default=True)
     living_area = fields.Integer()
@@ -27,7 +28,7 @@ class Real_estate(models.Model):
         default='new'
     )
     garden = fields.Boolean()
-    garden_area = fields.Integer()
+    garden_area = fields.Integer(compute="_compute_garden_area",readonly = False)
     garden_orientation = fields.Selection(string='orientation',
     selection=[('north','North'),('east','East'),('west','West'),('south','South')])
     type_id=fields.Many2one("estate.property.type")
@@ -51,6 +52,47 @@ class Real_estate(models.Model):
 
         for record in self:
             record.best_price = max(record.offer_ids.mapped('price'),default=0)
+
+
+    @api.depends('garden')
+    def _compute_garden_area(self):
+            for record in self:
+                if record.garden:
+                    record.garden_area= 10
+                    record.garden_orientation= 'north'
+                else:
+                    record.garden_area = 0
+                    record.garden_orientation = ''
+
+
+    def perform_cancel(self):
+        for record in self:
+            if record.state!='sold':
+                record.state = 'cancled'
+            else:
+                raise exceptions.UserError("Sold properties cannot be canceled.")
+        return True
+
+    def perform_sold(self):
+         for record in self:
+            if record.state!='cancled':
+                record.state = 'sold'
+            else:
+                raise exceptions.UserError("Canceled properties cannot be sold.")
+
+         return True
+
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)',
+         'The Expected Price Should Be Positive'),
+         ('check_selling_price', 'CHECK(selling_price > 0)',
+         'The Selling Price Should Be Positive')
+    ]
+
+     
+        
+
+        
             
         
             

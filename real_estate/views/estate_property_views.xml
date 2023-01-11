@@ -34,8 +34,12 @@
         <field name="arch" type="xml">
 
             <form string="test">
+                <!-- <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" />
+                </header> -->
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button name="perform_cancel" type="object" string="Cancel" />
+                    <button name="perform_sold" type="object" string="Sold"/>
                 </header>
                 <sheet>
                     <h1> 
@@ -51,7 +55,7 @@
                     <group>
                         <group> <field name="expected_price"/></group>
                         <group> <field name="selling_price" string="selling price"/></group>
-                        
+                        <field name="state" string="Status"/>
                     </group>
                     <group>
                         <group><field name="type_id"/></group>
