@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api,models,fields
+from odoo.exceptions import UserError   
 
 class EstateProperty(models.Model):
     _name="estate.properties"
@@ -17,7 +18,7 @@ class EstateProperty(models.Model):
     facades=fields.Integer('facades')
     garage=fields.Boolean('garage')
     garden=fields.Boolean('garden')
-    garden_area=fields.Integer('garden area')
+    garden_area=fields.Integer('garden area',compute='_compute_garden',readonly=False)
     type_id=fields.Many2one('estate.property.type', string='property type')
     garden_orientation = fields.Selection(string="Garden Orientation", selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     active= fields.Boolean('active', default=True)
@@ -39,4 +40,24 @@ class EstateProperty(models.Model):
         for record in self:
             record.best_offer=max(record.offer_ids.mapped('price'),default=0)
 
+    @api.depends('garden')
+    def _compute_garden(self):
+        for record in self:
+            if record.garden == True:
+                record.garden_area= 10
+                record.garden_orientation= 'north'
+            else:
+                record.garden_area= 0
+                record.garden_orientation= ''
 
+    def action_sold(self):
+        for record in self:
+            if record.state=="canceled":
+                raise UserError("A canceled property cannot be sold")
+            record.state="sold"
+
+    def action_canceled(self):
+        for record in self:
+            if record.state=="sold":
+                raise UserError("A sold property cannot be canceled")
+            record.state="canceled"
