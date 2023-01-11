@@ -61,14 +61,6 @@ class estatePropertyModel(models.Model):
         for record in self:
             record.best_offers = max(record.offer_ids.mapped('price'),default=0)
             
-                # for offer in record.offer_ids:
-                #     if offer.status == "accepted" :
-                #         if offer.price > record.best_offers:
-                #             record.best_offers = offer.price
-                #         elif offer.price < record.best_offers:
-                #             pass
-                #         else:
-                #             record.best_offers = 0
                 
     def sold_product(self):
         for record in self:

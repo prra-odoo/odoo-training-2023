@@ -206,7 +206,7 @@
                 <field name="living_area" string="Living Area" filter_domain="[('living_area','>=',self)]"/>
                 <filter name="expected_price" string = "high rate property" domain="[('expected_price', '>=', '300001')]"/>
                 <group expand="1" string="Group By">
-                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                 </group>
             </search>
         </field>
