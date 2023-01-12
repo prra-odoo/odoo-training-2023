@@ -26,7 +26,7 @@
 		<field name="arch" type="xml">
 			<form string="Form View">
 				<sheet>
-					<group style="margin-top:10px">
+					<group>
 						<group>
 							<field name="partner_id"/>
 							<field name="price" />
