@@ -37,9 +37,12 @@ class estatePropertyOffer(models.Model):
     
 
     def accepted_offer(self):
+       
         for record in self.search([('status', '=', 'accepted')]):
+            # print(record)
             if record.property_id == self.property_id:
                 for rec in record.search([('status', '=', 'accepted')]):
+                    print(rec.property_id)
                     if rec.partner_id != record.partner_id:
                         raise UserError("one offer already accepted")
                     else:

@@ -161,14 +161,18 @@
                             </group>
                         </page>
                         <page string="Offers" >
-                            <field name="offer_ids" attrs= "{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','cancelled')]}" >
+                            <field name="offer_ids" >
+                                <!-- attrs= "{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','cancelled')]}" -->
                                 <tree editable = "bottom" decoration-danger ="status=='refused'" decoration-success="status=='accepted'">
                                     
                                     <field name="price"/>
                                     <field name="partner_id"/>
-                                    <button name="accepted_offer" type = "object" string="accept" icon ="fa-check" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}" />
-                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}"/>
-                                    <field name="status" invisible="1"/>
+                                    <!-- <button name="accepted_offer" type = "object" string="accept" icon ="fa-check" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}" />
+                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}"/> -->
+                                    <button name="accepted_offer" type = "object" string="accept" icon ="fa-check"  />
+                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" />
+                                    
+                                    <field name="status" />
                                     <field name="validity"/>
                                     <field name="date_deadline"/>
                                     <field name ="property_type_id"/>
