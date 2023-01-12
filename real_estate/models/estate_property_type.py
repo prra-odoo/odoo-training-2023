@@ -8,3 +8,7 @@ class estatePropertyType(models.Model):
 
     name=fields.Char('Name',required=True)
     active=fields.Boolean('Active')
+
+    _sql_constraints = [
+        ('name_uniq', 'unique (name)', "A property type with the same name already exists."),
+    ]

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api,models,fields
-from odoo.exceptions import UserError   
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero   
 
 class EstateProperty(models.Model):
     _name="estate.properties"
@@ -12,7 +13,7 @@ class EstateProperty(models.Model):
     postcode=fields.Char('Postcode',required=True)
     date_availability=fields.Date('Date availability', copy=False)
     expected_price=fields.Float('expected price',required=True)
-    selling_price=fields.Float('selling price',required=True, copy=False)
+    selling_price=fields.Float('selling price', copy=False)
     bedrooms=fields.Integer('bedrooms', default=2)
     living_area=fields.Integer('living area')
     facades=fields.Integer('facades')
@@ -29,6 +30,19 @@ class EstateProperty(models.Model):
     offer_ids=fields.One2many("estate.property.offer","property_id", string="Offers")
     total_area=fields.Float(compute="_compute_total_area",)
     best_offer=fields.Float(compute="_compute_best_offer")
+
+    _sql_constraints = [
+        ('check_expected_price', 'check(expected_price >= 0)', "Expected price cannot be negative."),
+        ('check_selling_price', 'check(selling_price >= 0)', "Selling price cannot be negative.")
+    ]
+
+    @api.constrains('selling_price', 'expected_price')
+    def _check_price_validation(self):
+        for record in self:
+            if record.selling_price < 90/100 * record.expected_price and record.offer_ids:
+                raise ValidationError("selling price cannot be less than 90% of expected price")
+        
+
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

@@ -1,54 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
-        <record id="estate_properties_demo1" model="estate.properties">
-            <field name="name">odoo office</field>
-            <field name="description">Wonderful office at Infocity,Gandhinagar</field>
-            <field name="postcode">123456</field>
+        <!-- 1 -->
+        <record id="estate_property_demo_data_1" model="estate.properties">
+            <field name="name">3 BHK Flat</field>
+            <field name="postcode">101001</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">500</field>
+            <field name="garden_area">100</field>
             <field name="expected_price">1000000</field>
-            <field name="selling_price">1200000</field>
-            <!-- <field name="garden">True</field>
-            <field name="active">True</field> -->
             <field name="state">new</field>
         </record>
-        <record id="estate_properties_demo2" model="estate.properties">
-            <field name="name">party plot</field>
-            <field name="description">We provide plot to organize your events and parties</field>
-            <field name="postcode">3456</field>
-            <field name="expected_price">1200000</field>
-            <field name="selling_price">1500000</field>
-            <!-- <field name="garden">True</field>
-            <field name="active">True</field> -->
+        <!-- 2 -->
+        <record id="estate_property_demo_data_2" model="estate.properties">
+            <field name="name">Odoo office</field>
+            <field name="postcode">100302</field>
+            <field name="bedrooms">6</field>
+            <field name="living_area">400</field>
+            <field name="garden_area">800</field>
+            <field name="expected_price">2500000</field>
             <field name="state">new</field>
         </record>
-        <record id="estate_properties_demo3" model="estate.properties">
-            <field name="name">appartment on 5th floor</field>
-            <field name="description">sea facing flat at juhu beach</field>
-            <field name="postcode">1236</field>
-            <field name="expected_price">155000</field>
-            <field name="selling_price">160000</field>
-            <!-- <field name="garden">True</field>
-            <field name="active">True</field> -->
-            <field name="state">offer_received</field>
+        <!-- 3 -->
+        <record id="estate_property_demo_data_3" model="estate.properties">
+            <field name="name">Sea facing appartment</field>
+            <field name="postcode">200003</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">300</field>
+            <field name="garden_area">100</field>
+            <field name="expected_price">2000000</field>
+            <field name="state">new</field>
         </record>
-        <record id="estate_properties_demo4" model="estate.properties">
-            <field name="name">office</field>
-            <field name="description">office with Wonderful infrastructure and design</field>
-            <field name="postcode">5678</field>
-            <field name="expected_price">234566</field>
-            <field name="selling_price">334564</field>
-            <!-- <field name="garden">True</field>
-            <field name="active">True</field> -->
-            <field name="state">offer_accepted</field>
+        <!-- 4 -->
+        <record id="estate_property_demo_data_4" model="estate.properties">
+            <field name="name">Luxurious 2 BHK Flat</field>
+            <field name="postcode">100004</field>
+            <field name="bedrooms">2</field>
+            <field name="living_area">200</field>
+            <field name="garden_area">400</field>
+            <field name="expected_price">500000</field>
+            <field name="state">new</field>
         </record>
-        <record id="estate_properties_demo5" model="estate.properties">
-            <field name="name">3 BHK house</field>
-            <field name="description">Fully furnished 3 BHK house</field>
-            <field name="postcode">123456</field>
-            <field name="expected_price">1000000</field>
-            <field name="selling_price">1200000</field>
-            <!-- <field name="garden">True</field>
-            <field name="active">True</field> -->
+        <!-- 5 -->
+        <record id="estate_property_demo_data_5" model="estate.properties">
+            <field name="name">Fully Furnished 2 BHK Flat</field>
+            <field name="postcode">100005</field>
+            <field name="bedrooms">1</field>
+            <field name="living_area">100</field>
+            <field name="garden_area">200</field>
+            <field name="expected_price">230000</field>
             <field name="state">new</field>
         </record>
     </data>
