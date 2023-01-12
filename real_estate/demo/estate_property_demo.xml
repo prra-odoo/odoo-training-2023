@@ -7,7 +7,7 @@
             <field name="postcode">123456</field>
             <field name="bedrooms" >3</field>
             <field name="living_area" >5000</field>
-            <field name="expected_price">300</field>
+            <!-- <field name="expected_price">300</field> -->
             
         </record>
 
@@ -16,7 +16,7 @@
             <field name="postcode">5678</field>
             <field name="bedrooms" >3</field>
             <field name="living_area" >4000</field>
-            <field name="expected_price">100</field>
+            <!-- <field name="expected_price">100</field> -->
            
         </record>
 
@@ -25,7 +25,7 @@
             <field name="postcode">34567</field>
             <field name="bedrooms" >2</field>
             <field name="living_area" >9000</field>
-            <field name="expected_price">700</field>
+            <!-- <field name="expected_price">700</field> -->
            
         </record>
 
@@ -34,7 +34,7 @@
             <field name="postcode">89765</field>
             <field name="bedrooms" >4</field>
             <field name="living_area" >9000</field>
-            <field name="expected_price">600</field>
+            <!-- <field name="expected_price">600</field> -->
             
         </record>
     </data>

@@ -14,7 +14,7 @@ class Real_estate(models.Model):
     postcode = fields.Char()
     date_availability = fields.Date(copy=False,default=fields.date.today()+relativedelta(months=3))
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float("200",readonly=False,copy=False)
+    selling_price = fields.Float(default=0,readonly=False,copy=False)
     bedrooms = fields.Integer(default="2")
     active = fields.Boolean(default=True)
     living_area = fields.Integer()
@@ -86,9 +86,23 @@ class Real_estate(models.Model):
         ('check_expected_price', 'CHECK(expected_price > 0)',
          'The Expected Price Should Be Positive'),
          ('check_selling_price', 'CHECK(selling_price > 0)',
-         'The Selling Price Should Be Positive')
+         'The Selling Price Should Be Positive'),
+        
     ]
 
+    @api.constrains('expected_price','selling_price')
+    def _check_sellingprice(self):
+        
+        for record in self:
+            ab = 0.9*(record.expected_price)
+
+            if record.selling_price < ab:
+                 raise exceptions.ValidationError("The Offer price cannot be lower than 90% of the expected price.")
+            
+            # if record.offer_ids.price < ab:
+            #     raise exceptions.ValidationError("Too less selling prie")
+            # else:
+            #     record.selling_price = record.offer_ids.price
      
         
 
