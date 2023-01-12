@@ -13,10 +13,15 @@ class EstateOfferProperty(models.Model):
     property_id=fields.Many2one('real.estate.properties',required=True)
     validity=fields.Integer(string="Validity", default=7)
     date_deadline=fields.Datetime(compute='_compute_date_deadline',inverse= "_inverse_date_deadline")
+    _sql_constraints=[
+        ('price_constraints', 'CHECK(price>=0)', "Price must be Postive")
+    ]
 
     @api.depends('validity')
     def _compute_date_deadline(self):
         for record in self:
+            print("---------------->", self)
+            print("-----------------record>", record)
             if record.create_date:
                 record.date_deadline=record.create_date + relativedelta(days=record.validity)
             else:
@@ -28,8 +33,12 @@ class EstateOfferProperty(models.Model):
     def action_accepted(self):
         for record in self:
             record.status='accepted'
+            record.property_id.selling_price=record.price
+            record.property_id.buyer_id=record.partner_id
             
     def action_refused(self):
-        self.status='refused'
+          for record in self:
+            self.status='refused'
+        
 
     

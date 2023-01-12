@@ -7,4 +7,6 @@ class EstateTagProperty(models.Model):
     name=fields.Char(string="name",required=True)
     description=fields.Text('Description')
     
-    
+    _sql_constraints = [
+        ('name', 'unique (name)', "A Tag with the same name already exists."),
+    ]
