@@ -42,6 +42,7 @@
                 <header>
                     <button name="sold_click" type="object" string="Sold" />
                     <button name="cancel_click" type="object" string="Cancel"/>
+                    <button type='object' name='refresh_button' string='Clear'/>
                 </header>
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable' : 1}"/>

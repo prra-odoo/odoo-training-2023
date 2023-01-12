@@ -2,6 +2,7 @@ from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 from datetime import date
 from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 
 class EstatePropertyOffers(models.Model):
@@ -17,6 +18,17 @@ class EstatePropertyOffers(models.Model):
 
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date", inverse="_inverse_date")
+
+
+    # defining sql constraints for the offer price
+    _sql_constraints = [
+        (
+            'check_offer_price',
+            'CHECK(price > 0)',
+            'The offer price should be greater than 0'
+        )
+    ]
+
 
     @api.depends('validity')
     def _compute_date(self):
@@ -46,3 +58,11 @@ class EstatePropertyOffers(models.Model):
     def action_reject(self):
         for record in self:
             record.status = 'refused'
+
+
+    # python constraints to check whether the price is 90% of expected price
+    @api.constrains('price', 'property_id')
+    def price_percentage(self):
+        for record in self:
+            if record.price < 0.90 * record.property_id.expected_price:
+                raise ValidationError(r'The price should be atleast 90% of expected price')

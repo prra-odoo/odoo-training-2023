@@ -33,6 +33,24 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer", 'property_id')
 
+
+    # sql constraints while setting expected price
+    _sql_constraints = [
+        (
+            'check_expected_price',
+            'CHECK(expected_price > 0)',
+            'The expected price should be greater than 0'
+        )
+    ]
+
+    _sql_constraints = [
+        (
+            'check_selling_price',
+            'CHECK(selling_price > 0)',
+            'The selling price should be greater than 0'
+        )
+    ]
+
     # computed fields
     # Note: By Default values of compute fields are read only 
     total_area = fields.Integer(compute="_compute_area")
@@ -80,3 +98,11 @@ class EstateProperty(models.Model):
                 raise UserError("Once the property is Sold it cannot be Canceled!")
             else:
                 record.state = "cancel"
+
+
+    def refresh_button(self):
+        sum = 0
+        for record in self:
+            sum +=1 
+            print(f"Type of self record : {type(record)}")
+        print(f'Number of records {sum}')   
