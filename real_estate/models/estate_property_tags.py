@@ -8,5 +8,4 @@ class estate_property_tags(models.Model):
     name = fields.Char("Name",required=True)
 
 
-
     _sql_constraints=[('unique_name','unique(name)','Error! Enter unique name of tag')]

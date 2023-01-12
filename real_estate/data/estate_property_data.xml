@@ -15,8 +15,28 @@
             <field name="garden">t</field>
             <field name="selling_price">100000</field>
             <field name="expected_price">1200000</field>
-            <field name="property_type_id">1</field>
+            <field name="property_type_id" ref="estate_property_type_data"></field>
+            <!-- <field name="salesperson" ref="user_admin"></field> -->
         </record>
+
+        <record id="estate_property_data2" model="estate.property">
+            <field name="name">New Office</field>
+            <field name="description">Fiest New Office</field>
+            <field name="bedrooms">1</field>
+            <field name="living_area">3</field>
+            <field name="facades">1</field>
+            <field name="garden_area">1</field>
+            <field name="postcode">3wed23l</field>
+            <!-- <field name="garden_orientation">South</field> -->
+            <field name="status">New</field>
+            <field name="garage">t</field>
+            <field name="garden">t</field>
+            <field name="selling_price">1000000</field>
+            <field name="expected_price">1200000</field>
+            <field name="property_type_id" ref="estate_property_type_data"></field>
+            <!-- <field name="salesperson" ref="user_admin"></field> -->
+        </record>
+
     </data>
 
 </odoo>

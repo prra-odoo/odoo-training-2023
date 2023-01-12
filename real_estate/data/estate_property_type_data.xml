@@ -2,5 +2,8 @@
 <odoo>
         <record id="estate_property_type_data" model="estate.property.type">
             <field name="name">Office</field>
-            </record>
+        </record>
+        <record id="estate_property_type_data2" model="estate.property.type">
+            <field name="name">Flate</field>
+        </record>
 </odoo>

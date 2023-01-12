@@ -66,17 +66,18 @@ class estate_property(models.Model):
 
 
     def action_canceled(self):
-            if self.status == 'New':
-                    self.status = 'cancelled'
+            if self.status == 'Sold':
+                    raise UserError("sold property can not be cancelled")
             else:
-                    raise UserError("sold property is not canceled")
+                    self.status = 'cancelled'
 
 
     def action_sold(self):
-            if self.status == 'New':
-                    self.status = 'Sold'
-            else:
+            if self.status == 'cancelled':
                     raise UserError("cancelled property can not be sold")
+            else:
+                    self.status = 'Sold'
+                    
                     
     
      
