@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api,fields,models,exceptions
+from odoo.tools import float_utils
 from datetime import date
 from dateutil.relativedelta import relativedelta
 class real_Esate_Properties(models.Model):
@@ -62,7 +63,8 @@ class real_Esate_Properties(models.Model):
 				action.state='sold'
 			else:
 				raise exceptions.UserError("You cannot sold cancled property")
-
+				
+				
 	def action_cancel(self):
 		for action in self:
 			if action.state != 'sold':
@@ -81,6 +83,16 @@ class real_Esate_Properties(models.Model):
 				record.garden_orientation=""
 	
 	_sql_constraints = [
-        ('expected_price','CHECK(expected_price>0)','price cannot be negative or zero')
-    ]			
-    
+        ('check_expected_price','CHECK(expected_price > 0)','price cannot be negative or zero'),
+		('check_selling_price','CHECK(selling_price > 0 )','Selling Price Must be positive no '),
+		
+    ]		
+
+	@api.constrains('selling_price')
+	def check_selling_price(self):
+		for record in self:
+			if not float_utils.float_is_zero(record.selling_price,precision_rounding=0.1):
+				if record.selling_price < (0.9 * record.expected_price):
+					 raise exceptions.ValidationError("Selling price has to be atleast 90% of the accepted price")
+
+			

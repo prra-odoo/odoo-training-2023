@@ -10,8 +10,7 @@ class estate_property_offer(models.Model):
     status=fields.Selection(
         string="Status of the offer",
         selection=[("accepted","Accepted"),("refuse","Refused")],
-        copy=False,
-        default=" "
+        copy=False
     )
     partner_id=fields.Many2one("res.partner",required=True)
     property_id=fields.Many2one("real.estate.properties",required=True)
@@ -41,7 +40,9 @@ class estate_property_offer(models.Model):
             record.status="accepted"
             record.property_id.selling_price=record.price
             record.property_id.buyer=record.partner_id
-
+    _sql_constraints=[
+        ('check_price','CHECK(price > 0 )','Price Must be positve ')
+    ]
     
     
     

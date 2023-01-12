@@ -91,8 +91,8 @@
         <field name="name">Estate.Property</field>
         <field name="model">real.estate.properties</field>
         <field name="arch" type="xml">
-                <field name="name"/>
             <search string="Search property">
+                <field name="name"/>
                 <field name="Postcode"/>
                 <field name="bedroom"/>
                 <field name="living_area" />
@@ -100,7 +100,7 @@
                 <field name="selling_price" />
                 <field name="date_availablity" />    
                 <filter string="Available" name="state" domain="['|',('state', '=' , 'new'),('state','=','offer_recieved')]"/>  
-                <group  string="Group By">
+                <group string="Group By">
                     <filter string="Postcode" name="Postcode" context="{'group_by':'Postcode'}"/>
                 </group>
             </search>
