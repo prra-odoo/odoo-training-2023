@@ -78,7 +78,7 @@ class estate_property(models.Model):
         return True
     
     @api.constrains("selling_price","expected_price")
-    def _check_sellind_price(self):
+    def _check_selling_price(self):
         for record in self:
             if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
                 raise UserError("Selling Price must 90percent of the expected price")

@@ -32,6 +32,7 @@ class estateOffer(models.Model):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
     
+    
     def action_accept(self):
         for record in self.search([('status','=','accepted')]):
             if record.property_id == self.property_id:

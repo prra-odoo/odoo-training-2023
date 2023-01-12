@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <tree expand= "1" string="tree view" decoration-success = "state in ('sold','offer_accepted','offer_received')" 
                 decoration-bf="state=='offer_accepted'" decoration-muted="state=='cancel'">
-                    <field name="sequence" widget="handle"/>
+                    <!-- <field name="sequence" widget="handle"/> -->
                     <field name="name"/>
                     <field name="postcode"/>
                     <field name="bedrooms"/>
@@ -63,7 +63,7 @@
                     <header>
                         <button name="action_sold" type="object" string ="Sold" attrs="{'invisible': [('state','in',('sold','cancel'))]}"  />
                         <button name="action_cancel" type="object" string ="Cancel" attrs="{'invisible': [('state','in',('sold','cancel'))]}"/>
-                        <button name="%(estate.estate_model_action01)d" type="action" string="My Action"/>
+                        <button name="%(estate.estate_model_action01)d" type="action" string="Properties"/>
                         <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold,cancel" />
                     </header> 
                     <sheet>

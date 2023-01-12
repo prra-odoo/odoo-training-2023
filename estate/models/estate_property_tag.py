@@ -10,6 +10,5 @@ class estateTag(models.Model):
         ("check_name", "UNIQUE(name)", "The name must be unique")
     ]
     name = fields.Char("Name",required=True)
-    pincode = fields.Integer(string="Pincode")
     colors = fields.Integer("Color Index")
     sequences = fields.Integer("Sequence")
