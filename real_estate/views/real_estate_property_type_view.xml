@@ -25,12 +25,20 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <sheet>
-                    <group>
-                        <h1>
-                            <field name="name" />
-                        </h1>
-                        <field name="active"  invisible="1"/>
-                    </group>
+                    <h1>
+                        <field name="name" />
+                    </h1>
+                    <notebook>
+                        <page name="Properties" string="Properties">
+                            <field name="property_ids">
+                                <tree>
+                                    <field name="name" string="Title"/>
+                                    <field name="expected_price"/>
+                                    <field name="state" string="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

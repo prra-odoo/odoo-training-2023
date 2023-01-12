@@ -1,7 +1,7 @@
 from odoo import api, fields, models
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
 # six_months_after  = datetime.now() + relativedelta(months=2)
 
 
@@ -25,7 +25,7 @@ class RealEstateProperty(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     tatal_area = fields.Float(compute="_compute_total_area")
-    garden_area = fields.Integer(compute="_cpmpute_garden",readonly=False)
+    garden_area = fields.Integer(compute="_cpmpute_garden", readonly=False)
     garden_orientation = fields.Selection(
         [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     active = fields.Boolean(default=True)
@@ -40,6 +40,9 @@ class RealEstateProperty(models.Model):
     offer_ids = fields.One2many(
         "real.estate.property.offer", "property_id", string="Offers")
     best_price = fields.Float(compute="_compute_best_price")
+
+    _sql_constraints = [('check_expected_price', 'CHECK(expected_price > 0)', 'The expected_price of an proerty should be greater than 0'),
+                        ('check_selling_price', 'CHECK(selling_price > 0)', 'The selling_price of an proerty should be greater than 0')]
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
@@ -60,7 +63,7 @@ class RealEstateProperty(models.Model):
     #         self.garden_area, self.garden_orientation = 10, 'north'
     #     else:
     #         self.garden_area, self.garden_orientation = 0, ''
-            
+
     @api.depends('garden')
     def _cpmpute_garden(self):
         for record in self:
@@ -69,7 +72,6 @@ class RealEstateProperty(models.Model):
             else:
                 self.garden_area, self.garden_orientation = 0, ''
 
-    
     def action_buy_porperty(self):
         for record in self:
             record.state = 'sold'
@@ -81,3 +83,11 @@ class RealEstateProperty(models.Model):
             record.state = 'canceled'
             if record.state == 'canceled':
                 raise UserError("A canceled property cannot be sold")
+    
+    
+    @api.constrains('expected_price','offer_ids')
+    def check_price(self):
+        for record in self:
+            if record.selling_price <= (record.expected_price * 0.9) and record.offer_ids :
+                print(record.offer_ids)
+                raise ValidationError(('The Selling Price cannot be lower than 90% of the Expected Price.'))

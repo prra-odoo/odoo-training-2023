@@ -27,9 +27,8 @@
                 <filter string="Garage" name="garage" domain="[('garage', '=', True)]"/>
                 <!-- <filter name="state" string="State" domain="['|',('state', '=', 'new') ,('state' ,'=', 'offer_accepted')]" /> -->
                 <filter name="state" string="State" domain="['|',('state', '=', ['new' , 'offer_accepted'])]" />
-                <filter string="Garden" name="garden" domain="[('garden', '
-                    =', True)]"/>
-                <group expand="1" string="Group By">
+                <filter string="Garden" name="garden" domain="[('garden', '=', True)]"/>
+                <group string="Group By">
                     <filter string="postcode" name="postcode" context="{'group_by':'postcode'}"/>
                 </group>
             </search>
