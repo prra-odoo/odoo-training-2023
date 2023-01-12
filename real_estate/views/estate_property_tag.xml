@@ -7,8 +7,7 @@
             <form string="type">
                     <sheet>
                         <h1>
-                            <label for="name" string="Product Tag Name"/>
-                            <field name="name" nolable="1"/>
+                            <field name="name"/>
                         </h1>
                     </sheet>
             </form>
