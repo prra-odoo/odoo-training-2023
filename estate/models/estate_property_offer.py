@@ -63,10 +63,9 @@ class EstatePropertyOffer(models.Model):
     @api.model
     def create(self, vals):
         domain = ['property_id', '=', vals['property_id']]
-        records = self.env['estate.property.offer'].search([domain]).mapped('price')    
+        records = self.env['estate.property.offer'].search([domain]).mapped('price')
         for rec in records:
             if vals['price'] < rec:
                 raise UserError("Price must be higher then Existing offer")
-        self.env['estate.property'].browse(
-            vals['property_id']).state = "offer_received"
+        self.env['estate.property'].browse(vals['property_id']).state = "offer_received"
         return super(EstatePropertyOffer, self).create(vals)

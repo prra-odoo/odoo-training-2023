@@ -7,6 +7,8 @@
             <field name="garden">0</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_data_5"></field>
+            <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_1')])]" />
         </record>
         <record id="real_estate_demo_data_2" model="estate.property">
             <field name="name">Renting House</field>
@@ -14,6 +16,8 @@
             <field name="garden">1</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_data_3"></field>
+            <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_1')])]" />
         </record>
         <record id="real_estate_demo_data_3" model="estate.property">
             <field name="name">Silver Villa</field>
@@ -21,6 +25,8 @@
             <field name="garden">0</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_data_5"></field>
+            <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_3'),ref('estate.estate_property_tag_demo_data_2')])]" />
         </record>
         <record id="real_estate_demo_data_4" model="estate.property">
             <field name="name">Odoo</field>
@@ -28,6 +34,8 @@
             <field name="garden">1</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_data_2"></field>
+            <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_2')])]" />
         </record>
         <record id="real_estate_demo_data_5" model="estate.property">
             <field name="name">Odoo In</field>
@@ -35,6 +43,8 @@
             <field name="garden">1</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_data_2"></field>
+            <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_3'),ref('estate.estate_property_tag_demo_data_2')])]" />
         </record>
     </data>
 </odoo>

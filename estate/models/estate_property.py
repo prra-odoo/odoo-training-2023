@@ -17,7 +17,7 @@ class realEstate(models.Model):
     description = fields.Text("Description")
     postcode = fields.Char("Post Code")
     date_availability = fields.Date(
-        "Available From", default=fields.Datetime.now()+relativedelta(months = 3 ))
+        "Available From", default=fields.Datetime.now()+relativedelta(months=3))
     expected_price = fields.Float("Excepted Price")
     selling_price = fields.Float("Selling Price", readonly=True, tracking=True)
     bedrooms = fields.Integer("Bedrooms")
@@ -48,7 +48,7 @@ class realEstate(models.Model):
             ('offer_accepted', 'Offer Accepted'),
             ('sold', 'Sold'),
             ('canceled', 'Canceled')], default="new", readonly=True, tracking=True
-    )   
+    )
 
     _sql_constraints = [
         ("check_excepted_price", "CHECK(selling_price > 0)",
@@ -114,5 +114,5 @@ class realEstate(models.Model):
     @api.ondelete(at_uninstall=False)
     def _delete_property(self):
         for rec in self:
-            if not (rec.state == "new" or rec.state == "canceled"):
+            if not (rec.state in ['new', 'canceled']):
                 raise UserError("Can't Remove The Property.")
