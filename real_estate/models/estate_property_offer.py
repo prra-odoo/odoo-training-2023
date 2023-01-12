@@ -20,7 +20,7 @@ class estatePropertyOffer(models.Model):
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline")
     create_date = fields.Date(default=fields.Datetime.now(), readonly=True, copy=False)
-    property_type_id = fields.Many2one("estate.property.type", related="property_id.property_type_id", store=True)
+    property_type_id = fields.Many2one('estate.property.type', related="property_id.property_type_id", store=True)
 
     _sql_constraints = [
         ('check_offer_price', 'CHECK(price>=0)', 'Offer price must be Strictly Positive!')
@@ -51,6 +51,20 @@ class estatePropertyOffer(models.Model):
                 record.property_id.selling_price = record.price
                 record.property_id.buyer_id = record.partner_id
                 record.property_id.state = 'offer_accepted'
+            
+        # print(list(self.mapped('property_id.offer_ids.status')))
+        # offers = self.env['estate.property.offer'].search([('property_id.offer_ids.status', '=', False)])
+        # for off in offers:
+        #     print(off.status)
+        #     if off.status != 'accepted':
+        #         off.status = 'refused'
+
+        offers = self.env['estate.property.offer'].search([])
+        offer_status = offers.mapped('property_id.offer_ids.status')
+        for off in offers:
+            if off.status != 'accepted':
+                off.status='refused'
+                
         return True
 
     # def create(self, vals):

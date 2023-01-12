@@ -110,6 +110,8 @@
                 <field name="bedrooms" string="Bedrooms" />
                 <field name="living_area" string="Living Area (sqm)" filter_domain="[('living_area', '>', self) ]" />
                 <field name="facades" string="Facades" />
+                <field name="tag_ids" string="tags"/>
+                <field name="property_type_id" string="Property Type" />
                 <separator />
                 <filter string="Available" name="available" domain="[('state', 'in', ['offer_received', 'new'])]" />
                 <group expand="1" string="Postcode">
