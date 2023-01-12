@@ -24,8 +24,8 @@ class EstatePropertyOffer(models.Model):
     
     def action_accept_btn(self):
         for record in self:
-            record.property_id.offer_ids.status = 'refused'
-            record.status = 'accepted'
+            record.property_id.offer_ids.status = 'refused' # First, This will refuse all the available offers
+            record.status = 'accepted' # Then, This will accept offer where user clicked.
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
         return True

@@ -8,4 +8,4 @@ class EstatePropertyTag(models.Model):
     
     name = fields.Char(string="Tags", required=True)
     
-    _sql_constraints = [('name_unique', 'unique (name)', "A tag with the same name already exists.")]
+    _sql_constraints = [('tag_name_unique', 'unique (name)', "A tag with the same name already exists.")]
