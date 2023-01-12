@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-
-            <!-- tree view -->
+               <!-- tree view -->
     <record id="property_tag_list_view" model="ir.ui.view">
         <field name="name">Property Tag List view</field>
         <field name="model">estate.property.tag</field>

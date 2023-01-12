@@ -80,18 +80,22 @@ class EstateProperty(models.Model):
     @api.constrains('selling_price','expected_price')
     def _check_selling(self):
         for record in self:
-            if float_compare(record.selling_price,0.9*record.expected_price,precision_digits=2) == -1:
+            if float_compare(record.selling_price,0.9*record.expected_price,precision_digits=2) <= 0:
                 raise ValidationError('The selling price must be 90% of the expected price')
+        # Return
+        #     -1 : If the first value is less than the second value.
+        #     0 : If the first value is equal to the second value.
+        #     1 : If the first value is greater than the second value.
                 
-    #ondelete 
-        # at_uninstall (bool) – Whether the decorated method should be called 
-        # if the module is being uninstalled. 
-        # If False, the module uninstallation does not trigger those errors.
     @api.ondelete(at_uninstall=False)
     def _unlink_if_new_or_cancel(self):
         for record in self:
             if record.state not in ['new', 'canceled']:
                 raise UserError("Only new and canceled property can be deleted.")
+        #ondelete 
+        # at_uninstall (bool) – Whether the decorated method should be called 
+        # if the module is being uninstalled. 
+        # If False, the module uninstallation does not trigger those errors.
 
 
     # #oncreate

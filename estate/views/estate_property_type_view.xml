@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-
             <!-- tree view -->
     <record id="property_type_list_view" model="ir.ui.view">
         <field name="name">Property Type List view</field>
@@ -12,8 +10,7 @@
                 <field name="name" optional="show"/>
             </tree>
         </field>
-    </record>
-
+    </record>   
     <!-- form view -->
     <record id="property_type_form_view" model="ir.ui.view">
         <field name="name">Property type form view</field>

@@ -14,12 +14,15 @@
                 </p>
               </field>
         </record>
+
         <!--  property types action -->
         <record id="property_type_model_action" model="ir.actions.act_window">
             <field name="name">Property Types</field>
             <field name="res_model">estate.property.type</field>
             <field name="view_mode">tree,form</field>
+            <!-- <field name="target">fullscreen</field> -->
         </record>
+
         <!--  property offer action -->
         <record id="estate_property_offer_model_action" model="ir.actions.act_window">
             <field name="name">Properties offer</field>
@@ -27,6 +30,7 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[('property_type_id', '=', active_id)]</field>
         </record> 
+
         <!--  property tag action -->
         <record id="estate_property_tag_model_action" model="ir.actions.act_window">
             <field name="name">Property Tags</field>
@@ -34,6 +38,7 @@
             <field name="view_mode">tree,form</field>
         </record>
     </data> 
+    
     <menuitem id="estate_menu_root" name="Real Estate">
         <menuitem id="estate_first_level_menu" name="Advertisement">
             <menuitem id="estate_model_menu_action" action="estate_property_model_action"/>

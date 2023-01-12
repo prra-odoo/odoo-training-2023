@@ -14,8 +14,6 @@
     ],
     'demo' : [
         'demo/estate_demo_data.xml',
-        'demo/estate_property_type_demo.xml',
-        'demo/estate_property_tag_demo.xml',
     ],
     'application' : True,
 }
