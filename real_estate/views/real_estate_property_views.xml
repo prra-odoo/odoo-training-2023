@@ -63,7 +63,9 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable' : '1','colors' : '1'}" statusbar_visible="new,sold,offer_received"/>
+                    <button name="action_buy_porperty" type="object" string="SOLD"/>
+                    <button name="action_sold_porperty" type="object" string="CANCEL"/>
+                    <field name="state" widget="statusbar" options="{'clickable' : '1','colors' : '1'}"/>
                 </header>
                 <sheet>
                     <h1>

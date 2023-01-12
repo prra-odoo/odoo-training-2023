@@ -1,7 +1,7 @@
 from odoo import api, fields, models
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-
+from odoo.exceptions import UserError
 # six_months_after  = datetime.now() + relativedelta(months=2)
 
 
@@ -25,9 +25,9 @@ class RealEstateProperty(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     tatal_area = fields.Float(compute="_compute_total_area")
-    garden_area = fields.Integer()
+    garden_area = fields.Integer(compute="_cpmpute_garden",readonly=False)
     garden_orientation = fields.Selection(
-        [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')], default="north")
+        [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     active = fields.Boolean(default=True)
     state = fields.Selection([('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted',
                              'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')], default='new', required=True, copy=False)
@@ -53,3 +53,31 @@ class RealEstateProperty(models.Model):
                 record.best_price = 0.0
             else:
                 record.best_price = max(record.offer_ids.mapped('price'))
+
+    # @api.onchange('garden')
+    # def _onchange_garden(self):
+    #     if self.garden == True:
+    #         self.garden_area, self.garden_orientation = 10, 'north'
+    #     else:
+    #         self.garden_area, self.garden_orientation = 0, ''
+            
+    @api.depends('garden')
+    def _cpmpute_garden(self):
+        for record in self:
+            if self.garden == True:
+                self.garden_area, self.garden_orientation = 10, 'north'
+            else:
+                self.garden_area, self.garden_orientation = 0, ''
+
+    
+    def action_buy_porperty(self):
+        for record in self:
+            record.state = 'sold'
+            if record.state == 'canceled':
+                raise UserError("A sold property cannot be canceled")
+
+    def action_sold_porperty(self):
+        for record in self:
+            record.state = 'canceled'
+            if record.state == 'canceled':
+                raise UserError("A canceled property cannot be sold")
