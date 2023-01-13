@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="estate_property_tree_view" model="ir.ui.view">
+        <field name="name">Estate Property Tree View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Tree View">
+                <field name="name"/>
+                <field name="description" optional="hide"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <field name="data_avabilability"/>
+                <field name="selling_price"/>
+                <field name="expected_price"/>
+                <field name="garage"/>
+                <field name="garden_area"/>
+                <field name="garden_orientation"/>
+            </tree>
+        </field>
+    </record>
+    <record id="estate_property_form_view" model="ir.ui.view">
+        <field name="name">Estate Property form View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="form View">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description" optional="hide"/>
+                        <field name="postcode"/>
+                        <field name="bedrooms"/>
+                        <field name="living_area"/>
+                        <field name="facades"/>
+                        <field name="data_avabilability"/>
+                        <field name="selling_price"/>
+                        <field name="expected_price"/>
+                        <field name="garage"/>
+                        <field name="garden_area"/>
+                        <field name="garden_orientation"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">estate</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new property
+            </p>
+        </field>
+    </record>
+
+</odoo>
