@@ -2,10 +2,54 @@
 <odoo>
     <data>
 
-        <record id="test_model_action" model="ir.actions.act_window">
-            <field name="name">Test action</field>
+         <record id="estate_property_treeView" model="ir.ui.view">
+         <field name="name">Properties</field>
+         <field name="model">estate.property</field>
+             <field name="arch" type="xml">
+                 <tree string="...">
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="bedrooms" optional="show"/>
+                    <field name="expected_price"/>
+                    <field name="garden" optional="show"/>
+                    <field name="living_area" optional="show"/>
+                 </tree>
+             </field>
+        </record>
+
+        <record id="estate_property_view_form" model="ir.ui.view">
+            <field name="name">Name</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                       <!-- <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/> -->
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="date_availability"/>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="facades"/>
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="estate_property_action" model="ir.actions.act_window">
+            <field name="name">Properties</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Add a new property
+              </p>
+            </field>
         </record>
 
     </data>
