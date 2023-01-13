@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -13,7 +14,7 @@ class EstateProperty(models.Model):
     postcode = fields.Char(string="Postcode")
     date_availability = fields.Date(string="Available From", default=lambda self: fields.Date.today() + relativedelta(months=+3), copy=False)
     expected_price = fields.Float(string="Expected Price", required=True, help='What is your expected price of the property?')
-    selling_price = fields.Float(string="Selling Price", copy=False, help='What is your selling price of the property?')
+    selling_price = fields.Float(string="Selling Price", readonly=True, copy=False, help='What is your selling price of the property?')
     bedrooms = fields.Integer(string="Bedrooms", default=2, help="No. of Bedrooms")
     living_area = fields.Integer(string="Living Area (sqm)", help="How much Area does your Living Room contain?")
     facades = fields.Integer(string='Facades', help="The Facade is the front of the Property that is usually seen from the outside.")
@@ -24,7 +25,7 @@ class EstateProperty(models.Model):
     garden_orientation = fields.Selection(string="Garden Orientation", selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')], compute="_compute_garden", readonly=False)
     active = fields.Boolean(string="Active", default=True)
     state = fields.Selection(string="State", required=True, copy=False, selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')], default="new")
-    best_price = fields.Integer(string="Best Offer", compute="_compute_best_offer", help="This will display best price from offers list.")
+    best_price = fields.Float(string="Best Offer", compute="_compute_best_offer", help="This will display best price from offers list.")
     property_type_id = fields.Many2one('estate.property.type', string='Type')
     buyer_id = fields.Many2one('res.partner', copy=False)
     salesperson_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user)
@@ -87,8 +88,15 @@ class EstateProperty(models.Model):
     
     # Python Constraints
             
+    # @api.constrains('selling_price', 'expected_price')
+    # def _check_selling_price(self):
+    #     for record in self:
+    #         if record.selling_price <= (0.9 * record.expected_price) and record.offer_ids: #Apply this constraint only if there if offers
+    #             raise ValidationError("The selling price must be least 90% of expected price. You must have to reduce expected price if you want to accept this offer!!!")
+    
+    
     @api.constrains('selling_price', 'expected_price')
     def _check_selling_price(self):
         for record in self:
-            if record.selling_price <= (0.9 * record.expected_price) and record.offer_ids: #Apply this constraint only if there if offers
+            if float_compare(record.selling_price, (0.9 * record.expected_price), precision_rounding=0.01) <= 0 and record.offer_ids:
                 raise ValidationError("The selling price must be least 90% of expected price. You must have to reduce expected price if you want to accept this offer!!!")
