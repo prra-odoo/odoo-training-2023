@@ -48,7 +48,12 @@ class Estate(models.Model):
     @api.depends('offer_ids.price')
     def _compute_best_offer(self):
         for record in self:
-            record.best_offer=max(record.offer_ids.mapped('price'),default=0)
+            print(record.offer_ids.mapped('price'))
+            record.best_offer = max(record.offer_ids.mapped('price'),default=0)
+            # ids = [l.price for l in record.offer_ids]
+            # print(ids)
+            # record.best_offer = max(ids)
+
 
     @api.depends('garden')
     def _compute_garden(self):
@@ -75,5 +80,6 @@ class Estate(models.Model):
     @api.constrains('selling_price')
     def check_selling_price(self):
         for record in self:
-            if record.selling_price<=0.90 * record.expected_price:
+            # if record.selling_price<=0.90 * record.expected_price:
+            if float_compare(record.selling_price>=0.90 * record.expected_price):
                 raise ValidationError("Selling Price Must be 90% of Expected Price")
