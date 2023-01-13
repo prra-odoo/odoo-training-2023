@@ -7,12 +7,15 @@
     'author' : 'Karnav',
     'depends' : [],
     'sequence' : 1,
+    'license' : 'LGPL-3',
     'installable': True,
     'application': True,
     'auto_install': False,
-    'license' : 'LGPL-3',
     'data': [
-        'security/ir.model.access.csv'],
+        'security/ir.model.access.csv',
+        'views/estate_property_view.xml',
+        'views/estate_menu.xml',
+        ],
 
 
         

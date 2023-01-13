@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--TREE VIEW-->
+    <record id="estate_property_tree_view" model="ir.ui.view">
+        <field name="name">Estate Property Tree View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="tree_view">
+                <field name="name" optional="show"/>
+                <field name="description" optional="show"/>
+                <field name="selling_price" optional="show"/>
+                <field name="expected_price" optional="show"/>
+                <field name="garden_area" optional="show"/>
+                <field name="garden" optional="show"/>
+                <field name="garage" optional="show"/>
+                <field name="living_area" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <!--FORM VIEW-->
+    <record id="estate_prpperty_form_view" model="ir.ui.view">
+        <field name="name">Estate Property Form View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="form_view">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                                <group>
+                                    <field name="selling_price"/>
+                                </group>
+                                <group>
+                                    <field name="expected_price"/>
+                                </group>
+                                <group>
+                                    <field name="garden_area"/>
+                                </group>
+                                <group>
+                                    <field name="garden"/>
+                                </group>
+                                <group>
+                                    <field name="garage"/>
+                                </group>
+                                <group>
+                                    <field name="living_area"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create new asset
+            </p>
+        </field>
+    </record>
+</odoo>
