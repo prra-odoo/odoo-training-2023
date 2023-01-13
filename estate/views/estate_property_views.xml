@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="estate_property_tree_view" model="ir.ui.view">
+        <field name="name">Estate property view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Tree View">
+                <field name="name"/>
+                <field name="description" optional="hidden"/>
+                <field name="postcode"/>
+                <field name="date_availability" optional="hidden"/>
+                <field name="expected_price"/>
+                <field name="selling_price" optional="hidden"/>
+                <field name="bedrooms" optional="hidden"/>
+                <field name="living_area" optional="hidden"/>
+                <field name="facades" optional="hidden"/>
+                <field name="garden" optional="hidden"/>
+                <field name="garden_area" optional="hidden"/>
+                <field name="garden_orientation" optional="hidden"/>
+            </tree>
+            
+        </field>
+
+    </record>
+
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name= "name">Properties</field>
+        <field name= "res_model">estate.property</field>
+        <field name= "view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add New Properties
+            </p>
+            <p>
+                You can search about other Properties using the filters here above
+                <br/>
+                or create a new Property Offer
+            </p>
+        </field>
+    </record>
+
+
+    <record id="estate_property_form_view" model="ir.ui.view">
+        <field name="name">Estate Form View</field>
+        <field name="model">estate.property</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Estate Property Form View">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description" />
+                        <field name="postcode"/>
+                        <field name="date_availability" />
+                        <field name="expected_price"/>
+                        <field name="selling_price" />
+                        <field name="bedrooms" />
+                        <field name="living_area" />
+                        <field name="facades" />
+                        <field name="garden" />
+                        <field name="garden_area" />
+                        <field name="garden_orientation"/>
+                        <field name="status"/>
+                        <field name="active"/>
+                    </group>
+                    
+
+                </sheet>
+
+            </form>
+
+        
+        </field>
+    </record>
+
+</odoo>
