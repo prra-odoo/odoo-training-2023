@@ -19,7 +19,7 @@
                 <field name="name" string="Title"/>
                 <field name="Postcode"/>
                 <field name="bedroom"/>
-                <field name="living_area" string="Living Area (sqm)"/>
+                <field name="living_area" string="Living Area (sqm)" optional="hidden"/>
                 <field name="expected_price"/>
                 <field name="selling_price" />
                 <field name="date_availablity" string="Available From"/>

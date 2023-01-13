@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import api,fields,models,exceptions
-from odoo.tools import float_utils
+from odoo import api,fields,models
+from odoo.tools.float_utils import float_is_zero,float_compare
+from odoo.exceptions import UserError, ValidationError
 from datetime import date
 from dateutil.relativedelta import relativedelta
 class real_Esate_Properties(models.Model):
@@ -62,7 +63,7 @@ class real_Esate_Properties(models.Model):
 			if action.state != 'cancled':
 				action.state='sold'
 			else:
-				raise exceptions.UserError("You cannot sold cancled property")
+				raise UserError("You cannot sold cancled property")
 				
 				
 	def action_cancel(self):
@@ -70,7 +71,7 @@ class real_Esate_Properties(models.Model):
 			if action.state != 'sold':
 				action.state="cancled"
 			else:
-				raise exceptions.UserError("You cannot cancled sold property")
+				raise UserError("You cannot cancled sold property")
 
 	@api.depends("gardan")
 	def _compute_gardan(self):
@@ -91,8 +92,5 @@ class real_Esate_Properties(models.Model):
 	@api.constrains('selling_price')
 	def check_selling_price(self):
 		for record in self:
-			if not float_utils.float_is_zero(record.selling_price,precision_rounding=0.1):
-				if record.selling_price < (0.9 * record.expected_price):
-					 raise exceptions.ValidationError("Selling price has to be atleast 90% of the accepted price")
-
-			
+			if not float_is_zero(record.selling_price,precision_rounding=0.1) and float_compare(record.selling_price,(0.9 * record.expected_price),precision_rounding=0.1) < 0:
+				raise ValidationError("Selling price has to be atleast 90% of the accepted price")
