@@ -5,7 +5,7 @@
         <field name="model">real.estate.property.tags</field>
         <field name="arch" type="xml">
             <search string="Properties">
-                <field name="name" string="Title"/>
+                <field name="name"  string="Title"/>
             </search>
         </field>
     </record>
@@ -26,8 +26,8 @@
             <form string="Property">
                 <sheet>
                     <group>
-                        <field name="name" />
-                        <field name="active"  invisible="1"/>
+                        <field name="name" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                        <field name="color"/>
                     </group>
                 </sheet>
             </form>

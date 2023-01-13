@@ -6,6 +6,6 @@ class RealEstatePropertyTags(models.Model):
     _description = "Property Tags"
 
     name = fields.Char(string="Tags", required=True)
-    active = fields.Boolean(default=True)
+    color = fields.Integer(default=3)
     
     _sql_constraints = [('unique_name', 'UNIQUE(name)','The Name of an property tag must be unique.')]
