@@ -96,10 +96,6 @@
                         <group>
                             <field name="best_price"/>
                         </group>
-                        <group>
-                            <!-- <button type="action" name="%(estate.property_type_model_action)d" string="Property Type"/>
-                            <button type="action" name="%(estate.estate_property_tag_model_action)d" string="Property Tags"/> -->
-                        </group>
                     </group>  
                     <notebook>
                         <page string="Description">

@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from datetime import datetime, time
-from odoo.tools.float_utils import float_compare
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -80,6 +80,7 @@ class EstateProperty(models.Model):
     @api.constrains('selling_price','expected_price')
     def _check_selling(self):
         for record in self:
+            # if float_is_zero(record.selling_price, precision_rounding=0.01) :
             if float_compare(record.selling_price,0.9*record.expected_price,precision_digits=2) <= 0:
                 raise ValidationError('The selling price must be 90% of the expected price')
         # Return

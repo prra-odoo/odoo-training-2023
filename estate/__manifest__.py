@@ -13,6 +13,8 @@
         'views/res_users_view.xml',
     ],
     'demo' : [
+        'demo/estate_property_type_demo_data.xml',
+        'demo/estate_tag_demo_data.xml',
         'demo/estate_demo_data.xml',
     ],
     'application' : True,
