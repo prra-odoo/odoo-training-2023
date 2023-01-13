@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError
+from odoo.tools import float_is_zero, float_compare
 
 class EstateModel(models.Model):
     _name = "estate.property"
@@ -74,8 +75,9 @@ class EstateModel(models.Model):
     @api.constrains('selling_price', 'expected_price')
     def _check_selling_price(self):
         for record in self:
-            if record.selling_price < (0.9)*record.expected_price:
-                raise UserError("Selling price should be greater than 90 percentage of expected price")
+            if not float_is_zero(record.selling_price, precision_rounding=0.01):
+                if float_compare(record.selling_price, 0.9*record.expected_price, precision_digits=2)==-1:
+                    raise UserError("Selling price should be greater than 90 percentage of expected price")
 
     @api.ondelete(at_uninstall=False)
     def _deleting_the_record(self):
