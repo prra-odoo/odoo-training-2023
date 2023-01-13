@@ -12,6 +12,7 @@
             <field name="selling_price">458888</field>
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
+            <field name="tag_ids" eval="[(6,0, [ref('real_estate.estate_tag_demo_data1'), ref('real_estate.estate_tag_demo_data2')])]"></field>
         </record>
         <record model="estate.property" id="estate_demo_data3">
             <field name="name">Arena</field>
@@ -23,6 +24,8 @@
             <field name="selling_price">258888</field>
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
+            <field name="tag_ids" eval="[(6,0, [ref('real_estate.estate_tag_demo_data1')])]"></field>
+
         </record>
         <record model="estate.property" id="estate_demo_data1">
             <field name="name">PentHouse</field>
@@ -34,6 +37,8 @@
             <field name="selling_price">458688</field>
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
+            <field name="tag_ids" eval="[(6,0, [ref('real_estate.estate_tag_demo_data2')])]"></field>
+
         </record>
         <record model="estate.property" id="estate_demo_data2">
             <field name="name">Small Bungalows</field>
@@ -45,6 +50,8 @@
             <field name="selling_price">758888</field>
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
+            <field name="tag_ids" eval="[(6,0, [ref('real_estate.estate_tag_demo_data1'), ref('real_estate.estate_tag_demo_data2')])]"></field>
+
         </record>
 
         <record model="estate.property.type" id="estate_type_demo_data1">
