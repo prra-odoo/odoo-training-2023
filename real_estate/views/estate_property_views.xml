@@ -17,6 +17,7 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="date_availability"/>
+                <field name="property_tag_ids" widget="many2many_tags"/>
                 <field name="status" widget="badge"/>
                 <!-- <field name="property_tag_ids" widget="badge"/> -->
             </tree>
@@ -30,7 +31,7 @@
         <field name="arch" type="xml">
             <form string="Estate_Property">
                 <header> 
-                    <button name='action_canceled' type='object' string='cancel' class='btn-danger' style="background-color:red;"/>
+                    <button name='action_canceled' type='object' string='cancel' style="background-color:red;"/>
                     <button name='action_sold' type='object' string='sold'/>                                           
                     <!-- <field name="status" widget="statusbar" statusbar_colors='{"sold":"green","offer cancelled":"red"}' options="{'clickable':'1'}"></field> -->
                 </header>    

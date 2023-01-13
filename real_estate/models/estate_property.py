@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models,fields,api
-from odoo.exceptions import UserError
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError,ValidationError
+
 
 class estate_property(models.Model):
     _name = 'estate.property'
@@ -40,8 +40,10 @@ class estate_property(models.Model):
     best_offer = fields.Float(default=0,compute="_compute_best_offer")
 
 
-    _sql_constraints = [('check_expected_price','CHECK(expected_price >= 0)','A property expected price must be strictly positive.')]
-    _sql_constraints = [('check_selling_price','CHECK(selling_price >= 0)','A property selling price must be strictly positive.')]
+    _sql_constraints = [('check_expected_price','CHECK(expected_price >= 0)','A property expected price must be strictly positive.'),
+                        ('check_selling_price','CHECK(selling_price >= 0)','A property selling price must be strictly positive.')
+                        ]
+#     _sql_constraints = [('check_selling_price','CHECK(selling_price >= 0)','A property selling price must be strictly positive.')]
 
 
     @api.onchange("garden")
@@ -79,5 +81,10 @@ class estate_property(models.Model):
                     self.status = 'Sold'
                     
                     
-    
+#     def action_accepted(self):
+#             if(float_compare(self.selling_price,self.expected_price * 0.9,precision_rounding=0.01)<0):
+#                     raise UserError("Selling Price must 90percent of the expected price")
+
+
+
      

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-        <record id="estate_property_tag_data" model="estate.property.tags">
+        <!-- <record id="estate_property_tag_data1" model="estate.property.tags">
             <field name="name">Assets</field>
+        </record> -->
+        <record id="estate_property_tag_data2" model="estate.property.tags">
+            <field name="name">build</field>
         </record>
-        
+
+        <record id="estate_property_tag_data3" model="estate.property.tags">
+            <field name="name">Assets</field>
+        </record>        
 </odoo>

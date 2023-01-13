@@ -2,7 +2,8 @@
 from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError,UserError
+from odoo.tools import float_is_zero,float_compare
 
 class estate_property_offers(models.Model):
     _name = 'estate.property.offer'
@@ -39,15 +40,17 @@ class estate_property_offers(models.Model):
                             d2 = (record.create_date).date()
                             record.validity = (d1-d2).days
 
-
     def action_accepted(self):
-            self.status = 'accepted'
-            value = ((self.property_id.expected_price) * 90)/100
-            if self.price < value:
-                    raise ValidationError("selling price must be 90 percentage of expected_price")
-            else:
-                    self.property_id.selling_price = self.price
-                    self.property_id.buyer = self.partner_id    
+            for record in self:
+                    record.property_id.offer_ids.status='refused'
+                    record.status='accepted'
+
+                    if(float_compare(record.price,record.property_id.expected_price * 0.9,precision_rounding=0.01)<0):
+                            raise UserError("Selling Price must 90percent of the expected price")
+                    else:
+                            record.property_id.selling_price = record.price
+                            record.property_id.buyer = record.partner_id 
+       
 
     def action_refuse(self):
             self.status = 'refused'
