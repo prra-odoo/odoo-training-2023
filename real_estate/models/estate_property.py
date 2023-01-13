@@ -3,6 +3,7 @@
 from odoo import api,fields, models,exceptions
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from odoo.tools import float_utils
 
 
 class Real_estate(models.Model):
@@ -31,6 +32,8 @@ class Real_estate(models.Model):
     garden_area = fields.Integer(compute="_compute_garden_area",readonly = False)
     garden_orientation = fields.Selection(string='orientation',
     selection=[('north','North'),('east','East'),('west','West'),('south','South')])
+
+    # use of relational fields
     type_id=fields.Many2one("estate.property.type")
     buyer_id = fields.Many2one("res.partner",copy=False)
     salesperson_id = fields.Many2one("res.users",default=lambda self: self.env.user)
@@ -82,6 +85,8 @@ class Real_estate(models.Model):
 
          return True
 
+    # use of constraints
+
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)',
          'The Expected Price Should Be Positive'),
@@ -94,15 +99,15 @@ class Real_estate(models.Model):
     def _check_sellingprice(self):
         
         for record in self:
-            ab = 0.9*(record.expected_price)
+            
 
-            if record.selling_price < ab:
+            if float_utils.float_is_zero(record.expected_price,precision_digits=3) and float_utils.float_compare(record.selling_price,0.9*record.expected_price,precision_digits=1)==-1:
                  raise exceptions.ValidationError("The Offer price cannot be lower than 90% of the expected price.")
             
-            # if record.offer_ids.price < ab:
-            #     raise exceptions.ValidationError("Too less selling prie")
-            # else:
-            #     record.selling_price = record.offer_ids.price
+            
+            
+            
+            
      
         
 

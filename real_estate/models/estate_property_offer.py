@@ -42,27 +42,7 @@ class Estate_property_offer(models.Model):
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
             # copied it from dhrp
-            # record.status='accepted'
-            # # print(record.status)
-            # record.property_id.buyer_id=record.partner_id
-            # record.property_id.selling_price=record.price
-
-        # for record in self:
-        #     print(record.status)
-        
-        
-        
-
-    # def action_accept(self):
-
-    #     for record in self:
-    #         print(record)
-        # for record in self:
-        #     record.status='accepted'
-
-        # for record.status in self:
-        #     if record.status != 'accepted':
-        #        record.status = 'refused'
+            
 
     
     _sql_constraints = [
@@ -72,7 +52,4 @@ class Estate_property_offer(models.Model):
     ]
     
     def action_refuse(self):
-
-        # for record in self:
-        #     record.status='refused'
         self.status = 'refused'

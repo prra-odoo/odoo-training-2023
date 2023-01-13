@@ -22,7 +22,8 @@
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="expected_price"/>
                 <field name="selling_price" string="Selling Price"/>    
-                <field name="date_availability" string="Available From"/>  
+                <field name="date_availability" string="Available From" />  
+                <!-- optional="hidden" -->
             </tree>
         </field>
     </record>
