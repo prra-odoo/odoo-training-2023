@@ -3,7 +3,7 @@
 from odoo import models , fields,api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools.float_utils import float_compare
+from odoo.tools.float_utils import float_compare,float_is_zero
 
 class estate_property(models.Model):
     _name = "estate.property"
@@ -18,9 +18,9 @@ class estate_property(models.Model):
     
     
     
-    name = fields.Char()
+    name = fields.Char(required=True)
     postcode = fields.Integer(default = 104,readonly=True)
-    description = fields.Text(copy=False)
+    description = fields.Text(copy=False,required=True)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     expected_price = fields.Float(default= 100)
     selling_price=fields.Float(default = 100000)
@@ -46,9 +46,12 @@ class estate_property(models.Model):
     property_type_id = fields.Many2one("estate.property.type", string="Property type")
     salesperson_id= fields.Many2one("res.users",string="Sales")
     buyers_id=fields.Many2one("res.partner",string="Buyers")
-    tags_ids = fields.Many2many("estate.property.tag")
+    tags_ids = fields.Many2many("estate.property.tag",required=True)
     offer_ids = fields.One2many("estate.property.offer","property_id",string = "Property offer")
-    
+    country_id = fields.Many2one("res.country",string="Country")
+    # currency_id = fields.Many2one("res.currency",string="Currency")
+    # bank_id = fields.Many2one("res.bank",string="Bank")    
+    # company_id = fields.Many2one("res.company",string="Company")
     
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
@@ -80,7 +83,11 @@ class estate_property(models.Model):
     @api.constrains("selling_price","expected_price")
     def _check_selling_price(self):
         for record in self:
-            if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
+            if (
+                not float_is_zero(record.selling_price, precision_rounding=0.01)
+                and float_compare(record.selling_price, record.expected_price * 90.0 / 100.0, precision_rounding=0.01) < 0
+            ):
+              
                 raise UserError("Selling Price must 90percent of the expected price")
         
     def unlink(self):

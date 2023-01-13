@@ -9,6 +9,7 @@
         <record model="estate.property" id = "estate_model002">
             <field name ="name">Estate New Property</field>
             <field name="description">New Property</field>
+            <!-- <field name="tags_ids" eval="[(6,0,[ref('estate.estate_tag_model'), ref('estate.estate_tag_model1'), ref('estate.estate_tag_model2')])]"/> -->
         </record>
 
         <record model="estate.property.tag" id= "estate_tag_model">
@@ -20,12 +21,15 @@
         <record model="estate.property.tag" id= "estate_tag_model2">
             <field name="name">Furnished</field>
         </record>
-        <record model="estate.property.tag" id= "estate_tag_model3">
+        <!-- <record model="estate.property.tag" id= "estate_tag_model3">
             <field name="name">office</field>
         </record>
         <record model="estate.property.tag" id= "estate_tag_model4">
             <field name="name">Painted</field>
         </record>
+        <record model="estate.property.tag" id= "estate_tag_model5">
+            <field name="name">Floating Bed</field>
+        </record> -->
 
 
         <record model="estate.property.type" id= "estate_type_model01">

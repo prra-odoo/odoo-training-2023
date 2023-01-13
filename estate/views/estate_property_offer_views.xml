@@ -5,7 +5,7 @@
             <field name="name">estate.property.offer.form.view</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
-                <tree decoration-danger="status=='refused'" decoration-success="status=='accepted'">
+                <tree decoration-success="status in ('accepted','refused')">
                     <field name="price" />
                     <field name="status" />
                     <field name="partner_id" />
