@@ -2,6 +2,7 @@ from odoo import api, fields, models
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError,ValidationError
+from odoo.tools import float_compare, float_is_zero
 # six_months_after  = datetime.now() + relativedelta(months=2)
 
 
@@ -41,8 +42,8 @@ class RealEstateProperty(models.Model):
         "real.estate.property.offer", "property_id", string="Offers")
     best_price = fields.Float(compute="_compute_best_price")
 
-    _sql_constraints = [('check_expected_price', 'CHECK(expected_price > 0)', 'The expected_price of an proerty should be greater than 0'),
-                        ('check_selling_price', 'CHECK(selling_price > 0)', 'The selling_price of an proerty should be greater than 0')]
+    _sql_constraints = [('check_expected_price', 'CHECK(expected_price >= 0)', 'The expected_price of an proerty should be greater than 0'),
+                        ('check_selling_price', 'CHECK(selling_price >= 0)', 'The selling_price of an proerty should be greater than 0')]
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
@@ -85,9 +86,17 @@ class RealEstateProperty(models.Model):
                 raise UserError("A canceled property cannot be sold")
     
     
-    @api.constrains('expected_price','offer_ids')
-    def check_price(self):
+    @api.constrains('selling_price', 'expected_price')
+    def _check_price_validation(self):
         for record in self:
-            if record.selling_price <= (record.expected_price * 0.9) and record.offer_ids :
-                print(record.offer_ids)
-                raise ValidationError(('The Selling Price cannot be lower than 90% of the Expected Price.'))
+            if (float_compare(record.selling_price, 0.9 * record.expected_price,precision_digits=2) == -1 and not float_is_zero(record.expected_price,precision_digits=2)) :
+                    raise ValidationError("selling price cannot be less than 90% of expected price")
+
+    
+    # @api.constrains('expected_price','offer_ids')
+    # def check_price(self):
+    #     for record in self:
+            
+    #         # if record.selling_price <= (record.expected_price * 0.9) and record.offer_ids :
+    #         #     print(record.offer_ids)
+    #             # raise ValidationError(('The Selling Price cannot be lower than 90% of the Expected Price.'))
