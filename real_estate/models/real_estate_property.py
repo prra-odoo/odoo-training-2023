@@ -13,7 +13,7 @@ class EstateProperty(models.Model):
     description = fields.Text(string="Address of the building")
     postcode = fields.Char(string="Postcode")
     date_availability = fields.Date(copy=False, default=fields.datetime.today() + relativedelta(months=3))
-    expected_price = fields.Float(required=True)
+    expected_price = fields.Float()
     selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
@@ -40,10 +40,7 @@ class EstateProperty(models.Model):
             'check_expected_price',
             'CHECK(expected_price > 0)',
             'The expected price should be greater than 0'
-        )
-    ]
-
-    _sql_constraints = [
+        ),
         (
             'check_selling_price',
             'CHECK(selling_price > 0)',

@@ -3,6 +3,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import date
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 
 class EstatePropertyOffers(models.Model):
@@ -50,6 +51,8 @@ class EstatePropertyOffers(models.Model):
         for record in self:
             # id = record.property_id
             # record.status = 'accepted'
+            # print(f"property_id.offer_ids{record.property_id.offer_ids}")
+            # print(type(record.property_id.offer_ids))
             record.property_id.offer_ids.status = 'refused'
             record.status = 'accepted'
             record.property_id.selling_price = record.price
@@ -64,5 +67,5 @@ class EstatePropertyOffers(models.Model):
     @api.constrains('price', 'property_id')
     def price_percentage(self):
         for record in self:
-            if record.price < 0.90 * record.property_id.expected_price:
-                raise ValidationError(r'The price should be atleast 90% of expected price')
+            if float_compare(record.price, 0.90 * record.property_id.expected_price, precision_rounding=0.01) < 0:
+                raise ValidationError(r"The offer price must be alteast 90% of expected price") 
