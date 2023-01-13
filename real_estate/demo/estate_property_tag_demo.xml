@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+ <record id="estate_3BHK" model="estate.property.tag">
+        <field name="name">3BHK</field>        
+    </record>
+    <record id="estate_4BHK" model="estate.property.tag">
+        <field name="name">4BHK</field>        
+    </record>
+</data>
+</odoo>

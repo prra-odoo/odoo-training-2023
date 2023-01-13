@@ -5,11 +5,14 @@
         <field name="name">my demo</field>
         <field name="expeccted_price">240000</field>
         <field name="selling_price">1200000</field>
+        <field name="type_id" ref="estate_res"/> 
+        <field name="tag_ids" eval="[(6,0,[ref('estate_3BHK'),ref('estate_4BHK')])]"/>
     </record>
     <record id="estate_anaya" model="estate.property">
         <field name="name">ananya</field>
         <field name="expeccted_price">240000</field>
         <field name="selling_price">1200000</field>
+        <field name="type_id" ref="estate_hotel"/> 
     </record>
     <record id="estate_shilp" model="estate.property">
         <field name="name">shilp</field>
@@ -20,27 +23,8 @@
         <field name="name">treasure</field>
         <field name="expeccted_price">240000</field>
         <field name="selling_price">1200000</field>
-    </record>
-    <record id="estate_hotel" model="estate.property.type">
-        <field name="name">hotel</field>
-        
-    </record>
-    <record id="estate_res" model="estate.property.type">
-        <field name="name">restaurent</field>
-        
-    </record>
-    <record id="estate_bunglow" model="estate.property.type">
-        <field name="name">bunglow</field>
-        
-    </record>
-    <record id="estate_3BHK" model="estate.property.tag">
-        <field name="name">3BHK</field>
-        
-    </record>
-    <record id="estate_4BHK" model="estate.property.tag">
-        <field name="name">4BHK</field>
-        
-    </record>
+    </record>  
+   
     <record id="estate_mical" model="estate.property.sales">
         <field name="name">mical</field>
         
@@ -50,9 +34,7 @@
         
     </record>
     <record id="estate_henny" model="estate.property.buyer">
-        <field name="name">henny</field>
-        
-    </record>
-    
+        <field name="name">henny</field>        
+    </record>    
    </data>
 </odoo>

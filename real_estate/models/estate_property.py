@@ -32,13 +32,13 @@ class estate_Property(models.Model):
         selection=[('north', 'North'), ('east', 'East'),('west', 'west'),('south', 'South')],
         help=("used for the garden orientation"))
       active = fields.Boolean('Active',default=True)
-      state=fields.Selection(string='status',selection=[('new' , 'New'),('sold' , 'Sold'),('canceled' , 'canceled')])
+      state=fields.Selection(string='status',selection=[('new' , 'New'),('offer Received','Offer received'),('offer Accepted','Offer accepted'),('sold' , 'Sold'),('canceled' , 'canceled')],default='new')
       sales_id = fields.Many2one('res.users', string='Salesperson')
       buyer_id=fields.Many2one('res.partner', string='buyer')
       type_id=fields.Many2one('estate.property.type',string="product type")
       name = fields.Char()
       expeccted_proce = fields.Integer()
-      state = fields.Char()
+      # state = fields.Char()
       tag_ids=fields.Many2many(
        'estate.property.tag', string='Tags',
       help="Classify and analyze your lead/opportunity categories like: Training, Service")

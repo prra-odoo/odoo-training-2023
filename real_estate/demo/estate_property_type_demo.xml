@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+   <data>
+    <record id="estate_hotel" model="estate.property.type">
+        <field name="name">hotel</field>        
+    </record>
+    <record id="estate_res" model="estate.property.type">
+        <field name="name">restaurent</field>        
+    </record>
+    <record id="estate_bunglow" model="estate.property.type">
+        <field name="name">bunglow</field>        
+    </record>
+   </data>
+</odoo>
