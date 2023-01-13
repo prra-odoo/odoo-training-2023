@@ -4,6 +4,7 @@ from odoo import api,models,_,fields
 from datetime import datetime, timedelta
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
+from odoo.tools import float_is_zero,float_compare
 
 class estateModel(models.Model):
     _name = "estate.property"
@@ -72,11 +73,13 @@ class estateModel(models.Model):
         if not self.env.ref('name', raise_if_not_found=False):
             return '<p class="o_view_nocontent_smiling_face">%s</p>' % _('No record found, create one :)')
 
-    @api.constrains('selling_price')
+    @api.constrains('selling_price','expected_price')
     def _check_constrains_SP(self):
         for record in self:
-            if record.selling_price <= (90/100)*(record.expected_price):
-                raise ValidationError("Selling price cannot be less than 90 percent of expected price")
+            if not float_is_zero(record.selling_price,precision_rounding=0.01):
+                if float_compare(record.selling_price,0.9*record.expected_price,precision_digits=2)==-1:
+                    raise ValidationError("Selling Price Cannot be less than 90percent of Expected Price")
+
 
     @api.ondelete(at_uninstall=False)
     def _unlink_excep_new_cancled_user(self):

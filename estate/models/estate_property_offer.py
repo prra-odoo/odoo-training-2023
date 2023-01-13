@@ -4,6 +4,8 @@ from odoo import models,_,fields,api
 from datetime import date
 from odoo.tools.date_utils import add
 from odoo.exceptions import ValidationError
+from dateutil.relativedelta import relativedelta
+
 
 class estatepropertyoffer(models.Model):
     _name = "estate.property.offer"
@@ -40,8 +42,8 @@ class estatepropertyoffer(models.Model):
                     if record.partner_id != self.partner_id:
                         raise ValidationError(_("cannot accept more than one offer"))
                     else:
-                        for i in rec:
-                            self.status='refuse'
+                        for rec in self:
+                            self.status='refuse'  
         self.status='accepted'
         self.property_id.state='offeraccepted'
         self.property_id.selling_price = self.price
@@ -57,3 +59,5 @@ class estatepropertyoffer(models.Model):
         #     raise ValidationError("Error")
         self.env['estate.property'].browse(vals['property_id']).state = 'offerrecieved'
         return super().create(vals)
+
+
