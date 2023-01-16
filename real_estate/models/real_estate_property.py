@@ -9,6 +9,9 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This model will store the price related to estate"
 
+    # setting the order for the properties to be displayed in order
+    _order = "id desc"
+
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Address of the building")
     postcode = fields.Char(string="Postcode")
@@ -33,6 +36,8 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer", 'property_id')
 
+    # adding sequence field
+    sequence = fields.Integer()
 
     # sql constraints while setting expected price
     _sql_constraints = [

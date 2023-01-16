@@ -4,8 +4,12 @@ class EstatePropertyTag(models.Model):
     _name = "estate.property.tag"
     _description = "This model will have the tags related to propterties!"
 
+    # ordering the name 
+    _order = "name"
+
 
     name = fields.Char(required=True)
+    color = fields.Integer()
 
 
     # defining sql constraints so that user cannot set multiple tags with same name

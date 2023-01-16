@@ -10,6 +10,9 @@ class EstatePropertyOffers(models.Model):
     _name = "estate.property.offer"
     _description = "This model will contain estate property all the offers, price, status etc."
 
+    # setting order of the list of offers in descending
+    _order = "price desc"
+
 
     price = fields.Float()
     status = fields.Selection([('accepted', 'Accepted'), ('refused', 'Refused')], copy=False)
