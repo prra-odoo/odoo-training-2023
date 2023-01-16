@@ -4,12 +4,12 @@
         <field name="name">Estate Offers</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="bottom" decoration-success="status=='accepted'" decoration-danger="status=='refuse'">
                 <field name="price"/> 
                 <field name="partner_id"/>
-                <button name="accept_action" string=" " type="object" icon="fa-check"/>
-                <button name="reject_action" string=" " type="object" icon="fa-times"/> 
-                <field name="status" />
+                <button name="accept_action" string=" " type="object" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
+                <button name="reject_action" string=" " type="object" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}" /> 
+                <field name="status" optional="hidden"/>
             </tree>
         </field>
     </record>

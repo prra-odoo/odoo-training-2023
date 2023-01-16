@@ -15,14 +15,17 @@
         <field name="name">Estate.Property</field>
         <field name="model">real.estate.properties</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-success="state in ('offer_recieved','offer_accepted')"
+                    decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'" decoration-warning="state == 'new'" decoration-danger="state == 'cancled'">
                 <field name="name" string="Title"/>
                 <field name="Postcode"/>
                 <field name="bedroom"/>
-                <field name="living_area" string="Living Area (sqm)" optional="hidden"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="living_area" string="Living Area (sqm)" />
                 <field name="expected_price"/>
                 <field name="selling_price" />
-                <field name="date_availablity" string="Available From"/>
+                <field name="date_availablity" string="Available From" optional="hidde n"/>
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -34,13 +37,13 @@
         <field name="arch" type="xml">
             <form string="Property List">
                 <header>
-                    <button name="action_sold" type="object" string="Sold"/>
-                    <button name="action_cancel" type="object" string="Cancel"/> -->
-                    <!-- <field color="blue" name="state" widget="statusbar" options="{'clickable' : 1,'color' : 'red'   }"  /> --> -->
+                    <button name="action_sold" type="object" string="Sold" states="new,offer_recieved,offer_accepted"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="new,offer_recieved,offer_accepted"/>
+                    <field  name="state" widget="statusbar" options="{'clickable' : 1}"  /> 
                 </header>
                 <sheet>
                     <h1><field name="name"/></h1>
-                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <group>
                         <group>
                             <field name="Postcode"/>
@@ -51,8 +54,8 @@
                             <field name="selling_price" />
                         </group>
                         <group>
-                            <field name="property_type_id" />
-                            <field name="state" />
+                            <field name="property_type_id" options="{'no_create': True, 'no_open': True}"/>
+                            <!-- <field name="state" /> -->
                         </group>
                         <group>
                             <field name="best_price" />
@@ -65,14 +68,14 @@
                                     <field name="living_area" string="Living Area (sqm)"/>
                                     <field name="facades"/>
                                     <field name="garage"/>
-                                    <field name="gardan" string="Garden"/>
-                                    <field name="gardan_area" string="Garden Area (sqm)"/>
-                                    <field name="garden_orientation"/>
+                                    <field name="gardan" string="Garden" />
+                                    <field name="gardan_area" string="Garden Area (sqm)" attrs="{'invisible': [('gardan', '=', False)]}"/>
+                                    <field name="garden_orientation" attrs="{'invisible': [('gardan', '=', False)]}"/>
                                     <field name="total_area" />
                                 </group>
                             </page>
                             <page string="offer">
-                                <field name="offer_ids"/>
+                                <field name="offer_ids" attrs="{'readonly' : [('state','in',('sold','offer_accepted','cancled'))]}"/>
                             </page>
                             <page string="other info">
                                 <group>

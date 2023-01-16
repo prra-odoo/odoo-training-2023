@@ -8,7 +8,7 @@ class real_Esate_Properties(models.Model):
 
 	_name='real.estate.properties'
 	_description="Property Details"
-
+	_order="id desc"
 
 	name=fields.Char(required=True,default="Unknown")
 	description=fields.Text()

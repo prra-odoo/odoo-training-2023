@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 class estate_property_offer(models.Model):
     _name="estate.property.offer"
     _description="Offers for a property"
+    _order="price desc"
 
     price=fields.Float()
     status=fields.Selection(
@@ -17,6 +18,7 @@ class estate_property_offer(models.Model):
     validity=fields.Integer(default=7)
     date_deadline=fields.Date(compute="_compute_date_deadline",inverse="_inverse_date_deadline")
     
+
     @api.depends("validity")
     def _compute_date_deadline(self):
         for record in self:
@@ -36,10 +38,11 @@ class estate_property_offer(models.Model):
 
     def accept_action(self):
         for record in self:
-            record.property_id.offer_ids.status='refuse'
+            # record.property_id.offer_ids.status='refuse'
             record.status="accepted"
             record.property_id.selling_price=record.price
             record.property_id.buyer=record.partner_id
+
     _sql_constraints=[
         ('check_price','CHECK(price > 0 )','Price Must be positve ')
     ]
