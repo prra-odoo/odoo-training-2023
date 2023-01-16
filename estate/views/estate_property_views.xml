@@ -18,7 +18,7 @@
                 </tree>
             </field>
         </record>
-        ir.action
+        
         <record id="real_estate_form_view" model="ir.ui.view">
             <field name="name">Real Estate</field>
             <field name="model">estate.property</field>

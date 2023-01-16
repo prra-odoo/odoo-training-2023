@@ -10,5 +10,4 @@
     'installable': True,
     'license' : "LGPL-3",
     'website': 'https://www.odoo.com',
-    
 }
