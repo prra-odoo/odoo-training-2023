@@ -14,43 +14,39 @@
                 <field name="garden" optional="show"/>
                 <field name="garage" optional="show"/>
                 <field name="living_area" optional="show"/>
+                <field name="postcode" optional="hide"/>
+                <field name="date_availability" optional="hide"/>
+                <field name="bedrooms" optional="hide"/>
+                <field name="facades" optional="hide"/>
+                <field name="garden_orientation" optional="hide"/>
             </tree>
         </field>
     </record>
     <!--FORM VIEW-->
-    <record id="estate_prpperty_form_view" model="ir.ui.view">
+    <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">Estate Property Form View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="form_view">
                 <sheet>
                     <group>
-                        <group>
+                        <group col="1">
                             <field name="name"/>
+                            <field name="bedrooms"/>
+                            <field name="expected_price"/>
+                            <field name="facades"/>
+                            <field name="garden_area"/>
+                            <field name="garden"/>
+                            <field name="garage"/>
                         </group>
-                        <notebook>
-                            <page string="Description">
-                                <field name="description"/>
-                                <group>
-                                    <field name="selling_price"/>
-                                </group>
-                                <group>
-                                    <field name="expected_price"/>
-                                </group>
-                                <group>
-                                    <field name="garden_area"/>
-                                </group>
-                                <group>
-                                    <field name="garden"/>
-                                </group>
-                                <group>
-                                    <field name="garage"/>
-                                </group>
-                                <group>
-                                    <field name="living_area"/>
-                                </group>
-                            </page>
-                        </notebook>
+                        <group col="2">
+                            <field name="description"/>
+                            <field name="living_area"/>
+                            <field name="selling_price"/>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                            <field name="garden_orientation"/>
+                        </group>
                     </group>
                 </sheet>
             </form>
