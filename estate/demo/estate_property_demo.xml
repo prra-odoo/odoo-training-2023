@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="estate_property_demo" model="estate.property">
+            <field name="name">Yash</field>
+            <field name="expected_price">1234567890</field>
+        </record>
+    </data> 
+</odoo>

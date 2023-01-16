@@ -2,7 +2,7 @@
 {
     'name': ' Real estate',
     'category': 'sales',
-    'summary': ' property Le vech mate ',
+    'summary': ' For buying and selling proerties.',
     'description': ' This is a  real estate Module',
     'author': 'Karnav',
     'depends': [],
@@ -15,5 +15,8 @@
         'security/ir.model.access.csv',
         'views/estate_property_view.xml',
         'views/estate_menu.xml',
+    ],
+    'demo':[
+        'demo/estate_property_demo.xml',
     ],
 }

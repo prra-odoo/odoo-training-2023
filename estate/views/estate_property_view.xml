@@ -12,9 +12,9 @@
                 <field name="expected_price" optional="show"/>
                 <field name="garden_area" optional="show"/>
                 <field name="garden" optional="show"/>
-                <field name="garage" optional="show"/>
-                <field name="living_area" optional="show"/>
-                <field name="postcode" optional="hide"/>
+                <field name="garage" optional="hide"/>
+                <field name="living_area" optional="hide"/>
+                <field name="postcode" optional="show"/>
                 <field name="date_availability" optional="hide"/>
                 <field name="bedrooms" optional="hide"/>
                 <field name="facades" optional="hide"/>
@@ -29,29 +29,70 @@
         <field name="arch" type="xml">
             <form string="form_view">
                 <sheet>
-                    <group>
-                        <group col="1">
+                    <div class="oe_title">
+                        <h1>
                             <field name="name"/>
-                            <field name="bedrooms"/>
-                            <field name="expected_price"/>
-                            <field name="facades"/>
-                            <field name="garden_area"/>
-                            <field name="garden"/>
-                            <field name="garage"/>
-                        </group>
-                        <group col="2">
-                            <field name="description"/>
-                            <field name="living_area"/>
-                            <field name="selling_price"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
                             <field name="postcode"/>
                             <field name="date_availability"/>
-                            <field name="garden_orientation"/>
                         </group>
+                        <group>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <field name="description"/>
+                                    <field name="bedrooms"/>
+                                    <field name="facades"/>
+                                    <field name="garden_area"/>
+                                    <field name="garden"/>
+                                    <field name="garage"/>
+                                    <field name="living_area"/>
+                                    <field name="garden_orientation"/>
+                                    <field name="state"/>
+                                    <field name="active"/>
+                                </group>
+                            </page>
+                        </notebook>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
+    <!-- SEARCH VIEW-->
+    <record id="estate_property_search" model="ir.ui.view">
+        <field name="name">Estate property search </field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="estate_search">
+                <field name="name"/>
+                <field name="selling_price"/>
+                <field name="expected_price"/>
+                <field name="garden_area"/>
+                <field name="garden"/>
+                <field name="garage"/>
+                <field name="living_area"/>
+                <field name="postcode"/>
+                <field name="date_availability"/>
+                <field name="bedrooms"/>
+                <field name="facades"/>
+                <field name="garden_orientation"/>
+                <!-- SEPERATOR -->
+                <separator/>
+                <filter string="State search" name="search_state" domain="[('state', 'in', ['new','offer_received'])]"/>
+                <group string="Group By">
+                    <filter string="Postcode" name="postcode_groupby" context="{'group_by':'postcode'}"/>
+                    <filter string="Bedrooms" name="bedroom_groupby" context="{'group_by':'bedrooms'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- HELP MESSAGE -->
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">properties</field>
         <field name="res_model">estate.property</field>
