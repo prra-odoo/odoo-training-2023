@@ -8,12 +8,12 @@ from odoo.tools.float_utils import float_compare, float_is_zero
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real estate advertisement module"
-    _inherit = ['mail.thread'] #to add the chatter 
+    _inherit = ['mail.thread','mail.activity.mixin'] #to add the chatter 
     _order = "sequence, property_type_id desc"
 
     name = fields.Char('Name',required=True)
-    salesperson_id = fields.Many2one('res.users', string='Salesperson')
-    buyer_id = fields.Many2one('res.partner', string='Buyer',tracking=True)
+    salesperson_id = fields.Many2one('res.users', string='Salesperson') #user_id
+    buyer_id = fields.Many2one('res.partner', string='Buyer',tracking=True) #partner_id
     property_type_id = fields.Many2one('estate.property.type', string='Property Type') #inverse in property type py
     description = fields.Text('Details',copy=False)
     postcode = fields.Char('Postcode')
@@ -102,8 +102,8 @@ class EstateProperty(models.Model):
     # #oncreate
     # @api.model
     # def create(self, vals):
-    #     self.env['estate.property.offer'].browse(vals['price'])
-    #     if 'price' in vals:
+    #     price = self.env['estate.property.offer'].browse(vals['price'])
+    #     if price in vals:
     #         for record in self:
     #             record.state = 'offer_received'
     #     return super().create(vals)

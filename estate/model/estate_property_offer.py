@@ -30,6 +30,21 @@ class EstatePropertyOffer(models.Model):
     date_deadline = fields.Date(compute='_compute_date', inverse='_inverse_date')
     create_date = fields.Date('Date availability',default=fields.Datetime.now())
 
+    @api.model
+    def create(self, vals_list):
+        for vals in vals_list:
+            self.env['estate.property'].browse(vals['property_id'])
+            vals.price = '1000'
+        return super().create(vals)
+
+    # @api.model
+    # def create(self, vals_list):
+    #     for vals in vals_list:
+    #         if 'price' in vals:
+    #             property_id = self.env['estate.property.offer'].browse(vals['property_id'])
+    #             property_id.state = 'offer_received'
+    #     return super(EstatePropertyOffer, self).create(vals)
+
     @api.depends('validity')
     def _compute_date(self):
         for record in self:
