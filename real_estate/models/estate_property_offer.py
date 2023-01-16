@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = " A property offer is an amount a potential buyer offers to the seller."
+    _order = "price desc"
     
     price = fields.Float(string="Price")
     status = fields.Selection(string="Status", selection=[('accepted','Accepted'), ('refused','Refused')], copy=False)
@@ -15,6 +16,7 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one("estate.property", required=True)
     validity = fields.Integer(string="Validity (days)", default=7)
     date_deadline = fields.Date(string="Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
+    property_type_id = fields.Many2one("estate.property.type", store=True)
     
     _sql_constraints = [
         ('best_price_positive', 'check (price > 0)', "The offer price must be strictly positive.")
@@ -28,6 +30,7 @@ class EstatePropertyOffer(models.Model):
             record.status = 'accepted' # Then, This will accept offer where user clicked.
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
+            record.property_id.state = 'offer_accepted'
         return True
     
     def action_refuse_btn(self):

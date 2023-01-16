@@ -4,6 +4,7 @@
         <field name="name">Real Estate</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_available":True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No property found, Please add your property over here</p>
             <p>Use the top left
@@ -16,7 +17,7 @@
         <field name="name">Real Estate List View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="List View">
+            <tree string="List View" decoration-success = "state in ('offer_received', 'offer_accepted')" decoration-bf = "state == 'offer_accepted'" decoration-muted = "state == 'sold'">
                 <field name="name"/>
                 <!-- optional="show" -->
                 <field name="postcode"/>
@@ -25,7 +26,8 @@
                 <field name="garden_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
-                <field name="date_availability"/>
+                <field name="date_availability" optional="hide"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -37,8 +39,8 @@
             <form string="Property">
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
-                    <button name="action_sold_btn" type="object" string="SOLD"/>
-                    <button name="action_cancel_btn" type="object" string="CANCEL"/>
+                    <button name="action_sold_btn" type="object" string="SOLD" attrs="{'invisible': [('state', 'in', ('sold', 'cancelled'))]}"/>
+                    <button name="action_cancel_btn" type="object" string="CANCEL" attrs="{'invisible': [('state', 'in', ('sold', 'cancelled'))]}"/>
                 </header>
                 <sheet>
                     <br/>
@@ -47,12 +49,12 @@
                         <field name="name" string="Name" placeholder="e.g. Cozy Apartment in Ahmedabad"/>
                     </h1>
                     <label for="tag_ids" string="Tags"/>
-                    <field name="tag_ids" widget="many2many_tags" string="Tags" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                    <field name="tag_ids" widget="many2many_tags" string="Tags" options="{'no_quick_create':True,'no_create_edit':True, 'color_field': 'color'}"/>
                     <br/>
                     <br/>
                     <group>
                         <group>
-                            <field name="property_type_id" string="Property Type" options="{'no_quick_create':True,'no_create_edit':True}"/>
+                            <field name="property_type_id" string="Property Type" options="{'no_quick_create':True}"/>
                             <field name="state" string="State"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
@@ -75,14 +77,14 @@
                                 <field name="facades"/>
                                 <field name="garage"/>
                                 <field name="garden"/>
-                                <field name="garden_area"/>
-                                <field name="garden_orientation"/>
+                                <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                 <field name="total_area"/>
                             </group>
                         </page>
                         <!-- Offers -->
                         <page name="offers" string="Offers">
-                            <field name="offer_ids" />
+                            <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('sold', 'cancelled', 'offer_accepted'))]}"/>
                         </page>
                         <!-- Other Info -->
                         <page name="other_info" string="Other Info">
@@ -106,16 +108,15 @@
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
                 <field name="garden_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability"/>
-                <!-- <field name="context">{"search_default_name_of_the_filter":1}</field> -->
                 <filter string="Available" name="available" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]"/>
                 <separator/>
                 <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
                 <separator/>
+                <field name="living_area" string="Living Area" filter_domain="[('living_area', '>=', self)]"/>
             </search>
         </field>
     </record>

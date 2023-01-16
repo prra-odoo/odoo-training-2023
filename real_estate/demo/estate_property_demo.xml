@@ -10,6 +10,7 @@
             <field name="garden_area">1000</field>
             <field name="expected_price">100000000</field>
             <field name="state">new</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_2"/>
             <field name="tag_ids" eval="[(6, 0, [ref('estate_property_tag_demo_data_1')])]"/>
         </record>
         <!-- 2 -->
@@ -21,6 +22,7 @@
             <field name="garden_area">800</field>
             <field name="expected_price">10000000</field>
             <field name="state">new</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_2"/>
         </record>
         <!-- 3 -->
         <record id="estate_property_demo_data_3" model="estate.property">
@@ -31,16 +33,18 @@
             <field name="garden_area">600</field>
             <field name="expected_price">1000000</field>
             <field name="state">new</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_3"/>
         </record>
         <!-- 4 -->
         <record id="estate_property_demo_data_4" model="estate.property">
-            <field name="name">Luxurious 2 BHK Flat</field>
+            <field name="name">Luxurious 2 BHK Bungalow</field>
             <field name="postcode">100004</field>
             <field name="bedrooms">2</field>
             <field name="living_area">200</field>
             <field name="garden_area">400</field>
             <field name="expected_price">100000</field>
             <field name="state">new</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_1"/>
         </record>
         <!-- 5 -->
         <record id="estate_property_demo_data_5" model="estate.property">
@@ -50,6 +54,7 @@
             <field name="living_area">100</field>
             <field name="garden_area">200</field>
             <field name="expected_price">10000</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_2"/>
             <field name="state">new</field>
         </record>
     </data>

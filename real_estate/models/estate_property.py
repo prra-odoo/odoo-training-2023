@@ -8,6 +8,7 @@ from odoo.tools.float_utils import float_compare
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real estate module properties"
+    _order = "id desc"
 
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
@@ -30,12 +31,13 @@ class EstateProperty(models.Model):
     buyer_id = fields.Many2one('res.partner', copy=False)
     salesperson_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag', string='Tags')
-    offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offers")    
+    offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offers")  
     
     _sql_constraints = [
         ('expected_price_positive', 'check (expected_price > 0)', "The expected price must be strictly positive."),
         ('selling_price_positive', 'check (selling_price > 0)', "The selling price must be strictly positive."),
     ]
+
     
     # Button Methods
     
@@ -100,3 +102,10 @@ class EstateProperty(models.Model):
         for record in self:
             if float_compare(record.selling_price, (0.9 * record.expected_price), precision_rounding=0.01) <= 0 and record.offer_ids:
                 raise ValidationError("The selling price must be least 90% of expected price. You must have to reduce expected price if you want to accept this offer!!!")
+    
+    #### TODO ####     
+    # @api.constrains('state')
+    # def _check_offer_ids(self):
+    #     for record in self:
+    #         if len(record.offer_ids):
+    #             record.state = "offer_received"
