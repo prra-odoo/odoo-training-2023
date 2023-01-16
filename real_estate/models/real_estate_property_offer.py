@@ -4,6 +4,7 @@ from datetime import datetime
 class RealEstatePropertyOffer(models.Model):
     _name="real.estate.property.offer"
     _description="Property Offer"
+    _order="price desc"
     price=fields.Float()
     status=fields.Selection(selection=[("accepted","Accepted"),("refused","Refused")],copy=False)
     partner_id=fields.Many2one("res.partner",required=True)
@@ -28,7 +29,6 @@ class RealEstatePropertyOffer(models.Model):
                 record.date_deadline=record.create_date+relativedelta(days=record.validity)
             else:
                 record.date_deadline=fields.Datetime.now()+relativedelta(days=record.validity)
-
     def _inverse_date_deadline(self):
         for record in self:
             diff=record.date_deadline-record.create_date

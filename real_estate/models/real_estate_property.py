@@ -1,9 +1,11 @@
 from odoo import models,fields,api,_
 from odoo.exceptions import UserError,ValidationError
+from odoo.tools.float_utils import float_is_zero,float_compare
 from dateutil.relativedelta import relativedelta
 class RealEstateProperty(models.Model):
     _name='real.estate.property'
     _description="Property model"
+    _order="id desc"
     name=fields.Char(string='Property Name',required=True)
     description=fields.Text()
     postcode=fields.Char()
@@ -15,7 +17,7 @@ class RealEstateProperty(models.Model):
     facades=fields.Integer()
     garage=fields.Boolean()
     garden=fields.Boolean()
-    garden_area=fields.Integer(compute='_compute_garden',store=True)
+    garden_area=fields.Integer(compute='_compute_garden',store=True,readonly=False)
     garden_orientation=fields.Selection(selection=[('north','North'),('south','South'),('east','East'),('west','West')])
     active=fields.Boolean(default=True)
     state=fields.Selection(selection=[('new','New'), ('offer_received','Offer Received'), ('offer_accepted','Offer Accepted'), ('sold','Sold'),('canceled','Canceled')],default='new')
@@ -30,7 +32,7 @@ class RealEstateProperty(models.Model):
     @api.constrains("selling_price","expected_price")
     def _check_selling_price(self):
         for record in self:
-            if record.selling_price<=(record.expected_price*90/100) and record.offers_ids:
+            if float_compare(record.selling_price,record.expected_price*90/100,precision_digits=2)<0 and not float_is_zero(record.expected_price,precision_digits=2):
                 raise ValidationError(_("the selling price cannot be lower than 90% of the expected price."))
     
     def action_state_sold(self):
@@ -56,6 +58,8 @@ class RealEstateProperty(models.Model):
             offer=record.offers_ids.mapped('price')
             if offer:
                 record.best_offer=max(offer)
+                if record.state in ('new',):
+                    record.state='offer_received'
             else:
                 record.best_offer=0
     @api.depends("garden")

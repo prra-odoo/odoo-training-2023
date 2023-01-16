@@ -4,36 +4,36 @@
             <field name="name">2BHK Bunglow</field>
             <field name="selling_price">7000000</field>
             <field name="expected_price">7000000</field>
-            <!-- <field name="type_id">3</field> -->
+            <field name="type_id">3</field>
         </record>
         <record id="real_estate_property_id2" model="real.estate.property">
             <field name="name">3BHK Flat</field>
             <field name="selling_price">5000000</field>
             <field name="expected_price">5000000</field>
-            <!-- <field name="type_id">1</field> -->
+            <field name="type_id">1</field>
         </record>
         <record id="real_estate_property_id3" model="real.estate.property">
             <field name="name">2BHK Office</field>
             <field name="selling_price">15000000</field>
             <field name="expected_price">14000000</field>
-            <!-- <field name="type_id">2</field> -->
+            <field name="type_id">2</field>
         </record>
         <record id="real_estate_property_id4" model="real.estate.property">
             <field name="name">5BHK Bunglow</field>
             <field name="selling_price">20000000</field>
             <field name="expected_price">21000000</field>
-            <!-- <field name="type_id">3</field> -->
+            <field name="type_id">3</field>
         </record>
         <record id="real_estate_property_id5" model="real.estate.property">
             <field name="name">1BHK Office</field>
             <field name="selling_price">10000000</field>
             <field name="expected_price">9000000</field>
-            <!-- <field name="type_id">2</field> -->
+            <field name="type_id">2</field>
         </record>
         <record id="real_estate_property_id6" model="real.estate.property">
             <field name="name">2BHK Flat</field>
             <field name="selling_price">7000000</field>
             <field name="expected_price">7000000</field>
-            <!-- <field name="type_id">1</field> -->
+            <field name="type_id">1</field>
         </record>
 </odoo>
