@@ -27,22 +27,49 @@
         <field name="arch" type="xml">
             <form string="form View">
                 <sheet>
+                    <div class ="title">
+                        <h1>
+                            <field name="name" placeholder="Property name"/>
+                        </h1>
+                    </div>
+
                     <group>
-                        <field name="name"/>
-                        <field name="description" optional="hide"/>
-                        <field name="postcode"/>
-                        <field name="bedrooms"/>
-                        <field name="living_area"/>
-                        <field name="facades"/>
-                        <field name="data_avabilability"/>
-                        <field name="selling_price"/>
-                        <field name="expected_price"/>
-                        <field name="garage"/>
-                        <field name="garden_area"/>
-                        <field name="garden_orientation"/>
+                        <group col ="1">
+                            <field name="selling_price"/>
+                            <field name="expected_price"/>
+                        </group>
+                        <group col ="2">
+                            <field name="data_avabilability"/>
+                            <field name="postcode"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description"/>
+                                <field name="bedrooms"/>
+                                <field name="living_area"/>
+                                <field name="facades"/>
+                                <field name="garage"/>
+                                <field name="garden_area"/>
+                                <field name="garden_orientation"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+    <record id="estate_property_search_view" model="ir.ui.view">
+        <field name="name">Estate Property form View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="property">
+                <filter string="Avaliable" name="data_avabilability" />
+                <group string="Group By">
+                    <filter string="Postcode" name="postcode"/>
+                </group>
+            </search>
         </field>
     </record>
     <record id="estate_property_action" model="ir.actions.act_window">

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 {
     'name': "Real Estate",
     'summary': "Module for real estate",
