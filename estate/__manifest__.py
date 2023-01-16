@@ -11,6 +11,9 @@
         'views/estate_property_views.xml',
         'views/estate_menus.xml',
     ],
+    'demo': [
+        'demo/real_estate_demo_data.xml'
+    ],
     'sequence' :-100,
     'installable': True,
     'application': True,

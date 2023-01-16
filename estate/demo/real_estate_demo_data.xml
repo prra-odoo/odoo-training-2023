@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+   <record id="estate_property_house" model="estate.property">
+        <field name="name">ABC</field>
+        <field name="expected_price">1200000</field>
+        <field name="postcode">390051</field>
+    </record> 
+</odoo>

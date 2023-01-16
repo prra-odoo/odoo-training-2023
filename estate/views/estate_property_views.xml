@@ -1,77 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+    <!-- Tree View -->
     <record id="estate_property_tree_view" model="ir.ui.view">
         <field name="name">Estate property view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Tree View">
-                <field name="name"/>
-                <field name="description" optional="hidden"/>
-                <field name="postcode"/>
-                <field name="date_availability" optional="hidden"/>
-                <field name="expected_price"/>
-                <field name="selling_price" optional="hidden"/>
-                <field name="bedrooms" optional="hidden"/>
-                <field name="living_area" optional="hidden"/>
-                <field name="facades" optional="hidden"/>
-                <field name="garden" optional="hidden"/>
-                <field name="garden_area" optional="hidden"/>
-                <field name="garden_orientation" optional="hidden"/>
+                <field name="name" />
+                <field name="description" optional="hidden" />
+                <field name="postcode" />
+                <field name="date_availability" optional="hidden" />
+                <field name="expected_price" />
+                <field name="selling_price" optional="hidden" />
+                <field name="bedrooms" optional="hidden" />
+                <field name="living_area" optional="hidden" />
+                <field name="facades" optional="hidden" />
+                <field name="garden" optional="hidden" />
+                <field name="garden_area" optional="hidden" />
+                <field name="garden_orientation" optional="hidden" />
             </tree>
-            
         </field>
-
     </record>
-
+    <!-- Standard Record -->
     <record id="estate_property_action" model="ir.actions.act_window">
-        <field name= "name">Properties</field>
-        <field name= "res_model">estate.property</field>
-        <field name= "view_mode">tree,form</field>
+        <field name="name">Properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Add New Properties
             </p>
-            <p>
-                You can search about other Properties using the filters here above
-                <br/>
-                or create a new Property Offer
-            </p>
+            <p> You can search about other Properties using the filters here above <br /> or create
+                a new Property Offer </p>
         </field>
     </record>
-
-
+    <!-- Form View -->
     <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">Estate Form View</field>
         <field name="model">estate.property</field>
-        <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Estate Property Form View">
                 <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="description" />
-                        <field name="postcode"/>
-                        <field name="date_availability" />
-                        <field name="expected_price"/>
-                        <field name="selling_price" />
-                        <field name="bedrooms" />
-                        <field name="living_area" />
-                        <field name="facades" />
-                        <field name="garden" />
-                        <field name="garden_area" />
-                        <field name="garden_orientation"/>
-                        <field name="status"/>
-                        <field name="active"/>
+                    <div class="title" name="property_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group name="main">
+                        <group name="main_left">
+                            <field name="postcode" />
+                            <field name="date_availability" />
+                        </group>
+                        <group name="main_right">
+                            <field name="expected_price" />
+                            <field name="selling_price" />
+                        </group>
                     </group>
-                    
-
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description" />
+                                <field name="bedrooms" />
+                                <field name="living_area" />
+                                <field name="facades" />
+                                <field name="garden" />
+                                <field name="garden_area" />
+                                <field name="garden_orientation" />
+                                <field name="status" />
+                                <field name="active" />
+                            </group>
+                        </page>
+                        <page string="Optional"></page>
+                    </notebook>
                 </sheet>
-
             </form>
-
-        
         </field>
     </record>
-
+    <!-- Search View -->
+    <record id="estate_property_view_search" model="ir.ui.view">
+        <field name="name">Estate property view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Search Property Offers">
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="expected_price"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <filter string="Available Properties" name="available_properties" domain="['|',('status','=','new'),('status','=','offer_received')]"/>
+                <group>
+                    <filter string="Postcode" name="postcode_groupby" context="{'group_by': 'postcode'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>
