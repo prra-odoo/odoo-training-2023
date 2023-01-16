@@ -34,11 +34,11 @@
                     </div>
 
                     <group>
-                        <group col ="1">
+                        <group>
                             <field name="selling_price"/>
                             <field name="expected_price"/>
                         </group>
-                        <group col ="2">
+                        <group>
                             <field name="data_avabilability"/>
                             <field name="postcode"/>
                         </group>
@@ -53,6 +53,7 @@
                                 <field name="garage"/>
                                 <field name="garden_area"/>
                                 <field name="garden_orientation"/>
+                                <!-- <field name="state"/> -->
                             </group>
                         </page>
                     </notebook>
@@ -64,13 +65,13 @@
         <field name="name">Estate Property form View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <search string="property">
-                <filter string="Avaliable" name="data_avabilability" />
-                <group string="Group By">
-                    <filter string="Postcode" name="postcode"/>
+            <search>
+                <filter string="Available" name="available" domain="[('garden_orientation', 'in', ['north','south'])]"/>
+                <group>
+                    <filter string="Postcode" name="postcode_groupby" context="{'group_by': 'postcode'}" />
                 </group>
             </search>
-        </field>
+        </field> 
     </record>
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">estate</field>
