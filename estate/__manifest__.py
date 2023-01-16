@@ -10,11 +10,12 @@
     'installable': True,
     'application': True,
     'auto_install': False,
-    'sequence':-1000,
+    'sequence':0,
     'data':[
         'security/ir.model.access.csv',
         'views/estate_property_views.xml',
         'views/estate_menus.xml',
+        # 'views/estate_property_type.xml'
         ],
     'icon':"estate/static/description/icon.png",
 }
