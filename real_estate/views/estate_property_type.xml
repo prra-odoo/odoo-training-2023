@@ -16,12 +16,39 @@
        <field name="model">estate.property.type</field>
        <field name="arch" type="xml">
             <tree string="Channel" >
+                <field name="sequence" widget="handle"/>
                 <field name="name" string="Title"/>
             </tree>
         </field>
     </record>
 
+    <record id="property_type_form_view" model="ir.ui.view">
+        <field name="name">Property Type Form View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+             <form>
+                <sheet>
+                    <h1> <field name="name"/></h1>
+                    <br/>
+                    <notebook>
+                        <page string="Properties">
+                            <form>
+                                <field name="property_ids">
+                                    <tree>
+                                        <field name="name" string="Title"/>
+                                        <field name="expected_price"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </form>
+                        </page>
+                    </notebook>
+                </sheet>
+             </form>
+         </field> 
+     </record>
 
+    
     
 
 </odoo>

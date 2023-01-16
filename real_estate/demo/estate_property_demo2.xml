@@ -7,8 +7,8 @@
             <field name="postcode">123456</field>
             <field name="bedrooms" >3</field>
             <field name="living_area" >5000</field>
-            <field name="expected_price">100000</field>
-            <field name="selling_price">1000000</field>
+            <!-- <field name="expected_price">300</field> -->
+            
         </record>
 
         <record id="estate_property_record_2" model="estate.property.model">
@@ -16,8 +16,8 @@
             <field name="postcode">5678</field>
             <field name="bedrooms" >3</field>
             <field name="living_area" >4000</field>
-            <field name="expected_price">200000</field>
-            <field name="selling_price">1000000</field>
+            <!-- <field name="expected_price">100</field> -->
+           
         </record>
 
         <record id="estate_property_record_3" model="estate.property.model">
@@ -25,8 +25,8 @@
             <field name="postcode">34567</field>
             <field name="bedrooms" >2</field>
             <field name="living_area" >9000</field>
-            <field name="expected_price">70000</field>
-            <field name="selling_price">1000000</field>
+            <!-- <field name="expected_price">700</field> -->
+           
         </record>
 
         <record id="estate_property_record_4" model="estate.property.model">
@@ -34,8 +34,8 @@
             <field name="postcode">89765</field>
             <field name="bedrooms" >4</field>
             <field name="living_area" >9000</field>
-            <field name="expected_price">600000</field>
-            <field name="selling_price">1000000</field>
+            <!-- <field name="expected_price">600</field> -->
+            
         </record>
     </data>
 </odoo>

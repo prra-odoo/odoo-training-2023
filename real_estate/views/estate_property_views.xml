@@ -15,7 +15,7 @@
        <field name="name">Estate Property List View</field>
        <field name="model">estate.property.model</field>
        <field name="arch" type="xml">
-            <tree string="Channel" >
+            <tree string="Channel" default_order="name desc">
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
                 <field name="bedrooms" string="Bedrooms"/>
@@ -39,15 +39,16 @@
                     <field name="state" widget="statusbar" options="{'clickable': '1'}" />
                 </header> -->
                 <header>
-                    <button name="perform_cancel" type="object" string="Cancel" />
-                    <button name="perform_sold" type="object" string="Sold"/>
+                    <button name="perform_cancel" type="object" string="Cancel" states="new,offer_recieved,offer_accepted"/>
+                    <button name="perform_sold" type="object" string="Sold" states="new,offer_recieved,offer_accepted"/>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <h1> 
                         <field name="name" />
                     </h1>
                     <br/>
-                    <field name="tag_ids"  widget="many2many_tags"/>    
+                    <field name="tag_ids"  widget="many2many_tags" options="{'color_field':'color'}"/>    
                     <br/>
                     <group>
                         <group> <field name="postcode"/></group>
@@ -59,22 +60,23 @@
                         <field name="state" string="Status"/>
                     </group>
                     <group>
-                        <group><field name="type_id"/></group>
+                        <group><field name="type_id" options="{'no_create': True , 'no_open':True}"/></group>
                         <group><field name="best_price"/></group>
                     </group>
 
                     <notebook>
                         <page string="Description">
                                 <group>
-                                    <field name="description"/>
-                                    <field name="bedrooms"/>
-                                    <field name="living_area"/>
-                                    <field name="facades"/>
-                                    <field name="garage"/>
-                                    <field name="garden"/>
-                                    <field name="garden_area"/>
-                                    <field name="garden_orientation"/>
-                                    <field name="total_area"/>
+                                    <field name="description" string="Description"/>
+                                    <field name="bedrooms" string="Bedrooms"/>
+                                    <field name="living_area" string="Living Area"/>
+                                    <field name="facades" string="Facades"/>
+                                    <field name="garage" string="Garage"/>
+                                    <field name="garden" string="Garden"/>
+                                    
+                                    <field name="garden_area" string="Garden Area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="garden_orientation" string="Garden Orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="total_area" string="Total Area"/>
                                 </group>
                         </page>
                         <page string="Offers">
@@ -103,7 +105,7 @@
                 <field name="bedrooms" string="Bedrooms"/>
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="facades" string="Facades"/>
-                <filter string="Available" name="state" domain="[('state', '=' , ['new','offer_recieved'])]"/>
+                <filter string="Available" name="state"  domain="[('state', '=' , ['new','offer_recieved'])]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
                 </group>

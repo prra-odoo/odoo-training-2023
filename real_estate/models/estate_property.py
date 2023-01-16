@@ -9,6 +9,7 @@ from odoo.tools import float_utils
 class Real_estate(models.Model):
     _name="estate.property.model" # according to the naming conventions we do not add model in model's name
     _description="Real Estate Model"
+    # _order = "id desc"
 
     name = fields.Char(required=True,default="New User")
     description = fields.Text()
@@ -31,7 +32,7 @@ class Real_estate(models.Model):
     garden = fields.Boolean()
     garden_area = fields.Integer(compute="_compute_garden_area",readonly = False)
     garden_orientation = fields.Selection(string='orientation',
-    selection=[('north','North'),('east','East'),('west','West'),('south','South')])
+    selection=[('north','North'),('east','East'),('west','West'),('south','South')],default='east')
 
     # use of relational fields
     type_id=fields.Many2one("estate.property.type")
@@ -101,7 +102,7 @@ class Real_estate(models.Model):
         for record in self:
             
 
-            if float_utils.float_is_zero(record.expected_price,precision_digits=3) and float_utils.float_compare(record.selling_price,0.9*record.expected_price,precision_digits=1)==-1:
+            if  (float_utils.float_compare(record.selling_price, 0.9 * record.expected_price,precision_digits=2) == -1 and  not float_utils.float_is_zero(record.expected_price,precision_digits=2)) :
                  raise exceptions.ValidationError("The Offer price cannot be lower than 90% of the expected price.")
             
             
