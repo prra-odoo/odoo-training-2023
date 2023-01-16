@@ -27,8 +27,8 @@
                 <field name="facades"/>
                 <field name="garage"/>
                 <field name="garden"/>
-                <field name="garden_area"/>
-                <field name="garden_orientation"/>
+                <field name="garden_area" />
+                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                 <field name="active"/>
                 <field name="state"/>
             </tree>
@@ -40,15 +40,16 @@
         <field name="arch" type="xml">
             <form string="Real estate">
                 <header>
-                    <button name="action_sold" type="object" string="Sold"/>
-                    <button name="action_canceled" type="object" string="Canceled"/>
+                    <button name="action_sold" type="object" states="new,offer_received,offer_accepted" string="Sold" class="oe_highlight"/>
+                    <button name="action_canceled" type="object" states="new,offer_received,offer_accepted" string="Canceled"/>
+                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
                 </header>
                 <sheet>
                     <h1>
                         <field name="name" placeholder="Enter Property Name"/>
                     </h1>
                     <group>
-                        <field name="tag_ids" widget="many2many_tags"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                     </group>
                     <group>
                         <group>
@@ -73,7 +74,7 @@
                             <field name="state"/>
                         </group>
                         <group>
-                            <field name="type_id"/>
+                            <field name="type_id" options="{'no_create':True}"/>
                         </group>
                     <notebook>
                         <page name="description">
@@ -96,10 +97,10 @@
                                 <field name="garden"/>
                             </group>
                             <group>
-                                <field name="garden_area"/>
+                                <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
                             </group>
                             <group>
-                                <field name="garden_orientation"/>
+                                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                             </group> 
                             <group>
                                 <field name="total_area"/>
@@ -107,7 +108,7 @@
                         </page>
                         <page name="Offers">
                         
-                                <field name="offer_ids"/>
+                                <field name="offer_ids"  attrs="{'readonly': [('state', 'in', ('offer_accepted','sold','canceled'))]}"/>
 
                         </page>
                         <page name="Other details">

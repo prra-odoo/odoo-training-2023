@@ -17,6 +17,7 @@
         <field name="arch" type="xml">
             <tree string="property tags">
                 <field name="name"/>
+                <field name="color"/>
             </tree>
         </field>
     </record>
@@ -29,6 +30,7 @@
                     <h1>
                         <group>
                             <field name="name" placeholder="Enter property tag"/>
+                            <field name="color" widget="color_picker" options="{'color_field':'color'}"/>
                         </group>
                     </h1>
                 </sheet>

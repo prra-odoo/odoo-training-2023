@@ -16,8 +16,9 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <tree string="Property type">
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
-                <field name="active"/>
+                <!-- <field name="active"/> -->
             </tree>
         </field>
     </record>
@@ -31,8 +32,14 @@
                         <field name="name" placeholder="Enter property type"/>
                     </h1>
                     <notebook>
-                        <page name="description" string="Description">
-                            <field name="active"/>
+                        <page name="Properties" string="Properties">
+                            <field name="property_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
