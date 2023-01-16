@@ -3,6 +3,7 @@ from odoo import models,fields
 class estate_Property_tag(models.Model):
       _name = "estate.property.tag"
       _description = "Real estate based advertisedment module for the property tag"
+      _order="name"
 
       _sql_constraints =[                                                                                      
     
@@ -10,4 +11,4 @@ class estate_Property_tag(models.Model):
       ]
 
       name = fields.Char(required=True)
-      color=fields.Integer()
+      color=fields.Integer('color')

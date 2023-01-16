@@ -7,5 +7,8 @@
     <record id="estate_4BHK" model="estate.property.tag">
         <field name="name">4BHK</field>        
     </record>
+     <record id="estate_5BHK" model="estate.property.tag">
+        <field name="name">5BHK</field>        
+    </record>
 </data>
 </odoo>

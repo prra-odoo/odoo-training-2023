@@ -7,13 +7,24 @@
             <form string="type">
                     <sheet>
                         <h1>
-                            <label for="name" string="Product  type Name" />
-                            <field name="name" nolable="1"/>
+                           <field name="name"/>
                         </h1>
                          <group>
                          <field name="sales_id"/>
                          <field name="buyer_id"/>
                         </group> 
+                        <notebook>
+                        <page string="Properties">                        
+                          <field name="property_ids">
+                        <tree>
+                          <field name="name"/>
+                          <field name="expeccted_price"/>
+                          <field name="state"/>
+                        </tree>
+                        </field>
+                        </page>
+                        </notebook>
+                        
                     </sheet>
             </form>
             </field>
@@ -22,7 +33,8 @@
         <field name="name">estate.type.view.tree</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <tree string="Estate_Property">
+            <tree>
+            <field name="sequence" widget="handle"/>
             <field name="name"/>
             <field name="sales_id"/>
             <field name="buyer_id"/> 

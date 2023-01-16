@@ -8,6 +8,9 @@ from odoo.tools import float_utils
 class estate_Property_offer(models.Model):
       _name = "estate.property.offer"
       _description = "Real estate based advertisedment module for the property type"
+      _order='price desc'
+
+
       _sql_constraints = [    
 
       ('price', 'CHECK(price > 0)', 'Contained Quantity should be positive.'),
@@ -16,9 +19,10 @@ class estate_Property_offer(models.Model):
       price = fields.Float()
       status = fields.Selection(string='status',selection=[('Accepted','accepted'),('Refused','refused')],copy=False)
       partner_id = fields.Many2one("res.partner", string="Partner", required=True)
-      property_id = fields.Many2one('estate.property',string="property id")      
+      property_id = fields.Many2one('estate.property',string="property id",related="property_type_id")      
       validity = fields.Integer(default='7')
       date_deadline = fields.Date( compute="_compute_date_deadline",inverse="_inverse_date_deadline")
+      property_type_id=fields.Char()
 
       @api.depends('validity','date_deadline','create_date')
       def _compute_date_deadline(self):

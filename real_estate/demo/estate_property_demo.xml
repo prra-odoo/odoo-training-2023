@@ -6,7 +6,7 @@
         <field name="expeccted_price">240000</field>
         <field name="selling_price">1200000</field>
         <field name="type_id" ref="estate_res"/> 
-        <field name="tag_ids" eval="[(6,0,[ref('estate_3BHK'),ref('estate_4BHK')])]"/>
+        <field name="tag_ids" eval="[(6,0,[ref('estate_3BHK'),ref('estate_4BHK'),ref('estate_5BHK')])]"/>
     </record>
     <record id="estate_anaya" model="estate.property">
         <field name="name">ananya</field>
