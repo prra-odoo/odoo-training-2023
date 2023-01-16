@@ -11,7 +11,19 @@
         </field>
     </record>
 
-    <record id="real_estate_view_form1" model="ir.ui.view">
+
+    <record id="property_tag_tree_view" model="ir.ui.view">
+        <field name="name">Property Tag </field>
+        <field name="model">real.estate.property.tag</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="Property_tag_form" model="ir.ui.view">
         <field name="name">Property tag form</field>
         <field name="model">real.estate.property.tag</field>
         <field name="arch" type="xml">

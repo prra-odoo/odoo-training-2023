@@ -13,7 +13,7 @@
         </menuitem>
        
 
-        <menuitem id="real_estate_Third_level" name="Avertisement">
+        <menuitem id="real_estate_Third_level" name="Advertisment">
             <menuitem id="real_estate_form1" action="real_estate_action" name="lists of state" />
         </menuitem>
 

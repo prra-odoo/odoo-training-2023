@@ -8,6 +8,7 @@ from odoo.tools.float_utils import float_compare, float_is_zero, float_round
 class Estate(models.Model):
     _name="real.estate.properties"
     _description="Property Model"
+    _order ="id desc"
 
     name=fields.Char(string="Title",required=True)
     description=fields.Text('Description')
@@ -83,5 +84,5 @@ class Estate(models.Model):
             # if record.selling_price<=0.90 * record.expected_price:
             #     raise ValidationError("Selling Price Must be 90% of Expected Price")
             for record in self:
-                if (not float_is_zero(record.selling_price, precision_rounding=0.1)) and float_compare(record.selling_price, 90/100 * record.expected_price,precision_rounding=0.1) < 0:
+                if (not float_is_zero(record.selling_price, precision_rounding=0.1)) and float_compare(record.selling_price, 0.9* record.expected_price,precision_rounding=0.1) == -1:
                     raise ValidationError("selling price cannot be less than 90% of expected price")

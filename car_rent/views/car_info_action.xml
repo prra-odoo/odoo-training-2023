@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <menuitem id="car_rent" name="Car Rent">
-        <menuitem id="car_rent_first_level" name="Car Infromation">
-            <menuitem id="car_rent_model" action="car_rent_info_action" name="Car List" />
-            <menuitem id="car_rent_model2" action="car_rent_info_action" name="Car Names" />
-        </menuitem>
-    </menuitem>
-</odoo>
