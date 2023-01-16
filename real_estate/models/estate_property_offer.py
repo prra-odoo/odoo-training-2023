@@ -8,10 +8,11 @@ from odoo.tools import float_is_zero,float_compare
 class estate_property_offers(models.Model):
     _name = 'estate.property.offer'
     _description = "Estate Property Offers"
+    _order = "price desc"
 
     price = fields.Float('Price',required=True,default=0)
-    status = fields.Selection(
-            string='Status',copy=False,
+    states = fields.Selection(
+            string='States',copy=False,
             selection=[('refused','refused'),('accepted','accepted')])
     partner_id = fields.Many2one('res.partner',required=True)
     property_id = fields.Many2one('estate.property',required=True)
@@ -42,17 +43,18 @@ class estate_property_offers(models.Model):
 
     def action_accepted(self):
             for record in self:
-                    record.property_id.offer_ids.status='refused'
-                    record.status='accepted'
+                    record.property_id.offer_ids.states='refused'
+                    record.states='accepted'
 
                     if(float_compare(record.price,record.property_id.expected_price * 0.9,precision_rounding=0.01)<0):
                             raise UserError("Selling Price must 90percent of the expected price")
                     else:
                             record.property_id.selling_price = record.price
                             record.property_id.buyer = record.partner_id 
+                            record.property_id.status = 'offer Accepted'
        
 
     def action_refuse(self):
-            self.status = 'refused'
+            self.states = 'refused'
             self.property_id.selling_price = 0
             
