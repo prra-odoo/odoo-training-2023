@@ -6,6 +6,7 @@ import datetime
 class RealEstatePropertyOffer(models.Model):
     _name = "real.estate.property.offer"
     _description = "Property Offers"
+    _order = "price desc"
 
     price = fields.Float(required=True)
     status = fields.Selection([('accepted', 'Accepted'), ('refused', 'Refused'),], copy=False)
@@ -36,6 +37,7 @@ class RealEstatePropertyOffer(models.Model):
         for record in self:
             record.property_id.offer_ids.status = "refused"
             record.status = 'accepted'
+            record.property_id.state = 'offer_accepted'
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
 

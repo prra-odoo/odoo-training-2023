@@ -15,6 +15,7 @@
         <field name="model">real.estate.property.type</field>
         <field name="arch" type="xml">
             <tree string="Channel">
+                <field name="sequence" widget="handle"/>
                 <field name="name"/>
             </tree>
         </field>

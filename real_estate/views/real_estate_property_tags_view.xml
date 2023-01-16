@@ -14,7 +14,7 @@
         <field name="name">real_estate_property_tags</field>
         <field name="model">real.estate.property.tags</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Channel" editable="top">
                 <field name="name"/>
             </tree>
         </field>
@@ -26,8 +26,8 @@
             <form string="Property">
                 <sheet>
                     <group>
-                        <field name="name" options="{'color_field': 'color', 'no_create_edit': True}"/>
-                        <field name="color"/>
+                        <field name="name" />
+                        <field name="color" widget="color_picker" options="{'color_field': 'color'}"/>
                     </group>
                 </sheet>
             </form>

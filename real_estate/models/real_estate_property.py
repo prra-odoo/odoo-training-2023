@@ -9,7 +9,8 @@ from odoo.tools import float_compare, float_is_zero
 class RealEstateProperty(models.Model):
     _name = "real.estate.property"
     _description = "Property Model"
-
+    _order = "id desc"
+    
     name = fields.Char(string="Name", required=True)
     description = fields.Text()
     postcode = fields.Char()
@@ -73,17 +74,17 @@ class RealEstateProperty(models.Model):
             else:
                 self.garden_area, self.garden_orientation = 0, ''
 
-    def action_buy_porperty(self):
-        for record in self:
-            record.state = 'sold'
-            if record.state == 'canceled':
-                raise UserError("A sold property cannot be canceled")
-
     def action_sold_porperty(self):
         for record in self:
-            record.state = 'canceled'
             if record.state == 'canceled':
+                raise UserError("A sold property cannot be canceled")
+            record.state = 'sold'
+
+    def action_cancel_porperty(self):
+        for record in self:
+            if record.state == 'sold':
                 raise UserError("A canceled property cannot be sold")
+            record.state = 'canceled'
     
     
     @api.constrains('selling_price', 'expected_price')
