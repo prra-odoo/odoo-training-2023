@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="estate_property_house" model="estate.property">
-        <field name="name">ABC</field>
+        <field name="name">Zyus Apartments</field>
         <field name="expected_price">1200000</field>
         <field name="postcode">390051</field>
+        <field name="bedroom">3</field>
+        <field name="living_area">123</field>
+        <field name="facades">1</field>
+        <field name="data_avabilability">03/03/2023</field>
+        <field name="selling_price">1100000</field>
+        <field name="garage">yes</field>
+        <field name="garden_area">157</field>
+        <field name="garden_orientation">North</field>
+        <field name="select">New</field>
     </record>
 </odoo>

@@ -9,15 +9,16 @@
                 <field name="name"/>
                 <field name="description" optional="hide"/>
                 <field name="postcode"/>
-                <field name="bedrooms"/>
-                <field name="living_area"/>
+                <field name="bedrooms" optional="show"/>
+                <field name="living_area" optional="hide"/>
                 <field name="facades"/>
                 <field name="data_avabilability"/>
                 <field name="selling_price"/>
                 <field name="expected_price"/>
                 <field name="garage"/>
-                <field name="garden_area"/>
-                <field name="garden_orientation"/>
+                <field name="garden_area" optional="hide"/>
+                <field name="garden_orientation" optional="hide"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -32,9 +33,10 @@
                             <field name="name" placeholder="Property name"/>
                         </h1>
                     </div>
-
+                            <field name="tag_ids" widget="many2many_tags"/>    
                     <group>
                         <group>
+                            <field name="property_type"/>
                             <field name="selling_price"/>
                             <field name="expected_price"/>
                         </group>
@@ -53,7 +55,16 @@
                                 <field name="garage"/>
                                 <field name="garden_area"/>
                                 <field name="garden_orientation"/>
-                                <!-- <field name="state"/> -->
+                                <field name="state"/>
+                            </group>
+                        </page>
+                        <page string="Offer">
+                                <field name="offer_ids"/>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <field name="user_id"/>
+                                <field name="buyer_id"/>
                             </group>
                         </page>
                     </notebook>
@@ -66,6 +77,12 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="facades"/>
+                <field name="garage"/>
+                <field name="garden_area"/>
                 <filter string="Available" name="available" domain="[('garden_orientation', 'in', ['north','south'])]"/>
                 <group>
                     <filter string="Postcode" name="postcode_groupby" context="{'group_by': 'postcode'}" />
