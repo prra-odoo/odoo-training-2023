@@ -18,7 +18,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="real_estate_form_view" model="ir.ui.view">
             <field name="name">Real Estate</field>
             <field name="model">estate.property</field>
@@ -81,6 +81,11 @@
                             <page string="Offers">
                                 <field name="offer_ids" attrs="{'readonly':[('state','in',['sold','canceled','offer_accepted'])]}">
                                     <tree editable="bottom" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
+                                        <!-- <control>
+                                            <create name="add_line_control" string="Add a line"/>
+                                            <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                            <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                        </control> -->
                                         <field name="price" />
                                         <field name="partner_id" />
                                         <field name="property_type_id" />
@@ -124,7 +129,7 @@
                     <separator />
                     <filter name="date_availability" date="create_date" string="Date" />
                     <separator />
-                    <filter string="Archived" name="active" domain="[('active', '=', False)]" />
+                    <filter string="Archived" name="active_filter" domain="[('active', '=', False)]" />
                     <group string="Group By">
                         <filter string="Post Code" name="postcode" context="{'group_by':'postcode'}" />
                         <separator />
