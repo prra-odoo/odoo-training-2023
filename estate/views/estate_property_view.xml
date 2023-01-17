@@ -139,7 +139,7 @@
                                         <field name="partner_id" optional="show"/>
                                         <button name="action_accepted" type="object" title="ac" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
                                         <button name="action_refused" type="object" title="re" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}"/>
-                                        <field name="status" optional="show"/>
+                                        <field name="status" optional="hide"/>
                                     </tree>
                             </field>
                         </page>

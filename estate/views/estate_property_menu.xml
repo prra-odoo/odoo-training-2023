@@ -39,7 +39,7 @@
         </record>
     </data> 
     
-    <menuitem id="estate_menu_root" web_icon=",static/description/icon.png" name="Real Estate">
+    <menuitem id="estate_menu_root" web_icon="estate,static/description/icon.png" name="Real Estate">
         <menuitem id="estate_first_level_menu" name="Advertisement">
             <menuitem id="estate_model_menu_action" action="estate_property_model_action"/>
         </menuitem>

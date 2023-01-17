@@ -4,6 +4,9 @@ from odoo import models, fields, api
 from datetime import datetime, time
 from odoo.exceptions import UserError
 from odoo.tools.date_utils import add
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
+
 
 
 class EstatePropertyOffer(models.Model):
@@ -31,19 +34,12 @@ class EstatePropertyOffer(models.Model):
     create_date = fields.Date('Date availability',default=fields.Datetime.now())
 
     @api.model
-    def create(self, vals_list):
-        for vals in vals_list:
-            self.env['estate.property'].browse(vals['property_id'])
-            vals.price = '1000'
+    def create(self, vals):
+        property_id = self.env['estate.property'].browse(vals['property_id'])
+        if float_compare(vals.get('price'),max(property_id.offer_ids.mapped('price')),precision_digits=2) <= 0:
+            raise UserError('The new offer must be greater than existing one')
+        property_id.state = 'offer_received'
         return super().create(vals)
-
-    # @api.model
-    # def create(self, vals_list):
-    #     for vals in vals_list:
-    #         if 'price' in vals:
-    #             property_id = self.env['estate.property.offer'].browse(vals['property_id'])
-    #             property_id.state = 'offer_received'
-    #     return super(EstatePropertyOffer, self).create(vals)
 
     @api.depends('validity')
     def _compute_date(self):

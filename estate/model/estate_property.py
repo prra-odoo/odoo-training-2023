@@ -98,16 +98,5 @@ class EstateProperty(models.Model):
         # if the module is being uninstalled. 
         # If False, the module uninstallation does not trigger those errors.
 
-
-    # #oncreate
-    # @api.model
-    # def create(self, vals):
-    #     price = self.env['estate.property.offer'].browse(vals['price'])
-    #     if price in vals:
-    #         for record in self:
-    #             record.state = 'offer_received'
-    #     return super().create(vals)
-
-
     
             
