@@ -75,7 +75,16 @@ class estateProperty(models.Model):
                     + "You must reduce the expected price if you want to accept this offer."
                 )
             
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_state(self):
+        for record in self:
+            if record.state not in ['new','cancel']:
+                raise UserError('you can not delete this record.')
+
+
     _sql_constraints = [
+
         ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be positive"),
         ("check_selling_price", "CHECK(selling_price >= 0)", "The selling price must be positive"),
     ]

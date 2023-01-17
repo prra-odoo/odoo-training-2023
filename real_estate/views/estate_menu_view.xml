@@ -42,8 +42,7 @@
             <field name="name">Real Estate</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree string="Real Estate" >
-                <!-- decoration-success="state in ('offer recieved', 'offer accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer accepted'" -->
+                <tree string="Real Estate" decoration-success="state in ('offer_recieved', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'" >
                     <field name="name" />
                     <field name="description" />
                     <field name="postcode"/>
@@ -53,6 +52,7 @@
                     <field name = "selling_price"></field>
                     <field name = "date_availability"></field>
                     <field name = "garden_area" optional = 'hide'></field>
+                    <field name="state" invisible='1'/>
                 </tree>
             </field>
         </record>

@@ -7,6 +7,7 @@
         'views/estate_menu_view.xml',
         'views/estate_menu.xml',
         'views/estate_type_view.xml',
+        'views/estate_offer_view.xml',
         
     ],
     'depends': ['mail','base'],
