@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="property_type_action" model="ir.actions.act_window">
+            <field name="name">Property types</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new property type
+                </p>
+            </field>
+        </record>
+
+        <record id="property_tags_action" model="ir.actions.act_window">
+            <field name="name">Property tags</field>
+            <field name="res_model">estate.property.tags</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new property tag
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

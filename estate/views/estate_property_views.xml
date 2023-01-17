@@ -17,43 +17,54 @@
                  </tree>
              </field>
         </record>
-
         
-        <record id="estate_property_formview" model="ir.ui.view">
-            <field name="name">Estate property form view</field>
+        <!-- form view for getting input -->
+        <record id="estate_property_view_form" model="ir.ui.view">
+            <field name="name">Name</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <form string="Estate property formview">
+                <form string="Tags">
                     <sheet>
-                        <group col="3">
-                            <group>
-                                <field name="name" />
-                               
-                            </group>
-                            <group>
-                                <field name="bedrooms"/>
-                                <field name="expected_price"/>
-                                
-                            </group>
-                            <group>
-                                <field name="garden"/>
-                            </group>
+                        <div>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="postcode"/>
+                            <field name="date_availability"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                        </group>
                         </group>
                         <notebook>
                             <page string="Description">
-                                 <!-- <label for="description" string="Description"/> -->
-                                 <group>
-                                    <field name="description" string="Property Details" />
+                                <group>
+                                    <field name="description"/>
+                                    <field name="property_type_id"/>
+                                    <field name="bedrooms"/>
+                                    <field name="living_area"/>
+                                    <field name="facades"/>
+                                    <field name="active"/>
+                                    <field name="state"/>
+                                </group>   
+                            </page>
+                            <page string="Offers">
+                                    <field name="offer_ids" />
+                            </page>
+                            <page string="Other info">
+                                <group>
+                                    <field name="buyer_id"/>
+                                    <field name="salesperson_id"/>
                                 </group>
                             </page>
-                            
-                        </notebook> 
+                        </notebook>
                     </sheet>
                 </form>
             </field>
-            
         </record>
-
 
         <record id="estate_property_view_search" model="ir.ui.view">
             <field name="name">Estate property view</field>
@@ -66,11 +77,14 @@
                     <field name="bedrooms"/>
                     <field name="living_area"/>
                     <field name="facades"/>
+                    <filter name="availableProperties" string="Available Properties" domain="['|',('state','=','new'),('state','=','offer_received')]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Postcode" name="GroupBy postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                    </group>
                 </search>
             </field>
         </record>
         
-
         <record id="estate_property_action" model="ir.actions.act_window">
             <field name="name">Properties</field>
             <field name="res_model">estate.property</field>
@@ -81,7 +95,6 @@
               </p>
             </field>
         </record>
-
 
     </data>
 </odoo>

@@ -11,7 +11,7 @@ class estateProperty(models.Model):
     _name = "estate.property"
     _description="model description"
 
-    name=fields.Char(string="Name",required=True,help="this is name")
+    name=fields.Char(string="Name",required=True)
     description=fields.Text(string="Description")
     postcode=fields.Char(string="Pin Code")
     date_availability=fields.Date(string="Availablity Date", default=TODAY + three_mon_rel)
@@ -33,3 +33,9 @@ class estateProperty(models.Model):
         default= 'new'
     )
     active=fields.Boolean(default=True)
+    property_type_id=fields.Many2one("estate.property.type", string="Property type")
+    tag_ids=fields.Many2many("estate.property.tags", string="Tags")
+    buyer_id = fields.Many2one('res.partner',string="Buyer",copy=False)
+    salesperson_id = fields.Many2one('res.users',string="Salesman", default=lambda self: self.env.user)
+
+    offer_ids=fields.One2many("estate.property.offer", "name", string="Offers")
