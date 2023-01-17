@@ -2,9 +2,9 @@
 
 <odoo>
     <!-- Form -->
-    <record id="estate_property_type_form_view" model="ir.ui.view">
-        <field name="name">Estate_Property_type_formview</field>
-        <field name="model">estate.property.type</field>
+    <record id="estate_property_tags_form_view" model="ir.ui.view">
+        <field name="name">Estate_Property_tags_formview</field>
+        <field name="model">estate.property.tags</field>
         <field name="arch" type="xml">
             <form class="form o_appointment_appointments_list_form pt-3">
                 <sheet>
@@ -18,13 +18,13 @@
         </field>
     </record>
     <!-- Action -->
-    <record id="estate_property_type_action" model="ir.actions.act_window">
-        <field name="name">Properties Type</field>
-        <field name="res_model">estate.property.type</field>
+    <record id="estate_property_tags_action" model="ir.actions.act_window">
+        <field name="name">Properties Tags</field>
+        <field name="res_model">estate.property.tags</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                    Click here to create a new Advertisment.
+                    Click here to create a new tag.
             </p>
         </field>
     </record>

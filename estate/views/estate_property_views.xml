@@ -12,7 +12,7 @@
                 <field name="postcode"/>
                 <field name="date_availability"/>
                 <field name="expected_price"/>
-                <field name="selling_price" widget="handle"/>
+                <field name="selling_price" />
                 <field name="bedrooms"/>
                 <field name="living_area" optional="show"/>
                 <field name="facades" optional="hide"/>
@@ -20,7 +20,7 @@
                 <field name="garden" optional="hide"/>
                 <field name="garden_area" optional="hide"/>
                 <field name="garden_orientation" optional="hide"/>
-                <!-- <field name="property_type_id" /> -->
+                <field name="property_type_id" />
             </tree>
         </field>
     </record>
@@ -31,21 +31,21 @@
         <field name="arch" type="xml">
             <form class="form o_appointment_appointments_list_form pt-3">
                 <sheet>
-                    <div class="oe_title">
+                    <div>
                         <h1>
                             <field name="name"/>
                         </h1>
                     </div>
                     <group>
-                        <group col="1">
-
+                        <group>
+                            <field name="tags_ids" widget="many2many_tags"/>
                             <field name="postcode"/>
                             <field name="expected_price"/>
-                            <!-- <field name="property_type_id" /> -->
+                            <field name="property_type_id" />
                         </group>
-                        <group col="2">
+                        <group>
                             <field name="date_availability"/>
-                            <field name="selling_price" widget="handle"/>
+                            <field name="selling_price"/>
                         </group>
 
                     </group>
@@ -61,7 +61,16 @@
                                 <field name="garden_area"/>
                                 <field name="garden_orientation" />
                                 <field name="state"/>
-                                <field name="active" />
+                                <!-- <field name="active" /> -->
+                            </group>
+                        </page>
+                        <page string="Offers">
+                            <field name="offer_ids"/>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <field name="buyer_id" />
+                                <field name="salesperson_id"/>
                             </group>
                         </page>
                     </notebook>
@@ -83,7 +92,6 @@
                 <field name="facades"/>
                 <!-- <separator/> -->
                 <filter string="State Search" name="search_state" domain="[('state', 'in', ['new','offer_received'])]"/>
-
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="search_postcode" context="{'group_by':'postcode'}"/>
                 </group>
