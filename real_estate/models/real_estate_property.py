@@ -32,7 +32,7 @@ class RealEstateProperty(models.Model):
     @api.constrains("selling_price","expected_price")
     def _check_selling_price(self):
         for record in self:
-            if float_compare(record.selling_price,record.expected_price*90/100,precision_digits=2)<0 and not float_is_zero(record.expected_price,precision_digits=2):
+            if self.offers_ids and float_compare(record.selling_price,record.expected_price*90/100,precision_digits=2)<0 and not float_is_zero(record.expected_price,precision_digits=2):
                 raise ValidationError(_("the selling price cannot be lower than 90% of the expected price."))
     
     def action_state_sold(self):
@@ -71,3 +71,9 @@ class RealEstateProperty(models.Model):
             else:
                 record.garden_area=0
                 record.garden_orientation=''
+    @api.ondelete(at_uninstall=False)
+    def _delete_check_state(self):
+        for record in self:
+            if record.state not in ('new','canceled'):
+                raise UserError(_("Only Properties in New and Canceled state can be deleted"))
+   

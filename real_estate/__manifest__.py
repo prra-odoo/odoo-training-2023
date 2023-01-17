@@ -12,7 +12,10 @@
         'views/real_estate_property_tags_views.xml',
         'views/real_estate_menus.xml'
     ],
-    'demo':['data/real_estate_property_demo.xml',],
+    'demo':[
+        'data/estate_property_type_demo.xml',
+        'data/real_estate_property_demo.xml',
+        ],
     'summary':'A real estate module',
    'installable':'true',
    'application':'true',
