@@ -24,6 +24,18 @@
       </field>
   </record>
 
+  <record id="estate_property_offer" model="ir.actions.act_window">
+      <field name="name">real estate action</field>
+      <field name="res_model">estate.property.offer</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('property_type_id', '=', active_id)]</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+                Create a new quotation, the first step of a new sale!
+        </p>
+      </field>
+  </record>
+
   <record id="estate_property_tag" model="ir.actions.act_window">
       <field name="name">real estate action</field>
       <field name="res_model">estate.property.tag</field>
@@ -67,6 +79,7 @@
             <menuitem id="estate_action_property_tag" action="estate_property_tag" name="Property tag"/>
             <menuitem id="estate_action_property_sales" action="estate_property_sales" name="salesperson"/>
             <menuitem id="estate_action_property_buyer" action="estate_property_buyer" name="buyer"/> 
+            <menuitem id="estate_action_property_offer" action="estate_property_offer" name="buyer"/> 
         </menuitem>        
 </menuitem>
 </odoo> 

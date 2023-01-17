@@ -39,14 +39,12 @@ class estate_Property(models.Model):
       buyer_id=fields.Many2one('res.partner', string='buyer')
       type_id=fields.Many2one('estate.property.type',string="product type")
        
-      name = fields.Char()
-      expeccted_proce = fields.Integer()
-      # state = fields.Char()
+     
       tag_ids=fields.Many2many(
        'estate.property.tag', string='Tags',
       help="Classify and analyze your lead/opportunity categories like: Training, Service")
       offer_ids= fields.One2many('estate.property.offer','property_id')
-      property_type_ids=fields.Many2one('estate.property.type')
+      property_type_id=fields.Many2one('estate.property.type')
       total_area=fields.Float(compute='_compute_total_area')
 
       @api.depends('living_area', 'garden_area')
@@ -76,6 +74,14 @@ class estate_Property(models.Model):
         self.state = 'canceled'         
        else:
         raise UserError('sold  property can not be canceled')
+      
+      @api.ondelete(at_uninstall=False)
+      def _ondeleteaction(self):
+        for record in self:
+         if record.state in ('offer_received','offer_accepted','sold'):
+          raise UserError("only delete a property with the new and canceled state")
+      
+
 
 
        

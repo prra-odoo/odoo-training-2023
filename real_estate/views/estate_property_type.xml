@@ -6,13 +6,18 @@
             <field name="arch" type="xml">
             <form string="type">
                     <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(estate_property_offer)d" type="action" class="oe_stat_button"  icon="fa-money">
+                            <field string="Offers" name="offer_count" widget="statinfo"/>                        
+                        </button>
+                    </div>
                         <h1>
                            <field name="name"/>
                         </h1>
-                         <group>
+                         <!-- <group>
                          <field name="sales_id"/>
                          <field name="buyer_id"/>
-                        </group> 
+                        </group>  -->
                         <notebook>
                         <page string="Properties">                        
                           <field name="property_ids">

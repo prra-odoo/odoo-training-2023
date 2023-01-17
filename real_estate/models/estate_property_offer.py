@@ -19,10 +19,11 @@ class estate_Property_offer(models.Model):
       price = fields.Float()
       status = fields.Selection(string='status',selection=[('Accepted','accepted'),('Refused','refused')],copy=False)
       partner_id = fields.Many2one("res.partner", string="Partner", required=True)
-      property_id = fields.Many2one('estate.property',string="property id",related="property_type_id")      
+      property_id = fields.Many2one('estate.property',string="property id")      
       validity = fields.Integer(default='7')
       date_deadline = fields.Date( compute="_compute_date_deadline",inverse="_inverse_date_deadline")
-      property_type_id=fields.Char()
+      offer_ids = fields.One2many('estate.property.offer','property_type_id')
+      property_type_id = fields.Many2one('estate.property.type',related='property_id.property_type_id',string='Property type', store=True)
 
       @api.depends('validity','date_deadline','create_date')
       def _compute_date_deadline(self):
@@ -55,6 +56,28 @@ class estate_Property_offer(models.Model):
             self.status='Refused'
           return True
 
+      '''the create method condition'''
+      # @api.model
+      # def create(self, vals):
+      #   property_id = self.env['estate.property'].browse(vals['property_id'])
+      #   max_price=max(property_id.offer_ids.mapped('price'),default=0)
+      #   print(max_price)
+      #   current_id = super().create(vals)
+      #   if float_utils.float_compare(current_id.price,max_price,precision_digits=2) <= 0:
+      #       raise ValidationError('The new offer must be greater than existing one')
+
+      #   property_id.state = 'offer_received'
+      #   return super().create(vals)
+  
+      @api.model
+      def create(self, vals):
+        property_id = self.env['estate.property'].browse(vals['property_id'])
+        max_price = max(property_id.offer_ids.mapped('price'),default=0)
+        print(max_price, vals.get('price'))
+        if float_utils.float_compare(vals.get('price'),max_price,precision_digits=2) <= 0:
+            raise ValidationError('The new offer must be greater than existing one')
+        property_id.state = 'offer_received'
+        return super().create(vals)
 
 
 

@@ -27,6 +27,7 @@
         'views/estate_property_buyer.xml',
         'views/estate_property_offer.xml',
         'views/estate_property_views.xml',
+        'views/inherited_model.xml',
         'views/estate_menu.xml',   
 
     ],        
