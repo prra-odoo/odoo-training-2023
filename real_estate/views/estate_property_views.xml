@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="estate_property_action" model="ir.actions.act_window">
-        <field name="name">Properties</field>
-        <field name="res_model">estate.properties</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">No property for Advertisment found, Please add your property over here</p>
-            <p>Use the top left
-                <strong>CREATE</strong> button to add new property type!!!
-            </p>
-        </field>
-    </record>
     <record id="estate_property_tree_view" model="ir.ui.view">
         <field name="name">property</field>
         <field name="model">estate.properties</field>
         <field name="arch" type="xml">
-            <tree string="Real estate">
+            <tree string="Real estate" decoration-success="state in  ('offer_received','offer_accepted')"
+                                        decoration-bf="state == 'offer_accepted'"
+                                        decoration-danger="state == 'canceled'"
+                                        decoration-muted="state == 'sold'">
                 <field name="name"/>
                 <field name="description"/>
                 <field name="postcode"/>
-                <field name="date_availability"/>
+                <field name="date_availability" optional="hidden"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="bedrooms"/>
@@ -56,7 +48,7 @@
                             <field name="postcode"/>
                         </group>
                         <group>
-                            <field name="date_availability"/>
+                            <field name="date_availability" />
                         </group>
                         <group>
                             <field name="active"/>
@@ -134,11 +126,12 @@
                 <field name="description"/>
                 <field name="postcode"/>
                 <field name="expected_price"/>
-                <field name="living_area"/>
+                <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
                 <field name="facades"/>
                     <filter string="Pincode" name="group_by_pincode" context="{'group_by':'postcode'}"/>
                     <filter string="Bedrooms" name="group_by_bedrooms" context="{'group_by':'bedrooms'}"/>
-                    <filter string="Available" name="available properties" domain="['|',('state', '=', 'new'),('state','=','offer_received')]"/>
+                    <filter string="Available" name="available" domain="['|',('state', '=', 'new'),('state','=','offer_received')]"/>
+                    <!-- <filter string="Active" name="active" domain="[('active', '=', True)]"/> -->
             </search>
         </field>
     </record>
