@@ -31,7 +31,7 @@
                                 <field name="property_ids" type="xml">
                                     <tree editable="bottom">
                                         <field name="name"/>
-                                        <field name="salesman_id" widget="many2one_avatar"/>
+                                        <field name="salesperson_id" widget="many2one_avatar"/>
                                         <field name="expected_price"/>
                                         <field name="state"/>
                                     </tree>

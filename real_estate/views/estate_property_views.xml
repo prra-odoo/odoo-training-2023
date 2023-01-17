@@ -48,7 +48,7 @@
             <field name="name">Real Estate Tree View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <tree expand="1" decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'" decoration-danger="state == 'cancel'">
+                <tree decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'" decoration-danger="state == 'cancel'">
                     <field name="name"/>
                     <field name="property_type_id"/>
                     <field name="postcode"/>
@@ -155,7 +155,7 @@
                             <page string="Other Info">
                                 <group>
                                     <group>
-                                        <field name="salesman_id" widget="many2one_avatar"/>
+                                        <field name="salesperson_id" widget="many2one_avatar"/>
                                         <field name="buyer_id"/>
                                     </group>
                                 </group>
