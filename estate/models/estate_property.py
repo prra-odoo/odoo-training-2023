@@ -28,7 +28,7 @@ class estateModel(models.Model):
     state=fields.Selection(selection=[('new', 'New'), ('offerrecieved', 'Offer Recieved'),('offeraccepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')],
         default='new',tracking=True,required=True)
     garage_orientation = fields.Selection(
-        string='Garden Orientation:',   
+        string='Garden Orientation:',       
         selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')])
     total_area = fields.Float(compute="_compute_total_area")
     best_price = fields.Float(compute="_compute_best_price")
