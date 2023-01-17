@@ -74,8 +74,7 @@ class realEstate(models.Model):
                 record.state = 'cancel'
 
     _sql_constraints = [('expected_price', 'CHECK(expected_price>=0)', 'Expected Price should be positive'),
-                        ('selling_price', 'CHECK(selling_price>=0)',
-                         'Selling Price should be positive')
+                        ('selling_price', 'CHECK(selling_price>=0)', 'Selling Price should be positive')
                         ]
 
     @api.constrains("expected_price", "selling_price")
