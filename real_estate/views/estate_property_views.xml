@@ -17,8 +17,9 @@
         <field name="name">Real Estate List View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="List View" decoration-success = "state in ('offer_received', 'offer_accepted')" decoration-bf = "state == 'offer_accepted'" decoration-muted = "state == 'sold'">
+            <tree string="List View" decoration-success = "state in ('offer_received', 'offer_accepted')" decoration-bf = "state == 'offer_accepted'" decoration-muted = "state == 'sold'" decoration-danger = "state == 'cancelled'">
                 <field name="name"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <!-- optional="show" -->
                 <field name="postcode"/>
                 <field name="bedrooms"/>
@@ -27,7 +28,7 @@
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability" optional="hide"/>
-                <field name="state"/>
+                <field name="state" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -43,6 +44,11 @@
                     <button name="action_cancel_btn" type="object" string="CANCEL" attrs="{'invisible': [('state', 'in', ('sold', 'cancelled'))]}"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Available" bg_color="bg-info" 
+                    attrs="{'invisible': [('state', 'not in', [('new'), ('offer_received')])]}" />
+                    <widget name="web_ribbon" title="Offer Accepted" bg_color="bg-warning" attrs="{'invisible': [('state', '!=', 'offer_accepted')]}" />
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}" />
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}" />
                     <br/>
                     <label for="name" string="Name"/>
                     <h1>
@@ -50,7 +56,7 @@
                     </h1>
                     <label for="tag_ids" string="Tags"/>
                     <field name="tag_ids" widget="many2many_tags" string="Tags" options="{'no_quick_create':True,'no_create_edit':True, 'color_field': 'color'}"/>
-                    <br/>
+                    <hr/>
                     <br/>
                     <group>
                         <group>
@@ -112,10 +118,9 @@
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability"/>
+                <separator/>
                 <filter string="Available" name="available" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer_received')]"/>
-                <separator/>
                 <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
-                <separator/>
                 <field name="living_area" string="Living Area" filter_domain="[('living_area', '>=', self)]"/>
             </search>
         </field>

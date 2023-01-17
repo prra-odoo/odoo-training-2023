@@ -38,7 +38,6 @@ class EstateProperty(models.Model):
         ('selling_price_positive', 'check (selling_price > 0)', "The selling price must be strictly positive."),
     ]
 
-    
     # Button Methods
     
     def action_sold_btn(self):
@@ -89,23 +88,17 @@ class EstateProperty(models.Model):
                 record.garden_orientation = ''
     
     # Python Constraints
-            
-    # @api.constrains('selling_price', 'expected_price')
-    # def _check_selling_price(self):
-    #     for record in self:
-    #         if record.selling_price <= (0.9 * record.expected_price) and record.offer_ids: #Apply this constraint only if there if offers
-    #             raise ValidationError("The selling price must be least 90% of expected price. You must have to reduce expected price if you want to accept this offer!!!")
-    
     
     @api.constrains('selling_price', 'expected_price')
     def _check_selling_price(self):
         for record in self:
             if float_compare(record.selling_price, (0.9 * record.expected_price), precision_rounding=0.01) <= 0 and record.offer_ids:
                 raise ValidationError("The selling price must be least 90% of expected price. You must have to reduce expected price if you want to accept this offer!!!")
+            
+    # CRUD Methods
     
-    #### TODO ####     
-    # @api.constrains('state')
-    # def _check_offer_ids(self):
-    #     for record in self:
-    #         if len(record.offer_ids):
-    #             record.state = "offer_received"
+    @api.ondelete(at_uninstall=False)
+    def _unlink_new_cancelled(self):
+        for record in self:
+            if record.state not in ('new', 'cancelled'):
+                raise UserError('Only new and cancelled properties can be deleted!!!')

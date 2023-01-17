@@ -16,7 +16,7 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one("estate.property", required=True)
     validity = fields.Integer(string="Validity (days)", default=7)
     date_deadline = fields.Date(string="Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
-    property_type_id = fields.Many2one("estate.property.type", store=True)
+    property_type_id = fields.Many2one(related='property_id.property_type_id', string='Type', store=True)
     
     _sql_constraints = [
         ('best_price_positive', 'check (price > 0)', "The offer price must be strictly positive.")
@@ -55,3 +55,18 @@ class EstatePropertyOffer(models.Model):
             print(record.date_deadline)
             print(record.create_date)
             record.validity = (record.date_deadline - record.create_date.date()).days
+            
+    # CRUD Methods
+    
+    @api.model
+    def create(self, values):
+        property_id = self.env['estate.property'].browse(values['property_id'])
+        # print('------------------------------------')
+        # print(property_id.read())
+        # print('------------------------------------')
+        # print(self)
+        # print(self.price)
+        # if self.price < max(property_id.offer_ids.mapped('price'), default=0): 
+            # print('Done')
+        property_id.state = 'offer_received'
+        return super().create(values)

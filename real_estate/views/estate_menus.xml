@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <menuitem id="estate_property_menu_root" name="Real Estate">
+    <menuitem id="estate_property_menu_root" name="Real Estate" web_icon="real_estate,static/description/icon.png">
         <menuitem id="estate_property_first_level_menu_adv" name="Advertisements">
             <menuitem id="estate_property_menu_action_1" action="estate_property_model_action" name="Temporary 1" sequence="1"/>
             <menuitem id="estate_property_menu_action_2" action="estate_property_model_action" name="Temporary 2" sequence="2"/>

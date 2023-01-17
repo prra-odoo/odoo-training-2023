@@ -29,7 +29,13 @@
         <field name="arch" type="xml">
             <form string="Property Types Form">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(estate_property_offer_model_action)d" type="action" class="oe_stat_button" icon="fa-money">
+                            <field name="offer_count" widget="statinfo" string="Offers" />
+                        </button>
+                    </div>
                     <br/>
+                    <label for="name" string="Name"/>
                     <h1>
                         <field name="name" placeholder="e.g. House, Apartment..."/>
                     </h1>
