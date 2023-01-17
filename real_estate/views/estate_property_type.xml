@@ -18,6 +18,7 @@
             <tree string="Channel" >
                 <field name="sequence" widget="handle"/>
                 <field name="name" string="Title"/>
+               
             </tree>
         </field>
     </record>
@@ -33,7 +34,7 @@
                     <notebook>
                         <page string="Properties">
                             <form>
-                                <field name="property_ids">
+                                <field name="property_ids" >
                                     <tree>
                                         <field name="name" string="Title"/>
                                         <field name="expected_price"/>

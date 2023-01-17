@@ -8,11 +8,13 @@ class Estate_property_offer(models.Model):
     _order = "price desc"
 
     price = fields.Float()
-    status = fields.Selection(string="Status", selection=[('accepted','Accepted'),('refused','Refused'),('not_decided','Not_decided')],default=" ",copy=False)
+    status = fields.Selection(string="Status", selection=[('accepted','Accepted'),('refused','Refused')],default=" ",copy=False)
     partner_id= fields.Many2one("res.partner",required=True)
     property_id= fields.Many2one("estate.property.model",required=True)
     validity = fields.Integer(default="7")
     date_deadline = fields.Date(compute="_compute_deadline", inverse="_inverse_deadline")
+    # related field
+    type_id = fields.Many2one("estate.property.type",related="property_id.type_id",store=True)
 
 
     @api.depends('validity','create_date')
@@ -38,7 +40,7 @@ class Estate_property_offer(models.Model):
 
         for record in self:
 
-            record.property_id.offer_ids.status='refused'
+            # record.property_id.offer_ids.status='refused' >>>please uncomment it when it is used
             record.status='accepted'
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
