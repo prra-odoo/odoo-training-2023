@@ -129,7 +129,8 @@
                     <field name="date_availability"/>
                     <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
                     <separator/>
-                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <filter string="Available" name="available" domain="[('status','in',['New','offer received'])]"/>
+                    <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
                     
                     <filter string="status" name="status" domain="[('expected_price','>',1000000),'|',('status','=','offer received'),('status','=','New')]"/>
                     <group expand="1" string="Group By">

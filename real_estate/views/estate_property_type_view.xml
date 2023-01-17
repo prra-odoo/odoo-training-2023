@@ -10,6 +10,8 @@
             <tree string="Estate_Property">
                 <field name="sequence" widget="handle"/>
                <field name="name"/>
+               <field name="offer_ids"/>
+               <!-- <field name="offer_count"/> -->
             </tree>
         </field>
     </record>
@@ -23,7 +25,13 @@
         <field name="arch" type="xml">
             <form string="Estate Property"> 
                 <sheet>
-                    <h1>
+                   
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(estate_property_offer_action)d" type="action" class="oe_stat_button"  icon="fa-dollar">
+                            <field string="Offers" name="offer_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                     <h1>
                         <field name="name"/>
                     </h1>
                     <!-- <group> -->

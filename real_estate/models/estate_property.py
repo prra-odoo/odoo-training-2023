@@ -81,11 +81,12 @@ class estate_property(models.Model):
             else:
                     self.status = 'Sold'
                     
-                    
-#     def action_accepted(self):
-#             if(float_compare(self.selling_price,self.expected_price * 0.9,precision_rounding=0.01)<0):
-#                     raise UserError("Selling Price must 90percent of the expected price")
 
+    @api.ondelete(at_uninstall=False)
+    def ondelete(self):
+            if self.status != 'New' and self.status != 'cancelled':
+                    raise UserError("Only new and canceled properties are deleted")
 
-
+    
+    
      

@@ -13,7 +13,8 @@
                 <button name="action_accepted" type="object" icon="fa-check" attrs="{'invisible': [('states', 'in', ['accepted','refused'])]}"/>
                 <button name="action_refuse" type="object" icon="fa-times" attrs="{'invisible': [('states', 'in', ['accepted','refused'])]}"/>
                 <field name="states" invisible="1"/>
-                <field name="validity"/>    
+                <field name="validity"/>  
+                <field name="property_type_id"/>  
                 <field name="date_deadline"/>
             </tree>
         </field>
