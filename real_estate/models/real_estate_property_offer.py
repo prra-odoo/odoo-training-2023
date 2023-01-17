@@ -14,6 +14,8 @@ class RealEstatePropertyOffer(models.Model):
     property_id = fields.Many2one("real.estate.property", string="Property Name", required=True)
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_deadline_date", inverse="_inverse_deadline_date", store=True)
+   
+    property_type_id = fields.Many2one('real.estate.property.type',related='property_id.property_type_id',store=True)
 
     _sql_constraints = [('check_offer_price', 'CHECK(price > 0)', 'The price of an proerty should be greater than 0')]
     
@@ -35,7 +37,7 @@ class RealEstatePropertyOffer(models.Model):
 
     def action_confirm(self):
         for record in self:
-            record.property_id.offer_ids.status = "refused"
+            # record.property_id.offer_ids.status = "refused"
             record.status = 'accepted'
             record.property_id.state = 'offer_accepted'
             record.property_id.selling_price = record.price

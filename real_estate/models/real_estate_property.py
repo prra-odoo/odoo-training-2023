@@ -14,8 +14,7 @@ class RealEstateProperty(models.Model):
     name = fields.Char(string="Name", required=True)
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date(
-        default=datetime.now() + relativedelta(months=3))
+    date_availability = fields.Date(default=datetime.now() + relativedelta(months=3))
     # date_availability = fields.Date(copy=False)
     expected_price = fields.Float(required=True)
     # expected_price = fields.Float('Expected Price', index=True,required=True)
@@ -28,19 +27,15 @@ class RealEstateProperty(models.Model):
     garden = fields.Boolean()
     tatal_area = fields.Float(compute="_compute_total_area")
     garden_area = fields.Integer(compute="_cpmpute_garden", readonly=False)
-    garden_orientation = fields.Selection(
-        [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
+    garden_orientation = fields.Selection([('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     active = fields.Boolean(default=True)
     state = fields.Selection([('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted',
                              'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')], default='new', required=True, copy=False)
-    property_type_id = fields.Many2one(
-        'real.estate.property.type', string='Property Type')
-    salesperson_id = fields.Many2one(
-        "res.users", string="Salesman", default=lambda self: self.env.user)
+    property_type_id = fields.Many2one('real.estate.property.type', string='Property Type')
+    salesperson_id = fields.Many2one("res.users", string="Salesman", default=lambda self: self.env.user)
     buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
     tag_ids = fields.Many2many("real.estate.property.tags")
-    offer_ids = fields.One2many(
-        "real.estate.property.offer", "property_id", string="Offers")
+    offer_ids = fields.One2many("real.estate.property.offer", "property_id", string="Offers")
     best_price = fields.Float(compute="_compute_best_price")
 
     _sql_constraints = [('check_expected_price', 'CHECK(expected_price >= 0)', 'The expected_price of an proerty should be greater than 0'),
