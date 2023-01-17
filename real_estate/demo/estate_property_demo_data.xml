@@ -3,19 +3,19 @@
     <data>
         <record model="estate.property" id="demo_data_form">
             <field name="name">The Laurels</field>
-            <field name="expected_price">100.00</field>
+            <!-- <field name="expected_price">100.00</field> -->
             <field name="postcode">390021</field>
         </record>
 
         <record model="estate.property" id="demo_data_form1">
             <field name="name">The Coach House</field>
-            <field name="expected_price">100000.00</field>
+            <!-- <field name="expected_price">100000.00</field> -->
             <field name="postcode">390022</field>
         </record>
 
         <record model="estate.property" id="demo_data_form2">
             <field name="name">Orchard House</field>
-            <field name="expected_price">1000.00</field>
+            <!-- <field name="expected_price">1000.00</field> -->
             <field name="postcode">390023</field>
         </record>
     </data>

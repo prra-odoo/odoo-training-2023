@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="Create_estate_property_offer_model_action" model="ir.actions.act_window">
+        <record id="estate_property_offer_model" model="ir.actions.act_window">
             <field name="name">Property offer</field>
             <field name="res_model">estate.property.offer</field>
             <field name="domain">[('property_type_id', '=', active_id)]</field>
@@ -25,8 +25,8 @@
             </field>
         </record>
 
-        <record id="view_tree_estate_property_offer" model="ir.ui.view">
-            <field name="name">Real Estate offer Form View</field>
+        <record id="desing_estate_property_offer" model="ir.ui.view">
+            <field name="name">Real Estate offer Form design</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
                 <form>

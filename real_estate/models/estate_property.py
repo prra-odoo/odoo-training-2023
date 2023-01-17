@@ -88,9 +88,9 @@ class EstateProperty(models.Model):
         else:
             pass
 
-        def unlink(self):
-            for record in self:
-                if record.state not in ['new', 'canceled']:
-                    raise UserError("Not Possible!!!!!!!!!!")
+    def unlink(self):
+        for record in self:
+            if record.state not in ['new', 'canceled']:
+                    raise UserError("Only New and Cancel Property will be Deleted.")
             return super().unlink()
 

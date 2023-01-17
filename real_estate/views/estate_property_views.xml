@@ -5,7 +5,17 @@
             <field name="name">Advertisement</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{"search_default_name_of_the_filter":1}</field>
+            <field name="context">
+                {
+                "search_default_name_of_the_filter":1,
+                'search_default_selling_price':1
+                }
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+
+                </p>
+            </field>
         </record>
 
         <record id="fields_view_tree" model="ir.ui.view">
@@ -22,7 +32,7 @@
                     <field name="selling_price" />
                     <field name="bedrooms" optional='hide' />
                     <field name="living_area" />
-                    <field name="active" />
+                    <field name="active" optional='hide' />
                     <field name="garden_area" optional='hide' />
                     <field name="facades" optional='hide' />
                     <field name="garage" optional='hide' />
@@ -38,7 +48,7 @@
             </field>
         </record>
 
-        <record id="real_estate_view_form_design" model="ir.ui.view">
+        <record id="real_estate_view_form" model="ir.ui.view">
             <field name="name">Real Estate Form View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
@@ -46,13 +56,14 @@
                     <header>
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                             attrs="{'invisible':[('active', '=', True)]}" />
-                        <button name="action_sold" type="object" string="Sold" states="new"></button>
-                        <button name="action_cancel" type="object" string="Cancel" states="new"></button>
-                        <button type="action" name="%(Create_estate_property_tag_model_action)d"
+                        <!-- states="new" -->
+                        <button name="action_sold" type="object" string="Sold"></button>
+                        <button name="action_cancel" type="object" string="Cancel"></button>
+                        <button type="action" name="%(create_estate_property_tag_model)d"
                             string="Property Tag" />
                         <button type="action" name="%(Create_estate_property_type_model_action)d"
                             string="Property Type" />
-                        <field name="state" widget="statusbar" />
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}" />
                     </header>
                     <sheet>
                         <group>
@@ -118,15 +129,14 @@
                                 <group>
                                     <group>
                                         <field name="salesperson_id" widget="many2one_avatar_user" />
-                                        <field name="buyer_id" />
                                     </group>
                                     <group>
-
+                                        <field name="buyer_id" />
                                     </group>
                                 </group>
                             </page>
                             <page string="Offer">
-                                <field name="offer_ids" type="xml" nolabel="1"
+                                <field name="offer_ids" nolabel="1"
                                     options="{'clickable':'1'}"
                                     attrs="{'readonly':[('state','=','offer_received')],'readonly':[('state','=','sold')],'readonly':[('state','=','cancel')]}">
                                     <tree expand="1" editable="top"
@@ -150,11 +160,6 @@
                         </notebook>
                     </sheet>
                 </form>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" />
-                    <field name="message_ids" />
-                    <field name="activity_ids" />
-                </div>
             </field>
         </record>
 
@@ -167,7 +172,10 @@
                     <field name="name" string="Name" />
                     <field name="living_area" string="Living Area"
                         filter_domain="[('living_area','>=', self)]" />
-                    <filter name="name_of_the_filter" string="Available" domain="[('state', '=', 'new')]"  />
+
+                    <filter name="name_of_the_filter" string="Available"
+                        domain="[('state', '=', 'new')]" />
+                    <separator />
                     <filter string="selling price" name="selling_price"
                         domain="[('selling_price', '>', '5000')]" />
                     <filter name="date_availability" string="Date"

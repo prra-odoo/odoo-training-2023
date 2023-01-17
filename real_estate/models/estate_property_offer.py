@@ -48,6 +48,7 @@ class EstatePropertyOffer(models.Model):
             self.status = "accepted"
             self.property_id.state = "offer_accepted"
 
+
     def action_refuse(self):
         self.status = 'refused'
         self.property_id.selling_price = 0
@@ -61,7 +62,7 @@ class EstatePropertyOffer(models.Model):
         # print("redult s",)
         for record in result:
            if vals['price'] < record:
-                 raise UserError("nothing enjoy")
+                 raise UserError("Increasing Your Amount")
         # print(self.mapped('price'))
         self.env['estate.property'].browse(
             vals['property_id']).state = "offer_received"

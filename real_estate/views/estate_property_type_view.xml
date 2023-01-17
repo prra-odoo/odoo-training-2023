@@ -26,12 +26,11 @@
                 <form>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="%(Create_estate_property_offer_model_action)d"
+                            <button name="%(estate_property_offer_model)d"
                                 type="action" class="oe_stat_button" icon="fa-money">
                                 <field name="offer_count" widget="statinfo" string="offer" />
                             </button>
                         </div>
-
                         <field name="name" />
                         <field name="offer_ids" />
                         <field name="offer_count" />

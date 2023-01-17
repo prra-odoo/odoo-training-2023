@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="account_property_task_model_action" model="ir.actions.act_window">
+            <field name="name">account property</field>
+            <field name="res_model">account.property</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="account_property_fields_view_tree" model="ir.ui.view">
+            <field name="name">account property Form View</field>
+            <field name="model">account.property</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="abc" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_property_view_form" model="ir.ui.view">
+            <field name="name">account property Form View</field>
+            <field name="model">account.property</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <label for="name" string="name"></label>
+                        <field name="name" nolabel="1" />
+                        <label for="abc" string="abc"></label>
+                        <field name="abc" nolabel="1" />
+                    </sheet>    
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

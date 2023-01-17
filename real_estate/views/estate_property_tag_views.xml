@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="Create_estate_property_tag_model_action" model="ir.actions.act_window">
+        <record id="create_estate_property_tag_model" model="ir.actions.act_window">
             <field name="name">Property Tag</field>
             <field name="res_model">estate.property.tag</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <record id="view_tree_estate_property_tag" model="ir.ui.view">
+
+        <record id="view_estate_property_tag" model="ir.ui.view">
             <field name="name">Real Estate tag Form View</field>
             <field name="model">estate.property.tag</field>
             <field name="arch" type="xml">
@@ -18,8 +19,8 @@
             </field>
         </record>
 
-        <record id="view_tree_estate_property_tag" model="ir.ui.view">
-            <field name="name">Real Estate tag Form View</field>
+        <record id="design_tree_estate_property_tag" model="ir.ui.view">
+            <field name="name">Real Estate tag Form design</field>
             <field name="model">estate.property.tag</field>
             <field name="arch" type="xml">
                 <form>
