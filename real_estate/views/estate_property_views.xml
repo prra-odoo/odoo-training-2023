@@ -5,6 +5,7 @@
         <field name="name">Estate</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_new_property':True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No property found!</p>
             <p>Use the top left
@@ -19,7 +20,10 @@
         <field name="name">estate_tree_view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-success="state == 'recieved' or state == 'accepted'" 
+            decoration-bf="state == 'accepted'"
+            decoration-muted="state == 'sold'">
+                <field name="state" invisible='1' />
                 <field name="sequence" widget="handle"></field>
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
@@ -29,7 +33,7 @@
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
-                <field name="date_availability"/>
+                <field name="date_availability" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -41,8 +45,8 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="sold_click" type="object" string="Sold" />
-                    <button name="cancel_click" type="object" string="Cancel"/>
+                    <button name="sold_click" type="object" string="Sold" states="new,recieved,accepted"/>
+                    <button name="cancel_click" type="object" string="Cancel" states="new,recieved,accepted"/>
                     <button type='object' name='refresh_button' string='Clear'/>
                 </header>
                 <header>
@@ -108,14 +112,12 @@
                                 <group>
                                     <field name="garden" />
                                 </group>
-                                <group class="oe_right">
-                                    <field name="garden_area" string="Garden Area (sqm)" />
-                                </group>
                             </group>
                             
-                            <group>
+                            <group attrs="{'invisible':[('garden', '=', False)]}">
                                 <group>
-                                    <field name="garden_orientation" />
+                                    <field name="garden_area" string="Garden Area (sqm)" />
+                                    <field name="garden_orientation" string="Garden Orientation"/>
                                 </group>
                             </group>
 
@@ -126,7 +128,7 @@
                         </page>
 
                         <page string="Offers">
-                            <field name="offer_ids" />   
+                            <field name="offer_ids" attrs="{'readonly':[('state','!=','new')]}"/>   
                         </page>
 
                         <page string="Other Info">
@@ -150,11 +152,11 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" string="Title"/>
+                <field name="name" string="Title" />
                 <field name="postcode" />
                 <field name="expected_price" />
                 <field name="bedrooms" />
-                <field name="living_area" />
+                <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
                 <field name="facades" />
                 <field name="property_type_id"/>
             <!-- Adding a filter which will show available properties for buying -->
