@@ -6,4 +6,5 @@ class resUsers(models.Model):
 
 
     property_ids = fields.One2many('estate.property', 'salesman_id', string="Property", domain=[("state", "in", ["new","received"])] )
+    demo = fields.Char()
     
