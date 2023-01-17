@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="estate_property_action" model="ir.actions.act_window">
-        <field name="name">Real Estate</field>
-        <field name="res_model">real.estate.properties</field>
-        <field name="view_mode">tree,form</field>
-         <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                There is no record of any Property 
-            </p>
-        </field>
-    </record>
+    
    <!-- Tree View-->
     <record id="Estate_property_tree_view" model="ir.ui.view">
         <field name="name">Estate.Property</field>
@@ -83,6 +74,11 @@
                                     <field name="salesperson"/>
                                 </group>
                             </page>
+                            <page>
+                                <group>
+                                        <field name="user_id"/>
+                                </group>
+                            </page>
                         </notebook>
                     </group>
                 </sheet>
@@ -98,7 +94,7 @@
                 <field name="name"/>
                 <field name="Postcode"/>
                 <field name="bedroom"/>
-                <field name="living_area" />
+                <field name="living_area" filter_domain="[('living_area', '>=', self)]"/> 
                 <field name="expected_price" />
                 <field name="selling_price" />
                 <field name="date_availablity" />    

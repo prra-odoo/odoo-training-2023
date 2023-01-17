@@ -17,10 +17,10 @@ class estate_property_offer(models.Model):
     property_id=fields.Many2one("real.estate.properties",required=True)
     validity=fields.Integer(default=7)
     date_deadline=fields.Date(compute="_compute_date_deadline",inverse="_inverse_date_deadline")
-    
+    property_type_id=fields.Many2one(related="property_id.property_type_id",store=True)
 
     @api.depends("validity")
-    def _compute_date_deadline(self):
+    def _compute_date_deadline(self):   
         for record in self:
             if record.create_date:
                 record.date_deadline=record.create_date + relativedelta(days=record.validity)
