@@ -9,6 +9,8 @@
             <tree string="Tree View">
                 <field name="name" />
                 <field name="description" optional="hidden" />
+                <field name="property_type_id"/>
+                <field name="tag_ids" optional="show"/>
                 <field name="postcode" />
                 <field name="date_availability" optional="hidden" />
                 <field name="expected_price" />
@@ -44,11 +46,13 @@
                 <sheet>
                     <div class="title" name="property_title">
                         <h1>
-                            <field name="name" />
+                            <field name="name" placeholder="Property Name" />
                         </h1>
                     </div>
                     <group name="main">
                         <group name="main_left">
+                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="property_type_id"/>
                             <field name="postcode" />
                             <field name="date_availability" />
                         </group>
@@ -71,7 +75,15 @@
                                 <field name="active" />
                             </group>
                         </page>
-                        <page string="Optional"></page>
+                        <page string="Offers">  
+                            <field name="offer_ids"/>
+                        </page>
+                        <page string="Other Info">
+                            <group>
+                                <field name="salesperson_id"/>
+                                <field name="buyer_id"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -84,6 +96,7 @@
         <field name="arch" type="xml">
             <search string="Search Property Offers">
                 <field name="name"/>
+                <field name="property_type_id"/>
                 <field name="postcode"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>

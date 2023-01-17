@@ -6,4 +6,10 @@
         <field name="expected_price">1200000</field>
         <field name="postcode">390051</field>
     </record> 
+
+    <record id="estate_property_house_1" model="estate.property">
+        <field name="name">Indraprasth</field>
+        <field name="expected_price">52000000</field>
+        <field name="postcode">370051</field>
+    </record> 
 </odoo>

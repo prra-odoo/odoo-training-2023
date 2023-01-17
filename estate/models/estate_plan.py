@@ -18,15 +18,22 @@ class EstatePlan(models.Model):
     facades = fields.Integer(string='Facades')
     garage = fields.Boolean(string='Garage')
     garden = fields.Boolean(string='Garden')
-    garden_area = fields.Integer(string='Garden Area')
+    garden_area = fields.Integer(string='Garden Area (sqm.)')
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection=[('north','North'),('south','South'),('east','East'),('west','West')]
     )
     status = fields.Selection(
-        string='Status',
+        string='State',
         selection=[('new','New'),('offer_received','Offer Received'),('offer_accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         default= 'new'
     )
     active = fields.Boolean(string='Active', default=True)
     
+    #Relational Fields
+    property_type_id = fields.Many2one('estate.property.type',string="Property Type")
+    buyer_id = fields.Many2one('res.partner',string="Buyer",copy=False)
+    salesperson_id = fields.Many2one('res.users',string="Salesman", default=lambda self: self.env.user)
+    tag_ids = fields.Many2many('estate.property.tag',string="Property Tags")
+    offer_ids = fields.One2many('estate.property.offer','property_id')
+    test = 123
