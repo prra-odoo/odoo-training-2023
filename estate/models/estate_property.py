@@ -20,7 +20,6 @@ class estate_property(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     garden_area = fields.Integer()
-    # [('value','Name')]
     garden_orientation = fields.Selection(
         [('north', 'North'), ('east', 'East'), ('south', 'South'), ('west', 'West')])
     active = fields.Boolean('Active', default=True)
@@ -30,3 +29,8 @@ class estate_property(models.Model):
         ('offer_accepted', 'Offer Accepted'),
         ('done', 'Done'),
         ('cancel', 'Cancel'), ], string='State', default='new', copy=False)
+    property_type = fields.Many2one("estate.property.type",string="Property Type")
+    user_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user) 
+    buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False)
+    tag_ids = fields.Many2many("estate.property.tag", string="Property tag")
+    offer_ids = fields.One2many('estate.property.offer','property_id',string="offer")
