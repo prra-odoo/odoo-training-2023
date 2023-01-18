@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 from datetime import timedelta
+from odoo.exceptions import UserError
 import datetime
  
 
@@ -14,7 +15,6 @@ class RealEstatePropertyOffer(models.Model):
     property_id = fields.Many2one("real.estate.property", string="Property Name", required=True)
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_deadline_date", inverse="_inverse_deadline_date", store=True)
-   
     property_type_id = fields.Many2one('real.estate.property.type',related='property_id.property_type_id',store=True)
 
     _sql_constraints = [('check_offer_price', 'CHECK(price > 0)', 'The price of an proerty should be greater than 0')]
@@ -23,21 +23,17 @@ class RealEstatePropertyOffer(models.Model):
     def _compute_deadline_date(self):
         for record in self:
             for record in self:
-                if record.create_date:
+                if record.create_date:  
                     record.date_deadline=record.create_date + timedelta(days=record.validity)
                 else:
                     record.date_deadline = datetime.date.today() + timedelta(days=record.validity)
-            #     print(record.property_id.create_date)
-            # print(record.validity)
-            # record.date_deadline = (record.property_id.create_date + timedelta(days=record.validity)).date()
-
+        
     def _inverse_deadline_date(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date.date()).days
 
     def action_confirm(self):
         for record in self:
-            # record.property_id.offer_ids.status = "refused"
             record.status = 'accepted'
             record.property_id.state = 'offer_accepted'
             record.property_id.selling_price = record.price
@@ -46,3 +42,12 @@ class RealEstatePropertyOffer(models.Model):
     def action_cancel(self):
         for record in self:
             record.status = 'refused'
+            
+            
+    # @api.model
+    # def create(self, vals_list):
+    #     rec = self.env['real.estate.property'].browse(vals_list['property_id'])
+    #     rec.state =  'offer_received'
+    #     if rec.best_price >= vals_list['price'] :
+    #         raise UserError("you can not create an offer of lower amount than existing")
+    #     return super().create(vals_list)

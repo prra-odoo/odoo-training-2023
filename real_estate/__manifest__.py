@@ -21,7 +21,7 @@
         #  'demo/real_estate_property_offer_data.xml',
          'demo/real_estate_property_tags_data.xml',
          'demo/real_estate_property_type_data.xml',
-        #  'demo/real_estate_property_data.xml',
+         'demo/real_estate_property_data.xml',
 
     ],
 }

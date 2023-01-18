@@ -69,6 +69,8 @@
                     <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="sold" attrs="{'invisible': ['!',('state', '=', 'sold')]}" />
+                    <widget name="web_ribbon" bg_color="bg-danger" title="canceled" attrs="{'invisible': ['!',('state', '=', 'canceled')]}" />
                     <h1>
                         <field name="name" />
                     </h1>
@@ -84,7 +86,6 @@
                             <field name="best_price" string="Best Offer"/>
                             <field name="selling_price"/>
                             <!-- <field name="state" decoration-danger="expected_price &lt; 10"/> -->
-
                         </group>
                         <notebook>
                             <page name="Description" string="Description">
@@ -106,7 +107,7 @@
                                 </group>
                             </page>
                             <page name="Offers">
-                                    <field name="offer_ids" nolabel="1" attrs="{'readonly' : [('state','in',['offer_accepted','sold','canceled'])]}"/>
+                                <field name="offer_ids" nolabel="1" attrs="{'readonly' : [('state','in',['offer_accepted','sold','canceled'])]}"/>
                             </page>
                             <page name="other info" string="Other info">
                                 <group>
@@ -122,5 +123,4 @@
             </form>
         </field>
     </record>
-    
 </odoo>

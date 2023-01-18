@@ -36,38 +36,26 @@ class RealEstateProperty(models.Model):
     buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
     tag_ids = fields.Many2many("real.estate.property.tags")
     offer_ids = fields.One2many("real.estate.property.offer", "property_id", string="Offers")
-    best_price = fields.Float(compute="_compute_best_price")
+    best_price = fields.Float(compute="_compute_best_offer")
 
-    _sql_constraints = [('check_expected_price', 'CHECK(expected_price >= 0)', 'The expected_price of an proerty should be greater than 0'),
-                        ('check_selling_price', 'CHECK(selling_price >= 0)', 'The selling_price of an proerty should be greater than 0')]
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
         for record in self:
             record.tatal_area = record.living_area + record.garden_area
 
-    @api.depends("offer_ids")
-    def _compute_best_price(self):
+    @api.depends('offer_ids.price')
+    def _compute_best_offer(self):
         for record in self:
-            if not record.offer_ids.mapped('price'):
-                record.best_price = 0.0
-            else:
-                record.best_price = max(record.offer_ids.mapped('price'))
-
-    # @api.onchange('garden')
-    # def _onchange_garden(self):
-    #     if self.garden == True:
-    #         self.garden_area, self.garden_orientation = 10, 'north'
-    #     else:
-    #         self.garden_area, self.garden_orientation = 0, ''
+            record.best_price=max(record.offer_ids.mapped('price'),default=0)
 
     @api.depends('garden')
     def _cpmpute_garden(self):
         for record in self:
-            if self.garden == True:
-                self.garden_area, self.garden_orientation = 10, 'north'
+            if record.garden == True:
+                record.garden_area, record.garden_orientation = 10, 'north'
             else:
-                self.garden_area, self.garden_orientation = 0, ''
+                record.garden_area, record.garden_orientation = 0, ''
 
     def action_sold_porperty(self):
         for record in self:
@@ -85,10 +73,26 @@ class RealEstateProperty(models.Model):
     @api.constrains('selling_price', 'expected_price')
     def _check_price_validation(self):
         for record in self:
-            if (float_compare(record.selling_price, 0.9 * record.expected_price,precision_digits=2) == -1 and not float_is_zero(record.expected_price,precision_digits=2)) :
+            if (not float_is_zero(record.selling_price, precision_rounding=0.1)) and float_compare(record.selling_price, 90/100 * record.expected_price,precision_rounding=0.1) < 0:
                     raise ValidationError("selling price cannot be less than 90% of expected price")
-
     
+    
+    @api.ondelete(at_uninstall=True)
+    def _unlink_if_state_new_or_canceled(self):
+        for record in self:
+            if record.state in ['offer_received', 'offer_accepted', 'sold']:
+                raise UserError(('You cannot delete a property that is in %s state.',dict(self._fields['state']._description_selection(self.env)).get(record.state)))
+            
+    _sql_constraints = [('check_expected_price', 'CHECK(expected_price >= 0)', 'The expected_price of an proerty should be greater than 0'),
+                        ('check_selling_price', 'CHECK(selling_price >= 0)', 'The selling_price of an proerty should be greater than 0')]
+            
+            
+    # @api.onchange('garden')
+    # def _onchange_garden(self):
+    #     if self.garden == True:
+    #         self.garden_area, self.garden_orientation = 10, 'north'
+    #     else:
+    #         self.garden_area, self.garden_orientation = 0, ''
     # @api.constrains('expected_price','offer_ids')
     # def check_price(self):
     #     for record in self:
