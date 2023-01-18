@@ -58,8 +58,6 @@ class RealEstateProperty(models.Model):
             offer=record.offers_ids.mapped('price')
             if offer:
                 record.best_offer=max(offer)
-                if record.state in ('new',):
-                    record.state='offer_received'
             else:
                 record.best_offer=0
     @api.depends("garden")

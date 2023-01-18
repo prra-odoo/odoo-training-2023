@@ -16,7 +16,6 @@
                 <field name="type_id"/>
                <separator/>
                     <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-                    <separator />
                     <filter string="Active" name="active" domain="[('active', '=', True)]"/>
                     <separator/>
                 <group string="Group By">
@@ -64,6 +63,9 @@
                     </h1>
                     <group>
                         <field name="tags_ids" options="{'color_field':'color'}" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="best_offer"/>
                     </group>
                     <group>
                         <group>
@@ -142,7 +144,6 @@
         <field name="res_model">real.estate.property</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'search_default_active':'True','search_default_bar':2}</field>
-        <field name="domain">[('selling_price','=',0)]</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
             Define a new property

@@ -6,6 +6,8 @@
     'category':'Sales',
     'data':[
         'security/ir.model.access.csv',
+        'views/inherited_model_views.xml',
+        'views/inherited_res_partner_views.xml',
         'views/real_estate_property_views.xml',
         'views/real_estate_property_offer_views.xml',
         'views/real_estate_property_type_views.xml',
