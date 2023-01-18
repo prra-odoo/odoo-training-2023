@@ -7,11 +7,12 @@
     'author': 'sami',
     'data': [
         'security/ir.model.access.csv',
+        'views/real_estate_menu.xml',
         'views/estate_property_views.xml',
         'views/estate_property_offer.xml',
         'views/estate_property_type.xml',
         'views/estate_property_tag.xml',
-        'views/real_estate_menu.xml',
+        
 
     ],
     'demo': [

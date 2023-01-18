@@ -104,6 +104,15 @@ class Real_estate(models.Model):
 
             if  (float_utils.float_compare(record.selling_price, 0.9 * record.expected_price,precision_digits=2) == -1 and  not float_utils.float_is_zero(record.expected_price,precision_digits=2)) :
                  raise exceptions.ValidationError("The Offer price cannot be lower than 90% of the expected price.")
+
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_or_canceled(self):
+        for record in self:
+            if record.state not in ['new','cancled']:
+                raise exceptions.UserError('You can delete only new and cancled properties')
+
+
             
             
             
