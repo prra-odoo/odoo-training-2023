@@ -7,3 +7,4 @@ class InheritedModel(models.Model):
     property_ids = fields.One2many(
         "estate.property", "salesperson_id", string="Properties")
     abc = fields.Char()
+    xyz=  fields.Char()
