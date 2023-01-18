@@ -22,3 +22,4 @@ class estatePropertyType(models.Model):
     _sql_constraints = [
         ('name_uniq', 'unique (name)', "A property type with the same name already exists."),
     ]
+    

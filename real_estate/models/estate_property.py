@@ -50,7 +50,7 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
-    @api.depends('offer_ids.price')
+    @api.depends('offer_ids')
     def _compute_best_offer(self):
         for record in self:
             record.best_offer=max(record.offer_ids.mapped('price'),default=0)
@@ -76,3 +76,9 @@ class EstateProperty(models.Model):
             if record.state=="sold":
                 raise UserError("A sold property cannot be canceled")
             record.state="canceled"
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_record(self):
+        for record in self:
+            if record.state not in ['new', 'cancel']:
+                raise UserError(("You cannot delete property which is not in new or canceled state"))

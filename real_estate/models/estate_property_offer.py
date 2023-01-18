@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api,models,fields
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError, ValidationError
 
 class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
@@ -43,4 +44,11 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.status = "refused"
 
+    @api.model
+    def create(self,vals):
+        property_id=self.env['estate.properties'].browse(vals['property_id'])
+        property_id.state='offer_received'
+        if vals['price']<property_id.best_offer:
+            raise UserError(("New offer cannot be less than the previous offer"))
+        return super().create(vals)
     
