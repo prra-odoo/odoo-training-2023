@@ -61,8 +61,9 @@ class estatePropertyOffer(models.Model):
         max_offer = 0
         if vals.get("property_id") and vals.get("price"):
             rec = self.env['estate.property'].browse(vals['property_id'])
-            max_offer = max(rec.mapped("offer_ids.price"))
-            if max_offer > vals['price'] :
-                raise UserError(f'The offer must be higher than {max_offer}')
-        rec.state = 'received'
+            if rec.offer_ids:
+                max_offer = max(rec.mapped("offer_ids.price"))
+                if max_offer > vals['price'] :
+                    raise UserError(f'The offer must be higher than {max_offer}')
+            rec.state = 'received'
         return super().create(vals)
