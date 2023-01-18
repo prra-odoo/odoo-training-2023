@@ -10,7 +10,7 @@
                 <field name="name" />
                 <field name="description" optional="hidden" />
                 <field name="property_type_id"/>
-                <field name="tag_ids" optional="show"/>
+                <field name="tag_ids" optional="show" widget="many2many_tags"/>
                 <field name="postcode" />
                 <field name="date_availability" optional="hidden" />
                 <field name="expected_price" />
@@ -71,6 +71,7 @@
                                 <field name="garden" />
                                 <field name="garden_area" />
                                 <field name="garden_orientation" />
+                                <field name="total_area"/>
                                 <field name="status" />
                                 <field name="active" />
                             </group>
@@ -98,6 +99,7 @@
                 <field name="name"/>
                 <field name="property_type_id"/>
                 <field name="postcode"/>
+                <field name="tag_ids"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>

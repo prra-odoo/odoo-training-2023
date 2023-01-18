@@ -13,4 +13,20 @@
                 </tree>
             </field>
    </record>
+   <!-- Form View -->
+   <record id="estate_property_offer_form_view" model="ir.ui.view">
+        <field name="name">Offer</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="Offer Form View">
+                <sheet>
+                    <group>
+                        <field name="price"/>
+                        <field name="partner_id"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+   </record>
 </odoo>

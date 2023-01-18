@@ -12,6 +12,16 @@
             </p>
         </field>
     </record>
+    <!-- List View -->
+    <record id="estate_property_type_list" model="ir.ui.view">
+        <field name="name">Estate Property Type List</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="list">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
     <!-- Form View -->
     <record id="estate_property_type_formview" model="ir.ui.view">
         <field name="name">Estate Property Type Form View</field>
@@ -24,8 +34,13 @@
                             <field name="name" placeholder="e.g.-House, Mansion, Bunglow"/>
                         </h1>
                     </div>
+                    <field name="property_type_ids"/>
                 </sheet>
             </form>
         </field>
     </record>
+
+    
+
+    
 </odoo>
