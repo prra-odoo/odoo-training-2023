@@ -1,49 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="property_list_action" model="ir.actions.act_window">
-            <field name="name">Property List</field>
-            <field name="res_model">estate.property</field>
-            <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_available': 1}</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a New Property !!!!
-                </p>
-            </field>
-        </record>
-        <record id="property_types_action" model="ir.actions.act_window">
-            <field name="name">Property Types</field>
-            <field name="res_model">estate.property.type</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a Property Type !!!!
-                </p>
-            </field>
-        </record>
-        <record id="property_tags_action" model="ir.actions.act_window">
-            <field name="name">Property Tags</field>
-            <field name="res_model">estate.property.tag</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a New Property Tag !!!!
-                </p>
-            </field>
-        </record>
-        <record id="offers_action" model="ir.actions.act_window">
-            <field name="name">Offers</field>
-            <field name="res_model">estate.property.offer</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('property_type_id', '=', active_id)]</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a New Property Offer !!!!
-                </p>
-            </field>
-        </record>
-
         <record id="estate_property_tree_view" model="ir.ui.view">
             <field name="name">Real Estate Tree View</field>
             <field name="model">estate.property</field>

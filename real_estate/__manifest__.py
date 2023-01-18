@@ -6,12 +6,12 @@
     'author': 'Renilkumar Kajavadra',
     'depends':['base','mail'],
     'data': [
-                'views/estate_property_views.xml',
+                'security/ir.model.access.csv',
                 'views/estate_property_menus.xml',
+                'views/estate_property_views.xml',
                 'views/estate_property_offer_view.xml',
                 'views/estate_property_type_view.xml',
-                'views/estate_property_tags_view.xml',
-                'security/ir.model.access.csv'
+                'views/estate_property_tags_view.xml'
             ],
     'demo': [
                 'demo/demo.xml'
