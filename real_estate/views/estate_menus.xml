@@ -14,7 +14,7 @@
     </record>
 
 <!-- Property View Action -->
-    <record id="estate_property_action" model="ir.actions.act_window">
+    <record id="estate_property_action" model="ir.actions.act_window" >
         <field name="name">Real Estate</field>
         <field name="res_model">real.estate.properties</field>
         <field name="view_mode">tree,form</field>
@@ -54,7 +54,7 @@
     </record>
 
 
-    <menuitem id="estate_root_menu" name="Real Estate">
+    <menuitem id="estate_root_menu" name="Real Estate" web_icon="real_estate,static/description/icon.png">
         <menuitem id="estate_level1_menu_property" name="Sell Property">
             <menuitem id="estate_model_sellresedential_menu_action" action="estate_property_action" name="Estate Property" />
        </menuitem>     

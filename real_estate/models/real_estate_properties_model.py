@@ -34,7 +34,7 @@ class real_Esate_Properties(models.Model):
 		selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancled','Canceled')],
 		required=True,
 		copy=False,
-		default='offer_recieved'
+		default='new'
 	)
 	property_type_id=fields.Many2one("estate.property.type")
 	buyer=fields.Many2one("res.partner",copy=False,readonly=True)

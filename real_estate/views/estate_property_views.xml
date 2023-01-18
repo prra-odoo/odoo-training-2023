@@ -33,6 +33,9 @@
                     <field  name="state" widget="statusbar" options="{'clickable' : 1}"  /> 
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible' : [('state','!=','sold')]}" />
+                    <widget name="web_ribbon" title="Cancled" bg_color="bg-danger" attrs="{'invisible' : [('state','!=','cancled')]}" />
+                    <widget name="web_ribbon" title="Offer Accepted" bg_color="bg-info" attrs="{'invisible' : [('state','!=','offer_accepted')]}" />
                     <h1><field name="name"/></h1>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <group>
@@ -74,17 +77,18 @@
                                     <field name="salesperson"/>
                                 </group>
                             </page>
-                            <page>
+                            <!-- <page>
                                 <group>
                                         <field name="user_id"/>
                                 </group>
-                            </page>
+                            </page> -->
                         </notebook>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
+
 <!-- Search view -->
     <record id="Estate_property_search_view" model="ir.ui.view"> 
         <field name="name">Estate.Property</field>
