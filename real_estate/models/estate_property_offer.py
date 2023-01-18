@@ -14,7 +14,7 @@ class Estate_property_offer(models.Model):
     validity = fields.Integer(default="7")
     date_deadline = fields.Date(compute="_compute_deadline", inverse="_inverse_deadline")
     # related field
-    type_id = fields.Many2one("estate.property.type",related="property_id.type_id",store=True)
+    property_type_id = fields.Many2one(related='property_id.type_id', string='Type', store=True)
 
 
     @api.depends('validity','create_date')
@@ -40,7 +40,7 @@ class Estate_property_offer(models.Model):
 
         for record in self:
 
-            # record.property_id.offer_ids.status='refused' >>>please uncomment it when it is used
+            # record.property_id.offer_ids.status='refused' 
             record.status='accepted'
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id

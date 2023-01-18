@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- do not add it in manifest file because it is not well prepred -->
+<odoo>
+    <data>
+        <record id="estate_property_offer_record_1" model="estate.property.offer">
+            <field name="price" >Safal</field>
+            <field name="partner_id">123456</field>
+            <field name="validity" >3</field>
+            <field name="property_type_id" >5000</field>
+        </record>
+
+        <record id="estate_property_offer_record_2" model="estate.property.offer">
+            <field name="name" >Prasar</field>
+            <field name="postcode">5678</field>
+            <field name="bedrooms" >3</field>
+            <field name="living_area" >4000</field>
+            <field name="expected_price">200000</field>
+            <field name="selling_price">1000000</field>
+        </record>
+
+        <record id="estate_property_offer_record_3" model="estate.property.offer">
+            <field name="name" >Praivesh</field>
+            <field name="postcode">34567</field>
+            <field name="bedrooms" >2</field>
+            <field name="living_area" >9000</field>
+            <field name="expected_price">70000</field>
+            <field name="selling_price">1000000</field>
+        </record>
+
+        <record id="estate_property_offer_record_4" model="estate.property.offer">
+            <field name="name" >Asmaakam</field>
+            <field name="postcode">89765</field>
+            <field name="bedrooms" >4</field>
+            <field name="living_area" >9000</field>
+            <field name="expected_price">600000</field>
+            <field name="selling_price">1000000</field>
+        </record>
+    </data>
+</odoo>
