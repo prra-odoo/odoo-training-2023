@@ -13,6 +13,7 @@
         'demo/estate_property_demo_data.xml',
         'demo/estate_type_demo_data.xml',
         'demo/estate_tag_demo_data.xml',
+        'views/inherited_model_views.xml',
         'views/estate_property_menus.xml',
     ],
     'author': "rare",
