@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="property_type_form_view" model ="ir.ui.view">
+        <field name="name">Estate Property form View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class ="title">
+                        <h1>
+                            <field name="name" placeholder="Property name"/>
+                        </h1>
+                    </div>
+                    <field name="property_real_type_ids"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
     <record id="estate_property_type_action" model="ir.actions.act_window">
         <field name="name">estate property type</field>
         <field name="res_model">estate.property.type</field>

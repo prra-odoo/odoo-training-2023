@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="estate_property_house" model="estate.property">
-        <field name="name">Zyus Apartments</field>
+        <field name="name">Zydus Apartments</field>
         <field name="expected_price">1200000</field>
         <field name="postcode">390051</field>
-        <field name="bedroom">3</field>
+        <field name="bedrooms">3</field>
         <field name="living_area">123</field>
         <field name="facades">1</field>
-        <field name="data_avabilability">03/03/2023</field>
+        <field name="data_avabilability">2023-03-03</field>
         <field name="selling_price">1100000</field>
         <field name="garage">yes</field>
         <field name="garden_area">157</field>
-        <field name="garden_orientation">North</field>
-        <field name="select">New</field>
+        <field name="garden_orientation">north</field>
+        <field name="state">new</field>
+
+    </record>
+    <record id="estate_property_house_1" model="estate.property">
+        <field name="name">Adharsh Apartments</field>
+        <field name="expected_price">2500000</field>
+        <field name="postcode">345651</field>
+        <field name="bedrooms">4</field>
+        <field name="living_area">5678</field>
+        <field name="facades">1</field>
+        <field name="data_avabilability">2023-05-06</field>
+        <field name="selling_price">11567000</field>
+        <field name="garage">no</field>
+        <field name="garden_area">456</field>
+        <field name="garden_orientation">south</field>
+        <field name="state">new</field>
+
     </record>
 </odoo>
