@@ -75,3 +75,7 @@ class EstatePropertyOffers(models.Model):
         for record in self:
             if float_compare(record.price, 0.90 * record.property_id.expected_price, precision_rounding=0.01) < 0:
                 raise ValidationError(r"The offer price must be alteast 90% of expected price") 
+
+
+
+    

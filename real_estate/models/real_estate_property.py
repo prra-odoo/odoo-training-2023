@@ -108,3 +108,12 @@ class EstateProperty(models.Model):
             sum +=1 
             print(f"Type of self record : {type(record)}")
         print(f'Number of records {sum}')   
+
+
+    # adding CRUD operations but calling methods of parent class ie - Model class coz it's already defined there
+
+    @api.ondelete(at_uninstall=False)
+    def _user_delete_activity(self):
+        for record in self:
+            if record.state not in ['new', 'cancel']:
+                raise UserError("You can only delete records which are new or canceled!")
