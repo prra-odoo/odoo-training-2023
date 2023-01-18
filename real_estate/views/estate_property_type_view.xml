@@ -25,16 +25,16 @@
         <field name="arch" type="xml">
             <form string="Estate Property"> 
                 <sheet>
-                   
                     <div class="oe_button_box" name="button_box">
-                        <button name="%(estate_property_offer_action)d" type="action" class="oe_stat_button"  icon="fa-dollar">
-                            <field string="Offers" name="offer_count" widget="statinfo"/>
-                        </button>
-                    </div>
-                     <h1>
-                        <field name="name"/>
-                    </h1>
-                    <!-- <group> -->
+                        
+                            <button name="%(estate_property_offer_action)d" type="action" class="oe_stat_button"  icon="fa-dollar">
+                                <field string="Offers" name="offer_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                            <h1>
+                                <field name="name"/>
+                            </h1>                    
+                        
                         <notebook>
                             <page string="Properties">
 
@@ -47,13 +47,8 @@
                                 </field>
                             </page>
                         </notebook>
-                    <!-- </group> -->
-
-                   
                 </sheet>
             </form>
         </field>
     </record>
-
-
 </odoo>

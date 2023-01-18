@@ -37,9 +37,17 @@
                     <!-- statusbar_colors='{"sold":"green","offer cancelled":"red"}' options="{'clickable':'1'}"-->
                 </header>    
                 <sheet>
-                    <h1>
-                        <field name="name"/>
-                    </h1>
+                <group>
+                    <group>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </group>
+                    <group>
+                         <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('status', '!=', 'Sold' )]}"/>
+                        <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('status', '!=', 'cancelled' )]}"/>
+                    </group>
+                </group>
                     <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             <group>
                                 <group>
@@ -112,6 +120,7 @@
                                 
                             </group>
                 </sheet>
+                
             </form>
         </field>
     </record>

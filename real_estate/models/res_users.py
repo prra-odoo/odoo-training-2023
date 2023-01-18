@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-class InheritedModel(models.Model):
+class User(models.Model):
     _inherit = 'res.users'
 
     property_ids = fields.One2many('estate.property','salesperson')

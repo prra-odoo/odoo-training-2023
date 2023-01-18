@@ -22,6 +22,7 @@
          'views/estate_property_type_view.xml',
          'views/estate_property_tags_view.xml',
          'views/estate_property_offer_view.xml',
-         'views/inherit_model_view.xml',
+        #  'views/inherit_model_view.xml',
+         'views/res_users_view.xml',
     ]
 }
