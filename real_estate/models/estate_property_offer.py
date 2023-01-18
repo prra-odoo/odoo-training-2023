@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -63,10 +63,17 @@ class EstatePropertyOffer(models.Model):
         property_id = self.env['estate.property'].browse(values['property_id'])
         # print('------------------------------------')
         # print(property_id.read())
+        max_price_in_offers = max(property_id.offer_ids.mapped('price'), default=0)
         # print('------------------------------------')
-        # print(self)
-        # print(self.price)
-        # if self.price < max(property_id.offer_ids.mapped('price'), default=0): 
-            # print('Done')
+        # print(max_price_in_offers)
+        
+        if values['price'] < max_price_in_offers: 
+            raise UserError(f"The price must be higher than {max_price_in_offers}")
+        
+        print('------------------------------------')
+        # print(values['price'])
+        
+        print(values['property_id'])
+        
         property_id.state = 'offer_received'
         return super().create(values)

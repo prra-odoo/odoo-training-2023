@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="res_users_inherited_view_form" model="ir.ui.view">
+        <field name="name">res.users.inherited.view.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <!-- <field name="mode">primary</field> -->
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='preferences']" position="after">
+                <page name="estate_property_user" string="Real Estate Properties">
+                    <field name="property_ids" domain="['|',('state', '=' , 'new'),('state','=','offer_recieved')]"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
