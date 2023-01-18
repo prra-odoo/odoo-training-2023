@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import fields, models, api
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
@@ -34,5 +34,19 @@ class estate_property(models.Model):
     salesperson_id = fields.Many2one('res.users', string='Salesman', default=lambda self: self.env.user)
     buyer_id = fields.Many2one('res.partner',string='Buyer',copy=False)
     property_type_id= fields.Many2one("estate.property.type",string="Property Type")
-    tags_ids= fields.Many2many("estate.property.tags",string="Tags")
+    tags_ids= fields.Many2many("estate.property.tags",'property_under_tag_rel', 'property_id', 'tag_id',string="Tags")
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
+    total_area = fields.Float(compute="_compute_total_area",string="Total Property Area")
+    # best_offer = fields.Float(compute="_compute_best_offer",string="Best Offer")
+
+
+    @api.depends("living_area","garden_area")
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+    
+    # @api.depends("offer_ids.price")
+    # def _compute_best_offer(self):
+    #     for record in self:
+    #         record.best_offer = max(offer_ids.price for offer_ids in record.offer_ids)
+            # print(offer_ids.price)

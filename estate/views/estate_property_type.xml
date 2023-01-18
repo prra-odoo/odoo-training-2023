@@ -13,6 +13,7 @@
                             <field name="name"/>
                         </h1>
                     </div>
+                    <field name="property_under_type_ids"/>
                 </sheet>
             </form>
         </field>

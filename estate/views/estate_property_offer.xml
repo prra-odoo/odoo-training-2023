@@ -9,7 +9,7 @@
             <tree>
                     <field name="price"/>
                     <field name="status"/>
-                    <field name="partner_id"/>
+                    <!-- <field name="partner_id"/> -->
             </tree>
         </field>
     </record>
@@ -24,6 +24,11 @@
                         <field name="price"/>
                         <field name="status"/>
                         <field name="partner_id"/>
+                        <!-- <field name="validity"/>
+                        <field name="date_deadline"/> -->
+                        <!-- <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="days"/> -->
                     </group>
                 </sheet>
             </form>
