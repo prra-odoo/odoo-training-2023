@@ -2,9 +2,44 @@
 
 <odoo>
     <data>
-        <record id="estate_property_demo" model="estate.property">
-            <field name="name">Yash</field>
+        <record id="estate_property_demo1" model="estate.property">
+            <field name="name">Property 1</field>
             <field name="expected_price">1234567890</field>
+            <field name="selling_price">35235632</field>
+            <field name="garden_area">123</field>
+            <field name="garden">yes</field>
+            <field name="garage">yes</field>
+            <field name="living_area">1700</field>
+            <field name="postcode">111111</field>
+            <field name="bedrooms">3</field>
+            <field name="facades">2</field>
+            <field name="garden_orientation">north</field>
+        </record>
+        <record id="estate_property_demo2" model="estate.property">
+            <field name="name">Property 2</field>
+            <field name="expected_price">46367346</field>
+            <field name="selling_price">346736734</field>
+            <field name="garden_area">1221</field>
+            <field name="garden">no</field>
+            <field name="garage">no</field>
+            <field name="living_area">1800</field>
+            <field name="postcode">222222</field>
+            <field name="bedrooms">4</field>
+            <field name="facades">1</field>
+            <field name="garden_orientation">south</field>
+        </record>
+        <record id="estate_property_demo3" model="estate.property">
+            <field name="name">Property 3</field>
+            <field name="expected_price">560000</field>
+            <field name="selling_price">343433</field>
+            <field name="garden_area">455</field>
+            <field name="garden">yes</field>
+            <field name="garage">no</field>
+            <field name="living_area">4500</field>
+            <field name="postcode">333333</field>
+            <field name="bedrooms">6</field>
+            <field name="facades">2</field>
+            <field name="garden_orientation">west</field>
         </record>
     </data> 
 </odoo>

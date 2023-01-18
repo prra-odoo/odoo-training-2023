@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-     <!-- property type action -->
-     <record id="estate_property_type_action" model="ir.actions.act_window">
+    <!-- property type action -->
+    <record id="estate_property_type_action" model="ir.actions.act_window">
         <field name="name">Property Types</field>
         <field name="res_model">estate.property.type</field>
         <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="estate_property_type_form_view" model="ir.ui.view">
+        <field name="name">Estate Property  Type Form View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="form_view">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>    
+                    <field name="property_types_ids"/>
+                </sheet>
+            </form>
+        </field>
     </record>
 </odoo>
