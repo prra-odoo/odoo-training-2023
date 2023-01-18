@@ -5,18 +5,15 @@
         <field name="name">Luxury House</field> 
         <field name="description">Luxury Big House</field>
         <field name="postcode">3456789</field>
-        <field name="expected_price">15</field> 
-       
+        <field name="expected_price">15</field>       
         <field name="bedrooms">4</field>    
     </record>
     
     <record id="estate_property_demo1" model="real.estate.properties">
         <field name="name">Normal House</field> 
         <field name="description">Normal regular House</field>
-        <field name="postcode">3456789999999</field> 
-     
-        <field name="expected_price">16</field> 
-     
+        <field name="postcode">3456789999999</field>      
+        <field name="expected_price"></field>    
         <field name="bedrooms">3</field>    
     </record>
     </data>

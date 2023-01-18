@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="real_estate_action" model="ir.actions.act_window">
-        <field name="name">Properties</field>
-        <field name="res_model">real.estate.properties</field>
-        <field name="view_mode">tree,form</field>
-        <field name="context">{'search_default_available':True}</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a New Property Using CREATE Button!!
-            </p>
-           </field>
-           
-    </record>
+    
 
     <record id="real_estate_view_tree" model="ir.ui.view">
         <field name="name">Proper</field>
@@ -36,7 +25,7 @@
         <field name="model">real.estate.properties</field>
         <field name="arch" type="xml">
             <form string="real_estate_form">
-                <header>
+                <header> 
                 <button type="object" name="action_sold" states="new,offer recevied,offer accepted" string="Sold" class="oe_highlight"/>
                 <button type="object" name="action_canceled" states="new,offer recevied,offer accepted" string="Canceled"/>
                 </header>
@@ -133,7 +122,7 @@
                 <field name="postcode"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
+                <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
                 <field name="state"/>
                 <field name="facades"/>
                 <separator/>

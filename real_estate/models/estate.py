@@ -86,3 +86,9 @@ class Estate(models.Model):
             for record in self:
                 if (not float_is_zero(record.selling_price, precision_rounding=0.1)) and float_compare(record.selling_price, 0.9* record.expected_price,precision_rounding=0.1) == -1:
                     raise ValidationError("selling price cannot be less than 90% of expected price")
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_state(self):
+        for record in self:
+            if record.state not in['new','canceled']:
+                raise UserError("Deletion of a property is not possible this state")
