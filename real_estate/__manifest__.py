@@ -12,6 +12,7 @@
         'views/estate_property_offer.xml',
         'views/estate_property_type.xml',
         'views/estate_property_tag.xml',
+        'views/res_user_prac.xml'
         
 
     ],
