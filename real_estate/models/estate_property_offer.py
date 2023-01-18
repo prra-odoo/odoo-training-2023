@@ -46,13 +46,14 @@ class estatePropertyoffer(models.Model):
                
      _sql_constraints = [('price','CHECK(price>=0)','Offer Price should be positive')]
      
-     
+     @api.model
      def create(self,vals):
           max_offer=0
           if vals.get("property_id") and vals.get("price"):
                rec = self.env['real.estate'].browse(vals['property_id'])
-               max_offer=max(rec.mapped("offer_ids.price"))
-               if max_offer > vals['price']:
-                    raise UserError(f'Offer must be higher than {max_offer}')
+               if rec.offer_ids:
+                    max_offer=max(rec.mapped("offer_ids.price"))
+                    if max_offer > vals['price']:
+                         raise UserError(f'Offer must be higher than {max_offer}')
                rec.state= 'offer_received'
-               return super().create(vals)
+          return super().create(vals)

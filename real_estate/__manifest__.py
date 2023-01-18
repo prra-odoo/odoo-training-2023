@@ -11,6 +11,7 @@
         'views/action_estate_model.xml',
         'views/view_property_type.xml',
         'views/view_property_offer_view.xml',
+        'views/res_users_view.xml',
        
         
         ],
@@ -18,5 +19,7 @@
         'demo/real_estate_demo_data.xml',
     ],
     'application' : True,
-    'license' : 'LGPL-3'
+    'installable' : True,
+    'license' : 'LGPL-3',
 }
+
