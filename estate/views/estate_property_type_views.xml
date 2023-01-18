@@ -2,6 +2,25 @@
 <odoo>
     <data>
 
+
+        <!-- treee view -->
+         <record id="estate_property_type_view" model="ir.ui.view">
+         <field name="name">Properties</field>
+         <field name="model">estate.property</field>
+             <field name="arch" type="xml">
+                 <tree string="...">    
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="bedrooms" />
+                    <field name="expected_price"/>
+                    <field name="garden" />
+                    <field name="living_area"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                 </tree>
+             </field>
+        </record>
+
+
         <record id="property_type_action" model="ir.actions.act_window">
             <field name="name">Property types</field>
             <field name="res_model">estate.property.type</field>

@@ -1,6 +1,6 @@
 # -- coding: utf-8 --
 
-from odoo import fields,models
+from odoo import fields,models,api
 from dateutil.relativedelta import relativedelta
 import datetime
 
@@ -34,8 +34,22 @@ class estateProperty(models.Model):
     )
     active=fields.Boolean(default=True)
     property_type_id=fields.Many2one("estate.property.type", string="Property type")
-    tag_ids=fields.Many2many("estate.property.tags", string="Tags")
+    tag_ids = fields.Many2many('estate.property.tags','property_and_tags_rel','prop_id','tag_id',string="Property Tags")
     buyer_id = fields.Many2one('res.partner',string="Buyer",copy=False)
     salesperson_id = fields.Many2one('res.users',string="Salesman", default=lambda self: self.env.user)
 
-    offer_ids=fields.One2many("estate.property.offer", "name", string="Offers")
+    offer_ids=fields.One2many("estate.property.offer", "property_id", string="Offers")    
+
+
+    total_area=fields.Integer(compute="_compute_area")
+
+    @api.depends("living_area","garden_area")
+    def _compute_area(self):
+        for record in self:
+            record.total_area=record.living_area+record.garden_area
+
+
+
+
+
+

@@ -8,3 +8,4 @@ class estateProperty(models.Model):
     _description="property type model"
 
     name=fields.Char(string="Property type",required=True)
+    properties_in_this_type_ids=fields.One2many("estate.property", "property_type_id", string="properties in type")
