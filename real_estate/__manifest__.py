@@ -15,8 +15,6 @@
           'demo/estate_property_demo.xml',
           'demo/estate_property_tag_demo.xml',
           'demo/estate_property_type_demo.xml',
-
-
    ],
 
     'data': [
