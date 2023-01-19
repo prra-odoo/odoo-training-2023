@@ -10,3 +10,5 @@ class estate_property_offer(models.Model):
         copy=False)
     partner_id=fields.Many2one('res.partner',required=True)
     property_id=fields.Many2one('estate.property',required=True)
+    validity =fields.Integer(string="Validity (days)",default="7")
+    # computed field 
