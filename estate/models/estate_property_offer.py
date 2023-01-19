@@ -6,20 +6,19 @@ from odoo.tools.date_utils import add
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
 
-
 class estatepropertyoffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offers Model"
-    _order = "id desc"
+    _order = "price desc"
 
-    price = fields.Float(string="Property Price:")
-    status = fields.Selection(selection=[('accepted','Accepted'),('refuse','Refused')],readonly=True)
-    partner_id = fields.Many2one("res.partner",string="Partner",required=True)
-    property_id = fields.Many2one("estate.property",string="Property",required=True)
-    validity = fields.Integer(string="Validity in Months",default=7)
     date_deadline = fields.Date(compute="_compute_deadline_date",inverse="_inverse_deadline_date")
     create_date=fields.Date(default=lambda self:fields.Datetime.today())
+    price = fields.Float(string="Property Price:")
+    validity = fields.Integer(string="Validity in Months",default=7)
+    status = fields.Selection(selection=[('accepted','Accepted'),('refuse','Refused')],readonly=True)
     property_type_id = fields.Many2one('estate.property.type',related="property_id.property_type_id", store=True)
+    partner_id = fields.Many2one("res.partner",string="Partner",required=True)
+    property_id = fields.Many2one("estate.property",string="Property",required=True)
 
     _sql_constraints=[
         ('check_Offer_price','CHECK(price >= 0)','Offer Price cannot be negative')
@@ -55,9 +54,5 @@ class estatepropertyoffer(models.Model):
 
     @api.model
     def create(self,vals):
-        # if estatepropertyoffer.search([('price','>',vals.get('price'))]):
-        #     raise ValidationError("Error")
         self.env['estate.property'].browse(vals['property_id']).state = 'offerrecieved'
         return super().create(vals)
-
-

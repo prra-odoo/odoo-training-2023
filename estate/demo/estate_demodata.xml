@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record model="estate.property" id="estate_demo_data">
-        <field name="name">Aditya</field>
-        <field name="description">A short description</field>
-        <field name="postcode">10001</field>
-        <field name="expected_price">1000</field>
-        <field name="selling_price">2000</field>
-        <field name="bedrooms">3</field>
-    </record>
-
-    
-    <record model="estate.property" id="estate_demo_data_two">
-        <field name="name">Mauryas</field>
-        <field name="description">A short description</field>
-        <field name="postcode">10001</field>
-        <field name="expected_price">1000</field>
-        <field name="selling_price">2000</field>
-        <field name="bedrooms">3</field>
-    </record>
+    <data>
+        <record model="estate.property" id="estate_demo_data">
+            <field name="name">Aditya</field>
+            <field name="description">A short description</field>
+            <field name="postcode">10001</field>
+            <field name="expected_price">1000</field>
+            <field name="selling_price">2000</field>
+            <field name="bedrooms">3</field>
+        </record>
+        <record model="estate.property" id="estate_demo_data_two">
+            <field name="name">Mauryas</field>
+            <field name="description">A short description</field>
+            <field name="postcode">10001</field>
+            <field name="expected_price">1000</field>
+            <field name="selling_price">2000</field>
+            <field name="bedrooms">3</field>
+        </record>
+    </data>
 </odoo> 
