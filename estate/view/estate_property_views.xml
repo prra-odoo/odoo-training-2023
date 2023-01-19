@@ -45,6 +45,7 @@
                         <group>
                             <field name="data_avabilability"/>
                             <field name="postcode"/>
+                            <field name="best_price"/>
                         </group>
                     </group>
                     <notebook>
@@ -58,6 +59,7 @@
                                 <field name="garden_area"/>
                                 <field name="garden_orientation"/>
                                 <field name="state"/>
+                                <field name="total_area"/>
                             </group>
                         </page>
                         <page string="Offer">

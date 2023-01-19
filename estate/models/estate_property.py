@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models,fields
+from odoo import models,fields,api
 
 class Estate_Property(models.Model):
     _name = "estate.property"
@@ -30,3 +30,18 @@ class Estate_Property(models.Model):
     tag_ids = fields.Many2many("estate.property.tag","estate_property_rel","property_id","property_tag", string="Tags")
     offer_ids = fields.One2many("estate.property.offer",'property_id',string="Offer")
     
+    total_area = fields.Integer(string ='Total area', compute = "_compute_total_area")
+    best_price = fields.Float(string ='Best Offer', compute = "_compute_best_price")
+
+
+    #compute method
+    @api.depends("living_area","garden_area")
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+
+    #best offer
+    @api.depends("offer_ids.price")
+    def _compute_best_price(self):
+        for record in self:
+            record.best_price = max(record.offer_ids.mapped("price"),default=0)         
