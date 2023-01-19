@@ -23,8 +23,6 @@ class EstateAccount(models.Model):
                 #         "name": rec.name,
                 #         'price_unit': rec.selling_price + 100.0,
                 #         'quantity': 1,
-                #         # 'tag_ids':Command.create({
-                #         # })F
                 #     }
                 # )],
                 'line_ids': [
@@ -32,6 +30,7 @@ class EstateAccount(models.Model):
                         "name": rec.name,
                         'price_unit': rec.selling_price,
                         'quantity': 1,
+                        'tax_ids' : [()],
                     })
                 ]
             })

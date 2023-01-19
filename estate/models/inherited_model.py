@@ -20,5 +20,5 @@ class DelegationClass(models.Model):
         'estate.property' : 'Property_id'
     }
 
-    property_id = fields.Many2one('estate.property',string="Estate Property")
+    property_id = fields.Many2one('estate.property',string="Estate Property")   
     demo = fields.Char()
