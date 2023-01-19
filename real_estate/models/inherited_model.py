@@ -3,12 +3,12 @@
 from odoo import fields, models
 
 class inheritedModel(models.Model):
-    # _name = "inherited.model"
+    # _name="inherited.model"
     _inherit = 'res.users'
 
     property_ids = fields.One2many("estate.property", "salesperson_id", string = "Properties")
     name = fields.Char()
-    demo=fields.Char()
+    demo = fields.Char()
 
 # class inheritedModel1(models.Model):
 #     _name = "inherited.model1"
@@ -18,10 +18,10 @@ class inheritedModel(models.Model):
 # class inheritedModel2(models.Model):
 #     _name = "inherited.model2"
     
-#     _inherits={'inherited.model': 'demo_id',
+#     _inherits={'res.users': 'demo_id',
 #                 'inherited.model1': 'demo1_id'}
 
 #     name = fields.Char()
 
-#     demo_id = fields.Many2one("inherited.model")
+#     demo_id = fields.Many2one("res.users")
 #     demo1_id = fields.Many2one("inherited.model1")

@@ -24,20 +24,25 @@ class estateProperty(models.Model):
     garden=fields.Boolean(string='Garden')
     garden_area = fields.Integer(string='Garden Area')
     garden_orientation = fields.Selection(string='Garden Orientation',
-        selection=[('east', 'East'), ('west', 'West'), ('north', 'North'), ('south', 'South')]
-        )
-    state = fields.Selection(selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')],
-                                        default='new', tracking=True
-        )
+        selection=[('east', 'East'), 
+                   ('west', 'West'),
+                   ('north', 'North'),
+                   ('south', 'South')])
+    state = fields.Selection(selection=[('new', 'New'),
+                                        ('offer_received', 'Offer Received'),
+                                        ('offer_accepted', 'Offer Accepted'),
+                                        ('sold', 'Sold'),
+                                        ('cancel', 'Cancel')],
+                                        default='new', tracking=True)
     active = fields.Boolean(default = True)
     property_type_id = fields.Many2one("estate.property.type", string='Property Type')
     buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
     salesperson_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user )
-    tag_ids=fields.Many2many("estate.property.tag", string='Tags')
-    offer_ids=fields.One2many("estate.property.offer","property_id", string="Offer")
-    total_area=fields.Float(string="Total Area", compute="_compute_total")
-    best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
-    status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
+    tag_ids = fields.Many2many("estate.property.tag", string='Tags')
+    offer_ids = fields.One2many("estate.property.offer","property_id", string="Offer")
+    total_area = fields.Float(string="Total Area", compute="_compute_total")
+    best_offer = fields.Float(string="Best Offer",compute="_compute_best_offer")
+    status = fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
 
     _sql_constraints = [
         ('expected_price', 'CHECK(expected_price >= 0)', 'A property expected price should be positive.'),
@@ -49,6 +54,7 @@ class estateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
+    @api.depends('offer_ids.price')
     def _compute_best_offer(self):
         for record in self:
             record.best_offer = max(self.offer_ids.mapped('price'), default=0)

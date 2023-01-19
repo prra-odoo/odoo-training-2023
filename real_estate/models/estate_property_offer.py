@@ -10,16 +10,16 @@ class estatePropertyOffer(models.Model):
     _description = "Estate Property Offer Model"
     _order = "price desc"
 
-    price=fields.Float(string='Price')
-    status=fields.Selection(string='Status',copy=False, 
+    price = fields.Float(string='Price')
+    status = fields.Selection(string='Status',copy=False, 
                     selection=[('accepted', 'Accepted'),('refused', 'Refused')]
                     )
-    partner_id=fields.Many2one("res.partner", required=True)
-    property_id=fields.Many2one("estate.property", required=True)
-    date_deadline=fields.Date(string="Deadline", compute="_date_deadline", inverse="_inverse_date_deadline")
-    validity=fields.Integer(string="Validity(Days)", default=7)
-    create_date=fields.Date(string='Create Date', default=fields.Datetime.now())
-    property_type_id=fields.Many2one("estate.property.type", related="property_id.property_type_id", string="Property Type", store=True)
+    partner_id = fields.Many2one("res.partner", required=True)
+    property_id = fields.Many2one("estate.property", required=True)
+    date_deadline = fields.Date(string="Deadline", compute="_date_deadline", inverse="_inverse_date_deadline")
+    validity = fields.Integer(string="Validity(Days)", default=7)
+    create_date = fields.Date(string='Create Date', default=fields.Datetime.now())
+    property_type_id = fields.Many2one("estate.property.type", related="property_id.property_type_id", string="Property Type", store=True)
 
     _sql_constraints = [
         ('price', 'CHECK(price >= 0)', 'A Offer price should be positive.')
