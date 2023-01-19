@@ -6,10 +6,8 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string= "Real Estate" decoration-success="state in ['offer_accepted', 'offer_received','new']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
-                <!-- <tree default_order="date desc">
-                     arrange by order -->
                 <!--sequence - must be define in .py file. Allow to change order of things manually -->
-                <!-- <field name="sequence" widget="handle"/>     -->
+                    <field name="sequence" widget="handle"/>    
                     <field name="name"/>
                     <field name="property_type_id"/>
                     <field name="postcode"/>
@@ -35,9 +33,7 @@
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
                 <field name="tag_ids"/>
-                <field name="living_area" filter_domain="[('living_area', '>=', self)]"/> 
-                    <!-- show living area greater than or equal to the input value -->
-                    <!-- self represents the value entered by the user -->
+                <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
                 <field name="facades"/>
                 <separator/>
                 <filter string="Available Properties" name="available_property" domain="[('state','in',['new','offer_received'])]"/>
@@ -57,7 +53,7 @@
                 <header>
                     <button name="property_sold" type="object" string="Sold" class="btn btn-primary" states='new,offer_received,offer_accepted'/>
                     <button name="property_cancel" type="object" string="Cancel" class="btn btn-secondary" states='new,offer_received,offer_accepted,sold'/>
-                    <field name="state" widget="statusbar" options = "{'clickable' : '1'}"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success"
@@ -78,8 +74,7 @@
                         <!-- widget="many2many_checkboxes"    -->
                     <group>
                         <group>
-                            <field name="property_type_id" options="{'no_create': True}"/> 
-                            <!-- no_create = new record can not be created from here -->
+                            <field name="property_type_id" options="{'no_create': True}"/>
                         </group>
                         <group>
                             <field name="date_availability"/>
@@ -155,11 +150,9 @@
                 </sheet>
                 <!-- code for chatter -->
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="message_ids" widget="mail_thread"/>
-                        <field name="activity_ids" widget="mail_activity"/>
-                    <!-- <field name="message_follower_ids"/>
-                    <field name="message_ids"/> -->
+                    <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                        <field name="activity_ids"/>
                 </div>
              </form>
         </field>
