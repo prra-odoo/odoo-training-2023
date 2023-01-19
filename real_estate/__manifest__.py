@@ -15,13 +15,12 @@
         'views/real_estate_property_tags_view.xml',
         'views/real_estate_property_type_view.xml',
         'views/real_estate_porperty_offer_view.xml',
-        
+        'views/res_users_views.xml',
     ],
     'demo': [
         #  'demo/real_estate_property_offer_data.xml',
          'demo/real_estate_property_tags_data.xml',
          'demo/real_estate_property_type_data.xml',
          'demo/real_estate_property_data.xml',
-
     ],
 }

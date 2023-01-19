@@ -9,7 +9,7 @@ class RealEstatePropertyOffer(models.Model):
     _description = "Property Offers"
     _order = "price desc"
 
-    price = fields.Float(required=True)
+    price = fields.Float()
     status = fields.Selection([('accepted', 'Accepted'), ('refused', 'Refused'),], copy=False)
     partner_id = fields.Many2one("res.partner", string="Partner", required=True)
     property_id = fields.Many2one("real.estate.property", string="Property Name", required=True)
@@ -18,6 +18,12 @@ class RealEstatePropertyOffer(models.Model):
     property_type_id = fields.Many2one('real.estate.property.type',related='property_id.property_type_id',store=True)
 
     _sql_constraints = [('check_offer_price', 'CHECK(price > 0)', 'The price of an proerty should be greater than 0')]
+    
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        print(fields_list)
+        return res
     
     @api.depends('create_date', 'validity')
     def _compute_deadline_date(self):
@@ -44,10 +50,10 @@ class RealEstatePropertyOffer(models.Model):
             record.status = 'refused'
             
             
-    # @api.model
-    # def create(self, vals_list):
-    #     rec = self.env['real.estate.property'].browse(vals_list['property_id'])
-    #     rec.state =  'offer_received'
-    #     if rec.best_price >= vals_list['price'] :
-    #         raise UserError("you can not create an offer of lower amount than existing")
-    #     return super().create(vals_list)
+    @api.model
+    def create(self, vals_list):
+        rec = self.env['real.estate.property'].browse(vals_list['property_id'])
+        rec.state =  'offer_received'
+        if rec.best_price >= vals_list['price'] :
+            raise UserError("you can not create an offer of lower amount than existing")
+        return super().create(vals_list)

@@ -65,7 +65,7 @@
         </field>
     </record>
 
-    <menuitem id="real_estate_root" name="Real Esatate">
+    <menuitem id="real_estate_root" name="Real Esatate" web_icon="real_estate,static/invesment.png">
         <menuitem id="real_estate_first_level_menu" name="Advertisements">
             <menuitem id="real_estate_menu_property" action="real_estate_model_action"  name="Property"/>
         </menuitem>
@@ -74,4 +74,4 @@
             <menuitem id="real_estate_menu_property_tags" action="real_estate_property_tags_model_action"  name="Property Tags" />
         </menuitem>
     </menuitem>
-</odoo>
+</odoo> 

@@ -44,9 +44,11 @@ class RealEstateProperty(models.Model):
         for record in self:
             record.tatal_area = record.living_area + record.garden_area
 
-    @api.depends('offer_ids.price')
+    @api.depends('offer_ids')
     def _compute_best_offer(self):
+        print(self)
         for record in self:
+            record.offer_ids.property_id = self.id
             record.best_price=max(record.offer_ids.mapped('price'),default=0)
 
     @api.depends('garden')
