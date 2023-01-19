@@ -101,3 +101,5 @@ class real_Esate_Properties(models.Model):
 		for record in self:
 			if record.state not in ['new','cancled']:
 				raise UserError("You Cannot delete the record")
+
+	

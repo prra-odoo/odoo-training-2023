@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models,fields,api
+from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
 class estate_property_offer(models.Model):
     _name="estate.property.offer"
@@ -52,8 +53,10 @@ class estate_property_offer(models.Model):
     def create(self,vals):
         a=self.env["real.estate.properties"].browse(vals['property_id'])
         a.state='offer_recieved'
-        # max=max(a.property_id.mapped('price'))
-        # print("--------------------------",max)
+
+        max_offer=max(a.mapped('offer_ids.price'),default=0)
+        if max_offer >= vals['price']:
+            raise ValidationError("Offer should be greater then best offer")
         return super().create(vals)
     
     
