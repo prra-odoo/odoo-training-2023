@@ -40,11 +40,10 @@ class estatePropertyOffer(models.Model):
         domain = ['property_id.offer_ids', '=', self.id]
         records = self.env['estate.property.offer'].search([domain])
         for rec in self:
-            
-                rec.status = "accepted"
-                rec.property_id.selling_price = rec.price
-                rec.property_id.buyer_id = rec.partner_id
-                rec.property_id.state = "accepted"
+            rec.status = "accepted"
+            rec.property_id.selling_price = rec.price
+            rec.property_id.buyer_id = rec.partner_id
+            rec.property_id.state = "accepted"
             
         for rec in records:
             if rec.status!='accepted':
