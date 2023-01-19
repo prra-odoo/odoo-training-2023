@@ -37,6 +37,12 @@
                     <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Canceled"
+                                bg_color="bg-danger"
+                                attrs="{'invisible': [('state', '!=', 'canceled')]}"/>
+                        <widget name="web_ribbon" title="Sold"
+                                bg_color="bg-success"
+                                attrs="{'invisible': [('state', '!=', 'sold')]}"/>
                     <h1>
                         <field name="name" placeholder="Enter Property Name"/>
                     </h1>
