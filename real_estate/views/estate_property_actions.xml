@@ -32,7 +32,7 @@
             <p class="o_view_nocontent_smiling_face">
                 Create a new Property type, the first step of a new property type!
             </p>
-        </field>
+        </field>    
     </record>  
  
     <record id="estate_property_offer_action" model="ir.actions.act_window">
