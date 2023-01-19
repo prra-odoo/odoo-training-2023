@@ -2,9 +2,6 @@
 
 from odoo import models, fields, api
 from odoo.tools.date_utils import add
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare
-from dateutil.relativedelta import relativedelta
 
 
 class EstatePropertyOffer(models.Model):
@@ -13,15 +10,16 @@ class EstatePropertyOffer(models.Model):
     _order = "price desc"
 
     price = fields.Float("Price")
-    partner_id = fields.Many2one("res.partner", required=True)
-    property_id = fields.Many2one("estate.property", required=True)
     status = fields.Selection(
         selection=[('accepted', 'Accepted'), ('refused', 'Refused')])
     validity = fields.Integer()
     date_deadline = fields.Date(
         "Date Deadline", compute='_compute_date_deadline', inverse='_inverse_date_deadline')
     create_date = fields.Date(default=fields.Datetime.now(), readonly=True)
+
     property_type_id = fields.Many2one('estate.property.type')
+    partner_id = fields.Many2one("res.partner", required=True)
+    property_id = fields.Many2one("estate.property", required=True)
 
     _sql_constraints = [
         ('check_price', 'CHECK(price >= 0)',
@@ -48,7 +46,6 @@ class EstatePropertyOffer(models.Model):
             self.status = "accepted"
             self.property_id.state = "offer_accepted"
 
-
     def action_refuse(self):
         self.status = 'refused'
         self.property_id.selling_price = 0
@@ -56,14 +53,12 @@ class EstatePropertyOffer(models.Model):
 
     @api.model
     def create(self, vals):
-        domain=['property_id', '=', vals['property_id']]
-        result = self.env['estate.property.offer'].search([domain]).mapped('price')
-        # result.sorted(lambda r: r.price < 'price')
-        # print("redult s",)
+        domain = ['property_id', '=', vals['property_id']]
+        result = self.env['estate.property.offer'].search(
+            [domain]).mapped('price')
         for record in result:
-           if vals['price'] < record:
-                 raise UserError("Increasing Your Amount")
-        # print(self.mapped('price'))
+            if vals['price'] < record:
+                raise UserError("Increasing Your Amount")
         self.env['estate.property'].browse(
             vals['property_id']).state = "offer_received"
         return super().create(vals)

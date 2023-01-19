@@ -10,11 +10,24 @@ class EstateProperty(models.Model):
 
     name = fields.Char()
 
+    def action_sold(self):
+        for record in self:
+            self.env['account.move'].create(
+                {
+                    "partner_id": record.buyer_id.id,
+                    "move_type": 'out_invoice',
+                    "line_ids":[
+                        Command.create({
+                            "name": record.name,
+                            # "product_id": record.property_type_id.id,
+                        })
+                    ],
+                }
+            )
+        return super(EstateProperty, self).action_sold()
     # def action_sold(self):
     #     # res = super.action_sold()
     #     if self.state == 'sold':
     #         self.env.ref('account_accountant.account.move').trigger()
     #         raise UserError("nothing workung ")
     #     return True
-
-    # print(action_sold)

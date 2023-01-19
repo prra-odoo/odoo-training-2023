@@ -26,6 +26,7 @@
                     decoration-danger="state=='new'">
                     <field name="name" />
                     <field name="description" optional='hide' />
+                    <field name="image_customer" optional='hide' />
                     <field name="postcode" optional='hide' />
                     <field name="date_availability" />
                     <field name="expected_price" />
@@ -66,6 +67,8 @@
                         <field name="state" widget="statusbar" options="{'clickable':'1'}" />
                     </header>
                     <sheet>
+                        <field name="image_customer" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;, &quot;size&quot;: [120, 120]}"/>
+
                         <group>
                             <group>
                                 <label for="name" string="Customer Name" />
