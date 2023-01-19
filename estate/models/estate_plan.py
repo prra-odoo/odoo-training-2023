@@ -30,6 +30,7 @@ class EstatePlan(models.Model):
     )
     active = fields.Boolean(string='Active', default=True)
     total_area = fields.Float(string="Total Area (sqm.)", compute="_compute_total")
+    best_price = fields.Float(string="Best Offer", compute="_compute_best_offer")
     
     #Relational Fields
     property_type_id = fields.Many2one('estate.property.type',string="Property Type")
@@ -40,7 +41,25 @@ class EstatePlan(models.Model):
 
     @api.depends("living_area","garden_area")
     def _compute_total(self):
-        self.total_area = self.living_area + self.garden_area
+            self.total_area = self.living_area + self.garden_area
+
+    @api.depends("offer_ids")
+    def _compute_best_offer(self):
+        for record in self:
+            record.best_price = max(record.offer_ids.mapped('price'),default=0)
+
+            
+    @api.onchange("garden")
+    def _onchange_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area = 10
+                record.garden_orientation="north"
+            else:
+                record.garden_area = 0
+                record.garden_orientation=""
+            
+
 
     
     
