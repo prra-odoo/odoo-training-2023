@@ -47,13 +47,14 @@ class estate_Property(models.Model):
       offer_ids= fields.One2many('estate.property.offer','property_id')
       property_type_id=fields.Many2one('estate.property.type')
       total_area=fields.Float(compute='_compute_total_area')
+      best_price=fields.Float(compute='_compute_best_price')
+
 
       @api.depends('living_area', 'garden_area')
       def _compute_total_area(self):
         for rec in self:
-         rec.total_area = rec.living_area+rec.garden_area
-      best_price=fields.Float(compute='_compute_best_price')
-
+          rec.total_area = rec.living_area+rec.garden_area
+     
       @api.depends('offer_ids.price')
       def _compute_best_price(self):
           for record in self:
@@ -65,22 +66,22 @@ class estate_Property(models.Model):
            self.garden=True
 
       def sold_action(self):
-       if self.state == 'sold':
-        self.state = 'sold'
-       else:
-        raise UserError('cenceled property can not be sold')
+        if self.state == 'sold':
+         self.state = 'sold'
+        else:
+         raise UserError('cenceled property can not be sold')
        
       def canceled_action(self):
-       if self.state == 'canceled':
-        self.state = 'canceled'         
-       else:
-        raise UserError('sold  property can not be canceled')
+        if self.state == 'canceled':
+          self.state = 'canceled'         
+        else:
+          raise UserError('sold  property can not be canceled')
       
       @api.ondelete(at_uninstall=False)
       def _ondeleteaction(self):
         for record in self:
-         if record.state in ('offer_received','offer_accepted','sold'):
-          raise UserError("only delete a property with the new and canceled state")
+          if record.state in ('offer_received','offer_accepted','sold'):
+            raise UserError("only delete a property with the new and canceled state")
       
 
 

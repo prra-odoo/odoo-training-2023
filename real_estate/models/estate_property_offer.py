@@ -10,7 +10,6 @@ class estate_Property_offer(models.Model):
       _description = "Real estate based advertisedment module for the property type"
       _order='price desc'
 
-
       _sql_constraints = [    
 
       ('price', 'CHECK(price > 0)', 'Contained Quantity should be positive.'),
@@ -39,17 +38,12 @@ class estate_Property_offer(models.Model):
 
       def action_accepted(self):
             self.status = 'Accepted'
-            # if float_compare(self.property_id.selling_price,(self.property_id.expeccted_price,)*90/100)<=0: 
-
             if self.property_id.selling_price <  ((self.property_id.expeccted_price) * 90)/100 and self.status == 'Accepted':
-                    raise ValidationError("selling price must be 90 percentage of expected_price")
-                    self.status='Refused'
-
+                raise ValidationError("selling price must be 90 percentage of expected_price")
+                
             else:
-                    self.property_id.selling_price = self.price
-                    self.property_id.buyer_id = self.partner_id
-
-            # if self.property_id 
+                self.property_id.selling_price = self.price
+                self.property_id.buyer_id = self.partner_id
 
       def action_refused(self):
           for record in self:
@@ -57,18 +51,7 @@ class estate_Property_offer(models.Model):
           return True
 
       '''the create method condition'''
-      # @api.model
-      # def create(self, vals):
-      #   property_id = self.env['estate.property'].browse(vals['property_id'])
-      #   max_price=max(property_id.offer_ids.mapped('price'),default=0)
-      #   print(max_price)
-      #   current_id = super().create(vals)
-      #   if float_utils.float_compare(current_id.price,max_price,precision_digits=2) <= 0:
-      #       raise ValidationError('The new offer must be greater than existing one')
-
-      #   property_id.state = 'offer_received'
-      #   return super().create(vals)
-  
+        
       @api.model
       def create(self, vals):
         property_id = self.env['estate.property'].browse(vals['property_id'])

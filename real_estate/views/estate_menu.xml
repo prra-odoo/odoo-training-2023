@@ -69,7 +69,7 @@
       </field>
     </record>
 
-<menuitem id="real_estate_menu_root" name="real estate">
+<menuitem id="real_estate_menu_root" web_icon="real_estate,views/estate_icon.png" name="real estate">
         <menuitem id="estate_first_level_menu_adv" name="Advertisement">
             <menuitem id="estate_model_menu_action_property" action="estate_property_action" name="Property"/>
         </menuitem>

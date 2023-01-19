@@ -40,10 +40,7 @@
                  <group>
                    <field name="best_price"/>																					
                  </group>
-								 <group>
-								   <!-- <field name="state"/> -->
-								 </group>
-                <notebook>
+								 <notebook>
                  <page string="Description">
                  <group>
                   <field name="description"/> 

@@ -9,7 +9,7 @@
     'application': True,
     
     'depends': [
-        'mail',
+          'mail',
     ],
     'demo':[
           'demo/estate_property_demo.xml',
