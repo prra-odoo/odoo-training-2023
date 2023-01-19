@@ -9,6 +9,7 @@
             <field name="living_area" >5000</field>
             <field name="expected_price">100000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
         </record>
 
         <record id="estate_property_record_2" model="estate.property.model">
@@ -18,6 +19,7 @@
             <field name="living_area" >4000</field>
             <field name="expected_price">200000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_tag_demo_2')])]"/>
         </record>
 
         <record id="estate_property_record_3" model="estate.property.model">
@@ -27,6 +29,7 @@
             <field name="living_area" >9000</field>
             <field name="expected_price">70000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1')])]"/>
         </record>
 
         <record id="estate_property_record_4" model="estate.property.model">
@@ -36,6 +39,7 @@
             <field name="living_area" >9000</field>
             <field name="expected_price">600000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
         </record>
     </data>
 </odoo>

@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <record id="estate_property_offer_action" model="ir.actions.act_window">
-        <field name="name">Property Offers</field>
-        <field name="res_model">estate.property.offer</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('property_type_id', '=', active_id)]</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                No offers
-            </p>
-        </field>
-    </record>
+    
     <record id="estate_property_offer_view" model="ir.ui.view">
         <field name="name">Estate Property Offer List View</field>
         <field name="model">estate.property.offer</field>

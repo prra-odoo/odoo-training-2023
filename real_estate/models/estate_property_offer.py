@@ -57,10 +57,5 @@ class Estate_property_offer(models.Model):
     def action_refuse(self):
         self.status = 'refused'
 
-    @api.model
-    def create(self, vals):
-        print(vals)
-        return True
-        # self.env['estate.property.model'].browse(vals['property_id'])
-        
+   
         

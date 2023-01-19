@@ -112,8 +112,12 @@ class Real_estate(models.Model):
             if record.state not in ['new','cancled']:
                 raise exceptions.UserError('You can delete only new and cancled properties')
 
-
-            
+    @api.model
+    def create(self,vals):
+        print("Create function called")
+        # t=self.env['estate.property.model'].browse(vals['type_id'])
+        # t.state = 'offer_recieved'
+        return super(Real_estate,self).create(vals)
             
             
             

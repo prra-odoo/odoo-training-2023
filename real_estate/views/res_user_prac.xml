@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="res_users_prac_view_id" model="ir.ui.view">
-        <field name="name">Res User View</field>
+        <field name="name">Res.User.View</field>
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='access_rights']" position="after">
-                    <field name="property_ids" />                
+            <!-- <xpath expr="//page[@name='preferences']" position="before">
+                <field name="property_ids"/>          
+            </xpath> -->
+            <!-- <notebook>
+                <page string="Total Properties">
+                    <field name="property_ids"/>
+                </page>
+            </notebook> -->
+            <xpath expr="//page[@name='preferences']" position="after">
+                <page string="Properties">
+                    <field  name="property_ids"/>
+                </page>
             </xpath>
         </field>
     </record>
