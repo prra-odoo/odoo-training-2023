@@ -20,7 +20,7 @@ class estate_property(models.Model):
     
     name = fields.Char(required=True)
     postcode = fields.Integer(default = 104,readonly=True)
-    description = fields.Text(copy=False,required=True)
+    description = fields.Text(copy=False)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     expected_price = fields.Float(default= 100)
     selling_price=fields.Float(default = 100000)
@@ -43,15 +43,12 @@ class estate_property(models.Model):
         default="new",
         tracking = True
     )
-    property_type_id = fields.Many2one("estate.property.type", string="Property type")
+    property_type_id = fields.Many2one("estate.property.type", string="Property types")
     salesperson_id= fields.Many2one("res.users",string="Sales")
     buyers_id=fields.Many2one("res.partner",string="Buyers")
-    tags_ids = fields.Many2many("estate.property.tag",required=True)
+    tags_ids = fields.Many2many("estate.property.tag",required=True,string="Tags")
     offer_ids = fields.One2many("estate.property.offer","property_id",string = "Property offer")
     country_id = fields.Many2one("res.country",string="Country")
-    # currency_id = fields.Many2one("res.currency",string="Currency")
-    # bank_id = fields.Many2one("res.bank",string="Bank")    
-    # company_id = fields.Many2one("res.company",string="Company")
     
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

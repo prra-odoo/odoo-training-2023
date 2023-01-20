@@ -53,6 +53,7 @@ class estateOffer(models.Model):
     @api.model
     def create(self,vals):
         self.env['estate.property'].browse(vals['property_id']).state = 'offer_received' 
+        
         return super().create(vals)         
     
             

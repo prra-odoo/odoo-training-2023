@@ -9,6 +9,6 @@ class estateTag(models.Model):
     _sql_constraints = [
         ("check_name", "UNIQUE(name)", "The name must be unique")
     ]
-    name = fields.Char("Name",required=True)
+    name = fields.Char("Tags",required=True)
     colors = fields.Integer("Color Index")
     sequences = fields.Integer("Sequence")

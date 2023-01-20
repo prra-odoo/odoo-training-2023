@@ -70,9 +70,11 @@
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state','in',('new','offer_received','offer_accepted','cancel'))]}" />
                         <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible':[('state','in',('new','offer_received','offer_accepted','sold'))]}" />
                         <label for="name"></label>
-                            <h1><field name="name" nolabe="1"/></h1>
+                            <h1><field name="name"/></h1>
+                        <group>
+                            <group style="Margin-top:30px">
                             <field name="tags_ids" widget ="many2many_tags" options="{'color_field': 'colors' , 'no_create':True, 'no_edit': True}" />
-                        <group>  
+                            </group>  
                             <group style="Margin-top:30px">
                                 <field name="postcode"/>
                             </group>  
@@ -97,15 +99,6 @@
                             <group style="Margin-top:30px">
                                 <field name="country_id"/>
                             </group>
-                            <!-- <group style="Margin-top:30px">
-                                <field name="currency_id"/>
-                            </group>
-                            <group style="Margin-top:30px">
-                                <field name="company_id"/>
-                            </group>
-                            <group style="Margin-top:30px">
-                                <field name="bank_id"/>
-                            </group> -->
                             <group style="Margin-top:30px">
                                 <field name="best_offer"/>
                             </group>
@@ -149,6 +142,17 @@
                         <field name="activity_ids"/>
                     </div>
                 </form>
+            </field>
+        </record>
+         <record id="Estate_searchpanel_view" model="ir.ui.view">
+            <field name="name">Estate search panel view</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search position="inside">
+                    <searchpanel>
+                        <field name="property_type_id"/>
+                    </searchpanel>
+                </search>
             </field>
         </record>
     </data>
