@@ -5,7 +5,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 
-class estate_property_offer(models.Model):
+class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "estate property offer model"
 
@@ -30,10 +30,10 @@ class estate_property_offer(models.Model):
             record.validity = (record.date_deadline - record.create_date).days
 
     def accept_offer(self):
-            # for record in self:
+            for record in self:
                 # record.status='refused'
-            self.status ='accepted'
-            # self.selling_price=self.price
+                self.status ='accepted'
+                self.property_id.selling_price=self.price
             return True
     
     def reject_offer(self):

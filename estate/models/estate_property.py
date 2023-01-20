@@ -5,7 +5,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 
-class estate_property(models.Model):
+class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate property model"
 
@@ -48,12 +48,6 @@ class estate_property(models.Model):
         for record in self:
             record.best_offer = max(record.offer_ids.mapped("price"),default=0)
     
-    # @api.onchange("offer_ids")
-    # def _onchange_status(self): 
-    #     for record in self:
-            # if record.offer_ids.status=='accepted':
-            # record.selling_price=record.offer_ids.price
-
     @api.onchange("garden")
     def _onchange_garden(self):
         if self.garden==True:
