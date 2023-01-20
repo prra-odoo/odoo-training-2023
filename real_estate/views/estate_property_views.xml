@@ -34,7 +34,7 @@
                 <header>
                     <button name="action_sold" type="object" states="new,offer_received,offer_accepted" string="Sold" class="oe_highlight"/>
                     <button name="action_canceled" type="object" states="new,offer_received,offer_accepted" string="Canceled"/>
-                    <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Canceled"
