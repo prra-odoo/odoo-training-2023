@@ -38,11 +38,11 @@
                 </header>    
                 <sheet>
                 <group>
-                    <group>
+                    <!-- <group> -->
                         <h1>
                             <field name="name"/>
                         </h1>
-                    </group>
+                    <!-- </group> -->
                     <group>
                          <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('status', '!=', 'Sold' )]}"/>
                         <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('status', '!=', 'cancelled' )]}"/>
@@ -120,7 +120,11 @@
                                 
                             </group>
                 </sheet>
-                
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+                </div>
             </form>
         </field>
     </record>

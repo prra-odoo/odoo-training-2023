@@ -3,6 +3,7 @@
     'version': '1.0',
     'category': 'Marketing',
     'depends':[
+        'mail',
         'calendar',
         'contacts',
        ],

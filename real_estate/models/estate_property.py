@@ -5,6 +5,7 @@ from odoo.exceptions import UserError,ValidationError
 
 class estate_property(models.Model):
     _name = 'estate.property'
+    _inherit = ['mail.thread','mail.activity.mixin']
     _description = "Real Estate Module"
     _order = "id desc"
 
@@ -30,7 +31,7 @@ class estate_property(models.Model):
 
     status = fields.Selection(
             string='Status',copy=False,default='New',
-            selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('cancelled','cancelled'),('Sold','Sold')])
+            selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('cancelled','cancelled'),('Sold','Sold')],tracking=True)
     
     salesperson = fields.Many2one('res.users',string="Salesperson",default=lambda self:self.env.user)
     buyer = fields.Many2one('res.partner',string="Buyer",copy=False)
