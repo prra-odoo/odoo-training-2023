@@ -15,7 +15,7 @@
                     <field name="expected_price"/>
                     <field name="garden" />
                     <field name="living_area"/>
-                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="tag_ids" />
                  </tree>
              </field>
         </record>

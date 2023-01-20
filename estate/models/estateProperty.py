@@ -34,7 +34,7 @@ class estateProperty(models.Model):
             if(record.garden==True):
                 record.garden_area=10
                 record.garden_orientation='north'
-                res.update({'warning': {'title': _('Warning !'), 'message': _('Bau paisa laage chhe!')}})
+                # res.update({'warning': {'title': _('Warning !'), 'message': _('Bau paisa laage chhe!')}})
             else:
                 record.garden_area=0
                 record.garden_orientation=''
@@ -45,7 +45,7 @@ class estateProperty(models.Model):
         default= 'new'
     )
     active=fields.Boolean(default=True)
-    property_type_id=fields.Many2one("estate.property.type", string="Property type")
+    property_type_id=fields.Many2one("estate.property.type", string="Property type",)
     tag_ids = fields.Many2many('estate.property.tags','property_and_tags_rel','prop_id','tag_id',string="Property Tags")
     buyer_id = fields.Many2one('res.partner',string="Buyer",copy=False)
     salesperson_id = fields.Many2one('res.users',string="Salesman", default=lambda self: self.env.user)
@@ -65,6 +65,26 @@ class estateProperty(models.Model):
     def _get_bestOffer(self):
         for record in self:
             record.best_offer=max(record.offer_ids.mapped("price"),default=0)
+
+    def sell_property(self):
+        # for record in self:
+        #     record.state='sold'
+        #     record.selling_price=record.best_offer
+        pass
+
+    def accept_offer(self,offer_price,buyer):
+        # for record in self:
+        #     record.selling_price=offer_price
+        #     record.buyer_id=buyer
+        pass
+
+    def cancel_property(self):
+        for record in self:
+            record.state='canceled'
+            record.selling_price=0
+    
+
+
 
 
     # @api.depends()

@@ -9,6 +9,8 @@
                      <tree string="...">
                         <field name="price"/>
                         <field name="partner_id"/>
+                        <button name="accept_offer" type="object" string="" icon="fa-check"/>
+                        <button name="reject_offer" type="object" string="" icon="fa-times"/>
                         <field name="status"/>
                      </tree>
                  </field>

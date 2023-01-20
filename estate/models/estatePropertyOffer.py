@@ -1,6 +1,7 @@
 # -- coding: utf-8 --
 
 from odoo import fields,models,api
+from . import estateProperty
 from dateutil.relativedelta import relativedelta
 import datetime
 
@@ -32,6 +33,12 @@ class estateProperty(models.Model):
 
 
 
+    def accept_offer(self):
+        estateProperty.accept_offer(price,partner_id)
+
+
+    def reject_offer(self):
+        pass
 
 
     # maxOffer=fields.Float(default='0', compute="_compute_max")
