@@ -6,7 +6,7 @@ class inheritedModel(models.Model):
     # _name="inherited.model"
     _inherit = 'res.users'
 
-    property_ids = fields.One2many("estate.property", "salesperson_id", string = "Properties")
+    property_ids = fields.One2many("estate.property", "salesperson_id", string = "Properties", domain = [('state', 'in', ('new' ,'offer_received'))])
     name = fields.Char()
     demo = fields.Char()
 

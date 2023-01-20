@@ -34,15 +34,22 @@ class estatePropertyOffer(models.Model):
         for record in self:
            record.validity = (record.date_deadline - record.create_date).days
 
+    @api.depends('property.selling_price', 'property_id.buyer_id', 'property_id.state', 'property_id.offer_ids')
     def action_accept(self):
-        if "accepted" in self.mapped("property_id.offer_ids.status"):
-            raise UserError("You can't accept multiple offers.")
-        else:
-            for record in self:
-                record.status='accepted'
-                record.property_id.selling_price=record.price
-                record.property_id.buyer_id=record.partner_id
-                record.property_id.state = 'offer_accepted'
+        domain = ['property_id.offer_ids', "=", self.id]
+        records = self.env['estate.property.offer'].search([domain])
+        for record in self:
+            record.status='accepted'
+            record.property_id.selling_price = record.price
+            record.property_id.buyer_id = record.partner_id
+            record.property_id.state = 'offer_accepted'
+        
+        for record in records:
+            if record.status!='accepted':
+                record.status='refused'      
+        
+       
+                
 
     def action_refuse(self):
         for record in self:
