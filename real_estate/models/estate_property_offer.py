@@ -18,7 +18,7 @@ class estate_property_offers(models.Model):
     property_id = fields.Many2one('estate.property',required=True)
     validity = fields.Integer('validity',default=7)
     date_deadline = fields.Date('date_deadline',default=datetime.today(), compute="_compute_dead_line",inverse="_inverse_date_deadline")
-
+    property_type_id = fields.Many2one(related="property_id.property_type_id",store=True)
 
     _sql_constraints = [('check_offer_price','CHECK(price >= 0)','A property offer price must be strictly positive.')]
 
@@ -57,4 +57,19 @@ class estate_property_offers(models.Model):
     def action_refuse(self):
             self.states = 'refused'
             self.property_id.selling_price = 0
-            
+
+
+
+        #  @api.model_create_multi
+    @api.model
+    def create(self, vals):
+            property_id = self.env['estate.property'].browse(vals['property_id'])
+            max_price = max(property_id.offer_ids.mapped('price'),default=0)
+            if float_compare(vals.get('price'),max_price,precision_digits=2)<=0:
+                    raise UserError("It should not be possible to create an offer with a lower price than an existing offer")
+
+            property_id.status = 'offer received'
+            return super().create(vals) 
+                
+
+

@@ -4,7 +4,8 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{'search_default_description':'house'}</field>
+        <field name="context">{'search_default_available':1}</field>
+        <!-- <field name="context">{'search_default_description':'house','search_default_active':'False'}</field> -->
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new Property, the first step of a new property!
@@ -31,7 +32,18 @@
             <p class="o_view_nocontent_smiling_face">
                 Create a new Property type, the first step of a new property type!
             </p>
-        </field>
+        </field>    
     </record>  
  
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offer</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Property type, the first step of a new property type!
+            </p>
+        </field>
+    </record>
 </odoo>

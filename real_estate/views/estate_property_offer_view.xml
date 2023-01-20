@@ -10,10 +10,11 @@
             <tree string="Estate_Property" editable="top" decoration-danger="states == 'refused'" decoration-success="states == 'accepted'">
                 <field name="price"/>
                 <field name="partner_id" string="partner"/>
-                <button name="action_accepted" type="object" icon="fa-check" attrs="{'invisible': [('states', 'in', ['accepted','refused'])]}"/>
-                <button name="action_refuse" type="object" icon="fa-times" attrs="{'invisible': [('states', 'in', ['accepted','refused'])]}"/>
+                <button name="action_accepted" type="object" title="ac" icon="fa-check" attrs="{'invisible': [('states', 'in', ['accepted','refused'])]}"/>
+                <button name="action_refuse" type="object" title="ar" icon="fa-times" attrs="{'invisible': [('states', 'in', ['accepted','refused'])]}"/>
                 <field name="states" invisible="1"/>
-                <field name="validity"/>    
+                <field name="validity"/>  
+                <field name="property_type_id"/>  
                 <field name="date_deadline"/>
             </tree>
         </field>

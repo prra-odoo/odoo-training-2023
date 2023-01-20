@@ -5,6 +5,7 @@ from odoo.exceptions import UserError,ValidationError
 
 class estate_property(models.Model):
     _name = 'estate.property'
+    _inherit = ['mail.thread','mail.activity.mixin']
     _description = "Real Estate Module"
     _order = "id desc"
 
@@ -30,7 +31,7 @@ class estate_property(models.Model):
 
     status = fields.Selection(
             string='Status',copy=False,default='New',
-            selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('cancelled','cancelled'),('Sold','Sold')])
+            selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('cancelled','cancelled'),('Sold','Sold')],tracking=True)
     
     salesperson = fields.Many2one('res.users',string="Salesperson",default=lambda self:self.env.user)
     buyer = fields.Many2one('res.partner',string="Buyer",copy=False)
@@ -81,11 +82,12 @@ class estate_property(models.Model):
             else:
                     self.status = 'Sold'
                     
-                    
-#     def action_accepted(self):
-#             if(float_compare(self.selling_price,self.expected_price * 0.9,precision_rounding=0.01)<0):
-#                     raise UserError("Selling Price must 90percent of the expected price")
 
+    @api.ondelete(at_uninstall=False)
+    def ondelete(self):
+            if self.status != 'New' and self.status != 'cancelled':
+                    raise UserError("Only new and canceled properties are deleted")
 
-
+    
+    
      
