@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="estate_property_house" model="estate.property">
         <field name="name">Zydus Apartments</field>
         <field name="expected_price">1200000</field>
@@ -24,6 +25,23 @@
         <field name="facades">1</field>
         <field name="data_avabilability">2023-05-06</field>
         <field name="selling_price">11567000</field>
+        <field name="garage">no</field>
+        <field name="garden_area">456</field>
+        <field name="garden_orientation">south</field>
+        <field name="state">new</field>
+
+    </record>
+
+
+    <record id="estate_property_house_2" model="estate.property">
+        <field name="name">Khushi villa</field>
+        <field name="expected_price">2700000</field>
+        <field name="postcode">385651</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">56528</field>
+        <field name="facades">1</field>
+        <field name="data_avabilability">2023-05-08</field>
+        <field name="selling_price">13567000</field>
         <field name="garage">no</field>
         <field name="garden_area">456</field>
         <field name="garden_orientation">south</field>
