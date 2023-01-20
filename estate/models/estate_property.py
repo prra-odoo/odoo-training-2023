@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
-from datetime import date
 from dateutil.relativedelta import relativedelta
 
 
@@ -28,7 +27,7 @@ class estate_property(models.Model):
         ('offer_received', 'Offer Received'),
         ('offer_accepted', 'Offer Accepted'),
         ('done', 'Done'),
-        ('cancel', 'Cancel'), ], string='State', default='new', copy=False)
+        ('cancel', 'Canceled'), ], string='State', default='new', copy=False)
     property_type_id = fields.Many2one("estate.property.type",string="Property Type")
     user_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user) 
     buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False)

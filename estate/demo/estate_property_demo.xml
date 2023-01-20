@@ -5,7 +5,6 @@
         <record id="estate_property_demo1" model="estate.property">
             <field name="name">Property 1</field>
             <field name="expected_price">1234567890</field>
-            <field name="selling_price">35235632</field>
             <field name="garden_area">123</field>
             <field name="garden">yes</field>
             <field name="garage">yes</field>
@@ -18,7 +17,6 @@
         <record id="estate_property_demo2" model="estate.property">
             <field name="name">Property 2</field>
             <field name="expected_price">46367346</field>
-            <field name="selling_price">346736734</field>
             <field name="garden_area">1221</field>
             <field name="garden">no</field>
             <field name="garage">no</field>
@@ -31,7 +29,6 @@
         <record id="estate_property_demo3" model="estate.property">
             <field name="name">Property 3</field>
             <field name="expected_price">560000</field>
-            <field name="selling_price">343433</field>
             <field name="garden_area">455</field>
             <field name="garden">yes</field>
             <field name="garage">no</field>

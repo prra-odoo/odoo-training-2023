@@ -18,8 +18,12 @@
                         <h1>
                             <field name="name"/>
                         </h1>
-                    </div>    
-                    <field name="property_types_ids"/>
+                    </div>
+                    <notebook>   
+                        <page string='properties'>
+                            <field name="property_types_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
