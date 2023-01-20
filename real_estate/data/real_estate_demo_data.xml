@@ -2,6 +2,27 @@
 
 <odoo>
     <data>
+
+        <record model="estate.property.type" id="estate_type_demo_data1">
+            <field name="name">House</field>
+        </record>
+
+        <record model="estate.property.type" id="estate_type_demo_data2">
+            <field name="name">Appartment</field>
+        </record>
+
+        <record model="estate.property.type" id="estate_type_demo_data3">
+            <field name="name">Bungalows</field>
+        </record>
+
+        <record model="estate.property.tag" id="estate_tag_demo_data1">
+            <field name="name">Cozy</field>
+        </record>
+
+        <record model="estate.property.tag" id="estate_tag_demo_data2">
+            <field name="name">Renovated</field>
+        </record>
+
         <record model="estate.property" id="estate_demo_data">
             <field name="name">Harsh</field>
             <field name = "description"> 11 Floor Tower</field>
@@ -52,26 +73,6 @@
             <field name="garden_area">123</field>
             <field name="tag_ids" eval="[(6,0, [ref('real_estate.estate_tag_demo_data1'), ref('real_estate.estate_tag_demo_data2')])]"></field>
 
-        </record>
-
-        <record model="estate.property.type" id="estate_type_demo_data1">
-            <field name="name">House</field>
-        </record>
-
-        <record model="estate.property.type" id="estate_type_demo_data2">
-            <field name="name">Appartment</field>
-        </record>
-
-        <record model="estate.property.type" id="estate_type_demo_data3">
-            <field name="name">Bungalows</field>
-        </record>
-
-        <record model="estate.property.tag" id="estate_tag_demo_data1">
-            <field name="name">Cozy</field>
-        </record>
-
-        <record model="estate.property.tag" id="estate_tag_demo_data2">
-            <field name="name">Renovated</field>
         </record>
     </data>
 </odoo>

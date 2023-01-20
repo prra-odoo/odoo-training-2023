@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api,fields, models, _
-from odoo.exceptions import UserError
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 
 
@@ -87,7 +86,7 @@ class estateProperty(models.Model):
                 )
 
     
-    @api.ondelete(at_uninstall=True)
+    @api.ondelete(at_uninstall=False)
     def _check_state(self):
         for asset in self:
             if asset.state not in ['new', 'cancel']:
