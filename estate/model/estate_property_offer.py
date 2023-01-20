@@ -5,8 +5,7 @@ from odoo.exceptions import UserError
 from odoo.tools.date_utils import add
 from odoo.exceptions import UserError
 from odoo.tools.float_utils import float_compare
-
-
+from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
