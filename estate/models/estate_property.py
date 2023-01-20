@@ -18,7 +18,7 @@ class realEstate(models.Model):
     postcode = fields.Char("Post Code")
     date_availability = fields.Date(
         "Available From", default=fields.Datetime.now()+relativedelta(months=3))
-    expected_price = fields.Float("Excepted Price")
+    expected_price = fields.Float("Excepted Price",default="120.00")
     selling_price = fields.Float("Selling Price", readonly=True, tracking=True)
     bedrooms = fields.Integer("Bedrooms")
     living_area = fields.Integer("Living Area", default="1")
@@ -116,3 +116,14 @@ class realEstate(models.Model):
         for rec in self:
             if not (rec.state in ['new', 'canceled']):
                 raise UserError("Can't Remove The Property.")
+
+    # @api.model
+    # def create(self,vals):
+    #     print('estate property create method:',vals)
+    #     return super(realEstate,self).create(vals)
+
+    # @api.model
+    # def write(self,vals):
+    #     print('estate property write method:',vals)
+    #     return super(realEstate,self).create(vals)
+    

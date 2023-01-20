@@ -11,7 +11,7 @@ class EstateAccount(models.Model):
         for rec in records:
             if rec.status == "accepted":
                 id = rec.id
-
+        # selling_price = self.selling_price  + self.selling_price*0.06
         for rec in self:
             self.env['account.move'].create({
                 "partner_id": rec.buyer_id.id,
@@ -30,7 +30,6 @@ class EstateAccount(models.Model):
                         "name": rec.name,
                         'price_unit': rec.selling_price,
                         'quantity': 1,
-                        'tax_ids' : [()],
                     })
                 ]
             })

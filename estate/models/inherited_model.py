@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from odoo import models, fields
+from odoo import models, fields, api
 
 class InheritedClass(models.Model):
     # _name  = "inherited.model"
@@ -22,3 +22,4 @@ class DelegationClass(models.Model):
 
     property_id = fields.Many2one('estate.property',string="Estate Property")   
     demo = fields.Char()
+    
