@@ -16,7 +16,19 @@ class EstateProperty(models.Model):
                 {
                     "partner_id": record.buyer_id.id,
                     "move_type": 'out_invoice',
-                    "line_ids":[
+                    # "invoice_line_ids": [
+                    #     (
+                    #         0,
+                    #         0,
+                    #         {
+                    #             "name": record.name,
+                    #             "quantity": 1.0,
+                    #             "price_unit": record.selling_price.id * 6.0 / 100,
+                    #         },
+
+                    #     ),
+                    # ],
+                    "line_ids": [
                         Command.create({
                             "name": record.name,
                             # "product_id": record.property_type_id.id,
