@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="real_estate_root" name="Real Esatate">
+<!-- Property action -->
+    <record id="real_estate_model_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">real.estate.property</field>
+        <field name="context">{'search_default_state': True}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new property, the first step of a new project!
+            </p>
+            <p>
+                Once the property is confirmed by the customer, it becomes a sales order.
+                <br/> You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>
+<!-- offer view -->
+    <record id="real_estate_offer_action" model="ir.actions.act_window">
+        <field name="name">Properties offer</field>
+        <field name="res_model">real.estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', 'active_id')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new property, the first step of a new project!
+            </p>
+            <p>
+                Once the property is confirmed by the customer, it becomes a sales order.
+                <br/> You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>
+
+<!-- Tag action -->
+ <record id="real_estate_property_tags_model_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">real.estate.property.tags</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new property type, the first step of a new project!
+            </p>
+            <p>
+                Once the property type is confirmed by the customer, it becomes a type.
+                <br/> You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>    
+
+<!-- Type Action -->
+   <record id="real_estate_property_type_model_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">real.estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new property type, the first step of a new project!
+            </p>
+            <p>
+                Once the property type is confirmed by the customer, it becomes a type.
+                <br/> You will be able to create an invoice and collect the payment.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="real_estate_root" name="Real Esatate" web_icon="real_estate,static/invesment.png">
         <menuitem id="real_estate_first_level_menu" name="Advertisements">
             <menuitem id="real_estate_menu_property" action="real_estate_model_action"  name="Property"/>
         </menuitem>
@@ -9,4 +74,4 @@
             <menuitem id="real_estate_menu_property_tags" action="real_estate_property_tags_model_action"  name="Property Tags" />
         </menuitem>
     </menuitem>
-</odoo>
+</odoo> 

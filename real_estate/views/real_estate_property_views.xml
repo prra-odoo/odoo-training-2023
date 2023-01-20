@@ -14,20 +14,20 @@
                 <field name="expected_price"/>
                 <!-- <field name="selling_price"/> -->
                 <field name="bedrooms"/>
-                <field name="living_area"/>
+                <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
                 <field name="facades"/>
                 <field name="property_type_id"/>
                 <field name="tag_ids" widget="many2many_tags"/>
                 <!-- <field name="garage"/>
                 <field name="garden_orientation"/>
                 <field name="state"/> -->
-                <separator/>
                 <filter string="Archived" name="active" domain="[('active', '=', False)]"/>
-                <filter string="bedrooms" name="bedrooms" domain="[('bedrooms', '&gt;', 0 )]"/>
-                <filter string="Garage" name="garage" domain="[('garage', '=', True)]"/>
+                <separator/>
+                <filter string="bedrooms" name="bedrooms" domain="[('bedrooms', '&gt;', 0 )]" invisible="1"/>
+                <filter string="Garage" name="garage" domain="[('garage', '=', True)]" invisible="1"/>
                 <!-- <filter name="state" string="State" domain="['|',('state', '=', 'new') ,('state' ,'=', 'offer_accepted')]" /> -->
-                <filter name="state" string="State" domain="['|',('state', '=', ['new' , 'offer_accepted'])]" />
-                <filter string="Garden" name="garden" domain="[('garden', '=', True)]"/>
+                <filter name="state" string="Available" domain="[('state', 'in', ['new' , 'offer_accepted'])]" />
+                <filter string="Garden" name="garden" domain="[('garden', '=', True)]" invisible="1"/>
                 <group string="Group By">
                     <filter string="postcode" name="postcode" context="{'group_by':'postcode'}"/>
                 </group>
@@ -39,19 +39,21 @@
         <field name="name">real.estate.tree</field>
         <field name="model">real.estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel" default_order="name,id desc">
-                <field name="name"/>
-                <field name="description"/>
-                <field name="date_availability"/>
-                <field name="expected_price"/>
-                <field name="selling_price"/>
+            <tree string="Channel" default_order="name,id desc" decoration-success="state in ['offer_received','offer_accepted']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
+                <field name="name" string="Title"/>
+                <field name="property_type_id" string="Property Type"/>
+                <field name="state"  invisible="1"/>
+                <field name="postcode"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
-                <field name="facades"/>
-                <field name="property_type_id"/>
-                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="description" invisible="1"/>
+                <field name="date_availability" string="Available From" optional="hidden"/>
+                <field name="facades"  invisible="1"/>
                 <!-- <field name="garage"/> -->
-                <field name="garden_orientation"/>
+                <field name="garden_orientation"  invisible="1"/>
             </tree>
         </field>
     </record>
@@ -67,6 +69,8 @@
                     <field name="state" widget="statusbar" options="{'clickable' : '1'}"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="sold" attrs="{'invisible': ['!',('state', '=', 'sold')]}" />
+                    <widget name="web_ribbon" bg_color="bg-danger" title="canceled" attrs="{'invisible': ['!',('state', '=', 'canceled')]}" />
                     <h1>
                         <field name="name" />
                     </h1>
@@ -82,7 +86,6 @@
                             <field name="best_price" string="Best Offer"/>
                             <field name="selling_price"/>
                             <!-- <field name="state" decoration-danger="expected_price &lt; 10"/> -->
-
                         </group>
                         <notebook>
                             <page name="Description" string="Description">
@@ -118,20 +121,6 @@
                     </group>
                 </sheet>
             </form>
-        </field>
-    </record>
-    <record id="real_estate_model_action" model="ir.actions.act_window">
-        <field name="name">Properties</field>
-        <field name="res_model">real.estate.property</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new property, the first step of a new project!
-            </p>
-            <p>
-                Once the property is confirmed by the customer, it becomes a sales order.
-                <br/> You will be able to create an invoice and collect the payment.
-            </p>
         </field>
     </record>
 </odoo>
