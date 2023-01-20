@@ -11,6 +11,7 @@ class EstateProperty(models.Model):
 
     # setting the order for the properties to be displayed in order
     _order = "id desc"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string="Name", required=True)
     description = fields.Text(string="Address of the building")
