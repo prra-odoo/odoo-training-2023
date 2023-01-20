@@ -103,8 +103,7 @@
                 <field name="buyer_id"/> 
             </tree>
           </field>      
-    </record>
-   
+    </record>   
     <record id="real_estate_search" model="ir.ui.view">
               <field name="name">estate.property.search</field>
               <field name="model">estate.property</field>

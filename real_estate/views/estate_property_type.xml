@@ -28,10 +28,9 @@
                         </tree>
                         </field>
                         </page>
-                        </notebook>
-                        
+                        </notebook>                        
                     </sheet>
-            </form>
+              </form>
             </field>
     </record>
     <record id="estate_type_view_tree" model="ir.ui.view">

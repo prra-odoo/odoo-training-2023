@@ -4,15 +4,13 @@
       <field name="name">real estate action</field>
       <field name="res_model">estate.property</field>
       <field name="view_mode">tree,form</field>
-      <!-- <field name="search_view_id" ref="real_estate.real_estate_search"/> -->
       <field name="context">{"search_default_available_property":1}</field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
                 Create a new quotation, the first step of a new sale!
         </p>
       </field>
-    </record>
-
+ </record>
  <record id="estate_property_type" model="ir.actions.act_window">
       <field name="name">real estate action</field>
       <field name="res_model">estate.property.type</field>
@@ -23,7 +21,6 @@
         </p>
       </field>
   </record>
-
   <record id="estate_property_offer" model="ir.actions.act_window">
       <field name="name">real estate action</field>
       <field name="res_model">estate.property.offer</field>
@@ -35,7 +32,6 @@
         </p>
       </field>
   </record>
-
   <record id="estate_property_tag" model="ir.actions.act_window">
       <field name="name">real estate action</field>
       <field name="res_model">estate.property.tag</field>
@@ -45,8 +41,7 @@
                 Create a new quotation, the first step of a new sale!
         </p>
       </field>
-   </record>
-    
+   </record>    
    <record id="estate_property_sales" model="ir.actions.act_window">
       <field name="name">real estate sale</field>
       <field name="res_model">estate.property.sales</field>
@@ -56,8 +51,7 @@
                  Create a new quotation, the first step of a new sale!
         </p>
       </field>
-   </record>
-    
+   </record>    
    <record id="estate_property_buyer" model="ir.actions.act_window">
       <field name="name">real estate buyer</field>
       <field name="res_model">estate.property.buyer</field>
@@ -67,8 +61,7 @@
                  Create a new quotation, the first step of a new sale!
         </p>
       </field>
-    </record>
-
+  </record>
 <menuitem id="real_estate_menu_root" web_icon="real_estate,views/estate_icon.png" name="real estate">
         <menuitem id="estate_first_level_menu_adv" name="Advertisement">
             <menuitem id="estate_model_menu_action_property" action="estate_property_action" name="Property"/>
