@@ -8,7 +8,7 @@
         <field name="name">Bunglow</field>
     </record>
 
-    <record id="estate_property_type1" model="real.estate.propertyl.type">
+    <record id="estate_property_type3" model="real.estate.property.type">
         <field name="name">Office</field>
     </record>
 </odoo>

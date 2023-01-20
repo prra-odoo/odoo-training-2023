@@ -10,9 +10,9 @@
                 <field name="expected_price"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
                 <field name="facades"/>
                 <field name="state"/>
+                <field name="living_area" filter_domain="[('living_area','&gt;=',self)]"/>
                 <field name="type_id"/>
                <separator/>
                     <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
@@ -63,6 +63,9 @@
                     </h1>
                     <group>
                         <field name="tags_ids" options="{'color_field':'color'}" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="best_offer"/>
                     </group>
                     <group>
                         <group>

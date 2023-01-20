@@ -1,1 +1,1 @@
-from . import real_estate_property,real_estate_property_type,real_estate_property_tags,real_estate_property_offer
+from . import real_estate_property,real_estate_property_type,real_estate_property_tags,real_estate_property_offer,inherited_model,inherited_res_partner_model
