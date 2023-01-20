@@ -66,14 +66,11 @@ class EstatePropertyOffer(models.Model):
         max_price_in_offers = max(property_id.offer_ids.mapped('price'), default=0)
         # print('------------------------------------')
         # print(max_price_in_offers)
-        
         if values['price'] < max_price_in_offers: 
             raise UserError(f"The price must be higher than {max_price_in_offers}")
-        
-        print('------------------------------------')
+        # print('------------------------------------')
         # print(values['price'])
-        
-        print(values['property_id'])
+        # print(values['property_id'])
         
         property_id.state = 'offer_received'
         return super().create(values)

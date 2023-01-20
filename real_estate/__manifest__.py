@@ -4,11 +4,12 @@
     'name': 'Real Estate',
     'description': 'The Real Estate Advertisement module',
     'version': '1.0',
+    'sequence': 1,
     'category': 'Marketing',
     'author': 'Dhrutik Patel (dhrp)',
     'website': 'https://www.odoo.com/',
     'summary': 'The Real Estate Advertisement module',
-    'depends': [],
+    'depends': ['mail'],
     'demo': [
         'demo/estate_property_tag_demo.xml',
         'demo/estate_property_type_demo.xml',

@@ -7,6 +7,7 @@ from odoo.tools.float_utils import float_compare
 
 class EstateProperty(models.Model):
     _name = "estate.property"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Real estate module properties"
     _order = "id desc"
 
@@ -25,7 +26,7 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(string="Total Area (sqm)", compute="_compute_total_area", help="How much total area does your Property have?")
     garden_orientation = fields.Selection(string="Garden Orientation", selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')], compute="_compute_garden", readonly=False)
     active = fields.Boolean(string="Active", default=True)
-    state = fields.Selection(string="State", readonly=True,required=True, copy=False, selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')], default="new")
+    state = fields.Selection(string="State", readonly=True,required=True, copy=False, selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')], default="new", tracking=True)
     best_price = fields.Float(string="Best Offer", compute="_compute_best_offer", help="This will display best price from offers list.")
     property_type_id = fields.Many2one('estate.property.type', string='Type')
     buyer_id = fields.Many2one('res.partner', copy=False)
