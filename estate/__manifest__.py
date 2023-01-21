@@ -7,12 +7,14 @@
     'description' : "It is a module for real estate",
     'depends' : ['mail'],
     'data' : [
+            'security/ir.model.access.csv',
+            
             'views/estate_property_views.xml',
             'views/estate_property_type_views.xml',
             'views/estate_property_tags_views.xml',
             'views/estate_property_offer_views.xml',
+            'views/inherited_model_view.xml',
             'views/estate_views_action.xml',
-            'security/ir.model.access.csv',
         ],
     'demo' : [
             'demo/estate_property_demo.xml',

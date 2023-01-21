@@ -33,6 +33,9 @@
                         <page string="Properties">
                             <field name="list_property"/>
                         </page>
+                        <page string="description">
+                            <field name="description"/>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

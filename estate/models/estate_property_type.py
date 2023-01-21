@@ -8,6 +8,7 @@ class EstateModel(models.Model):
     _order = "sequence, name"
 
     name = fields.Char('Name',required = True)
+    description = fields.Char()
     list_property = fields.One2many("estate.property", "property_type_id")
     sequence = fields.Integer('Sequence', default=1)
     offer_ids = fields.One2many("estate.property.offer", "property_type_id", string="Offers")
