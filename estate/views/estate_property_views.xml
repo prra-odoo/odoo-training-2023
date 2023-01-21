@@ -158,19 +158,19 @@
                                 <group style="margin-top:30px">
                                     <field name="salesperson_id" widget="many2one_avatar"/>
                                 </group>
+                                <group style="margin-top:30px">
+                                    <field name="sold_date" />
+                                </group>
                             </group>
                         </page>
                         <page string="Offers" >
-                            <field name="offer_ids" >
-                                <!-- attrs= "{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','cancelled')]}" -->
+                            <field name="offer_ids" attrs= "{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','cancelled')]}" >
                                 <tree editable = "bottom" decoration-danger ="status=='refused'" decoration-success="status=='accepted'">
                                     
                                     <field name="price"/>
                                     <field name="partner_id"/>
-                                    <!-- <button name="accepted_offer" type = "object" string="accept" icon ="fa-check" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}" />
-                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}"/> -->
-                                    <button name="accepted_offer" type = "object" string="accept" icon ="fa-check"  />
-                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" />
+                                    <button name="accepted_offer" type = "object" string="accept" icon ="fa-check" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}" />
+                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}"/>
                                     
                                     <field name="status" />
                                     <field name="validity"/>
@@ -205,6 +205,7 @@
                 <field name="property_type_id"/>
                 
                 <filter name="available" string = "Available" domain="['|', ('state', '=', 'new'),('state', '=', 'offer_recieved')]"/>
+                <filter string="Last month sold" name="last month sale" domain="[('sold_date','&gt;=',(context_today() + relativedelta(months=-1)))]"/>
 
                 <separator/>
                 <field name="living_area" string="Living Area" filter_domain="[('living_area','>=',self)]"/>
@@ -242,5 +243,20 @@
                 <field name="property_type_id"/>
            </tree>
         </field>
-    </record>    
+    </record> 
+    
+    <!-- _______________________adding the page of property in the users form view -->
+    <record id="res_users_view_form" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit.gamification</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr = "//page[@name = 'preferences']" position = "after">
+                <page name = "real estate page" string = "real estate">
+                    <field name = "property_ids"/>
+                </page>
+
+            </xpath>
+        </field>
+    </record>  
 </odoo>

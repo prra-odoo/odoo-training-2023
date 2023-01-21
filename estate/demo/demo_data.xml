@@ -4,12 +4,14 @@
         <record model="estate.property" id="estate_model_demo">
             <field name="name"> best property</field>
             <field name="bedrooms">3</field>
+            <field name="selling_price">300000</field>
             <field name="expected_price">300000</field>
         </record>
-        <record model="estate.property" id="estate_model_demo_second">
-            <field name='name'>Apartments</field>
-            <field name="bedrooms">2</field>
-            <field name="expected_price">3000000</field>
+        <record model="estate.property" id="estate_model_demosecond">
+            <field name="name"> Apartments</field>
+            <field name="bedrooms">3</field>
+            <field name="selling_price">300000</field>
+            <field name="expected_price">300000</field>
         </record>
         <record model="estate.property.tag" id="estate_property_tag_demo_first">
             <field name='name'>Furnished</field>

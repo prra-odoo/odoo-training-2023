@@ -20,6 +20,7 @@ class estatePropertyModel(models.Model):
     date_availability = fields.Date(
         'Date availability', default=lambda self: fields.datetime.now()+relativedelta(months=3))
     # + relativedelta(months=6)+relativedelta(days=5)
+    sold_date = fields.Date('Selling date')
     expected_price = fields.Float('Expected Price', required=True)
     selling_price = fields.Float('Selling Price')
     bedrooms = fields.Integer(default=2)
@@ -49,6 +50,10 @@ class estatePropertyModel(models.Model):
     offer_ids = fields.One2many(
         'estate.property.offer', 'property_id', string="offers")
     best_offers = fields.Float(compute="_best_offer" , default =0)
+
+
+    
+
     # listing_property = fields.Many2one('estate.property.type')
 
     @api.depends("living_area", "garden_area")
