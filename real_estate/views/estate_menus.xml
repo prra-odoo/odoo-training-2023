@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <!-- Estate Properties Action -->
     <record id="properties_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
@@ -13,16 +14,22 @@
             </p>
         </field>
     </record>
+
+    <!-- Property Type Action -->
     <record id="property_type_action" model="ir.actions.act_window">
         <field name="name">Property Type</field>
         <field name="res_model">estate.property.type</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <!-- Property Tags Action -->
     <record id="property_tag_action" model="ir.actions.act_window">
         <field name="name">Property Tags</field>
         <field name="res_model">estate.property.tag</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <!-- Property Offers Action -->
     <record id="property_offers_action" model="ir.actions.act_window">
         <field name="name">Offers</field>
         <field name="res_model">estate.property.offer</field>
@@ -31,6 +38,8 @@
             [('property_type_id', '=', active_id)]
         </field>
     </record>
+
+    <!-- Menu -->
     <menuitem id="real_estate_root" name="Real Estate" web_icon="real_estate,static/description/icon.svg">
         <menuitem id="test_first_level_menu" name="Advertisement">
             <menuitem id="properties_menu_action" action="properties_action" name="Properties"/>

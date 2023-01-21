@@ -88,6 +88,7 @@ class estateProperty(models.Model):
             if not float_is_zero(record.selling_price, precision_digits = 2) and float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                 raise ValidationError("The selling price must be 90 % of Expected Price")
 
+    # Delete Method
     @api.ondelete(at_uninstall=False)
     def _prevent_deletion(self):
         for record in self:

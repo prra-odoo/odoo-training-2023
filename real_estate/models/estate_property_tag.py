@@ -7,10 +7,11 @@ class estatePropertyTag(models.Model):
     _description = "Consists Property Tags"
     _order = "name"
 
+    # Fields
     name = fields.Char(required=True)
     Color = fields.Integer()
     
-
+    # SQL Constraints
     _sql_constraints = [
         ('unique_tag', 'unique(name)', 'Tag name must be Unique!')
     ]
