@@ -10,7 +10,7 @@ class estate_Property(models.Model):
       _inherit = ['mail.thread','mail.activity.mixin']
       _order = "id desc"
 
-      _sql_constraints = [                                                                                      
+      _sql_constraints = [                                                                                    
     
         ('name', 'unique(name)', "A name can only be assigned to one product !"),
         ('expeccted_price', 'CHECK(expeccted_price > 0)', 'Contained Quantity should be positive.'),
@@ -29,7 +29,7 @@ class estate_Property(models.Model):
       facades=fields.Integer()
       garage=fields.Boolean()
       garden=fields.Boolean()
-      garden_area=fields.Integer()
+      garden_area=fields.Integer(compute='_compute_garden')
       garden_orientation = fields.Selection(
         string='garden orientation',
         selection=[('north', 'North'), ('east', 'East'),('west', 'west'),('south', 'South')],
@@ -60,16 +60,25 @@ class estate_Property(models.Model):
           for record in self:
             record.best_price = max(self.offer_ids.mapped('price'),default=0)
 
-      @api.onchange('garden','garden_area','garden_orientation')
-      def _onchange_garder(self):
-        if self.garden_area == 10 and self.garden_orientation == "north":
-           self.garden=True
+      # @api.onchange('garden','garden_area','garden_orientation')
+      # def _onchange_garder(self):
+      #   if self.garden_area == 10 and self.garden_orientation == "north":
+      #      self.garden=True
+      
+      # @api.depends('garden_area','garden_orientation')
+      # def _compute_garden(self):
+      #   for record in self:
+      #    if record.garden_area == 10 and record.garden_orientation == "north":
+      #       record.garden=True
+      #    else:
+      #       record.garden=False
+
 
       def sold_action(self):
         if self.state == 'sold':
          self.state = 'sold'
         else:
-         raise UserError('cenceled property can not be sold')
+         raise UserError('canceled property can not be sold')
        
       def canceled_action(self):
         if self.state == 'canceled':
@@ -82,6 +91,19 @@ class estate_Property(models.Model):
         for record in self:
           if record.state in ('offer_received','offer_accepted','sold'):
             raise UserError("only delete a property with the new and canceled state")
+      @api.depends('garden')
+      def _compute_garden(self):
+        for record in self:
+          if record.garden == True:
+            record.garden_area = 10
+            record.garden_orientation ='north'
+          else:
+            record.garden_area=0
+            record.garden_orientation=False
+            
+
+
+        
       
 
 
