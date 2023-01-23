@@ -1,7 +1,7 @@
 {
     'name':'Real Estate',
     'version':'0.1',
-    'depends':['base'],
+    'depends':['mail'],
     'author':'Harsh Modi (hamo)',
     'category':'Sales',
     'data':[

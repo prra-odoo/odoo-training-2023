@@ -3,6 +3,7 @@ from odoo.exceptions import UserError,ValidationError
 from odoo.tools.float_utils import float_is_zero,float_compare
 from dateutil.relativedelta import relativedelta
 class RealEstateProperty(models.Model):
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _name='real.estate.property'
     _description="Property model"
     _order="id desc"
@@ -20,7 +21,7 @@ class RealEstateProperty(models.Model):
     garden_area=fields.Integer(compute='_compute_garden',store=True,readonly=False)
     garden_orientation=fields.Selection(selection=[('north','North'),('south','South'),('east','East'),('west','West')])
     active=fields.Boolean(default=True)
-    state=fields.Selection(selection=[('new','New'), ('offer_received','Offer Received'), ('offer_accepted','Offer Accepted'), ('sold','Sold'),('canceled','Canceled')],default='new')
+    state=fields.Selection(selection=[('new','New'), ('offer_received','Offer Received'), ('offer_accepted','Offer Accepted'), ('sold','Sold'),('canceled','Canceled')],default='new',tracking=True)
     buyer_id = fields.Many2one("res.partner", string="Buyer")
     salesman_id=fields.Many2one("res.users",string="Salesman")
     type_id=fields.Many2one("real.estate.property.type",string="Property Type")
