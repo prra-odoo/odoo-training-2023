@@ -16,18 +16,27 @@ class EstateProperty(models.Model):
                 {
                     "partner_id": record.buyer_id.id,
                     "move_type": 'out_invoice',
-                    # "invoice_line_ids": [
-                    #     (
-                    #         0,
-                    #         0,
-                    #         {
-                    #             "name": record.name,
-                    #             "quantity": 1.0,
-                    #             "price_unit": record.selling_price.id * 6.0 / 100,
-                    #         },
+                    "invoice_line_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "name": record.name,
+                                "quantity": 1.0,
+                                "price_unit": record.selling_price * 6.0 / 100,
+                            },
 
-                    #     ),
-                    # ],
+                        ),
+                        (
+                            0,
+                            0,
+                            {
+                                "name": "Administrative Fees",
+                                "quantity": 1.0,
+                                "price_unit": 100,
+                            },
+                        ),
+                    ],
                     "line_ids": [
                         Command.create({
                             "name": record.name,
@@ -38,8 +47,15 @@ class EstateProperty(models.Model):
             )
         return super(EstateProperty, self).action_sold()
     # def action_sold(self):
-    #     # res = super.action_sold()
+    #     # result = super.action_sold()
     #     if self.state == 'sold':
     #         self.env.ref('account_accountant.account.move').trigger()
     #         raise UserError("nothing workung ")
-    #     return True
+    #     return result
+    #     CREATE= 0
+    # UPDATE= 1
+    # DELETE= 2
+    # UNLINK= 3
+    # LINK= 4
+    # CLEAR= 5
+    # SET= 6
