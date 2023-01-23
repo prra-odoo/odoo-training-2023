@@ -22,7 +22,7 @@ class estate_property(models.Model):
     facades = fields.Integer('Facades')
     garage = fields.Boolean('Garage',default=True)
     garden = fields.Boolean('Garden')
-    garden_area = fields.Integer('Garden_area')
+    garden_area = fields.Integer('Garden_area',compute="_compute_garden")
     garden_orientation = fields.Selection(
             string='Garden_orientation',default="South",
             selection=[('North','North'),('South','South'),('East','East'),('West','West')],
@@ -45,14 +45,16 @@ class estate_property(models.Model):
     _sql_constraints = [('check_expected_price','CHECK(expected_price >= 0)','A property expected price must be strictly positive.'),
                         ('check_selling_price','CHECK(selling_price >= 0)','A property selling price must be strictly positive.')
                         ]
-#     _sql_constraints = [('check_selling_price','CHECK(selling_price >= 0)','A property selling price must be strictly positive.')]
 
-
-    @api.onchange("garden")
-    def _onchange_garden(self):
+    @api.depends('garden')
+    def _compute_garden(self):
             if self.garden == True:
                     self.garden_area = 10
                     self.garden_orientation = 'North'
+            else:
+                    self.garden_area = 0
+                    self.garden_orientation = False
+
 
     
     @api.depends("living_area","garden_area")

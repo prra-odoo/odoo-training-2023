@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="users_data" model="users.users">
+            <field name="name">A</field>
+       </record>
+       <record id="users_data2" model="users.users">
+            <field name="name">B</field>
+       </record>
+        <record id="users_data3" model="users.users">
+            <field name="name">c</field>
+       </record>
+        <record id="users_data4" model="users.users">
+            <field name="name">d</field>
+       </record>
+        <record id="users_data5" model="users.users">
+            <field name="name">e</field>
+       </record>
+        <record id="users_data6" model="users.users">
+            <field name="name">f</field>
+       </record>
+        <record id="users_data7" model="users.users">
+            <field name="name">g</field>
+       </record>
+    </data>
+</odoo>

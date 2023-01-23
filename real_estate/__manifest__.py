@@ -25,5 +25,7 @@
          'views/estate_property_offer_view.xml',
         #  'views/inherit_model_view.xml',
          'views/res_users_view.xml',
+         'views/user_data_view.xml',
+        #  'data/user_data.xml',
     ]
 }

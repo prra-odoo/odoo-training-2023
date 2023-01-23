@@ -8,5 +8,7 @@ class estate_property_tags(models.Model):
 
     name = fields.Char("Name",required=True)
     color = fields.Integer('color')
+    property_tag_ids = fields.Many2many('estate.property',string='property tags')
+
 
     _sql_constraints=[('unique_name','unique(name)','Error! Enter unique name of tag')]

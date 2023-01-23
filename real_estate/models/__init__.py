@@ -7,3 +7,4 @@ from . import estate_property_offer
 from . import res_users
 from . import inheritance_demo
 from . import delegation_inheritance
+from . import users
