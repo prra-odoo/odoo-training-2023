@@ -8,4 +8,4 @@ class inheritedModel(models.Model):
     name=fields.Char()
     abc=fields.Char()
     nameusers=fields.Many2one("estate.property","name")
-    property_ids = fields.One2many("estate.property","sales_id",domain="[('state','=','new')]")
+    property_ids = fields.One2many("estate.property","sales_id",domain=[('state','in',['new'])])

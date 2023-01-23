@@ -30,8 +30,7 @@ class estateModel(models.Model):
     state=fields.Selection(selection=[('new', 'New'), ('offerrecieved', 'Offer Recieved'),('offeraccepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')],
         default='new',tracking=True,required=True)
     garage_orientation = fields.Selection(
-        string='Garden Orientation:',       
-        selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')])
+        string='Garden Orientation:',selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')])
     tags_ids=fields.Many2many("estate.property.tags",string="Tags")
     sales_id=fields.Many2one("res.users",string="Sales",default=lambda self: self.env.user)
     buyers_id=fields.Many2one("res.partner",string="Buyers")

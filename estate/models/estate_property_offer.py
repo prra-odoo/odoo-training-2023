@@ -5,6 +5,8 @@ from datetime import date
 from odoo.tools.date_utils import add
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
+from odoo.tools import float_is_zero,float_compare
+
 
 class estatepropertyoffer(models.Model):
     _name = "estate.property.offer"
@@ -54,5 +56,10 @@ class estatepropertyoffer(models.Model):
 
     @api.model
     def create(self,vals):
-        self.env['estate.property'].browse(vals['property_id']).state = 'offerrecieved'
+        rec = self.env['estate.property'].browse(vals['property_id'])
+        if rec.offer_ids:
+            maxPrice = max(rec.mapped('offer_ids.price'))
+            if float_compare(vals['price'],maxPrice,precision_rounding = 0.01) <=0:
+                raise ValidationError("Offer must be higer than current offers")
+        rec.state = 'offerrecieved'
         return super().create(vals)
