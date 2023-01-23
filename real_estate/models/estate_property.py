@@ -46,8 +46,21 @@ class EstateProperty(models.Model):
             if record.state == 'cancelled':
                 raise UserError('Cancelled properties cannot be sold.')
         record.state = 'sold'
+        
+        # Pass this buyer data to the estate.sold.property Model
+        self.env['estate.sold.property'].create(
+            {
+                'name': self.name,
+                'postcode': self.postcode,
+                'selling_price': self.selling_price,
+                # 'property_type_id': self.property_type_id,
+                'total_area': self.total_area,
+                # 'buyer_id': self.buyer_id,
+                # 'salesperson_id': self.salesperson_id
+            },
+        )
         return True
-
+            
     def action_cancel_btn(self):
         for record in self:
             if record.state == 'sold':
