@@ -36,6 +36,7 @@
                     <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="SOLD" bg_color="bg-success" states="sold"/>
                     <h1> 
                         <field name="name" />
                     </h1>
@@ -83,12 +84,17 @@
                          </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+               </div>
             </form>
         </field>
     </record>
 
     <record id="estate_property_search_view" model="ir.ui.view">
-        <field name="name">Estate Property Form View</field>
+        <field name="name">Estate Property Search View</field>
         <field name="model">estate.property.model</field>
         <field name="arch" type="xml">
             <search  string="Search View">

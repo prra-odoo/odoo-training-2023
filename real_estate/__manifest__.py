@@ -5,6 +5,8 @@
     'summary': 'Find rates of real estates',
     'description': "App for Real Estate management",
     'author': 'sami',
+    'license': 'LGPL-3',
+    'depends':['mail'],
     'data': [
         'security/ir.model.access.csv',
         'views/real_estate_menu.xml',
@@ -17,7 +19,7 @@
 
     ],
     'demo': [
-        'demo/estate_property_demo.xml',
+        # 'demo/estate_property_demo.xml',
         'demo/estate_property_type_demo.xml',
         'demo/estate_property_tag_demo.xml',
         # 'demo/estate_property_offer_demo.xml',
