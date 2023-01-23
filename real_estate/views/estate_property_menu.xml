@@ -48,7 +48,7 @@
         </field>
     </record>
 
-    <menuitem id="real_estate" name="Real Estate">
+    <menuitem id="real_estate" name="Real Estate" web_icon="real_estate,static/description/icon.png">
         <menuitem id="real_estate_first_level" name="Property">
             <menuitem id="real_estate_model" action="real_estate_action" name="Property List" />
             <menuitem id="real_estate_model2" action="real_estate_action" name="Property Names" />
