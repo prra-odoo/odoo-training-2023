@@ -17,7 +17,7 @@
     'demo': [
         'demo/real_estate_demo_data.xml',
     ],
-    'sequence' :1,
+    'sequence' :-100,
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

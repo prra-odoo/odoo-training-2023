@@ -4,7 +4,7 @@ from odoo import api,fields,models
 from odoo.exceptions import UserError
 from dateutil.relativedelta import relativedelta
 
-class EstatePlan(models.Model):
+class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is Estate property model"
     #Table Fields
@@ -19,10 +19,13 @@ class EstatePlan(models.Model):
     facades = fields.Integer(string='Facades')
     garage = fields.Boolean(string='Garage')
     garden = fields.Boolean(string='Garden')
-    garden_area = fields.Integer(string='Garden Area (sqm.)')
+    garden_area = fields.Integer(string='Garden Area (sqm.)',compute="_compute_garden",store=True,readonly = False)
     garden_orientation = fields.Selection(
         string='Garden Orientation',
-        selection=[('north','North'),('south','South'),('east','East'),('west','West')]
+        compute="_compute_garden",
+        readonly = False,
+        store=True,
+        selection=[('north','North'),('south','South'),('east','East'),('west','West'),]
     )
     status = fields.Selection(
         string='State',
@@ -50,10 +53,10 @@ class EstatePlan(models.Model):
             record.best_price = max(record.offer_ids.mapped('price'),default=0)
 
             
-    @api.onchange("garden")
-    def _onchange_garden(self):
+    @api.depends("garden")
+    def _compute_garden(self):
         for record in self:
-            if record.garden:
+            if record.garden==True:
                 record.garden_area = 10
                 record.garden_orientation="north"
             else:
