@@ -19,6 +19,7 @@
         'views/estate_property_tags.xml',
         'views/estate_property_offer.xml',
         ],
+    'depends':['mail',],
     'demo':[
         'demo/estate_property_demo.xml',
     ],

@@ -8,6 +8,8 @@ from dateutil.relativedelta import relativedelta
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate property model"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
 
     name = fields.Char(string = "Name", required = True, help = "this is name")
     description = fields.Text(string = "Description")
@@ -27,6 +29,7 @@ class EstateProperty(models.Model):
     active = fields.Boolean(string = "Active",default=True)
     state = fields.Selection(
         string = "State",
+        tracking=True,
         selection = [('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Canceled')],
         default='new')
     salesperson_id = fields.Many2one('res.users', string='Salesman', default=lambda self: self.env.user)
