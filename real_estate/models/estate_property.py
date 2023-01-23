@@ -22,7 +22,7 @@ class estateProperty(models.Model):
     facades = fields.Integer(string='Facades')
     garage = fields.Boolean(string='Garage')
     garden=fields.Boolean(string='Garden')
-    garden_area = fields.Integer(string='Garden Area')
+    garden_area = fields.Integer(string='Garden Area',  compute = "_compute_garden")
     garden_orientation = fields.Selection(string='Garden Orientation',
         selection=[('east', 'East'), 
                    ('west', 'West'),
@@ -53,6 +53,16 @@ class estateProperty(models.Model):
     def _compute_total(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
+
+    @api.depends("garden")
+    def _compute_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area = 10
+                record.garden_orientation = "north"
+            else:
+                record.garden_area = 0
+                record.garden_orientation = False
 
     @api.depends('offer_ids.price')
     def _compute_best_offer(self):
@@ -87,6 +97,8 @@ class estateProperty(models.Model):
             for record in self:
                 if record.state not in ['new', 'cancel']:
                     raise UserError("Only New and Canceled Properties can be deleted.")
+
+    
 
     # @api.model
     # def create(self, vals):

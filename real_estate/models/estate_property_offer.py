@@ -4,6 +4,7 @@ from odoo import api,fields,models
 from odoo.tools.date_utils import add
 from odoo.exceptions import UserError
 from dateutil.relativedelta import relativedelta
+from odoo.tools import float_compare
 
 class estatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -46,11 +47,19 @@ class estatePropertyOffer(models.Model):
         
         for record in records:
             if record.status!='accepted':
-                record.status='refused'      
-        
-       
-                
+                record.status='refused'              
 
     def action_refuse(self):
         for record in self:
             record.status='refused'
+
+    @api.model
+    def create(self, vals):
+        domain = ['property_id', '=', vals['property_id']]
+        result = self.env['estate.property.offer'].search([domain]).mapped('price')
+        for record in result:
+            if vals['price'] < record:
+                raise UserError("Increasing Your Amount")
+        self.env['estate.property'].browse(vals['property_id']).state = "offer_received"
+        return super().create(vals)
+        
