@@ -78,11 +78,21 @@ class EstatePropertyOffers(models.Model):
 
 
 
-    # # Adding Create method which is an method exists in parent model
-    # @api.model
-    # def create_offer(self, vals_list):
-    #     self.env['estate.property'].browse(vals_list['offer_ids'])
-    #     for record in self:
-    #         if len(record.property_id.offer_ids) > 0:
-    #             record.property_id.state = "recieved"
+    # Adding Create method which is an method exists in parent model
+    @api.model
+    def create(self, vals):
+        record = self.env['estate.property'].browse(vals['property_id'])
+        record.state = 'recieved'
+        list_of_price = []
+        for offer in record.offer_ids:
+            list_of_price.append(offer.price)
+        
+        if vals['price'] < max(list_of_price):
+            raise UserError("The offer price must be more than the other offers!")
+
+            
+        return super(EstatePropertyOffers, self).create(vals)
+
     
+    # def check_offers(self):
+    #     property_id.offer_ids
