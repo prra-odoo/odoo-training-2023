@@ -42,17 +42,22 @@ class esattePropertyOffer(models.Model):
 			if record.property_id == self.property_id:
 				raise ValidationError("Can't accept more than one offer")
 			else:
-				for i in record:
-					record.status='refused'
-			self.status='accepted'
-			self.property_id.selling_price = self.price
-			self.property_id.buyer_id = self.partner_id
-			self.property_id.state='offer_accepted'
+				record.status='refused'
+		self.status='accepted'
+		self.property_id.selling_price = self.price
+		self.property_id.buyer_id = self.partner_id
+		self.property_id.state='offer_accepted'
 
 	def refused_action(self):
 		for record in self:
 			record.status = "refused"
 		return True
+
+
+	@api.model
+	def create(self,vals):
+		self.env['estate.property'].browse(vals['property_id']).state='offer_recieved'
+		return super().create(vals)
 
 	
 
