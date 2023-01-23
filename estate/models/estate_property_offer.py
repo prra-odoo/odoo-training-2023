@@ -61,6 +61,7 @@ class estatePropertyOffer(models.Model):
     @api.model
     def create(self, vals):
         self.env['estate.property'].browse(vals['property_id']).state='offer_recieved'
+        breakpoint()
         return super().create(vals)
         
 
