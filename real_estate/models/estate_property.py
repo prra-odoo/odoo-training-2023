@@ -15,13 +15,13 @@ class estateProperty(models.Model):
     postcode = fields.Integer('Postcode' ,required= True)
     date_availability = fields.Date('Date', default=lambda self: fields.Datetime.now(), readonly=True)
     expected_price = fields.Float('Expected price')
-    selling_price = fields.Float('Selling price' , default = 0, copy = False)
+    selling_price = fields.Float('Selling price' , default = 0, copy = False, readonly=True)
     bedrooms = fields.Integer('Bedrooms')
     living_area = fields.Integer('Living area')
     facades = fields.Integer('Facades')
     garage = fields.Boolean('Garage')
     garden = fields.Boolean('Garden')
-    garden_area = fields.Integer('Garden area', default = "2500")
+    garden_area = fields.Integer('Garden area', default = "2500", compute = "_compute_garden")
     total_area = fields.Integer('Total Area', compute="_compute_total_area")
     best_price = fields.Integer('Best Price', compute="_compute_best_price", default=0)
     status = fields.Char('Status', readonly=True, default="New", tracking=True)
@@ -39,7 +39,7 @@ class estateProperty(models.Model):
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)',
          'The expected Price must be Positive'),
-        ('check_selling_price', 'CHECK(selling_price > 0)',
+        ('check_selling_price', 'CHECK(selling_price > -1)',
          'The Selling Price must be Positive'),
     ]
 
@@ -52,7 +52,19 @@ class estateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             record.best_price = max(record.offer_ids.mapped('price'), default=0)
-            # if record.offer_ids.status == 'accepted':
+    
+
+    @api.depends("garden")
+    def _compute_garden(self):
+        for rec in self:
+            if rec.garden:
+                rec.garden_orientation = 'north'
+                rec.garden_area = 10
+            else:
+                rec.garden_orientation = False
+                rec.garden_area = 0
+        
+    
 
 
     def action_sold(self):

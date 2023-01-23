@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-      
+
 
         <record id="estate_property_view_tree" model="ir.ui.view">
             <field name="name">estate.property.tree</field>
@@ -22,6 +22,58 @@
                     <field name="state" invisible="1" />
 
                 </tree>
+            </field>
+        </record>
+
+        <record id="estate_property_view_kanban" model="ir.ui.view">
+            <field name="name">estate.property.kanban</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="property_type_id" records_draggable='False' >
+                    <field name="state" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="row mb4">
+                                    <div class="col-10 o_account_asset_kanban_title">
+                                        <strong>
+                                            <span>
+                                                <field name="name" />
+                                            </span>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        Expected Price:
+                                    </div>
+                                    <div class="col">
+                                            <field name="expected_price" widget='monetary' />
+                                    </div>
+                                </div>
+                                <div class="row" t-if="record.state.raw_value == 'received'">
+                                    <div class="col">
+                                        Best Offer:
+                                    </div>
+                                    <div class="col">
+                                            <field name="best_price" widget='monetary' />
+                                    </div>
+                                </div>
+                                <div class="row" t-if="record.state.raw_value == 'accepted'">
+                                    <div class="col">
+                                        Selling Price:
+                                    </div>
+                                    <div class="col">
+                                        <field name="selling_price" widget='monetary' />                                      
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <field name="tag_ids" options="{'color_field': 'color'}" />                                      
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
@@ -111,10 +163,12 @@
                                         <field name="property_type_id"></field>
                                         <field name="validity"></field>
                                         <field name="date_deadline"></field>
-                                        <button name="action_accept" type="object" icon='fa-check' title="Accept"
+                                        <button name="action_accept" type="object" icon='fa-check'
+                                            title="Accept"
                                             attrs="{'invisible': [('status', '!=', False)]}" />
 
-                                        <button name="action_refused" type="object" icon='fa-times' title="cancel"
+                                        <button name="action_refused" type="object" icon='fa-times'
+                                            title="cancel"
                                             attrs="{'invisible': [('status', '!=', False)]}" />
 
                                         <field name="status" />

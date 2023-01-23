@@ -14,15 +14,14 @@ class estateProperty(models.Model):
                 'partner_id': rec.buyer_id.id,
                 'invoice_date': date.today(),
                 'move_type': 'out_invoice',
-                'invoice_line_ids': [(0, 0, {
+                'invoice_line_ids': [
+                    Command.create({
                     "name": rec.name,
                     "quantity": 1.0,
                     "price_unit": rec.selling_price * 6.0 / 100.0,
                 },),
-                    (
-                    0, 0,
-                    {
-                        "name": 'administrative fees',
+                    Command.create({
+                        "name": 'Administrative Fees',
                         "quantity": 1.0,
                         "price_unit": 100,
                     })
