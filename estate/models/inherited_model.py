@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 from odoo import models , fields
 
 class inheritedModel(models.Model):
 	_inherit = "res.users"
 
-	property_ids = fields.One2many('estate.property','salesman_id',string="Real Estate Property")
+	test = fields.Char()
+	property_ides = fields.One2many('estate.property','salesman_id')
 
 
 # class prototypeInheritance(models.Model):

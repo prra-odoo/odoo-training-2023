@@ -6,20 +6,20 @@
         <record id="Sector_2A_demo_property" model="estate.property">
             <field name="name">Sector 2A</field>
             <field name="description">This is a sample property in sector 2A</field>
-            <!-- <field name="property_tag_ids" eval="[(6,0,[ref('estate.real_estate_tag_demo_1')])]"/> -->
-            <!-- <field name="property_type_id" ref="estate.real_estate_type_demo_1"/> -->
+            <!-- <field name="property_tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_1')])]"/>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_1"/> --> 
         </record>
         <record id='Sector_2B_demo_property' model='estate.property'>
             <field name='name'>Sector 2B</field>
             <field name='description'>This is a sample property in sector 2B</field>
-            <!-- <field name="property_tag_ids" eval="[(6,0,[ref('estate.real_estate_tag_demo_2')])]"/> -->
-            <!-- <field name="property_type_id" ref="estate.real_estate_type_demo_2"/> -->
+            <!-- field name="property_tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_2')])]"/>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_2"/> -->
         </record>
         <record id="Vrundavan_demo_property" model='estate.property'>
             <field name="name">Vrundavan</field>
             <field name='description'>This is a sample property in vrundavan</field>
-            <!-- <field name="property_tag_ids" eval="[(6,0,[ref('estate.real_estate_tag_demo_3')])]"/> -->
-            <!-- <field name="property_type_id" ref="estate.real_estate_type_demo_3"/> -->
+            <!-- <field name="property_tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_3')])]"/>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_3"/> -->
         </record>
     </data>
 </odoo>
