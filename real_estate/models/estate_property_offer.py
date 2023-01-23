@@ -77,7 +77,10 @@ class estatePropertyOffer(models.Model):
     # Create Method
     @api.model
     def create(self, vals):
+        # breakpoint()
         records = self.env['estate.property'].browse(vals['property_id'])
+        # my_property = self.env['estate.property'].search([('active', '=', True)])
+        
         if records.offer_ids:
             maxPrice = max(records.mapped('offer_ids.price'))
             if float_compare(vals['price'], maxPrice, precision_rounding=0.01) <= 0:
