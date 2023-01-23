@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <tree expand= "1" string="tree view" decoration-success = "state in ('sold','offer_accepted','offer_received')" 
                 decoration-bf="state=='offer_accepted'" decoration-muted="state=='cancel'">
-                    <!-- <field name="sequence" widget="handle"/> -->
+                    <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="postcode"/>
                     <field name="bedrooms"/>
@@ -51,6 +51,11 @@
                             <filter string="Estate_bedroom" name="bedroom" context="{'group_by':'living_area', 'garage':True}"/>
                         </group>
                 </search>
+                <searchpanel>
+                    <field name="property_type_id"/>
+                    <field name="salesperson_id"/>
+                    <field name="buyers_id"/>
+                </searchpanel>
             </field>
         </record>
 
@@ -71,7 +76,7 @@
                         <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible':[('state','in',('new','offer_received','offer_accepted','sold'))]}" />
                         <label for="name"></label>
                             <h1><field name="name"/></h1>
-                        <group>
+                        <group> 
                             <group style="Margin-top:30px">
                             <field name="tags_ids" widget ="many2many_tags" options="{'color_field': 'colors' , 'no_create':True, 'no_edit': True}" />
                             </group>  
@@ -121,7 +126,7 @@
                                 <field name="other_info"></field>
                             </page>
                             <page string="Offer">
-                                <field name="offer_ids" attrs="{'readonly':[('state','in',('offer_received','offer_accepted','sold'))]}">
+                                <field name="offer_ids" >
                                     <tree editable="top" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                                         <field name ="price"/>
                                         <field name ="partner_id"/>
@@ -144,16 +149,14 @@
                 </form>
             </field>
         </record>
-         <record id="Estate_searchpanel_view" model="ir.ui.view">
+         <!-- <record id="Estate_searchpanel_view" model="ir.ui.view">
             <field name="name">Estate search panel view</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <search position="inside">
-                    <searchpanel>
-                        <field name="property_type_id"/>
-                    </searchpanel>
+                    
                 </search>
             </field>
-        </record>
+        </record> -->
     </data>
 </odoo>
