@@ -22,4 +22,5 @@
     'demo':[
         'demo/estate_property_demo.xml',
     ],
+    'depends' : ['mail'],
 }

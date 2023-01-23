@@ -27,8 +27,7 @@
         <field name="name">Estate Property Form View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <form string="form_view">
-
+            <form string="form_view">               
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -75,6 +74,11 @@
                         </notebook>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+               </div>
             </form>
         </field>
     </record>
@@ -104,7 +108,7 @@
                     <filter string="Postcode" name="postcode_groupby" context="{'group_by':'postcode'}"/>
                     <filter string="Bedrooms" name="bedroom_groupby" context="{'group_by':'bedrooms'}"/>
                 </group>
-            </search>   
+            </search>
         </field>
     </record>
     <!-- HELP MESSAGE & properties action-->
