@@ -21,10 +21,9 @@ class estateProperty(models.Model):
     facades = fields.Integer('Facades ')
     garage = fields.Boolean('Garage ')
     garden = fields.Boolean('Garden ')
-    garden_area = fields.Integer('Garden Area ')
+    garden_area = fields.Integer('Garden Area ',compute='_compute_garden')
     garden_orientation = fields.Selection(string="Orientation ",
-        selection=[('north', 'North'), ('south', 'South'), ('east','East'), ('west','West')],
-        help="Type is used to separate Leads and Opportunities")
+        selection=[('north', 'North'), ('south', 'South'), ('east','East'), ('west','West')])
     state = fields.Selection(selection= [('new','New'),('cancel','Cancel'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold')], default="new",tracking=True)
     activate = fields.Boolean(default=True)
     property_type_id = fields.Many2one("estate.property.type",string= "Property type")
@@ -74,6 +73,17 @@ class estateProperty(models.Model):
                     "The selling price must be at least 90% of the expected price! "
                     + "You must reduce the expected price if you want to accept this offer."
                 )
+
+
+    @api.depends('garden')
+    def _compute_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area=10
+                record.garden_orientation= "north"
+            else:
+                record.garden_area=0
+                record.garden_orientation=False
             
 
     @api.ondelete(at_uninstall=False)
