@@ -22,6 +22,14 @@
                             <field name="name"/>
                             <field name="color" widget="color_picker"/>
                         </group>
+                        <notebook>
+                            <page string="Property">
+                                <field name="propertys_ids">
+                                    <tree string= "Properties">
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                 </sheet>
             </form>
         </field>

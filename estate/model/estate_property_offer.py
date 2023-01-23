@@ -31,16 +31,28 @@ class EstatePropertyOffer(models.Model):
     date_deadline = fields.Date(compute='_compute_date', inverse='_inverse_date')
     create_date = fields.Date('Date availability',default=fields.Datetime.now())
 
+    #create method
+    @api.model
+    def create(self, vals):
+        property_id = self.env['estate.property'].browse(vals['property_id'])
+        if float_compare(vals.get('price'),max(property_id.offer_ids.mapped('price'), default=0),precision_digits=2) <= 0:
+            raise UserError('The new offer must be greater than existing one')
+        property_id.state = 'offer_received'
+        return super().create(vals)
+
+    #computing date deadline
     @api.depends('validity')
     def _compute_date(self):
         for record in self:
             record.date_deadline = add(record.create_date,days=record.validity)
     
+    #computing validity - inverse
     @api.depends('validity')
     def _inverse_date(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date).days
     
+    # accepted button action
     def action_accepted(self):
         for record in self:
             if record.status == 'accepted':
@@ -51,6 +63,7 @@ class EstatePropertyOffer(models.Model):
             record.property_id.buyer_id = record.partner_id
         return True
 
+    # refuse button action
     def action_refused(self):
         for record in self:
             record.status = 'refused'

@@ -4,7 +4,7 @@
         <!-- estate property tag demo data -->
         <record model="estate.property.tag" id="property_model_tag_demo" >
             <field name="name">Cozy</field>
-            <field name="color">6</field>
+            <field name="color">2</field>
         </record>
         <record model="estate.property.tag" id="property_model_tag_demo1" >
              <field name="name">Renovated</field>

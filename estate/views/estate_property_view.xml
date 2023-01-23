@@ -53,7 +53,7 @@
                 <header>
                     <button name="property_sold" type="object" string="Sold" class="btn btn-primary" states='new,offer_received,offer_accepted'/>
                     <button name="property_cancel" type="object" string="Cancel" class="btn btn-secondary" states='new,offer_received,offer_accepted,sold'/>
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar"  options = "{'clickable' : '1'}"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success"
@@ -119,10 +119,10 @@
                                 <field name="garden" widget="boolean_toggle"/>
                             </group>
                             <group>
-                                <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                <field name="garden_area" attrs="{'invisible': [('garden', '==', False)]}"/>
                             </group>
                             <group>
-                                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible': [('garden', '==', False)]}"/>
                             </group>
                         </page>
                         <page string="Offer">
