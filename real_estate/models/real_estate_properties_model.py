@@ -9,6 +9,8 @@ class real_Esate_Properties(models.Model):
 	_name='real.estate.properties'
 	_description="Property Details"
 	_order="id desc"
+	_inherit = ['mail.thread', 'mail.activity.mixin']
+
 
 	name=fields.Char(required=True,default="Unknown")
 	description=fields.Text()
@@ -34,7 +36,8 @@ class real_Esate_Properties(models.Model):
 		selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancled','Canceled')],
 		required=True,
 		copy=False,
-		default='new'
+		default='new',
+		tracking=True
 	)
 	property_type_id=fields.Many2one("estate.property.type")
 	buyer=fields.Many2one("res.partner",copy=False,readonly=True)

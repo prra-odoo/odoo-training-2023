@@ -22,8 +22,7 @@
         'demo/estate_property_type_demo.xml',
         'demo/estate_property_tag_demo.xml'
        ],
-    'depends' : [   
-      ],
+    'depends' : ['mail'],
     'installable' : True,
     'application' : True,
     'auto_install' : False
