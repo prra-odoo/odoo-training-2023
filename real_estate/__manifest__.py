@@ -1,7 +1,7 @@
 {
     'name': "Real Estate",
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['base','mail',],
     'author': "Gurpreet Singh(gusi)",
     'category': 'Sales',
     'description': "This is a Real Esate App",

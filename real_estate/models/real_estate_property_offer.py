@@ -22,7 +22,7 @@ class RealEstatePropertyOffer(models.Model):
     @api.model
     def default_get(self, fields_list):
         res = super().default_get(fields_list)
-        print(fields_list)
+        # print(fields_list)
         return res
     
     @api.depends('create_date', 'validity')

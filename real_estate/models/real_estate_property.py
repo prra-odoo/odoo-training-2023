@@ -10,6 +10,7 @@ class RealEstateProperty(models.Model):
     _name = "real.estate.property"
     _description = "Property Model"
     _order = "id desc"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     
     name = fields.Char(string="Name", required=True)
     description = fields.Text()
@@ -30,7 +31,7 @@ class RealEstateProperty(models.Model):
     garden_orientation = fields.Selection([('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     active = fields.Boolean(default=True)
     state = fields.Selection([('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted',
-                             'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')], default='new', required=True, copy=False)
+                             'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')], default='new', required=True, copy=False, tracking=True)
     property_type_id = fields.Many2one('real.estate.property.type', string='Property Type')
     salesperson_id = fields.Many2one("res.users", string="Salesman", default=lambda self: self.env.user)
     buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
@@ -46,7 +47,7 @@ class RealEstateProperty(models.Model):
 
     @api.depends('offer_ids')
     def _compute_best_offer(self):
-        print(self)
+        # print(self)
         for record in self:
             record.offer_ids.property_id = self.id
             record.best_price=max(record.offer_ids.mapped('price'),default=0)
