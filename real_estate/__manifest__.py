@@ -3,6 +3,7 @@
 {
     'name': 'Real Estate',
     'description': 'The Real Estate Advertisement Module',
+    'version': '1.0',
     'author': 'Renilkumar Kajavadra',
     'depends':['base','mail'],
     'data': [
