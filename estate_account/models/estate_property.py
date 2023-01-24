@@ -10,10 +10,27 @@ class RealEstateProperty(models.Model):
         print(self)
         res = super().action_sold_porperty()
         for prop in self:
+            print(prop.buyer_id.id)
+            print(self.buyer_id.id)
+            print(self.name)
+            print(prop.name)
+            self.buyer_id.id
             self.env["account.move"].create(
                 {
-                    "partner_id": prop.buyer_id.id,
+                    "partner_id": self.buyer_id.id,
                     "move_type": "out_invoice",
+                    "invoice_line_ids": [
+                        (0,0,{
+                                "name": self.name,
+                                "quantity": 1.0,
+                                "price_unit": self.selling_price
+                            },),
+                        (0,0,{
+                                "name": "Administrative fees",
+                                "quantity": 1.0,
+                                "price_unit": 100.0,
+                            },
+                        ),],
                 }
             )
         print(res)
