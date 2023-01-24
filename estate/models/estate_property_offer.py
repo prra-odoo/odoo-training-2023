@@ -53,10 +53,11 @@ class estateOffer(models.Model):
     @api.model
     def create(self,vals):
         record = self.env['estate.property'].browse(vals['property_id']) 
-        if record.offer_ids['price']:
-            max_price = max(record.mapped('offer_ids.price'))
-            if float_compare(vals['price'],max_price,precision_rounding=0.01) <=0:
-                raise UserError("The offer price must be higher than %.2f" % max_price)
+        for i in self:
+            if i.price:
+                max_price = max(record.mapped('offer_ids.price'))
+                if float_compare(vals['price'],max_price,precision_rounding=0.01) <=0:
+                    raise UserError("The offer price must be higher than %.2f" % max_price)
         record.state = 'offer_received'
         return super().create(vals)         
     

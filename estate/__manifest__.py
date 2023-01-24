@@ -10,11 +10,11 @@
         'views/estate_property_type_views.xml',
         'views/estate_property_tag_views.xml',
         'views/estate_property_offer_views.xml',
-        'views/inherited_model_views.xml',
+        'views/res_users_model_views.xml',
     ],
     'demo' :[
         'demo/estate_demo_data.xml',
         ],
-    'depends' : ['base','mail','portal'],
+    'depends' : ['base','mail'],
     'application' : True
 }
