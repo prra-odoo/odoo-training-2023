@@ -51,7 +51,6 @@ class estatePropertyModel(models.Model):
         'estate.property.offer', 'property_id', string="offers")
     best_offers = fields.Float(compute="_best_offer" , default =0)
 
-
     
 
     # listing_property = fields.Many2one('estate.property.type')

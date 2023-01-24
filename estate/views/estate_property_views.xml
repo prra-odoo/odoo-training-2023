@@ -101,6 +101,7 @@
                         <group style="margin-top:30px">
                             <field name="postcode"/>
                         </group>
+                      
                         <group style="margin-top:30px">
                             <field name="date_availability"/>
                         </group>
