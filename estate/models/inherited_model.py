@@ -5,7 +5,7 @@ class inheritedModel(models.Model):
 	_inherit = "res.users"
 
 	test = fields.Char()
-	property_ides = fields.One2many('estate.property','salesman_id')
+	property_ides = fields.One2many('estate.property','salesman_id', string="asd")
 
 
 # class prototypeInheritance(models.Model):

@@ -32,8 +32,8 @@
                 <menuitem id="Sector2B_menu_action" action="estate_property_action" name="Sector2B"/>
             </menuitem>
             <menuitem id="vadodara_properties_menu" name="Vadodara properties">
-                <!-- <menuitem id="vrundavan_menu_action" action="estate_property_action" name="Vrundavan"></menuitem>
-                <menuitem id="Waghodia_menu_action" action="estate_property_action" name="Waghodia"></menuitem> -->
+                <menuitem id="vrundavan_menu_action" action="estate_property_action" name="Vrundavan"></menuitem>
+                <menuitem id="Waghodia_menu_action" action="estate_property_action" name="Waghodia"></menuitem>
             </menuitem>
         </menuitem>
         <menuitem id="Settings_menu" name="Settings">

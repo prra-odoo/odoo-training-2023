@@ -7,6 +7,6 @@ class esattePropertyTags(models.Model):
 	_description ='This is a model to represent estate property tags'
 	_order = "name"
 
-	name=fields.Char('Name',required=True)
+	name=fields.Char(string='Name',required=True)
 	color = fields.Integer()
 	_sql_constraints=[('property_tag_name_unique','unique(name)','Property tag name must be unique')]

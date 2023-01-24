@@ -11,7 +11,7 @@
                 <field name="bedrooms"></field>
                 <field name="living_area"></field>
                 <field name="property_tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
-                <field name="property_type_id" optional="hide" widget="many2many_tags"></field>
+                <field name="property_type_id" optional="hide"></field>
                 <field name="state" optional="hide"/>
                 <field name="facades" optional="hide"></field>
                 <field name="garden_area" optional="hide"></field>
