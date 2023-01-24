@@ -27,6 +27,8 @@ class RealEstatePropertyOffer(models.Model):
     @api.depends("validity")
     def _compute_date_deadline(self):
         for record in self:
+            if record.validity<0:
+                raise UserError(_("Validity cannot be negative"))
             if record.create_date:
                 record.date_deadline=record.create_date+relativedelta(days=record.validity)
             else:
@@ -34,6 +36,8 @@ class RealEstatePropertyOffer(models.Model):
     def _inverse_date_deadline(self):
         for record in self:
             diff=record.date_deadline-record.create_date
+            if diff<0:
+                raise UserError(_("Past date cannot be set"))
             record.validity=int(diff.days)
     @api.model
     def create(self,vals):
