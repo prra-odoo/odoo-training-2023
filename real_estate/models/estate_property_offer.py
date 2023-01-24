@@ -58,19 +58,19 @@ class EstatePropertyOffer(models.Model):
             
     # CRUD Methods
     
-    @api.model
-    def create(self, values):
-        property_id = self.env['estate.property'].browse(values['property_id'])
-        # print('------------------------------------')
-        # print(property_id.read())
-        max_price_in_offers = max(property_id.offer_ids.mapped('price'), default=0)
-        # print('------------------------------------')
-        # print(max_price_in_offers)
-        if values['price'] < max_price_in_offers: 
-            raise UserError(f"The price must be higher than {max_price_in_offers}")
-        # print('------------------------------------')
-        # print(values['price'])
-        # print(values['property_id'])
-        
-        property_id.state = 'offer_received'
-        return super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        print('---------------')
+        print(vals_list)
+        for vals in vals_list:
+            property_id = self.env['estate.property'].browse(vals['property_id'])
+            print('---------------')
+            print(vals)
+            max_price_in_offers = max(property_id.offer_ids.mapped('price'), default=0)
+            
+            if vals['price'] < max_price_in_offers: 
+                raise UserError(f"The price must be higher than {max_price_in_offers}") 
+                       
+            property_id.state = 'offer_received'
+        return super().create(vals)
+

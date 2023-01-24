@@ -18,6 +18,9 @@
         <field name="arch" type="xml">
             <tree string="List View">
                 <field name="name"/>
+                <field name="property_type_id"/>
+                <field name="salesperson_id"/>
+                <field name="buyer_id"/>
                 <field name="selling_price"/>
                 <field name="total_area"/>
                 <field name="postcode"/>

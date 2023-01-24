@@ -53,10 +53,10 @@ class EstateProperty(models.Model):
                 'name': self.name,
                 'postcode': self.postcode,
                 'selling_price': self.selling_price,
-                # 'property_type_id': self.property_type_id,
+                'property_type_id': self.property_type_id.id,
                 'total_area': self.total_area,
-                # 'buyer_id': self.buyer_id,
-                # 'salesperson_id': self.salesperson_id
+                'buyer_id': self.buyer_id.id,
+                'salesperson_id': self.salesperson_id.id
             },
         )
         return True
