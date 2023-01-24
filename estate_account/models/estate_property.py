@@ -19,6 +19,7 @@ class estateProperty(models.Model):
                     "name": rec.name,
                     "quantity": 1.0,
                     "price_unit": rec.selling_price * 6.0 / 100.0,
+                    # "tax_ids": False,
                 },),
                     Command.create({
                         "name": 'Administrative Fees',
