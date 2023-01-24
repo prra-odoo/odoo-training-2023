@@ -1,6 +1,9 @@
-from odoo import api,fields,models
+from odoo import api,fields,models,exceptions
 from dateutil.relativedelta import relativedelta
 from datetime import date
+from odoo.tools import float_utils
+
+
 
 class Estate_property_offer(models.Model):
     _name= "estate.property.offer"
@@ -8,7 +11,7 @@ class Estate_property_offer(models.Model):
     _order = "price desc"
 
     price = fields.Float()
-    status = fields.Selection(string="Status", selection=[('accepted','Accepted'),('refused','Refused')],default=" ",copy=False)
+    status = fields.Selection(string="Status", selection=[('accepted','Accepted'),('refused','Refused')],default='',copy=False)
     partner_id= fields.Many2one("res.partner",required=True)
     property_id= fields.Many2one("estate.property.model",required=True)
     validity = fields.Integer(default="7")
@@ -33,7 +36,6 @@ class Estate_property_offer(models.Model):
         for record in self:  
             record.validity=abs(record.create_date.date() - record.date_deadline).days
             
-            # record.validity = (record.date_deadline - record.create_date.date()).days
         
 
     def action_accept(self):
@@ -44,7 +46,7 @@ class Estate_property_offer(models.Model):
             record.status='accepted'
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
-            # copied it from dhrp
+            
             
 
     
@@ -59,9 +61,13 @@ class Estate_property_offer(models.Model):
 
 
     @api.model
-    def create(self,vals):
-        self.env['estate.property.model'].browse(vals['property_id']).state = 'offer_recieved'
-
-        return super(Estate_property_offer, self).create(vals)
+    def create(self, vals):
+        property_id = self.env['estate.property.model'].browse(vals['property_id'])
+        maxpr = max(property_id.offer_ids.mapped('price'), default=0)
+        if maxpr > vals['price']:
+            raise exceptions.UserError("Offer price should be greater than previous offer")
+        else:
+            property_id.state = "offer_recieved"
+            return super().create(vals)
    
         
