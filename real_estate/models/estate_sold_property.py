@@ -13,3 +13,4 @@ class EstateSoldProperty(models.Model):
     total_area = fields.Integer(string="Total Area (sqm)")
     # buyer_id = fields.Many2one('res.partner')
     # salesperson_id = fields.Many2one('res.users', string='Salesperson')
+    
