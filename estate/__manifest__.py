@@ -6,6 +6,7 @@
     'summary': 'Manage Property Related Offers and more',
     'description': "Real Estate module",
     'author': "Raj Patani",
+    'depends': ['mail'],
     'data': [
         'security/ir.model.access.csv',
         'views/estate_property_views.xml',

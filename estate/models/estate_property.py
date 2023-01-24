@@ -7,6 +7,7 @@ from dateutil.relativedelta import relativedelta
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is Estate property model"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     #Table Fields
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
@@ -30,7 +31,8 @@ class EstateProperty(models.Model):
     status = fields.Selection(
         string='State',
         selection=[('new','New'),('offer_received','Offer Received'),('offer_accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
-        default= 'new'
+        default= 'new',
+        tracking=True,
     )
     active = fields.Boolean(string='Active', default=True)
     total_area = fields.Float(string="Total Area (sqm.)", compute="_compute_total")
@@ -52,7 +54,7 @@ class EstateProperty(models.Model):
         for record in self:
             record.best_price = max(record.offer_ids.mapped('price'),default=0)
 
-            
+
     @api.depends("garden")
     def _compute_garden(self):
         for record in self:
