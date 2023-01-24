@@ -74,17 +74,30 @@ class estate_Property(models.Model):
       #       record.garden=False
 
 
+      # def sold_action(self):
+      #   if self.state == 'sold':
+      #    self.state = 'sold'
+      #   else:
+      #    raise UserError('canceled property can not be sold')
+
+      #sold action
+     #sold action
       def sold_action(self):
-        if self.state == 'sold':
-         self.state = 'sold'
-        else:
-         raise UserError('canceled property can not be sold')
+        for record in self: #self --> recordset/collection --> gives record one by one
+            if record.state == 'canceled':
+                raise UserError('Canceled property can not be sold.')
+            else:    
+                record.state = 'sold'
+        return True
        
       def canceled_action(self):
-        if self.state == 'canceled':
-          self.state = 'canceled'         
-        else:
-          raise UserError('sold  property can not be canceled')
+        for record in self:
+          if record.state == 'sold':
+            raise UserError('sold  property can not be canceled')
+                  
+          else:
+            record.state = 'canceled'
+        return True
       
       @api.ondelete(at_uninstall=False)
       def _ondeleteaction(self):
