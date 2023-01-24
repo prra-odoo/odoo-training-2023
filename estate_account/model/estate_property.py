@@ -2,29 +2,37 @@
 
 from odoo import models, fields
 
+
 class EstateProperty(models.Model):
     _inherit = "estate.property"
 
     def property_sold(self):
-        for record in self:
-            invoice_1 = self.env['account.move'].create({
-                'move_type': 'out_invoice',
-                'partner_id': record.buyer_id.id,
-            })
-        return super().property_sold
+        self.env['account.move'].create({
+            #'name': self.name,
+            'move_type': 'out_invoice',
+            'partner_id': self.buyer_id.id,
+            'invoice_date':fields.Date.context_today(self),
+            'invoice_line_ids':[
+                (0, self.buyer_id.id, {
+                    'name': self.name,
+                    'quantity': 1,
+                    'price_unit': self.selling_price,
+                    "tax_ids": None,
+                }),
+                (0, 0, {
+                    'name': '6 percent of selling price',
+                    'quantity': 1,
+                    'price_unit': self.selling_price * 0.06,
+                    "tax_ids": None,
+                }),
+                (0, 0, {
+                    'name': 'additional 100 for administrative fees.',
+                    'quantity': 1,
+                    'price_unit': '100',
+                    "tax_ids": None,
+                }),
+            ],
+        })
+        return super().property_sold()
 
-    # invoice_1 = self.env['account.move'].create({
-    #         'move_type': 'out_invoice',
-    #         'invoice_date': '2017-01-01',
-    #         'date': '2017-01-01',
-    #         'partner_id': self.partner_a.id,
-    #         'currency_id': self.currency_data['currency'].id,
-    #         'invoice_line_ids': [(0, 0, {
-    #             'name': 'test line',
-    #             'price_unit': 0.025,
-    #             'quantity': 1,
-    #             'account_id': self.company_data['default_account_revenue'].id,
-    #         })],
-    #     })
-    # move_id 
-    # partner_id
+
