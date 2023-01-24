@@ -7,7 +7,7 @@
          <field name="name">Properties</field>
          <field name="model">estate.property</field>
              <field name="arch" type="xml">
-                 <tree string="...">    <!-- showing columns in tree view -->
+                 <tree string="property_tree_view">    <!-- showing columns in tree view -->
                     <field name="name" />
                     <field name="description" />
                     <field name="bedrooms" optional="show"/>
@@ -20,7 +20,7 @@
         
         <!-- form view for getting input -->
         <record id="estate_property_view_form" model="ir.ui.view">
-            <field name="name">Name</field>
+            <field name="name">Property form view</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="Tags">
@@ -72,6 +72,11 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                         <field name="message_follower_ids" />
+                         <field name="message_ids" />
+                         <field name="activity_ids" />
+                    </div>
                 </form>
             </field>
         </record>
@@ -94,8 +99,7 @@
                 </search>
             </field>
         </record>
-        
-        <record id="estate_property_action" model="ir.actions.act_window">
+                <record id="estate_property_action" model="ir.actions.act_window">
             <field name="name">Properties</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>

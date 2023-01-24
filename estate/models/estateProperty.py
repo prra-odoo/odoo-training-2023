@@ -3,6 +3,7 @@
 from odoo import fields,models,api
 from dateutil.relativedelta import relativedelta
 import datetime
+from odoo.exceptions import UserError, ValidationError
 from . import estatePropertyOffer
 
 TODAY = datetime.date.today()
@@ -11,6 +12,7 @@ three_mon_rel = relativedelta(months=3)
 class estateProperty(models.Model):
     _name = "estate.property"
     _description="model description"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name=fields.Char(string="Name",required=True)
     description=fields.Text(string="Description")
@@ -42,7 +44,7 @@ class estateProperty(models.Model):
     state = fields.Selection(
         string='Status',
         selection=[('new','New'),('offer_received','Offer Received'),('offer_accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
-        default= 'new'
+        default= 'new',tracking=True
     )
     active=fields.Boolean(default=True)
     property_type_id=fields.Many2one("estate.property.type", string="Property type",)
@@ -67,21 +69,21 @@ class estateProperty(models.Model):
             record.best_offer=max(record.offer_ids.mapped("price"),default=0)
 
     def sell_property(self):
-        # for record in self:
-        #     record.state='sold'
-        #     record.selling_price=record.best_offer
-        pass
-
-    def accept_offer(self,offer_price,buyer):
-        # for record in self:
-        #     record.selling_price=offer_price
-        #     record.buyer_id=buyer
-        pass
+        for record in self:
+            if record.state=='canceled':
+                raise UserError(_('Canceled property cannot be sold'))
+            else:
+                record.state='sold'
+                record.selling_price=record.best_offer
+        
 
     def cancel_property(self):
         for record in self:
-            record.state='canceled'
-            record.selling_price=0
+            if record.state=='sold':
+                raise UserError(_('Sold property cannot be cancelled'))
+            else:
+                record.state='canceled'
+                record.selling_price=0
     
 
 

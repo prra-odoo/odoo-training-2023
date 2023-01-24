@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- properties -->
+        <record id="property_1" model="estate.property">
+            <field name="name">Shreeji Apartments</field>
+            <field name="expected_price">10000</field>
+        </record>
+        <record id="property_2" model="estate.property">
+            <field name="name">Godrej</field>
+            <field name="expected_price">200000</field>
+        </record>
+        <record id="property_3" model="estate.property">
+            <field name="name">Shreeji Apartments</field>
+            <field name="expected_price">10000</field>
+        </record>
+        <!-- tags -->
+        <record id="tag_1" model="estate.property.tags">
+            <field name="name">cozy</field>
+        </record>
+        <record id="tag_2" model="estate.property.tags">
+            <field name="name">garden</field>
+        </record>
+        <record id="tag_3" model="estate.property.tags">
+            <field name="name">parking space</field>
+        </record>
+        <!-- types -->
+        <record id="type_1" model="estate.property.type">
+            <field name="name">Apartment</field>
+        </record>
+        <record id="type_2" model="estate.property.type">
+            <field name="name">Bungalow</field>
+        </record>
+         <record id="type_3" model="estate.property.type">
+            <field name="name">Vilaa</field>
+        </record>
+    </data>
+</odoo>

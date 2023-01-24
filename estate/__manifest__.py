@@ -15,6 +15,13 @@
         'views/settings_menu.xml',
         'views/estate_property_offer_views.xml',
     ],
+
+    'demo':[
+        'demo/demo_properties.xml'
+    ],
+
+    'depends' : ['mail'],
+    
     'installable': True,
     'application': True,
 }    

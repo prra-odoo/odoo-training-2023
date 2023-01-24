@@ -28,30 +28,22 @@ class estateProperty(models.Model):
             record.date_deadline=TODAY+relativedelta(days=record.validity)
 
     def _compute_days(self):
-        for record in self:
-            record.validity=record.date_deadline-record.create_date.date
-
-
-
-    def accept_offer(self):
-        estateProperty.accept_offer(price,partner_id)
-
-
-    def reject_offer(self):
+        # for record in self:
+        #     record.validity=record.date_deadline-record.create_date.date
         pass
 
 
-    # maxOffer=fields.Float(default='0', compute="_compute_max")
-
-    # @api.depends("price")
-    # def _compute_area(self):
-    #     for record in self:
-    #         if(maxOffer<price):
-    #             maxOffer=price
-
-    # @staticmethod
-    # def getMaxOffer(self):
-    #     return maxOffer
+    def accept_offer(self):
+        for record in self:
+            record.property_id.state='sold'            
+            record.status='accepted'
+            record.property_id.selling_price=record.price
+            for records in self.property_id.offer_ids:
+                if records != self:
+                    records.status='refused'
 
 
-    
+    def reject_offer(self):
+        for record in self:
+            record.status='refused'
+        
