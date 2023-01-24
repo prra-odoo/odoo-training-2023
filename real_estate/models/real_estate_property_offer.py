@@ -36,7 +36,7 @@ class RealEstatePropertyOffer(models.Model):
     def _inverse_date_deadline(self):
         for record in self:
             diff=record.date_deadline-record.create_date
-            if diff<0:
+            if int(diff.days)<0:
                 raise UserError(_("Past date cannot be set"))
             record.validity=int(diff.days)
     @api.model

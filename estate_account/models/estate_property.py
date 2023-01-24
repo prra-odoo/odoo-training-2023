@@ -22,5 +22,4 @@ class EstateProperty(models.Model):
                     })
                 ],
             })
-        print("\nhello world\n")
         return super().action_state_sold()
