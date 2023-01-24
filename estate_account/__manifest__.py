@@ -6,7 +6,6 @@
     'author' : "Saurabh Choraria",
     'description' : "It is a module for real estate property account",
     'depends' : ['estate', 'account'],
-    'data' : [
-            
-        ],
+    
+    'auto-install' : True
 }
