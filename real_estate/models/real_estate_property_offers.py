@@ -87,8 +87,9 @@ class EstatePropertyOffers(models.Model):
         for offer in record.offer_ids:
             list_of_price.append(offer.price)
         
-        if vals['price'] < max(list_of_price):
-            raise UserError("The offer price must be more than the other offers!")
+        if len(list_of_price) != 0:
+            if vals['price'] < max(list_of_price):
+                raise UserError("The offer price must be more than the other offers!")
 
             
         return super(EstatePropertyOffers, self).create(vals)

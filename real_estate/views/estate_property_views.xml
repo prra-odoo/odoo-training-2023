@@ -45,11 +45,6 @@
         <field name="arch" type="xml">
             <form>
 
-                <!-- adding widget web_ribbon -->
-                <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible':[('state','not in', 'cancel')]}"/>
-                <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state','not in', 'done')]}"/>
-                <widget name="web_ribbon" title="Available" bg_color="bg-info" attrs="{'invisible':[('state','not in', 'new')]}"/>
-
                 <header>
                     <button name="sold_click" type="object" string="Sold" states="new,recieved,accepted"/>
                     <button name="cancel_click" type="object" string="Cancel" states="new,recieved,accepted"/>
@@ -59,6 +54,10 @@
                     <field name="state" widget="statusbar" options="{'clickable' : 1}"/>
                 </header>
                 <sheet>
+                    <!-- adding widget web_ribbon -->
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible':[('state','not in', 'cancel')]}"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state','not in', 'done')]}"/>
+                    <widget name="web_ribbon" title="Available" bg_color="bg-info" attrs="{'invisible':[('state','not in', 'new')]}"/>
                     <!-- <label>Name</label> -->
                     <h1><field name="name" string="Name" default="New Property" placeholder="For Say : Name of the Property"/></h1>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
