@@ -21,9 +21,9 @@ class EstateProperty(models.Model):
     living_area = fields.Integer(string = "Living Area")
     facades = fields.Integer(string = "Facades")
     garage = fields.Boolean(string = "Garage")
-    garden = fields.Boolean(string = "Garden")
-    garden_area = fields.Integer(string = "Garden Area")
-    garden_orientation = fields.Selection(
+    garden = fields.Boolean(string = "Garden",default=False)
+    garden_area = fields.Integer(string = "Garden Area",compute="_compute_garden",readonly = False,store=True)
+    garden_orientation = fields.Selection(compute="_compute_garden",readonly = False,store=True,
         string = "Garden Orientation",
         selection = [('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     active = fields.Boolean(string = "Active",default=True)
@@ -51,17 +51,15 @@ class EstateProperty(models.Model):
         for record in self:
             record.best_offer = max(record.offer_ids.mapped("price"),default=0)
     
-    @api.onchange("garden")
-    def _onchange_garden(self):
-        if self.garden==True:
-            self.garden_orientation ='north'
-            self.garden_area = "10"
-            return {'warning': {
-                'title': _("Rich Alert"),
-                'message': ('House with gardens u richie rich :) ')}}
-        if self.garden==False:
-            self.garden_orientation =''
-            self.garden_area = ""
+    @api.depends("garden")
+    def _compute_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_orientation ='north'
+                record.garden_area = "10"
+            else:
+                record.garden_orientation =''
+                record.garden_area = ""
         
     def sold_buisness_logic(self):
         if self.state!='cancel':

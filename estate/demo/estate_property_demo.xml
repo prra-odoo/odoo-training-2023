@@ -5,24 +5,28 @@
             <field name="name">House 1</field>
             <field name="postcode">679874</field>
             <field name="expected_price">2000000</field>
+            <field name="garden">True</field>
             <!-- <field name="bedrooms">4</field> -->
         </record>
         <record id="estate_property_house1" model="estate.property">
             <field name="name">House 2</field>
             <field name="postcode">679855</field>
             <field name="expected_price">1000000.00</field>
+            <field name="garden">True</field>
             <!-- <field name="bedrooms">5</field> -->
         </record>
         <record id="estate_property_house2" model="estate.property">
             <field name="name">House 3</field>
             <field name="postcode">679874</field>
             <field name="expected_price">3000000.00</field>
+            <field name="garden">True</field>
             <!-- <field name="bedrooms">6</field> -->
         </record>
         <record id="estate_property_house3" model="estate.property">
             <field name="name">House 4</field>
             <field name="postcode">674532</field>
             <field name="expected_price">4000000.00</field>
+            <field name="garden">True</field>
             <!-- <field name="bedrooms">7</field> -->
         </record>
     </data>
