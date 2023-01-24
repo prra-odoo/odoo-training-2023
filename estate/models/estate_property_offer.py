@@ -20,7 +20,7 @@ class estatepropertyoffer(models.Model):
     status = fields.Selection(selection=[('accepted','Accepted'),('refuse','Refused')],readonly=True)
     property_type_id = fields.Many2one('estate.property.type',related="property_id.property_type_id", store=True)
     partner_id = fields.Many2one("res.partner",string="Partner",required=True)
-    property_id = fields.Many2one("estate.property",string="Property",required=True)
+    property_id = fields.Many2one("estate.property",string="Property Name:",required=True)
 
     _sql_constraints=[
         ('check_Offer_price','CHECK(price >= 0)','Offer Price cannot be negative')
