@@ -117,13 +117,12 @@ class realEstate(models.Model):
             if not (rec.state in ['new', 'canceled']):
                 raise UserError("Can't Remove The Property.")
 
-    # @api.model
-    # def create(self,vals):
-    #     print('estate property create method:',vals)
-    #     return super(realEstate,self).create(vals)
+    @api.model
+    def create(self,vals):
+        print('estate property create method:',vals)
+        return super(realEstate,self).create(vals)
 
-    # @api.model
-    # def write(self,vals):
-    #     print('estate property write method:',vals)
-    #     return super(realEstate,self).create(vals)
+    def write(self,vals):
+        print('estate property write method:',vals)
+        return super(realEstate,self).write(vals)
     
