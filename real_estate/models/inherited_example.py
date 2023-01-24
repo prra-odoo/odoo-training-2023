@@ -8,4 +8,10 @@ class Resusers(models.Model):
 
     funny = fields.Char(required=True)
 
+
+
+
+
+
+
     

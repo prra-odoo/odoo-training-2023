@@ -113,8 +113,12 @@ class Real_estate(models.Model):
             if record.state not in ['new','cancled']:
                 raise exceptions.UserError('You can delete only new and cancled properties')
 
+
+
    
             
+
+
             
             
      

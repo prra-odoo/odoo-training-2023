@@ -69,5 +69,9 @@ class Estate_property_offer(models.Model):
         else:
             property_id.state = "offer_recieved"
             return super().create(vals)
+
+
+   
+
    
         

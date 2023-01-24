@@ -23,3 +23,6 @@ class Property_type(models.Model):
         ('unique_type_name','unique(name)','Type name must be unique'),
     ]
     
+
+
+
