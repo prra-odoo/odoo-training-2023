@@ -27,7 +27,11 @@
         <field name="name">Estate Property Form View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <form string="form_view">               
+            <form string="form_view">  
+                <header>
+                    <button name="action_sold" type="object" string="SOLD"/>
+                    <button name="action_cancel" type="object" string="CANCEL"/>
+                </header>             
                 <sheet>
                     <div class="oe_title">
                         <h1>

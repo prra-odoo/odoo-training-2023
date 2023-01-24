@@ -10,28 +10,19 @@ class estate_property_offer(models.Model):
     price=fields.Float(string="Price")
     status=fields.Selection([('accepted', 'Accepted'),('refused', 'Refused'),],string="Status",
         copy=False)
-    partner_id=fields.Many2one('res.partner',required=True)
+    partner_id=fields.Many2one('res.partner',string='Buyer',required=True)
     property_id=fields.Many2one('estate.property',required=True)
     validity=fields.Integer(string="Validity (days)",default="7")
+    create_date = fields.Date(default=fields.Date.today())
     # computed field 
     date_deadline=fields.Date(string="Deadline",compute="_compute_date_deadline",inverse="_inverse_date_deadline")
 
     # compute method
-    # @api.depends("create_date","validity")
-    # def _compute_date_deadline(self):
-    #     for record in self:
-    #         record.date_deadline.date = record.create_date.date() + record.validity.days()
 
-    # def _inverse_date_deadline(self):
-    #     for record in self:
-    #         record.validity.days = (record.date_deadline - record.create_Date.date()).days
     @api.depends("create_date", "validity")
     def _compute_date_deadline(self):
-        for offer in self:
-            date = offer.create_date.date() if offer.create_date else fields.Date.today()
-            offer.date_deadline = date + relativedelta(days=offer.validity)
-
+        for record in self:
+            record.date_deadline = record.create_date + relativedelta(days=record.validity)
     def _inverse_date_deadline(self):
-        for offer in self:
-            date = offer.create_date.date() if offer.create_date else fields.Date.today()
-            offer.validity = (offer.date_deadline - date).days
+        for record in self:
+            record.validity = (record.date_deadline - record.create_date).days
