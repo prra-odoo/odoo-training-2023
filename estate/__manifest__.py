@@ -19,4 +19,5 @@
         'view/estate_property_offer_view.xml',
         'view/estate_menus.xml',
      ],
+     'depends' : ['mail'],
 }
