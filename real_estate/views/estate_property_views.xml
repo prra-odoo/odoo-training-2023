@@ -4,7 +4,8 @@
         <record id="advertisement_Create_task_model_action" model="ir.actions.act_window">
             <field name="name">Advertisement</field>
             <field name="res_model">estate.property</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,pivot,graph,tree,form</field>
+            <field name="context">{'search_default_group_employee_id': 1}</field>
             <field name="context">
                 {
                 "search_default_name_of_the_filter":1,
@@ -67,7 +68,8 @@
                         <field name="state" widget="statusbar" options="{'clickable':'1'}" />
                     </header>
                     <sheet>
-                        <field name="image_customer" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;image_128&quot;, &quot;size&quot;: [120, 120]}"/>
+                        <field name="image_customer" widget="image" class="oe_avatar"
+                            options="{&quot;preview_image&quot;: &quot;image_128&quot;, &quot;size&quot;: [120, 120]}" />
 
                         <group>
                             <group>
@@ -170,26 +172,42 @@
             <field name="name">estate.property.kanban</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <kanban>
+                <kanban deafult_group_by="state">
+                    <field name="state" />
                     <field name="id" />
-                    <field name="image_customer" />   
-                    <field name="name" /> 
-                <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click">
-                            <div class="o_kanban_image">
-                                <img alt="Avatar"
-                                    t-att-src="kanban_image('student.student', 'image_customer',record.id.raw_value)" />
+                    <field name="image_customer" />
+                    <field name="name" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <!-- <img alt="Avatar"
+                                    t-att-src="kanban_image('student.student',
+                                    'image_customer',record.id.raw_value)" /> -->
+                                    <field name="image_customer" widget="image"
+                                        class="oe_right oe_avatar" />
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <h2>
+                                            <field name="name" />
+                                        </h2>
+                                    </strong>
+                                    <div class="col-5">
+                                        <strong>
+                                            <br />
+                                            <field name="expected_price" />
+                                            <br />
+                                            <field name="selling_price" />
+                                            <br />
+                                        </strong>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="oe_kanban_details">
-                                <strong class="o_kanban_record_title">
-                                    <field name="name" />
-                                </strong>
-                            </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
@@ -210,15 +228,16 @@
                         domain="[('selling_price', '>', '5000')]" />
                     <filter name="date_availability" string="Date"
                         domain="[('date_availability','=',datetime.datetime.now())]" />
+                        <filter name="group_employee_id" string="My Task"  context="{'group_by':'state'}"/>
                     <group expand="0" string="Group By">
                         <filter string="postcode" name="postcode"
                             context="{'group_by':'postcode', 'residual_visible':True}" />
                     </group>
-                    <searchpanel>
+                    <!-- <searchpanel>
                         <field name="state" icon="fa-users" enable_counters="1" string="Name" />
-                    </searchpanel>
+                    </searchpanel> -->
                 </search>
             </field>
         </record>
     </data>
-</odoo>
+</odoo> 

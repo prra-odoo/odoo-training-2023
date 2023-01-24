@@ -37,7 +37,7 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(compute="_compute_total_area")
     best_price = fields.Float(compute='_compute_best_price')
     state = fields.Selection(
-        selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'),
+        selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'),('maintenance','Maintenance'),
                    ('cancel', 'Cancel')], default="new", tracking=True
     )
 
@@ -96,3 +96,7 @@ class EstateProperty(models.Model):
                 raise UserError(
                     "Only New and Cancel Property will be Deleted.")
             return super().unlink()
+
+    # def _group_expand_states(self, state, domain, order):
+    #     return [key for 
+    #             key, val in type(self).state.selection]

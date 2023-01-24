@@ -4,7 +4,7 @@
     'author': "Sanket Brahmbhatt(sabr)",
     'summary': "Build a Application for estate_account",
     'version': '1.0',
-    'depends': ['mail','real_estate','account'],
+    'depends': ['mail','real_estate','account','project'],
     'application': True,
     'installable': True,
     'auto_install': True,
