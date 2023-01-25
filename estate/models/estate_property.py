@@ -49,6 +49,9 @@ class realEstate(models.Model):
             ('sold', 'Sold'),
             ('canceled', 'Canceled')], default="new", readonly=True, tracking=True
     )
+    image = fields.Binary('image')
+    color= fields.Integer()
+
 
     _sql_constraints = [
         ("check_excepted_price", "CHECK(selling_price > 0)",

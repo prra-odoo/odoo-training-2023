@@ -32,6 +32,7 @@
                         <button name="%(estate_property_tag_action)d" type="action" string="Tags" />
                     </header>
                     <sheet>
+                        <field name="image" widget="image" class="oe_avatar" options="{'size': [100, 100]}"/>
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}" />
                         <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'canceled')]}" />
                         <label for="name">Name</label>
@@ -109,6 +110,64 @@
                         <field name="activity_ids" />
                     </div>
                 </form>
+            </field>
+        </record>
+        <record id="estate_property_kanban_view" model="ir.ui.view">
+            <field name="name">estate.property.kanban.view</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="property_type_id">
+                    <field name="name"/>
+                    <field name="best_price"/>
+                    <field name="tag_ids"/>
+                    <field name="expected_price"/>
+                    <field name="property_type_id"/>
+                    <field name="state"/>
+                    <field name="selling_price"/>
+                    <field name="salesperson_id"/>
+                    <field name="color"/>
+                    <progressbar field="state" colors="{&quot;sold&quot;: &quot;success&quot;, &quot;canceled&quot;: &quot;danger&quot;, &quot;offer_received&quot;: &quot;warning&quot;}"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <field name="image" widget="image" class="oe_right oe_avatar"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <!-- <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                                        <div class="o_kanban_card_manage_settings row">
+                                            <div role="menuitem" aria-haspopup="true" class="col-6">
+                                                <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                                                <field name="color" widget="color_picker"/>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <a class="o_kanban_manage_toggle_button o_dropdown_kanban" href="#" groups="base.group_user">
+                                        <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                                    </a>
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div>
+                                        Expected Price: <t t-esc="record.expected_price.value"/>
+                                    </div>
+                                    <div t-if="record.state.raw_value == 'offer_received'">
+                                        Best Price: <t t-esc="record.best_price.value"/>
+                                    </div>
+                                    <div t-if="record.state.raw_value == 'offer_accepted'">
+                                        Selling Price: <t t-esc="record.selling_price.value"/>
+                                    </div>
+                                    <div>
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
         <record id="real_estate_search_view" model="ir.ui.view">
