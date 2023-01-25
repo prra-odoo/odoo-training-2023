@@ -60,28 +60,7 @@ class estate_Property(models.Model):
           for record in self:
             record.best_price = max(self.offer_ids.mapped('price'),default=0)
 
-      # @api.onchange('garden','garden_area','garden_orientation')
-      # def _onchange_garder(self):
-      #   if self.garden_area == 10 and self.garden_orientation == "north":
-      #      self.garden=True
-      
-      # @api.depends('garden_area','garden_orientation')
-      # def _compute_garden(self):
-      #   for record in self:
-      #    if record.garden_area == 10 and record.garden_orientation == "north":
-      #       record.garden=True
-      #    else:
-      #       record.garden=False
-
-
-      # def sold_action(self):
-      #   if self.state == 'sold':
-      #    self.state = 'sold'
-      #   else:
-      #    raise UserError('canceled property can not be sold')
-
-      #sold action
-     #sold action
+    
       def sold_action(self):
         for record in self: #self --> recordset/collection --> gives record one by one
             if record.state == 'canceled':
@@ -104,6 +83,7 @@ class estate_Property(models.Model):
         for record in self:
           if record.state in ('offer_received','offer_accepted','sold'):
             raise UserError("only delete a property with the new and canceled state")
+
       @api.depends('garden')
       def _compute_garden(self):
         for record in self:

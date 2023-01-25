@@ -1,15 +1,54 @@
 <?xml version="1.0"?>
   <odoo> 
+    <record id="real_estate_kanban_form" model="ir.ui.view">
+    <field name="name">real.estare.view.kanban</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+    <kanban default_group_by="type_id" sample="1">
+     <field name="state"/>
+    <templates>
+        <t t-name="kanban-box">
+            <div class="oe_kanban_global_click"> 
+                <div class="row">
+                <div class="col-12">
+                <strong><field name="name"/></strong>
+                </div>
+                </div>
+               <div class="row">
+               <div class="col-12" t-if="record.state.raw_value == 'offer_accepted'">
+                Selling Price:<field name="selling_price"/>
+               </div>
+               </div>
+               <div class="row">
+              <div class="col-12" t-if="record.state.raw_value == 'offer_received'">
+              Best Price:<field name="best_price"/>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-12">
+              Expected Price:<field name="expeccted_price"/>
+              </div>
+             </div>
+             <div class="row">
+             <div class="col-12">
+             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+             </div>
+             </div>
+             </div>
+        </t>
+    </templates>
+   </kanban>
+  </field>
+  </record>                          
     <record id="real_estate_view_form" model="ir.ui.view">
     <field name="name">real.estare.view.form</field>
     <field name="model">estate.property</field>
     <field name="arch" type="xml">      
         <form >
             <header>
-                <button name="sold_action" type="object" string="sold"/>
-                <button name="canceled_action" type="object" string="canceled"/> 
-                <field name="state" widget="statusbar" options='{"clickable": "1"}'/>
-               
+                <button name="sold_action" type="object" string="sold" states="new,offer_received,offer_accepted,canceled" class="oe_highlight"/>
+                <button name="canceled_action" type="object" string="canceled" states="new,offer_received,offer_accepted,sold" class="oe_highlight"/> 
+                <field name="state" widget="statusbar" options='{"clickable": "1"}'/>               
              </header> 
             <sheet> 
              <widget name="web_ribbon" title="canceled" bg_color="bg-danger"
@@ -89,13 +128,13 @@
                 <field name="selling_price"/>
                 <field name="description"/>
                 <field name="type_id"/>
-                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" />
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" /> 
                 <!-- <field name="bedroom"/>
                 <field name="living_area"/>
                 <field name="facades"/>
-                <field name="garage"/> -->
+                <field name="garage"/>
                 <field name="garden"/>
-                <field name="garden_area"/>
+                <field name="garden_area"/> -->
                 <field name="garden_orientation"/>
                 <field name="total_area"/>
                 <field name="state"/>
