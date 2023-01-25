@@ -5,6 +5,7 @@ from odoo.tools.date_utils import add,subtract
 from dateutil.relativedelta import relativedelta
 from datetime import timedelta
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_compare
 
 
 class esattePropertyOffer(models.Model):
@@ -56,7 +57,18 @@ class esattePropertyOffer(models.Model):
 
 	@api.model
 	def create(self,vals):
-		self.env['estate.property'].browse(vals['property_id']).state='offer_recieved'
+		rec = self.env['estate.property'].browse(vals['property_id'])
+
+		# for self in rec:
+		# 	max_price = max(self.offer_ids.mapped('price'))
+		# 	if float_compare(vals['price'],max_price,precision_digits=2)<=0:
+		# 		raise UserError(('price must be higher than',max_price))
+
+		if rec:
+			max_price=max(rec.offer_ids.mapped('price'),default=0)
+			if float_compare(vals['price'],max_price,precision_digits=2)<=0:
+		 		raise UserError(('price must be higher than',max_price))
+		state='offer_recieved'
 		return super().create(vals)
 
 	
