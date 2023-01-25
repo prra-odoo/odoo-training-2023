@@ -50,7 +50,7 @@ class Estate(models.Model):
     @api.depends('offer_ids.price')
     def _compute_best_offer(self):
         for record in self:
-            print(record.offer_ids.mapped('price'))
+            # print(record.offer_ids.mapped('price'))
             record.best_offer = max(record.offer_ids.mapped('price'),default=0)
             
             # ids = [l.price for l in record.offer_ids]

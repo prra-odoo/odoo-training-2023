@@ -12,7 +12,7 @@
                 <field name="validity"/>
                 <field name="date_deadline"/>
                 <button type= "object" name="action_accepted" string=" " icon="fa-check" 
-                    attrs="{'invisible': [('status', '!=', False)]}"/>
+                    attrs="{'invisible': [('status', '!=', False)]}"/>   
                 <button type= "object" name="action_refused" string=" " icon="fa-times" 
                     attrs="{'invisible': [('status', '!=', False)]}"/>
                 <field name="status" invisible="1"/>
