@@ -12,6 +12,7 @@ three_mon_rel = relativedelta(months=3)
 class estateProperty(models.Model):
     _name = "estate.property"
     _description="model description"
+    _order="expected_price"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name=fields.Char(string="Name",required=True)
@@ -52,6 +53,14 @@ class estateProperty(models.Model):
     buyer_id = fields.Many2one('res.partner',string="Buyer",copy=False)
     salesperson_id = fields.Many2one('res.users',string="Salesman", default=lambda self: self.env.user)
     offer_ids=fields.One2many("estate.property.offer", "property_id", string="Offers")    
+    offer_accepted=fields.Boolean(default=False)
+    sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)',
+         'Expected Price should be greater than 0'),
+
+        ('check_selling_price', 'CHECK(selling_price > 0)',
+         'Selling Price should be greater than 0')
+    ]
 
 
     total_area=fields.Integer(compute="_compute_area")
@@ -71,21 +80,28 @@ class estateProperty(models.Model):
     def sell_property(self):
         for record in self:
             if record.state=='canceled':
-                raise UserError(_('Canceled property cannot be sold'))
+                raise UserError('Canceled property cannot be sold')
             else:
-                record.state='sold'
-                record.selling_price=record.best_offer
-        
+                if record.offer_accepted:
+                    record.state='sold'
+                else:
+                    raise UserError('Please accept an offer first')
 
     def cancel_property(self):
         for record in self:
             if record.state=='sold':
-                raise UserError(_('Sold property cannot be cancelled'))
+                raise UserError('Sold property cannot be cancelled')
             else:
                 record.state='canceled'
                 record.selling_price=0
     
 
+
+    @api.constrains('selling_price')
+    def _check_date_end(self):
+        for record in self:
+            if record.selling_price>0 and record.selling_price<0.9*record.expected_price:
+                raise ValidationError("Selling price is too low")
 
 
 
