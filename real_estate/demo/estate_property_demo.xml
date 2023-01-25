@@ -3,7 +3,7 @@
     <data>
         <!-- 1 -->
         <record id="estate_property_demo_data_1" model="estate.property">
-            <field name="name">Luxurious 5 BHK Flat</field>
+            <field name="name">Luxurious 5 BHK Villa</field>
             <field name="postcode">100001</field>
             <field name="bedrooms">5</field>
             <field name="living_area">500</field>
@@ -15,7 +15,7 @@
         </record>
         <!-- 2 -->
         <record id="estate_property_demo_data_2" model="estate.property">
-            <field name="name">Luxurious 4 BHK Flat</field>
+            <field name="name">Luxurious 4 BHK Penthouse</field>
             <field name="postcode">100002</field>
             <field name="bedrooms">4</field>
             <field name="living_area">400</field>
@@ -54,6 +54,61 @@
             <field name="living_area">100</field>
             <field name="garden_area">200</field>
             <field name="expected_price">10000</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_2"/>
+            <field name="state">new</field>
+        </record>
+        <!-- 6 -->
+        <record id="estate_property_demo_data_6" model="estate.property">
+            <field name="name">The Light side</field>
+            <field name="postcode">100001</field>
+            <field name="bedrooms">2</field>
+            <field name="living_area">150</field>
+            <field name="garden_area">220</field>
+            <field name="expected_price">2100000</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_2"/>
+            <field name="state">new</field>
+        </record>
+        <!-- 7 -->
+        <record id="estate_property_demo_data_7" model="estate.property">
+            <field name="name">The Dark side</field>
+            <field name="postcode">100002</field>
+            <field name="bedrooms">4</field>
+            <field name="living_area">250</field>
+            <field name="garden_area">320</field>
+            <field name="expected_price">5100000</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_3"/>
+            <field name="state">new</field>
+        </record>
+        <!-- 8 -->
+        <record id="estate_property_demo_data_8" model="estate.property">
+            <field name="name">The Magnificent Estate</field>
+            <field name="postcode">100003</field>
+            <field name="bedrooms">5</field>
+            <field name="living_area">450</field>
+            <field name="garden_area">420</field>
+            <field name="expected_price">9100000</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_4"/>
+            <field name="state">new</field>
+        </record>
+        <!-- 9 -->
+        <record id="estate_property_demo_data_9" model="estate.property">
+            <field name="name">The Old School House</field>
+            <field name="postcode">100004</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">350</field>
+            <field name="garden_area">320</field>
+            <field name="expected_price">2500000</field>
+            <field name="property_type_id" ref="estate_property_type_demo_data_1"/>
+            <field name="state">new</field>
+        </record>
+        <!-- 10 -->
+        <record id="estate_property_demo_data_10" model="estate.property">
+            <field name="name">The Old Village</field>
+            <field name="postcode">100005</field>
+            <field name="bedrooms">2</field>
+            <field name="living_area">150</field>
+            <field name="garden_area">120</field>
+            <field name="expected_price">1500000</field>
             <field name="property_type_id" ref="estate_property_type_demo_data_2"/>
             <field name="state">new</field>
         </record>

@@ -47,7 +47,7 @@ class EstateProperty(models.Model):
                 raise UserError('Cancelled properties cannot be sold.')
         record.state = 'sold'
         
-        # Pass this buyer data to the estate.sold.property Model
+        # Passing this buyer data to the estate.sold.property Model
         self.env['estate.sold.property'].create(
             {
                 'name': self.name,
