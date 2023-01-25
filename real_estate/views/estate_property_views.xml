@@ -67,7 +67,6 @@
                                     <field name="facades" string="Facades"/>
                                     <field name="garage" string="Garage"/>
                                     <field name="garden" string="Garden"/>
-                                    
                                     <field name="garden_area" string="Garden Area" attrs="{'invisible': [('garden', '=', False)]}"/>
                                     <field name="garden_orientation" string="Garden Orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                     <field name="total_area" string="Total Area"/>
@@ -112,7 +111,33 @@
         </field>
     </record>
 
-
-    
+    <record id="estate_property_kanban_view" model="ir.ui.view">
+        <field name="name">Estate Property Kanban View</field>
+        <field name="model">estate.property.model</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="type_id" records_draggable="False">
+                <field name="state" invisible="1"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <strong class="o_kanban_record_title">
+                                <field name="name"/>
+                            </strong><br/>
+                            <field name="expected_price"/><br/>
+                            <div t-if="record.state.raw_value == 'offer_recieved'">
+                                    <field name="best_price"/>
+                            </div>
+                            <br/>
+                            <div t-if="record.state.raw_value == 'offer_accepted'">
+                                    <field name="selling_price"/><br/>
+                            </div>
+                            <br/>
+                            <field name="tag_ids"  widget="many2many_tags" options="{'color_field':'color'}"/> 
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
     
 </odoo>
