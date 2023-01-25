@@ -9,3 +9,4 @@ class ResUsers(models.Model):
     age = fields.Integer()
     name= fields.Char()
     #res.users have res.partner also in the db table so name field is shown in res.partner table
+    

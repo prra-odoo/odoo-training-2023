@@ -57,3 +57,4 @@ class estatePropertyoffer(models.Model):
                          raise UserError(f'Offer must be higher than {max_offer}')
                rec.state= 'offer_received'
           return super().create(vals)
+     

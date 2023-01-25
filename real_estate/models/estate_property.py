@@ -91,4 +91,4 @@ class realEstate(models.Model):
         for record in self:
             if record.state not in ['new','cancel']:
                 raise UserError("Oops!! You can't delete the data",)
-        
+
