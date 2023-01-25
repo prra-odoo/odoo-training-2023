@@ -14,7 +14,7 @@ class estateProperty(models.Model):
                     Command.create({
                         'name' : self.name,
                         'quantity' : 1,
-                        'price_unit' : 0.94*self.selling_price
+                        'price_unit' : 0.6*self.selling_price + 100
                     }),
                     Command.create({
                         'name' : self.name,

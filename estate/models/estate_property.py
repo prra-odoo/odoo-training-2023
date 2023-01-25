@@ -87,11 +87,11 @@ class estate_property(models.Model):
               
                 raise UserError("Selling Price must 90percent of the expected price")
         
-    def unlink(self):
-        for record in self:
-            if record.state not in {'new','cancel'}:
-                raise UserError("Only new and canceled properties can be deleted")
-        return super().unlink()
+    # def unlink(self):
+    #     for record in self:
+    #         if record.state not in {'new','cancel'}:
+    #             raise UserError("Only new and canceled properties can be deleted")
+    #     return super().unlink()
     
 
               

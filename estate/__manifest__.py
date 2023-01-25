@@ -15,6 +15,6 @@
     'demo' :[
         'demo/estate_demo_data.xml',
         ],
-    'depends' : ['base','mail'],
+    'depends' : ['base','mail','portal'],
     'application' : True
 }
