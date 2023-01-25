@@ -30,10 +30,12 @@
         <field name="name">Estate_Property_formview</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <form class="form o_appointment_appointments_list_form pt-3">
-                <header>
+            <form>
+                <!-- class="overflow-hidden bg-secondary rounded-top" -->
+                <header >
                     <button name="sold_buisness_logic" class="oe_stat_button" type="object" string="Sold"/>
                     <button name="cancel_buisness_logic" type="object" class="oe_stat_button" string="cancel"/>
+                    <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <div>
@@ -52,7 +54,7 @@
                             <field name="date_availability"/>
                             <field name="best_offer"/>
                             <field name="selling_price"/>
-                            <field name="state"/>
+                            <!-- <field name="state"/> -->
                         </group>
                     </group>
                     <notebook>
@@ -66,9 +68,7 @@
                                 <field name="garden"/>
                                 <field name="garden_area"/>
                                 <field name="garden_orientation" />
-
                                 <field name="total_area"/>
-                                <!-- <field name="active" /> -->
                             </group>
                         </page>
                         <page string="Offers">

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models, api
+from odoo import fields, models, api,exceptions
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
@@ -8,8 +8,9 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "estate property offer model"
+    _order = "price desc"
 
-    price = fields.Float()
+    price = fields.Float(default="1")
     status = fields.Selection(
         string="Status",
         selection=[('accepted', 'Accepted'), ('refused', 'Refused')],
@@ -35,8 +36,20 @@ class EstatePropertyOffer(models.Model):
                     records.status='refused'
                 self.status ='accepted'
                 self.property_id.selling_price=self.price
+                self.property_id.state="offer_accepted"
+                self.property_id.buyer_id = record.partner_id
         return True
     
     def reject_offer(self):
         self.status ='refused'
         return True
+
+    _sql_constraints = [
+            ('check_offerprice', 'CHECK(price > 0)','The offerprice must be positive.'),
+            # ('check_bestoffer','CHECK(price > property_id.best_offer)','The new offer should be greater than the best price')
+        ]
+    @api.constrains('price')
+    def _adding_best_new_offer(self):
+        for record in self:
+            if record.price < record.property_id.best_offer:
+                raise exceptions.ValidationError("The New offer should be better than the current best offer")
