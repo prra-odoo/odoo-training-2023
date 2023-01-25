@@ -9,6 +9,8 @@ class real_Esate_Properties(models.Model):
 	_name='real.estate.properties'
 	_description="Property Details"
 	_order="id desc"
+	_inherit = ['mail.thread', 'mail.activity.mixin']
+
 
 	name=fields.Char(required=True,default="Unknown")
 	description=fields.Text()
@@ -34,7 +36,8 @@ class real_Esate_Properties(models.Model):
 		selection=[('new','New'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold'),('cancled','Canceled')],
 		required=True,
 		copy=False,
-		default='offer_recieved'
+		default='new',
+		tracking=True
 	)
 	property_type_id=fields.Many2one("estate.property.type")
 	buyer=fields.Many2one("res.partner",copy=False,readonly=True)
@@ -43,6 +46,7 @@ class real_Esate_Properties(models.Model):
 	offer_ids=fields.One2many("estate.property.offer","property_id")
 	total_area=fields.Float(compute="_total_area")
 	best_price=fields.Float(compute="_best_price",default=0)
+	user_id=fields.Many2one("res.users")
 
 	@api.depends("living_area","gardan_area")
 	def _total_area(self):
@@ -94,3 +98,11 @@ class real_Esate_Properties(models.Model):
 		for record in self:
 			if not float_is_zero(record.selling_price,precision_rounding=0.1) and float_compare(record.selling_price,(0.9 * record.expected_price),precision_rounding=0.1) < 0:
 				raise ValidationError("Selling price has to be atleast 90% of the accepted price")
+
+	@api.ondelete(at_uninstall=True)
+	def _deletion_record(self):
+		for record in self:
+			if record.state not in ['new','cancled']:
+				raise UserError("You Cannot delete the record")
+
+	

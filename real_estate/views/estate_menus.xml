@@ -1,7 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <menuitem id="estate_root_menu" name="Real Estate">
+<!-- Property Type Action -->
+ <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Real Estate Type</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                There is no record of any Property 
+            </p>
+        </field>
+    </record>
+
+<!-- Property View Action -->
+    <record id="estate_property_action" model="ir.actions.act_window" >
+        <field name="name">Real Estate</field>
+        <field name="res_model">real.estate.properties</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{"search_default_state":True}</field>
+         <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                There is no record of any Property 
+            </p>
+        </field>
+    </record>
+
+<!-- Estate property offer action -->
+
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Estate Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+        <field name="help" type="html">
+           <p class="o_view_nocontent_smiling_face">
+                There is no record of any Property 
+            </p> 
+        </field>
+    </record>
+
+<!-- Estate property tag action -->
+
+    <record id="estate_property_tags_action" model="ir.actions.act_window">
+        <field name="name">Real Estate Tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                There is no record of any Property 
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="estate_root_menu" name="Real Estate" web_icon="real_estate,static/description/icon.png">
         <menuitem id="estate_level1_menu_property" name="Sell Property">
             <menuitem id="estate_model_sellresedential_menu_action" action="estate_property_action" name="Estate Property" />
        </menuitem>     

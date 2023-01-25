@@ -1,4 +1,5 @@
 <odoo>
+
 <!-- Tree View -->
     <record id="estate_property_tree_view" model="ir.ui.view">
         <field name="name">Estate Offers</field>
@@ -7,9 +8,10 @@
             <tree editable="bottom" decoration-success="status=='accepted'" decoration-danger="status=='refuse'">
                 <field name="price"/> 
                 <field name="partner_id"/>
+                <!-- <field name="property_id"/> -->
                 <button name="accept_action" string=" " type="object" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}"/>
                 <button name="reject_action" string=" " type="object" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}" /> 
-                <field name="status" optional="hidden"/>
+                <field name="status" invisible='1'/>
             </tree>
         </field>
     </record>
