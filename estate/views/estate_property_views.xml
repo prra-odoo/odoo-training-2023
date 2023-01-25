@@ -28,7 +28,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Add New Properties
@@ -47,6 +47,7 @@
                     <button name="action_sold_btn" type="object" string="Sold"/>
                     <button name="action_cancel_btn" type="object" string="Cancel"/>
                     <button name="%(estate_property_action)d" type="action" string="Redirect to properties"/>
+                    <field name="status" widget="statusbar" options="{'clickable': '1',}"/>
                 </header>
                 <sheet>
                     <div class="title" name="property_title">
