@@ -129,6 +129,33 @@
         </field>
     </record>
 
+<!-- Kanban View -->
+
+    <record id="real_estate_kanban_view" model="ir.ui.view">
+        <field name="name">real.estate.kanban.view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" records_draggable="false">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <h3>
+                            <field name="name"/>
+                            </h3>
+                            <ul>
+
+                                <li>Expected price :<field name="expected_price"/></li>
+                                <field name="status" string="status"/>
+                                <li>Best price : <field name="best_offer" attrs="{'invisible': [('status', '!=', 'offer received')]}"/></li>
+                                <li> selling price : <field name="selling_price" sttrs="{'invisible' : [('status', '!=','offer Accepted')]}"/></li>
+                            </ul>
+                        </div>
+                       
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
 
 <!-- Search view -->
         <record id="real_estate_search_view" model="ir.ui.view">
