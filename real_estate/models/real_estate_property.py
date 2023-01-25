@@ -49,7 +49,6 @@ class RealEstateProperty(models.Model):
     def _compute_best_offer(self):
         # print(self)
         for record in self:
-            record.offer_ids.property_id = self.id
             record.best_price=max(record.offer_ids.mapped('price'),default=0)
 
     @api.depends('garden')

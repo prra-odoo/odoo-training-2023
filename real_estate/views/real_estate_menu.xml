@@ -5,7 +5,7 @@
         <field name="name">Properties</field>
         <field name="res_model">real.estate.property</field>
         <field name="context">{'search_default_state': True}</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new property, the first step of a new project!
@@ -37,7 +37,7 @@
  <record id="real_estate_property_tags_model_action" model="ir.actions.act_window">
         <field name="name">Property Tags</field>
         <field name="res_model">real.estate.property.tags</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new property type, the first step of a new project!
@@ -53,7 +53,7 @@
    <record id="real_estate_property_type_model_action" model="ir.actions.act_window">
         <field name="name">Property Types</field>
         <field name="res_model">real.estate.property.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new property type, the first step of a new project!
