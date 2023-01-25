@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>    
+            <!-- kanban view -->
+    <record id="property_view_kanban_view" model="ir.ui.view">
+        <field name="name">Estate Property Kanban view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" records_draggable="false">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" t-if="record.state.raw_value == 'offer_accepted'">
+                                        Selling Price:<field name="selling_price"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" t-if="record.state.raw_value == 'offer_received'">
+                                        Best Price:<field name="best_price"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        Expected Price:<field name="expected_price"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
         <!-- tree view -->
     <record id="real_estate_list_view" model="ir.ui.view">
         <field name="name">Real Estate List view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string= "Real Estate" decoration-success="state in ['offer_accepted', 'offer_received','new']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
-                <!--sequence - must be define in .py file. Allow to change order of things manually -->
+                <!-- sequence - must be define in .py file. Allow to change order of things manually -->
                     <field name="sequence" widget="handle"/>    
                     <field name="name"/>
                     <field name="property_type_id"/>
