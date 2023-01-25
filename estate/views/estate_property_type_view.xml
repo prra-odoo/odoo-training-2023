@@ -21,7 +21,13 @@
                     </div>
                     <notebook>   
                         <page string='properties'>
-                            <field name="property_types_ids"/>
+                            <field name="property_types_ids">
+                                <tree>
+                                    <field name='name'/>
+                                    <field name='expected_price'/>
+                                    <field name='state'/>
+                                </tree>    
+                            </field>
                         </page>
                     </notebook>
                 </sheet>

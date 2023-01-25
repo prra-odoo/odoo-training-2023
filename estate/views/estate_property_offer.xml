@@ -11,6 +11,8 @@
                 <field name="validity"/>
                 <field name="date_deadline"/>
                 <field name="status"/>
+                <button name="offer_accepted" type="object" string=' ' icon="fa-check"/>
+                <button name="offer_rejected" type="object" string=' ' icon="fa-times"/>
                 <field name="partner_id"/>
             </tree>
         </field>

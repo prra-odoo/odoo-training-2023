@@ -29,8 +29,9 @@
         <field name="arch" type="xml">
             <form string="form_view">  
                 <header>
-                    <button name="action_sold" type="object" string="SOLD"/>
-                    <button name="action_cancel" type="object" string="CANCEL"/>
+                    <button name="action_sold" type="object" string="SOLD" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="CANCEL" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>             
                 <sheet>
                     <div class="oe_title">
@@ -41,7 +42,6 @@
                     <field name="tag_ids" widget="many2many_tags"/>
                     <group>
                         <group>
-                            <field name="state"/>
                             <field name="property_type_id"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
