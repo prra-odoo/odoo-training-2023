@@ -4,7 +4,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Estate</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="context">{'search_default_new_property':True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No property found!</p>
@@ -182,6 +182,31 @@
                 </group>
             </search>
             
+        </field>
+    </record>
+
+
+    <!-- adding kanban view xml definition -->
+    <record id="estate_property_kanban" model="ir.ui.view">
+        <field name="name">Estate Property Kanban View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <h4><field name="name" /></h4>
+                            <span>Expected Price : </span><field name="expected_price" />
+                            <div t-if="record.best_offer.raw_value &gt; 0">
+                                <span>Best Price : </span><field name="best_offer"/>
+                            </div>
+                            <div t-if="record.selling_price.raw_value &gt; 0">
+                                <span>Selling Price : </span><field name="selling_price"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 </odoo>
