@@ -30,6 +30,7 @@
                 <header>
                     <button name="action_sold" type="object" string="Sold"/>
                     <button name="action_cancle" type="object" string="Cancle"/>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" />
                 </header>
                 <sheet>
                     <div class ="title">
@@ -38,11 +39,12 @@
                         </h1>
                     </div>
                     <group>
-                        <field name ="status"/>
+                       
                         <field name="tag_ids" widget="many2many_tags"/>    
                     </group>
                     <group>
                         <group>
+                            <field name="state"/>   
                             <field name="property_type_id"/>
                             <field name="selling_price"/>
                             <field name="expected_price"/>
@@ -61,9 +63,9 @@
                                 <field name="living_area"/>
                                 <field name="facades"/>
                                 <field name="garage"/>
+                                <field name="garden"/>
                                 <field name="garden_area"/>
                                 <field name="garden_orientation"/>
-                                <field name="state"/>
                                 <field name="total_area"/>
                             </group>
                         </page>
@@ -97,7 +99,7 @@
                 <field name="facades"/>
                 <field name="garage"/>
                 <field name="garden_area"/>
-                <filter string="Available" name="available" domain="[('garden_orientation', 'in', ['north','south'])]"/>
+                <!-- <filter string="Available" name="available" domain="[('garden_orientation', 'in', ['north','south'])]"/> -->
                 <group>
                     <filter string="Postcode" name="postcode_groupby" context="{'group_by': 'postcode'}" />
                 </group>
