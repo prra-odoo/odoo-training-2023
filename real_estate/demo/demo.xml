@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record model="estate.property.type" id="realestate_flat">
+    <record model="estate.property.type" id="estate_property_flat">
         <field name='name'>Flat</field>
     </record>
-    <record model="estate.property.type" id="realestate_house">
+    <record model="estate.property.type" id="estate_property_house">
         <field name='name'>House</field>
     </record>
-    <record model="estate.property.type" id="realestate_penthouse">
+    <record model="estate.property.type" id="estate_property_penthouse">
         <field name='name'>Pent House</field>
     </record>
     <record model="estate.property.tag" id="property_tags_cozy">
@@ -22,6 +22,7 @@
         <field name="postcode">395006</field>
         <field name="expected_price">200000</field>
         <field name="selling_price">250000</field>
+        <field name="property_type_id" ref="real_estate.estate_property_penthouse"/>
         <field name="tag_ids" eval="[(6,0,[ref('real_estate.property_tags_cozy')])]"/>
     </record>
 
@@ -31,6 +32,7 @@
         <field name="postcode">395010</field>
         <field name="expected_price">100000</field>
         <field name="selling_price">200000</field>
+        <field name="property_type_id" ref="real_estate.estate_property_flat"/>
     </record>
 
     <record model="estate.property" id="realestate_oldhouse">
@@ -39,5 +41,6 @@
         <field name="postcode">395001</field>
         <field name="expected_price">1000</field>
         <field name="selling_price">1500</field>
+        <field name="property_type_id" ref="real_estate.estate_property_house"/>
     </record>
 </odoo>
