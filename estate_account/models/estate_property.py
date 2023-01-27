@@ -10,7 +10,9 @@ class estateProperty(models.Model):
 
     def action_sold(self):
         for rec in self:
-            self.env['account.move'].create({
+            self.env['account.move'].check_access_rights('write')
+            self.env['account.move'].check_access_rule('write')
+            self.env['account.move'].sudo().create({
                 'partner_id': rec.buyer_id.id,
                 'invoice_date': date.today(),
                 'move_type': 'out_invoice',

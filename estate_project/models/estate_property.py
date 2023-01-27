@@ -9,12 +9,12 @@ class estateProperty(models.Model):
 
     def action_sold(self):
         if not self.env['project.project'].search([('name', '=', 'Estate Property')]).id:
-            self.env['project.project'].create({
+            self.env['project.project'].sudo().create({
                 'name': 'Estate Property',
             })
 
         for rec in self:
-            task_1 = self.env['project.task'].create({
+            task_1 = self.env['project.task'].sudo().create({
                 'name': f'Maintainance for {rec.name}',
                 'project_id': self.env['project.project'].search([('name', '=', 'Estate Property')]).id,
                 'milestone_id': 2,

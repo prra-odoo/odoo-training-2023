@@ -3,7 +3,9 @@
     'name' : 'Real_Estate',
     'author': "Ravi Bhingradiya",
     'depends': ['mail'],
+    'category': 'Real Estate/Brokerage',
     'data' : [
+            'security/security.xml',
             'security/ir.model.access.csv',
             'views/estate_menus.xml',
             'views/estate_property_view.xml',
