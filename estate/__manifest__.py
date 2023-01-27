@@ -6,8 +6,10 @@
     'author' : "Saurabh Choraria",
     'description' : "It is a module for real estate",
     'depends' : ['mail'],
+    'category' : 'Real Estate/Brokerage',
     'data' : [
             'security/ir.model.access.csv',
+            'security/estate_security.xml',
             
             'views/estate_property_views.xml',
             'views/estate_property_type_views.xml',

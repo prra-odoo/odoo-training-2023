@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <odoo>
-    <menuitem id="estate_menu_root" name="Real Estate">
+    <menuitem id="estate_menu_root" name="Real Estate" web_icon="estate,static/description/house.png">
         <menuitem id="estate_first_level_menu" name="Advertisements">
             <menuitem id="estate_model_ad_action_property1" sequence="2" action="estate_model_ad_property1"/>
             <menuitem id="estate_model_ad_action_property2" sequence="1" action="estate_model_ad_property2"/>
