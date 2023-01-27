@@ -1,9 +1,9 @@
 {
-    'name': 'REAL ESTATE',
+    'name': 'Real Estate',
     'version': '2.0',
     'description': 'Real Estate Module',
     'author': 'odoo',
-    'category': 'marketing',
+    'category': 'Real Estate/Brokerage',
     'installable': True, 
     'summary': 'real estate advertisement', 
     'application': True,
@@ -19,7 +19,7 @@
    ],
 
     'data': [
-        
+        'security/estate_security.xml',
         'security/ir.model.access.csv',
         'views/estate_menu.xml',
         'views/estate_property_tag.xml',
