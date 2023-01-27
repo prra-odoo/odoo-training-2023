@@ -5,6 +5,7 @@
     'version': '1.0',
     'depends': ['base', 'mail'],
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/estate_property_views.xml',
         'views/estate_tag_views.xml',
@@ -17,7 +18,7 @@
         'views/estate_property_menus.xml',
     ],
     'author': "rare",
-    'category': 'sales',
+    'category': 'Real Estate/Brokerage',    
     'description': """
         This is my Real Estate Module.
         Created by rare!

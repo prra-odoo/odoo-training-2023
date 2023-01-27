@@ -7,9 +7,9 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="attributes">
-                <attribute name="invisible">
+                <!-- <attribute name="invisible">
                     1
-                </attribute>
+                </attribute> -->
             </xpath>
         </field>
     </record>
