@@ -21,6 +21,7 @@ class EstatePropertyOffer(models.Model):
     date_deadline = fields.Date(compute="_compute_deadline", inverse="_inverse_deadline", string="Deadline")
     validity = fields.Integer(string="Validity",default="7")
     create_date = fields.Date(default=date.today())
+    property_type_id = fields.Many2one(related="property_id.property_type_id")
 
     @api.depends("validity")
     def _compute_deadline(self):
@@ -33,7 +34,8 @@ class EstatePropertyOffer(models.Model):
     def accept_offer(self):
         for record in self:
                 for records in self.property_id.offer_ids:
-                    records.status='refused'
+                    if records.status == 'accepted':
+                        records.status = 'refused'
                 self.status ='accepted'
                 self.property_id.selling_price=self.price
                 self.property_id.state="offer_accepted"
