@@ -162,7 +162,7 @@
                             Best Offer:<field name="best_offer"/>
                         </div>
                         <div>
-                            <field name="tags_ids"/>
+                            <field name="tags_ids" options="{'color_field':'color'}"/>
                         </div>
                     </div>
                             

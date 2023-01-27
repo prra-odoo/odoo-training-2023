@@ -3,9 +3,10 @@
     'version':'0.1',
     'depends':['mail'],
     'author':'Harsh Modi (hamo)',
-    'category':'Sales',
+    'category':'Real Estate/Brokerage',
     'data':[
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/inherited_model_views.xml',
         'views/inherited_res_partner_views.xml',
         'views/real_estate_property_views.xml',
