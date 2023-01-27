@@ -3,7 +3,7 @@
     <record id="estate_property_model_action" model="ir.actions.act_window">
         <field name="name">Real Estate</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,tree,form,calendar,graph,activity</field>
         <!-- <field name="context">{"search_default_available":True}</field> -->
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No property found, Please add your property over here</p>
@@ -44,6 +44,46 @@
                     </t>
                 </templates>
             </kanban>
+        </field>
+    </record>
+    <!--** Activity view **-->
+    <record id="estate_property_model_activity_view" model="ir.ui.view">
+        <field name="name">Real Estate Activity View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <activity string="Estate Meetings">
+                <templates>
+                    <div t-name="activity-box">
+                        <div>
+                            <strong style="font-size: 18.5px; font-weight: 500; color: #000;">
+                                <field name="name" display="full"/>
+                            </strong>
+                            <field name="salesperson_id" display="full" />
+                        </div>
+                    </div>
+                </templates>
+            </activity>
+        </field>
+    </record>
+    <!--** Calendar view **-->
+    <record id="estate_property_model_calendar_view" model="ir.ui.view">
+        <field name="name">Real Estate Calendar View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar View" date_start="date_availability" color="property_type_id" mode="month">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+    <!--** Graph view **-->
+    <record id="estate_property_model_graph_view" model="ir.ui.view">
+        <field name="name">Real Estate Graph View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <graph string="Estate Property Graph View">
+                <field name="name"/>
+                <field name="expected_price" type="measure"/>
+            </graph>
         </field>
     </record>
     <!--** List view **-->
@@ -130,7 +170,8 @@
                         <page name="other_info" string="Other Info">
                             <br/>
                             <group>
-                                <field name="salesperson_id"/>
+                                <field name="salesperson_id" />
+                                <!-- widget="many2many_avatar_user" -->
                                 <field name="buyer_id"/>
                             </group>
                         </page>
