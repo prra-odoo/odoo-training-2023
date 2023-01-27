@@ -64,11 +64,11 @@ class esattePropertyOffer(models.Model):
 		# 	if float_compare(vals['price'],max_price,precision_digits=2)<=0:
 		# 		raise UserError(('price must be higher than',max_price))
 
-		if rec:
+		if rec.offer_ids:
 			max_price=max(rec.offer_ids.mapped('price'),default=0)
 			if float_compare(vals['price'],max_price,precision_digits=2)<=0:
 		 		raise UserError(('price must be higher than',max_price))
-		state='offer_recieved'
+		rec.state="offer_recieved"
 		return super().create(vals)
 
 	

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-	'name':'estate_project',
+	'name':'estate project',
 	'description':'This module is used to link real estate and project modules',
 	'version':'',
 	'author':'Althaf shaik',

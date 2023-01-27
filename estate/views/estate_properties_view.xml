@@ -96,10 +96,10 @@
     </record>
     <!-- __________________Estate Property Kanban View_______________ -->
         <record id="estate_property_view_kanban" model="ir.ui.view">
-        <field name="name">estate.property.kanban.view</field>
+        <!-- <field name="name">estate.property.kanban.view</field> -->
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="property_type_id" group_create="0" create="0" sample="1">
+            <kanban default_group_by="property_type_id" group_create="0" create="0" sample="1" records_draggable="False">
                 <field name="state"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -123,7 +123,7 @@
                                 </div>
                                 <div>
                                     <span>
-                                        <field name="property_tag_ids"/>
+                                        <field name="property_tag_ids" widget = "many2many_tags" options = "{'color_field':'color'}"/>
                                     </span>
                                 </div>
                             </div>

@@ -4,10 +4,11 @@
     'description' : " Real estate module",
     'version' :'',
     'author':'Althaf Shaik',
-    'category':'Advertising',
+    'category':'Real Estate/Brokerage',
     'depends':['mail', 'base'],
     'data':[
          'security/ir.model.access.csv',
+         'security/security.xml',
          'views/estate_properties_menus.xml',
          'views/estate_properties_view.xml',
          'views/estate_property_type_view.xml',
