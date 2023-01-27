@@ -9,7 +9,7 @@ class projectEstateModel(models.Model):
     def sold_product(self):
         print(self.name)
         project = self.env['project.task']
-        self.env['project.task'].create(
+        self.env['project.task'].sudo().create(
             {
                 'name': self.name,
                 'project_id': 4,

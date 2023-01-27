@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>   
    <odoo>
     <data>
+        <record model="estate.property.tag" id="estate_property_tag_demo_first">
+            <field name='name'>Furnished</field>
+        </record>
+        <record model="estate.property.tag" id="estate_property_tag_demo_second">
+            <field name='name'>Unfurnished</field>
+        </record>
         <record model="estate.property" id="estate_model_demo">
             <field name="name"> best property</field>
             <field name="bedrooms">3</field>
@@ -11,14 +17,10 @@
             <field name="name"> Apartments</field>
             <field name="bedrooms">3</field>
             <field name="selling_price">300000</field>
+            <!-- <field name="tag_ids" eval="[(4,[ref('estate_property_tag_demo_second')])]"/> -->
             <field name="expected_price">300000</field>
         </record>
-        <record model="estate.property.tag" id="estate_property_tag_demo_first">
-            <field name='name'>Furnished</field>
-        </record>
-        <record model="estate.property.tag" id="estate_property_tag_demo_second">
-            <field name='name'>Unfurnished</field>
-        </record>
+        
 
     </data>
         
