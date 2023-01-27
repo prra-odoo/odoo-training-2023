@@ -9,7 +9,7 @@ class EstateProperty(models.Model):
         for record in self:
             # print('overwrite successfully')
 
-            self.env["account.move"].create({
+            self.env["account.move"].sudo().create({
                 'partner_id': record.buyer_id.id,
                 'move_type':  'out_invoice',
                 'invoice_line_ids': [

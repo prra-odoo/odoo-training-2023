@@ -2,7 +2,9 @@
 
 {
     'name':'real_estate',
+    'category': 'Real Estate/Brokerage',
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/estate_menu_view.xml',
         'views/estate_menu.xml',
