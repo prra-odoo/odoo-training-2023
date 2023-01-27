@@ -6,7 +6,9 @@
     'version': '1.0',
     'author': 'Renilkumar Kajavadra',
     'depends':['base','mail'],
+    'category': 'Real Estate/Brokerage',
     'data': [
+                'security/security.xml',
                 'security/ir.model.access.csv',
                 'views/estate_property_menus.xml',
                 'views/estate_property_views.xml',

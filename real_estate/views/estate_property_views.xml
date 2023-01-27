@@ -146,7 +146,7 @@
             <field name="name">Real Estate Kanban View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="property_type_id" record_draggable = "False">
+                <kanban default_group_by="property_type_id" records_draggable = "False">
                     <field name="state"/>
                     <templates>
                         <t t-name="kanban-box">
