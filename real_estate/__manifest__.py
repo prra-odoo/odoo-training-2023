@@ -3,12 +3,13 @@
     'version': '1.0',
     'depends': ['base','mail',],
     'author': "Gurpreet Singh(gusi)",
-    'category': 'Sales',
+    'category': 'real_estate/Brokerage',
     'description': "This is a Real Esate App",
     'summary': "This is a Real Esate App developed in odoo(OWL Framework)",
     'installable': True,
     'application': True,
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/real_estate_menu.xml',
         'views/real_estate_property_views.xml',
@@ -18,9 +19,9 @@
         'views/res_users_views.xml',
     ],
     'demo': [
-        #  'demo/real_estate_property_offer_data.xml',
-         'demo/real_estate_property_tags_data.xml',
          'demo/real_estate_property_type_data.xml',
          'demo/real_estate_property_data.xml',
+         'demo/real_estate_property_tags_data.xml',
+        #  'demo/real_estate_property_offer_data.xml',
     ],
 }

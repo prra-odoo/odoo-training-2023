@@ -15,7 +15,7 @@ class RealEstateProperty(models.Model):
             print(self.name)
             print(prop.name)
             self.buyer_id.id
-            self.env["account.move"].create(
+            self.env["account.move"].sudo().create(
                 {
                     "partner_id": self.buyer_id.id,
                     "move_type": "out_invoice",

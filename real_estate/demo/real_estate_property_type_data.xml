@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="property_residential" model="real.estate.property.type">
+            <field name="name">Residential</field>
+        </record>
+        <record id="property_commercial" model="real.estate.property.type">
+            <field name="name">Commercial</field>
+        </record>
+        <record id="property_industrial" model="real.estate.property.type">
+            <field name="name">Industrial</field>
+        </record>
+        <record id="property_land" model="real.estate.property.type">
+            <field name="name">Land</field>
+        </record>
         <record id="property_type_data_1" model="real.estate.property.type">
             <field name="name">House</field>
         </record>

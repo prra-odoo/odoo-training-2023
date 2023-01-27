@@ -138,7 +138,7 @@
                 <field name="state"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">x
+                        <div class="oe_kanban_global_click">
                             <div>
                                 <strong class="o_kanban_record_title">
                                     <field name="name"/>

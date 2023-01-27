@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="property_data_1" model="real.estate.property">
+
+    <record id="property_data_1" model="real.estate.property">
             <field name="name">5 BHK </field>
             <field name="expected_price">1000</field>
             <field name="state">new</field>
@@ -45,3 +46,4 @@
         </record>
     </data>
 </odoo>
+    
