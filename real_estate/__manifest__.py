@@ -3,9 +3,11 @@
     'name' : 'Real Estate',
     'version' : '1.0',
     'summary' : 'Manage Real Estate Properties',
+    'category': 'Real Estate/Brokerage',
     'depends' : ['base', 'mail'],
     'data' : [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/estate_menus.xml',
         'views/estate_property_views.xml',
         'views/estate_property_type_views.xml',

@@ -86,6 +86,7 @@
                         <page string="Other info">
                             <group>
                                 <field name="salesperson_id" widget="many2one_avatar"/>
+                                <!-- <field name="company_id" /> -->
                                 <field name="buyer_id"/>
                             </group>
                         </page>
@@ -136,7 +137,8 @@
                 <field name="tag_ids"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="kanban-box"> <!-- Kanban-box defines template -->
+                        <!-- oe_kanban_global_click allows us to open form view on click -->
                         <div class="oe_kanban_global_click">
                             <strong>
                                 <field name="name"/>

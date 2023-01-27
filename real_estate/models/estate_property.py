@@ -41,6 +41,7 @@ class EstateProperty(models.Model):
     salesperson_id = fields.Many2one('res.users', string="Sales Person", default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag','property_tags_rel','ta_id','prop_id', string="Tags")
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offer")
+    # company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env['res.users'].)
 
     # Computed Fields
     total_area = fields.Integer(compute="_compute_total_area")
