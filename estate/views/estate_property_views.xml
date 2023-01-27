@@ -7,9 +7,10 @@
          <field name="name">Properties</field>
          <field name="model">estate.property</field>
              <field name="arch" type="xml">
-                 <tree string="property_tree_view">    <!-- showing columns in tree view -->
+                 <tree string="property_tree_view" decoration-success="state=='offer_accepted'" decoration-muted="state=='sold'" >    <!-- showing columns in tree view -->
                     <field name="name" />
-                    <field name="description" />
+                    <field name="state" />
+                    <field name="property_type_id" options="{'editable': True}"/>
                     <field name="bedrooms" optional="show"/>
                     <field name="expected_price"/>
                     <field name="garden" optional="show"/>
@@ -36,8 +37,8 @@
                         </div>
                         <group>
                         <group>
-                            <field name="state"/>
-                            <field name="tag_ids" widget="many2many_tags"/>
+                            <!-- <field name="state"/> -->
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -50,12 +51,12 @@
                             <page string="Description">
                                 <group>
                                     <field name="description"/>
-                                    <field name="property_type_id"/>
+                                    <field name="property_type_id" options="{'no_create': True,}" />
                                     <field name="bedrooms"/>
                                     <field name="living_area"/>
                                     <field name="garden"/>
-                                    <field name="garden_orientation"/>
-                                    <field name="garden_area"/>
+                                    <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
                                     <field name="facades"/>
                                     <field name="active"/>
                                     <field name="total_area"/>
@@ -63,7 +64,7 @@
                                 </group>   
                             </page>
                             <page string="Offers">
-                                    <field name="offer_ids" />
+                                    <field name="offer_ids" attrs="{'readonly':[('state', 'in',['offer_accepted','sold','cancelled'] )]}" />
                             </page>
                             <page string="Other info">
                                 <group>
@@ -92,8 +93,8 @@
                     <field name="expected_price"/>
                     <field name="bedrooms"/>
                     <field name="living_area"/>
-                    <field name="facades"/>
-                    <filter name="availableProperties" string="Available Properties" domain="['|',('state','=','new'),('state','=','offer_received')]"/>
+                    <field name="facades"/><!-- 
+                    <filter name="availableProperties" string="Available Properties" domain="['|',('state','=','new'),('state','=','offer_received')]"/> -->
                     <group expand="1" string="Group By">
                         <filter string="Postcode" name="GroupBy postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
                     </group>

@@ -9,6 +9,7 @@ class estateProperty(models.Model):
     _order="name"
 
     name=fields.Char(string="Property type",required=True)
+    color=fields.Integer(string="color")
 
     sql_constraints = [
         ('check_type_uniqueness', 'unique(name)',

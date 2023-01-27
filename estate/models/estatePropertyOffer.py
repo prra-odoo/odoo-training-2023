@@ -47,7 +47,8 @@ class estateProperty(models.Model):
         for record in self:            
             record.status='accepted'
             record.property_id.selling_price=record.price
-            record.property_id.ofer_accepted=True
+            record.property_id.state='offer_accepted'
+
             for records in self.property_id.offer_ids:
                 if records != self:
                     records.status='refused'

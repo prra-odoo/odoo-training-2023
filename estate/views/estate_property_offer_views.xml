@@ -2,16 +2,16 @@
 <odoo>
     <data>
 
-        <record id="estate_property_treeView" model="ir.ui.view">
+        <record id="property_offer_treeView" model="ir.ui.view">
              <field name="name">Offers</field>
              <field name="model">estate.property.offer</field>
                  <field name="arch" type="xml">
-                     <tree string="...">
+                     <tree string="..." decoration-success="status=='accepted'" decoration-danger="status=='refused'">
                         <field name="price"/>
                         <field name="partner_id"/>
-                        <button name="accept_offer" type="object" string="" icon="fa-check"/>
-                        <button name="reject_offer" type="object" string="" icon="fa-times"/>
-                        <field name="status"/>
+                        <button name="accept_offer" type="object" string="  " icon="fa-check" attrs="{'invisible': [('status', '=', 'accepted')]}"/>
+                        <button name="reject_offer" type="object" string="  " icon="fa-times" attrs="{'invisible': [('status', '=', 'accepted')]}"/>
+                        <field name="status" invisible="1"/>
                      </tree>
                  </field>
         </record>

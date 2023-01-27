@@ -45,7 +45,7 @@ class estateProperty(models.Model):
     state = fields.Selection(
         string='Status',
         selection=[('new','New'),('offer_received','Offer Received'),('offer_accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
-        default= 'new',tracking=True
+        default= 'new',tracking=True, compute='_compute_state',store=True
     )
     active=fields.Boolean(default=True)
     property_type_id=fields.Many2one("estate.property.type", string="Property type",)
@@ -53,13 +53,23 @@ class estateProperty(models.Model):
     buyer_id = fields.Many2one('res.partner',string="Buyer",copy=False)
     salesperson_id = fields.Many2one('res.users',string="Salesman", default=lambda self: self.env.user)
     offer_ids=fields.One2many("estate.property.offer", "property_id", string="Offers")    
-    offer_accepted=fields.Boolean(default=False)
-    sql_constraints = [
+    @api.depends('offer_ids')
+    def _compute_state(self):
+        for record in self:
+            print(record.state)
+            print(record.offer_ids)
+            if record.state=='new' and record.best_offer>0:
+                record.state='offer_received'
+            else:
+                record.state=record.state
+    
+
+    _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)',
          'Expected Price should be greater than 0'),
 
-        ('check_selling_price', 'CHECK(selling_price > 0)',
-         'Selling Price should be greater than 0')
+        ('check_selling_price_required', 'CHECK(selling_price >=(0.9* expected_price))',
+         'Selling Price should be greater than 90pc of expected price')
     ]
 
 
@@ -82,7 +92,7 @@ class estateProperty(models.Model):
             if record.state=='canceled':
                 raise UserError('Canceled property cannot be sold')
             else:
-                if record.offer_accepted:
+                if record.state=='offer_accepted':
                     record.state='sold'
                 else:
                     raise UserError('Please accept an offer first')
@@ -97,11 +107,11 @@ class estateProperty(models.Model):
     
 
 
-    @api.constrains('selling_price')
-    def _check_date_end(self):
-        for record in self:
-            if record.selling_price>0 and record.selling_price<0.9*record.expected_price:
-                raise ValidationError("Selling price is too low")
+    # @api.constrains('selling_price')
+    # def _check_date_end(self):
+    #     for record in self:
+    #         if record.selling_price>0 and record.selling_price<0.9*record.expected_price:
+    #             raise ValidationError("Selling price is too low")
 
 
 
