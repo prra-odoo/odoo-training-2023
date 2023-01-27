@@ -5,7 +5,9 @@
     'author' : 'Dhrumil Shah',
     'depends' : ['base','mail'],
     'version' : '1.0',
+    'category' : 'Real Estate/Brokerage',
     'data': [
+        'security/estate_security_rules.xml',
         'security/ir.model.access.csv',
         'views/view_estate_model.xml',
         'views/action_estate_model.xml',
