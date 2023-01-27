@@ -13,8 +13,6 @@ class Estate_Property(models.Model):
         ("check_selling_price", "CHECK(selling_price >= 0)", "The offer price must be positive"),
         
     ]
-
-
     name = fields.Char(string = 'name',required=True)
     description = fields.Text(string = 'description')
     postcode = fields.Char(string = 'postcode', required = True)
