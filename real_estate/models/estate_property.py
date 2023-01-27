@@ -48,7 +48,7 @@ class EstateProperty(models.Model):
         record.state = 'sold'
         
         # Passing this buyer data to the estate.sold.property Model
-        self.env['estate.sold.property'].create(
+        self.env['estate.sold.property'].sudo().create(
             {
                 'name': self.name,
                 'postcode': self.postcode,
