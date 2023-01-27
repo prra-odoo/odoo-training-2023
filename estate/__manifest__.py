@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 {
     'name' : 'Real Estate',
+    'category': 'Real Estate/Brokerage',
     'description' : """this is the real estate advertisement module""",
     'depends': ['mail'],
     'data' : [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/estate_property_menu.xml',
         'views/estate_property_view.xml',

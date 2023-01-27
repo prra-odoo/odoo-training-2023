@@ -5,12 +5,12 @@
         <field name="name">Estate Property Kanban view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="property_type_id" records_draggable="false">
+            <kanban default_group_by="property_type_id" records_draggable="false"> <!-- error-->
                 <field name="state"/>
-                <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <div class="o_kanban_card_content">
+                <templates> <!--no effect -->
+                    <t t-name="kanban-box"> <!--Error: Missing 'kanban-box' template -->
+                        <div class="oe_kanban_global_click"><!--  no effect-->
+                            <div class="o_kanban_card_content"> <!-- no effect-->
                                 <div class="row">
                                     <div class="col-12">
                                         <strong><field name="name"/></strong>
