@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_group_user" model="res.groups">
+        <field name="name">Agent</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage"/>
+    </record>
+
+    <record id="estate_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage"/>
+        <field name="implied_ids" eval="[Command.set([ref('estate_group_user')])]"/>
+    </record>
+<!-- 
+    <record id="rule_id" model="ir.rule">
+        <field name="name">A description of the rule's role</field>
+        <field name="model_id" ref="model_to_manage"/>
+        <field name="perm_read" eval="False"/>
+        <field name="groups" eval="[Command.link(ref('base.group_user'))]"/>
+        <field name="domain_force">[
+            '|', ('user_id', '=', user.id), 
+                ('user_id', '=', False)
+        ]</field>
+    </record> -->
+
+
+</odoo>
