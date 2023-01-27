@@ -47,12 +47,6 @@ class EstateProperty(models.Model):
                 }
             )
 
-            # if not self.env['project.project'].search([('name', '=', record.name)]).id:
-
-            #     self.env['project.project'].create({
-            #         'name': record.name,
-            #     })
-
             self.env['project.task'].create(
                 {
                     'display_name': record.name,
@@ -60,17 +54,8 @@ class EstateProperty(models.Model):
 
                 },
             )
-            # res = self.env['project.project'].search(domain)
-            # self.env['project.task'].create(
-            #     {
-            #         'name': record.name
-            #         'project_id': res.id,
 
-            #     }
-            # )
         return super(EstateProperty, self).action_sold()
-
-
 
     # def action_sold(self):
     #     # result = super.action_sold()

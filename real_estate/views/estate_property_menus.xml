@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        
+        <!-- groups="real_estate.estate_group_manager" -->
         <menuitem id="menu_root" name="Real Estate"
             web_icon="real_estate,static/description/images.jpeg">
-            <menuitem id="advertisement__first_level_menu" name="Advertisement">
+            <menuitem id="advertisement__first_level_menu" name="Advertisement" >
                 <menuitem id="advertisement_Create_task_model_id"
-                    action="advertisement_Create_task_model_action" />
+                    action="advertisement_Create_task_model_action"  />
             </menuitem>
             <menuitem id="setting_first_level_menu" name="Tag">
             <menuitem id="property_tag_model_menu_action"
