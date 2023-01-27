@@ -5,8 +5,9 @@
     'version': '1.0',
     'depends': ['base'],
     'author': 'mobe',
-    'category' :'Marketing',
+    'category' :'Real Estate/Brokerage',
     'data' : [
+         'security/security.xml',
          'security/ir.model.access.csv',
          'views/estate_property_menus.xml',
          'views/estate_property_views.xml',
@@ -25,4 +26,5 @@
     'application' : True,
     'installable' :True,
     'auto_install' : False,
+    "license": "LGPL-3",
 }
