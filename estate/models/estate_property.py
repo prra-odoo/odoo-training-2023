@@ -8,6 +8,7 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is Estate property model"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = "id desc"
     #Table Fields
     name = fields.Char(string='Name', required=True)
     description = fields.Text(string='Description')
@@ -48,7 +49,8 @@ class EstateProperty(models.Model):
     _sql_constraints=[
         ('positive_expected_price','CHECK(expected_price > 0)',"Expected Price Should be Positive"),
         ('positive_selling_price','CHECK(selling_price > 0)',"Selling Price Must be Positive"),
-        ('sufficient_selling_price','CHECK(selling_price > .9* expected_price)',"Expected price error")
+        ('sufficient_selling_price','CHECK(selling_price > .9* expected_price)',"Selling price should be more than 90 percent of the Expected price"),
+        # ('valid_postcode','CHECK(postcode >= 100000 AND postcode <= 999999)',"Enter a Valid Postcode")
         ]
 
     @api.depends("living_area","garden_area")
@@ -90,8 +92,4 @@ class EstateProperty(models.Model):
     #     for record in self:
     #         if record.selling_price < .9 * record.expected_price:
     #             raise exceptions.ValidationError("The selling price is less than 90 percent of the expected price, You must lower the expected price in order to accept the offer")
-            
-
-
-    
     

@@ -10,7 +10,7 @@
                 <field name="name" />
                 <field name="description" optional="hidden" />
                 <field name="property_type_id"/>
-                <field name="tag_ids" optional="show" widget="many2many_tags"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                 <field name="postcode" />
                 <field name="date_availability" optional="hidden" />
                 <field name="expected_price" />
@@ -28,7 +28,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Add New Properties
@@ -44,8 +44,8 @@
         <field name="arch" type="xml">
             <form string="Estate Property Form View">
                 <header>
-                    <button name="action_sold_btn" type="object" string="Sold"/>
-                    <button name="action_cancel_btn" type="object" string="Cancel"/>
+                    <button name="action_sold_btn" type="object" string="Sold" attrs="{'invisible':[('status','in',['sold','cancel'])]}"/>
+                    <button name="action_cancel_btn" type="object" string="Cancel" attrs="{'invisible':[('status','in',['sold','cancel'])]}"/>
                     <button name="%(estate_property_action)d" type="action" string="Redirect to properties"/>
                     <field name="status" widget="statusbar" options="{'clickable': '1',}"/>
                 </header>
@@ -57,8 +57,8 @@
                     </div>
                     <group name="main">
                         <group name="main_left">
-                            <field name="tag_ids" widget="many2many_tags"/>
-                            <field name="property_type_id"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="property_type_id" options="{'no_create':True}"/>
                             <field name="postcode"/>
                             <field name="date_availability" />
                         </group>
@@ -76,15 +76,15 @@
                                 <field name="living_area" />
                                 <field name="facades" />
                                 <field name="garden" />
-                                <field name="garden_area" />
-                                <field name="garden_orientation"/>
+                                <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="total_area"/>
                                 <field name="status" />
                                 <field name="active" />
                             </group>
                         </page>
                         <page string="Offers">  
-                            <field name="offer_ids"/>
+                            <field name="offer_ids" attrs="{'readonly':[('status','in',['offer_accepted','sold','cancel'])]}"/>
                         </page>
                         <page string="Other Info">
                             <group>
