@@ -5,7 +5,7 @@
     'version': '1.0',
     'author': "yava",
     'description': "Estate account is here",
-    'depends':['estate','account','project'],
+    'depends':['estate','account'],
     'application': True,
     'installable': True,
     'license' : "LGPL-3",

@@ -7,6 +7,7 @@
     'description': "You can easily apply your core project modual with odoo's Real Estate ",
     'depends': ['mail'],
     'data': [
+        'security/estate_property_security.xml',
         'security/ir.model.access.csv',
         'data/estate_menus.xml',
         'views/estate_property_views.xml',
