@@ -7,6 +7,18 @@
         <field name="res_model">estate.property.type</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <!--TREE VIEW-->
+    <record id="estate_property_type_tree" model="ir.ui.view">
+        <field name="name">Estate Property  Type tree View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="tree_view">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
 
     <record id="estate_property_type_form_view" model="ir.ui.view">
         <field name="name">Estate Property  Type Form View</field>
@@ -22,6 +34,7 @@
                     <notebook>   
                         <page string='properties'>
                             <field name="property_types_ids">
+                            
                                 <tree>
                                     <field name='name'/>
                                     <field name='expected_price'/>

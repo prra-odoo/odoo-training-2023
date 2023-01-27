@@ -6,14 +6,15 @@ from dateutil.relativedelta import relativedelta
 class estate_property_offer(models.Model):
     _name = "estate.property.offer"
     _description = "estate property offer model"
+    _order = "price desc"
     _sql_constraints = [
-        ("check_price", "CHECK(price>0)", "An offer price must be strictly positive"),
+        ("check_price", "CHECK(price >0)", "An offer price must be strictly positive"),
     ]
 
 
     price=fields.Float(string="Price")
-    status=fields.Selection([('accepted', 'Accepted'),('refused', 'Refused'),],string="Status",
-        copy=False)
+    state=fields.Selection([('accepted', 'Accepted'),('refused', 'Refused'),],string="Status",
+        copy=False,default=False)
     partner_id=fields.Many2one('res.partner',string='Buyer',required=True)
     property_id=fields.Many2one('estate.property',required=True)
     validity=fields.Integer(string="Validity (days)",default="7")
@@ -31,13 +32,14 @@ class estate_property_offer(models.Model):
     # BUTTONS
     def offer_accepted(self):
         for record in self:
-            record.status = "accepted"
+            record.state = "accepted"
             record.property_id.buyer_id = record.partner_id
             record.property_id.selling_price = record.price
+            record.property_id.state="offer_accepted"
         return True
     def offer_rejected(self):
         for record in self:
-            record.status = "refused"
+            record.state = "refused"
         return True
 
 

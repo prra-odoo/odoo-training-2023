@@ -7,6 +7,7 @@ from dateutil.relativedelta import relativedelta
 class estate_property(models.Model):
     _name = "estate.property"
     _description = "estate model"
+    _order = "id desc"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _sql_constraints = [
         ("check_expected_price", "CHECK(expected_price>0)", "A property expected price must be strictly positive"),
@@ -34,8 +35,9 @@ class estate_property(models.Model):
     property_type_id = fields.Many2one("estate.property.type",string="Property Type")
     user_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user) 
     buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False)
-    tag_ids = fields.Many2many("estate.property.tag","property_tag_rel","property_id","tag_id", string="Property tag")
+    tag_ids = fields.Many2many("estate.property.tag","property_tag_rel","property_id","tag_id", string="Tags")
     offer_ids = fields.One2many('estate.property.offer','property_id',string="offer")
+    # sequence = fields.Integer(string="Sequence")
     # computed fields
     total_area = fields.Integer(string="Total Area (sqm)",compute = "_compute_total_area")
     best_price = fields.Float(string="Best offer",compute="_compute_best_price")

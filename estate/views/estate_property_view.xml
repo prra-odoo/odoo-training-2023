@@ -5,8 +5,9 @@
         <field name="name">Estate Property Tree View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="tree_view">
+            <tree string="tree_view" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'">
                 <field name="name" optional="show"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="description" optional="show"/>
                 <field name="selling_price" optional="show"/>
                 <field name="expected_price" optional="show"/>
@@ -19,6 +20,7 @@
                 <field name="bedrooms" optional="hide"/>
                 <field name="facades" optional="hide"/>
                 <field name="garden_orientation" optional="hide"/>
+                <field name="state" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -29,8 +31,9 @@
         <field name="arch" type="xml">
             <form string="form_view">  
                 <header>
-                    <button name="action_sold" type="object" string="SOLD" class="oe_highlight"/>
-                    <button name="action_cancel" type="object" string="CANCEL" class="oe_highlight"/>
+                    <button name="action_sold" type="object" string="SOLD" states="new,offer_received"/>
+                    <button name="action_sold" type="object" string="SOLD" states="offer_accepted" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="CANCEL" />
                     <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>             
                 <sheet>
@@ -38,11 +41,13 @@
                         <h1>
                             <field name="name"/>
                         </h1>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </group>                  
                     </div>
-                    <field name="tag_ids" widget="many2many_tags"/>
                     <group>
                         <group>
-                            <field name="property_type_id"/>
+                            <field name="property_type_id" options="{'no_create': True, 'no_edit': True}"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -57,17 +62,17 @@
                                     <field name="description"/>
                                     <field name="bedrooms"/>
                                     <field name="facades"/>
-                                    <field name="garden_area"/>
                                     <field name="garden"/>
                                     <field name="garage"/>
+                                    <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
                                     <field name="living_area"/>
                                     <field name="total_area"/>
-                                    <field name="garden_orientation"/>
+                                    <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                     <field name="active"/>
                                 </group>
                             </page>
                             <page string="offer">                               
-                                    <field name="offer_ids"/>
+                                <field name="offer_ids"  attrs="{'readonly': [('state', 'in', ('offer_accepted', 'sold', 'cancel'))]}"/>
                             </page>
                             <page string="Other info">
                                 <group>
