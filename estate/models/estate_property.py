@@ -35,8 +35,9 @@ class estateProperty(models.Model):
     offer_ids=fields.One2many('estate.property.offer','property_id',string="Offers")
     total_area=fields.Integer("Total Area",compute='_compute_total_area')
     best_price=fields.Float("Best Offer",compute="_compute_best_price", default =0)
+    company_id=fields.Many2one('res.company',string="Company",required=True,default=lambda self:self.env.company)
 
-    #constraints
+    #<------------------------Constraints---------------------------->
     _sql_constraints = [('check_expected_price','CHECK(expected_price>=0)','Expected Price must be positive.'),
     ('check_selling_price','CHECK(selling_price>=0)','Selling Price must be positive.'),
     ('check_living_area','CHECK(living_area>=0)','Living Area must be positive.')]
@@ -47,7 +48,7 @@ class estateProperty(models.Model):
             if  float_compare(record.selling_price,record.expected_price*0.9,precision_digits =2) == -1:
                 raise ValidationError(_("Selling Price must be atleast 90% of the Expected price"))
 
-    #compute fields
+    # <------------------------computed Fields --------------------------->
     @api.depends('garden_area','living_area')
     def _compute_total_area(self):
         for record in self:
@@ -58,6 +59,7 @@ class estateProperty(models.Model):
         for record in self:
             record.best_price=max(record.offer_ids.mapped('price'),default=0)
 
+    #<--------------Action Butons--------------->
     def sold_button(self):
         for record in self:
             if record.state =="cancel":

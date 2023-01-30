@@ -6,13 +6,17 @@ class estateInvoice(models.Model):
 	_inherit ='estate.property'
 
 	def sold_button(self):
-		# print("hellooo")
-
+		
+		# journal = self.env["account.journal"].sudo().search([("type", "=", "sale")], limit=1)
+		if self.env['account.move'].check_access_rights('write') and self.env['account.move'].check_access_rule('write'):
+			print(" reached ".center(100, '='))
 		for record in self:
-			self.env['account.move'].create(
+			
+			self.env['account.move'].sudo().create(
 				{
 					"partner_id":record.buyer_id.id,
 					"move_type":'out_invoice',
+					# "journal_id": journal.id,
 					"invoice_line_ids":
 					[
 						Command.create({

@@ -12,13 +12,26 @@
     	</record>
 	</data>
 	<data noupdate="1">
-		<record id="rule_id" model="ir.rule">
+		<record id="rule_id_agents" model="ir.rule">
 		    <field name="name">Agents to only being able to see or modify properties which have no salesperson,or for which they are the salesperson.</field>
 		    <field name="model_id" ref="estate.model_estate_property"/>
 		    <field name="groups" eval="[Command.link(ref('estate.estate_group_user'))]"/>
 		    <field name="domain_force">[
 		        '|', ('salesman_id', '=', user.id),
-		             ('salesman_id', '=', False)
+		             ('salesman_id', '=', False),
+		             ('company_id','=',user.company_id)]</field>
+		</record>
+		<record id="rule_id_manager" model="ir.rule">
+			<field name="name">Manager will have all rights to see and modify every agents property details.</field>
+			<field name="model_id" ref="estate.model_estate_property"></field>
+			<field name="groups" eval="[Command.link(ref('estate.estate_group_manager'))]"></field>
+		</record>
+		<record model="ir.rule" id="rule_id_company">
+		    <field name="name">User will only be able to see his company properties</field>
+		    <field name="model_id" ref="estate.model_estate_property"/>
+		    <field name="domain_force">[
+		        '|', ('company_id', '=', False),
+		             ('company_id', 'in', company_ids)
 		    ]</field>
 		</record>
 	</data>

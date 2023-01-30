@@ -36,7 +36,7 @@
                 <menuitem id="Waghodia_menu_action" action="estate_property_action" name="Waghodia"></menuitem>
             </menuitem>
         </menuitem>
-        <menuitem id="Settings_menu" name="Settings">
+        <menuitem id="settings_menu" name="Settings" groups="estate.estate_group_manager"> 
             <menuitem id="property_type_menu_action" action="property_type_action" name="Property Type"/>
             <menuitem id="property_tag_menu_action" action="property_tag_action" name="Property Tag"/>
         </menuitem>
