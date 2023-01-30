@@ -1,7 +1,7 @@
 {
     'name': 'Real Estate',
     'version': '1.0',
-    'category': 'Marketing',
+    'category': 'Real Estate/Brokerage',
     'depends':[
         'mail',
         'calendar',
@@ -13,6 +13,7 @@
     'installable': True,
     'application': True,
     'data':[
+         'security/real_estate_security.xml', 
          'security/ir.model.access.csv',
          'data/estate_property_type_data.xml',
          'data/estate_property_tag_data.xml',
@@ -23,7 +24,6 @@
          'views/estate_property_type_view.xml',
          'views/estate_property_tags_view.xml',
          'views/estate_property_offer_view.xml',
-        #  'views/inherit_model_view.xml',
          'views/res_users_view.xml',
          'views/user_data_view.xml',
         #  'data/user_data.xml',

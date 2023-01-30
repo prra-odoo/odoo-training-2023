@@ -38,6 +38,7 @@
             <field name="property_tag_ids" eval="[(6,0,[ref('estate_property_tag_data2'),ref('estate_property_tag_data3')])]"/>
         </record>
 
+    
     </data>
 
 </odoo>

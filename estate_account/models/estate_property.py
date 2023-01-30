@@ -12,7 +12,7 @@ class estate_property(models.Model):
         print("hellooooooo")
                  
         # breakpoint()
-        self.env['account.move'].create(
+        self.env['account.move'].sudo().create(
             {
                 'move_type':'out_invoice',
                 'partner_id':self.buyer.id,
@@ -45,12 +45,3 @@ class estate_property(models.Model):
                 ],
             })
         return super().action_sold()
-
-        # estate_account.action_post()
-            
-             # 'invoice_line_ids':[
-                    #     (0,self.buyer.id,{
-                    #         'price_unit':self.selling_price,
-                    #         'tax_ids':self.
-                    #     })
-                    # ],

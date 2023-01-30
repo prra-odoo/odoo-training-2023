@@ -9,5 +9,9 @@
 
         <record id="estate_property_tag_data3" model="estate.property.tags">
             <field name="name">Assets</field>
-        </record>        
+        </record> 
+
+        <record id="estate_property_tag_data5" model="estate.property.tags">
+            <field name="name">Renovated</field>
+        </record> 
 </odoo>

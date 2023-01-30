@@ -72,6 +72,9 @@
                                 <group>
                                     <field name="best_offer"/>
                                 </group>
+                                <group>
+                                    <field name="company_id"/>
+                                </group>
                                     <notebook>
                                         <page string="Description">
                                             <group>

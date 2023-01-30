@@ -10,7 +10,7 @@ class estate_property(models.Model):
     _order = "id desc"
 
     property_type_id = fields.Many2one('estate.property.type',string='property type')
-
+    company_id = fields.Many2one('res.company',default=lambda self:self.env.company,required=True)
     name = fields.Char('Property Name',required=True)
     description = fields.Char('Description')
     postcode = fields.Char('PostCode')

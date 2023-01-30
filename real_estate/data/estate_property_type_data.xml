@@ -6,4 +6,10 @@
         <record id="estate_property_type_data2" model="estate.property.type">
             <field name="name">Flate</field>
         </record>
+        <record id="estate_property_type_data3" model="estate.property.type">
+            <field name="name">house</field>
+        </record>
+        <record id="estate_property_type_data4" model="estate.property.type">
+            <field name="name">Apartment</field>
+        </record>
 </odoo>
