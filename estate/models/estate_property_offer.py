@@ -48,7 +48,6 @@ class EstatePropertyOffer(models.Model):
 
     _sql_constraints = [
             ('check_offerprice', 'CHECK(price > 0)','The offerprice must be positive.'),
-            # ('check_bestoffer','CHECK(price > property_id.best_offer)','The new offer should be greater than the best price')
         ]
     @api.constrains('price')
     def _adding_best_new_offer(self):

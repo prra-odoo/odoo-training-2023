@@ -32,13 +32,14 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
-                <!-- class="overflow-hidden bg-secondary rounded-top" -->
                 <header>
                     <button name="sold_buisness_logic" class="oe_stat_button" type="object" string="Sold" attrs="{'invisible': [('state', 'in', ['sold','cancel'])]}" />
                     <button name="cancel_buisness_logic" type="object" class="oe_stat_button" string="Cancel" attrs="{'invisible': [('state', 'in', ['sold','cancel'])]}"/>
                     <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', '!=','cancel')]}"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=','sold')]}"/>
                     <div>
                         <h1>
                             <field name="name"/>
@@ -55,7 +56,6 @@
                             <field name="date_availability"/>
                             <field name="best_offer"/>
                             <field name="selling_price"/>
-                            <!-- <field name="state"/> -->
                         </group>
                     </group>
                     <notebook>
@@ -67,17 +67,13 @@
                                 <field name="facades" />
                                 <field name="garage"/>
                                 <field name="garden"/>
-                                <field name="garden_area" options='{"type": "number"}' attrs="{'invisible': [('garden', '=', False)]}"/>
+                                <field name="garden_area" options='{"type": "number"}' attrs="{'invisible': [('garden', '=', False)],'required':[('garden', '=', True)]}"/>
                                 <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}" />
                                 <field name="total_area"/>
                             </group>
                         </page>
-                        <page string="Offers">
+                        <page string="Offers" >
                             <field name="offer_ids" attrs="{'readonly': [('state', 'in', ['offer_accepted','sold','cancel'])]}">
-                                <!-- <tree>
-                                    <field name="price"/>
-                                    <field name="status"/>
-                                </tree> -->
                             </field>
                         </page>
                         <page string="Other Info">
@@ -110,7 +106,7 @@
                 <field name="facades"/>
                 <!-- <separator/> -->
                 <field name="living_area" string="Greater Living Area" filter_domain="[('living_area', '>=', self)]"/>
-                <filter string="State Search" name="search_state" domain="[('state', 'in', ['new','offer_received'])]"/>
+                <filter string="Available" name="search_state" domain="[('state', 'in', ['new','offer_received'])]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="search_postcode" context="{'group_by':'postcode'}"/>
                 </group>
@@ -122,6 +118,7 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_search_state': True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Click here to create a new Advertisment.

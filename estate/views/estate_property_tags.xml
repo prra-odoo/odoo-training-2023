@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+    <!-- Tree View -->
+    <record id="estate_property_tag_tree_view" model="ir.ui.view">
+        <field name="name">Estate_Property_tag_treeview</field>
+        <field name="model">estate.property.tags</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
     <!-- Form -->
     <record id="estate_property_tags_form_view" model="ir.ui.view">
         <field name="name">Estate_Property_tags_formview</field>

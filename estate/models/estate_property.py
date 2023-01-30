@@ -99,9 +99,3 @@ class EstateProperty(models.Model):
         for record in self:
             if record.selling_price < .9*record.expected_price:
                 raise exceptions.ValidationError(r"The selling price cannot be lower than 90% of the expected price")
-
-    
-
-# highest offer
-# version of postgre
-# status bar color raz

@@ -19,14 +19,19 @@
         <field name="arch" type="xml">
             <form class="form o_appointment_appointments_list_form pt-3">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(estate_property_offer_action)d" icon="fa-dollar">
+                            <field string="Offers Available" name="offer_count" widget="statinfo" />
+                        </button>
+                    </div>
+
                     <div>
                         <h1>
                             <field name="name"/>
                         </h1>
                     </div>
                     <field name="property_under_type_ids"/>
-                    <field name="offer_ids"/>
-                    <field name="offer_count"/>
+                    
                 </sheet>
             </form>
         </field>

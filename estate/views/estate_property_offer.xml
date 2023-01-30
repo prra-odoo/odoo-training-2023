@@ -6,7 +6,7 @@
         <field name="name">Estate_Property_offer_treeview</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree decoration-success="status=='accepted'" decoration-danger="status=='refused'">
+            <tree  decoration-success="status=='accepted'" decoration-danger="status=='refused'">
                 <field name="price" options='{"type": "number"}'/>
                 <!-- <field name="status"/> -->
                 <field name="partner_id"/>
