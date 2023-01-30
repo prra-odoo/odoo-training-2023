@@ -7,17 +7,18 @@
         <field name="arch" type="xml">
             <tree string="tree_view" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'">
                 <field name="name" optional="show"/>
+                <field name="property_type_id"/>
+                <field name="postcode" optional="show"/>
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                <field name="description" optional="show"/>
-                <field name="selling_price" optional="show"/>
+                <field name="bedrooms" optional="hide"/>
+                <field name="living_area" optional="hide"/>
                 <field name="expected_price" optional="show"/>
+                <field name="selling_price" optional="show"/>
+                <field name="description" optional="show"/>
                 <field name="garden_area" optional="show"/>
                 <field name="garden" optional="show"/>
                 <field name="garage" optional="hide"/>
-                <field name="living_area" optional="hide"/>
-                <field name="postcode" optional="show"/>
                 <field name="date_availability" optional="hide"/>
-                <field name="bedrooms" optional="hide"/>
                 <field name="facades" optional="hide"/>
                 <field name="garden_orientation" optional="hide"/>
                 <field name="state" invisible="1"/>
@@ -33,10 +34,11 @@
                 <header>
                     <button name="action_sold" type="object" string="SOLD" states="new,offer_received"/>
                     <button name="action_sold" type="object" string="SOLD" states="offer_accepted" class="oe_highlight"/>
-                    <button name="action_cancel" type="object" string="CANCEL" />
+                    <button name="action_cancel" type="object" string="CANCEL" states="new,offer_received,offer_accepted" />
                     <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>             
                 <sheet>
+                    <widget name="web_ribbon" title="SOLD" bg_color="bg-success" states='sold'/>
                     <div class="oe_title">
                         <h1>
                             <field name="name"/>
@@ -53,7 +55,7 @@
                         </group>
                         <group>
                             <field name="expected_price"/>
-                            <field name="best_price"/>
+                            <field name="best_price"/>  
                             <field name="selling_price"/>
                         </group>
                         <notebook>
@@ -72,7 +74,8 @@
                                 </group>
                             </page>
                             <page string="offer">                               
-                                <field name="offer_ids"  attrs="{'readonly': [('state', 'in', ('offer_accepted', 'sold', 'cancel'))]}"/>
+                                <!-- <field name="offer_ids"  attrs="{'readonly': [('state', 'in', ('offer_accepted', 'sold', 'cancel'))]}"/> -->
+                                <field name="offer_ids"  states='new,offer_received'/>
                             </page>
                             <page string="Other info">
                                 <group>
@@ -103,7 +106,7 @@
                 <field name="garden_area"/>
                 <field name="garden"/>
                 <field name="garage"/>
-                <field name="living_area"/>
+                <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
                 <field name="postcode"/>
                 <field name="date_availability"/>
                 <field name="bedrooms"/>
@@ -112,7 +115,7 @@
                 <field name="property_type_id"/>
                 <!-- SEPERATOR -->
                 <separator/>
-                <filter string="State search" name="search_state" domain="[('state', 'in', ['new','offer_received'])]"/>
+                <filter name="search_state" string="State search"  domain="[('state', 'in', ['new','offer_received'])]"/>
                 <group string="Group By">
                     <filter string="Postcode" name="postcode_groupby" context="{'group_by':'postcode'}"/>
                     <filter string="Bedrooms" name="bedroom_groupby" context="{'group_by':'bedrooms'}"/>
@@ -125,6 +128,7 @@
         <field name="name">properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_search_state":1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create new asset

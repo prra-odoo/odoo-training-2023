@@ -19,6 +19,8 @@ class estate_property_offer(models.Model):
     property_id=fields.Many2one('estate.property',required=True)
     validity=fields.Integer(string="Validity (days)",default="7")
     create_date = fields.Date(default=fields.Date.today())
+    # Related field
+    property_offers_id = fields.Many2one(related='property_id.property_type_id',store=True)
     # computed field 
     date_deadline=fields.Date(string="Deadline",compute="_compute_date_deadline",inverse="_inverse_date_deadline")
     # compute method
