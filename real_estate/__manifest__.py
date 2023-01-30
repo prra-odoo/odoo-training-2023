@@ -16,13 +16,14 @@
         'views/estate_property_views.xml',
         'views/res_user_view.xml',
         'views/estate_property_menus.xml',
-
+        'report/report.xml',
+        'report/report_res_users.xml',
     ],
-    'demo': [
-        'demo/estate_property_demo_data.xml',
-        'demo/estate_property_type_demo.xml',
-        'demo/estate_property_tag_demo_data.xml',
-    ],
+        # 'demo': [
+        #     'demo/estate_property_demo_data.xml',
+        #     'demo/estate_property_type_demo.xml',
+        #     'demo/estate_property_tag_demo_data.xml',
+        # ],
     'application': True,
     'installable': True,
     'license': 'LGPL-3',

@@ -1,0 +1,113 @@
+<odoo>
+    <data>
+        <record id="report_estate_property_print_pdf" model="ir.actions.report">
+            <field name="name">Print Details</field>
+            <field name="model">estate.property</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">real_estate.report_estate_property</field>
+            <field name="report_file">real_estate.report_estate_property</field>
+            <field name="binding_model_id" ref="model_estate_property" />
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <template id="report_res_users">
+            <t t-foreach="docs" t-as="res">
+                <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <h1>
+                            <span t-field="res.name" />
+                        </h1>
+                        <t t-if="res.property_ids">
+                            <t t-set="properties" t-value="res.mapped('property_ids')" />
+                            <t t-foreach="properties" t-as="property" class="mb-5">
+                                <h2>
+                                    <span t-field="property.name" />
+                                </h2>
+                                <t t-call="real_estate.offeres_ids_template" />
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <div>have Nothing</div>
+                        </t>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="report_estate_property">
+            <t t-foreach="docs" t-as="property">
+                <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <t t-call="real_estate.sub_section_estate_property_form" />
+                        <t t-call="real_estate.offeres_ids_template" />
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Estate Property Pdf  -->
+        <template id="sub_section_estate_property_form">
+            <div class="page">
+                <h2>
+                    work
+                </h2>
+                <h1>
+                    <span t-field="property.name" />
+                </h1>
+                <h3>
+                    <div>
+                        <strong>Expected Price: </strong>
+                        <span t-field="property.expected_price" />
+                    </div>
+                    <div>
+                        <strong>Salesman: </strong>
+                          <span t-field="property.salesperson_id" />
+                    </div>
+                    <div>
+                        <strong>Status: </strong>
+                        <span t-field="property.state" />
+                    </div>
+                </h3>
+            </div>
+        </template>
+        <template id="offeres_ids_template">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>Partner</th>
+                        <th>Validity(Days)</th>
+                        <th>Deadline</th>
+                        <th>State</th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <t t-set="offers" t-value="property.mapped('offer_ids')" />
+                    <tr t-foreach="offers" t-as="offer">
+                        <td string="s">
+                            <span t-field="offer.price" />
+                        </td>
+                        <td string="s">
+                            <span t-field="offer.validity" />
+                        </td>
+                        <td>
+                            <span t-field="offer.partner_id" />
+                        </td>
+                        <td>
+                            <span t-field="offer.date_deadline" />
+                        </td>
+                        <td>
+                            <span t-field="offer.status" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+    </data>
+</odoo>

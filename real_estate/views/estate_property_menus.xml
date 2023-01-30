@@ -8,7 +8,7 @@
                 <menuitem id="advertisement_Create_task_model_id"
                     action="advertisement_Create_task_model_action"  />
             </menuitem>
-            <menuitem id="setting_first_level_menu" name="Tag">
+            <menuitem id="setting_first_level_menu" name="Tag" groups="real_estate.estate_group_manager">
             <menuitem id="property_tag_model_menu_action"
             action="create_estate_property_tag_model" />
             </menuitem>

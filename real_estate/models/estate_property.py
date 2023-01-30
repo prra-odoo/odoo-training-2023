@@ -57,7 +57,9 @@ class EstateProperty(models.Model):
         'res.users', string="Sales Person", default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag', string="Tags")
     offer_ids = fields.One2many("estate.property.offer", "property_id")
-    
+    company_id = fields.Many2one('res.company', 'Company'
+                                 )
+
     # company_id = fields.Many2one('res.company', store=True, copy=False,
     #                              string="Company",
     #                              default=lambda self: self.env.user.company_id.id)
@@ -65,7 +67,7 @@ class EstateProperty(models.Model):
     #                               related='company_id.currency_id',
     #                               default=lambda
     #                               self: self.env.user.company_id.currency_id.id)
-    currency_id=fields.Many2one('res.currency',string="Entry Fee")
+    currency_id = fields.Many2one('res.currency', string="Entry Fee")
     fee = fields.Monetary(string="Fee")
 
     # SQL Constraints

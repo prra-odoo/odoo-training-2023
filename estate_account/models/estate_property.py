@@ -13,7 +13,7 @@ class EstateProperty(models.Model):
     def action_sold(self):
         # domain = [('state', '=', 'maintenance')]
         for record in self:
-            self.env['account.move'].create(
+            self.env['account.move'].sudo().create(
                 {
                     "partner_id": record.buyer_id.id,
                     "move_type": 'out_invoice',
@@ -47,13 +47,13 @@ class EstateProperty(models.Model):
                 }
             )
 
-            self.env['project.task'].create(
-                {
-                    'display_name': record.name,
-                    'project_id': 11,
+            # self.env['project.task'].sudo().create(
+            #     {
+            #         'display_name': record.name,
+            #         'project_id': 11,
 
-                },
-            )
+            #     },
+            # )
 
         return super(EstateProperty, self).action_sold()
 

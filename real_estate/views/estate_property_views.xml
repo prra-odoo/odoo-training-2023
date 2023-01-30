@@ -46,6 +46,7 @@
                     <field name="salesperson_id" optional='hide' />
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
                     <field name="total_area" optional='hide' />
+                    <field name="company_id" />
                    
                 </tree>
             </field>
@@ -84,6 +85,8 @@
                                     options="{'color_field': 'color'}" />
                                 <field name="active" invisible="1" />
                                 <field name="state" />
+                                <label for="company_id" string="Company Name" />
+                                <field name="company_id" nolabel="1" />
                             </group>
                             <group>
                                 <label for="date_availability" string="Date" />

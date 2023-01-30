@@ -21,13 +21,17 @@
 
         <!-- <record
             model="ir.model.access" id="access_auth_full">
-            <field name="name">access rules1</field>
-            <field name="model_id" ref="advertisement_Create_task_model_action" />
-            <field name="group_id" ref="real_estate.estate_group_manager" />
+            <field
+        name="name">access rules1</field>
+            <field name="model_id"
+        ref="advertisement_Create_task_model_action" />
+            <field name="group_id"
+        ref="real_estate.estate_group_manager" />
             <field name="perm_read">1</field>
-            <field name="perm_write">1</field>
+        <field name="perm_write">1</field>
             <field name="perm_create">1</field>
-            <field name="perm_unlink">1</field>
+            <field
+        name="perm_unlink">1</field>
         </record> -->
 
         <record model="ir.rule" id="saleperson_id_only">
@@ -41,16 +45,17 @@
             <field name="perm_unlink" eval="False" />
 
         </record>
-<!-- 
-        <record model="ir.rule" id="saleperson_id_only">
-            <field name="name">Saleperson</field>
+
+        <record model="ir.rule" id="company_id_model_data">
+            <field name="name">Company</field>
+            <field name="model_id" ref="model_estate_property" />
+            <field name="domain_force">[('company_id','in',company_ids)]</field>
+        </record>
+
+        <record model="ir.rule" id="company_id_only">
+            <field name="name">Company</field>
             <field name="model_id" ref="model_estate_property" />
             <field name="groups" eval="[(4,ref('real_estate.estate_group_manager'))]" />
-            <field name="perm_read" eval="True" />
-            <field name="perm_write" eval="False" />
-            <field name="perm_create" eval="False" />
-            <field name="perm_unlink" eval="False" />
-
-        </record> -->
+        </record>
     </data>
 </odoo>
