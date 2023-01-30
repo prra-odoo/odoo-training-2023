@@ -13,15 +13,30 @@
         <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/>
     </record>
 
+    <record id="real_estate_salesperson_rule_1" model="ir.rule">
+        <field name="name">Real.Estate: salesperson rule 1</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="groups" eval="[(4, ref('estate_group_manager'))]"/>
+
+    </record>
     <record id="real_estate_salesperson_rule" model="ir.rule">
         <field name="name">Real.Estate: salesperson rule</field>
         <field name="model_id" ref="model_estate_property"/>
-        <field name="groups" eval="[(4, ref('estate_group_manager'))]"/>
+        <field name="groups" eval="[(4, ref('estate_group_user'))]"/>
         <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="False"/>
+        <field name="perm_write" eval="True"/>
         <field name="domain_force">[
             '|', ('salesman_id', '=', user.id),
-                 ('salesman_id', '=', False)
+                 ('salesman_id', '=', False),
         ]</field>
+    </record>
+
+    <record model="ir.rule" id="real_estate_company_rule">
+        <field name="name">Shared Record: multi-company</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">
+            ['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]
+        </field>
     </record>
 </odoo>

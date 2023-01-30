@@ -57,13 +57,13 @@
     <menuitem id="estate_menu_root" name="Real Estate" sequence= "10" action="real_estate_model_action" web_icon="real_estate,static/description/odoo.png">
 
         <menuitem id="estate_first_level_menu" name="Property">
-        <menuitem id="estate_model_menu_action" action="estate_model_action" groups="real_estate.estate_group_manager"/>
+        <menuitem id="estate_model_menu_action" action="estate_model_action"/>
         
     </menuitem>
 
     <menuitem id="estate_menu_child" name="Settings">
-        <menuitem id="estate_model_menu_property_type" action="estate_model_action_property_type"/>
-        <menuitem id="estate_model_menu_sub_action" action="estate_model_action_property_tags"/>
+        <menuitem id="estate_model_menu_property_type" action="estate_model_action_property_type" groups="real_estate.estate_group_manager"/>
+        <menuitem id="estate_model_menu_property_tags" action="estate_model_action_property_tags" groups="real_estate.estate_group_manager"/>
     </menuitem>
 
      <!-- <menuitem id="estate_menu_child_task" name= "Offer" action="estate_model_action_offer"/> -->

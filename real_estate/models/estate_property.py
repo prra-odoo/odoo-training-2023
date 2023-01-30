@@ -30,11 +30,12 @@ class estateProperty(models.Model):
         help="Type is used to separate Leads and Opportunities")
     state = fields.Selection(string = "state", selection = [('new', 'New'), ('received', 'Offer Received'), ('accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')], default= "new")
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
-    salesman_id = fields.Many2one("res.users", string="Salesman" ,default=lambda self: self.env.user)
+    salesman_id = fields.Many2one("res.users", string="Salesman")
     buyer_id = fields.Many2one("res.partner", string="Buyers")
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer","property_id")
-    # active = fields.Boolean('Active', default=False)
+
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.user.company_id)
 
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)',

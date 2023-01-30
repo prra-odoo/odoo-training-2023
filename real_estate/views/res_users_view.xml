@@ -6,8 +6,7 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">       
-            <xpath expr="//page[@name='access_rights']" position="before">
-                <xpath expr="//page[@name='preferences']" position="move"/>
+            <xpath expr="//page[@name='preferences']" position="before">
                 <page name="estate_properties" string="Real Estate Properties">
                     <field name="property_ids"/>
                 </page>

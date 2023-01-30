@@ -1,0 +1,99 @@
+<odoo>
+
+
+    <template id="report_estate_property_sub_temp">
+        <div>
+            <strong>Expected Price: </strong>
+            <span t-field="property.expected_price" />
+        </div>
+        <div>
+            <strong>Status: </strong>
+            <span t-field="property.state" />
+        </div>
+        <br></br>
+
+        <table class="table table-striped table-sm" t-if="property.offer_ids">
+            <thead class="table-primary">
+                <tr>
+                    <th>Price</th>
+                    <th>Partner</th>
+                    <th>Validity(days)</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-set="offers" t-value="property.mapped('offer_ids')" />
+                <tr t-foreach="offers" t-as="offer">
+                    <td>
+                        <span t-field="offer.price" />
+                    </td>
+                    <td>
+                        <span t-field="offer.partner_id" />
+                    </td>
+                    <td>
+                        <span t-field="offer.validity" />
+                    </td>
+                    <td>
+                        <span t-field="offer.date_deadline" />
+                    </td>
+                    <td>
+                        <span t-field="offer.status" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <strong t-else="">No offers have been made yet :(</strong>
+    </template>
+
+    <template id="report_property_offers">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-set="company" t-value="docs.company_id" />
+                    <div class="page border border-dark p-2">                        
+                        <h1>
+                            <b>
+                                <span t-field="property.name" />
+                            </b>
+                        </h1>
+                        <div>
+                            <strong>Salesman: </strong>
+                            <span t-field="property.salesman_id" />
+                        </div>
+                        <t t-call="real_estate.report_estate_property_sub_temp" />
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_property_salesman">
+        <t t-foreach="docs" t-as="new">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>
+                            <strong>Salesman: </strong>
+                            <span t-field="new.name" />
+                        </h1>
+                        <t t-if="new.property_ids">
+                            <t t-set="properties" t-value="new.mapped('property_ids')" />
+                            <t t-foreach="properties" t-as="self">
+                                <h3>
+                                    <span t-field="self.name" />
+                                </h3>
+                                <t t-call="real_estate.report_estate_property_sub_temp">
+                                    <t t-set="property" t-value="self" />
+                                </t>
+                            </t>
+                        </t>
+                        <strong t-else="">Salesman has no properties!</strong>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

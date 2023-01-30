@@ -12,12 +12,14 @@
             'views/estate_property_type_view.xml',
             'views/estate_property_offer_view.xml',
             'views/res_users_view.xml',
-            
+            'report/estate_property_templates.xml',
+            'report/estate_property_reports.xml',
     ],
 
     'demo' : [ 
             'data/real_estate_demo_data.xml'
     ],
+
     'application' : True,
     'installable': True,
     'license': 'LGPL-3',
