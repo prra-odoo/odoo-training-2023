@@ -141,6 +141,7 @@
                                 <group>
                                     <field name="seller_id" string="Salesman"/>
                                     <field name="buyer_id" string="Buyer" />
+                                    <field name="company_id" />
                                 </group>
                             </group>
                         </page>

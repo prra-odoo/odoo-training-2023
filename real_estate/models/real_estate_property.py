@@ -33,12 +33,12 @@ class EstateProperty(models.Model):
     state = fields.Selection([("new","New"),("recieved","Offer Recieved"),("accepted","Accepted"),("sold","Sold"),("cancel","Canceled")], string="Status", copy=False, default="new")
     property_type_id = fields.Many2one("estate.property.type")
     buyer_id = fields.Many2one("res.partner", copy=False)
-    seller_id = fields.Many2one("res.users", default=lambda self: self.env.user)
+    seller_id = fields.Many2one("res.users")
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer", 'property_id')
 
     # adding company field
-    company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company)
+    company_id = fields.Many2one("res.company", string="Company", required=True, default=lambda self: self.env.company)
 
     # adding sequence field
     sequence = fields.Integer()

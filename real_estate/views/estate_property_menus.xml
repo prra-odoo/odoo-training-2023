@@ -16,7 +16,7 @@
         <menuitem id="estate_first_level_menu1" name="Advertisements">
             <menuitem id="advertisements_menu1" action="estate_property_action" name="Properties" />
         </menuitem>
-        <menuitem id="estate_first_level_menu2" name="Settings">
+        <menuitem id="estate_first_level_menu2" name="Settings" groups="estate_group_manager">
             <menuitem id="settings_menu1" action="estate_type_action" name="Property Types"/>
             <menuitem id="settings_menu2" action="estate_tag_action" name="Property Tags"/>
         </menuitem>
