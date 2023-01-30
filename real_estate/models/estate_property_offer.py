@@ -39,7 +39,7 @@ class estate_property_offer(models.Model):
 
     def accept_action(self):
         for record in self:
-            # record.property_id.offer_ids.status='refuse'
+            record.property_id.offer_ids.status='refuse'
             record.status="accepted"
             record.property_id.state="offer_accepted"
             record.property_id.selling_price=record.price

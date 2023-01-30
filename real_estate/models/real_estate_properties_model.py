@@ -47,7 +47,7 @@ class real_Esate_Properties(models.Model):
 	total_area=fields.Float(compute="_total_area")
 	best_price=fields.Float(compute="_best_price",default=0)
 	user_id=fields.Many2one("res.users")
-
+	company_id=fields.Many2one("res.company",required=True,default=lambda self: self.env.user.company_id)
 	@api.depends("living_area","gardan_area")
 	def _total_area(self):
 		for area in self:

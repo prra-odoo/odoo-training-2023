@@ -76,6 +76,7 @@
                                 <group>
                                     <field name="buyer"/>
                                     <field name="salesperson"/>
+                                    <field name="company_id" groups="base.group_multi_company" />
                                 </group>
                             </page>
                             <!-- <page>
