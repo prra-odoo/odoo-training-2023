@@ -5,7 +5,7 @@
         <field name="name">Properties</field>
         <field name="res_model">real.estate.property</field>
         <field name="context">{'search_default_state': True}</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new property, the first step of a new project!
@@ -69,7 +69,7 @@
         <menuitem id="real_estate_first_level_menu" name="Advertisements">
             <menuitem id="real_estate_menu_property" action="real_estate_model_action"  name="Property"/>
         </menuitem>
-        <menuitem id="real_estate_Second_level_menu" name="Setting">
+        <menuitem id="real_estate_Second_level_menu" name="Setting" groups="real_estate.estate_group_manager">
             <menuitem id="real_estate_menu_property_type" action="real_estate_property_type_model_action"  name="Property Types" />
             <menuitem id="real_estate_menu_property_tags" action="real_estate_property_tags_model_action"  name="Property Tags" />
         </menuitem>

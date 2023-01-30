@@ -9,6 +9,8 @@
     'installable': True,
     'application': True,
     'data': [
+        'report/real_estate_property_reports.xml',
+        'report/real_estate_templates.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         'views/real_estate_menu.xml',
@@ -19,9 +21,10 @@
         'views/res_users_views.xml',
     ],
     'demo': [
-         'demo/real_estate_property_type_data.xml',
-         'demo/real_estate_property_data.xml',
-         'demo/real_estate_property_tags_data.xml',
+        'demo/estate_demo.xml',
+        'demo/real_estate_property_type_data.xml',
+        'demo/real_estate_property_data.xml',
+        'demo/real_estate_property_tags_data.xml',
         #  'demo/real_estate_property_offer_data.xml',
     ],
 }

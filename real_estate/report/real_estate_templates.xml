@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_property_offers_template">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>
+                            <span t-field="property.name"/>
+                        </h1>
+                        <div>
+                            <strong>Expected Price: </strong>
+                            <span t-field="property.expected_price"/>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>property_type_id</th>
+                                    <th>partner_id</th>
+                                    <th>validity</th>
+                                    <th>date_deadline</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                                <tr t-foreach="offers" t-as="offer">
+                                    <td><span t-field="offer.property_type_id"/></td>
+                                    <td><span t-field="offer.partner_id"/></td>
+                                    <td><span t-field="offer.validity"/></td>
+                                    <td><span t-field="offer.date_deadline"/></td>
+                                    <td><span t-field="offer.price"/></td>
+                                    <td><span t-field="offer.status"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

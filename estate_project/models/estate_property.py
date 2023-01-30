@@ -12,7 +12,11 @@ class RealEstateProperty(models.Model):
         res = super().action_sold_porperty()
         project = self.env['project.project'].search([('name', '=', 'Test Task')])
         print(project,"fgfc cvgvvgh")
-        self.env["project.task"].create(
+        print(self.check_access_rights('write'),"Write Accesss Security")
+        print(self.check_access_rule('write'),"Write Accesss Security")
+        print(self.check_access_rights('create'),"Read access rights")
+        print(self.check_access_rule('create'),"Read access rights")
+        self.env["project.task"].sudo().create(
             {
                 'name': 'Clean '+ self.name,
                 'project_id': project.id,

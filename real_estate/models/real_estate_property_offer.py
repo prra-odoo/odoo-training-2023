@@ -52,8 +52,9 @@ class RealEstatePropertyOffer(models.Model):
             
     @api.model
     def create(self, vals_list):
-        rec = self.env['real.estate.property'].browse(vals_list['property_id'])
-        rec.state =  'offer_received'
-        if rec.best_price >= vals_list['price'] :
-            raise UserError("you can not create an offer of lower amount than existing")
+        for i in vals_list:
+            rec = self.env['real.estate.property'].browse(vals_list['property_id'])
+            rec.state =  'offer_received'
+            if rec.best_price >= vals_list['price'] :
+                raise UserError("you can not create an offer of lower amount than existing")
         return super().create(vals_list)

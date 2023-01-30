@@ -26,4 +26,14 @@
         <field name="model_id" ref="model_real_estate_property"/>
         <field name="groups" eval="[Command.link(ref('estate_group_manager'))]"/>
     </record>
+
+    <record id="estate_user_multi_company" model="ir.rule">
+        <field name="name">Agent Property View Rule</field>
+        <field name="model_id" ref="model_real_estate_property"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[
+        '|', ('company_id', '=', False),
+             ('company_id', 'in', company_ids)
+    ]</field>
+    </record>
 </odoo>
