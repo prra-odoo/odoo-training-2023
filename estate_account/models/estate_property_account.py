@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields
+from odoo.exceptions import UserError
 
 class EstatePropertyAccount(models.Model):
     _inherit = "estate.property"
@@ -8,10 +9,14 @@ class EstatePropertyAccount(models.Model):
     test = fields.Char(string="Testing", help="This field is for testing purpose.")
     
     def action_sold_btn(self):
+                
+        # if self.env['account.move'].check_access_rights('write'):
+        #     raise UserError('You do not have write access on Invoicing!!!')
         
         # Create invoice record, When property was sold.
         
-        estate_invoice = self.env['account.move'].create([
+            
+        estate_invoice = self.env['account.move'].sudo().create([
             {   
                 'move_type': 'out_invoice',
                 'partner_id': self.buyer_id.id,

@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="report_property_offers">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="property">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div style="border: 2px solid gray">
+                            <div>
+                                <span t-field="property.name" style="font-size: 50px; font-weight: 600; padding: 10px"></span>
+                            </div>
+                            <div style="font-size: 20px; font-weight: 500; padding: 10px">
+                                Salesperson :
+                                <span t-field="property.salesperson_id"></span>
+                            </div>
+                            <div style="font-size: 20px; font-weight: 500; padding: 10px">
+                                Expected Price :
+                                <span t-field="property.expected_price"></span>
+                            </div>
+                            <div style="font-size: 20px; font-weight: 500; padding: 10px">
+                                Status :
+                                <span t-field="property.state"></span>
+                            </div>
+                        </div>
+                        <!-- OFFERS  -->
+                        <div style="font-size: 30px; font-weight: 600; margin-top: 20px; text-align: center;">
+                                Offers
+                        </div>
+                        <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                        <div class="table-condition">
+                            <t t-if="len(offers)">
+                                <t t-call="real_estate.report_property_offers_sub_template"/>
+                            </t>
+                            <t t-else="">
+                                <h1 style="text-align: center; margin-top: 20px;">There are no offers on this property.</h1>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <!-- SUB TEMPLATE -->
+    <template id="report_property_offers_sub_template">
+        <t t-foreach="docs" t-as="property">
+            <table class="table" style="margin-top: 10px; border: 1px solid black; border-collapse: collapse; font-size: 20px; font-weight: 500;">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>Partner</th>
+                        <th>Validity (days)</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                    <tr t-foreach="offers" t-as="offer">
+                        <td>
+                            <span t-field="offer.price"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.partner_id"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.validity"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.date_deadline"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.status"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </t>
+    </template>
+</odoo>

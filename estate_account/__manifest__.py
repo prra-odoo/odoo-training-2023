@@ -11,7 +11,9 @@
     'summary': 'Real Estate Account',
     'depends': ['real_estate','account'],
     'demo': [],
-    'data': [],
+    'data': [
+        'report/estate_property_offer_inherit.xml'
+    ],
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

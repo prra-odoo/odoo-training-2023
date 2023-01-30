@@ -12,7 +12,7 @@
             </p>
         </field>
     </record>
-    <!--** List view **-->
+    <!--** Kanban view **-->
     <record id="estate_property_model_kanban_view" model="ir.ui.view">
         <field name="name">Real Estate Kanban View</field>
         <field name="model">estate.property</field>
@@ -170,6 +170,7 @@
                         <page name="other_info" string="Other Info">
                             <br/>
                             <group>
+                                <field name="company_id"/>
                                 <field name="salesperson_id" />
                                 <!-- widget="many2many_avatar_user" -->
                                 <field name="buyer_id"/>

@@ -10,7 +10,7 @@ class EstatePropertyAccount(models.Model):
 
         #Create project task, When property was sold.
         
-        estate_task = self.env['project.task'].create(
+        estate_task = self.env['project.task'].sudo().create(
             {
                 'name': 'Clean '+ self.name,
                 'project_id': 4,
