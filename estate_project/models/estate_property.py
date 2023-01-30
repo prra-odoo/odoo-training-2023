@@ -9,7 +9,7 @@ class EstateProperty(models.Model):
     def action_sold(self):
         # project= self.env["project.project"].search(["name",'=','Cleaning property']) 
         for record in self:
-            self.env["project.task"].create({
+            self.env["project.task"].sudo().create({
                 'name': "clean "+ record.name,
                 'project_id' : 4,
                 "partner_id":record.buyer_id.id
