@@ -34,6 +34,15 @@ class estateProperty(models.Model):
     total_area= fields.Float(compute='_compute_total_area')
     best_price = fields.Float(compute='_compute_best_price')
     status =fields.Char()
+    company_id = fields.Many2one('res.company',string='Company', required=True, default=lambda self: self.env.user.company_id,)
+
+    # company = self.env['res.company'].create({'name': 'New Company'})
+
+    # agent = self.env['res.users'].create({
+    #     'name': 'New Estate Agent',
+    #     'company_ids': [(6, 0, [company.id])],
+    #     'company_id': company.id, })
+
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

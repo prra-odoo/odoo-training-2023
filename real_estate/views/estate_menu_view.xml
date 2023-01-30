@@ -135,6 +135,7 @@
                                 <field name="postcode"></field>
                                 <field name="expected_price"></field>
                                 <field name="best_price"></field>
+                                <field name="company_id"></field>
                             </group>
                         </group>
                         <notebook>

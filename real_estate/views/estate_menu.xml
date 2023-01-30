@@ -7,8 +7,8 @@
         </menuitem>
 
         <menuitem id="estate__setting" name="Setting">
-            <menuitem  id="estate_submenu_property_types" action="estate_model_action_property_types"/>
-            <menuitem  id="estate_submenu_property_tags" action="estate_model_action_property_tags"/>
+            <menuitem  id="estate_submenu_property_types" groups="real_estate.estate_group_manager" action="estate_model_action_property_types"/>
+            <menuitem  id="estate_submenu_property_tags" groups="real_estate.estate_group_manager" action="estate_model_action_property_tags"/>
         </menuitem>
     </menuitem>
 </odoo>

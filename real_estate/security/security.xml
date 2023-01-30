@@ -18,4 +18,9 @@
         <field name="domain_force">['|',('salesman_id', '=', user.id) , ('salesman_id', '=', False)]</field>
     </record>
 
+    <record id="new_property_access_rule" model="ir.rule">
+        <field name="name">Property restricted rule</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
 </odoo>

@@ -8,7 +8,8 @@ class EstateProperty(models.Model):
     def sold_action(self):
         for record in self:
             # print('overwrite successfully')
-
+            self.env['account.move'].check_access_rights('write')
+            self.env['account.move'].check_access_rule('write')
             self.env["account.move"].sudo().create({
                 'partner_id': record.buyer_id.id,
                 'move_type':  'out_invoice',
