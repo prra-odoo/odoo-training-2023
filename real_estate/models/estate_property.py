@@ -24,7 +24,7 @@ class realEstate(models.Model):
     garden = fields.Boolean(string='Garden')
     garden_area = fields.Integer(string='Garden Area')
     property_type_id = fields.Many2one(
-        "estate.property.type", string="Property Type" )
+        "estate.property.type", string="Property Type")
     salesperson_id = fields.Many2one(
         "res.users", string="Salesperson", default=lambda self: self.env.user, copy=False)
     buyer_id = fields.Many2one("res.partner", string="Buyer")
@@ -39,7 +39,7 @@ class realEstate(models.Model):
     state = fields.Selection(selection=[('new', 'New'),
                                         ('offer_received', 'Offer Received'),
                                         ('offer_accepted', 'Offer Accepted'),
-                                        ('sold', 'Sold'), ('cancel', 'Cancelled')], default='new', required=True,tracking = True
+                                        ('sold', 'Sold'), ('cancel', 'Cancelled')], default='new', required=True, tracking=True
                              )
     total_area = fields.Integer(string='Total Area', compute="_compute_total")
     best_offer = fields.Float(
@@ -48,6 +48,8 @@ class realEstate(models.Model):
     status = fields.Selection(
         selection=[('sold', 'Sold'), ('cancel', 'Cancel')], tracking=True)
     
+    company_id = fields.Many2one('res.company','Company Name')
+
     @api.depends("living_area", "garden_area")
     def _compute_total(self):
         for record in self:
@@ -74,21 +76,22 @@ class realEstate(models.Model):
                 record.state = 'cancel'
 
     _sql_constraints = [('expected_price', 'CHECK(expected_price>=0)', 'Expected Price should be positive'),
-                        ('selling_price', 'CHECK(selling_price>=0)', 'Selling Price should be positive')
+                        ('selling_price', 'CHECK(selling_price>=0)',
+                         'Selling Price should be positive')
                         ]
 
     @api.constrains("expected_price", "selling_price")
     def _price_difference(self):
         for record in self:
             if ((not float_is_zero(record.selling_price, precision_rounding=0.01))
-                    and float_compare(record.selling_price, record.expected_price*0.9, precision_rounding=0.01) < 0
-                    ):
+                and float_compare(record.selling_price, record.expected_price*0.9, precision_rounding=0.01) < 0
+                ):
                 raise ValidationError(
                     "The selling price must be at least 90% of the expected price!"
                 )
+
     @api.ondelete(at_uninstall=True)
     def _check_state(self):
         for record in self:
-            if record.state not in ['new','cancel']:
+            if record.state not in ['new', 'cancel']:
                 raise UserError("Oops!! You can't delete the data",)
-

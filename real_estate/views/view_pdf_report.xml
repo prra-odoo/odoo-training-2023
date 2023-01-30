@@ -1,0 +1,5 @@
+<record id="report_event_registration_badge" model="ir.actions.report">
+    <field name="name">Registration Badge</field>
+    <field name="model">real.estate</field>
+    <field name="report_type">qweb-pdf</field>
+</record>

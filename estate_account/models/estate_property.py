@@ -10,7 +10,9 @@ class EstateProperty(models.Model):
 
     def sold_button(self):
         for rec in self:
-            self.env['account.move'].create({
+            self.env['account.move'].check_access_rights('write')
+            self.env['account.move'].check_access_rule('write')
+            self.env['account.move'].sudo().create({
                 'partner_id': rec.buyer_id.id,
                 'invoice_date': date.today(),
                 'move_type': 'out_invoice',
@@ -28,12 +30,4 @@ class EstateProperty(models.Model):
                 ]
             })
 
-        #     project = self.env['project.project'].create({
-        #         'name': rec.name,
-
-        #     })
-        #     task = self.env['project.task'].create({
-        #         'name': rec.name,
-        #         'project_id' : project.id 
-        #     })
-        # return super().sold_button()
+  

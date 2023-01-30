@@ -44,10 +44,7 @@
             <field name="name">Tree.View</field>
             <field name="model">real.estate</field>
             <field name="arch" type="xml">
-                <tree string="Real Estate"
-                    decoration-success="state in ('offer_received', 'offer_accepted')"
-                    decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'"
-                    decoration-danger="state=='cancel'">
+                <tree string="Real Estate" decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'" decoration-danger="state=='cancel'">
                     <field name="name" />
                     <field name="description" />
                     <field name="postcode" optional='hide' />
@@ -58,6 +55,7 @@
                     <field name="living_area" />
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
                     <field name="state" invisible='1' />
+                    <field name="company_id"/>
                 </tree>
             </field>
         </record>
@@ -70,33 +68,28 @@
                 <form string="Real Estate">
                     <header>
                         <field name="state" widget="statusbar" options="{'clickable':'1'}" />
-                        <button name="sold_button" widget="statusbar" options="{'clickable':'1'}"
-                            string='Sold' type='object' />
+                        <button name="sold_button" widget="statusbar" options="{'clickable':'1'}" string='Sold' type='object' />
 
-                        <button name="cancel_button" widget="statusbar" options="{'clickable':'1'}"
-                            string='Cancel' type='object' />
+                        <button name="cancel_button" widget="statusbar" options="{'clickable':'1'}" string='Cancel' type='object' />
                         <button type="action" name="%(property_offer_action)d" string="Redirect" />
                     </header>
                     <sheet>
-                        <widget name="web_ribbon" title="cancel" bg_color="bg-danger"
-                            attrs="{'invisible': [('state', '!=', 'cancel')]}" />
-                        <widget name="web_ribbon" title="sold" bg_color="bg-success"
-                            attrs="{'invisible': [('state', '!=', 'sold')]}" />
-                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
-                            attrs="{'invisible': [('active', '=', True)]}" />
+                        <widget name="web_ribbon" title="cancel" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancel')]}" />
+                        <widget name="web_ribbon" title="sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}" />
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                         <field name="active" invisible='1' />
                         <label for="name">Name</label>
                         <h1>
                             <field name="name" />
                         </h1>
-                        <field name="tag_ids" widget="many2many_tags"
-                            options="{'color_field': 'color'}"></field>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"></field>
                         <group>
                             <group>
                                 <field name="postcode" />
                                 <field name="date_availability" date='create_date' />
                                 <field name="expected_price" />
                                 <field name="selling_price" />
+                                <field name="company_id" />
                             </group>
                             <group>
                                 <field name="best_offer" />
@@ -125,19 +118,12 @@
                             </page>
                             <page string="Offers">
 
-                                <field name="offer_ids"
-                                    attrs="{'readonly': [('state','in', ('offer_accepted', 'sold', 'cancel'))]}">
-                                    <tree editable='bottom'
-                                        decoration-success="status == 'accepted'"
-                                        decoration-danger="status == 'refused'">
+                                <field name="offer_ids" attrs="{'readonly': [('state','in', ('offer_accepted', 'sold', 'cancel'))]}">
+                                    <tree editable='bottom' decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                                         <field name="price" />
                                         <field name="partner_id" />
-                                        <button name="offer_accepted" title="Accept" type="object"
-                                            icon="fa-check"
-                                            attrs="{'invisible': [('status', '!=', False)]}" />
-                                        <button name="offer_refused" title="Refuse" type="object"
-                                            icon="fa-times"
-                                            attrs="{'invisible': [('status', '!=', False)]}" />
+                                        <button name="offer_accepted" title="Accept" type="object" icon="fa-check" attrs="{'invisible': [('status', '!=', False)]}" />
+                                        <button name="offer_refused" title="Refuse" type="object" icon="fa-times" attrs="{'invisible': [('status', '!=', False)]}" />
                                         <field name="status" />
                                         <field name="validity" />
                                         <field name="property_type_id" />
@@ -150,12 +136,10 @@
                                 <group>
                                     <group>
                                         <field name="garden" />
-                                        <field name="garden_orientation"
-                                            attrs="{'invisible': [('garden', '=', False)]}" />
+                                        <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}" />
                                     </group>
                                     <group>
-                                        <field name="garden_area"
-                                            attrs="{'invisible': [('garden', '=', False)]}" />
+                                        <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}" />
                                     </group>
                                 </group>
                             </page>
@@ -195,22 +179,19 @@
                     <filter string="Archived" name="active" domain="[('active', '=', False)]" />
                     <separator />
 
-                    <filter string="selling price" name="selling_price"
-                        domain="[('selling_price', '>', '50')]" />
-                    <filter string="Available" name="available"
-                        domain="[('state', 'in', ('new', 'offer_received'))]" />
+                    <filter string="selling price" name="selling_price" domain="[('selling_price', '>', '50')]" />
+                    <filter string="Available" name="available" domain="[('state', 'in', ('new', 'offer_received'))]" />
 
                     <group expand="1" string="Group By">
                         <filter string="Post Code" name="postcode" context="{'group_by':'postcode'}" />
                         <separator />
-                        <filter name="date_availability" string="Creation Date"
-                            context="{'group_by': 'create_date'}" />
+                        <filter name="date_availability" string="Creation Date" context="{'group_by': 'create_date'}" />
                     </group>
                 </search>
             </field>
         </record>
 
-
+                             <!-- kanban view -->
         <record id="estate_property_kanban_view" model="ir.ui.view">
             <field name="name">estate.property.kanban</field>
             <field name="model">real.estate</field>
@@ -231,8 +212,7 @@
                                         Price :<field name="selling_price" />
                                     </div>
                                     <div>
-                                        <field name="tag_ids" widget="many2many_tags"
-                                            options="{'color_field': 'color'}" />
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
                                     </div>
                                 </div>
                             </div>

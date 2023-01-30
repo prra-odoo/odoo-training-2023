@@ -3,7 +3,7 @@
 {
     'name' : 'Real Estate',
     'author' : 'Dhrumil Shah',
-    'depends' : ['base','mail'],
+    'depends' : ['base','mail','account'],
     'version' : '1.0',
     'category' : 'Real Estate/Brokerage',
     'data': [
@@ -14,6 +14,8 @@
         'views/view_property_type.xml',
         'views/view_property_offer_view.xml',
         'views/res_users_view.xml',
+        'reports/estate_property_templates.xml',
+        'reports/estate_property_report.xml',
        
         
         ],
