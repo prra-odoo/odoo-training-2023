@@ -80,6 +80,7 @@
                                 <field name="postcode"/>
                                 <field name="selling_price"/>
                                 <field name="best_offer"/>
+                                <field name="company_id"/>
                             </group>
                         </group>
 
