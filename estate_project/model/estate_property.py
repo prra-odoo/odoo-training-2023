@@ -11,7 +11,7 @@ class EstateProperty(models.Model):
             if project:
                 project_id = project.id
             else :
-                newProject = self.env['project.project'].create(
+                newProject = self.env['project.project'].sudo().create(
                     {
                         'name':'Maintenance',
                     })

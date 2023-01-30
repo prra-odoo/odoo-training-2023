@@ -136,6 +136,9 @@
                         <group>
                             <field name="best_price"/>
                         </group>
+                        <group>
+                            <field name="company_id"/>
+                        </group>
                     </group>  
                     <notebook>
                         <page string="Description">

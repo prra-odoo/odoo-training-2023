@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_property_offers">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>
+                            <strong>Property Name: </strong>
+                            <span t-field="property.name"/>
+                        </h1>
+                        <hr />
+                        <div>
+                            <strong>Expected Price: </strong>
+                            <span t-field="property.expected_price"/>
+                        </div>
+                        <div>
+                            <strong>Salesman: </strong>
+                            <span t-field="property.salesperson_id"/>
+                        </div>
+                        <div>
+                            <strong>State: </strong>
+                            <span t-field="property.state"/>
+                        </div>
+                        <table class="table" t-if='property.offer_ids'>
+                            <thead>
+                                <tr>
+                                    <th>Price</th>
+                                    <th>Partner</th>
+                                    <th>Validity</th>
+                                    <th>Date Deadline</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                                <tr t-foreach="offers" t-as="offer">
+                                    <td>
+                                        <span t-field="offer.price"/>
+                                        <span t-field="offer.partner_id"/>
+                                        <span t-field="offer.validity"/>
+                                        <span t-field="offer.deadline"/>
+                                        <span t-field="offer.status"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <t t-else="">
+                            <h5>No offers have been made yet!!!</h5>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+        <t t-name="portal.Chatter">
+            <div class="o_portal_chatter p-0">
+                <div class="o_portal_chatter_header">
+                    <t t-call="portal.chatter_message_count"/>
+                </div>
+                <hr t-if="widget.options['allow_composer']"/>
+                <div class="o_portal_chatter_composer"/>
+                <hr/>
+                <t t-call="portal.chatter_messages"/>
+                <div class="o_portal_chatter_footer">
+                    <t t-call="portal.pager"/>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

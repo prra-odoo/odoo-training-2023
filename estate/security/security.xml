@@ -10,5 +10,24 @@
         <field name="category_id" ref="base.module_category_real_estate_brokerage"/>
         <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/>
     </record>
-    
+
+    <record id="real_estate_manager_rule" model="ir.rule">
+        <field name="name">Estate: manager rule</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="groups" eval="[(4, ref('estate_group_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="True"/>
+    </record>
+    <record id="real_estate_agent_rule" model="ir.rule">
+        <field name="name">Estate: agent rule</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="groups" eval="[(4, ref('estate_group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="True"/>
+        <field name="domain_force">['&amp;',('salesperson_id', 'in', [user.id, False]),('company_id', '=', company_id)]</field>
+    </record>
 </odoo>
