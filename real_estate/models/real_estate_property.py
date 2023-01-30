@@ -37,6 +37,9 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer", 'property_id')
 
+    # adding company field
+    company_id = fields.Many2one("res.company", required=True, default=lambda self: self.env.company)
+
     # adding sequence field
     sequence = fields.Integer()
 
