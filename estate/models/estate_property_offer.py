@@ -37,18 +37,20 @@ class estatepropertyoffer(models.Model):
     
     @api.depends('status','property_id.status')
     def action_accept(self):
-        for rec in self.search([('status','=','accepted')]):
-            if rec.property_id == self.property_id:
-                for record in rec.search([('status','=','accepted')]):
-                    if record.partner_id != self.partner_id:
-                        raise ValidationError(_("cannot accept more than one offer"))
-                    else:
-                        for rec in self:
-                            self.status='refuse'  
-        self.status='accepted'
-        self.property_id.state='offeraccepted'
-        self.property_id.selling_price = self.price
-        self.property_id.buyers_id = self.partner_id
+        if 'accepted' in self.mapped("property_id.offer_ids.status"):
+            raise ValidationError("Cannot Accept Offers from Multiple Properties!!")
+        else:
+            for record in self:
+                record.status = 'accepted'
+                record.property_id.selling_price = record.price
+                record.property_id.buyers_id = record.partner_id
+                record.property_id.state = 'offeraccepted'
+        offers = self.env['estate.property.offer'].search([])
+        offer_status = offers.mapped('property_id.offer_ids.status')
+        for off in offers:
+            if off.status != 'accepted':
+                off.status='refuse'
+        return True
             
     def action_refuse(self):
         for record in self:

@@ -34,6 +34,7 @@
                         attrs="{'invisible' : ['|',('state', '=' ,'sold'),('state', '=' ,'cancel')]}" />
                     <button type="action" name="%(estate_first_level_model_action)d"
                         string="Properties" />
+
                 </header>
                 <sheet>
                     <field name="active" invisible="1"></field>
@@ -71,6 +72,7 @@
                         </group>
                         <group>
                             <field name="buyers_id" widget="many2one_avatar" />
+                            <field name="company_id"/>
                         </group>
                     </group>
                     <notebook>
@@ -156,6 +158,7 @@
                             <div t-if="record.state.raw_value == 'offeraccepted'">
                                 <strong>Selling Price: </strong><field name="selling_price"/>
                             </div>
+                            
                         </div>
                     </t>
                 </templates>
