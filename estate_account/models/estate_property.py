@@ -10,22 +10,24 @@ class EstateProperty(models.Model):
         # print(self.env['account.move'].check_access_rights('write'))
         # print(" reached ".center(100, '='))
         for record in self:
-            if self.env['account.move'].check_access_rights('write') and self.env['account.move'].check_access_rule('write'): 
-                self.env['account.move'].sudo().create({
-                    'partner_id': record.buyer_id.id,
-                    'move_type': 'out_invoice',
-                    'invoice_line_ids':[
-                        Command.create({
-                            'name': record.name,
-                            'quantity' : 1,
-                            'price_unit': record.selling_price * 0.06
-                        }),
-                        Command.create({
-                           'name': 'Administrative Fees',
-                           'price_unit': 100 
-                        })
-                    ]
-                })
+            # if self.env['account.move'].check_access_rights('write') and self.env['account.move'].check_access_rule('write'):
+            self.env['account.move'].check_access_rights('write')
+            self.env['account.move'].check_access_rule('write')
+            self.env['account.move'].sudo().create({
+                'partner_id': record.buyer_id.id,
+                'move_type': 'out_invoice',
+                'invoice_line_ids':[
+                    Command.create({
+                        'name': record.name,
+                        'quantity' : 1,
+                        'price_unit': record.selling_price * 0.06
+                    }),
+                    Command.create({
+                       'name': 'Administrative Fees',
+                       'price_unit': 100 
+                    })
+                ]
+            })
         return super(EstateProperty, self).action_property_sold()
 
 '''

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_property_offers_inherit_account" inherit_id="real_estate.report_property_offers_table">
+        <xpath expr="//table" position="after">
+            <t t-if="property.state == 'sold'">
+                <div>!!! Created a task for Cleaning and Maintaining this property !!!</div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
