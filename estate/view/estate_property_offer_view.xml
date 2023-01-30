@@ -4,7 +4,7 @@
         <field name="name">Estate Property Offer Tree View</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="Tree View">
+            <tree string="Tree View" editable="bottom" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                 <field name="price"/>
                 <field name="partner_id"/>
                 <field name="validity"/>

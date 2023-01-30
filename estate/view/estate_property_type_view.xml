@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="property_type_form_view" model ="ir.ui.view">
+    <record id="estate_property_type_form_view" model ="ir.ui.view">
         <field name="name">Estate Property form View</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
@@ -11,9 +11,29 @@
                             <field name="name" placeholder="Property name"/>
                         </h1>
                     </div>
-                    <field name="property_real_type_ids"/>
+                        <notebook>
+                            <page string="Property">
+                                <field name="property_real_type_ids">
+                                    <tree>
+                                        <field name ="name"/>
+                                        <field name = "expected_price"/>
+                                        <field name = "state"/>
+                                     </tree>
+                                </field>
+                            </page>
+                        </notebook>              
                 </sheet>
             </form>
+        </field>
+    </record>
+    <record id="estate_property_type_view_tree" model="ir.ui.view">
+        <field name="name">estate propert type tree view</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="Property Types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
         </field>
     </record>
     <record id="estate_property_type_action" model="ir.actions.act_window">

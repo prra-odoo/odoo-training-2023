@@ -5,7 +5,7 @@
         <field name="name">Estate Property Tree View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Tree View">
+            <tree string="Tree View" decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-danger="state == 'canceled'" decoration-bf="state == 'offer_accepted'">
                 <field name="name"/>
                 <field name="description" optional="hide"/>
                 <field name="postcode"/>
@@ -28,11 +28,12 @@
         <field name="arch" type="xml">
             <form string="form View">
                 <header>
-                    <button name="action_sold" type="object" string="Sold"/>
+                    <button name="action_sold" type="object" string="Sold" states="sold"/>
                     <button name="action_cancle" type="object" string="Cancle"/>
                     <field name="state" widget="statusbar" options="{'clickable': '1'}" />
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" states="sold"/>
                     <div class ="title">
                         <h1>
                             <field name="name" placeholder="Property name"/>
@@ -40,7 +41,7 @@
                     </div>
                     <group>
                        
-                        <field name="tag_ids" widget="many2many_tags"/>    
+                        <field name="tag_ids" options="{'color_field': 'color'}" widget="many2many_tags"/>    
                     </group>
                     <group>
                         <group>
@@ -64,13 +65,13 @@
                                 <field name="facades"/>
                                 <field name="garage"/>
                                 <field name="garden"/>
-                                <field name="garden_area"/>
-                                <field name="garden_orientation"/>
+                                <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                 <field name="total_area"/>
                             </group>
                         </page>
                         <page string="Offer">
-                                <field name="offer_ids"/>
+                                <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('offer_accepted', 'sold', 'canceled'))]}"/>
                         </page>
                         <page string="Other Info">
                             <group>

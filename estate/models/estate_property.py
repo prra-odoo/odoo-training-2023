@@ -13,6 +13,9 @@ class Estate_Property(models.Model):
         ("check_selling_price", "CHECK(selling_price >= 0)", "The offer price must be positive"),
         
     ]
+    _order = "id desc"
+
+
     name = fields.Char(string = 'name',required=True)
     description = fields.Text(string = 'description')
     postcode = fields.Char(string = 'postcode', required = True)
@@ -93,7 +96,7 @@ class Estate_Property(models.Model):
             record.state = "canceled"
         return True   
 
-    #constrains           
+    #python constrains         
     @api.constrains('selling_price')
     def _check_selling_price(self):
         for record in self:
