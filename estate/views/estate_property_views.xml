@@ -41,8 +41,7 @@
                         </h1>
                         <group>
                             <group>
-                                <field name="state" />
-                                <field name="create_uid" />
+                                <field name="company_id"/>
                                 <field name="date_availability" />
                                 <field name="expected_price" />
                                 <field name="property_type_id"/>
