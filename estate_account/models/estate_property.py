@@ -5,6 +5,8 @@ class InheritedEstateProperty(models.Model):
     _inherit = "estate.property"
 
     def sold_click(self):
+        self.env['account.move'].check_access_rights('write')
+        self.env['account.move'].check_access_rule('write')
         print(" reached ".center(100, '='))
         self.sudo().create_invoice()
 
