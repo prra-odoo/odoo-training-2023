@@ -54,7 +54,7 @@
             <menuitem id="real_estate_model2" action="real_estate_action" name="Property Names" />
         </menuitem>
 
-        <menuitem id="real_estate_type_first_level" name="Settings">
+        <menuitem id="real_estate_type_first_level" name="Settings" groups="estate_group_manager">
             <menuitem id="real_estate_type_model" action="real_estate_type_action" name="Property Type"/>
             <menuitem id="real_estate_tag_model" action="real_estate_tag_action" name="Property Tags"/>
         </menuitem>

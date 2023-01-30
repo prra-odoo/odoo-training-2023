@@ -27,12 +27,15 @@ class Estate(models.Model):
     active=fields.Boolean(default=True)
     state=fields.Selection(selection=[('new','New'),('offer recevied','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],default='new',tracking=True)
     type_id=fields.Many2one('real.estate.property.type',string="Property type")
-    user_id = fields.Many2one('res.users', string='Salesperson',default=lambda self: self.env.user)
+    user_id = fields.Many2one('res.users', string='Salesperson')
     buyer_id = fields.Many2one('res.partner', string='Buyer')
     tag_ids = fields.Many2many('real.estate.property.tag',string="Property Tags")
     offer_ids = fields.One2many('real.estate.property.offer','property_id',string="Property Offer")
     total_area=fields.Float(compute='_compute_total_area')
     best_offer=fields.Integer(compute='_compute_best_offer')
+    company_id=fields.Many2one('res.company',default=lambda self: self.env.user.company_id)
+
+
     _sql_constraints = [
         ('expected_price_constraints', 'CHECK(expected_price>=0)', "A Expected Price must be postive."),
         ('selling_price_constraint','CHECK(selling_price>=0)',"A Selling Proce Must be postive"),

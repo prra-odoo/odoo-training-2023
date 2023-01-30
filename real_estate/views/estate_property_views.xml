@@ -129,6 +129,9 @@
                                 <group>
                                     <field name="buyer_id"/>
                                 </group>
+                                <group>
+                                    <field name="company_id"/>
+                                </group>
                             </page>   
                        
                             <page string="Offers">
