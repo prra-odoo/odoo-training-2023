@@ -60,7 +60,10 @@ class EstateProperty(models.Model):
     @api.depends("offer_ids")
     def _compute_best_offer(self):
         for record in self:
+            print("-------")
+            print(record.status)
             record.best_price = max(record.offer_ids.mapped('price'),default=0)
+            # record.status = 'offer_received'
 
 
     @api.depends("garden")
@@ -79,6 +82,7 @@ class EstateProperty(models.Model):
                 raise exceptions.UserError('Cancelled property can\'t be sold.')
             record.status='sold'
         return True
+        
 
     def action_cancel_btn(self):
         for record in self:

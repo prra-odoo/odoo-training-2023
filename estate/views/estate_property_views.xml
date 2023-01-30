@@ -6,7 +6,7 @@
         <field name="name">Estate property view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Tree View">
+            <tree string="Tree View" decoration-success="status in ('offer_received','offer_accepted')" decoration-bf="status == 'offer_accepted'" decoration-muted="status == 'sold'" decoration-danger="status == 'canceled'">
                 <field name="name" />
                 <field name="description" optional="hidden" />
                 <field name="property_type_id"/>
@@ -21,6 +21,7 @@
                 <field name="garden" optional="hidden" />
                 <field name="garden_area" optional="hidden" />
                 <field name="garden_orientation" optional="hidden" />
+                <field name="status" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -29,6 +30,7 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_available_properties': True}</field> 
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Add New Properties
@@ -44,12 +46,14 @@
         <field name="arch" type="xml">
             <form string="Estate Property Form View">
                 <header>
-                    <button name="action_sold_btn" type="object" string="Sold" attrs="{'invisible':[('status','in',['sold','cancel'])]}"/>
-                    <button name="action_cancel_btn" type="object" string="Cancel" attrs="{'invisible':[('status','in',['sold','cancel'])]}"/>
-                    <button name="%(estate_property_action)d" type="action" string="Redirect to properties"/>
                     <field name="status" widget="statusbar" options="{'clickable': '1',}"/>
+                    <button name="action_sold_btn"  type="object" string="Sold" attrs="{'invisible' : [('status','in',['sold','canceled'])]}"/>
+                    <button name="action_cancel_btn"  type="object" string="Cancel" attrs="{'invisible' : [('status','in',['sold','canceled'])]}"/>
+                    <button name="%(estate_property_action)d" type="action" string="Redirect to properties"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('status','in',['new','offer_accepted','offer_received','canceled'])]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('status','in',['new','offer_received','offer_accepted','sold'])]}"/>
                     <div class="title" name="property_title">
                         <h1>
                             <field name="name" placeholder="Property Name" />
@@ -76,10 +80,10 @@
                                 <field name="living_area" />
                                 <field name="facades" />
                                 <field name="garden" />
+                                <field name="garden" />
                                 <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="total_area"/>
-                                <field name="status" />
                                 <field name="active" />
                             </group>
                         </page>
@@ -114,7 +118,7 @@
                 <field name="tag_ids"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
+                <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
                 <field name="facades"/>
                 <filter string="Available Properties" name="available_properties" domain="['|',('status','=','new'),('status','=','offer_received')]"/>
                 <group>
