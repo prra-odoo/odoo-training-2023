@@ -59,7 +59,7 @@
                 <menuitem id="estate_model_menu_action1" action="estate_property_model_action" name="Properties"/>
             </menuitem>
 
-            <menuitem id="estate_property_level_menu1" name="Settings">
+            <menuitem id="estate_property_level_menu1" name="Settings" groups="estate_group_manager">
                 <menuitem id="property_type_menu_action1" action="estate_property_type_action" name="Property types"/>
                 <menuitem id="property_tag_menu_menu" action="estate_property_tag_actions" name="Property Tags"/>
             </menuitem>  

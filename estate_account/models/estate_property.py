@@ -8,7 +8,7 @@ class Inherited_estate_property(models.Model):
     def perform_sold(self):
 
         for record in self:
-            self.env['account.move'].create({
+            self.env['account.move'].sudo().create({
                 'move_type': 'out_invoice',
                 'partner_id': record.buyer_id.id,
                 'invoice_date': '2023-01-28',

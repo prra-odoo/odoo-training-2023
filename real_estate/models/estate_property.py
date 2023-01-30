@@ -38,11 +38,16 @@ class Real_estate(models.Model):
     # use of relational fields
     type_id=fields.Many2one("estate.property.type")
     buyer_id = fields.Many2one("res.partner",copy=False)
-    salesperson_id = fields.Many2one("res.users",default=lambda self: self.env.user)
+    salesperson_id = fields.Many2one("res.users")
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer","property_id",string="offer")
     total_area = fields.Float(compute="_compute_area")
     best_price = fields.Float(compute="_compute_best_price")
+
+    # multi company security
+    company_id = fields.Many2one(
+        'res.company',required=True,  default=lambda self: self.env.company
+        )
     
 
     # use of decorator
