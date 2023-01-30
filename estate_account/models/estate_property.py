@@ -6,7 +6,7 @@ class EstateAccount(models.Model):
     _inherit = "estate.property"
 
     def action_sold(self):
-        self.env["account.move"].create(
+        self.env["account.move"].sudo().create(
             {
                 'partner_id': self.buyers_id.id,
                 'move_type': 'out_invoice',

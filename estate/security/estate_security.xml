@@ -12,14 +12,22 @@
     </record>
 <!-- _____________________RECORD RULES_________________________ -->
 
-    <record id="estate_rule" model="ir.rule">
-        <field name="name">Limits agent</field>
+    <record id="estate_user_rule" model="ir.rule">
+        <field name="name">Limiting agent on the basis of salesman</field>
         <field name="model_id" ref="estate.model_estate_property"/>
         <field name="perm_read" eval="True"/>
         <field name="groups" eval="[(4, (ref('estate.estate_group_user')))]"/>
         <field name="domain_force">[
             '|', ('sales_id', '=', user.id),
                  ('sales_id', '=', False)
+        ]</field>
+    </record>
+    <record id="estate_company_rule" model="ir.rule">
+        <field name="name">Limiting agent on the basis of company</field>
+        <field name="model_id" ref="estate.model_estate_property"/>
+        <field name="domain_force">[
+            '|', ('company_id', '=', False),
+                 ('company_id', 'in', company_ids)
         ]</field>
     </record>
 </odoo>

@@ -6,8 +6,8 @@
             <menuitem id="estate_model_ad_action_property1" sequence="2" action="estate_model_ad_property1"/>
             <menuitem id="estate_model_ad_action_property2" sequence="1" action="estate_model_ad_property2"/>
         </menuitem>
-        <menuitem id="estate_second_level_menu" name="Settings">
-            <menuitem id="estate_model_settings_action_types" action="estate_model_settings_types"/>
+        <menuitem id="estate_second_level_menu" name="Settings" groups="estate_group_manager">
+            <menuitem id="estate_model_settings_action_type" action="estate_model_settings_type"/>
             <menuitem id="estate_model_settings_action_tags" action="estate_model_settings_tags"/>
             <menuitem id="estate_model_settings_action_offer" action="estate_model_settings_offer"/>
         </menuitem>

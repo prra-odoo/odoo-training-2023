@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+<!-- ___________________________ACTION______________________________ -->
+
     <record id="estate_model_ad_property1" model="ir.actions.act_window">
-            <field name="name">Gandhinagar</field>
-            <field name="res_model">estate.property</field>
-            <field name="view_mode">tree,kanban,form</field>
-            <field name="context">{"search_default_state":1}</field>
+        <field name="name">Gandhinagar</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{"search_default_state":1}</field>
     </record>
 
     <record id="estate_model_ad_property2" model="ir.actions.act_window">
-            <field name="name">Surat</field>
-            <field name="res_model">estate.property</field>
-            <field name="view_mode">tree,kanban,form</field>
-            <field name="context">{"search_default_state":1}</field>
+        <field name="name">Surat</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{"search_default_state":1}</field>
     </record>
 
 <!-- ___________________________TREE VIEW___________________________ -->
-
+    
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">estate.property.view.tree</field>
         <field name="model">estate.property</field>
@@ -66,7 +68,7 @@
 
 <!-- __________________________FORM VIEW__________________________ -->
 
-    <record id="estate_property_view_form" model="ir.ui.view">
+<record id="estate_property_view_form" model="ir.ui.view">
         <field name="name">estate.property.view.form</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
@@ -75,10 +77,10 @@
                 <header>
                     <button name="action_sold" type="object" string="Sold" class='oe_highlight' states="offer_accepted"/>
                     <button name="action_canceled" type="object" string="Cancel" class='oe_highlight' states="offer_accepted"/>
-                    <button type="action" name="%(estate.estate_model_settings_types)d" string="My Action"/>
+                    <button type="action" name="%(estate.estate_model_settings_type)d" string="My Action"/>
                     <field name="state" widget="statusbar"/>
                 </header>
-
+                
                 <sheet>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>
                     <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'canceled')]}"/>
@@ -138,6 +140,9 @@
                                 <field name="buyers_id"/>
                             </group>
                             <group>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
                                 <field name="total_area"/>
                             </group>
                             <group>
@@ -167,9 +172,9 @@
             </form>
         </field>
     </record>
-
-<!-- ________________________SEARCH VIEW___________________________ -->
-
+    
+    <!-- ________________________SEARCH VIEW___________________________ -->
+    
     <record id="estate_property_view_search" model="ir.ui.view">
         <field name="name">estate.property.view.search</field>
         <field name="model">estate.property</field>

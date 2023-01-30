@@ -38,12 +38,11 @@ class EstateModel(models.Model):
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
     total_area = fields.Float(compute="_compute_total_area")
     best_price = fields.Float(compute="_compute_max_price", default=0)
+    company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.user.company_id)
 
     _sql_constraints = [
         ('check_expected_selling_price', 'CHECK(expected_price >= 0 AND selling_price >=0)',
-         'The price should be positive'),
-        # ('check_sp', 'CHECK(selling_price < 0.9*expected_price)',
-        #  'selling price should be grater than 90 percentage of expected price')
+         'The price should be positive')
     ]
 
     @api.depends("living_area", "garden_area")
