@@ -29,6 +29,7 @@ class RealEstateProperty(models.Model):
     offers_ids=fields.One2many("real.estate.property.offer","property_id",string="Offers")
     total_area=fields.Integer(compute="_compute_total_area",inverse="_inverse_total_area")
     best_offer=fields.Float(compute="_compute_best_offer")
+    company_id=fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
     _sql_constraints=[('expected_price_positive','CHECK(expected_price>0)','Expected Price must be strictly positive'),('selling_price_positive','CHECK(selling_price>=0)','Selling price must be positive')]    
     @api.constrains("selling_price","expected_price")
     def _check_selling_price(self):

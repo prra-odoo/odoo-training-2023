@@ -7,6 +7,10 @@
     'data':[
         'security/ir.model.access.csv',
         'security/security.xml',
+        'reports/estate_inherit_templates.xml',
+        'reports/estate_salesman_templates.xml',
+        'reports/estate_property_templates.xml',
+        'reports/estate_property_reports.xml',
         'views/inherited_model_views.xml',
         'views/inherited_res_partner_views.xml',
         'views/real_estate_property_views.xml',

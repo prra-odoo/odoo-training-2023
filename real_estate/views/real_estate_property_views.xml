@@ -52,15 +52,16 @@
                 <header>
                     <field name="state" widget="statusbar"/>
                     <button name="action_state_sold" states="new,offer_received,offer_accepted" type="object" string="Sold"/>
-
                     <button name="action_state_canceled" states="new,offer_received,offer_accepted" type="object" string="Cancel"/>
-
                 </header>
                 <sheet>
                    
                     <h1>
                         <field name="name" placeholder="Property Name"/>
                     </h1>
+                    <group>
+                        <field name="company_id"></field>
+                    </group>
                     <group>
                         <field name="tags_ids" options="{'color_field':'color'}" widget="many2many_tags"/>
                     </group>
