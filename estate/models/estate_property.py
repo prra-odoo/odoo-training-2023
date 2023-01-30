@@ -44,12 +44,13 @@ class estatePropertyModel(models.Model):
 
     property_type_id = fields.Many2one("estate.property.type", string="Type")
     salesperson_id = fields.Many2one(
-        "res.users", string="Salesperson", default=lambda self: self.env.user)
+        "res.users", string="Salesperson")
     buyer_id = fields.Many2one("res.partner", string="Buyers", copy=False)
     tag_ids = fields.Many2many('estate.property.tag')
     offer_ids = fields.One2many(
         'estate.property.offer', 'property_id', string="offers")
     best_offers = fields.Float(compute="_best_offer" , default =0)
+    company_id = fields.Many2one('res.company',string = "company", default = lambda self: self.env.company, required = True)
 
     
 
@@ -89,11 +90,11 @@ class estatePropertyModel(models.Model):
         )
     ]
     # Adding the python constraints so that the selling 
-    @api.constrains("selling_price","expected_price")
-    def _check_selling_price(self):
-        for record in self:
-            if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
-                raise UserError("Selling Price must 90percent of the expected price")
+    # @api.constrains("selling_price","expected_price")
+    # def _check_selling_price(self):
+    #     for record in self:
+    #         if  float_compare(record.selling_price,0.9*record.expected_price,precision_digits =2) == -1:
+    #             raise UserError("Selling Price must 90percent of the expected price")
 
 
 

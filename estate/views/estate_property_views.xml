@@ -114,6 +114,9 @@
                         <group style="margin-top:30px">
                             <field name="best_offers"/>
                         </group>
+                        <group style="margin-top:30px">
+                            <field name="company_id"/>
+                        </group>
                     </group>
                     <group style="margin-top:30px">
                         <field name="description"/>
