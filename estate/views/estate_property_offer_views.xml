@@ -15,6 +15,19 @@
                      </tree>
                  </field>
         </record>
+
+
+        <record id="property_offer_action" model="ir.actions.act_window">
+            <field name="name">Property Offers</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="domain">[('property_id', '=', active_id)]</field> -->
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new property offer
+                </p>
+            </field>
+        </record>
         
 
     </data>

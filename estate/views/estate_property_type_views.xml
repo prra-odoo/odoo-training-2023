@@ -22,10 +22,26 @@
              <field name="arch" type="xml">
                  <form string="Type Form">    
                     <sheet>
+
+                        <div name="button_box" class="oe_button_box">
+                            <button type="action" class="oe_stat_button" name="%(property_offer_action)d" 
+                            string="Offers">
+                                <field name="offer_count" widget="statinfo"/>
+                            </button>
+                        </div>
                         <group>
                             <field name="name" />
-                            <field name="sequence"/>
+                            <field name="offer_count" />
                         </group>
+                        <notebook>
+                            <page string="Properties">                    
+                                <field name="property_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                  </form>
              </field>
