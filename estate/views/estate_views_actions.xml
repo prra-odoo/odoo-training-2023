@@ -35,7 +35,7 @@
         <menuitem id="estate_first_level_menu" name="Advertisments">
             <menuitem id="estate_model_menu_action" action="estate_model_action"/>
         </menuitem>
-        <menuitem id="estate_first_level_menu1" name="Settings">
+        <menuitem id="estate_first_level_menu1" name="Settings" groups="estate_group_manager">
             <menuitem id="estate_model_menu_action01" action="estate_model_action01"/>
             <menuitem id="estate_model_menu_action02" action="estate_model_action02"/>
         </menuitem>

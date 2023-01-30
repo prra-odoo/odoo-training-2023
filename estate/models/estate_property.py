@@ -49,6 +49,7 @@ class estate_property(models.Model):
     tags_ids = fields.Many2many("estate.property.tag",required=True,string="Tags")
     offer_ids = fields.One2many("estate.property.offer","property_id",string = "Property offer")
     country_id = fields.Many2one("res.country",string="Country")
+    company_id = fields.Many2one('res.company',string="Company")
     
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

@@ -101,6 +101,9 @@
                                 <field name="country_id"/>
                             </group>
                             <group style="Margin-top:30px">
+                                <field name="company_id"/>
+                            </group>
+                            <group style="Margin-top:30px">
                                 <field name="best_offer"/>
                             </group>
                         </group>
@@ -168,7 +171,12 @@
                                 <div t-if="record.state.raw_value=='offer_accepted'">
                                     Selling Price: <field name="selling_price"/>
                                 </div>
-                                <div><field name="tags_ids" widget="many2many_tags" options="{'color_field':'colors'}"/></div>
+                                <div>
+                                    <field name="tags_ids" widget="many2many_tags" options="{'color_field':'colors'}"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                </div>
                             </div>
                         </t>
                     </templates>
