@@ -1,5 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-real_estate_admin,Admin User,model_real_estate_properties,,1,1,1,1
-real_estate_type_admin,Admin User,model_estate_property_type,,1,1,1,1
-real_estate_tag_admin,Admin User,model_estate_property_tag,,1,1,1,1
-real_estate_offer_admin,Admin User,model_estate_property_offer,,1,1,1,1
+
+real_estate_admin,Admin User,model_real_estate_properties,estate_group_manager,1,1,1,1
+real_estate_type_admin,Admin User,model_estate_property_type,estate_group_manager,1,1,1,1
+real_estate_tag_admin,Admin User,model_estate_property_tag,estate_group_manager,1,1,1,1
+real_estate_offer_admin,Admin User,model_estate_property_offer,estate_group_manager,1,1,1,1
+
+
+real_estate_Agent,Agent User,model_real_estate_properties,estate_group_user,1,1,1,0
+real_estate_type_Agent,Agent User,model_estate_property_type,estate_group_user,1,0,0,0
+real_estate_tag_Agent, Agent,model_estate_property_tag,estate_group_user,1,0,0,0
+real_estate_offer_Agent,Admin Agent,model_estate_property_offer,estate_group_user,1,1,1,1

@@ -7,7 +7,9 @@ class inherited_model(models.Model):
     def action_sold(self):
         # print("....................................hello")
         for record in self :
-            self.env['account.move'].create(
+            print(" reached ".center(100, '='))
+            if self.env['account.move'].check_access_rights('write') and self.env['account.move'].check_access_rule('write'): 
+                self.env['account.move'].sudo().create(
                 {
                     'partner_id' : record.buyer.id, 
                     'move_type' : 'out_invoice',
@@ -27,6 +29,7 @@ class inherited_model(models.Model):
                         })
                     ]
                 }
+
             )
 
             

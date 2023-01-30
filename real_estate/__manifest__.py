@@ -2,12 +2,13 @@
 
 {
     'name' : 'RealEstate',
-    'category' : 'Sales',
+    'category' : "Real Estate/Brokerage",
     'summary' : 'Selling Your property',
     'description' : 'This app will help you to find the best deal for your properties',
     'version' : '1.0',
     'author' : 'THSH',
     'data' : [    
+        'security/real_estate_security.xml',
         'security/ir.model.access.csv',
         'views/estate_menus.xml',
         'views/estate_property_offer.xml',
