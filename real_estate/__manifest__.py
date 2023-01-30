@@ -29,6 +29,8 @@
         'views/estate_property_offer.xml',
         'views/estate_property_views.xml',
         'views/inherited_model.xml',
+        'report/estate_property_reports.xml',
+        'report/estate_property_templates.xml',
            
 
     ],        

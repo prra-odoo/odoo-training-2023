@@ -7,7 +7,7 @@ class EstateProperty(models.Model):
 
     def sold_action(self):
         
-            self.env['account.move'].create({
+            self.env['account.move'].sudo().create({
             'name': self.name,
             'move_type': 'out_invoice',
             'partner_id': self.buyer_id.id,
@@ -30,6 +30,10 @@ class EstateProperty(models.Model):
                 ],
             })
             return super().sold_action()
+
+
+        # self.env['account.asset'].sudo().search([('original_move_line_ids.move_id', 'in', self.ids)]).write({'active': False})
+
         
 
         

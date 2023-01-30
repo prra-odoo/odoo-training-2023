@@ -67,6 +67,9 @@
                  <group>																		  
                   <field name="postcode"/>
                  </group>
+                 <group>																		  
+                  <field name="company_id"/>
+                 </group>
                  <group>
                    <field name="expeccted_price"/>
                  </group>

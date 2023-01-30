@@ -38,9 +38,7 @@ class estate_Property(models.Model):
       state=fields.Selection(string='status',selection=[('new' , 'New'),('offer_received','Offer_Received'),('offer_accepted','Offer_Accepted'),('sold' , 'Sold'),('canceled' , 'Canceled')],tracking=True,default='new')
       sales_id = fields.Many2one('res.users', string='Salesperson')
       buyer_id=fields.Many2one('res.partner', string='buyer')
-      type_id=fields.Many2one('estate.property.type',string="product type")
-       
-     
+      type_id=fields.Many2one('estate.property.type',string="product type")    
       tag_ids=fields.Many2many(
        'estate.property.tag', string='Tags',
       help="Classify and analyze your lead/opportunity categories like: Training, Service")
@@ -48,6 +46,9 @@ class estate_Property(models.Model):
       property_type_id=fields.Many2one('estate.property.type')
       total_area=fields.Float(compute='_compute_total_area')
       best_price=fields.Float(compute='_compute_best_price')
+      company_id = fields.Many2one(
+        'res.company', required=True, default=lambda self: self.env.company
+    )
 
 
       @api.depends('living_area', 'garden_area')

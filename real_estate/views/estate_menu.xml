@@ -66,7 +66,7 @@
         <menuitem id="estate_first_level_menu_adv" name="Advertisement">
             <menuitem id="estate_model_menu_action_property" action="estate_property_action" name="Property"/>
         </menuitem>
-        <menuitem id="estate_first_level_menu_setting" name="setting">
+        <menuitem id="estate_first_level_menu_setting" name="setting" group="real_estate.estate_group_manager">
             <menuitem id="estate_action_property_type" action="estate_property_type" 
             name="Property Type"/>
             <menuitem id="estate_action_property_tag" action="estate_property_tag" name="Property tag"/>
