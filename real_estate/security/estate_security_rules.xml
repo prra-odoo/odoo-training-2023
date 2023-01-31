@@ -29,14 +29,15 @@
 
 
     <record id="company_id_user" model="ir.rule">
-      <field name="name">Company Manager</field>
+      <field name="name">Company user</field>
       <field name="model_id" ref="model_real_estate"/>
+      <field name="groups" eval="[(4,ref('real_estate.estate_group_user'))]"/>
       <field name="domain_force">[('company_id','in',company_ids)]</field>
     </record>
     <record id="company_id_manager" model="ir.rule">
-      <field name="name">Company User</field>
+      <field name="name">Company manager</field>
       <field name="model_id" ref="model_real_estate"/>
-      <field name="groups" eval="[(4,ref('real_estate.estate_group_user'))]"/>
+      <field name="groups" eval="[(4,ref('real_estate.estate_group_manager'))]"/>
     </record>
   </data>
 </odoo>

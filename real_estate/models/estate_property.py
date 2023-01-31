@@ -15,8 +15,8 @@ class realEstate(models.Model):
     postcode = fields.Integer(string='Postcode')
     date_availability = fields.Date(
         string='Date Available', default=lambda self: fields.Datetime.now())
-    expected_price = fields.Float(string=' Expected Price', required=True)
-    selling_price = fields.Float(string='Selling Price', required=True)
+    expected_price = fields.Float(string=' Expected Price')
+    selling_price = fields.Float(string='Selling Price')
     bedrooms = fields.Integer(string='Bedrooms')
     living_area = fields.Integer(string='Living Area')
     facades = fields.Integer(string='Facades')

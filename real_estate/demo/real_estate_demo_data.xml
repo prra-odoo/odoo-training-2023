@@ -1,50 +1,84 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record model="real.estate" id="real_estate_demo_data_1">
-            <field name="name">Odoo</field>
-            <field name="description">Hello Odooers</field>
-            <field name="postcode">1234</field>
-            <field name="expected_price">12</field>
-            <field name="selling_price">11</field>
-            <field name="bedrooms">3</field>
-        </record>
-        <record model="real.estate" id="real_estate_demo_data_2">
-            <field name="name">Dhrumil</field>
-            <field name="description">Hello Dhrumil</field>
-            <field name="postcode">1234</field>
-            <field name="expected_price">120</field>
-            <field name="selling_price">110</field>
-            <field name="bedrooms">2</field>
-        </record>
-        <record model="real.estate" id="real_estate_demo_data_3">
-            <field name="name">Shah</field>
-            <field name="description">Hello Shah</field>
-            <field name="postcode">1234</field>
-            <field name="expected_price">120</field>
-            <field name="selling_price">110</field>
-            <field name="bedrooms">4</field>
-        </record>
+    <!-- Property Types -->
+    <record id="property_residential" model="estate.property.type">
+        <field name="name">Residential</field>
+    </record>
 
-        <record model="estate.property.type" id="estate_property_demo_data">
-            <field name="name">Flats</field>
-        </record>
+    <record id="property_commercial" model="estate.property.type">
+        <field name="name">Commercial</field>
+    </record>
 
-        <record model="estate.property.type" id="estate_property_demo_data1">
-            <field name="name">Bunglows</field>
-        </record>
+    <record id="property_industrial" model="estate.property.type">
+        <field name="name">Industrial</field>
+    </record>
 
-        <record model="estate.property.type" id="estate_property_demo_data2">
-            <field name="name">Row house</field>
-        </record>
+    <record id="property_land" model="estate.property.type">
+        <field name="name">Land</field>
+    </record>
 
-        <record model="estate.property.tag" id="estate_property_tag_demo_data">
-            <field name="name">Cozy</field>
-        </record>
+    <!-- Properties -->
+    <record id="villa" model="real.estate">
+        <field name="name">Big Villa</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">1234</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100000</field>
+    </record>
 
-        <record model="estate.property.tag" id="estate_property_tag_demo_data1">
-            <field name="name">Renovated</field>
-        </record>
 
-    </data>
+    <record id="trailer" model="real.estate">
+        <field name="name">Trailer Home</field>
+        <field name="description">Home in a trailer park</field>
+        <field name="postcode">5432</field>
+        <field name="expected_price">100000</field>
+        <field name="selling_price">120000</field>
+        <field name="bedrooms">1</field>
+        <field name="living_area">10</field>
+        <field name="facades">4</field>
+        <field name="garage">False</field>
+        <field name="garden">True</field>
+    </record>
+
+    <record id="space_ship" model="real.estate">
+        <field name="name">International Space Station</field>
+        <field name="description">Aliens sometimes come visit</field>
+        <field name="postcode">1234</field>
+        <field name="expected_price">45890000</field>
+    </record>
+
+    <record id="cabin" model="real.estate">
+        <field name="name">Cozy Cabin</field>
+        <field name="state">sold</field>
+        <field name="description">Small cabin by lake</field>
+        <field name="postcode">10000</field>
+        <field name="expected_price">80000</field>
+        <field name="bedrooms">1</field>
+        <field name="living_area">10</field>
+        <field name="facades">4</field>
+        <field name="garage">False</field>
+        <field name="garden">True</field>
+    </record>
+
+    <!-- Offers -->
+    <!-- Villa Offers and Offer Status -->
+    <record id="offer_azure_villa_1" model="estate.property.offer">
+        <field name="price">10000</field>
+        <field name="validity">14</field>
+        <field name="partner_id" ref="base.res_partner_12"/>
+        <field name="property_id" ref="villa"/>
+    </record>
+
+    <record id="offer_azure_villa_2" model="estate.property.offer">
+        <field name="price">1500000</field>
+        <field name="validity">14</field>
+        <field name="partner_id" ref="base.res_partner_12"/>
+        <field name="property_id" ref="villa"/>
+    </record>
+
 </odoo>

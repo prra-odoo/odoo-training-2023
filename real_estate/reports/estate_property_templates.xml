@@ -12,7 +12,7 @@
                             <strong>Expected Price: </strong>
                             <span t-field="property.expected_price"/>
                         </div>
-                        <table class="table">
+                        <table class="table" t-if="property.offer_ids">
                             <thead>
                                 <tr>
                                     <th>Price</th>
@@ -43,6 +43,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <strong t-else="">Oops! You don't have an offer</strong>
                     </div>
                 </t>
             </t>
