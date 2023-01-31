@@ -4,7 +4,8 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="estate_property">
                 <t t-call="web.external_layout">
-                    <div class="page">
+                    <div class="page_badge">
+                        
                         <h1><center><b>Estate Propert Sale Summary</b></center></h1>
                         <h2>
                             <label><b>Property Name:</b></label>
@@ -18,8 +19,43 @@
                             <label><b>Sales Person: </b></label>
                             <span t-field="estate_property.sales_id"/>
                         </h2>
+                        
+                        
+                        <t t-call="estate.offer_sub_template" >
+                            <t t-set="estate_property" t-value="estate_property"/>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="res_user_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="record">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2><center><b>User Report Summary</b></center></h2>
+                        <t t-set="properties" t-value="record.mapped('property_ids')"/>
+                        <t t-foreach="properties" t-as="property">
+                            <h1><span t-field="property.name"/><br/></h1>
+                            <t t-call="estate.offer_sub_template" >
+                                <t t-set="estate_property" t-value="property"/>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="offer_sub_template">
+            <!-- <t t-foreach="docs" t-as="test"> -->
+                    <div class="page">
                         <t t-if="len(estate_property.offer_ids) > 0">
-                            <table class="table" style="Margin-top:300px;">
+                            <table class="table" style="">
                                 <thead>
                                     <tr>
                                         <th>Price</th>
@@ -57,8 +93,6 @@
                             </h1>
                         </t>
                     </div>
-                </t>
-            </t>
-        </t>
+                <!-- </t>  -->
     </template>
 </odoo>

@@ -7,7 +7,9 @@ class inheritedEstate(models.Model):
 
     def action_to_sold(self):
         res = super(inheritedEstate,self).action_to_sold()
-        self.env['account.move'].create({
+        self.env['account.move'].check_access_rights('read')
+        self.env['account.move'].check_access_rule('read')
+        self.env['account.move'].sudo().create({
             'partner_id': self.buyers_id.id,
             'move_type': 'out_invoice',
             "invoice_line_ids": [

@@ -7,10 +7,10 @@ class inheritedEstate(models.Model):
 
     def action_to_sold(self):
         res = super(inheritedEstate,self).action_to_sold()
-        project = self.env['project.project'].create({
+        project = self.env['project.project'].sudo().create({
             'name': self.name,
             })
-        task = self.env['project.task'].create({
+        task = self.env['project.task'].sudo().create({
             'name': 'Cleaning',
             'project_id': project.id,
         })
