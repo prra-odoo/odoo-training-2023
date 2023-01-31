@@ -29,7 +29,7 @@
             <field name="name">estate.property.kanban</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <kanban default_group_by="property_type_id" records_draggable='False' >
+                <kanban default_group_by="property_type_id" records_draggable='False'>
                     <field name="state" />
                     <templates>
                         <t t-name="kanban-box">
@@ -48,7 +48,7 @@
                                         Expected Price:
                                     </div>
                                     <div class="col">
-                                            <field name="expected_price" widget='monetary' />
+                                        <field name="expected_price" widget='monetary' />
                                     </div>
                                 </div>
                                 <div class="row" t-if="record.state.raw_value == 'received'">
@@ -56,7 +56,7 @@
                                         Best Offer:
                                     </div>
                                     <div class="col">
-                                            <field name="best_price" widget='monetary' />
+                                        <field name="best_price" widget='monetary' />
                                     </div>
                                 </div>
                                 <div class="row" t-if="record.state.raw_value == 'accepted'">
@@ -64,16 +64,29 @@
                                         Selling Price:
                                     </div>
                                     <div class="col">
-                                        <field name="selling_price" widget='monetary' />                                      
+                                        <field name="selling_price" widget='monetary' />
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <field name="tag_ids" options="{'color_field': 'color'}" />                                      
+                                    <field name="tag_ids" options="{'color_field': 'color'}" />
                                 </div>
                             </div>
                         </t>
                     </templates>
                 </kanban>
+            </field>
+        </record>
+
+        <record id="estate_property_view_graph" model="ir.ui.view">
+            <field name="name">estate.property.graph</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <graph string="estate_property_graph">
+                    <field name="property_type_id" type="row"></field>
+                    <field name="name" string="Name"></field>
+                    <field name="expected_price" string="Expected Price"></field>
+                    <field name="selling_price" type="measure" string="Selling Price"></field>
+                </graph>
             </field>
         </record>
 
@@ -118,7 +131,7 @@
                                 <field name="expected_price"></field>
                                 <field name="best_price"></field>
                                 <field name="selling_price"></field>
-                                <field name = "company_id"></field>
+                                <field name="company_id"></field>
                             </group>
                         </group>
                         <notebook>
