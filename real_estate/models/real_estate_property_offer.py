@@ -39,7 +39,8 @@ class RealEstatePropertyOffer(models.Model):
             record.validity = (record.date_deadline - record.create_date.date()).days
 
     def action_confirm(self):
-        for record in self:
+        for record in self: 
+            record.property_id.offer_ids.status='refused'
             record.status = 'accepted'
             record.property_id.state = 'offer_accepted'
             record.property_id.selling_price = record.price

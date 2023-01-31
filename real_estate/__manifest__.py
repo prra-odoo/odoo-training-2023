@@ -9,6 +9,8 @@
     'installable': True,
     'application': True,
     'data': [
+        'report/Inherit_real_estate_report.xml',
+        'report/report_property_users_template.xml',
         'report/real_estate_property_reports.xml',
         'report/real_estate_templates.xml',
         'security/security.xml',
