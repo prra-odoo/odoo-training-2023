@@ -10,7 +10,7 @@
                  <tree string="property_tree_view" decoration-success="state=='offer_accepted'" decoration-muted="state=='sold'" >    <!-- showing columns in tree view -->
                     <field name="name" />
                     <field name="state" />
-                    <field name="property_type_id" options="{'editable': True}"/>
+                    <field name="property_type_id"/>
                     <field name="bedrooms" optional="show"/>
                     <field name="expected_price"/>
                     <field name="garden" optional="show"/>

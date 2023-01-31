@@ -6,7 +6,7 @@
              <field name="name">Offers</field>
              <field name="model">estate.property.offer</field>
                  <field name="arch" type="xml">
-                     <tree string="..." decoration-success="status=='accepted'" decoration-danger="status=='refused'">
+                     <tree string="..." decoration-success="status=='accepted'" decoration-danger="status=='refused'" editable="top">
                         <field name="price"/>
                         <field name="partner_id"/>
                         <button name="accept_offer" type="object" string="  " icon="fa-check" attrs="{'invisible': [('status', '=', 'accepted')]}"/>

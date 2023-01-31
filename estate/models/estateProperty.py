@@ -104,7 +104,12 @@ class estateProperty(models.Model):
             else:
                 record.state='canceled'
                 record.selling_price=0
-    
+        
+    @api.ondelete(at_uninstall=False)
+    def _unlink_only_if_new_or_sold(self):
+        for record in self:
+            if not (record.state=='new' or record.state=='sold'):
+                raise UserError("Can't delete the property")
 
 
     # @api.constrains('selling_price')
