@@ -7,6 +7,7 @@ class EstateProperty(models.Model):
     _inherit = "estate.property"
 
     def property_sold(self):
+        print("working")
         # print(self.check_access_rights('write')) #true
         # print(self.check_access_rule('write')) #none
         # print(" reached ".center(100, '='))

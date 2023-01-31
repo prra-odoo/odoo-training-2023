@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<odoo>
+    <data> 
+        <template id="sold_report" inherit_id="estate.report_property_offers">
+            <xpath expr="//div[@class='page']//div" position="after">
+                <t t-if="property.state == 'Sold'">
+                        <div>
+                            Invoice is created!!!
+                        </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+ </odoo>

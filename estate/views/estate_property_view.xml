@@ -97,6 +97,8 @@
                 <header>
                     <button name="property_sold" type="object" string="Sold" class="btn btn-primary" states='new,offer_received,offer_accepted'/>
                     <button name="property_cancel" type="object" string="Cancel" class="btn btn-secondary" states='new,offer_received,offer_accepted,sold'/>
+                    <button type="action" name="%(estate.property_type_model_action)d" string="Property Type" style="width:25%"/>
+                    <button type="action" name="%(estate.estate_property_tag_model_action)d" string="Property Tags" style="width:25%"/>
                     <field name="state" widget="statusbar"  options = "{'clickable' : '1'}"/>
                 </header>
                 <sheet>
@@ -110,9 +112,7 @@
                             <h1><field name="name" style="width:700%"/></h1>
                         </group>
                         <group>
-                            <button type="action" name="%(estate.property_type_model_action)d" string="Property Type" style="width:25%"/>
-                            <button type="action" name="%(estate.estate_property_tag_model_action)d" string="Property Tags" style="width:25%"/>
-                        </group>
+                            </group>
                     </group>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <!-- widget="many2many_checkboxes"    -->

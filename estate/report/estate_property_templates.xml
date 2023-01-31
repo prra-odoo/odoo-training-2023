@@ -1,70 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="report_property_offers">
         <t t-foreach="docs" t-as="property">
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <h1>
-                            <strong>Property Name: </strong>
+                        <h2>
                             <span t-field="property.name"/>
-                        </h1>
-                        <hr />
+                        </h2>
                         <div>
                             <strong>Expected Price: </strong>
                             <span t-field="property.expected_price"/>
                         </div>
-                        <div>
-                            <strong>Salesman: </strong>
-                            <span t-field="property.salesperson_id"/>
-                        </div>
-                        <div>
-                            <strong>State: </strong>
-                            <span t-field="property.state"/>
-                        </div>
-                        <table class="table" t-if='property.offer_ids'>
-                            <thead>
-                                <tr>
-                                    <th>Price</th>
-                                    <th>Partner</th>
-                                    <th>Validity</th>
-                                    <th>Date Deadline</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
-                                <tr t-foreach="offers" t-as="offer">
-                                    <td>
-                                        <span t-field="offer.price"/>
-                                        <span t-field="offer.partner_id"/>
-                                        <span t-field="offer.validity"/>
-                                        <span t-field="offer.deadline"/>
-                                        <span t-field="offer.status"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <t t-else="">
-                            <h5>No offers have been made yet!!!</h5>
-                        </t>
+                        <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                        <t t-call="estate.table_report"/>
+                    </div>
+                </t>
+            </t>
+        </t>       
+    </template>
+
+    <template id="table_report">
+        <t t-if="offers">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                            <th>Validity</th>
+                            <th>Deadline</th>
+                            <th>States</th>
+                    </tr>
+                </thead>
+                <tbody>          
+                    <tr t-foreach="offers" t-as="offer">
+                        <td>
+                            <span t-field="offer.price"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.validity"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.date_deadline"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.state"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </t>
+        <t t-else=''>
+            No offer have been made yet!!
+        </t>
+    </template>
+
+
+    <template id="report_property_user">
+        <t t-foreach="docs" t-as="property_user">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2  style="text-align: center;">
+                            <span t-field="property_user.name"/>
+                        </h2>
+                         <t t-set="properties" t-value="property_user.mapped('property_ids')"/>
+                            <tr t-foreach="properties" t-as="property">
+
+                            <div >
+                                <div>
+                                    <span t-field="property.name"></span>
+                                </div>
+                                <div>
+                                Salesperson :
+                                    <span t-field="property.salesperson"></span>
+                                </div>
+                                <div>
+                                Expected Price :
+                                    <span t-field="property.expected_price"></span>
+                                </div>
+                                <div>
+                                Status :
+                                    <span t-field="property.state"></span>
+                                </div>
+                            </div>
+                                <div>Offers</div>
+                                <t t-set="offers" t-value="property.mapped('offer_ids')"/>                            
+                                <t t-call="estate.table_report"/>
+                            </tr>
+                         
                     </div>
                 </t>
             </t>
         </t>
-        <t t-name="portal.Chatter">
-            <div class="o_portal_chatter p-0">
-                <div class="o_portal_chatter_header">
-                    <t t-call="portal.chatter_message_count"/>
-                </div>
-                <hr t-if="widget.options['allow_composer']"/>
-                <div class="o_portal_chatter_composer"/>
-                <hr/>
-                <t t-call="portal.chatter_messages"/>
-                <div class="o_portal_chatter_footer">
-                    <t t-call="portal.pager"/>
-                </div>
-            </div>
-        </t>
     </template>
+
 </odoo>
