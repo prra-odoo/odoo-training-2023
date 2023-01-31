@@ -24,7 +24,6 @@
         <field name="description">A nice and big villa</field>
         <field name="postcode">12345</field>
         <field name="date_availability">2020-02-02</field>
-        <!-- <field name="expected_price">1600000</field> -->
         <field name="bedrooms">6</field>
         <field name="living_area">100</field>
         <field name="facades">4</field>
@@ -41,7 +40,6 @@
         <field name="description">Home in a trailer park</field>
         <field name="postcode">54321</field>
         <field name="date_availability">1970-01-01</field>
-        <!-- <field name="expected_price">100000</field> -->
         <field name="selling_price">120000</field>
         <field name="bedrooms">1</field>
         <field name="living_area">10</field>
@@ -57,7 +55,6 @@
         <field name="description">Aliens sometimes come visit</field>
         <field name="postcode">----</field>
         <field name="date_availability">2030-12-31</field>
-        <!-- <field name="expected_price">45890000</field> -->
         <field name="property_type_id" ref="property_industrial"/>
     </record>
 
@@ -67,7 +64,6 @@
         <field name="description">Small cabin by lake</field>
         <field name="postcode">10000</field>
         <field name="date_availability">2020-01-01</field>
-        <!-- <field name="expected_price">80000</field> -->
         <field name="bedrooms">1</field>
         <field name="living_area">10</field>
         <field name="facades">4</field>
@@ -102,9 +98,6 @@
         <field name="date_deadline" eval="str(datetime.now().year)+'-02-12'"/>
     </record>
 
-    <!-- <function model="estate.property.offer" name="accepted_action">
-        <value eval="[ref('offer_deco_villa')]"/>
-    </function> -->
 
     <function model="estate.property.offer" name="refused_action">
         <value eval="[ref('offer_azure_villa_1'), ref('offer_azure_villa_2')]"/>
