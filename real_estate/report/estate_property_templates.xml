@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <template id="estate_property_offer">
+        <t>
+            <table class="table table-bordered" style="border: 1px solid #9A9A9A;">
+                <thead>
+                    <tr style="background-color: #9A9A9A; color: white;">
+                        <th >Price</th>
+                        <th >Partner</th>
+                        <th >Validity(days)</th>
+                        <th >Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                    <tr t-foreach="offers" t-as="offer">
+                        <td >
+                            <span t-field="offer.price"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.partner_id"/>
+                        </td>
+                        <td >
+                            <span t-field="offer.validity"/>
+                        </td>
+                        <td >
+                            <span t-field="offer.status"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </t>
+    </template>
+
     <template id="report_property_offers">
         <t t-foreach="docs" t-as="property">
-            <!-- <t t-if="property.offer_ids"> -->
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
-                    <div class="page" >
+                    <div class="page">
                         <div>
                             <h1>
                                 <span t-field="property.company_id"/>
@@ -35,44 +66,50 @@
                             <strong>Status: </strong>
                             <span t-field="property.state"/>
                         </div>
-                            <table class="table table-bordered" style="border: 1px solid #9A9A9A;">
-                                <thead>
-                                    <tr style="background-color: #9A9A9A; color: white;">
-                                        <th >Price</th>
-                                        <th >Partner</th>
-                                        <th >Validity(days)</th>
-                                        <th >Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <t t-set="offers" t-value="property.mapped('offer_ids')"/>
-                                    <tr t-foreach="offers" t-as="offer">
-                                        <td >
-                                            <span t-field="offer.price"/>
-                                        </td>
-                                        <td>
-                                            <span t-field="offer.partner_id"/>
-                                        </td>
-                                        <td >
-                                            <span t-field="offer.validity"/>
-                                        </td>
-                                        <td >
-                                            <span t-field="offer.status"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div t-if="property.offer_ids">
+                            <span t-call="real_estate.estate_property_offer" />
+
+                        </div>
+                        <div t-else="">have Nothing</div>
                     </div>
                 </t>
             </t>
         </t>
-        <!-- </t> -->
-        <!-- <t t-call="web.internal_layout">
-            <div class="page">
-                <h1>Report Title</h1>
-                <p>No offers available yet.</p>
-            </div>
-        </t> -->
-
     </template>
+
+    <template id="report_res_user">
+        <t t-foreach="docs" t-as="userproperty">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <strong>Salesman: </strong>
+                    <span t-field="userproperty.name"/>
+                    <div t-if="userproperty.property_ids">
+                        <t t-set="properties" t-value="userproperty.mapped('property_ids')"/>
+                        <t t-foreach="properties" t-as="property">
+                            <div>
+                                <strong>Property Name: </strong>
+                                <span t-field="property.name"/>
+                            </div>
+                            <div>
+                                <strong>Expected price: </strong>
+                                <span t-field="property.expected_price"/>
+                            </div>
+                            <div>
+                                <strong>Status: </strong>
+                                <span t-field="property.status"/>
+                            </div>
+                            <div t-if="property.offer_ids">
+                                <span t-call="real_estate.estate_property_offer" />
+                            </div>
+                            
+                            <div t-else="">No offers have been made yet :(</div>
+                            <br></br>
+                        </t>
+                    </div>
+                    <div t-else="">user has no other offers</div>
+                </t>
+            </t>
+        </t>
+    </template>
+
 </odoo>
