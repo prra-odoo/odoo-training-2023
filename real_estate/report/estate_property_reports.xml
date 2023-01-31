@@ -9,7 +9,20 @@
         <field name="binding_model_id" ref="model_estate_property"/>
         <field name="binding_type">report</field>
     </record>
+
+    <record id="estate_offer_report_user" model="ir.actions.report">
+        <field name="name">Estate Property Report</field>
+        <field name="model">res.users</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate.report_property_user</field>
+        <field name="report_file">real_estate.report_property_user</field>
+        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>
+
+
+
 <!-- <record id="action_student_id_card" model="ir.actions.report">
    <field name="name">Student ID Card</field>
    <field name="model">education.student</field>

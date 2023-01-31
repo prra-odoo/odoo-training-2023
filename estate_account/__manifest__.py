@@ -17,8 +17,8 @@
     ],
     
     'data': [
-        
-        
+                        
+        'report/account_report.xml'
      ],
 'auto_install': False  
 
