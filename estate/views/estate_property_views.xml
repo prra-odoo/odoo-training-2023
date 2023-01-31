@@ -287,7 +287,6 @@
                 <page name = "real estate page" string = "real estate">
                     <field name = "property_ids"/>
                 </page>
-
             </xpath>
         </field>
     </record>  

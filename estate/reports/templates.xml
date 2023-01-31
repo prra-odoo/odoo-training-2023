@@ -1,6 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-
 
     <template id = "offers_table">
         <table class="table">
@@ -39,7 +38,7 @@
     </template>
     <template id="report_property_offers">
     
-        <t t-name = "estate.property_offers">
+        <!-- <t t-name = "estate.property_offers"> -->
             <t t-foreach="docs" t-as="property">
                     <t t-call="web.html_container">
                         <t t-call="web.external_layout">
@@ -63,7 +62,6 @@
                                 
                                         <t t-call = "estate.offers_table"/>
                             
-
                                 </t>
                                 <t t-else ="">
                                     <div>
@@ -75,8 +73,48 @@
                         </t>
                     </t>
             </t>
-        </t>
+        <!-- </t> -->
     </template>
+
+  <template id = "report_property_salesman">
+    <t t-foreach="docs" t-as="salesman">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <h2>Salesman:</h2>
+                <strong><h3 t-field = "salesman.name"></h3></strong>
+                <t t-set="properties" t-value="salesman.mapped('property_ids')"/>
+                <t t-foreach = "properties" t-as ="property">
+                   <div class = "property_name">
+                        <strong>Property name:</strong>
+                        <h2>
+                            <span t-field="property.name"/>
+                        </h2>
+                   </div>
+                   <div class = "property_expected_price">
+                        <strong>Expected price:</strong>
+                        <h2>
+                            <span t-field="property.expected_price"/>
+                        </h2>
+                   </div>
+                   <div class = "Status">
+                        <strong>Status:</strong>
+                        <h2>
+                            <span t-field="property.state"/>
+                        </h2>
+                    </div>
+                    <t t-if = "property.offer_ids">
+                        <t t-call = "estate.offers_table"/>
+                    </t>
+                    <t t-else = "">
+                        <h1> Currently no offers recievedfor these property </h1>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </t>
+
+    
+  </template>
    
     
 </odoo>

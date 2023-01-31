@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- <record id ="estate_model_action_property_offer" model="ir.actions.act_window">
         <field name="name">property offers</field>

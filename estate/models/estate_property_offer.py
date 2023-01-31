@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from odoo import models,fields,api
 from odoo.tools.date_utils import add
 from dateutil.relativedelta import relativedelta
