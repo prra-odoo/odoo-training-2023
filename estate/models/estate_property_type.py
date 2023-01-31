@@ -14,10 +14,10 @@ class EstatePropertyType(models.Model):
     offer_ids = fields.One2many(related="property_under_type_ids.offer_ids")
     offer_count=fields.Integer(compute="_compute_offer_count")
 
-    @api.depends("offer_ids")
+    @api.depends('offer_ids')
     def _compute_offer_count(self):
-        for rec in self:
-            rec.offer_count=len(self.offer_ids)
+        for record in self:
+            record.offer_count= len(self.offer_ids)
 
     _sql_constraints = [
         ('unique_propetytype', 'UNIQUE(name)',

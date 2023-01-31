@@ -36,7 +36,7 @@ class EstateProperty(models.Model):
         tracking=True,
         selection=[('new', 'New'), ('offer_received', 'Offer Received'),
                    ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Canceled')],
-        default='new')
+        default='new',compute="_comput_state", store=True)
     salesperson_id = fields.Many2one(
         'res.users', string='Salesman', default=lambda self: self.env.user)
     buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False,readonly=True)
@@ -55,12 +55,25 @@ class EstateProperty(models.Model):
     def _compute_total_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
+        
+    @api.depends("best_offer")
+    def _comput_state(self):
+        for rec in self:
+            if rec.best_offer > 0:
+                rec.state = "offer_received"
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_state(self):
+        if self.state not in ['new','cancel']:
+            raise exceptions.UserError("Can't delete an Offer if not in new or canceled stage!")
+
 
     @api.depends("offer_ids")
     def _compute_best_offer(self):
         for record in self:
             record.best_offer = max(
                 record.offer_ids.mapped("price"), default=0)
+            
 
     @api.depends("garden")
     def _compute_garden(self):
