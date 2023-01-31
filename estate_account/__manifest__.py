@@ -12,4 +12,7 @@
     'description': 'Real estate module',
     'installable': True,
     'application': True,
+    'data':[
+         'report/account_template.xml', 
+    ]
 }

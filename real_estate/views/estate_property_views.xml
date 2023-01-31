@@ -138,20 +138,22 @@
         <field name="name">real.estate.kanban.view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="status" records_draggable="false">
+            <kanban default_group_by="property_type_id" records_draggable="false">
+                <field name="status"/>
+
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <h3>
                             <field name="name"/>
                             </h3>
-                            <ul>
-
-                                <li>Expected price :<field name="expected_price"/></li>
-                                <field name="status" string="status"/>
-                                <li>Best price : <field name="best_offer" attrs="{'invisible': [('status', '!=', 'offer received')]}"/></li>
-                                <li> selling price : <field name="selling_price" sttrs="{'invisible' : [('status', '!=','offer Accepted')]}"/></li>
-                            </ul>
+                            Expected price :<field name="expected_price"/>
+                             <div class="col-12" t-if="record.status.raw_value == 'offer received'">
+                                best_price:<field name="best_offer"/>
+                            </div>
+                            <div class="col-12" t-if="record.status.raw_value == 'offer Accepted'">
+                                selling_price:<field name="selling_price"/>
+                            </div>
                         </div>
                        
                     </t>
