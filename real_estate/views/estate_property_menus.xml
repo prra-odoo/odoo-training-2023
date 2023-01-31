@@ -4,7 +4,7 @@
         <!-- groups="real_estate.estate_group_manager" -->
         <menuitem id="menu_root" name="Real Estate"
             web_icon="real_estate,static/description/images.jpeg">
-            <menuitem id="advertisement__first_level_menu" name="Advertisement" >
+            <menuitem id="advertisement__first_level_menu" name="Advertisement"  >
                 <menuitem id="advertisement_Create_task_model_id"
                     action="advertisement_Create_task_model_action"  />
             </menuitem>
@@ -13,7 +13,7 @@
             action="create_estate_property_tag_model" />
             </menuitem>
 
-            <menuitem id="setting_second_level_menu" name="Setting">
+            <menuitem id="setting_second_level_menu" name="Setting"     >
                 <menuitem id="property_type_model_menu_action"
                     action="Create_estate_property_type_model_action" />
                     <!-- <menuitem id="property_offer_model_menu_action"

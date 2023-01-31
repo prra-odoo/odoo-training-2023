@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data>
+    <odoo>
+        <data>
         <record id="estate_group_user" model="ir.module.category">
             <field name="name">The Real Estate</field>
             <field name="description">Helps you manage your employees.</field>
@@ -52,10 +52,10 @@
             <field name="domain_force">[('company_id','in',company_ids)]</field>
         </record>
 
-        <record model="ir.rule" id="company_id_only">
+        <!-- <record model="ir.rule" id="company_id_only">
             <field name="name">Company</field>
             <field name="model_id" ref="model_estate_property" />
             <field name="groups" eval="[(4,ref('real_estate.estate_group_manager'))]" />
-        </record>
+        </record> -->
     </data>
 </odoo>
