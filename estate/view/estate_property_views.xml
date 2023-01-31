@@ -28,8 +28,8 @@
         <field name="arch" type="xml">
             <form string="form View">
                 <header>
-                    <button name="action_sold" type="object" string="Sold" states="sold"/>
-                    <button name="action_cancle" type="object" string="Cancle"/>
+                    <button name="action_sold" type="object" string="Sold" attrs ="{'invisible': [('state', 'in', ('sold', 'canceled'))]}" />
+                    <button name="action_cancle" type="object" string="Cancle" attrs ="{'invisible': [('state', 'in', ('sold', 'canceled'))]}"/>
                     <field name="state" widget="statusbar" options="{'clickable': '1'}" />
                 </header>
                 <sheet>
@@ -96,11 +96,11 @@
             <search>
                 <field name="name"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
+                <field name="living_area" filter_domain ="[('living_area','>=',self)]"/>
                 <field name="facades"/>
                 <field name="garage"/>
                 <field name="garden_area"/>
-                <!-- <filter string="Available" name="available" domain="[('garden_orientation', 'in', ['north','south'])]"/> -->
+                <filter string="Available" name="available" domain="[('state','in',['new','offer_received'])]"/>
                 <group>
                     <filter string="Postcode" name="postcode_groupby" context="{'group_by': 'postcode'}" />
                 </group>
@@ -116,6 +116,7 @@
             Create a new property
             </p>
         </field>
+        <field name="context">{'search_default_available': True}</field>
     </record>
 
 </odoo>

@@ -62,7 +62,7 @@ class Estate_Property(models.Model):
     buyer_id = fields.Many2one('res.partner',string = 'Buyer',copy=False)
 
 
-    #compute method
+    #compute method('garden_orientation', 'in', ['north','south'])
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
         for record in self:

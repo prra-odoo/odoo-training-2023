@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models,fields
+from odoo import models,fields,api
 
 class Estate_Property_Type(models.Model):
     _name = "estate.property.type"
@@ -12,5 +12,11 @@ class Estate_Property_Type(models.Model):
     name = fields.Char(string = 'name',required=True)
     property_real_type_ids  = fields.One2many("estate.property","property_type_id")
     sequence = fields.Integer(string='sequence',default=1)
-   
+    offer_ids = fields.One2many("estate.property.offer","property_type_id",string="Offer")
+    offer_count = fields.Integer(compute="")
+
+    @api.depends('offer_ids')
+    def _compute_offers(self):
+        for record in self:
+            record.offer_count= len(record.offer_ids)
     
