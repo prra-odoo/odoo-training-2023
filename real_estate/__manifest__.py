@@ -16,7 +16,9 @@
         'views/estate_property_type.xml',
         'views/estate_property_tags.xml',
         'views/res_users_view.xml',
+        # 'reports/offers_template.xml',
         'reports/estate_property_template.xml',
+        'reports/property_user_template.xml',
         'reports/estate_property_report.xml',
         ],
     'demo' : [  

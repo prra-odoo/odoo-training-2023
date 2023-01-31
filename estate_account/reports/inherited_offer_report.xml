@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="property_offer_report" inherit_id="real_estate.report_property_offers">
+        <xpath expr="//div[@class='abc']" position="inside">
+            <!-- property keyword is already define in  "real_estate.report_property_offers"  template-->
+            <t t-if="property.state=='sold'">   
+                <h1 class="text-center">!!! Invoice has already been created !!!</h1> 
+            </t>
+        </xpath>
+    </template>
+</odoo>

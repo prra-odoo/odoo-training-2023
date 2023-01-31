@@ -41,7 +41,7 @@ class real_Esate_Properties(models.Model):
 	)
 	property_type_id=fields.Many2one("estate.property.type")
 	buyer=fields.Many2one("res.partner",copy=False,readonly=True)
-	salesperson=fields.Many2one("res.users",default=lambda self: self.env.user)
+	salesperson_id=fields.Many2one("res.users",default=lambda self: self.env.user)
 	tag_ids=fields.Many2many("estate.property.tag",relation="property_and_tag_id",column1="property_id",column2="tag_id")
 	offer_ids=fields.One2many("estate.property.offer","property_id")
 	total_area=fields.Float(compute="_total_area")

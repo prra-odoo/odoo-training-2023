@@ -10,6 +10,7 @@
 
     ],
     'data' : [
+        'reports/inherited_offer_report.xml',
 
 
     ],

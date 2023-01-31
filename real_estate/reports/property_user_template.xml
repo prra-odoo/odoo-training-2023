@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_user_property">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="record">
+                <t t-call="web.external_layout">
+                    <div class="page" style="border: 5px solid ;">
+                        <h1> 
+                            <strong><span t-field="record.name" style="font-size: 50px;"/></strong>
+                        </h1>
+                    </div>
+                    <div>
+                        <h1 style="text-align: center; font-size: 30px;">List of all Properties</h1>
+                    </div>
+                    <t t-set="properties" t-value="record.mapped('property_ids')"/>
+                    <tr t-foreach="properties" t-as="property">
+                        <div style="border: 5px solid;  margin-top: 100px;">
+                            <div>
+                                <span t-field="property.name" style="font-size: 50px;"></span>
+                            </div>
+                            <div style="font-size: 20px;">
+                            Salesperson :
+                                <span t-field="property.salesperson_id"></span>
+                            </div>
+                            <div style="font-size: 20px;">
+                            Expected Price :
+                                <span t-field="property.expected_price"></span>
+                            </div>
+                            <div style="font-size: 20px;">
+                            Status :
+                                <span t-field="property.state"></span>
+                            </div>
+                            <t t-call="real_estate.offers_template"/>
+                        </div>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
