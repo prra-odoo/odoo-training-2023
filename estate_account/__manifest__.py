@@ -5,7 +5,7 @@
     'author': 'mobe',
     'category' :'Marketing',
     'data' : [
-         
+         'report/property_offer_inherit_reports.xml',
     ],
     'demo' : [
 

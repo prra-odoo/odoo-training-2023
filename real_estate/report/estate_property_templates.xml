@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <odoo>
     <template id="report_property_offers">
         <t t-foreach="docs" t-as="property">
@@ -17,44 +16,54 @@
                             <strong>Expected Price: </strong>
                             <span t-field="property.expected_price"/>
                         </div>
-                        <div>
+                        <div class="state">
                             <strong>state: </strong>
                             <span t-field="property.state"/>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Price</th>
-                                    <th>Partner</th>
-                                    <th>Validity (days)</th>
-                                    <th>Deadline</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
-                                <tr t-foreach="offers" t-as="offer">
-                                    <td>
-                                        <span t-field="offer.price"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.partner_id"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.validity"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.date_deadline"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.status"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <t t-call="real_estate.report_property_offers_table"/>
                     </div>
                 </t>
             </t>
+        </t>
+    </template>
+    <template id="report_property_offers_table" >
+        <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+        <t t-if="offers">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>Partner</th>
+                        <th>Validity (days)</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="offers" t-as="offer">
+                        <td>
+                            <span t-field="offer.price"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.partner_id"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.validity"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.date_deadline"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.status"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </t>
+        <t t-else="">
+           <div>
+                <strong>There are no offers on this property.</strong>
+           </div>                     
         </t>
     </template>
 </odoo>
