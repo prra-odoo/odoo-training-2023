@@ -114,8 +114,8 @@
             <form string="Property">
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable': False}" />
-                    <button name="action_sold_btn" type="object" string="SOLD" attrs="{'invisible': [('state', 'in', ('sold', 'cancelled'))]}"/>
-                    <button name="action_cancel_btn" type="object" string="CANCEL" attrs="{'invisible': [('state', 'in', ('sold', 'cancelled'))]}"/>
+                    <button name="action_sold_btn" type="object" string="SOLD" attrs="{'invisible': [('state', 'in', ('sold', 'cancelled'))]}" confirm="Are you sure about selling this property?"/>
+                    <button name="action_cancel_btn" type="object" string="CANCEL" attrs="{'invisible': [('state', 'in', ('sold', 'cancelled'))]}" confirm="Are you sure about canceling the property?"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Available" bg_color="bg-info" 
@@ -147,11 +147,10 @@
                     </group>
                     <br/>
                     <notebook>
-                        <!-- Description -->
-                        <page name="description" string="Description">
+                        <!-- Property Info -->
+                        <page name="property_info" string="Property Info">
                             <br/>
                             <group>
-                                <field name="description"/>
                                 <field name="bedrooms"/>
                                 <field name="living_area"/>
                                 <field name="facades"/>
@@ -161,6 +160,10 @@
                                 <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                 <field name="total_area"/>
                             </group>
+                        </page>
+                        <!-- Description -->
+                        <page name="description" string="Description">
+                            <field name="description" widget="html" style="border: 1px solid gray; padding: 5px" placeholder="Please Type Property Description Here."/>
                         </page>
                         <!-- Offers -->
                         <page name="offers" string="Offers">
