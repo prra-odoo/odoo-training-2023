@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_property_offers">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            <span t-field="property.name"/>
+                        </h2>
+                        <div>
+                            <strong>Salesman: </strong><span t-field="property.seller_id.name" /><br/>
+                            <strong>Expected Price: </strong><span t-field="property.expected_price"/><br/>
+                            <strong>Status: </strong><span t-field="property.state" /><br />
+                        </div>
+                        <div>
+                            <div t-if="property.state == 'new'">
+                                <br />
+                                <br/>
+                                <h4>There are no offers for this property</h4>
+                            </div>
+                            <div t-else="">
+                                <br/>
+                                <br/>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Price</th>
+                                            <th>Partner</th>
+                                            <th>Validity(Days)</th>
+                                            <th>Deadline</th>
+                                            <th>State</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                                        <div>
+                                            <div>
+                                                <tr t-foreach="offers" t-as="offer">
+                                                    <td>
+                                                        <span t-field="offer.price"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="offer.partner_id" />
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="offer.validity" />
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="offer.date_deadline"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="offer.status" />
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

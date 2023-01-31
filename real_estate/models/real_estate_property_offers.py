@@ -17,7 +17,7 @@ class EstatePropertyOffers(models.Model):
     price = fields.Float()
     status = fields.Selection([('accepted', 'Accepted'), ('refused', 'Refused')], copy=False)
 
-    partner_id = fields.Many2one("res.partner", required=True)
+    partner_id = fields.Many2one("res.partner")
     property_id = fields.Many2one("estate.property", required=True)
 
     validity = fields.Integer(default=7)

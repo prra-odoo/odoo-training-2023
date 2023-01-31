@@ -48,6 +48,7 @@
                 <header>
                     <button name="sold_click" type="object" string="Sold" states="new,recieved,accepted"/>
                     <button name="cancel_click" type="object" string="Cancel" states="new,recieved,accepted"/>
+                    <button type="action" name="%(real_estate.print_report_action)d" string="Print" />
                     <button type='object' name='refresh_button' string='Clear'/>
                 </header>
                 <header>

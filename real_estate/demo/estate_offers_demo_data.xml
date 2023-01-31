@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<odoo>
+
+    <data>
+        <!-- this demo data is reference to parishkar apartments -->
+        <record id="offer_demo_data_1" model="estate.property.offer">
+            <field name="price" >9334567</field>
+            <field name="property_id" ref="real_estate.estate_property_demo_data2"/>
+            <field name="partner_id" ref="base.res_partner_1" />
+        </record>
+        <record id="offer_demo_data_2" model="estate.property.offer">
+            <field name="price" >9434567</field>
+            <field name="property_id" ref="real_estate.estate_property_demo_data2"/>
+            <field name="partner_id" ref="base.res_partner_2" />
+        </record>
+        <record id="offer_demo_data_3" model="estate.property.offer">
+            <field name="price" >9534567</field>
+            <field name="property_id" ref="real_estate.estate_property_demo_data2"/>
+            <field name="partner_id" ref="base.res_partner_3" />
+        </record>
+
+        <!-- offers for vridavan villa -->
+        <record id="offer_demo_data_4" model="estate.property.offer">
+            <field name="price" >987654324</field>
+            <field name="status" >refused</field>
+            <field name="property_id" ref="real_estate.estate_property_demo_data3"/>
+            <field name="partner_id" ref="base.res_partner_1" />
+        </record>
+        <record id="offer_demo_data_5" model="estate.property.offer">
+            <field name="price" >987654330</field>
+            <field name="status" >refused</field>
+            <field name="property_id" ref="real_estate.estate_property_demo_data3"/>
+            <field name="partner_id" ref="base.res_partner_2" />
+        </record>
+        <record id="offer_demo_data_6" model="estate.property.offer">
+            <field name="price" >997654324</field>
+            <field name="status" >accepted</field>
+            <field name="property_id" ref="real_estate.estate_property_demo_data3"/>
+            <field name="partner_id" ref="base.res_partner_3" />
+        </record>
+    </data>
+
+</odoo>

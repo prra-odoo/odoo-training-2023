@@ -14,28 +14,5 @@
         <field name="name">Manager</field>
         <field name="category_id" ref="base.module_category_real_estate_brokerage"/> 
         <field name="implied_ids" eval="[(4,ref('estate_group_user'))]"/>
-       
-    </record>
-
-    <record id="estate_user_group_rule" model="ir.rule">
-        <field name="name">Agent Record Rule</field>
-        <field name="model_id" ref="model_estate_property"/>
-        <field name="groups" eval="[Command.link(ref('estate_group_user'))]"/>
-        <field name="domain_force">['|',('seller_id','=',user.id),('seller_id','=',False)]</field>
-    </record>
-
-    <record id="estate_manager_group_rule" model="ir.rule">
-        <field name="name">Manager Record Rule</field>
-        <field name="model_id" ref="model_estate_property"/>
-        <field name="groups" eval="[Command.link(ref('estate_group_manager'))]"/>
-    </record>
-
-
-    <!-- defining record for the multi companies -->
-    <record id="estate_multicompany_record_rule" model="ir.rule">
-        <field name="name" >Estate Multicompany Record Rule</field>
-        <field name="model_id" ref="model_estate_property" />
-        <field name="groups" eval="[Command.link(ref('estate_group_user'))]"/>
-        <field name="domain_force">['|', ('company_id', '=', 'company.id'), ('company_id', '=', False)]</field>
     </record>
 </odoo>

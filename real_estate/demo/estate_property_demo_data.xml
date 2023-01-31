@@ -55,7 +55,7 @@
             <field name="bedrooms">3</field>
             <field name="living_area">765</field>
             <field name="garden">False</field>
-            <field name="state">new</field>
+            <field name="state">sold</field>
         </record>
     </data>
 </odoo>
