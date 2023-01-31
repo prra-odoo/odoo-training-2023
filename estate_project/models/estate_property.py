@@ -6,9 +6,9 @@ class Inherited_Estate_For_Project(models.Model):
     name=fields.Char(required=True)
 
     def perform_sold(self):
-        print(" reached ".center(100, '='))
-        self.env['project.project'].check_access_rights('read')
-        self.env['project.project'].check_access_rights('write')
+        # print(" reached ".center(100, '='))
+        # self.env['project.project'].check_access_rights('read')
+        # self.env['project.project'].check_access_rights('write')
         # self.env['project.project'].check_access_rule('write')
         print(self.env.user.has_group)
         self.env['project.project'].sudo().create({

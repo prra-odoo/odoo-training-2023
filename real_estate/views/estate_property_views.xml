@@ -11,7 +11,7 @@
                 <field name="bedrooms" string="Bedrooms"/>
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field':'color'}"/>
-                <field name="company_id" string="Company"/>
+                <field name="company_id" string="Company" optional="hidden"/>
                 <field name="expected_price"/>
                 <field name="selling_price" string="Selling Price"/>    
                 <field name="date_availability" string="Available From" optional="hidden"/>

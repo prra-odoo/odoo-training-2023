@@ -12,7 +12,7 @@ class Inherited_estate_property(models.Model):
                 'move_type': 'out_invoice',
                 'partner_id': record.buyer_id.id,
                 'invoice_date': '2023-01-28',
-                'name': 'Property Invoicing',
+                'name': 'Property Invoicing Report Inherit',
                 'invoice_line_ids': [
                     Command.create({
                         'name': record.name,
