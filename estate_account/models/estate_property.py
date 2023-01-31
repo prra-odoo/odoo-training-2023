@@ -6,6 +6,8 @@ class EstateAccount(models.Model):
     _inherit = "estate.property"
 
     def action_sold(self):
+        self.env["account.move"].check_access_rights('write')
+        self.env["account.move"].check_access_rule('write')
         self.env["account.move"].sudo().create(
             {
                 'partner_id': self.buyers_id.id,

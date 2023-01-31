@@ -18,6 +18,7 @@
             'views/inherited_model_views.xml',
             'views/estate_views_action.xml',
 
+            'report/estate_account_templates.xml',
             'report/estate_property_templates.xml',
             'report/estate_property_reports.xml',
         ],
