@@ -9,6 +9,7 @@
     'installable':True,
     'application':True,
     'data': [
+                'reports/property_offer_inherit_report.xml',
         
     ],
 }

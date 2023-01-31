@@ -16,44 +16,56 @@
                             <strong>Expected Price : </strong>
                             <span t-field="property.expected_price"/>
                         </div>
-                        <div>
+                        <div class='abc'>
                             <strong>Status : </strong>
                             <span t-field="property.state"/>
                         </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Price</th>
-                                    <th>Partner</th>
-                                    <th>Validity</th>
-                                    <th>DeadLine</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
-                                <tr t-foreach="offers" t-as="offer">
-                                    <td>
-                                        <span t-field="offer.price"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.partner_id"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.validity"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.date_deadline"/>
-                                    </td>
-                                    <td>
-                                        <span t-field="offer.status"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <t t-call="real_estate.sub_report_property_offers"/>
+                       
                     </div>
                 </t>
             </t>
         </t>
+    </template>
+
+    <template id = "sub_report_property_offers">
+        
+                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                <t t-if ="offers">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Price</th>
+                                <th>Partner</th>
+                                <th>Validity</th>
+                                <th>DeadLine</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="offers" t-as="offer">
+                                <td>
+                                    <span t-field="offer.price"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.partner_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.validity"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.date_deadline"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.status"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+                <t t-else="">
+                    <h1>No Offers Yet</h1>
+                </t>
+
     </template>
 </odoo>
