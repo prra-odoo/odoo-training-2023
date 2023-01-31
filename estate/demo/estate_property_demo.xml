@@ -11,6 +11,9 @@
         <record id="property_type_demo3" model="estate.property.type">
             <field name="name">Villa</field>
         </record>
+        <record id="property_type_demo3" model="estate.property.type">
+            <field name="name">Apartment</field>
+        </record>
 
         <record id="estate_property_demo1" model="estate.property">
             <field name="name">Property 1</field>

@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- property tag action -->
+    <record id="estate_property_tag_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- property type action -->
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- HELP MESSAGE & properties action-->
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{"search_default_search_state":1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create new asset
+            </p>
+        </field>
+    </record>
+
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offer</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_id', '=', active_id)]</field>
+    </record>   
+
     <menuitem id="estate_root_menu" name="Real Estate" web_icon="estate,static/description/icon.png" sequence="0">
         <!-- ADVERTISEMENT -->
         <menuitem id="estate_advertisement_menu" name="Advertisements">

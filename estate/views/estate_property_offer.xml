@@ -6,14 +6,15 @@
         <field name="name">Estate Property Tree View</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="tree_view" editable="bottom" decoration-success="state == 'accepted'" decoration-danger="state == 'refused'" decoration-muted="state == 'sold'">
+            <tree string="tree_view" editable="bottom" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                 <field name="price"/>
                 <field name="partner_id"/>
                 <field name="validity"/>
                 <field name="date_deadline"/>
-                <field name="state"/>
-                <button name="offer_accepted" type="object" string=' ' icon="fa-check" attrs="{'invisible': [('state', '!=', False)]}"/>
-                <button name="offer_rejected" type="object" string=' ' icon="fa-times" attrs="{'invisible': [('state', '!=', False)]}"/>
+                <field name="status"/>
+                <button name="offer_accepted" type="object" string=' ' icon="fa-check" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
+                <button name="offer_rejected" type="object" string=' ' icon="fa-times" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
+                <field name="status" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -28,11 +29,11 @@
                         <field name="price"/>
                         <field name="validity"/>
                         <field name="date_deadline"/>
-                        <field name="state"/>
+                        <field name="status"/>
                         <field name="partner_id"/>
                     </group>
                 </sheet>
             </form>
         </field>
-    </record>   
+    </record>     
 </odoo>
