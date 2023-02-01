@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="property_list" name="Property List">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <br /><center><h3>Property Details</h3></center><br />
+                <t t-foreach="records" t-as="prop">
+                    <div class="container">
+                        <h5><a t-attf-href="/real_estate/{{ slug(prop) }}" ><t t-esc="prop.name"/></a></h5>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="property_data" name="Property Details">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="records" t-as="property">
+                        <br /><center><h3 t-field="property.name" /></center><br />
+                        <div class="container">
+                            <t t-call="real_estate.report_property_offers_sub_template"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

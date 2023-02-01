@@ -1,7 +1,7 @@
 {
     'name': "Real Estate",
     'version': '1.0',
-    'depends': ['base','mail',],
+    'depends': ['base','mail','website','website_sale',],
     'author': "Gurpreet Singh(gusi)",
     'category': 'real_estate/Brokerage',
     'description': "This is a Real Esate App",
@@ -15,6 +15,8 @@
         'report/real_estate_templates.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
+        'views/website_menu.xml',
+        'views/real_estate_template.xml',
         'views/real_estate_menu.xml',
         'views/real_estate_property_views.xml',
         'views/real_estate_property_tags_view.xml',

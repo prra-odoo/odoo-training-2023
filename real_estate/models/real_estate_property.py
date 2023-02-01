@@ -13,7 +13,7 @@ class RealEstateProperty(models.Model):
     
     name = fields.Char(string="Name", required=True)
     postcode = fields.Char()
-    description = fields.Text()
+    description = fields.Html()
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
