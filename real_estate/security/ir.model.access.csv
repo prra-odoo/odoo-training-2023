@@ -9,3 +9,5 @@ real_estate.access_estate_property_offer,access_estate_property_offer,real_estat
 inherited_model_example_id,Inherited model admin,model_inherited_model_example,,1,1,1,1
 user_property_cu_id,Estate User Cu,model_estate_property_model,estate_group_user,1,1,1,0
 
+estate_controller_id,Estate controller,model_estate_controller_practice,,1,0,0,0
+

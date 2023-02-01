@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="prop">
+        <t t-call="website.layout">
+            <t t-set="titile">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <p>
+                            <a t-attf-href="/myproperty/{{ slug(property) }}">
+                            <t t-esc="property.name"/></a>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="desp">
+        <t t-call="website.layout">
+            <t t-set="title">Details</t>
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <h1><t t-esc="property.name"/></h1>
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+</odoo>

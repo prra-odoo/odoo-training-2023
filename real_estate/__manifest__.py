@@ -6,7 +6,7 @@
     'description': "App for Real Estate management",
     'author': 'sami',
     'license': 'LGPL-3',
-    'depends':['base','mail'],
+    'depends':['base','mail','website'],
     'data': [
         'security/real_estate_security.xml',
         'security/ir.model.access.csv',
@@ -16,6 +16,8 @@
         'views/estate_property_type.xml',
         'views/estate_property_tag.xml',
         'views/res_user_prac.xml',
+        'views/estate_template.xml',
+        'views/real_estate_main.xml',
         'report/estate_property_templates.xml',
         'report/estate_property_reports.xml',
        
@@ -26,6 +28,7 @@
         'demo/estate_property_tag_demo.xml',
         'demo/estate_property_demo.xml',
         'demo/estate_property_type_demo.xml',
+        'demo/estate_controller_demo.xml',
         # 'demo/estate_property_offer_demo.xml',
     ],
     'installable': True,

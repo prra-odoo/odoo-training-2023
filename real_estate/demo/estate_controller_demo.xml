@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="padilla" model="estate.controller.practice">
+        <field name="name">Diana Padilla</field>
+    </record>
+    <record id="carroll" model="estate.controller.practice">
+        <field name="name">Jody Carroll</field>
+    </record>
+    <record id="vaughn" model="estate.controller.practice">
+        <field name="name">Lester Vaughn</field>
+    </record>
+
+</odoo>
