@@ -14,6 +14,7 @@ class realEstate(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char("Name", required=True)
+    # biography = fields.Html()
     description = fields.Text("Description")
     postcode = fields.Char("Post Code")
     date_availability = fields.Date(
@@ -48,7 +49,7 @@ class realEstate(models.Model):
             ('offer_received', 'Offer Received'),
             ('offer_accepted', 'Offer Accepted'),
             ('sold', 'Sold'),
-            ('canceled', 'Canceled')], default="new", readonly=True, tracking=True
+            ('canceled', 'Canceled')], default="new", tracking=True
     )
     image = fields.Binary('image')
     color= fields.Integer()

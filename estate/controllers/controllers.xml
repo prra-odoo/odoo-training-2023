@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="estate.index">
+        <t t-call="website.layout">
+            <t t-set="title">Estate</t>
+            <div class="oe_structure" />
+            <div class="oe_structure">
+                <div class="container">
+                    <h3 t-field="new.name"/>
+                    <p>Last modified: <i t-field="new.write_date"/></p>
+                    <div t-esc="new.biography"/>
+                    <!-- <t t-call="estate.property_offers">
+                        <t t-set="docs" t-value="new"></t>
+                    </t> -->
+                </div>
+            </div>
+            <div class="oe_structure" />
+        </t>
+    </template>
+</odoo>

@@ -5,7 +5,7 @@
     'version': '1.0',
     'author': "yava",
     'description': "You can easily apply your core project modual with odoo's Real Estate ",
-    'depends': ['mail'],
+    'depends': ['mail','website'],
     'data': [
         'security/estate_property_security.xml',
         'security/ir.model.access.csv',
@@ -16,7 +16,8 @@
         'views/estate_property_tag_views.xml',
         'views/estate_property_offer.xml',
         'views/res_users_view.xml',
-        'report/estate_property_reports.xml'
+        'report/estate_property_reports.xml',
+        'controllers/controllers.xml',
     ],
     'demo': [
         'demo/estate_property_tags_demo_data.xml',

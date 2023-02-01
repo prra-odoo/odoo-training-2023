@@ -9,9 +9,6 @@
         <field name="print_report_name">'offer - %s' % (object.name)</field>
         <field name="binding_model_id" ref="model_estate_property"/>
         <field name="binding_type">report</field>
-        <!-- Erase fields to avoid double PDF posting -->
-        <!-- <field name="attachment"></field>
-            <field name="attachment_use" eval="False"/> -->
     </record>
 
     <record id="estate_res_users_reports" model="ir.actions.report">
@@ -66,7 +63,20 @@
                 <div class="page">
                     <div class="mt-5">
                         <t t-foreach="docs" t-as="property">
-                        <h1>
+                            <div id="estate_property_image">
+                                <style>
+                                    #estate_property_image {
+                                        position: absolute;
+                                        right:  100px;
+                                        top:    50px;
+                                        width:  100px;
+                                        height: 100px;
+                                      }
+                                      
+                                </style>
+                                <img t-attf-src="data:image/jpeg;base64,#{property.image}" alt="Not Found" height="200" width="200"/>
+                            </div>
+                            <h1>
                                 <span t-field="property.name"/>
                             </h1>
                             <div>
@@ -83,8 +93,8 @@
                             </div>
                             <t t-call="estate.estate_property_offer" />
                         </t>
-                        </div>
                     </div>
+                </div>
             </t>
         </t>
     </template>
@@ -101,6 +111,9 @@
                         <t t-set="offers" t-value="users.mapped('property_ids')"/>
                         <tr t-foreach="offers" t-as="new">
                             <div class="mt-5">
+                                <div id="estate_property_image_user">
+                                    <img t-attf-src="data:image/jpeg;base64,#{new.image}" alt="Not Found" height="200" width="200"/>
+                                </div>
                                 <h1>
                                     <span t-field="new.name"/>
                                 </h1>
