@@ -15,10 +15,12 @@
         'views/res_users_model_views.xml',
         'report/estate_property_templates.xml',
         'report/estate_property_reports.xml',
+        'report/estate_report.xml',
+        'report/estate_controller.xml'
     ],
     'demo' :[
         'demo/estate_demo_data.xml',
         ],
-    'depends' : ['base','mail','portal'],
+    'depends' : ['base','mail','portal','website'],
     'application' : True
 }

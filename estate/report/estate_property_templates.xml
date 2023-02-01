@@ -20,9 +20,7 @@
                             <strong>Status:</strong>
                             <span t-field="property.state"/>
                         </div>
-                        <t t-call = "estate.estate_property_offer">
-                            <t t-set="property" t-value="property"/>
-                        </t>
+                        <t t-call = "estate.estate_property_offer"/>
                     </div>
                 </t>
             </t>
@@ -31,36 +29,38 @@
 
     <template id = "estate_property_offer">
         <table class="table" t-if="property.offer_ids">
-            <tr>
-                <th>Price</th>
-                <th>Partner</th>
-                <th>Validity(days)</th>
-                <th>Deadline</th>
-                <th>State</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Partner</th>
+                    <th>Validity(days)</th>
+                    <th>Deadline</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+                
             <tbody>
                 <t t-set="offers" t-value="property.mapped('offer_ids')"/>
-                <t t-foreach="offers"  t-as="offer">
-                        <td>
-                            <span t-field="offer.price"/>
-                        </td>
-                        <td>
-                            <span t-field="offer.partner_id"/>
-                        </td>
-                        <td>
-                            <span t-field="offer.validity"/>
-                        </td>
-                        <td>
-                            <span t-field="offer.date_deadline"/>
-                        </td>
-                        <td>
-                            <span t-field="offer.status"/>
-                        </td>
-                </t>
+                <tr t-foreach="offers"  t-as="offer">
+                    <td>
+                        <span t-field="offer.price"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.partner_id"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.validity"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.date_deadline"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.status"/>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <p t-else="">No offer have been made yet:(</p>
-        
     </template>
 
     <template id ="res_users_report_offers">
@@ -98,6 +98,5 @@
                 </t>
             </t>
         </t> 
-
     </template>
 </odoo>

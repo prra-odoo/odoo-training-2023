@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="index">  
+        <t t-call="website.layout">
+            <t t-set="title">Estate Property</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <p>
+                            <t t-esc="property.id"/>
+                            <t t-esc="property.name"/>
+                        </p>
+                    </t>
+                    <t t-foreach="tags" t-as="tag">
+                        <p>
+                            <t t-esc="tag.id"/>
+                            <t t-esc="tag.name"/>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t>    
+    </template>
+    
+    <template id="template_controller">
+        <t t-call="website.layout">
+            <t t-set="title">Estate</t>
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <h3><t t-esc="prop.name"/></h3>
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+</odoo>
