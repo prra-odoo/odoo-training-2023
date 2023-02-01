@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="property_view">
+        <t t-call="website.layout">
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <h3 t-field="property.name"/>
+                    <div>
+                        <t t-call="real_estate.offers_template"/>
+                    </div>
+                </div>
+            </div>  
+        </t>
+    </template>
+</odoo>

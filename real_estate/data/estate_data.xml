@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="menu_estate" model="website.menu">
+        <field name="name">Estate</field>
+        <field name="url">/estate</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">15</field>
+    </record>
+    <record id="action_open_website" model="ir.actions.act_url">
+        <field name="name">Website Home</field>
+        <field name="target">self</field>
+        <field name="url">/estate</field>
+    </record>
+</odoo>

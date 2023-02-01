@@ -1,12 +1,15 @@
 {
     'name':'Real Estate',
     'version':'0.1',
-    'depends':['mail'],
+    'depends':['mail','website'],
     'author':'Harsh Modi (hamo)',
     'category':'Real Estate/Brokerage',
     'data':[
         'security/ir.model.access.csv',
         'security/security.xml',
+        'templates/property_template.xml',
+        'templates/index_template.xml',
+        'data/estate_data.xml',
         'reports/estate_inherit_templates.xml',
         'reports/estate_salesman_templates.xml',
         'reports/estate_property_templates.xml',
@@ -20,8 +23,8 @@
         'views/real_estate_menus.xml'
     ],
     'demo':[
-        'data/estate_property_type_demo.xml',
-        'data/real_estate_property_demo.xml',
+        'demo/estate_property_type_demo.xml',
+        'demo/real_estate_property_demo.xml',
         ],
     'summary':'A real estate module',
    'installable':'true',
