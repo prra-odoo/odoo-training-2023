@@ -11,4 +11,13 @@
         <field name="binding_type">report</field>
     </record>
 
+    <record id="print_report_action_user_properties" model="ir.actions.report">
+        <field name="name">All Available Properties Report</field>
+        <field name="model">res.users</field>
+        <field name="report_name">real_estate.report_all_the_properties</field>
+        <field name="report_type">qweb-html</field>
+        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="binding_type">report</field>
+    </record>
+
 </odoo>
