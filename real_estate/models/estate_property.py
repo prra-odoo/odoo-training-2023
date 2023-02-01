@@ -47,8 +47,8 @@ class estate_Property(models.Model):
       total_area=fields.Float(compute='_compute_total_area')
       best_price=fields.Float(compute='_compute_best_price')
       company_id = fields.Many2one(
-        'res.company', required=True, default=lambda self: self.env.company
-    )
+        'res.company', required=True, default=lambda self: self.env.company)
+      biography=fields.Html()
 
 
       @api.depends('living_area', 'garden_area')

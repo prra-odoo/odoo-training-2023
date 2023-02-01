@@ -6,15 +6,15 @@ class res_user(models.Model):
     property_ids=fields.One2many('estate.property','sales_id')
     demo=fields.Integer()
     
-class newresuser(models.Model):
-     _name='new.res.user'
-     _inherit='estate.property.type'
+# class newresuser(models.Model):
+#      _name='new.res.user'
+#      _inherit='estate.property.type'
 
-     demo2=fields.Integer(required=True)
+#      demo2=fields.Integer(required=True)
 
-class propertyoffer(models.Model):
-      _name='property.offer'
-      _inherits = {'estate.property.offer': 'offer_ids'}
+# class propertyoffer(models.Model):
+#       _name='property.offer'
+#       _inherits = {'estate.property.offer': 'offer_ids'}
 
-      name=fields.Char(required=True)
-      offer_id=fields.Many2one('estate.property.offer')
+#       name=fields.Char(required=True)
+#       offer_id=fields.Many2one('estate.property.offer')

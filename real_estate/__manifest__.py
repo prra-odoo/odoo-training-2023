@@ -10,6 +10,7 @@
     
     'depends': [
           'mail',
+          'website',
     ],
     'demo':[
           'demo/estate_property_tag_demo.xml',
@@ -29,8 +30,10 @@
         'views/estate_property_offer.xml',
         'views/estate_property_views.xml',
         'views/inherited_model.xml',
+        'views/templates.xml',
         'report/estate_property_reports.xml',
         'report/estate_property_templates.xml',
+        
            
 
     ],        

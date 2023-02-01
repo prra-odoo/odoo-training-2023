@@ -1,0 +1,75 @@
+<odoo>
+
+<template id="demo_controller_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-set="title">Estate Property</t>
+                    <div class="container">
+                        <t t-foreach="records" t-as="property">
+                            <h4 style="margin-top: 20px;">
+                                <a t-attf-href="/estate/{{ slug(property) }}">
+                                    <center>
+                                        <t t-esc="property.name"/>
+                                    </center>
+                                </a>
+                            </h4>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="single_property_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-set="title">Estate Property</t>
+                    <div class="container">
+                        <h4 style="margin-top: 20px;">
+                            <center>
+                                <t t-esc="record.name"/>
+                            </center>
+                        </h4>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- <template id="index">
+        <title>Estate</title>
+        <t t-call="website.layout">
+        <div class="oe_structure">
+        <div class="container">        
+        <t t-foreach="property" t-as="property"> 
+              
+             <p>            
+             <h4 t-field="property.name"/>
+             <p>price: <i t-field="property.expeccted_price"/>  id:<i t-field="property.id"/></p>            
+             </p>
+         </t>
+        </div>
+        </div>
+        </t>        
+    </template>
+    <template id="route">
+        <title>route</title>
+        <t t-call="website.layout">
+        <div class="oe_structure">
+        <div class="container">        
+        <t t-foreach="property" t-as="property"> 
+        <a t-attf-href="/estate/{{ slug(property) }}">
+                                    <center>
+                                        <t t-esc="property.name"/>
+                                    </center>
+        </a>
+        </t>
+        </div>
+        </div>
+        </t>
+        </template> -->
+
+</odoo>
+
+<!-- -->
