@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <title>Real Estate</title>
+            <t t-foreach="properties" t-as="property">
+                <p><t t-esc="property.id"/><t t-esc="property.name"/></p>
+            </t>
+        </t>
+    </template>
+</odoo>

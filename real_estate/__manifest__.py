@@ -17,6 +17,7 @@
         'views/estate_property_tags.xml',
         'views/res_users_view.xml',
         # 'reports/offers_template.xml',
+        'views/property_list_template.xml',
         'reports/estate_property_template.xml',
         'reports/property_user_template.xml',
         'reports/estate_property_report.xml',
@@ -26,7 +27,7 @@
         'demo/estate_property_type_demo.xml',
         'demo/estate_property_tag_demo.xml'
        ],
-    'depends' : ['mail'],
+    'depends' : ['mail','website'],
     'installable' : True,
     'application' : True,
     'auto_install' : False
