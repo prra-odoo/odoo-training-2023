@@ -9,21 +9,22 @@ class EstateProperty(models.Model):
     def action_sold(self):
         for record in self:
             print(" reached ".center(100, '='))
-            if self.env['account.move'].check_access_rights('write') and self.env['account.move'].check_access_rule('write'):
-                self.env["account.move"].sudo().create(
-                {
-                    "partner_id": record.buyer_id.id,
-                    "move_type": "out_invoice",
-                    "invoice_line_ids": [
-                        Command.create({
-                        'name':record.name,
-                        'quantity':0.06,
-                        'price_unit':record.selling_price
-                    }),
-                    Command.create( {
-                        'name':'Administrative fees',
-                        'price_unit':100
-                    })],
-                }
-            )
+            self.env['account.move'].check_access_rights('write') 
+            self.env['account.move'].check_access_rule('write')
+            self.env["account.move"].sudo().create(
+            {
+                "partner_id": record.buyer_id.id,
+                "move_type": "out_invoice",
+                "invoice_line_ids": [
+                    Command.create({
+                    'name':record.name,
+                    'quantity':0.06,
+                    'price_unit':record.selling_price
+                }),
+                Command.create( {
+                    'name':'Administrative fees',
+                    'price_unit':100
+                })],
+            }
+        )
         return super().action_sold()

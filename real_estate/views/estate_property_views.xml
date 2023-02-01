@@ -175,4 +175,29 @@
             </kanban>
         </field>
     </record>
+
+
+    <!-- template for controller -->
+
+    <!-- <template id="index">
+        <title>Real Estate</title>
+        <t t-foreach="properties" t-as="property">
+            <p><t t-esc="property"/></p>
+            <p><t t-esc="property.name"/></p>
+        </t>
+    </template> -->
+    
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <p><t t-esc="property.name"/></p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
 </odoo>
