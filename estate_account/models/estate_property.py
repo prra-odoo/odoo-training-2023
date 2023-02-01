@@ -10,11 +10,11 @@ class InheritedEstateProperty(models.Model):
         print(" reached ".center(100, '='))
         self.sudo().create_invoice()
 
-        super().sold_click()
+        return super().sold_click()
         
 
     def create_invoice(self):
-        
+
         for record in self:
             invoice = self.env['account.move'].create(
                 {'partner_id': record.buyer_id.id, 
