@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- <template id="index">
+    <t t-call="website.layout">
+      <t t-set="title">Estate Property</t>
+      <div class="oe_structure">
+      <div class="container">
+      <t t-foreach="properties" t-as="property"> 
+        <h3 t-field="property.name"/>
+        <p>Last modified: <i t-field="property.write_date" t-options='{"widget": "relative"}'/></p>
+        <div t-field="property.biography"/>
+      </t>
+      </div>
+      </div>
+    </t>
+  </template> -->
+
+  <template id="index">
+    <t t-call="website.layout">
+        <t t-set="title">Estate</t>
+        <div class="oe_structure">
+            <div class="container">
+                <t t-foreach="properties" t-as="property">
+                    <p>
+                        <a t-attf-href="/academy/{{ slug(property) }}">
+                        <t t-esc="property.name"/></a>
+                    </p>
+                </t>
+            </div>
+        </div>
+    </t>
+</template>
+</odoo> 

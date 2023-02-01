@@ -3,7 +3,7 @@
     'name' : 'Real Estate',
     'category': 'Real Estate/Brokerage',
     'description' : """this is the real estate advertisement module""",
-    'depends': ['mail'],
+    'depends': ['mail','website', 'website_sale'],
     'data' : [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -12,6 +12,7 @@
         'views/estate_property_type_view.xml', 
         'views/estate_property_tag_view.xml',
         'views/estate_property_offer_view.xml',
+        'views/templates.xml',
         'views/res_users_view.xml',
         'report/estate_property_templates.xml',
         'report/estate_property_reports.xml',
