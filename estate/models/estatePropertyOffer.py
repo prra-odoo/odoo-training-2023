@@ -25,7 +25,7 @@ class estateProperty(models.Model):
     status=fields.Selection( string="Status",
         selection=[('accepted', 'Accepted'), ('refused', 'Refused')])
 
-    partner_id=fields.Many2one('res.partner',required=True)
+    partner_id=fields.Many2one('res.partner')
     property_id=fields.Many2one('estate.property')
     type_id=fields.Many2one(related="property_id.property_type_id")
 

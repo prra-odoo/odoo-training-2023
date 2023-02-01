@@ -93,7 +93,7 @@
                     <field name="postcode"/>
                     <field name="expected_price"/>
                     <field name="bedrooms"/>
-                    <field name="living_area"/>
+                    <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
                     <field name="facades"/>
                     <filter name="availableProperties" string="Available Properties" domain="['|',('state','=','new'),('state','=','offer_received')]"/>
                     <group expand="1" string="Group By">
@@ -102,7 +102,8 @@
                 </search>
             </field>
         </record>
-                <record id="estate_property_action" model="ir.actions.act_window">
+
+        <record id="estate_property_action" model="ir.actions.act_window">
             <field name="name">Properties</field>
             <field name="res_model">estate.property</field>
             <field name="view_mode">tree,form</field>

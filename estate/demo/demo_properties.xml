@@ -6,13 +6,21 @@
         <record id="property_1" model="estate.property">
             <field name="name">Shreeji Apartments</field>
             <field name="expected_price">10000</field>
+<!--             <field name="tag_ids">
+                <record id="tags_1" model="estate.property.tags">
+                    <field name="name">cozy</field>
+                </record>
+                <record id="tags_2" model="estate.property.tags">
+                    <field name="name">garden</field>
+                </record>        
+            </field> -->
         </record>
         <record id="property_2" model="estate.property">
             <field name="name">Godrej</field>
             <field name="expected_price">200000</field>
         </record>
         <record id="property_3" model="estate.property">
-            <field name="name">Shreeji Apartments</field>
+            <field name="name">Alux</field>
             <field name="expected_price">10000</field>
         </record>
         <!-- tags -->
@@ -34,6 +42,23 @@
         </record>
          <record id="type_3" model="estate.property.type">
             <field name="name">Vilaa</field>
+        </record>
+        <!-- offers -->
+        <record id="offer_1" model="estate.property.offer">
+            <field name="price">10000</field>
+            <field name="property_id">1</field>
+        </record>
+        <record id="offer_2" model="estate.property.offer">
+            <field name="price">200000</field>
+            <field name="property_id">2</field>
+        </record>
+        <record id="offer_3" model="estate.property.offer">
+            <field name="price">15000</field>
+            <field name="property_id">3</field>
+        </record>
+        <record id="offer_4" model="estate.property.offer">
+            <field name="price">12000</field>
+            <field name="property_id">1</field>
         </record>
     </data>
 </odoo>
