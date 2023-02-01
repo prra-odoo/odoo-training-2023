@@ -5,7 +5,7 @@
     "author":"Aditya Sharma",
     "category":"Real Estate/Brokerage",
     "description": 'Real estate Advertising module',
-    "depends": ['mail','base'],
+    "depends": ['mail','base','website','website_sale'],
     "data": [
         'security/security.xml',
         'security/ir.model.access.csv',

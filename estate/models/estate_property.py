@@ -51,6 +51,7 @@ class estatePropertyModel(models.Model):
         'estate.property.offer', 'property_id', string="offers")
     best_offers = fields.Float(compute="_best_offer" , default =0)
     company_id = fields.Many2one('res.company',string = "company", default = lambda self: self.env.company, required = True)
+    property = fields.Html()
 
     
 
