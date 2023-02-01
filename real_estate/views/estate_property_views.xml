@@ -123,6 +123,7 @@
                     <widget name="web_ribbon" title="Offer Accepted" bg_color="bg-warning" attrs="{'invisible': [('state', '!=', 'offer_accepted')]}" />
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}" />
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}" />
+                    <field name="property_image" widget='image' class="oe_avatar" style="margin-right: 100px; margin-top: -10px" options='{"size": [140, 140]}'/>
                     <br/>
                     <label for="name" string="Name"/>
                     <h1>

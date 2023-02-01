@@ -9,7 +9,7 @@
     'author': 'Dhrutik Patel (dhrp)',
     'website': 'https://www.odoo.com/',
     'summary': 'The Real Estate Advertisement module',
-    'depends': ['mail'],
+    'depends': ['mail', 'website'],
     'demo': [
         'demo/estate_property_tag_demo.xml',
         'demo/estate_property_type_demo.xml',
@@ -25,6 +25,7 @@
         'views/estate_property_views.xml',
         'views/res_users_inherited_views.xml',
         'views/estate_menus.xml',
+        'controllers/estate_property_controller_template.xml',
         'report/estate_property_offer_templates.xml',
         'report/estate_user_property_templates.xml',
         'report/estate_reports.xml'

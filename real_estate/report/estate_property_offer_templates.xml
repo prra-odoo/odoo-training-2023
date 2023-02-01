@@ -43,7 +43,7 @@
     <!-- SUB TEMPLATE -->
     <template id="report_property_offers_sub_template">
         <t t-foreach="docs" t-as="property">
-            <table class="table" style="margin-top: 10px; border: 1px solid black; border-collapse: collapse; font-size: 20px; font-weight: 500;">
+            <table class="table-striped table" style="margin-top: 10px; border: 1px solid black; border-collapse: collapse; font-size: 20px; font-weight: 500;">
                 <thead>
                     <tr>
                         <th>Price</th>
