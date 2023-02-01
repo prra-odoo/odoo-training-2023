@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="website_page_test">
+            <t t-call="website.layout">
+                <t t-set="title">Property</t>
+                    <div class="oe_structure">
+                        <div class="container">
+                            <t t-foreach="properties" t-as="property">
+                                <h3><t t-esc="property.name"/></h3>
+                                <p>Id :<t t-esc="property.id"/> expected_pride :<t t-esc="property.expected_price"/></p>
+                            </t>
+                        </div>
+                    </div>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+
