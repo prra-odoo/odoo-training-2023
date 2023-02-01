@@ -1,0 +1,36 @@
+<odoo>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="estates" t-as="estate">
+                        <p>
+                            <a t-attf-href="/realestate/{{ slug(estate) }}">
+                                <t t-esc="estate.name"/>
+                            </a>
+                        </p>
+
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="detail">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <h3 t-field="person.name"/>
+                    <p>Last modified: <i t-field="person.write_date" t-options='{"widget": "relative"}'/></p>
+                    <div t-field="person.detail"/>
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+
+</odoo>
+

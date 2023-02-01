@@ -11,11 +11,12 @@
         'views/estate_type_view.xml',
         'views/estate_offer_view.xml',
         'views/res_user_view.xml',
+        'views/templates.xml',
         'report/estate_property_report.xml',
         'report/estate_property_templates.xml',
         
     ],
-    'depends': ['mail','base'],
+    'depends': ['mail','base','website'],
     'demo': [
         'demo/estate_demo_data.xml',
     ],

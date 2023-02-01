@@ -11,6 +11,7 @@ class estateProperty(models.Model):
     _inherit = ["mail.thread","mail.activity.mixin"]
 
     name = fields.Char('Name :', required = True)
+    detail = fields.Html()
     description = fields.Text('Description ')
     postcode = fields.Char('Postcode ')
     date_availability = fields.Date(default=lambda self: fields.Datetime.now())
