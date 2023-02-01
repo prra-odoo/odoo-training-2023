@@ -2,17 +2,26 @@
 
 <odoo>
 
+    <!-- creating action for offers -->
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Estate Property Action</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+    </record>
 
     <record id="estate_property_offer_tree_view" model="ir.ui.view">
         <field name="name">estate_property_offer_tree_view</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                 <field name="price" />
                 <field name="partner_id" string="Partner" />
-                <button name="action_confirm" string="Confirm" type="object" icon="fa-check" />
-                <button name="action_reject" string="Reject" type="object" icon="fa-times" />
-                <field name="status" />
+                <field name="property_id"/>
+                <button name="action_confirm" string="Confirm" type="object" icon="fa-check" attrs="{'invisible':[('status','!=', False)]}" />
+                <button name="action_reject" string="Reject" type="object" icon="fa-times" attrs="{'invisible':[('status','!=', False)]}" />
+                <field name="status" invisible="1"/>
+               
             </tree>
         </field>
     </record>

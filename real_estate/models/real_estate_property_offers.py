@@ -17,11 +17,13 @@ class EstatePropertyOffers(models.Model):
     price = fields.Float()
     status = fields.Selection([('accepted', 'Accepted'), ('refused', 'Refused')], copy=False)
 
-    partner_id = fields.Many2one("res.partner", required=True)
+    partner_id = fields.Many2one("res.partner")
     property_id = fields.Many2one("estate.property", required=True)
 
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date", inverse="_inverse_date")
+
+    property_type_id = fields.Many2one(related="property_id.property_type_id", store=True)
 
 
     # defining sql constraints for the offer price
@@ -60,6 +62,7 @@ class EstatePropertyOffers(models.Model):
             record.status = 'accepted'
             record.property_id.selling_price = record.price
             record.property_id.buyer_id = record.partner_id
+            record.property_id.state = 'accepted'
 
     def action_reject(self):
         for record in self:
@@ -72,3 +75,25 @@ class EstatePropertyOffers(models.Model):
         for record in self:
             if float_compare(record.price, 0.90 * record.property_id.expected_price, precision_rounding=0.01) < 0:
                 raise ValidationError(r"The offer price must be alteast 90% of expected price") 
+
+
+
+    # Adding Create method which is an method exists in parent model
+    @api.model
+    def create(self, vals):
+        record = self.env['estate.property'].browse(vals['property_id'])
+        record.state = 'recieved'
+        list_of_price = []
+        for offer in record.offer_ids:
+            list_of_price.append(offer.price)
+        
+        if len(list_of_price) != 0:
+            if vals['price'] < max(list_of_price):
+                raise UserError("The offer price must be more than the other offers!")
+
+            
+        return super(EstatePropertyOffers, self).create(vals)
+
+    
+    # def check_offers(self):
+    #     property_id.offer_ids

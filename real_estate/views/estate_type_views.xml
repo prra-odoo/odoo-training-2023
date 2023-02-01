@@ -15,15 +15,15 @@
 
     <!-- Creating Views for estate types model data-->
     <!-- creating tree view for the estate type -->
-    <!-- <record id="estate_types_tree_view" model="ir.ui.view">
+    <record id="estate_types_tree_view" model="ir.ui.view">
         <field name="name">estate_type_tree_mode</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="name" default_order="desc name" />
+            <tree  default_order="id desc">
+                <field name="name" />
             </tree>
         </field>
-    </record> -->
+    </record>
 
     <!-- creating form view for the estate property types -->
     <record id="estate_types_form_view" model="ir.ui.view">
@@ -32,6 +32,11 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="%(estate_property_offer_action)d" type="action" icon="fa-money" string="Offers">
+                            <field name="offer_count" />
+                        </button>
+                    </div>
                     <h1><field name="name" /></h1>
 
                     <!-- adding tabs in the notebook-->

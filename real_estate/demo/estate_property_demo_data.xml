@@ -4,7 +4,7 @@
 <odoo>
     <data>
         <record id="estate_property_demo_data1" model="estate.property">
-            <field name="name">Luxurious 3BHK Flat</field>
+            <field name="name">Safal Apartments</field>
             <field name="postcode">123</field>
             <field name="expected_price">1234567</field>
             <field name="bedrooms">3</field>
@@ -15,7 +15,7 @@
     
     
         <record id="estate_property_demo_data2" model="estate.property">
-            <field name="name">Luxurious 4BHK Flat</field>
+            <field name="name">Parishkar Aparments</field>
             <field name="postcode">433</field>
             <field name="expected_price">9234567</field>
             <field name="bedrooms">4</field>
@@ -26,7 +26,7 @@
     
     
         <record id="estate_property_demo_data3" model="estate.property">
-            <field name="name">Luxurious Villa</field>
+            <field name="name">Vridavan Villa</field>
             <field name="postcode">544</field>
             <field name="expected_price">987654324</field>
             <field name="bedrooms">8</field>
@@ -38,7 +38,7 @@
     
     
         <record id="estate_property_demo_data4" model="estate.property">
-            <field name="name">Farm House</field>
+            <field name="name">Krishna Farm House</field>
             <field name="postcode">098</field>
             <field name="expected_price">98789098</field>
             <field name="bedrooms">3</field>
@@ -49,13 +49,13 @@
     
     
         <record id="estate_property_demo_data5" model="estate.property">
-            <field name="name">Luxurious 3BHK Flat</field>
+            <field name="name">Pushkar Apartments</field>
             <field name="postcode">746</field>
             <field name="expected_price">65456789</field>
             <field name="bedrooms">3</field>
             <field name="living_area">765</field>
             <field name="garden">False</field>
-            <field name="state">new</field>
+            <field name="state">sold</field>
         </record>
     </data>
 </odoo>

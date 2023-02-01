@@ -11,4 +11,13 @@
         </field>
     </record>
 
+    <record id="estate_tag_tree_view" model="ir.ui.view">
+        <field name="name">estate_tag_tree_mode</field>
+        <field name="model">estate.property.tag</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
 </odoo>

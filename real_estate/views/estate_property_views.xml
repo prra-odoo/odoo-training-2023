@@ -4,7 +4,8 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Estate</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_new_property':True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No property found!</p>
             <p>Use the top left
@@ -19,7 +20,10 @@
         <field name="name">estate_tree_view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-success="state == 'recieved' or state == 'accepted'" 
+            decoration-bf="state == 'accepted'"
+            decoration-muted="state == 'sold'">
+                <field name="state" invisible='1' />
                 <field name="sequence" widget="handle"></field>
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
@@ -29,7 +33,7 @@
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
-                <field name="date_availability"/>
+                <field name="date_availability" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -40,15 +44,21 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
+
                 <header>
-                    <button name="sold_click" type="object" string="Sold" />
-                    <button name="cancel_click" type="object" string="Cancel"/>
+                    <button name="sold_click" type="object" string="Sold" states="new,recieved,accepted"/>
+                    <button name="cancel_click" type="object" string="Cancel" states="new,recieved,accepted"/>
+                    <!-- <button type="action" name="%(real_estate.print_report_action)d" string="Print" /> -->
                     <button type='object' name='refresh_button' string='Clear'/>
                 </header>
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable' : 1}"/>
                 </header>
                 <sheet>
+                    <!-- adding widget web_ribbon -->
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible':[('state','not in', 'cancel')]}"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state','not in', 'done')]}"/>
+                    <widget name="web_ribbon" title="Available" bg_color="bg-info" attrs="{'invisible':[('state','not in', 'new')]}"/>
                     <!-- <label>Name</label> -->
                     <h1><field name="name" string="Name" default="New Property" placeholder="For Say : Name of the Property"/></h1>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
@@ -108,14 +118,12 @@
                                 <group>
                                     <field name="garden" />
                                 </group>
-                                <group class="oe_right">
-                                    <field name="garden_area" string="Garden Area (sqm)" />
-                                </group>
                             </group>
                             
-                            <group>
+                            <group attrs="{'invisible':[('garden', '=', False)]}">
                                 <group>
-                                    <field name="garden_orientation" />
+                                    <field name="garden_area" string="Garden Area (sqm)" />
+                                    <field name="garden_orientation" string="Garden Orientation"/>
                                 </group>
                             </group>
 
@@ -126,7 +134,7 @@
                         </page>
 
                         <page string="Offers">
-                            <field name="offer_ids" />   
+                            <field name="offer_ids" attrs="{'readonly':[('state','!=','new')]}"/>   
                         </page>
 
                         <page string="Other Info">
@@ -134,11 +142,19 @@
                                 <group>
                                     <field name="seller_id" string="Salesman"/>
                                     <field name="buyer_id" string="Buyer" />
+                                    <field name="company_id" />
                                 </group>
                             </group>
                         </page>
                     </notebook>
                 </sheet>
+            
+                <!-- Adding chatter section -->
+            <div class="oe_chatter">
+                <field name="message_follower_ids" options="{'post_refresh':True}"/>
+                <field name="message_ids" />
+                <field name="activity_ids" />
+            </div>
             </form>
         </field>
     </record>
@@ -150,11 +166,11 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" string="Title"/>
+                <field name="name" string="Title" />
                 <field name="postcode" />
                 <field name="expected_price" />
                 <field name="bedrooms" />
-                <field name="living_area" />
+                <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
                 <field name="facades" />
                 <field name="property_type_id"/>
             <!-- Adding a filter which will show available properties for buying -->
@@ -168,6 +184,33 @@
                 </group>
             </search>
             
+        </field>
+    </record>
+
+
+    <!-- adding kanban view xml definition -->
+    <record id="estate_property_kanban" model="ir.ui.view">
+        <field name="name">Estate Property Kanban View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" records_draggable="False" groups_draggable="False">
+                <templates>
+                    <field name="state" invisible="1" />
+                    <field name="property_type_id" />
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <h4><field name="name" /></h4>
+                            <span>Expected Price : </span><field name="expected_price" />
+                            <div t-if="record.state.raw_value == 'recieved'">
+                                <span>Best Price : </span><field name="best_offer"/>
+                            </div>
+                            <div t-if="record.state.raw_value == 'accepted'">
+                                <span>Selling Price : </span><field name="selling_price"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 </odoo>
