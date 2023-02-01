@@ -14,6 +14,7 @@ class estateModel(models.Model):
     
     name = fields.Char('Name',required=True)
     postcode = fields.Char('Post Code',required=True)
+    metadata = fields.Html(tracking=True)
     garage = fields.Boolean('Garage')
     garden = fields.Boolean('Garden')
     active = fields.Boolean(default=True)

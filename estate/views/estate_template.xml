@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="property_controller_template">
+        <t t-call="website.layout">            
+            <div class="container">
+                <t t-foreach="property" t-as="property">
+                    <p>
+                        <a t-attf-href="/estate/{{ slug(property) }}">
+                            <t t-esc="property.name"/>
+                        </a>
+                    </p>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="property_controller_template_redirect">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>
+                    <h3 t-field="about.name"/>
+                    <p>Last modified: <i t-field="about.write_date"/></p>
+                    <p>Last modified: <i t-field="about.write_date" t-options='{"format": "long"}'/></p>
+                    <p>Last modified: <i t-field="about.write_date" t-options='{"widget": "relative"}'/></p>
+                    <div t-field="about.metadata"/>
+                </h2>
+            </div>
+        </t>
+    </template>
+</odoo>

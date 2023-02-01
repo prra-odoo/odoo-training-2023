@@ -17,6 +17,7 @@
                 <field name="bedrooms" />
                 <field name="date_availability" />
                 <field name="state" optional="hide" />
+                <field name="metadata" optional="hide" widget="html"/>
             </tree>
         </field>
     </record>
@@ -48,6 +49,7 @@
                         <group>
                             <field name="tags_ids" widget="many2many_tags"
                                 options="{'color_field': 'color'}" />
+                            <field name="metadata" widget="html"/>
                         </group>
                         <group>
                             <field name="postcode" />
@@ -163,6 +165,15 @@
                     </t>
                 </templates>
             </kanban>
+        </field>
+    </record>
+    <record id="estate_model_form_cak" model="ir.ui.view">
+        <field name="name">estate.property.form.cal</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendar" date_start="date_availability">
+                <field name="name"></field>
+            </calendar>
         </field>
     </record>
     <!-- ____________________________Search View______________________________________ !-->
