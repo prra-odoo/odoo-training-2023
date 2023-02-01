@@ -14,3 +14,4 @@ class EstateProject(models.Model):
             }
         )
         return super(EstateProject,self).action_sold()
+        

@@ -135,5 +135,4 @@
         <field name="property_id" ref="cabin"/>
         <field name="date_deadline" eval="str(datetime.now().year)+'-02-12'"/>
     </record>
-
 </odoo>

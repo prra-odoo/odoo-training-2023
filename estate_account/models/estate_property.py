@@ -30,3 +30,4 @@ class EstateAccount(models.Model):
             }
         )
         return super(EstateAccount,self).action_sold()
+        

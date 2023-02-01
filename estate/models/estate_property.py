@@ -39,7 +39,8 @@ class EstateModel(models.Model):
     total_area = fields.Float(compute="_compute_total_area")
     best_price = fields.Float(compute="_compute_max_price", default=0)
     company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.user.company_id)
-
+    listing = fields.Html()
+    
     _sql_constraints = [
         ('check_expected_selling_price', 'CHECK(expected_price >= 0 AND selling_price >=0)',
          'The price should be positive')

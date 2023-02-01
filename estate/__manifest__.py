@@ -5,7 +5,7 @@
     'version' : '1.0',
     'author' : "Saurabh Choraria",
     'description' : "It is a module for real estate",
-    'depends' : ['mail', 'base'],
+    'depends' : ['mail', 'base', 'website', 'event', 'website_sale'],
     'category' : 'Real Estate/Brokerage',
     'data' : [
             'security/estate_security.xml',
@@ -21,6 +21,7 @@
             'report/estate_account_templates.xml',
             'report/estate_property_templates.xml',
             'report/estate_property_reports.xml',
+            'report/controller_templates.xml'
         ],
     'demo' : [
             'demo/estate_demo.xml',
