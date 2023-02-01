@@ -5,7 +5,7 @@
     'description': 'The Real Estate Advertisement Module',
     'version': '1.0',
     'author': 'Renilkumar Kajavadra',
-    'depends':['base','mail','account'],
+    'depends':['base','mail','account','website'],
     'category': 'Real Estate/Brokerage',
     'data': [
                 'security/security.xml',
@@ -16,6 +16,7 @@
                 'views/estate_property_type_view.xml',
                 'views/estate_property_tags_view.xml',
                 'views/res_users_view.xml',
+                'views/estate_property_controller.xml',
                 'reports/estate_property_templates.xml',
                 'reports/estate_property_reports.xml'
             ],

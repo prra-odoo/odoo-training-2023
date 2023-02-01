@@ -36,7 +36,7 @@
             <thead>
                 <tr>
                     <th>Price</th>
-                    <th>Partner</th>>
+                    <th>Partner</th>
                     <th>Property Type</th>
                     <th>Status</th>
                     <th>Validity(Days)</th>
@@ -73,26 +73,78 @@
         <t t-foreach="docs" t-as="res">
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
-                    <h1>
-                        <span t-field="res.name" />
-                    </h1>
-                    <t t-if="res.property_ids">
-                        <t t-set="properties" t-value="res.mapped('property_ids')" />
-                        <t t-foreach="properties" t-as="property" class="mb-5">
-                            <h2>
-                                <span t-field="property.name" />
-                                <span t-field="property.bedrooms" />
-
+                    <div class="page">
+                        <div>
+                            <h2>Salesman: 
+                                <span t-field="res.name"/>
                             </h2>
-                            <t t-call="real_estate.table_offer_data" />
-
-                        </t>
-                    </t>
-                    <t t-else="">
-                        <div>have Nothing</div>
-                    </t>
+                        </div>
+                        <t t-call="real_estate.res_users_pdf_sub_template_format"/>
+                    </div>
                 </t>
             </t>
         </t>
+    </template>
+
+    <template id="res_users_pdf_sub_template_format">
+        <t t-if="res.property_ids">
+            <t t-set="properties" t-value="res.mapped('property_ids')" />
+            <t t-foreach="properties" t-as="property" class="mb-5">
+                <table class="table" t-if="res.property_ids">
+                    <div class="page">
+                        <div>
+                            <h2>Property:
+                                <span t-field="property.name"/>
+                            </h2>
+                        </div>
+                        <div>
+                            <strong>Expected Price: </strong>
+                            <span t-field="property.expected_price"/>
+                        </div>
+                        <div>
+                            <strong>State: </strong>
+                            <span t-field="property.state"/>
+                        </div>
+                        <thead>
+                            <tr>
+                                <th>Property Type</th>
+                                <th>Postcode</th>
+                                <th>Tags</th>
+                                <th>Bedrooms</th>
+                                <th>Living Area(sqm)</th>
+                                <th>Expected Price</th>
+                                <th>Selling Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span t-field="property.property_type_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.postcode"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.tag_ids"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.bedrooms"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.living_area"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.expected_price"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.selling_price"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </table>
+            </t>
+        </t>
+        <strong t-else="">Oops!!!!</strong>
     </template>
 </odoo>
