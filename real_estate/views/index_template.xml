@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <title>Real Estate</title>
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <!-- <h3><p><t t-esc="property.id"/>
+                            <t t-esc="property.name"/></p></h3> -->
+                            <p>
+                                <a t-attf-href="/real_estate/{{ slug(property) }}">
+                                <t t-esc="property.name"/></a>
+                            </p>
+                        
+                    </t>
+                </div>
+        </t>
+    </template>
+
+</odoo>

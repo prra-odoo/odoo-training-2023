@@ -1,7 +1,7 @@
 {
     'name': "Real_estate",
     'version': '1.0',
-    'depends': ['base','mail'],
+    'depends': ['base','mail','website'],
     'author': "Tejas Modi(temo)",
     'category': 'Real_estate/Brokerage',
     'description': "This is real estate module",
@@ -20,6 +20,7 @@
         'reports/estate_property_templates.xml',
         'reports/property_res_user_templates.xml',
         'reports/estate_property_reports.xml',
+        'views/index_template.xml',
     ],
      'demo':[
          'demo/estate_demo.xml',
