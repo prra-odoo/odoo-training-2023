@@ -1,0 +1,13 @@
+<odoo>
+
+    <record id="category1" model="estate.category">
+        <field name="name">Buy</field>
+    </record>
+    <record id="category2" model="estate.category">
+        <field name="name">Rent</field>
+    </record>
+    <record id="category3" model="estate.category">
+        <field name="name">PG</field>
+    </record>
+
+</odoo>

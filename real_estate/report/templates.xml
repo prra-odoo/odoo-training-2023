@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <template id="view">
+        <t t-call="website.layout">
+            <title>Categories</title>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="categories" t-as="category">
+                        <p><t  t-esc="category.id" /><t t-esc="category.name" /></p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
