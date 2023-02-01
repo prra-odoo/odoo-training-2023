@@ -51,7 +51,7 @@
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
                     <t t-set="company" t-value="docs.company_id" />
-                    <div class="page border border-dark p-2">                        
+                    <div class="page border border-dark p-2">
                         <h1>
                             <b>
                                 <span t-field="property.name" />
@@ -93,6 +93,37 @@
                     </div>
                 </t>
             </t>
+        </t>
+    </template>
+
+
+    <template id="controller_estate_property">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <a t-attf-href="/estate/{{ slug(property) }}">
+                        <p><t
+                        t-esc="property.name"/></p></a>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="controller_estate_property_1">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <h3 t-field="property.name" />
+                        <p>Last modified: <i t-field="property.write_date"/></p>
+                        <div t-field="property.rank" placeholder="Rank"/>
+                    </t>
+                </div>
+            </div>
         </t>
     </template>
 

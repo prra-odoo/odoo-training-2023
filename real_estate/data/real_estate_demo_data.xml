@@ -82,7 +82,7 @@
             <field name="description">Aliens sometimes come visit</field>
             <field name="postcode">23456</field>
             <field name="date_availability">2030-12-31</field>
-            <field name="expected_price">45890000</field>
+            <field name="expected_price">4589000</field>
             <field name="property_type_id" ref="property_industrial" />
             <field name="salesman_id" ref="base.user_admin" />
         </record>

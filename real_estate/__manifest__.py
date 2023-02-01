@@ -2,7 +2,7 @@
 {
     'name' : 'Real_Estate',
     'author': "Ravi Bhingradiya",
-    'depends': ['mail'],
+    'depends': ['mail','website','website_sale'],
     'category': 'Real Estate/Brokerage',
     'data' : [
             'security/security.xml',
@@ -17,7 +17,8 @@
     ],
 
     'demo' : [ 
-            'data/real_estate_demo_data.xml'
+            'data/real_estate_demo_data.xml',
+            'data/website_demo_data.xml',
     ],
 
     'application' : True,
