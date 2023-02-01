@@ -7,7 +7,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state=='sold'" decoration-bf="state=='offer_accepted'" decoration-success="state=='offer_accepted' or state=='offer_received'">
-                <field name="name" />
+                <field name="name"/>
                 <field name="description" />
                 <field name="postcode"/>
                 <field name="tags_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
@@ -33,8 +33,8 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="sold_buisness_logic" class="oe_stat_button" type="object" string="Sold" attrs="{'invisible': [('state', 'in', ['sold','cancel'])]}" />
-                    <button name="cancel_buisness_logic" type="object" class="oe_stat_button" string="Cancel" attrs="{'invisible': [('state', 'in', ['sold','cancel'])]}"/>
+                    <button name="sold_buisness_logic" class="oe_stat_button" type="object" string="Sold" attrs="{'invisible': [('state', 'in', ('sold','cancel'))]}" />
+                    <button name="cancel_buisness_logic" type="object" class="oe_stat_button" string="Cancel" attrs="{'invisible': [('state', 'in',('sold','cancel'))]}"/>
                     <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
@@ -73,7 +73,7 @@
                             </group>
                         </page>
                         <page string="Offers" >
-                            <field name="offer_ids" attrs="{'readonly': [('state', 'in', ['offer_accepted','sold','cancel'])]}">
+                            <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('offer_accepted','sold','cancel'))]}">
                             </field>
                         </page>
                         <page string="Other Info">
@@ -106,7 +106,7 @@
                 <field name="facades"/>
                 <!-- <separator/> -->
                 <field name="living_area" string="Greater Living Area" filter_domain="[('living_area', '>=', self)]"/>
-                <filter string="Available" name="search_state" domain="[('state', 'in', ['new','offer_received'])]"/>
+                <filter string="Available" name="search_state" domain="[('state', 'in', ('new','offer_received'))]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="search_postcode" context="{'group_by':'postcode'}"/>
                 </group>

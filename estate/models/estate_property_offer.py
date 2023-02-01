@@ -9,6 +9,9 @@ class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "estate property offer model"
     _order = "price desc"
+    _sql_constraints = [
+            ('check_offerprice', 'CHECK(price > 0)','The offerprice must be positive.'),
+        ]
 
     price = fields.Float(default="1")
     status = fields.Selection(
@@ -44,9 +47,6 @@ class EstatePropertyOffer(models.Model):
         self.status ='refused'
         return True
 
-    _sql_constraints = [
-            ('check_offerprice', 'CHECK(price > 0)','The offerprice must be positive.'),
-        ]
     @api.constrains('price')
     def _adding_best_new_offer(self):
         for record in self:

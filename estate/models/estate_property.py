@@ -10,6 +10,13 @@ class EstateProperty(models.Model):
     _description = "estate property model"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = "id desc"
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)',
+         'The Expected Price must be positive.'),
+         ('check_selling_price', 'CHECK(selling_price > 0)',
+         'The Selling Price must be positive.'),
+         
+    ]
 
     name = fields.Char(string="Name", required=True, help="this is name")
     description = fields.Text(string="Description")
@@ -36,7 +43,7 @@ class EstateProperty(models.Model):
         tracking=True,
         selection=[('new', 'New'), ('offer_received', 'Offer Received'),
                    ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Canceled')],
-        default='new',compute="_comput_state", store=True)
+        default='new',compute="_comput_state",readonly=False,store=True)
     salesperson_id = fields.Many2one(
         'res.users', string='Salesman', default=lambda self: self.env.user)
     buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False,readonly=True)
@@ -99,13 +106,6 @@ class EstateProperty(models.Model):
             self.state = 'cancel'
             return True
 
-    _sql_constraints = [
-        ('check_expected_price', 'CHECK(expected_price > 0)',
-         'The Expected Price must be positive.'),
-         ('check_selling_price', 'CHECK(selling_price > 0)',
-         'The Selling Price must be positive.'),
-         
-    ]
 
     @api.constrains('selling_price')
     def _check_selling_price(self):

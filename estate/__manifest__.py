@@ -18,7 +18,7 @@
         'views/estate_property_type.xml',
         'views/estate_property_tags.xml',
         'views/estate_property_offer.xml',
-        # 'views/inherit_user.xml',
+        'views/inherit_user.xml',
         ],
     'depends':['mail',],
     'demo':[
