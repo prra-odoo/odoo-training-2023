@@ -25,7 +25,7 @@
     </record>
     
     
-    <menuitem id="estate_menu_root" name="Real Estate">
+    <menuitem id="estate_menu_root" name="Real Estate" web_icon="estate,static/description/icon.png">
         <menuitem id="properties_menu" name="Advertisement">
             <menuitem id="gandhinagar_properties_menu" name="Gandhinagar properties">
                 <menuitem id="Sector2A_menu_action" action="estate_property_action" name="Sector2A" />

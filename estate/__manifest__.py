@@ -5,7 +5,7 @@
     'version' :'',
     'author':'Althaf Shaik',
     'category':'Real Estate/Brokerage',
-    'depends':['mail', 'base'],
+    'depends':['mail', 'base','website'],
     'data':[
          'security/ir.model.access.csv',
          'security/security.xml',
@@ -24,6 +24,7 @@
         'demo/demo_data2.xml',
 
         ],
+
     'application' : True,
     
 }

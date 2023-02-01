@@ -84,4 +84,47 @@
             <div>There is no offers yet</div>
         </t>
     </template>
+<!-- container templates -->
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Properties Lists</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <!-- <div>
+                            <strong> <span t-esc="property.id"/></strong>
+                            <strong>:</strong>
+                            <span t-esc="property.name"/>
+                        </div> -->
+                        <p>
+                            <span t-esc="property.id"/>
+                            <a t-attf-href="/estate/{{ slug(property) }}">
+                            <span t-esc="property.name"/></a>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="property_details">
+    <t t-call="website.layout">
+        <t t-set="title">Estate Property Type</t>
+        <div class="oe_structure"/>
+        <div class="oe_structure">
+            <div class="container">
+                <h3><t t-esc="details.name"/></h3>
+                <p>Last modified: <i t-field="details.write_date" t-options='{"widget": "relative"}'/></p>
+                    <div>
+                        <strong>Date Avilability:</strong>
+                        <span t-field="details.date_availability"/>
+                    </div>
+                    <div>
+                        <strong>Expected Price:</strong>
+                        <span t-field="details.expected_price"/>
+                    </div>
+            </div>
+        </div>
+        <div class="oe_structure"/>
+    </t>
+</template>
 </odoo>

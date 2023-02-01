@@ -15,5 +15,15 @@
             <field name="name">Vrundavan</field>
             <field name='description'>This is a sample property in vrundavan</field>
         </record>
+        <record id="model_user_althaf" model="estate.users">
+            <field name="name">Althaf Shaik</field>
+        </record>
+        <record id="model_user_yadav" model="estate.users">
+            <field name="name">Akash Yadav</field>
+        </record>
+        <record id="model_user_panda" model="estate.users">
+            <field name="name">Aditya Panda</field>
+        </record>
+
     </data>
 </odoo>

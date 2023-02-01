@@ -27,7 +27,7 @@
         <field name="name">Estate Form view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <form string="estate_form">
+            <form string="estate form">
                 <header>
                     <button name="sold_button" type='object' string="Sold" class="oe_highlight" attrs="{'invisible':[('state','in',['sold','cancel'])]}"/>
                     <button name="cancelled_button" type="object" string="Cancle" attrs="{'invisible':[('state','in',['sold','cancel'])]}"/>
@@ -35,7 +35,7 @@
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <widget name="web_ribbon" title="sold" bg_color="bg-danger" attrs="{'invisible': [('state','in',['new','offer_accepted','offer_recieved','cancel'])]}"/>
+                    <widget name="web_ribbon" title="sold" bg_color="bg-success" attrs="{'invisible': [('state','in',['new','offer_accepted','offer_recieved','cancel'])]}"/>
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state','in',['new','offer_accepted','offer_recieved','sold'])]}"/>
                     <div class="oe_title">
                         <label for="name"></label>
@@ -151,6 +151,7 @@
                 <filter string="avilable" name="avilable_filter" domain="[('state','in',['new','offer_accepted'])]"/>
                 <group expand="1" string="Group By">
                     <filter string="Facades" name="facades" context="{'group_by':'facades'}"></filter>
+                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"></filter>
                     <filter string="Living Area" name="living_area" context="{'group_by':'living_area'}"></filter>
                 </group>
             </search>
