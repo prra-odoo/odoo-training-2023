@@ -44,6 +44,7 @@ class estateProperty(models.Model):
     best_offer = fields.Float(string="Best Offer",compute="_compute_best_offer")
     status = fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
     company_id = fields.Many2one("res.company", string="Company", required=True, default=lambda self: self.env.company)
+    image = fields.Binary(string="Image", store=True)
 
     _sql_constraints = [
         ('expected_price', 'CHECK(expected_price >= 0)', 'A property expected price should be positive.'),

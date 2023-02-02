@@ -23,6 +23,7 @@
                     <field name="garden" optional='hide'/>
                     <field name="garden_area" optional='hide'/>
                     <field name="garden_orientation" optional='hide'/>
+                    <field name="image" optional='hide'/>
                 </tree>
             </field>
         </record>
@@ -64,6 +65,8 @@
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', 'not in', ('sold'))]}"/>
                         <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', 'not in', ('cancel'))]}"/>
                         <field name="active" invisible='1'/>
+                        <field name="image" widget='image' class="oe_avatar bg-black" nolabel="1"
+                            options='{"preview_image": "image"}' />
                         <label for="name">Name</label>
                         <h1>
                             <field name="name"/>

@@ -6,6 +6,9 @@
     <record model="estate.property.type" id="estate_property_house">
         <field name='name'>House</field>
     </record>
+    <record model="estate.property.type" id="property_residential">
+        <field name='name'>Residential</field>
+    </record>
     <record model="estate.property.type" id="estate_property_penthouse">
         <field name='name'>Pent House</field>
     </record>
@@ -16,31 +19,77 @@
         <field name='name'>renovated</field>
     </record>
 
-    <record model="estate.property" id="realestate_odoo">
-        <field name="name">Odoo</field>
-        <field name="description">Real Estate Description</field>
+    <record model="estate.property" id="smallvilla">
+        <field name="name">Small Villa</field>
+        <field name="description">A nice and small villa</field>
         <field name="postcode">395006</field>
         <field name="expected_price">200000</field>
         <field name="selling_price">250000</field>
         <field name="property_type_id" ref="real_estate.estate_property_penthouse"/>
         <field name="tag_ids" eval="[(6,0,[ref('real_estate.property_tags_cozy')])]"/>
+        <field name="image" type="base64" file="real_estate/static/description/small_villa.jpg"/>
     </record>
 
-    <record model="estate.property" id="realestate_newhouse">
+    <record model="estate.property" id="newhouse">
         <field name="name">New House</field>
-        <field name="description">Real Estate Description</field>
+        <field name="description">Brand new house</field>
         <field name="postcode">395010</field>
         <field name="expected_price">100000</field>
         <field name="selling_price">200000</field>
         <field name="property_type_id" ref="real_estate.estate_property_flat"/>
+        <field name="image" type="base64" file="real_estate/static/description/new_house.jpg"/>
     </record>
 
-    <record model="estate.property" id="realestate_oldhouse">
+    <record model="estate.property" id="oldhouse">
         <field name="name">Old House</field>
-        <field name="description">Real Estate Description</field>
+        <field name="description">Classic old house</field>
         <field name="postcode">395001</field>
         <field name="expected_price">1000</field>
         <field name="selling_price">1500</field>
         <field name="property_type_id" ref="real_estate.estate_property_house"/>
+        <field name="image" type="base64" file="real_estate/static/description/old_house.jpg"/>
+    </record>
+    
+    <record id="villa" model="estate.property">
+        <field name="name">Big Villa</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">12345</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100000</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <field name="image" type="base64" file="real_estate/static/description/big_villa.jpg"/>
+    </record>
+
+    <record id="trailer" model="estate.property">
+        <field name="name">Trailer Home</field>
+        <field name="description">Home in a trailer park</field>
+        <field name="postcode">54321</field>
+        <field name="expected_price">100000</field>
+        <field name="selling_price">120000</field>
+        <field name="bedrooms">1</field>
+        <field name="living_area">10</field>
+        <field name="facades">4</field>
+        <field name="garage">False</field>
+        <field name="garden">True</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <field name="image" type="base64" file="real_estate/static/description/trailer_home.jpg"/>
+    </record>
+    <record id="cabin" model="estate.property">
+        <field name="name">Cozy Cabin</field>
+        <field name="description">Small cabin by lake</field>
+        <field name="postcode">10000</field>
+        <field name="expected_price">80000</field>
+        <field name="bedrooms">1</field>
+        <field name="living_area">10</field>
+        <field name="facades">4</field>
+        <field name="garage">False</field>
+        <field name="garden">True</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <field name="image" type="base64" file="real_estate/static/description/cozy_cabin.jpg"/>
     </record>
 </odoo>
