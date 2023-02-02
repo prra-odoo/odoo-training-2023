@@ -7,11 +7,15 @@ class EstateProperty(models.Model):
     _inherit="estate.properties"
 
     def action_sold(self):
-        # project= self.env["project.project"].search(["name",'=','Cleaning property']) 
+        project = self.env['project.project'].search([('name', '=', 'Test Task')]) 
+        # pro=self.env['project.project'].search([('name','ilike','Cleaning')])
+        # if not pro:
+        #     print(self.env['project.project'].create({'name':'Cleaning'}))
+        #     pro=self.env['project.project'].create({'name':'Cleaning'})
         for record in self:
             self.env["project.task"].sudo().create({
                 'name': "clean "+ record.name,
-                'project_id' : 4,
+                'project_id' : project.id,
                 "partner_id":record.buyer_id.id
             }
             )

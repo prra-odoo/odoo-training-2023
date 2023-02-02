@@ -13,6 +13,7 @@ class EstateProperty(models.Model):
     description=fields.Text('Property description')
     postcode=fields.Char('Postcode',required=True)
     date_availability=fields.Date('Date availability', copy=False)
+    image=fields.Image(string='Image',store=True)
     expected_price=fields.Float('expected price',required=True)
     selling_price=fields.Float('selling price', copy=False)
     bedrooms=fields.Integer('bedrooms', default=2)
