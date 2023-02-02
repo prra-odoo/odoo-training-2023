@@ -15,12 +15,23 @@ class estateProperty(models.Model):
 
     price=fields.Float(string="Price")
 
-    @api.constrains('price')
-    def _check_date_end(self):
-        for record in self:
-            if record.price<max(record.property_id.offer_ids.mapped("price"),default=0):
-                raise ValidationError("Please place a greater offer")
+    # @api.constrains('price')
+    # def _check_date_end(self):
+    #     for record in self:
+    #         if record.price<max(record.property_id.offer_ids.mapped("price"),default=0):
+    #             raise ValidationError("Please place a greater offer")
 
+    @api.model
+    def create(self,vals):
+        print(vals)
+        print(vals['price'])
+        property = self.env['estate.property'].browse(vals['property_id'])
+        print(property.name)
+        if vals['price']>property.best_offer:
+            return super().create(vals)
+        else:
+            raise ValidationError("Please place a greater offer")
+        
 
     status=fields.Selection( string="Status",
         selection=[('accepted', 'Accepted'), ('refused', 'Refused')])
@@ -54,9 +65,16 @@ class estateProperty(models.Model):
                 if records != self:
                     records.status='refused'
 
-
     def reject_offer(self):
         for record in self:
             record.status='refused'
 
         
+
+    @api.ondelete(at_uninstall=False)
+    def set_state_to_new_if_no_offer_remaining(self):
+        print("==>")
+        for record in self:
+            if len(record.property_id.offer_ids)==1:
+                print("===>")
+                record.property_id.state="new"                                                                       
