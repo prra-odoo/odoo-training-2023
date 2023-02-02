@@ -28,7 +28,7 @@ class estate_property(models.Model):
             selection=[('North','North'),('South','South'),('East','East'),('West','West')],
             help="This type is saparate north ,south,east and wast")
     active = fields.Boolean('Active',default=True)
-
+    image = fields.Image('image')
     status = fields.Selection(
             string='Status',copy=False,default='New',
             selection=[('New','New'),('offer received','offer received'),('offer Accepted','offer Accepted'),('cancelled','cancelled'),('Sold','Sold')],tracking=True)

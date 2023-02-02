@@ -19,6 +19,7 @@
                 <field name="date_availability" optional="hide"/>
                 <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="status" widget="badge" decoration-danger="status == 'cancelled'" />
+                <field name="image" widget="image" class="oe_avatar" options='{"size":[80,80]}'/>
                 <!-- <field name="property_tag_ids" widget="badge"/> -->
             </tree>
         </field>
@@ -37,6 +38,7 @@
                     <!-- statusbar_colors='{"sold":"green","offer cancelled":"red"}' options="{'clickable':'1'}"-->
                 </header>    
                 <sheet>
+                    <field name="image" widget='image' nolabel='1' class="oe_avatar" />
                 <group>
                     <!-- <group> -->
                         <h1>
@@ -140,10 +142,15 @@
         <field name="arch" type="xml">
             <kanban default_group_by="property_type_id" records_draggable="false">
                 <field name="status"/>
-
+                <field name="id"/>
+                <field name="image"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
+                             <div class="o_kanban_image">
+                                <img class="o_kanban_image_inner_pic" t-att-src="kanban_image('estate.property','image',record.id.raw_value)" alt="Image"/>
+                            </div>
+                            <div>
                             <h3>
                             <field name="name"/>
                             </h3>
@@ -153,6 +160,7 @@
                             </div>
                             <div class="col-12" t-if="record.status.raw_value == 'offer Accepted'">
                                 selling_price:<field name="selling_price"/>
+                            </div>
                             </div>
                         </div>
                        
