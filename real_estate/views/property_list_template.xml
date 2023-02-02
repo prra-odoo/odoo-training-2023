@@ -1,12 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Menu item -->
+    <record id="menu_properties" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/realestate</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
 
     <template id="index">
         <t t-call="website.layout">
-            <title>Real Estate</title>
-            <t t-foreach="properties" t-as="property">
-                <p><t t-esc="property.id"/><t t-esc="property.name"/></p>
-            </t>
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="row gy-3 my-3">
+                        <t t-foreach="properties" t-as="property">
+                            <t t-if="property.state in ['new','offer_recieved']">
+                                <!-- CARD CODE -->
+                                <div class="col-sm-6 col-md-2 col-lg-3">  
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" t-attf-src="data:image/png;base64,#{property.property_image}" style="object-fit: contain;"/>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><t t-esc="property.name"/></h5>
+                                            <p class="card-text">
+                                                <strong>Property Type  : </strong><t t-esc="property.property_type_id.name"/> <br />
+                                                <strong>Expected Price : </strong><t- t-esc="property.expected_price"/><br />
+                                                <strong>Tags : </strong><t- t-esc="property.tags_ids"/>
+                                            </p>
+                                            <a t-attf-href="/estate/{{slug(property) }}" class="btn btn-outline-primary">Check out this property</a>
+                                        </div>
+                                    </div>
+                                 </div> 
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination d-flex justify-content-center mt-3 mb-3">
+                <t t-call="website.pager" />
+            </div>
+        </t>
+    </template>
+    <template id="details">
+        <t t-call="website.layout">
+            <div class="oe_structure">    
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <div class="text-center">
+                            <strong><h1><t t-esc="property.name"/></h1></strong>
+                        </div>
+                        <center>
+                            <img t-attf-src="data:image/png;base64,#{property.property_image}" align='center' height='50%' width='50%'/>
+                        </center> 
+                        <h3 class="text-center">Property Details</h3>
+                        <div class="row" style="font-size: 20px;">
+                            <div style="margin-top: 20px;" class="col-6">
+                                    <strong>Description : </strong><t t-esc="property.description"/><br />
+                                    <strong>Postcode :</strong> <t t-esc="property.Postcode"/><br />
+                                    <strong>Date Availability :</strong> <t t-esc="property.date_availablity"/><br />
+                                    <strong>Expected Price :</strong> <t t-esc="property.expected_price"/><br />
+                            </div>
+                            <div style="margin-top: 20px; " class="col-6">
+                                    <strong>Bedroom :</strong> <t t-esc="property.bedroom"/><br />
+                                    <strong>Area :</strong> <t t-esc="property.living_area"/><br />
+                                    <strong>Garden Orientation :</strong> <t t-esc="property.garden_orientation"/><br />
+                                    <strong>State :</strong> <t t-esc="property.state"/><br />
+                            </div>
+                        </div>
+                        <t t-call="real_estate.offers_template"/>
+                    </t>
+                </div>
+            </div>
         </t>
     </template>
 </odoo>

@@ -1,10 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data> 
-       
+
+        <!-- Property Types -->
+        <record id="property_residential" model="estate.property.type">
+            <field name="name">Residential</field>
+        </record>
+
+        <record id="property_commercial" model="estate.property.type">
+            <field name="name">Commercial</field>
+        </record>
+
+        <record id="property_industrial" model="estate.property.type">
+            <field name="name">Industrial</field>
+        </record>
+
+        <record id="property_land" model="estate.property.type">
+            <field name="name">Land</field>
+        </record>
+
+        <!-- Properties -->
+        <record id="villa" model="real.estate.properties">
+            <field name="name">Big Villa</field>
+            <field name="state">new</field>
+            <field name="description">A nice and big villa and i personally like it and i am absolutely sure that you would like it to and it is also reasonable</field>
+            <field name="Postcode">12345</field>
+            <field name="date_availablity">2020-02-02</field>
+            <field name="expected_price">1600000</field>
+            <field name="bedroom">6</field>
+            <field name="living_area">100</field>
+            <field name="facades">4</field>
+            <field name="garage">True</field>
+            <field name="gardan">True</field>
+            <field name="gardan_area">100000</field>
+            <field name="property_type_id" ref="property_residential"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="trailer" model="real.estate.properties">
+            <field name="name">Trailer Home</field>
+            <field name="state">cancled</field>
+            <field name="description">Home in a trailer park is a good choice i think you should try it sometime </field>
+            <field name="Postcode">54321</field>
+            <field name="date_availablity">1970-01-01</field>
+            <field name="expected_price">100000</field>
+            <field name="selling_price">120000</field>
+            <field name="living_area">10</field>
+            <field name="facades">4</field>
+            <field name="garage">False</field>
+            <field name="gardan">True</field>
+            <field name="property_type_id" ref="property_residential"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="space_ship" model="real.estate.properties">
+            <field name="name">International Space Station</field>
+            <field name="state">new</field>
+            <field name="description">Aliens sometimes come visit and it is nice to see them 
+                i personally like it and i am absolutely sure that you would like it to</field>
+            <field name="Postcode">123456</field>
+            <field name="date_availablity">2030-12-31</field>
+            <field name="expected_price">45890000</field>
+            <field name="property_type_id" ref="property_industrial"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
+        <record id="cabin" model="real.estate.properties">
+            <field name="name">Cozy Cabin</field>
+            <field name="description">Aliens sometimes come visit and it is nice to see them 
+                i personally like it and i am absolutely sure that you would like it to</field>
+            <field name="Postcode">10000</field>
+            <field name="date_availablity">2020-01-01</field>
+            <field name="expected_price">80000</field>  
+            <field name="living_area">10</field>
+            <field name="facades">4</field>
+            <field name="garage">False</field>
+            <field name="gardan">True</field>
+            <field name="property_type_id" ref="property_residential"/>
+            <field name="user_id" ref="base.user_admin"/>
+        </record>
+
         <record model="real.estate.properties" id="demo_data_1">
             <field name="name">Royal House</field>
-            <field name="description">Royal</field>
+            <field name="description">Aliens sometimes come visit and it is nice to see them 
+                i personally like it and i am absolutely sure that you would like it to</field>
             <field name="Postcode">380008</field>
             <field name="expected_price">100000000</field>
             <field name="bedroom">9</field>
@@ -14,7 +93,8 @@
         </record>
         <record model="real.estate.properties" id="demo_data_2">
             <field name="name">Om</field>
-            <field name="description">nice home</field>
+            <field name="description">Aliens sometimes come visit and it is nice to see them 
+                i personally like it and i am absolutely sure that you would like it to</field>
             <field name="Postcode">3812390</field>
             <field name="expected_price">10000000</field>
             <field name="bedroom">5</field>
@@ -24,7 +104,8 @@
         </record>
         <record model="real.estate.properties" id="demo_data_3">
             <field name="name">Antillia</field>
-            <field name="description">Ambani Ka Ghar</field>
+            <field name="description">Aliens sometimes come visit and it is nice to see them 
+                i personally like it and i am absolutely sure that you would like it to</field>
             <field name="Postcode">489976</field>
             <field name="expected_price">800000000000</field>
             <field name="bedroom">54</field>
@@ -34,7 +115,8 @@
         </record>
         <record model="real.estate.properties" id="demo_data_4">
             <field name="name">Rude House</field>
-            <field name="description">Why are u Reading it </field>
+            <field name="description">Aliens sometimes come visit and it is nice to see them 
+                i personally like it and i am absolutely sure that you would like it to</field>
             <field name="Postcode">3804568</field>
             <field name="expected_price">67800000</field>
             <field name="bedroom">9</field>
@@ -44,7 +126,8 @@
         </record>
         <record model="real.estate.properties" id="demo_data_5">
             <field name="name">Shanti Niwas</field>
-            <field name="description">just go and check it out</field>
+            <field name="description">Aliens sometimes come visit and it is nice to see them 
+                i personally like it and i am absolutely sure that you would like it to</field>
             <field name="Postcode">380008</field>
             <field name="expected_price">45000000</field>
             <field name="bedroom">9</field>

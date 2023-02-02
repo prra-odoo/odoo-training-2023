@@ -22,6 +22,7 @@ class real_Esate_Properties(models.Model):
 	living_area=fields.Integer(string="Living Area (sqm)")
 	facades=fields.Integer()
 	garage=fields.Boolean()
+	property_image=fields.Image()
 	gardan=fields.Boolean(string="Garden")
 	gardan_area=fields.Integer(string="Garden Area (sqm)",compute="_compute_gardan",readonly=False)
 	garden_orientation=fields.Selection(
