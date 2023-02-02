@@ -41,5 +41,25 @@
             <field name="selling_price">1000000</field>
             <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
         </record>
+
+        <record id="estate_property_record_5" model="estate.property.model">
+            <field name="name" >Infocity</field>
+            <field name="postcode">89765</field>
+            <field name="bedrooms" >6</field>
+            <field name="living_area" >90000</field>
+            <field name="expected_price">1000000</field>
+            <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
+        </record>
+
+        <record id="estate_property_record_6" model="estate.property.model">
+            <field name="name" >Giftcity</field>
+            <field name="postcode">76587</field>
+            <field name="bedrooms" >2</field>
+            <field name="living_area" >40000</field>
+            <field name="expected_price">500000</field>
+            <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
+        </record>
     </data>
 </odoo>

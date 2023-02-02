@@ -15,6 +15,7 @@ class Real_estate(models.Model):
     name = fields.Char(required=True,default="New User")
     description = fields.Text()
     postcode = fields.Char()
+    image = fields.Image(string="Image")
     date_availability = fields.Date(copy=False,default=fields.date.today()+relativedelta(months=3))
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(default=0,readonly=False,copy=False)

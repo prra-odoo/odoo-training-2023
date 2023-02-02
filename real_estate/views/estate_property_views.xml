@@ -9,6 +9,7 @@
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
                 <field name="bedrooms" string="Bedrooms"/>
+                <field name="image" string="Property Image" optional="hidden"/>
                 <field name="living_area" string="Living Area (sqm)"/>
                 <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field':'color'}"/>
                 <field name="company_id" string="Company" optional="hidden"/>
@@ -38,11 +39,14 @@
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="SOLD" bg_color="bg-success" states="sold"/>
-                    <h1> 
+                    <h1>
                         <field name="name" />
                     </h1>
                     <br/>
-                    <field name="tag_ids"  widget="many2many_tags" options="{'color_field':'color'}"/>    
+                    <group>
+                        <group><field name="tag_ids"  widget="many2many_tags" options="{'color_field':'color'}"/></group>
+                        <group><field name="image" string="Property Image" widget="image" options='{"preview_image": "image", "size": [100,100]}' /></group>
+                    </group>  
                     <br/>
                     <group>
                         <group> <field name="postcode"/></group>
