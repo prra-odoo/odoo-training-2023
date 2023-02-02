@@ -26,6 +26,7 @@
         'views/res_users_inherited_views.xml',
         'views/estate_menus.xml',
         'controllers/estate_property_controller_template.xml',
+        'controllers/estate_website_controller_template.xml',
         'report/estate_property_offer_templates.xml',
         'report/estate_user_property_templates.xml',
         'report/estate_reports.xml'

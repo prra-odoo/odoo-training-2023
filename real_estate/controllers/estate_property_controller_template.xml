@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <!-- 1 -->
     <template id="estate_property_controller_template" name="Property Details">
         <t t-call="web.html_container">
             <t t-call="web.basic_layout">
@@ -52,44 +51,6 @@
                             </t>
                         </tbody>
                     </table>
-                </div>
-            </t>
-        </t>
-    </template>
-    <!-- 2 -->
-    <template id="demo_controller_template">
-        <t t-call="web.html_container">
-            <t t-call="web.basic_layout">
-                <div class="page">
-                    <t t-set="title">Estate Property</t>
-                    <div class="container">
-                        <t t-foreach="records" t-as="property">
-                            <h4 style="margin-top: 20px;">
-                                <a t-attf-href="/estate/{{ slug(property) }}">
-                                    <center>
-                                        <t t-esc="property.name"/>
-                                    </center>
-                                </a>
-                            </h4>
-                        </t>
-                    </div>
-                </div>
-            </t>
-        </t>
-    </template>
-    <!-- 3 -->
-    <template id="single_property_template">
-        <t t-call="web.html_container">
-            <t t-call="web.basic_layout">
-                <div class="page">
-                    <t t-set="title">Estate Property</t>
-                    <div class="container">
-                        <h4 style="margin-top: 20px;">
-                            <center>
-                                <t t-esc="record.name"/>
-                            </center>
-                        </h4>
-                    </div>
                 </div>
             </t>
         </t>

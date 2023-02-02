@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- WEBSITE MENU FOR ESTATE PROPERTIES -->
+    <record id="menu_estate_property" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/estate/estate/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+    <!-- THIS TEMPLATE WILL DISPLAY LIST OF PROPERTIES -->
+    <template id="estate_property_list_controller_template">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Properties</t>
+            <div class="oe_structure">
+                <div class="header" style="background: #dddddd; padding: 15px;">
+                    <form method="get" class="d-flex justify-content-center">
+                        <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px"/>
+                        <input type="submit" value="Submit" class="btn btn-primary"/>
+                    </form>
+                </div>
+                <div class="container">
+                    <div class="row gy-3 my-3">
+                        <t t-foreach="records" t-as="property">
+                            <!-- CARD CODE -->
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="card" style="background-color: #90EE90">
+                                    <!-- <img src="/real_estate/static/src/img/4.jpg" class="card-img-top" alt="Estate Property Image"/> -->
+                                    <img class="card-img-top" t-attf-src="data:image/png;base64,#{property.property_image}" style="object-fit: contain;"/>
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="font-weight: 600;">
+                                            <t t-esc="property.name"/>
+                                        </h5>
+                                        <p class="card-text">Salesperson:
+                                            <t t-foreach="property.salesperson_id" t-as="salesperson">
+                                                <strong>
+                                                    <t t-esc="salesperson.name"/>
+                                                </strong>
+                                            </t>
+                                        </p>
+                                        <p class="card-text">Property Type:
+                                            <t t-foreach="property.property_type_id" t-as="type">
+                                                <strong>
+                                                    <t t-esc="type.name"/>
+                                                </strong>
+                                            </t>
+                                        </p>
+                                        <p class="card-text">Expected Price:
+                                            <strong>
+                                                <t t-esc="property.expected_price"/>
+                                            </strong>
+                                        </p>
+                                        <center>
+                                            <h6 class="mt-3">
+                                                <t t-foreach="property.tag_ids" t-as="tag">
+                                                    <span class="badge" style="color: black; background: #fcae1e;">
+                                                        <t t-esc="tag.name"/>
+                                                    </span>
+                                                </t>
+                                            </h6>
+                                            <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary mt-3">
+                                                View Details
+                                            </a>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="pagination d-flex justify-content-center mt-3 mb-3">
+                        <t t-call="website.pager" />
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!-- THIS TEMPLATE WILL DISPLAY SINGLE PROPERTY -->
+    <template id="single_property_template">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Property</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <!-- Carousel Start -->
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-height: 75vh">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="/real_estate/static/src/img/1.jpg" alt="First slide" style="max-height: 75vh"/>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/real_estate/static/src/img/5.jpg" alt="Second slide" style="max-height: 75vh"/>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/real_estate/static/src/img/3.jpg" alt="Third slide" style="max-height: 75vh"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carousel Ends -->
+                    <div class="property-details mt-4">
+                        <center>
+                            <h1 class="heading-primary" style="font-weight: 600;">
+                                <t t-esc="record.name"/>
+                            </h1>
+                        </center>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="type" style="font-size: 20px;">
+                                    Property Type :
+                                    <t t-foreach="record.property_type_id" t-as="type">
+                                        <t t-esc="type.name"/>
+                                    </t>
+                                </div>
+                                <div class="status" style="font-size: 20px;">
+                                    Status :
+                                    <t t-esc="record.state"/>
+                                </div>
+                                <div class="postcode" style="font-size: 20px;">
+                                    Postcode :
+                                    <t t-esc="record.postcode"/>
+                                </div>
+                                <div class="date_availability" style="font-size: 20px;">
+                                    Available From :
+                                    <t t-esc="record.date_availability"/>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="expected_price" style="font-size: 20px;">
+                                    Expected Price :
+                                    <t t-esc="record.expected_price"/>
+                                </div>
+                                <div class="best_price" style="font-size: 20px;">
+                                    Best Price :
+                                    <t t-esc="record.best_price"/>
+                                </div>
+                                <div class="selling_price" style="font-size: 20px;">
+                                    Selling Price :
+                                    <t t-esc="record.selling_price"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TABLE START -->
+                        <div class="mt-5" style="font-weight: 600;">
+                            <center>
+                                <h3 style="font-weight: 600;">
+                                    Offers
+                                </h3>
+                            </center>
+                        </div>
+                        <table class="table-striped table">
+                            <thead style="font-size: 23px;">
+                                <tr>
+                                    <h6>
+                                        <b>
+                                            <th>Price</th>
+                                            <th>Partner</th>
+                                            <th>Validity (days)</th>
+                                            <th>Deadline</th>
+                                            <th>Status</th>
+                                        </b>
+                                    </h6>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="offers" t-value="record.mapped('offer_ids')"/>
+                                <tr t-foreach="offers" t-as="offer">
+                                    <td>
+                                        <span t-field="offer.price"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.partner_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.validity"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.date_deadline"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.status"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!-- SEARCH FILTER -->
+</odoo>
