@@ -78,6 +78,7 @@
                         <widget name="web_ribbon" title="sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}" />
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}" />
                         <field name="active" invisible='1' />
+                        <field name="image" widget="image" class="oe_avatar bg-black" nolabel="1" options='{"preview_image": "image"}' />
                         <label for="name">Name</label>
                         <h1>
                             <field name="name" />

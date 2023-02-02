@@ -49,6 +49,7 @@ class realEstate(models.Model):
         selection=[('sold', 'Sold'), ('cancel', 'Cancel')], tracking=True)
     
     company_id = fields.Many2one('res.company','Company Name')
+    image= fields.Binary(string="Image")
 
     @api.depends("living_area", "garden_area")
     def _compute_total(self):

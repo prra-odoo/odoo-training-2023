@@ -31,6 +31,71 @@
         <field name="garden_area">100000</field>
     </record>
 
+    <record id="apartment" model="real.estate">
+        <field name="name">Suyash Elegance</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">1234</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100000</field>
+    </record>
+
+    <record id="palace" model="real.estate">
+        <field name="name">Jaipur Palace</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">1234</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100000</field>
+    </record>
+
+    <record id="mansion" model="real.estate">
+        <field name="name">Ambani Mansion</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">1234</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100000</field>
+    </record>
+
+    <record id="skyscaper" model="real.estate">
+        <field name="name">Skyscaper</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">1234</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100000</field>
+    </record>
+
+    <record id="Lutyens" model="real.estate">
+        <field name="name">Lutyens</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">1234</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100000</field>
+    </record>
+
 
     <record id="trailer" model="real.estate">
         <field name="name">Trailer Home</field>
@@ -46,7 +111,7 @@
     </record>
 
     <record id="space_ship" model="real.estate">
-        <field name="name">International Space Station</field>
+        <field name="name">Space Station</field>
         <field name="description">Aliens sometimes come visit</field>
         <field name="postcode">1234</field>
         <field name="expected_price">45890000</field>
@@ -54,6 +119,19 @@
 
     <record id="cabin" model="real.estate">
         <field name="name">Cozy Cabin</field>
+        <field name="state">sold</field>
+        <field name="description">Small cabin by lake</field>
+        <field name="postcode">10000</field>
+        <field name="expected_price">80000</field>
+        <field name="bedrooms">1</field>
+        <field name="living_area">10</field>
+        <field name="facades">4</field>
+        <field name="garage">False</field>
+        <field name="garden">True</field>
+    </record>
+
+    <record id="Antilia" model="real.estate">
+        <field name="name">Antilia</field>
         <field name="state">sold</field>
         <field name="description">Small cabin by lake</field>
         <field name="postcode">10000</field>
