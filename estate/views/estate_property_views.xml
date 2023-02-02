@@ -117,7 +117,7 @@
 
                     <notebook>
                         <page string="Description">
-                            <textarea><field name="description"/></textarea>
+                            <field name="description"/>
                         </page>
                         <page string="Garden">
                             <group string="info">
@@ -161,6 +161,11 @@
                                     <field name="status"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="Property Image">
+                            <div style="width: 500px; height: 350px">
+                                <field name="image" widget="image"/>
+                            </div>
                         </page>
                     </notebook>
                 </sheet>

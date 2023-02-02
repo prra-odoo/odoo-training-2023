@@ -9,7 +9,6 @@ class EstateModel(models.Model):
     _name = "estate.property"
     _description = "Estate Property Model"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _order = "id desc"
 
     name = fields.Char('Name',required = True)
     description = fields.Text()
@@ -40,6 +39,7 @@ class EstateModel(models.Model):
     best_price = fields.Float(compute="_compute_max_price", default=0)
     company_id = fields.Many2one("res.company", string="Company", default=lambda self: self.env.user.company_id)
     listing = fields.Html()
+    image = fields.Binary()
     
     _sql_constraints = [
         ('check_expected_selling_price', 'CHECK(expected_price >= 0 AND selling_price >=0)',
