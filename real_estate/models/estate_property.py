@@ -36,6 +36,8 @@ class estateProperty(models.Model):
     best_price = fields.Float(compute='_compute_best_price')
     status =fields.Char()
     company_id = fields.Many2one('res.company',string='Company', required=True, default=lambda self: self.env.user.company_id,)
+    image = fields.Binary("Property Image:", attachment=True, store=True)
+
 
     # company = self.env['res.company'].create({'name': 'New Company'})
 
@@ -96,11 +98,11 @@ class estateProperty(models.Model):
                 record.garden_orientation=False
             
 
-    @api.ondelete(at_uninstall=False)
-    def _unlink_state(self):
-        for record in self:
-            if record.state not in ['new','cancel']:
-                raise UserError('you can not delete this record.')
+    # @api.ondelete(at_uninstall=False)
+    # def _unlink_state(self):
+    #     for record in self:
+    #         if record.state not in ['new','cancel']:
+    #             raise UserError('you can not delete this record.')
 
 
     _sql_constraints = [

@@ -116,6 +116,7 @@
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"></field>
                     </header>
                     <sheet>
+                        <field name="image" widget='image' class="oe_avatar bg-white" nolabel="1"/>
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', 'not in', ('sold'))]}"/>
                         <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', 'not in', ('cancel'))]}"/>
                         <label for="name" string="Name:"></label>

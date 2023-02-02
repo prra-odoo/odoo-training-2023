@@ -1,31 +1,142 @@
 <odoo>
 
+
+    <data>
+        <record id="menu_shop" model="website.menu">
+            <field name="name">Properties</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="url">realestate/property</field>
+        </record>
+    </data>
+
     <template id="index">
+        <style>
+            .card{
+            transition: all 0.2s ease;
+             cursor: pointer;
+             }
+             .card:hover{
+             box-shadow: 5px 6px 6px 2px #e9ecef;
+             transform: scale(1.1);
+             }
+        </style>
         <t t-call="website.layout">
             <t t-set="title">Real Estate</t>
-            <div class="oe_structure">
+            <div class="oe_structure" style="background-color: #F3E4F1">
                 <div class="container">
-                    <t t-foreach="estates" t-as="estate">
-                        <p>
-                            <a t-attf-href="/realestate/{{ slug(estate) }}">
-                                <t t-esc="estate.name"/>
-                            </a>
-                        </p>
+                    <h2 class="text-center  text-secondary " style="font-weight:bold;margin-bottom:19px;">Properties</h2>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
+                        <!-- row row-cols-3 -->
+                        <t t-foreach="estates" t-as="estate">
+                            <div class="col">
+                                <div class="card h-100 shadow-sm bg-image hover-zoom" style="border-radius: 10px ">
+                                    <img t-attf-src="data:image/png;base64,#{estate.image}" class="card-img-top" alt="..." />
+                                    <div class="card-body text-secondary">
+                                        <span class="float-end badge rounded-pill bg-secondary" t-field="estate.tag_ids"></span>
+                                        <div>
+                                            <!-- <i class="fa fa-home "></i> -->
 
-                    </t>
+                                            <h4 class="fa fa-home text-secondary bg-light fs-4" style="font-weight:bold;" t-field="estate.name"></h4>
+
+                                        </div>
+                                        <div>
+                                        Description: <p class="card-text  fa fa-caret-right" t-field="estate.description" style="margin-bottom:7px"></p>
+                                        </div>
+                                        <div>
+                                        Selling Price <p class="card-text  fa fa-caret-right" t-field="estate.selling_price"></p>
+                                        </div>
+                                        <div>
+                                        Property Type <p class="card-text  fa fa-caret-right" t-field="estate.property_type_id"></p>
+                                        </div>
+                                        <div class="text-center my-4 ">
+                                            <a t-attf-href="/realestate/{{ slug(estate) }}" class="btn btn-outline-secondary">Check Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
                 </div>
+            </div>
+            <div class="pagination">
+                <t t-call="website.pager" />
             </div>
         </t>
     </template>
 
     <template id="detail">
         <t t-call="website.layout">
-            <t t-set="title">Real Estate</t>
-            <div class="oe_structure">
+            <div class="oe_structure" style="background-color: #FAFAEB">
+                <h1 class="text-secondary text-center" style="font-weight:bold; " t-field="person.name"></h1>
                 <div class="container">
-                    <h3 t-field="person.name"/>
-                    <p>Last modified: <i t-field="person.write_date" t-options='{"widget": "relative"}'/></p>
-                    <div t-field="person.detail"/>
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4 bg-image hover-zoom">
+                                <img t-attf-src="data:image/png;base64,#{person.image}" width="350" height="350" class="rounded float-right" alt="..." />
+                            </div>
+                            <div class="col-md-8">
+                                <div class = "card-body">
+                                    <div>
+                                        <span style="font-weight:bold;">About Property:</span>
+                                        <p class="card-text" t-field="person.description"></p>
+                                    </div>
+                                    <div>
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <th>Postcode:</th>
+                                                <td t-esc="person.postcode"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Expected Price</th>
+                                                <td t-esc="person.expected_price"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Selling Price</th>
+                                                <td t-esc="person.selling_price"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Available Date</th>
+                                                <td t-esc="person.date_availability"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total Area</th>
+                                                <td t-esc="person.total_area"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Garden Orientation</th>
+                                                <td t-esc="person.garden_orientation"></td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- <h3 t-field="person.name"/>
+                    <img t-attf-src="data:image/png;base64,#{person.image}" alt="..." />
+                    <h3 t-field="person.description"/>
+                    <h3 t-field="person.postcode"/>
+                    <h3 t-field="person.date_availability"/>
+                    <h3 t-field="person.expected_price"/>
+                    <h3 t-field="person.selling_price"/>
+                    <h3 t-field="person.bedrooms"/>
+                    <h3 t-field="person.living_area"/>
+                    <h3 t-field="person.garden_area"/>
+                    <h3 t-field="person.garden_orientation"/>
+                    <h3 t-field="person.property_type_id"/>
+                    <h3 t-field="person.salesman_id"/>
+                    <h3 t-field="person.buyer_id"/>
+                    <h3 t-field="person.total_area"/>
+                    <h3 t-field="person.best_price"/>
+                    <h3 t-field="person.company_id"/>
+
+                    <p>Last modified: <i t-field="person.write_date" t-options='{"widget": "relative"}'/>
+                    </p>
+                    <div t-field="person.detail"/> -->
                 </div>
             </div>
             <div class="oe_structure"/>
