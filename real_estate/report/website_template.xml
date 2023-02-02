@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="menu_properties" model="website.menu">
+            <field name="name">Property</field>
+            <field name="url">/estate/property</field>
+            <field name="parent_id" ref="website.main_menu" />
+            <field name="sequence">55</field>
+        </record>
+    </data>
+
+
+    <template id="controller_estate_property">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container justify-content-center">
+                    <form method="get" class="s_website_form form-horizontal container-fluid mt32">
+                        <div class="input-group mt-3 mb-2">
+                            <input type="date" name="date"
+                                class="form-control o_website_form_date"
+                                style="max-width: 200px;" required='True'
+                                aria-describedby="search_button" />
+                            <button class="btn btn-outline-secondary o_website_form_send"
+                                type="submit" id="search_button">Listed After</button>
+                        </div>
+                    </form>
+                    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+                        <t t-foreach="properties" t-as="property">
+                            <a class="text-decoration-none"
+                                t-attf-href="/estate/{{ slug(property) }}"
+                                t-if="property.state in ['new','received','accepted']">
+
+                                <div class="card mt-3 position-relative" style="width: 16rem;">
+                                    <img t-attf-src="data:image/*;base64,{{property.image}}"
+                                        class="card-img-top hover" alt="hello">
+                                        <span
+                                            class="float-end badge rounded-pill bg-secondary position-absolute top-0 end-0 m-2"
+                                            t-field="property.tag_ids"></span>
+                                    </img>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <t t-esc="property.name" />
+                                        </h5>
+                                        <p class="card-text">
+                                            <p class="m-0">Expected Price: <t
+                                                    t-esc="property.expected_price" /></p>
+                                            <p class="m-0">Living Area: <t
+                                                    t-esc="property.living_area" /></p>
+                                            <p class="m-0">Property Type: <t
+                                                    t-esc="property.property_type_id.name" /></p>
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last modified: <i
+                                                t-field="property.write_date" /></small>
+                                    </div>
+                                </div>
+                            </a>
+                        </t>
+                    </div>
+                    <div class="pagination justify-content-center mb-3">
+                        <t t-call="website.pager" />
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="controller_estate_property_1">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+
+                <!-- navbar -->
+                <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <t t-esc="property.name" />
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">Offers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">location</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Offers</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-striped table-sm"
+                                    t-if="property.offer_ids">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Price</th>
+                                            <th>Partner</th>
+                                            <th>Validity(days)</th>
+                                            <th>Deadline</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="offers" t-value="property.mapped('offer_ids')" />
+                                        <tr t-foreach="offers" t-as="offer">
+                                            <td>
+                                                <span t-field="offer.price" />
+                                            </td>
+                                            <td>
+                                                <span t-field="offer.partner_id" />
+                                            </td>
+                                            <td>
+                                                <span t-field="offer.validity" />
+                                            </td>
+                                            <td>
+                                                <span t-field="offer.date_deadline" />
+                                            </td>
+                                            <td>
+                                                <span t-field="offer.status" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <strong t-else="">No offers have been made yet :(</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- carousal -->
+                <div class="container-fluid">
+                    <div id="carousel_property" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carousel_property"
+                                data-bs-slide-to="0" class="active" aria-current="true"
+                                aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carousel_property"
+                                data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carousel_property"
+                                data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="opacity-50">
+                                    <img t-attf-src="data:image/*;base64,{{property.image}}"
+                                        class="d-block w-100" alt="hello" />
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/real_estate/static/src/img/house1.jpg"
+                                    class="d-block w-100 opacity-50" alt="..." />
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/real_estate/static/src/img/house2.jpg"
+                                    class="d-block w-100 opacity-50" alt="..." />
+                            </div>
+                            <div class="carousel-caption  d-none d-md-block" style="top: 35%">
+                                <div
+                                    class="d-flex align-items-center justify-content-center bg-dark row mb-0"
+                                    style="height: 150px">
+                                    <h2>
+                                        <t t-esc="property.name" />
+                                    </h2>
+                                    <div class="row mt-0">
+                                        <h4>
+                                            <t t-esc="property.description" />
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carousel_property" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#carousel_property" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div class="container">
+                    <div class="card mt-4 mb-4">
+                        <div class="card-header">
+                            <h2>Details</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        <b>Property Type:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.property_type_id.name" />
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <b>Expected Price:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.expected_price" />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        <b>Bedrooms:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.bedrooms" />
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <b>Living Area:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.living_area" />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row" t-if="property.garden">
+                                <div class="col">
+                                    <p>
+                                        <b>Garden Orientation:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.garden_orientation" />
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <b>Garden Area:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.garden_area" />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        <b>Postcode:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.postcode" />
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <b>Total Area:</b>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <t t-esc="property.total_area" />
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

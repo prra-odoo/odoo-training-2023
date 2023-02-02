@@ -110,6 +110,8 @@
                             attrs="{'invisible': [('state', 'not in', ('cancel'))]}" />
                         <widget name="web_ribbon" title="Available" bg_color="bg-info"
                             attrs="{'invisible': [('state', 'not in', ('received'))]}" />
+                        <field name="image" widget='image' class="oe_avatar bg-black" nolabel="1"
+                            options='{"preview_image": "image"}' />
 
                         <label for="name" string="Name" />
                         <h1>

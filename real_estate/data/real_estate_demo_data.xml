@@ -57,6 +57,7 @@
             <field name="garden_orientation">south</field>
             <field name="property_type_id" ref="property_residential" />
             <field name="salesman_id" ref="base.user_admin" />
+            <field name="image" type="base64" file="real_estate/static/src/img/villa.jpg" />
         </record>
 
         <record id="trailer" model="estate.property">
@@ -74,6 +75,8 @@
             <field name="garden">True</field>
             <field name="property_type_id" ref="property_residential" />
             <field name="salesman_id" ref="base.user_admin" />
+            <field name="image" type="base64" file="real_estate/static/src/img/house.jpg" />
+
         </record>
 
         <record id="space_ship" model="estate.property">
@@ -85,6 +88,8 @@
             <field name="expected_price">4589000</field>
             <field name="property_type_id" ref="property_industrial" />
             <field name="salesman_id" ref="base.user_admin" />
+            <field name="image" type="base64" file="real_estate/static/src/img/space.jpg" />
+
         </record>
 
         <record id="cabin" model="estate.property">
@@ -101,6 +106,7 @@
             <field name="garden">True</field>
             <field name="property_type_id" ref="property_residential" />
             <field name="salesman_id" ref="base.user_admin" />
+            <field name="image" type="base64" file="real_estate/static/src/img/house.jpg" />
         </record>
 
         <record model="estate.property" id="estate_demo_data">
@@ -115,6 +121,7 @@
             <field name="garden_area">123</field>
             <field name="tag_ids"
                 eval="[(6,0, [ref('real_estate.estate_tag_demo_data1'), ref('real_estate.estate_tag_demo_data2')])]"></field>
+            <field name="image" type="base64" file="real_estate/static/src/img/flat.jpg" />
         </record>
         <record model="estate.property" id="estate_demo_data3">
             <field name="name">Arena</field>
@@ -127,6 +134,7 @@
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
             <field name="tag_ids" eval="[(6,0, [ref('real_estate.estate_tag_demo_data1')])]"></field>
+            <field name="image" type="base64" file="real_estate/static/src/img/flat.jpg" />
 
         </record>
         <record model="estate.property" id="estate_demo_data1">
@@ -140,6 +148,7 @@
             <!-- <field name="date_availability">2002/2/23</field> -->
             <field name="garden_area">123</field>
             <field name="tag_ids" eval="[(6,0, [ref('real_estate.estate_tag_demo_data2')])]"></field>
+            <field name="image" type="base64" file="real_estate/static/src/img/penthouse.jpg" />
 
         </record>
         <record model="estate.property" id="estate_demo_data2">
@@ -154,6 +163,7 @@
             <field name="garden_area">123</field>
             <field name="tag_ids"
                 eval="[(6,0, [ref('real_estate.estate_tag_demo_data1'), ref('real_estate.estate_tag_demo_data2')])]"></field>
+                <field name="image" type="base64" file="real_estate/static/src/img/bunglow.jpg" />
         </record>
 
 

@@ -35,7 +35,10 @@ class estateProperty(models.Model):
     tag_ids = fields.Many2many("estate.property.tag")
     offer_ids = fields.One2many("estate.property.offer","property_id")
 
-    rank = fields.Html('Rank', default="ef")
+    image = fields.Binary("Image", attachment=True, store=True,
+                                help="This field holds the image used for as favicon")
+
+    rank = fields.Html('Rank')
 
     company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.user.company_id)
 
