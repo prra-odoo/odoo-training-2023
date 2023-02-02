@@ -3,18 +3,48 @@
     <template id="index">
         <t t-call="website.layout">
             <t t-set="title">Real Estate</t>
+            <nav class="navbar navbar-light border-top shadow-sm d-print-none">
+                <div class="container">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
+                        <span class="navbar-brand h4 my-0 me-auto">Property</span>
+                        <div class="date_picker" style="margin:0 1rem 0 1rem;">
+                            <form method="get">
+                            <label>Availbility Date <input type="date" t-att-value="datetime.datetime.today().date()" name="availability_date"/></label>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            </form> 
+                        </div>
+                        <div class="button_box" groups="real_estate.estate_group_manager">
+                            <a t-if="description_hide and description_hide=='True'" class="btn btn-outline-secondary" t-att-href="'./{}?{}'.format(page if page>1 else '','description_hide=False')">Description</a>
+                            <a t-elif="description_hide or description_hide!='True'" class="btn btn-secondary" t-att-href="'./{}?{}'.format(page if page>1 else '','description_hide=True')">Description</a>
+                        </div>
+                    </div>
+                    
+                </div>
+               
+            </nav>
             <div class="oe_structure">
                 <div class="container">
+                   
+                    <div class="row">
                     <t t-foreach="properties" t-as="property">
-                        <p>
-                            <a t-attf-href="/estate/{{slug(property)}}">
-                                <t t-esc="property.name"/>
-                            </a>
-                            
-                        </p>
+                        <div class="col-4">
+                        <div class="card" style="width: 18rem; margin-top:1rem; margin-bottom:2rem;">
+                            <div t-field="property.image" t-aff-class="card-img-top" t-options="{'widget':'image'}"/>
+                            <div class="card-body">
+                              <h5 class="card-title"><t t-esc="property.name"/></h5>
+                              <p class="card-text"><t t-if="not description_hide or description_hide!='True'" t-esc="property.description"/></p>
+                              <a t-attf-href="/estate/{{slug(property)}}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
                     </t>
                 </div>
+                </div>
+                <div class="d-flex justify-content-center my-3">
+                    <t t-call="website.pager"/>
+                </div>
             </div>
+            
         </t>
     </template>
 </odoo>

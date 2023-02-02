@@ -2,8 +2,10 @@ from odoo import models,fields,api,_
 from odoo.exceptions import UserError,ValidationError
 from odoo.tools.float_utils import float_is_zero,float_compare
 from dateutil.relativedelta import relativedelta
+from odoo.addons.http_routing.models.ir_http import slug
+
 class RealEstateProperty(models.Model):
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin','website.published.mixin',]
     _name='real.estate.property'
     _description="Property model"
     _order="id desc"
@@ -30,6 +32,7 @@ class RealEstateProperty(models.Model):
     total_area=fields.Integer(compute="_compute_total_area",inverse="_inverse_total_area")
     best_offer=fields.Float(compute="_compute_best_offer")
     company_id=fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
+    image=fields.Binary()
     _sql_constraints=[('expected_price_positive','CHECK(expected_price>0)','Expected Price must be strictly positive'),('selling_price_positive','CHECK(selling_price>=0)','Selling price must be positive')]    
     @api.constrains("selling_price","expected_price")
     def _check_selling_price(self):
@@ -76,4 +79,11 @@ class RealEstateProperty(models.Model):
         for record in self:
             if record.state not in ('new','canceled'):
                 raise UserError(_("Only Properties in New and Canceled state can be deleted"))
+    @api.depends('name')
+    def _compute_website_url(self):
+        super()._compute_website_url()
+        for property in self:
+            if property.id:  # avoid to perform a slug on a not yet saved record in case of an onchange.
+                property.website_url = '/estate/{}'.format(slug(property))
+
    

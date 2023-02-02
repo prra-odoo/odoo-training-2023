@@ -55,12 +55,18 @@
                     <button name="action_state_canceled" states="new,offer_received,offer_accepted" type="object" string="Cancel"/>
                 </header>
                 <sheet>
-                   
+                    <div name="button_box" position="inside">
+                        <field name="website_url" invisible="1"/>
+                        <field name="is_published" widget="website_redirect_button"/>
+                    </div>
                     <h1>
                         <field name="name" placeholder="Property Name"/>
                     </h1>
                     <group>
                         <field name="company_id"></field>
+                    </group>
+                    <group>
+                        <field name="image"/>
                     </group>
                     <group>
                         <field name="tags_ids" options="{'color_field':'color'}" widget="many2many_tags"/>
@@ -188,5 +194,10 @@
           </p>
         </field>
     </record>
-   
+
+    <menuitem id="menu_property_pages"
+    parent="website.menu_content"
+    sequence="40"
+    name="Property"
+    action="real_estate_property_view"/>
 </odoo>
