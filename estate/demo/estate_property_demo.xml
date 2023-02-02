@@ -2,6 +2,10 @@
 
 <odoo>
     <data>
+        <!-- <record id="property_tag_demo1" model="estate_property_tag">
+            <field name="name">Renovated</field>
+        </record> -->
+        
         <record id="property_type_demo1" model="estate.property.type">
             <field name="name">House</field>
         </record>
@@ -11,7 +15,7 @@
         <record id="property_type_demo3" model="estate.property.type">
             <field name="name">Villa</field>
         </record>
-        <record id="property_type_demo3" model="estate.property.type">
+        <record id="property_type_demo4" model="estate.property.type">
             <field name="name">Apartment</field>
         </record>
 
@@ -27,6 +31,7 @@
             <field name="facades">2</field>
             <field name="garden_orientation">north</field>
             <field name="property_type_id">1</field>
+            <field name="tag_ids">1</field>
         </record>
         <record id="estate_property_demo2" model="estate.property">
             <field name="name">Property 2</field>
@@ -53,7 +58,6 @@
             <field name="facades">2</field>
             <field name="garden_orientation">west</field>
             <field name="property_type_id">3</field>
-        </record>
-        
+        </record>  
     </data> 
 </odoo>

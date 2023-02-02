@@ -7,7 +7,7 @@ class estate_property_type(models.Model):
     _description = "estate property type model"
     _order = "name"
     _sql_constraints = [
-        ("unique_expected_price", "UNIQUE(name)", "Property Type must be unique"),
+        ("unique_property_type", "UNIQUE(name)", "Property Type must be unique"),
     ]
 
     name=fields.Char(string="Name",required=True)

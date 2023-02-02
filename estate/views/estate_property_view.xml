@@ -39,7 +39,6 @@
                 </header>             
                 <sheet>
                     <widget name="web_ribbon" title="SOLD" bg_color="bg-success" states='sold'/>
-                    <widget name="web_ribbon" title="CANCELED" bg_color="bg-danger" states='cancel'/>
                     <div class="oe_title">
                         <h1>
                             <field name="name"/>
