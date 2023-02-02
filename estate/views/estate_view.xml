@@ -38,6 +38,7 @@
 
                 </header>
                 <sheet>
+                    <field name="images" widget="image" class="oe_avatar"/>
                     <field name="active" invisible="1"></field>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>

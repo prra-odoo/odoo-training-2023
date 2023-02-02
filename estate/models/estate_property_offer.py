@@ -11,7 +11,7 @@ from odoo.tools import float_is_zero,float_compare
 class estatepropertyoffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offers Model"
-    _order = "price desc"
+    _order = "price asc"
 
     date_deadline = fields.Date(compute="_compute_deadline_date",inverse="_inverse_deadline_date")
     create_date=fields.Date(default=lambda self:fields.Datetime.today())

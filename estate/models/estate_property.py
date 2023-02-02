@@ -13,6 +13,7 @@ class estateModel(models.Model):
     _order = "id desc"
     
     name = fields.Char('Name',required=True)
+    images = fields.Image(string = "Property Images")
     postcode = fields.Char('Post Code',required=True)
     metadata = fields.Html(tracking=True)
     garage = fields.Boolean('Garage')

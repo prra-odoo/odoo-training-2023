@@ -18,6 +18,4 @@ class EstatePropertycontroller(http.Controller):
             'about': prop
         })
 
-
-
-        
+    
