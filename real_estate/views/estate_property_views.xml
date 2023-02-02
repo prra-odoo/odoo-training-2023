@@ -44,6 +44,7 @@
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state', '!=', 'sold')]}" />
                     <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
                     <field name="active" invisible="1" />
+                    <field name="image" widget='image' class="oe_avatar" nolabel="1" options="{'size': [200, 200]}"/>
                     <label for="name" string="Name"/>
                     <h1><field name="name"/></h1>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field':'Color', 'no_create':True}" />
