@@ -101,7 +101,7 @@
                 <field name="garage"/>
                 <field name="garden_area"/>
                 <filter string="Available" name="available" domain="[('state','in',['new','offer_received'])]"/>
-                <group>
+                <group expand ="1" string="Group By">
                     <filter string="Postcode" name="postcode_groupby" context="{'group_by': 'postcode'}" />
                 </group>
             </search>

@@ -15,14 +15,13 @@ class Estate_Property(models.Model):
     ]
     _order = "id desc"
 
-
     name = fields.Char(string = 'name',required=True)
     description = fields.Text(string = 'description')
     postcode = fields.Char(string = 'postcode', required = True)
     data_avabilability = fields.Date('Datetime',default=fields.Date.today()+relativedelta(months=3), copy=False)
     expected_price = fields.Float(string = 'expected price',required = True)
-    selling_price = fields.Float(string = 'selling price')
-    bedrooms = fields.Integer(string = 'bedrooms')
+    selling_price = fields.Float(string = 'selling price', copy=False)
+    bedrooms = fields.Integer(string = 'bedrooms' ,default=2)
     living_area = fields.Integer(string = 'living area')
     facades = fields.Integer(string = 'facades')
     garden = fields.Boolean(string ="Garden")
@@ -45,12 +44,16 @@ class Estate_Property(models.Model):
     state = fields.Selection(
         string = 'State',
         tracking=True,
+        default="new",
+        copy=False,
         selection = [('new','New'),
         ('offer_received','Offer Received'),
         ('offer_accepted','Offer Accepted'),
         ('sold','Sold'),
         ('canceled','Canceled')]
     )
+    active = fields.Boolean("Active", default=False)
+
     tag_ids = fields.Many2many("estate.property.tag","estate_property_rel","property_id","property_tag", string="Tags")
     offer_ids = fields.One2many("estate.property.offer",'property_id',string="Offer")
     
@@ -102,11 +105,15 @@ class Estate_Property(models.Model):
         for record in self:
             if record.selling_price < .9*record.expected_price:
                 raise ValidationError("The selling price cannot be less than 90 percent of the expected price")
+    
+    #python inheritance
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_or_cancle(self):
+        if self.state not in ['new','canceled']:
+            raise UserError("Only new and canceled properties can be deleted.")
 
-    #  def unlink(self):
-    #     if not set(self.mapped("state")) <= {"new", "canceled"}:
-    #         raise UserError("Only new and canceled properties can be deleted.")
-    #     return super().unlink()
+            
+        
 
 
 
