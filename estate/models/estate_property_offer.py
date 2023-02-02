@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api,fields,models
+from odoo import api,fields,models,exceptions
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
@@ -50,5 +50,15 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.status = 'refused'
         return True
+
+    @api.model
+    def create(self,vals):
+        res = self.env['estate.property'].browse(vals['property_id'])
+        res.status = 'offer_received'
+
+        if vals['price'] < res.best_price :
+            raise exceptions.ValidationError("The Offer Price must be higher than the best offer price bidded till Now! ")
+
+        return super().create(vals)
 
     
