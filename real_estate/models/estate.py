@@ -34,7 +34,7 @@ class Estate(models.Model):
     total_area=fields.Float(compute='_compute_total_area')
     best_offer=fields.Integer(compute='_compute_best_offer')
     company_id=fields.Many2one('res.company',default=lambda self: self.env.user.company_id)
-
+    property_image=fields.Image(string="Image")
 
     _sql_constraints = [
         ('expected_price_constraints', 'CHECK(expected_price>=0)', "A Expected Price must be postive."),

@@ -9,6 +9,10 @@ class Realestate(http.Controller):
             'properties': properties.search([])
         })
 
+    # @http.route('/real_estate/<model("real.estate.properties"):properties>/', auth='public',website="True")
+    # def estateindex(self, properties):
+    #     return http.request.render('real_estate.index', {'properties': properties})
+
     @http.route('/real_estate/<model("real.estate.properties"):properties>/', auth='public',website="True")
-    def estateindex(self, properties):
-        return http.request.render('real_estate.index', {'properties': properties})
+    def estateindexdata(self, properties):
+        return http.request.render('real_estate.property_data', {'properties': properties})

@@ -7,9 +7,17 @@
             <kanban default_group_by="type_id" records_draggable="False">
 
                     <field name="state"/>
+                    <field name="id"/>
+                    <field name="property_image"/>
                     <templates>
                         <t t-name="kanban-box">
+                           
                             <div class="oe_kanban_global_click" >
+
+                                <!-- <div class="kanaban_image d-none d-md-block"
+                                    t-attf-style="background-image:url('#{kanban_image('real.estate.properties','property_image', record.id.raw_value,placeholder)}')">
+                                </div>
+                                 -->
                                 <strong class="o_kanban_record_title">
                                     <h3><field name="name" /></h3>
                                 </strong>
@@ -59,11 +67,16 @@
                 <header> 
                 <button type="object" name="action_sold" states="new,offer recevied,offer accepted" string="Sold" class="oe_highlight"/>
                 <button type="object" name="action_canceled" states="new,offer recevied,offer accepted" string="Canceled"/>
-                </header>
-                <header>
                     <field name="state" widget="statusbar" options="{'clickable' : 1}"/>
                 </header>
+               
                 <sheet>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible' : [('state','!=','sold')]}" />
+                    <widget name="web_ribbon" title="Cancled" bg_color="bg-danger" attrs="{'invisible' : [('state','!=','canceled')]}" />
+                    <widget name="web_ribbon" title="Available" bg_color="bg-warning" attrs="{'invisible' : [('state','in',('offer accepted','sold','canceled'))]}" />
+                    <widget name="web_ribbon" title="Offer Recieved" bg_color="bg-info" attrs="{'invisible' : [('state','!=','offer accepted')]}" />
+    
+                    <field name="property_image" widget="image" class="oe_avatar"/>
                     <h1><field name="name" placeholder="Enter Property Name"/></h1>
                     <group>
                         <group>
@@ -71,6 +84,9 @@
                         </group> 
                         <group>
                             <field name="postcode"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
                         </group>
                         <group>
                             <field name="date_availability"/>

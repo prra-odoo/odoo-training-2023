@@ -66,6 +66,6 @@
                 <t t-else="">
                     <h1>No Offers Yet</h1>
                 </t>
-
+           
     </template>
 </odoo>
