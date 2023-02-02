@@ -1,16 +1,33 @@
 from odoo import http
 
 class estateController(http.Controller):
-    @http.route('/estate/estate/',auth='public',website=True)
-    def controller_helloworld(self,**kw):
-        # return "Hello world"
-        # return http.request.render('estate.estate_controller_test',{
-        #     'properties': ['estate1','estate2','estate3'],
-        # })
-        # adding the estate property model data
-        Properties = http.request.env['estate.property']
-        return http.request.render('estate.estate_controller_test',{
-            'properties': Properties.search([])
+    # @http.route('/estate/estate/',auth='public',website=True)
+    # def controller_helloworld(self,**kw):
+    #     # return "Hello world"
+    #     # return http.request.render('estate.estate_controller_test',{
+    #     #     'properties': ['estate1','estate2','estate3'],
+    #     # })
+    #     # adding the estate property model data
+    #     Properties = http.request.env['estate.property']
+    #     return http.request.render('estate.estate_controller_test',{
+    #         'properties': Properties.search([])
+            
+    #     })
+    @http.route(['/estate/estate', '/estate/estate/page/<int:page>'],type="http" ,auth='public', website=True)
+    def index(self, page=1, **kw):
+        domain = [('state', 'in', ['new', 'offer_recieved'])]
+        Properties = http.request.env['estate.property'].search(domain)
+        total = Properties.search_count([])
+        pager = http.request.website.pager(
+            url='/estate/estate',
+            total=total,
+            page=page,
+            step=3
+        )
+        pagerProperties = Properties.search(domain,offset=(page - 1) * 9, limit=10)
+        return http.request.render('estate.estate_controller_test', {
+            'properties': pagerProperties,
+            'pager':pager
         })
     # __ converter pattern __
     # @http.route('/estate/<name>' , auth= 'public' , website= True)
@@ -29,4 +46,5 @@ class estateController(http.Controller):
         return http.request.render('estate.listing_property',{
             'listed_property': estate_property
         })
+
   

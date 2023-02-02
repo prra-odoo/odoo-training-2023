@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
-from odoo.tools.date_utils import add
 from odoo.exceptions import UserError,ValidationError
 from odoo.tools.float_utils import float_compare
 
@@ -52,6 +51,7 @@ class estatePropertyModel(models.Model):
     best_offers = fields.Float(compute="_best_offer" , default =0)
     company_id = fields.Many2one('res.company',string = "company", default = lambda self: self.env.company, required = True)
     property = fields.Html()
+    image = fields.Binary( attachment = True)
 
     
 

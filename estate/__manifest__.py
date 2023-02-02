@@ -15,6 +15,9 @@
         
         'reports/reports.xml',
         'reports/templates.xml',
+        'reports/template_web.xml',
+        # 'reports/template_button.xml',
+        # 'static/src/js/button.js'
     ],
     'demo':[
         'demo/demo_data.xml',

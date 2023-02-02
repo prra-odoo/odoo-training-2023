@@ -41,6 +41,11 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[('property_type_id', '=', active_id)]</field>
     </record>
+    <record id = "website_properties_menu" model = "website.menu">
+        <field name = "name">Properties</field>
+        <field name = "parent_id" ref = "website.main_menu"></field>
+        <field name = "url">/estate/estate</field>
+    </record>
 
     <!-- ________________________Tree_View____________________ -->
 
@@ -183,6 +188,9 @@
                                     <field name ="property_type_id"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page name = "image">
+                            <field name = "image" widget = "image"></field>
                         </page>
                     </notebook>
                 </sheet>

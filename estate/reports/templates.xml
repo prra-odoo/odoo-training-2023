@@ -114,43 +114,6 @@
     </t>    
   </template>
 
-  <template id= "estate_controller_test" >
-    <t t-call = "website.layout">
-        <title>Property</title>
-        <div class="oe_structure">
-            <div class = "container">
-                <t t-foreach = "properties" t-as = "property">
-                    <p>
-                        <a t-attf-href="/estate/{{ slug(property) }}">
-                            <t t-esc="property.name"/></a>
-                    </p>
-                 </t>        
-            </div>
-        </div>
-    </t>
-    
-  </template>
-  <template id = "listing_property">
-    <t t-call= "website.layout">
-        <!-- <div class = "container">
-            <t t-esc = "listed_property.name"></t>
-            <div t-field = "listed_property.property"></div>
-            <p>Last modified:<i t-field = "listed_property.write_date" t-options = '{"widget":"relative"}'></i></p>
-        </div> -->
-        <div class = "d-flex justify-content-between">
-            <div>
-                <img t-att-src= "'/estate/static/images/img1.jpg'"/>
 
-            </div>
-            <div>
-              
-                <h2><t t-esc= "listed_property.name"/></h2>
-                <p><strong>Expected price:</strong><t t-esc = "listed_property.expected_price"/></p>
-                <p><strong>state:</strong><t t-esc = "listed_property.state"/></p>
-                <p><strong>postcode:</strong><t t-esc = "listed_property.postcode"/></p>
-                <p><strong>date_availability:</strong><t t-esc = "listed_property.date_availability"/></p>   
-            </div>
-        </div>
-    </t>
-  </template>    
+  
 </odoo>
