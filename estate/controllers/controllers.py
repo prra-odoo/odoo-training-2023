@@ -7,18 +7,18 @@ from odoo.http import request
 class Estate(http.Controller):
 
 #<--------------render through the statically from the python code--------------->
-# 	@http.route('/estate/estate/',auth='public')
+# 	@http.route('/estate/properties/',auth='public')
 # 	def index(self, **kw):
 # 		return http.request.render('estate.index',{
 # 			'users':['Althaf','mitchell Admin','mark demo']
 # 			})
 
 #<------------------render through the database------------------------>
-	@http.route('/estate/estate/',auth='public',website=True)
+	@http.route('/estate/properties/',auth='public',website=True)
 	def index(self,**kw):
 		Properties=http.request.env['estate.property']
 		return http.request.render('estate.index',{
-			'properties':Properties.search([])
+			'properties':Properties.search([('state','in',['new','offer_recieved','offer_accepted'])])
 			})
 #<-------------------routing a bit of url and print it out as variable--------->
 	# @http.route('/estate/<name>/', auth='public', website=True)

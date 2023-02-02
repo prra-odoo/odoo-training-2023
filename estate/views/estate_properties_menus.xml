@@ -23,6 +23,8 @@
         <field name="res_model">estate.property.tag</field>
         <field name="view_mode">tree,form,kanban</field>
     </record>
+
+    
     
     
     <menuitem id="estate_menu_root" name="Real Estate" web_icon="estate,static/description/icon.png">

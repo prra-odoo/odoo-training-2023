@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- __________website Menu through backend__________ -->
+    <record id="website_property_menu" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/estate/properties</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">10</field>
+    </record>
+<!-- container templates -->
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Properties Lists</t>
+            <div class="oe_structure">
+                <!-- <nav class="navbar navbar-expand navbar-dark bg-success">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="./">GeeksForGeeks</a>
+                    </div>
+                </nav> -->
+                <div class="container-flex my-10">
+                    <div class="row row-cols-2 row-cols-md-2">
+                    <t t-foreach="properties" t-as="property">
+                        <div class="col-lg-4">
+                            <div class="card my-2">
+                              <img class="card-img-bottom" t-attf-src="data:image/jpg;base64,{{ property.image }}"  t-attf-alt="No Image Avilable" style="width:100%;height:150px"/>
+                              <div class="card-body">
+                                <h5 class="card-title"><strong><t t-esc="property.name"/></strong></h5>
+                                <p class="card-text">
+                                    <div>
+                                        <t t-esc="property.description"/>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            Expected Price:<span><strong t-esc="property.expected_price"/></span>
+                                        </div>
+                                    </div>
+                                </p>
+                                <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary">Property Details</a>
+                              </div>
+                            </div>
+                        </div>                         
+                    </t>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="property_details">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Property Details</t>
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container-flex">
+                    <h3><t t-esc="details.name"/></h3>
+                    <img class="float-right" t-attf-src="data:image/jpg;base64,{{ details.image }}"  t-attf-alt="No Image Avilable" style="width:50;"/>
+                        <div>
+                            <strong>Date Avilability:</strong>
+                            <span t-field="details.date_availability"/>
+                        </div>
+                        <div>
+                            <strong>Expected Price:</strong>
+                            <span t-field="details.expected_price"/>
+                        </div>
+                        <p>Last modified: <i t-field="details.write_date" t-options='{"widget": "relative"}'/></p>
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+</odoo>
