@@ -2,13 +2,49 @@
 <odoo>
     <template id="property_list" name="Property List">
         <t t-call="website.layout">
-            <div class="oe_structure">
-                <br /><center><h3>Property Details</h3></center><br />
-                <t t-foreach="records" t-as="prop">
-                    <div class="container">
-                        <h5><a t-attf-href="/real_estate/{{ slug(prop) }}" ><t t-esc="prop.name"/></a></h5>
+            <!-- <div class="header" style="background: #dddddd; padding: 15px;">
+                <form method="get" class="d-flex">
+                    <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px"/>
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                </form>
+                </div> -->
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <div class="date_picker" style="margin:0 1rem 0 1rem;">
+                            <form method="get">
+                            <label>Availbility Date <input type="date" t-att-value="datetime.datetime.today().date()" name="availability_date"/></label>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            </form> 
+                        </div>
+                        <div class="button_box" groups="real_estate.estate_group_manager">
+                            <a t-if="description_hide and description_hide=='True'" class="btn btn-outline-secondary" t-att-href="'./{}?{}'.format(page if page>1 else '','description_hide=False')">Description</a>
+                            <a t-elif="description_hide or description_hide!='True'" class="btn btn-secondary" t-att-href="'./{}?{}'.format(page if page>1 else '','description_hide=True')">Description</a>
+                        </div>
+            </nav>
+
+            <br /><center><h3>Property Details</h3></center><br />
+                <div class="container">
+                    <div class="row">
+                        <t t-foreach="records" t-as="prop">
+                            <!-- <t t-if="prop.state in ['new','offer_recieved']"> -->
+                                <div class="col-lg-4 mb-3">
+                                    <div class="card" style="width:26rem;">
+                                    <div t-field="prop.image" class="card-img-top" t-options="{'widget':'image'}"/>
+                                        <div class="card-body">
+                                            <h5 class="card-title" t-field="prop.name"></h5>
+                                            <p class="card-text">
+                                            <!-- <div class="text-truncate" style="width:23rem" t-field="prop.description"/> -->
+                                            <p class="card-text"><t t-if="not description_hide or description_hide!='True'" t-esc="property.description"/></p></p>
+                                            <a t-attf-href="/real_estate/{{ slug(prop) }}" class="btn btn-primary">See Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- </t> -->
+                        </t>
                     </div>
-                </t>
+                </div>
+            <div class="d-flex justify-content-center my-3">
+                <t t-call="website.pager"/>
             </div>
         </t>
     </template>
@@ -24,6 +60,9 @@
                     </t>
                 </div>
             </div>
+            <!-- <div class="d-flex justify-content-center my-3">
+                <t t-call="website.pager"/>
+            </div> -->
         </t>
     </template>
 </odoo>

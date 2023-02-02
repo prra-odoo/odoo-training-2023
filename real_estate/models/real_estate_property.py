@@ -9,7 +9,7 @@ class RealEstateProperty(models.Model):
     _name = "real.estate.property"
     _description = "Property Model"
     _order = "id desc"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin' ,'website.published.mixin']
     
     name = fields.Char(string="Name", required=True)
     postcode = fields.Char()
@@ -29,6 +29,7 @@ class RealEstateProperty(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     active = fields.Boolean(default=True)
+    image = fields.Binary(string='Image', attachment=True)
     garden_orientation = fields.Selection([('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     state = fields.Selection([('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted',
                              'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')], default='new', required=True, copy=False, tracking=True)
