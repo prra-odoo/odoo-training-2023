@@ -112,7 +112,8 @@
                             <h1><field name="name" style="width:700%"/></h1>
                         </group>
                         <group>
-                            </group>
+                            <field name="image" widget="image" class="oe_avatar" options='{"preview_image": "image", "size": [100, 100]}'/>
+                        </group>
                     </group>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <!-- widget="many2many_checkboxes"    -->

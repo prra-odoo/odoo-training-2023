@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import http
+from odoo.http import request
 
 class Estate(http.Controller):
 
@@ -12,7 +13,7 @@ class Estate(http.Controller):
 
     @http.route('/estate/<model("estate.property"):property>/', auth='public', website=True)
     def teacher(self, property):
-        return http.request.render('estate.index', {
+        return http.request.render('estate.description', {
         'property': property
     })
     

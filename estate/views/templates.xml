@@ -1,33 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <!-- <template id="index">
-    <t t-call="website.layout">
-      <t t-set="title">Estate Property</t>
-      <div class="oe_structure">
-      <div class="container">
-      <t t-foreach="properties" t-as="property"> 
-        <h3 t-field="property.name"/>
-        <p>Last modified: <i t-field="property.write_date" t-options='{"widget": "relative"}'/></p>
-        <div t-field="property.biography"/>
-      </t>
-      </div>
-      </div>
-    </t>
-  </template> -->
+  <data>
+    <record id="estate_properties_website" model="website.menu">
+        <field name="name">Property</field>
+        <field name="url">/estate/estate/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">55</field>
+    </record>
+  </data>
 
   <template id="index">
     <t t-call="website.layout">
         <t t-set="title">Estate</t>
         <div class="oe_structure">
             <div class="container">
-                <t t-foreach="properties" t-as="property">
+              <!-- <div class="btn-group ms-1 position-static"> -->
+                <!-- search -->
+                <!-- <t t-call="website.website_search_box_input"> -->
+                    <!-- <t t-set="_classes" t-valuef="o_wslides_course_nav_search ms-1 position-relative"/> -->
+                    <!-- <t t-set="_input_classes" t-valuef="border-0 rounded-0 bg-transparent"/> -->
+                    <!-- <t t-set="_submit_classes" t-valuef="btn-link rounded-0 pe-1"/> -->
+                    <!-- <t t-set="search_type" t-valuef="slides"/> -->
+                    <!-- <t t-set="action" t-valuef="/slides/all"/> -->
+                    <!-- <t t-set="display_description" t-valuef="true"/>
+                    <t t-set="display_detail" t-valuef="false"/>
+                    <t t-set="placeholder">Search </t>
+                    <t t-set="search" t-value="search_term"/> -->
+                    <!-- <t t-foreach="searches" t-as="item">
+                      <input t-if="item != 'search' and item_value != 'all'" type="hidden"
+                          t-att-name="item" t-att-value="item_value"/>
+                  </t> -->
+                <!-- </t>
+            </div> -->
+              <div class="row">
+                <t t-foreach="properties" t-as="property">                            
+                  <div style="display: inline-block;width: 300px;height: 250px;padding:10px;box-sizing: border-box;border-collapse: separate;border-spacing: 5px;margin: 25px;">
                     <p>
-                        <a t-attf-href="/academy/{{ slug(property) }}">
-                        <t t-esc="property.name"/></a>
+                      <a t-attf-href="/estate/{{ slug(property) }}">
+                      <img t-attf-src="data:image/png;base64,{{property.image}}" style="width:280px;height:200px;"/>
+                      <center><span t-out="property.name"/></center>
+                      </a>
                     </p>
+                  </div>
                 </t>
+              </div>
+              <!-- <div class="products_pager">
+                <t t-call="website.pager" />
+            </div> -->
             </div>
         </div>
     </t>
-</template>
+  </template>
+
+  <template id="description">
+    <t t-call="website.layout">
+        <t t-set="title">Properties</t>
+        <div class="oe_structure">
+            <div class="container">
+              <img t-attf-src="data:image/png;base64,{{property.image}}" style="width:200px;height:200px; float: right; margin: 60px;"/>
+              <h1 class="o_page_header mt32"> Property Name: <span class="text-primary" t-out="property.name"/></h1>
+              <!-- <h3>Property Name: <t t-esc="property.name"/></h3> -->
+              <p><strong>Salesman: </strong><t t-esc="property.salesperson_id.name"/></p>
+              <p><strong>Company Name: </strong><t t-esc="property.company_id.name"/></p>
+              <p><strong>Buyer Name: </strong><t t-esc="property.buyer_id.name"/></p>
+              <p><strong>Property Type: </strong><t t-esc="property.property_type_id.name"/></p>
+              <p><strong>Postcode: </strong><t t-esc="property.postcode"/></p>
+              <p><strong>Date Availability: </strong><t t-esc="property.date_availability"/></p>
+              <p><strong>Expected Price: </strong><t t-esc="property.expected_price"/></p>
+              <p><strong>Selling Price: </strong><t t-esc="property.selling_price"/></p>
+              <p><strong>Bedrooms: </strong><t t-esc="property.bedrooms"/></p>
+              <p><strong>Living Area: </strong><t t-esc="property.living_area"/></p>
+              <p><strong>Facades: </strong><t t-esc="property.facades"/></p>
+              <p><strong>Garage: </strong><t t-esc="property.garage"/></p>
+              <p><strong>Garden: </strong><t t-esc="property.garden"/></p>
+              <p><strong>Garden Area: </strong><t t-esc="property.garden_area"/></p>
+              <p><strong>Total Area: </strong><t t-esc="property.total_area"/></p>
+              <p><strong>Best Price: </strong><t t-esc="property.best_price"/></p>
+            </div>
+        </div>
+    </t>
+  </template>
 </odoo> 
