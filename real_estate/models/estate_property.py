@@ -49,7 +49,8 @@ class estate_Property(models.Model):
       company_id = fields.Many2one(
         'res.company', required=True, default=lambda self: self.env.company)
       biography=fields.Html()
-
+      pro_image=fields.Image()
+      image=fields.Image()
 
       @api.depends('living_area', 'garden_area')
       def _compute_total_area(self):

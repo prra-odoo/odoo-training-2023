@@ -100,6 +100,7 @@
                   </page>  
                   <page string="Other Info.">
                     <group>
+                      <field name="image" widget="image"/>
                        <field name="sales_id"/>                                                
                        <field name="buyer_id"/>
                     </group>   
