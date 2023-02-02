@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
+        <record id="menu_properties" model="website.menu">
+            <field name="name">Properties</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="url">/estate/estate/</field>
+        </record>
+    </data>
     <template id="index">  
         <t t-call="website.layout">
             <t t-set="title">Estate Property</t>
             <div class="oe_structure">
                 <div class="container">
+                    <!-- <img src="/estate/static/description/web.jpg/" width="100%" height="10  0%" alt="Not Found" align="right"/> -->
                     <t t-foreach="properties" t-as="property">
-                        <p>
-                            <t t-esc="property.id"/>
-                            <t t-esc="property.name"/>
-                        </p>
-                    </t>
-                    <t t-foreach="tags" t-as="tag">
-                        <p>
-                            <t t-esc="tag.id"/>
-                            <t t-esc="tag.name"/>
-                        </p>
+                        <div class="card-body" style="float:left">
+                            <img class="card-img-top" style="margin-bottom:20px; height:200px; width:300px; display:inline-block" t-attf-src="data:image/jpg;base64,{{ property.images }}" alt="Here comes an Images ..."/>
+                            <p>
+                                <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary" style="width: 100%;">
+                                <t t-esc="property.name" invisible="1"/></a>
+                            </p>
+                        </div>
                     </t>
                 </div>
             </div>
         </t>    
     </template>
+
+   
     
     <template id="template_controller">
         <t t-call="website.layout">
-            <t t-set="title">Estate</t>
-            <div class="oe_structure"/>
             <div class="oe_structure">
                 <div class="container">
-                    <h3><t t-esc="prop.name"/></h3>
+                    <div><i t-field="prop.images" t-options='{"widget":"image"}' style="float:right; margin:40px; height:200px; wight:300px;"/></div>
+                    <h3 t-esc="prop.name"/>
+                    <div><span t-field="prop.description"/></div>   
+                    <div>Last Modified: <i t-field="prop.write_date" t-options='{"widget":"relative"}'/></div>
+                    <div>Expected Price: <span t-field="prop.expected_price"/></div>
+                    <div>Selling Price: <span t-field="prop.selling_price"/></div>
+                    <div>SalesMan: <span t-field="prop.salesperson_id"/></div>
+                    <div>Tags: <span t-field="prop.tags_ids"/></div>
                 </div>
             </div>
             <div class="oe_structure"/>

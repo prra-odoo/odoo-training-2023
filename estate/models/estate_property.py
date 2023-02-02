@@ -19,6 +19,7 @@ class estate_property(models.Model):
     
     
     name = fields.Char(required=True)
+    images = fields.Image(help="Select Image here")
     postcode = fields.Integer()
     description = fields.Text(copy=False)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))

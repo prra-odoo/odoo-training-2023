@@ -76,6 +76,9 @@
                             <group style="Margin-top:30px">
                             <field name="tags_ids" widget ="many2many_tags" options="{'color_field': 'colors' , 'no_create':True, 'no_edit': True}" />
                             </group>  
+                            <group>
+                                <field name="images" widget="image" class="oe_avatar" no_label="1"/>
+                            </group>
                             <group style="Margin-top:30px">
                                 <field name="postcode"/>
                             </group>  
