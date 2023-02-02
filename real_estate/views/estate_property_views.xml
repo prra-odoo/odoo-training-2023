@@ -90,7 +90,7 @@
                             </group>
                             <group>
                                 <label for="date_availability" string="Date" />
-                                <field name="date_availability" nolabel="1" />
+                                <field name="date_availability" nolabel="1"  />
                                 <label for="total_area" string="Total Area" />
                                 <field name="total_area" nolabel="1" />
                                 <label for="best_price" string="Best Price" />
