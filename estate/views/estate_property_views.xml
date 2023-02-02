@@ -30,7 +30,10 @@
                         <button name="action_cancel_button_header" type="object" string="Cancel" states="new,offer_received,offer_accepted" />
                         <button name="%(estate_property_type_action)d" type="action" string="Property Type" />
                         <button name="%(estate_property_tag_action)d" type="action" string="Tags" />
-                    </header>
+                        <button class="oe_stat_button" name="website_publish_button" type="object" icon="fa-globe">
+                            <field name="website_published" widget="website_button"/>
+                        </button>
+                    </header>   
                     <sheet>
                         <field name="image" widget="image" class="oe_avatar" options="{'size': [100, 100]}"/>
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}" />

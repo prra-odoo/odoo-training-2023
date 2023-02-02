@@ -11,13 +11,13 @@ class realEstate(models.Model):
     _name = "estate.property"
     _description = "This is the Database for the all clients and their requirements"
     _order = "id desc"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin",'website.published.mixin']
 
     name = fields.Char("Name", required=True)
     # biography = fields.Html()
     description = fields.Text("Description")
     postcode = fields.Char("Post Code")
-    date_availability = fields.Date(
+    date_availability = fields.Datetime(
         "Available From", default=fields.Datetime.now()+relativedelta(months=3))
     expected_price = fields.Float("Excepted Price",default="120.00")
     selling_price = fields.Float("Selling Price", readonly=True, tracking=True)
@@ -53,6 +53,8 @@ class realEstate(models.Model):
     )
     image = fields.Binary('image')
     color= fields.Integer()
+    website_published = fields.Boolean('Website Published')
+    website_url = fields.Char('Website URL',compute="_compute_website_url")
 
 
     _sql_constraints = [
@@ -131,3 +133,6 @@ class realEstate(models.Model):
         print('estate property write method:',vals)
         return super(realEstate,self).write(vals)
     
+    def _compute_website_url(self):
+        for rec in self:
+            rec.website_url = "/estate/%s" % (rec.id)

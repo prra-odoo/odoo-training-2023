@@ -5,6 +5,7 @@
             <field name="name">Farm Villa</field>
             <field name="expected_price">12000.000</field>
             <field name="garden">0</field>
+            <field name="description">“Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet.Your family and loved ones will enjoy the spacious backyard Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet.When it comes to home listings, words are only part of the story.”</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
             <field name="property_type_id" ref="estate.estate_property_type_demo_data_5"></field>
@@ -14,6 +15,7 @@
             <field name="name">Renting House</field>
             <field name="expected_price">14000.000</field>
             <field name="garden">1</field>
+            <field name="description">“Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard”</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
             <field name="property_type_id" ref="estate.estate_property_type_demo_data_3"></field>
@@ -24,6 +26,7 @@
             <field name="expected_price">12000.000</field>
             <field name="garden">0</field>
             <field name="garden_area">1</field>
+            <field name="description">“Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard”</field>
             <field name="living_area">1</field>
             <field name="property_type_id" ref="estate.estate_property_type_demo_data_5"></field>
             <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_3'),ref('estate.estate_property_tag_demo_data_2')])]" />
@@ -34,6 +37,7 @@
             <field name="garden">1</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
+            <field name="description">“Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard”</field>
             <field name="property_type_id" ref="estate.estate_property_type_demo_data_2"></field>
             <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_2')])]" />
         </record>
@@ -43,6 +47,17 @@
             <field name="garden">1</field>
             <field name="garden_area">1</field>
             <field name="living_area">1</field>
+            <field name="description">“Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard”</field>
+            <field name="property_type_id" ref="estate.estate_property_type_demo_data_2"></field>
+            <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_3'),ref('estate.estate_property_tag_demo_data_2')])]" />
+        </record>
+        <record id="real_estate_demo_data_6" model="estate.property">
+            <field name="name">Odoo In</field>
+            <field name="expected_price">12000.000</field>
+            <field name="garden">1</field>
+            <field name="garden_area">1</field>
+            <field name="living_area">1</field>
+            <field name="description">“Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard Gorgeous 4-bedroom, 2-bathroom home in beautiful Silver Lake. This property offers 1,160 square feet of living space and a lot size of 5,499 square feet. Your family and loved ones will enjoy the spacious backyard”</field>
             <field name="property_type_id" ref="estate.estate_property_type_demo_data_2"></field>
             <field name="tag_ids" eval="[(6,0,[ref('estate.estate_property_tag_demo_data_3'),ref('estate.estate_property_tag_demo_data_2')])]" />
         </record>
