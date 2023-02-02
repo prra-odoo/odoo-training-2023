@@ -43,6 +43,9 @@ class EstateProperty(models.Model):
     # adding sequence field
     sequence = fields.Integer()
 
+    # image field
+    image = fields.Binary("Image", help="Select image here")
+
     # sql constraints while setting expected price
     _sql_constraints = [
         (

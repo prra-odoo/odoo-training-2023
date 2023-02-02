@@ -5,6 +5,7 @@
     <data>
         <record id="estate_property_demo_data1" model="estate.property">
             <field name="name">Safal Apartments</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/apartment.jpg"/>
             <field name="postcode">123</field>
             <field name="expected_price">1234567</field>
             <field name="bedrooms">3</field>
@@ -16,6 +17,7 @@
     
         <record id="estate_property_demo_data2" model="estate.property">
             <field name="name">Parishkar Aparments</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/apartment1.jpg"/>
             <field name="postcode">433</field>
             <field name="expected_price">9234567</field>
             <field name="bedrooms">4</field>
@@ -27,6 +29,7 @@
     
         <record id="estate_property_demo_data3" model="estate.property">
             <field name="name">Vridavan Villa</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/villa.jpg"/>
             <field name="postcode">544</field>
             <field name="expected_price">987654324</field>
             <field name="bedrooms">8</field>
@@ -39,6 +42,7 @@
     
         <record id="estate_property_demo_data4" model="estate.property">
             <field name="name">Krishna Farm House</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/farm_house.jpg"/>
             <field name="postcode">098</field>
             <field name="expected_price">98789098</field>
             <field name="bedrooms">3</field>
@@ -50,6 +54,7 @@
     
         <record id="estate_property_demo_data5" model="estate.property">
             <field name="name">Pushkar Apartments</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/apartment2.jpg"/>
             <field name="postcode">746</field>
             <field name="expected_price">65456789</field>
             <field name="bedrooms">3</field>
@@ -57,5 +62,66 @@
             <field name="garden">False</field>
             <field name="state">sold</field>
         </record>
+
+        <record id="estate_property_demo_data6" model="estate.property">
+            <field name="name">Safal Apartments</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/apartment.jpg"/>
+            <field name="postcode">123</field>
+            <field name="expected_price">1234567</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">214</field>
+            <field name="garden">False</field>
+            <field name="state">new</field>
+        </record>
+    
+    
+        <record id="estate_property_demo_data7" model="estate.property">
+            <field name="name">Parishkar Aparments</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/apartment1.jpg"/>
+            <field name="postcode">433</field>
+            <field name="expected_price">9234567</field>
+            <field name="bedrooms">4</field>
+            <field name="living_area">434</field>
+            <field name="garden">False</field>
+            <field name="state">recieved</field>
+        </record>
+    
+    
+        <record id="estate_property_demo_data8" model="estate.property">
+            <field name="name">Vridavan Villa</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/villa.jpg"/>
+            <field name="postcode">544</field>
+            <field name="expected_price">987654324</field>
+            <field name="bedrooms">8</field>
+            <field name="living_area">9875</field>
+            <field name="garden">True</field>
+            <field name="state">sold</field>
+            <field name="garden_orientation">north</field>
+        </record>
+    
+    
+        <record id="estate_property_demo_data9" model="estate.property">
+            <field name="name">Krishna Farm House</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/farm_house.jpg"/>
+            <field name="postcode">098</field>
+            <field name="expected_price">98789098</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">8764</field>
+            <field name="garden">True</field>
+            <field name="state">accepted</field>
+        </record>
+    
+    
+        <record id="estate_property_demo_data10" model="estate.property">
+            <field name="name">Pushkar Apartments</field>
+            <field name="image" type="base64" file="/home/odoo/odoo/odoo-training-2023/real_estate/static/src/img/apartment2.jpg"/>
+            <field name="postcode">746</field>
+            <field name="expected_price">65456789</field>
+            <field name="bedrooms">3</field>
+            <field name="living_area">765</field>
+            <field name="garden">False</field>
+            <field name="state">sold</field>
+        </record>
+
     </data>
 </odoo>

@@ -7,8 +7,24 @@
             <div class="oe_structure">
                 <div class="container">
                     <t t-foreach="categories" t-as="category">
-                        <p><t  t-esc="category.id" /><t t-esc="category.name" /></p>
+                        <p>
+                            <a t-attf-href="/real_estate/{{ slug(category) }}">
+                                <t t-esc="category.name" />
+                            </a>
+                        </p>
                     </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- template describing about each category -->
+    <template id="description">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                        <h3><t t-esc="category.name" /></h3>
+                        <div><t t-esc="category.description" />XYZ</div>
                 </div>
             </div>
         </t>

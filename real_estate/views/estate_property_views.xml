@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Estate</field>
         <field name="res_model">estate.property</field>
@@ -61,6 +62,7 @@
                     <widget name="web_ribbon" title="Available" bg_color="bg-info" attrs="{'invisible':[('state','not in', 'new')]}"/>
                     <!-- <label>Name</label> -->
                     <h1><field name="name" string="Name" default="New Property" placeholder="For Say : Name of the Property"/></h1>
+                    <field name="image" widget='image' class="oe_avatar" nolabel="1" />
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     
                     <group>

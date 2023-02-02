@@ -109,4 +109,63 @@
             </t>
         </t>
     </template>
+
+
+
+    <!-- template for the web content -->
+    <template id="real_estate_web_view">
+        <t t-call="website.layout">
+            <title>Estate Property</title>
+            <div class="oe_structure">
+                <div class="container">
+                        <div class="row">
+                                <t t-foreach="properties" t-as="property">
+                                    <div class="col-3 lg-3">
+                                        <a t-attf-href="/real_estate/{{ slug(property) }}" style="text-decoration:none;">
+                                            <div class="card m-5" style="width: 18rem; opacity: 0.85;" onmouseover="this.style.scale=1.1, this.style.opacity=1" onmouseout="this.style.scale=1, this.style.opacity=0.85">
+                                                <img t-esc="property.image" class="card-img-top img-responsive" t-options="{'widget': 'image'}"/>
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><t t-esc="property.name"/></h5>
+                                                    <p class="card-text text-muted">Some quick example text to build on the card title and make up the bulk of the card's content.
+                                                        <br/><br/><strong>₹ <t t-esc="property.expected_price"/></strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </t>
+                        </div>
+
+                        <nav aria-label="..." >
+                            <ul class="pagination justify-content-center">
+                              <li class="page-item disabled">
+                                <a class="page-link">Previous</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">2</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                              </li>
+                            </ul>
+                          </nav>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="web_view_estate_page">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                    <div class="image" style="width: 100%;">
+                        <t t-esc="property.image" t-options="{'widget': 'image'}" class="img-fluid" style="width:10px;"/>
+                    </div>
+                    <div class="content">
+                        <h1><t t-esc="property.name"/></h1>
+                    </div>
+            </div>
+        </t>
+    </template>
 </odoo>
