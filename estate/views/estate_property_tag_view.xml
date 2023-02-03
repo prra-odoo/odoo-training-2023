@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- <record id="property_tag_kanban_view" model="ir.ui.view">
+        <field name="name">Property Tag Kanban view</field>
+        <field name="model">estate.property.tag</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="name"/>
+                        </div>
+                        <div>
+                            <field name="color" widget="color_picker"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record> -->
+
                <!-- tree view -->
     <record id="property_tag_list_view" model="ir.ui.view">
         <field name="name">Property Tag List view</field>
@@ -11,8 +30,8 @@
             </tree>
         </field>
     </record> 
-     <!-- form view -->
-     <record id="property_tag_form_view" model="ir.ui.view">
+     <!-- form view  -->
+    <record id="property_tag_form_view" model="ir.ui.view">
         <field name="name">Property tag form view</field>
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
@@ -20,7 +39,16 @@
                 <sheet>
                         <group>
                             <field name="name"/>
+                            <field name="color" widget="color_picker"/>
                         </group>
+                        <notebook>
+                            <page string="Property">
+                                <field name="propertys_ids">
+                                    <tree string= "Properties">
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                 </sheet>
             </form>
         </field>

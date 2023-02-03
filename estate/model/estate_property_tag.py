@@ -9,9 +9,10 @@ class EstatePropertyTags(models.Model):
     name = fields.Char('Name',required=True)
     color = fields.Integer('Color')
     sequence = fields.Integer('Sequence')
-
+    propertys_ids = fields.Many2many("estate.property", string="Properties") #relation table --> estate_property_estate_property_tag_rel
 
     _sql_constraints = [
         ('tag_name_unique', 'unique(name)', 'Tag name must be unique.'),
     ]
+
 
