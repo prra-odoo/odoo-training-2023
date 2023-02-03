@@ -10,7 +10,6 @@
         'templates/property_template.xml',
         'templates/index_template.xml',
         'data/estate_data.xml',
-        'reports/estate_inherit_templates.xml',
         'reports/estate_salesman_templates.xml',
         'reports/estate_property_templates.xml',
         'reports/estate_property_reports.xml',
@@ -26,6 +25,11 @@
         'demo/estate_property_type_demo.xml',
         'demo/real_estate_property_demo.xml',
         ],
+    'assets':{
+        'web.assets_frontend':[
+            'real_estate/static/scss/main.scss'
+        ],
+    },
     'summary':'A real estate module',
    'installable':'true',
    'application':'true',
