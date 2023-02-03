@@ -8,63 +8,154 @@
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">10</field>
     </record>
+
 <!-- container templates -->
     <template id="index">
         <t t-call="website.layout">
             <t t-set="title">Estate Properties Lists</t>
             <div class="oe_structure">
-                <!-- <nav class="navbar navbar-expand navbar-dark bg-success">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="./">GeeksForGeeks</a>
-                    </div>
-                </nav> -->
-                <div class="container-flex my-10">
-                    <div class="row row-cols-2 row-cols-md-2">
-                    <t t-foreach="properties" t-as="property">
-                        <div class="col-lg-4">
-                            <div class="card my-2">
-                              <img class="card-img-bottom" t-attf-src="data:image/jpg;base64,{{ property.image }}"  t-attf-alt="No Image Avilable" style="width:100%;height:150px"/>
-                              <div class="card-body">
-                                <h5 class="card-title"><strong><t t-esc="property.name"/></strong></h5>
-                                <p class="card-text">
-                                    <div>
-                                        <t t-esc="property.description"/>
+                <div class="header" style="background: #dddddd; padding: 15px;">
+                    <form method="get" class="d-flex justify-content-center">
+                        <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px"/>
+                        <input type="submit" value="Submit" class="btn btn-primary"/>
+                    </form>
+                </div>
+                <div class="container bg-light">
+                    <div class="row gy-3 my-3">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col-sm-5 col-md-4 col-lg-3">
+                                <div class="card my-2">
+                                    <div class="card-header">
+                                        <img class="card-img-bottom" t-attf-src="data:image/jpg;base64,{{ property.image }}"  t-attf-alt="No Image Avilable" style="width:100%;height:150px"/>
                                     </div>
-                                    <div>
-                                        <div>
-                                            Expected Price:<span><strong t-esc="property.expected_price"/></span>
-                                        </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><strong><t t-esc="property.name"/></strong></h5>
+                                        <p class="card-text">
+                                            <div>
+                                                <div>
+                                                    Expected Price:<span><strong t-esc="property.expected_price"/></span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <t t-foreach="property.property_type_id" t-as="type">
+                                                        Property Type:<span><strong t-esc="type.name"/></span>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            <div>
+                                    <strong>Property tags:</strong>
+                                    <t t-foreach="property.property_tag_ids" t-as="tags">
+                                        <span  class="badge bg-warning" t-field="tags.name"/>
+                                    </t>
+                                </div>
+                                        </p>
+                                        <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary">Property Details</a>
                                     </div>
-                                </p>
-                                <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary">Property Details</a>
-                              </div>
-                            </div>
-                        </div>                         
-                    </t>
+                                    <div class="card-footer">
+                                        Last Modified:<span><i t-field="property.write_date" t-options='{"widget": "relative"}'/></span>
+                                    </div>
+                                </div>
+                            </div>                         
+                        </t>
                         <!-- </div> -->
                     </div>
                 </div>
             </div>
+            <div class=" d-flex justify-content-center mt-3 mb-3">
+                    <t t-call="website.pager" />
+            </div>
         </t>
     </template>
-
+<!-- __________________Single Page Template____________________ -->
     <template id="property_details">
         <t t-call="website.layout">
             <t t-set="title">Estate Property Details</t>
-            <div class="oe_structure"/>
             <div class="oe_structure">
-                <div class="container-flex">
-                    <h3><t t-esc="details.name"/></h3>
-                    <img class="float-right" t-attf-src="data:image/jpg;base64,{{ details.image }}"  t-attf-alt="No Image Avilable" style="width:50;"/>
-                        <div>
-                            <strong>Date Avilability:</strong>
-                            <span t-field="details.date_availability"/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div>
+                                <h1>Property Details:</h1>
+                                <div>
+                                    <h3 t-field="details.name"/>
+                                </div>
+                                <div>
+                                    <strong>Date Avilability:</strong>
+                                    <span t-field="details.date_availability"/>
+                                </div>
+                                <div>
+                                    <strong>Property Type:</strong>
+                                    <t t-foreach="details.property_type_id" t-as="type">
+                                        <span t-esc="type.name"/>
+                                    </t>
+                                </div>
+                                <div>
+                                    <strong>Property tags:</strong>
+                                    <t t-foreach="details.property_tag_ids" t-as="tags">
+                                        <span  class="badge bg-warning" t-field="tags.name"/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div>
+                                <strong>Expected Price:</strong>
+                                <span t-field="details.expected_price"/>
+                            </div>
+                            <div>
+                                <strong>Selling Price:</strong>
+                                <span t-field="details.selling_price"/>
+                            </div>
+                            <div>
+                                <strong>Bedrooms:</strong>
+                                <span t-field="details.bedrooms"/>
+                            </div>
+                            <div>
+                                <strong>Total Area:</strong>
+                                <span t-field="details.total_area"/>
+                            </div>
+                            <div>
+                                <t t-if="details.offer_ids"> 
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Price</th>
+                                                <th>Partner</th>
+                                                <th>Validity</th>
+                                                <th>Deadline</th>
+                                                <th>State</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="offers" t-value="details.mapped('offer_ids')"/>
+                                            <tr t-foreach="offers" t-as="offer">
+                                                <td>
+                                                    <span t-field="offer.price"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="offer.partner_id"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="offer.validity"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="offer.date_deadline"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="offer.status"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </t>
+                                <t t-else="">
+                                    <div>There is no offers yet</div>
+                                </t>
+                            </div>
                         </div>
-                        <div>
-                            <strong>Expected Price:</strong>
-                            <span t-field="details.expected_price"/>
+                        <div class="col-sm-7">
+                            <img class="img-thumbnail" t-attf-src="data:image/jpg;base64,{{ details.image }}"  t-attf-alt="No Image Avilable" style="width:600px;"/>
                         </div>
-                        <p>Last modified: <i t-field="details.write_date" t-options='{"widget": "relative"}'/></p>
+                    </div>
                 </div>
             </div>
             <div class="oe_structure"/>
