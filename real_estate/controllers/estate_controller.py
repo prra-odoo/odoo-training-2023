@@ -32,10 +32,16 @@ class Estate(http.Controller):
 
     def index(self, page=1, items_per_page=3, **kw):
 
-        domain=[('state', 'not in', ['sold', 'cancelled'])]
+        # domain=[('state', 'not in', ['sold', 'canceled'])]
+        domain=[]
 
+        date = kw.get('available_date')
+        if date:
+            domain.append(('date_availability', '>=', date))
+            
         estate_property = request.env['estate.properties']
         estate_property_count = estate_property.search_count(domain)
+
 
         # pager
         pager = request.website.pager(
@@ -45,7 +51,7 @@ class Estate(http.Controller):
         step=items_per_page
         )
         # content according to pager
-        response_property = estate_property.search([], limit=items_per_page, offset=pager['offset'])
+        response_property = estate_property.search(domain, limit=items_per_page, offset=pager['offset'])
 
         data = {
             'properties': response_property.sudo(),

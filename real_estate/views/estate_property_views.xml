@@ -46,7 +46,7 @@
                     <h1>
                         <field name="name" placeholder="Enter Property Name"/>
                     </h1>
-                        <field name="image" widget="image" class="oe_avatar" />
+                    <field name="image" widget="image" class="oe_avatar" />
                     <group>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                     </group>
@@ -185,22 +185,54 @@
         </t>
     </template> -->
     <template id="index">
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand">Navbar</a>
+                <form class="d-flex" method="get">
+                    <input class="form-control me-2" type="date" name="available_date"/>
+                    <button class="btn btn-outline-success" type="submit">submit</button>
+                </form>
+            </div>
+        </nav>
         <t t-call="website.layout">
             <t t-set="title">Real Estate</t>
             <div class="oe_structure">
+                <style>
+
+            .container:hover .card {
+                filter: blur(5px);
+                transform: scale(0.9);
+                opacity: 0.5;
+            }
+
+            .container .card:hover {
+                filter: blur(0px);
+                transform: scale(1.1);
+                opacity: 1;
+                transition: 0.2s;
+
+            }
+        </style>
                 <div class="container">
                     <div class="row">
                         <t t-foreach="properties" t-as="property">
                             <div class="col-4 mb-2 mt-3" >
                                 <!-- <t t-if="property.state in ['new','offer_recieved']"> -->
-                                <div class="card" style= "widhth:25rem">
-                                            <t t-esc="property.image" class="card-img-top" t-options="{'widget' : 'image'}"/>
+                                <div class="card rounded" style= "widhth:25rem">
+                                    <t t-esc="property.image" class="card-img-top" t-options="{'widget' : 'image'}"/>
                                     <!-- <img src="..." class="card-img-top" alt="..."> -->
-                                    <div class="card-body">                                        
-                                        <h5 class="card-title"><a t-attf-href="/estate/{{ slug(property) }}"><t t-esc="property.name"/></a>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a t-attf-href="/estate/{{ slug(property) }}">
+                                                <t t-esc="property.name"/>
+                                            </a>
                                         </h5>
-                                        <p class="card-text">Postcode: <t t-esc="property.postcode"/> </p>
-                                        <p class="card-text">Bedrooms: <t t-esc="property.bedrooms"/> </p>
+                                        <p class="card-text">Postcode:
+                                            <t t-esc="property.postcode"/>
+                                        </p>
+                                        <p class="card-text">Bedrooms:
+                                            <t t-esc="property.bedrooms"/>
+                                        </p>
                                         <p class="card-text">Salesperson:
                                             <t t-foreach="property.salesperson_id" t-as="salesperson">
                                                 <strong>
@@ -210,13 +242,18 @@
                                         </p>
                                         <p class="card-text">tags:
                                             <t t-foreach="property.tag_ids" t-as="tag">
-                                                <strong>
-                                                    <t t-esc="tag.name" />
-                                                </strong>
+                                                <span t-attf-class="badge o_tag_badge_text #{'o_tag_color_%s' % tag.color}">
+                                                    <t t-out="tag.name"/>
+                                                </span>
                                             </t>
                                         </p>
-                                        <p class="card-text">Selling Price:<t t-esc="property.selling_price"/>
-                                            <small class="text-muted"><p><t t-esc="property.state"/></p></small>
+                                        <p class="card-text">Selling Price:
+                                            <t t-esc="property.selling_price"/>
+                                            <small class="text-muted">
+                                                <p>
+                                                    <t t-esc="property.state"/>
+                                                </p>
+                                            </small>
                                         </p>
                                     </div>
                                 </div>
@@ -225,7 +262,7 @@
                         <!-- </t> -->
                     </div>
                 </div>
-                 <div class="d-flex justify-content-center my-3">
+                <div class="d-flex justify-content-center my-3">
                     <t t-call="website.pager"/>
                 </div>
             </div>
@@ -236,9 +273,9 @@
             <div class="oe_structure">
                 <div class="container">
                     <t t-foreach="properties" t-as="property">
-                    <div class="d-flex justify-content-center my-3">
-                        <t t-esc="property.name"/>
-                    </div>
+                        <div class="d-flex justify-content-center my-3">
+                            <t t-esc="property.name"/>
+                        </div>
                         <t t-call="real_estate.report_property_offers"/>
                         <t t-call="real_estate.report_property_offers_table"/>
                     </t>

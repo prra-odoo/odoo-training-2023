@@ -20,6 +20,11 @@
          'report/estate_user_reports.xml',
 
     ],
+    'assets':{
+        'web.assets_frontend':[
+            'real_estate/static/scss/main.scss'
+        ],
+    },
     'demo' : [
         'demo/estate_properties_demo.xml',
         'demo/estate_property_type_demo.xml',
