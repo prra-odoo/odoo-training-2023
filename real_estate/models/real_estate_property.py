@@ -3,6 +3,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError,ValidationError
 from odoo.tools import float_compare, float_is_zero
+from odoo.addons.http_routing.models.ir_http import slug
 
 
 class RealEstateProperty(models.Model):
@@ -40,6 +41,12 @@ class RealEstateProperty(models.Model):
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
     offer_ids = fields.One2many("real.estate.property.offer", "property_id", string="Offers")
 
+    @api.depends('name')
+    def _compute_website_url(self):
+        super()._compute_website_url()
+        for record in self:
+            if record.id:  # avoid to perform a slug on a not yet saved record in case of an onchange.
+                record.website_url = '/real_estate/%s' % slug(record)
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):

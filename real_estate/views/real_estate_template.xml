@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="property_list" name="Property List">
+    
+    <template id="property_data" name="Property Details">
         <t t-call="website.layout">
-            <!-- <div class="header" style="background: #dddddd; padding: 15px;">
-                <form method="get" class="d-flex">
-                    <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px"/>
-                    <input type="submit" value="Submit" class="btn btn-primary"/>
-                </form>
-                </div> -->
-            <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <div class="date_picker" style="margin:0 1rem 0 1rem;">
-                            <form method="get">
-                            <label>Availbility Date <input type="date" t-att-value="datetime.datetime.today().date()" name="availability_date"/></label>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                            </form> 
-                        </div>
-                        <div class="button_box" groups="real_estate.estate_group_manager">
-                            <a t-if="description_hide and description_hide=='True'" class="btn btn-outline-secondary" t-att-href="'./{}?{}'.format(page if page>1 else '','description_hide=False')">Description</a>
-                            <a t-elif="description_hide or description_hide!='True'" class="btn btn-secondary" t-att-href="'./{}?{}'.format(page if page>1 else '','description_hide=True')">Description</a>
-                        </div>
+            <div class="oe_structure">
+            <nav class="navbar navbar-light">
+                <div class="container">
+                <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
+                <span class="navbar-brand h4 my-0 me-auto">Real Estate</span>
+                <!-- e1eff0 -->
+                <div class="date-picker" style="margin:0 1rem 0 1rem;">
+                    <form method="get">
+                    <label>Availbility :<input type="date" t-att-value="datetime.datetime.today().date()" placeholder="Availbility Date" name="availability_date"/></label>
+                    <button type="submit" class="btn btn-primary">Find</button>
+                    </form> 
+                </div>
+                <div class="button_box" groups="real_estate.estate_group_manager">
+                    <a t-if="description_hide and description_hide=='True'" class="btn btn-outline-secondary" t-att-href="'/real_estate/{}?{}'.format(page if page > 1 else '','description_hide=False')">Description</a>
+                    <a t-elif="description_hide or description_hide!='True'" class="btn btn-secondary" t-att-href="'/real_estate/{}?{}'.format(page if page > 1 else '','description_hide=True')">Description</a>
+                </div>
+                </div>
+                </div>
             </nav>
 
             <br /><center><h3>Property Details</h3></center><br />
@@ -29,12 +30,21 @@
                             <!-- <t t-if="prop.state in ['new','offer_recieved']"> -->
                                 <div class="col-lg-4 mb-3">
                                     <div class="card" style="width:26rem;">
-                                    <div t-field="prop.image" class="card-img-top" t-options="{'widget':'image'}"/>
+                                    <div t-field="prop.image" class="card-img-top bg-image hover-zoom" t-options="{'widget':'image'}"/>
                                         <div class="card-body">
                                             <h5 class="card-title" t-field="prop.name"></h5>
                                             <p class="card-text">
                                             <!-- <div class="text-truncate" style="width:23rem" t-field="prop.description"/> -->
-                                            <p class="card-text"><t t-if="not description_hide or description_hide!='True'" t-esc="property.description"/></p></p>
+                                                <t t-if="not description_hide or description_hide!='True'" t-esc="prop.description"/>
+                                                <div name="tag_ids" class="d-flex flex-row">
+                                                    <t t-set="tags" t-value="prop.mapped('tag_ids')"/>
+                                                    <t t-foreach="tags" t-as="tag">
+                                                        <span t-attf-class="badge o_tag_badge_text #{'o_tag_color_%s' % tag.color}">
+                                                            <t t-out="tag.name"/>
+                                                        </span>
+                                                    </t>
+                                                </div>
+                                            </p>
                                             <a t-attf-href="/real_estate/{{ slug(prop) }}" class="btn btn-primary">See Details</a>
                                         </div>
                                     </div>
@@ -46,20 +56,26 @@
             <div class="d-flex justify-content-center my-3">
                 <t t-call="website.pager"/>
             </div>
-        </t>
-    </template>
-    <template id="property_data" name="Property Details">
-        <t t-call="website.layout">
-            <div class="oe_structure">
+            </div>
+            </t>
+            </template>
+            <template id="property_detail">
+                <t t-call="website.layout">
                 <div class="container">
                     <t t-foreach="records" t-as="property">
+                        <t t-call="website.publish_management">
+                                <t t-set="object" t-value="property"/>
+                                <t t-set="publish_edit" t-value="True"/>
+                                <t t-set="action" t-value="'real_estate.real_estate_model_action'"/>
+                                <t t-set="menu" t-value="env.ref('real_estate.real_estate_root').id"/>
+                            </t>
                         <br /><center><h3 t-field="property.name" /></center><br />
                         <div class="container">
                             <t t-call="real_estate.report_property_offers_sub_template"/>
                         </div>
                     </t>
                 </div>
-            </div>
+            
             <!-- <div class="d-flex justify-content-center my-3">
                 <t t-call="website.pager"/>
             </div> -->

@@ -40,6 +40,9 @@
         <field name="model">real.estate.property</field>
         <field name="arch" type="xml">
             <tree string="Channel" default_order="name,id desc" decoration-success="state in ['offer_received','offer_accepted']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
+                <header>
+                    <button name="confirm" string="Add Offer" class="oe_highlight" type="object"/>
+                </header>
                 <field name="name" string="Title"/>
                 <field name="property_type_id" string="Property Type"/>
                 <field name="state"  invisible="1"/>
