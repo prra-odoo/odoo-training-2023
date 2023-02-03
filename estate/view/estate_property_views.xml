@@ -33,7 +33,12 @@
                     <field name="state" widget="statusbar" options="{'clickable': '1'}" />
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="New" bg_color="bg-info" states="new"/>
+                    <widget name="web_ribbon" title="Received" bg_color="bg-warning" states="offer_received"/>
+                    <widget name="web_ribbon" title="Accepted" bg_color="bg-warning" states="offer_accepted"/>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" states="sold"/>
+                    <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" states="canceled"/>
+
                     <div class ="title">
                         <h1>
                             <field name="name" placeholder="Property name"/>
@@ -90,7 +95,7 @@
         </field>
     </record>
     <record id="estate_property_search_view" model="ir.ui.view">
-        <field name="name">Estate Property form View</field>
+        <field name="name">Estate Property search View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <search>

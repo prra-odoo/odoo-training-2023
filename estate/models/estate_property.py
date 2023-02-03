@@ -3,15 +3,13 @@ from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 
-
 class Estate_Property(models.Model):
     _name = "estate.property"
     _description = "Property Model"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _sql_constraints = [
         ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be strictly positive"),
-        ("check_selling_price", "CHECK(selling_price >= 0)", "The offer price must be positive"),
-        
+        ("check_selling_price", "CHECK(selling_price >= 0)", "The offer price must be positive"),   
     ]
     _order = "id desc"
 
@@ -77,6 +75,7 @@ class Estate_Property(models.Model):
         for record in self:
             record.best_price = max(record.offer_ids.mapped("price"),default=0) 
 
+    #onchange done with the help of compute field
     @api.depends("garden")
     def _compute_garden_area(self):
         for record in self:
@@ -87,17 +86,21 @@ class Estate_Property(models.Model):
                 record.garden_area = 0  
                 record.garden_orientation= ''  
 
-    #buttons
+    #buttons for sold and cancelation of the property
     def action_sold(self):
         for record in self:
-            record.state = "sold"
-        return True  
-
-    
+            if record.state == 'canceled':
+                raise UserError("A canceled property cannot be sold")
+            else:
+                record.state = 'sold'
+            
     def action_cancle(self):
         for record in self:
-            record.state = "canceled"
-        return True   
+            if record.state == 'sold':
+                raise UserError("A sold property cannot be Canceled")
+        else:
+            record.state = 'canceled'
+            
 
     #python constrains         
     @api.constrains('selling_price')
@@ -112,7 +115,7 @@ class Estate_Property(models.Model):
         if self.state not in ['new','canceled']:
             raise UserError("Only new and canceled properties can be deleted.")
 
-            
+
         
 
 
