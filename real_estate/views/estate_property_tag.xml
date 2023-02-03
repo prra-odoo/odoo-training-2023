@@ -9,7 +9,6 @@
           <field name="arch" type="xml">
              <tree string="Channel" >
                  <field name="name" string="Title" />
-                 <!-- <field name="Color" string="color" /> -->
              </tree>
           </field>
     </record>
@@ -18,10 +17,6 @@
         <field name="name">Property Tag Form View</field>
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
-           <!-- <tree string="Channel" >
-               <field name="name" string="Title" />
-               <field name="Color" string="color" options="{'color_field': 'x_studio_color', 'no_create_edit': True}"/>
-           </tree> -->
            <form>
                 <sheet>
                     <h1>

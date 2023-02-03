@@ -3,10 +3,12 @@
     <!-- changes in the website menu -->
     <record id="menu_properties" model="website.menu">
         <field name="name">Properties</field>
-        <field name="url">/myproperty</field>
+        <field name="url">/estate/home</field>
         <field name="parent_id" ref="website.main_menu"/>
     </record>
 
+
+    <!-- property description -->
     <template id="desp">
         <t t-call="website.layout">
             <t t-set="title">Details</t>
@@ -33,21 +35,16 @@
         </t>
     </template>
 
+
+    <!-- main page template -->
     <template id="mainp">
         <t t-call="website.layout">
             <t t-set="title">My Properties</t>
             <div class="oe_structure"/>
             <div class="oe_structure">
                 <div class="container">
-                    <div class="mb-3custom-date">
-                        <!-- <div class='o_datepicker js_account_reports_datetimepicker fa fa-calendar'>
-                            <input type='text' class="o_datepicker_input" name="date_availability" />
-                            <span class="o_datepicker_button"/>
-                        </div> -->
-                    </div>
                     <div class="row mt-4">
                         <t t-foreach="properties" t-as="property">
-                            <t t-if="property.state not in ('sold','cancled')">
                                 <div class="col-lg-4 mb-4">
                                     <div class="card" style="width: 18rem;">
                                         <img t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ property.image }}" class = "w-100"/>
@@ -56,38 +53,19 @@
                                             <h6 class="card-subtitle mb-2 text-muted"><t t-esc="property.expected_price"/></h6>
                                             <p class="card-text">Some quick example text to build</p>
                                             <h4><span class="badge bg-secondary"><t t-esc="property.state"/></span></h4>
-                                            <a t-attf-href="/myproperty/{{slug(property)}}" class="stretched-link"/>
+                                            <a t-attf-href="/estate/home/{{slug(property)}}" class="stretched-link"/>
                                         </div>
                                     </div>
                                 </div>
-                            </t>
                         </t>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <nav class="alig-items-center">
-                            <ul class="pagination pagination-lg">
-                              <li class="page-item disabled">
-                                <span class="page-link">Previous</span>
-                              </li>
-                              <li class="page-item"><a class="page-link" t-attf-href="/myproperty/1">1</a></li>
-                              <li class="page-item"><a class="page-link" t-attf-href="/myproperty/2">2</a></li>
-                              <li class="page-item"><a class="page-link" t-attf-href="/myproperty/3">3</a></li>
-                              <li class="page-item">
-                                <a class="page-link" href="/myproperty">Next</a>
-                              </li>
-                            </ul>
-                        </nav>
+                    <div class="d-flex justify-content-center mb-5">
+                        <div class="pagination align-items-center pagination-lg">
+                            <t t-call="website.pager" />
+                        </div>
                     </div>    
                 </div>
             </div>
         </t>
     </template>
-
-
-
-    <template id="pagin">
-        <title>Property Page</title>
-        <h1>Performing Pagination</h1>
-   </template>
-
 </odoo>

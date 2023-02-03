@@ -51,7 +51,6 @@
                     <group>
                         <group> <field name="postcode"/></group>
                         <group> <field name="date_availability"/></group>
-                        <!-- <group> <field name="offer_ids.offer_count"/></group> -->
                     </group>
                     <group>
                         <group> <field name="expected_price"/></group>
