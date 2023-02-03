@@ -71,7 +71,7 @@
     </record>
 
     <record id="skyscaper" model="real.estate">
-        <field name="name">Skyscaper</field>
+        <field name="name">Skyscraper</field>
         <field name="description">A nice and big villa</field>
         <field name="postcode">1234</field>
         <field name="expected_price">1600000</field>
