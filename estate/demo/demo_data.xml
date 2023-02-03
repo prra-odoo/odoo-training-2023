@@ -56,6 +56,7 @@
         <field name="garden_orientation">south</field>
         <field name="property_type_id" ref="property_residential"/>
         <field name="salesperson_id" ref="base.user_admin"/>
+        <field name="image" type="base64" file="estate/static/images/villa.jpg"/>
     </record>
 
     <record id="trailer" model="estate.property">

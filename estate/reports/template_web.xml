@@ -1,75 +1,89 @@
 <odoo>
+   
     <template id= "estate_controller_test" >
         <t t-call = "website.layout">
+           <div class= "ps-5 my-2 py-2 container d-flex justify-content-around">
+            <form method="GET">
+                <input type = "date" id = "date" name= "date" class = "border-0 border-bottom"/>
+                <button class = "bg-info border-0" id = "date_btn " type = "submit"><i class = "fa fa-search"></i></button>
+            </form>
+            <t t-call = "estate.search_box"/>
+           </div>
             <title>Property</title>
                 <div class = "container d-flex justify-content-between   mx-auto flex-wrap mb-3">
-                    <t t-foreach = "properties" t-as = "property">
-                        <t t-if = "property.state in ('new','offer_recieved')" >
-                            <div class = "shadow-lg  mx-auto mt-2 p-2 w-50 d-flex flex-column  align-items-center " >
-                                <div>
+                    <div class=" row row-cols-sm-3 row-cols-lg-5 d-flex justify-content-around">
+                        <t t-foreach = "properties" t-as = "property">
+                            <t t-if = "property.state in ('new','offer_recieved')" >
+                                <div class="col border   shadow border-3 mx-2 my-2 p-1 d-flex flex-column  align-items-center rounded">
                                     <a t-attf-href="/estate/{{ slug(property) }}">
                                         <img t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ property.image }}" class = "w-100 rounded"/>    
                                     </a>
-                                </div>
-                                    <h2 t-esc="property.name" class="mt-2"/>
-                                    <p t-esc = "property.description"/>
-                                    <a t-attf-href="/estate/{{ slug(property) }}">
-                                        <button class = "bg-primary rounded-pill text-light border p-2">View Property</button>
+                                    <h5 t-esc ="property.name"/>
+                                    <i class="fa fa-house"></i>
+                                    <strong>Postcode:<span t-esc= "property.postcode"/></strong>
+                                    <strong>Total area: <span t-esc= "property.total_area"/></strong>
+                                    <strong><span t-esc = "property.property_type_id.name " class ="text-primary"/></strong>
+                                    <div class = "d-flex">
+                                        <t t-foreach = "property.tag_ids" t-as = "property_tag" >
+                                            <span class = "bg-warning rounded text-info p-1  m-1" t-esc = "property_tag.name"/>
+    
+                                        </t>
+                                    </div>    
+                                    <a t-attf-href = "/estate/{{slug(property)}}">
+                                        <button class="bg-success rounded-pill border border-3 shadow">View This</button>
                                     </a>
-                            </div>
-                        </t>
-                    </t>  
+                                </div>     
+                            </t>
+                       </t>
+                    </div> 
                           
                 </div>
                 <div class=" d-flex justify-content-center mt-3 mb-3">
-                    <t t-call="website.pager" />
+                    <t t-call="website.pager"/>
                 </div>
         </t>
         
       </template>
       <template id = "listing_property">
         <t t-call= "website.layout">
-           <div class = "container d-flex flex-column align-items-center justify-content-around mt-5 mb-5 p-3">
-                <div class = "w-75 border">
-                    <img t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ listed_property.image }}" class = "w-100"/>
+            <div class = " h-50 d-flex flex-column align-items-center">
+                <img t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ listed_property.image }}" class = "w-100 h-75"/>
+                <h2 t-esc="listed_property.name"/>
+            </div>
+            <div class="container d-flex  my-n">
+                <div class="d-flex flex-column mx-5 w-50 bg-info border shadow-lg ps-3">
+                   <h2>Property details</h2>
+                   <strong>property type:<span t-esc = "listed_property.property_type_id.name " class = "mx-2 my-2"/></strong>
+                   <strong>Living Area:<span t-esc = "listed_property.living_area " class = "mx-2 my-2"/></strong>
+                   <strong>garden area:<span t-esc = "listed_property.garden_area " class = "mx-2 my-2"/></strong>
+                   <strong>bedrooms:<span t-esc = "listed_property.bedrooms " class = "mx-2 my-2"/></strong>
+                   <strong>facades"<span t-esc = "listed_property.facades " class = "mx-2 my-2"/></strong>
+                   <strong>date Availability"<span t-esc = "listed_property.date_availability " class = "mx-2 my-2"/></strong>
+                   <strong>Total area:<span t-esc = "listed_property.total_area" class = "mx-2 my-2"/></strong> 
                 </div>
-                <div class = ' d-flex flex-column justify-content-center alig-items-center'>
-                    <h2 t-field = "listed_property.name"></h2>   
+                <div class = "bg-dark text-white w-50 border shadow-lg ps-3" >
+                    <h2>property description</h2>
+                    <span t-esc = "listed_property.description"/>
                 </div>
-           </div>
-    
-           <div class = "container">
-                <table class = "table">
-                    <thead>
-                        <tr>
-                            <th>Expected price</th>
-                            <th>State</th>
-                            <th>date_availability</th>
-                            <th>Postcode</th>
-                            <th>Type</th>
-                        </tr>    
-                    </thead>
-                    <tbody>
-                        <td>
-                            <span t-field="listed_property.expected_price"/>
-                        </td>
-                        <td>
-                            <span t-field="listed_property.state"/>
-                        </td>
-                        <td>
-                            <span t-field="listed_property.date_availability"/>
-                        </td>
-                        <td>
-                            <span t-field="listed_property.postcode"/>
-                        </td>
-                        <td>
-                            <span t-field="listed_property.property_type_id"/>
-                        </td>
-                    </tbody>
-                </table>
-                <p t-esc = "listed_property.description"/>
-    
-           </div>
+            </div>   
         </t>
-      </template>    
+      </template>  
+      <template id = "search_box">
+        <form action = "/estate/estate">
+            <t t-call = "website.website_search_box">
+                <t t-set = "action" t-value = "'/estate/'"/>
+            </t>
+        </form>
+      </template>
+      <!-- <template id = "date_picker">
+        <form method="GET" action= "/estate/estate">
+            <input type = "date" id = "date" name= "date" class = "border-0 border-bottom"/>
+            <button class = "bg-info border-0" id = "date_btn  "><i class = "fa fa-search"></i></button>
+            <t t-set = "action" t-value = "'/estate/'"/>
+        </form>
+      </template>   -->
 </odoo>
+
+
+
+ 
