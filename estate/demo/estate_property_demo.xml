@@ -13,10 +13,10 @@
             <field name="name">Flat</field>
         </record>
         <record id="property_type_demo3" model="estate.property.type">
-            <field name="name">Villa</field>
+            <field name="name">Apartment</field>
         </record>
         <record id="property_type_demo4" model="estate.property.type">
-            <field name="name">Apartment</field>
+            <field name="name">villa</field>
         </record>
 
         <record id="estate_property_demo1" model="estate.property">
@@ -31,7 +31,7 @@
             <field name="facades">2</field>
             <field name="garden_orientation">north</field>
             <field name="property_type_id">1</field>
-            <field name="tag_ids">1</field>
+            <!-- <field name="tag_ids">1</field> -->
         </record>
         <record id="estate_property_demo2" model="estate.property">
             <field name="name">Property 2</field>

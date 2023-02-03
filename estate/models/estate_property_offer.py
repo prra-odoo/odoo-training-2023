@@ -61,7 +61,7 @@ class estate_property_offer(models.Model):
         if maxoffer > vals['price']:
             raise exceptions.UserError("Offer price should be greater than previous offer")
         else:
-            property_id.state = "offer_recieved"
+            property_id.state = 'offer_received'
             return super().create(vals)
 
     
