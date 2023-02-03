@@ -4,29 +4,47 @@
     <template id="index">
         <t t-call="website.layout">
             <title>Real Estate</title>
+            <!-- <t t-call="website.website_search_box"/> -->
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand"></a>
+                    <form class="d-flex" method="get">
+                        <input class="form-control me-2" type="date" name="available_date"/>
+                        <button class="btn btn-outline-success" type="submit">submit</button>
+                    </form>
+                </div>
+            </nav>
                 <div class="container">
                     <div class="row gy-3 my-3">    
                         <t t-foreach="properties" t-as="property">
+                            <!-- Also used state in new,offer recevied  in main.py in domain  -->
+                            
                             <t t-if="property.state in ['new','offer recevied']">
-                                <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" t-attf-src="data:image/png;base64,#{property.property_image}" style="object-fit: contain;"/>
-                                    <div class="card-body">
-                                        <h5 class="card-title"><t t-esc="property.name"/></h5>
-                                        <p class="card-text">Expected Price :<t t-esc="property.expected_price"/></p>
-                                        <p class="card-text">Postcode :<t t-esc="property.postcode"/></p>
+                                <div class="col-sm-6 col-md-2 col-lg-3">
+                                    <div class="card"  style="width: 16rem;">
+                                        <img class="card-img-top" t-attf-src="data:image/png;base64,#{property.property_image}" style="object-fit: contain;"/>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><t t-esc="property.name"/></h5>
+                                            <p class="card-text">Expected Price :<t t-esc="property.expected_price"/></p>
+                                            <p class="card-text">Postcode :<t t-esc="property.postcode"/></p>
 
-                                      <p> Tags : <t t-foreach="property.tag_ids" t-as="tag">
-                                             <span class="badge" style="color: black; background: #fcae1e;">
-                                               <t t-esc="tag.name"/>
-                                            </span>
-                                        </t></p>
-                                        <a t-attf-href="/real_estate/{{ slug(property) }}" class="btn btn-primary">Check out this property</a>
+                                        <p> Tags : <t t-foreach="property.tag_ids" t-as="tag">
+                                                <span class="badge" style="color: black; background: #fcae1e;">
+                                                <t t-esc="tag.name"/>
+                                                </span>
+                                            </t></p>
+                                            <a t-attf-href="/real_estate/{{ slug(property) }}" class="btn btn-primary">Check out this property</a>
+                                        </div>
                                     </div>
                                 </div>
                             </t>
                         </t>
                     </div>
                 </div>
+                <div class="pagination d-flex justify-content-center mt-3 mb-3">
+                    <t t-call="website.pager" />
+                </div>
+             
         </t>
     </template>
 
@@ -39,11 +57,15 @@
                         <div class="container">
                             <div class="d-flex justify-content-center my-1">
                                 <strong>Description : </strong>
-                                <span t-field="property.description"/>
+                                <span t-field="property.description"/>                               
+                            </div>
+                            <div>
+                                <strong>Salesperson : </strong>
+                                <span t-field="property.user_id"/>
                             </div>
                             <!-- <strong>Description : </strong>
                                 <span t-field="property.description"/> -->
-                       
+                           
                             <t t-call="real_estate.sub_report_property_offers"/>
                         </div>
 
