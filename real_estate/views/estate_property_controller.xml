@@ -1,129 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="website_menu" model="website.menu">
-        <field name="name">Properties</field>
-        <field name="parent_id" ref="website.main_menu"/>
-        <field name="url">/real_estate/properties</field>
-    </record>
+  <record id="website_menu" model="website.menu">
+    <field name="name">Properties</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    <field name="url">/real_estate/properties</field>
+  </record>
 
-    <template id="property_list">
-        <t t-call="website.layout">
-            <t t-set="title">Properties</t>
-            <div class="oe_structure">
-                <div class="container">
-                    <!-- <t t-foreach="properties" t-as="property">
-                        <p>
-                            <t t-esc="property.id"/>
-                            <t t-esc="property.name"/>
-                        </p>
-                    </t> -->
-                    <div class="col d-flex justify-content-center">
-                        <div class="row row-cols-3">
-                            <t t-foreach="properties" t-as="property">
-                                <div class="card m-3" style="width: 18rem; text-align: center;box-shadow: 0 5px 10px rgba(0,0,0,.2);">
-                                    <img t-attf-src="data:image/*;base64,{{property.image}}" class="card-img-top" style="width: 80%;
-                                                margin: 0 auto;
-                                                margin-top: 10%;
-                                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);" />
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <t t-esc="property.name"/>
-                                        </h5>
-                                        <p class="card-text">
-                                            Expected Price: 
-                                            <t t-esc="property.expected_price"/>
-                                        </p>
-                                        <p class="card-text">
-                                            Selling Price: 
-                                            <t t-esc="property.selling_price"/>
-                                        </p>
-                                        <a t-attf-href="/real_estate/{{ slug(property) }}" class="btn btn-primary">More Info</a>
-                                    </div>
-                                </div>
-                            </t>
+  <template id="property_list">
+    <t t-call="website.layout">
+      <t t-set="title">Properties</t>
+      <div class="oe_structure">
+        <div class="container">
+          <!-- <div class="col d-flex justify-content-center align-items-center h-100"> -->
+            <div class="row row-cols-4">
+              <t t-foreach="properties" t-as="property">
+                <a t-attf-href="/real_estate/{{ slug(property) }}" class="text-decoration-none">
+                <div class="container py-5 h-100">
+                  <div class="col-8 m-2">
+                    <div class="card " style="width: 17rem; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
+                      <div class="flex-shrink-0">
+                        <img t-attf-src="data:image/*;base64,{{property.image}}" class="img img-responsive" style="width: 270px;
+                      
+                      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);" />
+                      </div>
+                      <div class="card-body">
+                        <h3 t-field="property.name" class="card-title fs-3 align-top" />
+                        <div class="card-text">
+                          <h6 t-field="property.date_availability" t-options='{"format": "long"}' />
+                          <span>Expected Price : </span>
+                          <span t-field="property.expected_price"/>
                         </div>
-                    </div>
-                    <!-- <div class="container py-5 h-100">
-                        <div class="row d-flex justify-content-center align-items-center h-100">
-                          <div class="col-8">
-                            <div class="card" style="border-radius: 15px;">
-                              <div class="card-body p-4">
-                                <div class="d-flex text-black">
-                                  <div class="flex-shrink-0">
-                                    <img t-attf-src="data:image/*;base64,{{property.image}}"
-                                      alt="Generic placeholder image" class="img-fluid"
-                                      style="width: 180px; border-radius: 10px;" />
-                                  </div>
-                                  <div class="flex-grow-1 ms-3">
-                                    <h5 class="mb-1"><t t-esc="property.name"/></h5>
-                                    <p class="mb-2 pb-1" style="color: #2b2a2a;">
-                                        <t t-esc="property.name"/>
-                                    </p>
-                                    <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                      style="background-color: #efefef;">
-                                      <div>
-                                        <p class="small text-muted mb-1">
-                                          Articles
-                                        </p>
-                                        <p class="mb-0">41</p>
-                                      </div>
-                                      <div class="px-3">
-                                        <p class="small text-muted mb-1">
-                                          Followers
-                                        </p>
-                                        <p class="mb-0">976</p>
-                                      </div>
-                                      <div>
-                                        <p class="small text-muted mb-1">
-                                          Rating
-                                        </p>
-                                        <p class="mb-0">8.5</p>
-                                      </div>
-                                    </div>
-                                    <div class="d-flex pt-1">
-                                      <button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
-                                        Chat
-                                      </button>
-                                      <button type="button" class="btn btn-primary flex-grow-1">
-                                        Follow
-                                      </button>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
+                        <div class="card-text">
+                          <span>Selling Price : </span>
+                          <span t-field="property.selling_price"/>
+                        </div>
+                        <div class="card-text">
+                          <span t-field="property.tag_ids" class="badge rounded-pill bg-info text-dark"/>
                         </div>
                       </div>
                     </div>
                   </div>
-                 -->
-                    
-                </div>
-            </div>
-            <div class="col d-flex justify-content-center">
-                <div t-if="pager" class="o_portal_paper d-flex justify-context-center">
-                    <t t-call="website.pager"/>
-                </div>
-            </div>
-            <!-- <div class="pagination">
-                <t t-call="website.pager" />
-            </div> -->
-        </t>
-    </template>
 
-    <template id="property_list_view">
-        <t t-call="website.layout">
-            <t t-set="title">Properties</t>
-            <div class="oe_structure"/>
-            <div class="oe_structure">
-                <div class="container">
-                    <h3>
-                        <t t-esc="estate.name"/>
-                    </h3>
-                    <p>Expected Price: <t t-esc="estate.expected_price"/></p>
-                    <p>Selling Price: <t t-esc="estate.selling_price"/></p>
                 </div>
+                </a>
+              </t>
             </div>
-            <div class="oe_structure"/>
-        </t>
-    </template>
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <div t-if="pager" class="o_portal_paper d-flex justify-context-center">
+          <t t-call="website.pager"/>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <template id="property_list_view">
+    <t t-call="website.layout">
+      <t t-set="title">Properties</t>
+      <div class="oe_structure"/>
+      <div class="oe_structure">
+        <div class="container">
+          <h3>
+            <t t-esc="estate.name"/>
+          </h3>
+          <p>Expected Price: <t t-esc="estate.expected_price"/>
+          </p>
+          <p>Selling Price: <t t-esc="estate.selling_price"/>
+          </p>
+        </div>
+      </div>
+      <div class="oe_structure"/>
+    </t>
+  </template>
 </odoo>

@@ -86,6 +86,8 @@ class estateProperty(models.Model):
             else:
                 record.status = 'cancel'
                 record.state = 'cancel'
+    # def add_offer(self):
+    #     for record in self:
 
     @api.constrains("expected_price", "selling_price")
     def _check_price_difference(self):

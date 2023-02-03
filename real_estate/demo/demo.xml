@@ -37,6 +37,7 @@
         <field name="expected_price">100000</field>
         <field name="selling_price">200000</field>
         <field name="property_type_id" ref="real_estate.estate_property_flat"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate.property_tags_cozy')])]"/>
         <field name="image" type="base64" file="real_estate/static/description/new_house.jpg"/>
     </record>
 
@@ -47,14 +48,16 @@
         <field name="expected_price">1000</field>
         <field name="selling_price">1500</field>
         <field name="property_type_id" ref="real_estate.estate_property_house"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate.property_tags_renovated')])]"/>
         <field name="image" type="base64" file="real_estate/static/description/old_house.jpg"/>
     </record>
-    
+
     <record id="villa" model="estate.property">
         <field name="name">Big Villa</field>
         <field name="description">A nice and big villa</field>
         <field name="postcode">12345</field>
         <field name="expected_price">1600000</field>
+        <field name="selling_price">120000</field>
         <field name="bedrooms">6</field>
         <field name="living_area">100</field>
         <field name="facades">4</field>
@@ -62,6 +65,7 @@
         <field name="garden">True</field>
         <field name="garden_area">100000</field>
         <field name="property_type_id" ref="property_residential"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate.property_tags_cozy')])]"/>
         <field name="image" type="base64" file="real_estate/static/description/big_villa.jpg"/>
     </record>
 
@@ -77,6 +81,7 @@
         <field name="garage">False</field>
         <field name="garden">True</field>
         <field name="property_type_id" ref="property_residential"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate.property_tags_cozy'), ref('real_estate.property_tags_renovated')])]"/>
         <field name="image" type="base64" file="real_estate/static/description/trailer_home.jpg"/>
     </record>
     <record id="cabin" model="estate.property">
@@ -84,12 +89,14 @@
         <field name="description">Small cabin by lake</field>
         <field name="postcode">10000</field>
         <field name="expected_price">80000</field>
+        <field name="selling_price">120000</field>
         <field name="bedrooms">1</field>
         <field name="living_area">10</field>
         <field name="facades">4</field>
         <field name="garage">False</field>
         <field name="garden">True</field>
         <field name="property_type_id" ref="property_residential"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate.property_tags_cozy')])]"/>
         <field name="image" type="base64" file="real_estate/static/description/cozy_cabin.jpg"/>
     </record>
 </odoo>

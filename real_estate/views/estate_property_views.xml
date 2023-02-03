@@ -58,6 +58,7 @@
                     <header>
                         <button name="sold_button" type="object" string="Sold" states='draft' attrs="{'invisible': [('state', 'in', ('sold', 'cancel'))]}"/>
                         <button name="cancel_button" type="object" string="Cancel" states='draft' attrs="{'invisible': [('state', 'in', ('sold', 'cancel'))]}"/>
+                        <!-- <button name="add_offer" type="object" string="Cancel" states="draft"></button> -->
                         <!-- <button type="action" name="%(offers_action)d" string="Offers"/> -->
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                     </header>
@@ -65,8 +66,7 @@
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', 'not in', ('sold'))]}"/>
                         <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', 'not in', ('cancel'))]}"/>
                         <field name="active" invisible='1'/>
-                        <field name="image" widget='image' class="oe_avatar bg-black" nolabel="1"
-                            options='{"preview_image": "image"}' />
+                        <field name="image" widget='image' class="oe_avatar bg-black" nolabel="1" options='{"preview_image": "image"}' />
                         <label for="name">Name</label>
                         <h1>
                             <field name="name"/>
