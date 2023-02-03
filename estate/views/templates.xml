@@ -11,43 +11,40 @@
 
   <template id="index">
     <t t-call="website.layout">
+        <div class="navbar-search ms-auto pagination justify-content-end" style="margin:10px;">
+          <t t-call="estate.property_search"/>
+        </div>
         <t t-set="title">Estate</t>
         <div class="oe_structure">
-            <div class="container">
-              <!-- <div class="btn-group ms-1 position-static"> -->
-                <!-- search -->
-                <!-- <t t-call="website.website_search_box_input"> -->
-                    <!-- <t t-set="_classes" t-valuef="o_wslides_course_nav_search ms-1 position-relative"/> -->
-                    <!-- <t t-set="_input_classes" t-valuef="border-0 rounded-0 bg-transparent"/> -->
-                    <!-- <t t-set="_submit_classes" t-valuef="btn-link rounded-0 pe-1"/> -->
-                    <!-- <t t-set="search_type" t-valuef="slides"/> -->
-                    <!-- <t t-set="action" t-valuef="/slides/all"/> -->
-                    <!-- <t t-set="display_description" t-valuef="true"/>
-                    <t t-set="display_detail" t-valuef="false"/>
-                    <t t-set="placeholder">Search </t>
-                    <t t-set="search" t-value="search_term"/> -->
-                    <!-- <t t-foreach="searches" t-as="item">
-                      <input t-if="item != 'search' and item_value != 'all'" type="hidden"
-                          t-att-name="item" t-att-value="item_value"/>
-                  </t> -->
-                <!-- </t>
-            </div> -->
-              <div class="row">
-                <t t-foreach="properties" t-as="property">                            
-                  <div style="display: inline-block;width: 300px;height: 250px;padding:10px;box-sizing: border-box;border-collapse: separate;border-spacing: 5px;margin: 25px;">
-                    <p>
-                      <a t-attf-href="/estate/{{ slug(property) }}">
-                      <img t-attf-src="data:image/png;base64,{{property.image}}" style="width:280px;height:200px;"/>
-                      <center><span t-out="property.name"/></center>
-                      </a>
-                    </p>
+            <div class="container" style="margin: 60px;">
+              <div class="row row-cols-3 row-cols-md-4 g-4">
+              <!-- <div class="row"> -->
+                <!-- <div class="col-sm-6 mb-3 mb-sm-0"> -->
+                  <!-- <div class="col-sm-6"> -->
+                <t t-foreach="properties" t-as="property">  
+                  <div class="col">                          
+                  <div class="card" style="width: 14rem;" href="/estate/{{ slug(property) }}">
+                    <center><img t-attf-src="data:image/png;base64,{{property.image}}" class="card-img-top" alt="Image not displayed!"/></center>
+                    <div class="card-body">
+                      <h5 class="card-title"><span t-out="property.name"/></h5>
+                      <p class="card-text">Expected Price: <span t-out="property.expected_price"/></p>
+                        <p><t t-foreach="property.tag_ids" t-as="tags">
+                          <span class="badge rounded-pill text-bg-secondary"><span t-out="tags.name" /></span>
+                      </t>  
+                      </p>
+                      <!-- <button type="button" class="btn btn-outline-info"><a t-attf-href="/estate/{{ slug(property) }}">Property Details</a></button> -->
+                      <center>
+                        <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-outline-info">Property Details</a>
+                      </center>
+                    </div>
+                  </div>
                   </div>
                 </t>
               </div>
-              <!-- <div class="products_pager">
-                <t t-call="website.pager" />
-            </div> -->
             </div>
+            <div class="products_pager d-flex justify-content-center pt-5 pb-3">
+              <t t-call="website.pager"/>
+          </div>
         </div>
     </t>
   </template>
