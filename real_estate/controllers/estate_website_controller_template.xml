@@ -11,9 +11,9 @@
         <t t-call="website.layout">
             <t t-set="title">Estate Properties</t>
             <div class="oe_structure">
-                <div class="header" style="background: #dddddd; padding: 15px;">
+                <div class="header" style="background: #DDDDDD; padding: 15px;">
                     <form method="get" class="d-flex justify-content-center">
-                        <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px"/>
+                        <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px; margin-right: 20px"/>
                         <input type="submit" value="Submit" class="btn btn-primary"/>
                     </form>
                 </div>
@@ -77,6 +77,13 @@
         <t t-call="website.layout">
             <t t-set="title">Estate Property</t>
             <div class="oe_structure">
+                <div class="header" style="background: #dddddd; padding: 15px;">
+                    <center>
+                        <h1 class="heading-primary" style="font-weight: 600;">
+                            <t t-esc="record.name"/>
+                        </h1>
+                    </center>
+                </div>
                 <div class="container">
                     <!-- Carousel Start -->
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-height: 75vh">
@@ -93,58 +100,77 @@
                         </div>
                     </div>
                     <!-- Carousel Ends -->
-                    <div class="property-details mt-4">
+                    <form method="get" style="margin-left: 570px; padding-top: 10px">
+                        <button t-if="is_visible == True" name="btn-hide" value="True" type="submit" class="btn btn-primary position-absolute">Hide Description</button>
+                        <button t-else="" name="btn-hide" type="submit" class="btn btn-primary position-absolute">Show Description</button>
+                    </form>
+                    <div class="mt-5 bg-warning" style="font-weight: 600;">
                         <center>
-                            <h1 class="heading-primary" style="font-weight: 600;">
-                                <t t-esc="record.name"/>
-                            </h1>
+                            <h3 style="font-weight: 600;">
+                                    Description
+                            </h3>
                         </center>
+                    </div>
+                    <!-- JS LOGIC -->
+                    <!-- <button id="hide_button" type="button" class="btn btn-primary">Hide Table</button>
+                    <div id="field_div"></div> -->
+                    <div t-att-class="'{}'.format('d-block' if is_visible else 'd-none')" style="margin-top: 10px; text-align: justify; padding: 10px 30px; font-size: 16px; line-height: 30px; letter-spacing: 0.25px">
+                        <t t-esc="record.description"/>
+                    </div>
+                    <div class="mt-5 bg-warning" style="font-weight: 600;">
+                        <center>
+                            <h3 style="font-weight: 600;">
+                                    Property Details
+                            </h3>
+                        </center>
+                    </div>
+                    <div class="property-details mt-4">
                         <div class="row mt-3">
-                            <div class="col-6">
-                                <div class="type" style="font-size: 20px;">
-                                    Property Type :
-                                    <t t-foreach="record.property_type_id" t-as="type">
-                                        <t t-esc="type.name"/>
-                                    </t>
-                                </div>
-                                <div class="status" style="font-size: 20px;">
-                                    Status :
-                                    <t t-esc="record.state"/>
-                                </div>
-                                <div class="postcode" style="font-size: 20px;">
-                                    Postcode :
-                                    <t t-esc="record.postcode"/>
-                                </div>
-                                <div class="date_availability" style="font-size: 20px;">
-                                    Available From :
-                                    <t t-esc="record.date_availability"/>
-                                </div>
+                            <div class="col-6" style="font-size: 18px; letter-spacing: 0.35px; font-weight: 500">
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-primary">Property Type :
+                                        <t t-foreach="record.property_type_id" t-as="type">
+                                            <t t-esc="type.name"/>
+                                        </t>
+                                    </li>
+                                    <li class="list-group-item list-group-item-success">Total Area (sqm) :
+                                        <t t-esc="record.total_area"/>
+                                    </li>
+                                    <li class="list-group-item list-group-item-danger">Bedrooms :
+                                        <t t-esc="record.bedrooms"/>
+                                    </li>
+                                    <li class="list-group-item list-group-item-warning">Postcode :
+                                        <t t-esc="record.postcode"/>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="col-6">
-                                <div class="expected_price" style="font-size: 20px;">
-                                    Expected Price :
-                                    <t t-esc="record.expected_price"/>
-                                </div>
-                                <div class="best_price" style="font-size: 20px;">
-                                    Best Price :
-                                    <t t-esc="record.best_price"/>
-                                </div>
-                                <div class="selling_price" style="font-size: 20px;">
-                                    Selling Price :
-                                    <t t-esc="record.selling_price"/>
-                                </div>
+                            <div class="col-6" style="font-size: 18px; letter-spacing: 0.35px; font-weight: 500">
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-primary">Expected Price :
+                                        <t t-esc="record.expected_price"/>
+                                    </li>
+                                    <li class="list-group-item list-group-item-success">Best Price :
+                                        <t t-esc="record.best_price"/>
+                                    </li>
+                                    <li class="list-group-item list-group-item-danger">Selling Price :
+                                        <t t-esc="record.selling_price"/>
+                                    </li>
+                                    <li class="list-group-item list-group-item-warning">Available From :
+                                        <t t-esc="record.date_availability"/>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <!-- TABLE START -->
-                        <div class="mt-5" style="font-weight: 600;">
+                        <div class="mt-5 bg-warning" style="font-weight: 600;">
                             <center>
                                 <h3 style="font-weight: 600;">
                                     Offers
                                 </h3>
                             </center>
                         </div>
-                        <table class="table-striped table">
-                            <thead style="font-size: 23px;">
+                        <table class="table" style="background: #eeeeee; border: 1px solid black; border-collapse: collapse;">
+                            <thead style="font-size: 20px;">
                                 <tr>
                                     <h6>
                                         <b>
@@ -159,7 +185,7 @@
                             </thead>
                             <tbody>
                                 <t t-set="offers" t-value="record.mapped('offer_ids')"/>
-                                <tr t-foreach="offers" t-as="offer">
+                                <tr t-foreach="offers" t-as="offer" >
                                     <td>
                                         <span t-field="offer.price"/>
                                     </td>
@@ -183,5 +209,4 @@
             </div>
         </t>
     </template>
-    <!-- SEARCH FILTER -->
 </odoo>

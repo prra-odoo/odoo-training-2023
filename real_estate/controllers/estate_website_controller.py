@@ -2,7 +2,7 @@
 
 from odoo import http
 from odoo.http import request
-from odoo.addons.portal.controllers.portal import pager as portal_pager
+# from odoo.addons.portal.controllers.portal import pager as portal_pager
 
 class EstateWebsiteController(http.Controller):
     # ROUTE 1
@@ -32,7 +32,7 @@ class EstateWebsiteController(http.Controller):
             domain.append(('date_availability','>=', date_availability))
             
         # pager
-        pager = portal_pager(
+        pager = request.website.pager(
         url="/estate/estate",
         total=estate_property_count,
         page=page,
@@ -44,11 +44,17 @@ class EstateWebsiteController(http.Controller):
         data = {
             'records': response_property.sudo(),
             'pager': pager,
+            
         }
         return request.render("real_estate.estate_property_list_controller_template", data)
     
     # ROUTE 4
     @http.route('/estate/<model("estate.property"):property>/', auth='public', website=True)
     
-    def estate(self, property):
-        return http.request.render('real_estate.single_property_template', {'record': property})
+    def estate(self, property, **kw):
+        is_visible = True
+        
+        if kw.get('btn-hide'):
+            is_visible = False
+
+        return http.request.render('real_estate.single_property_template', {'record': property, 'is_visible': is_visible})

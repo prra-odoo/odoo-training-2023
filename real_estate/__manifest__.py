@@ -31,6 +31,11 @@
         'report/estate_user_property_templates.xml',
         'report/estate_reports.xml'
     ],
+    'assets': {
+        'web.assets_frontend': [
+            '/real_estate/static/src/js/description_btn_toggle.js',
+        ],
+    },
     'category': 'Real Estate/Brokerage',
     'installable': True,
     'application': True,
