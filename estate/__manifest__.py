@@ -18,6 +18,7 @@
         'views/res_users_view.xml',
         'report/estate_property_reports.xml',
         'controllers/controllers.xml',
+        'wizard/estate_property_wizard.xml',
     ],
     'demo': [
         'demo/estate_property_tags_demo_data.xml',

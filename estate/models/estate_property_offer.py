@@ -33,6 +33,7 @@ class EstatePropertyOffer(models.Model):
     def _date_deadline(self):
         for rec in self:
             rec.date_deadline = rec.create_date + relativedelta(days=rec.validity)
+            
 
     def _inverse_date_deadline(self):
         for rec in self:
@@ -57,6 +58,7 @@ class EstatePropertyOffer(models.Model):
     def offer_rejected_action(self):
         for rec in self:
             rec.status = "refused"
+            print("-------------",rec.date_deadline)
             rec.property_id.selling_price = 0
             rec.property_id.state = "new"
 

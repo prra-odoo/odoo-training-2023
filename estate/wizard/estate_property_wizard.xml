@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="estate_property_wizard_action" model="ir.actions.act_window">
+            <field name="name">Estate Property Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.property</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="estate.test_model_wizard_view_form"/>
+            <field name="binding_model_id" ref="estate.model_estate_property"/>
+            <field name="target">new</field>
+        </record>
+    
+        <record id="test_model_wizard_view_form" model="ir.ui.view">
+            <field name="name">estate.property.wizard.form</field>
+            <field name="model">estate.property.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Test">
+                    <group class="oe_title">
+                        <field name="price"/>
+                    </group>
+                    <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/> 
+                    <button string="Done" class="btn-secondary" name="action_done_wizard" type="object"/> 
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

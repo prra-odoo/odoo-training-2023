@@ -9,6 +9,18 @@
 
     <template id="estate.home">
         <t t-call="website.layout">
+            <header>
+                <form method="GET">
+                    <t t-call="website.website_search_box">
+                    </t>
+                </form>
+                <span>    
+                    <form method="GET">
+                        <input type="date" name="date"/>
+                        <input type="submit" value="Listed After"/>
+                    </form>
+                </span>
+            </header>
             <t t-set="title">Estate Property</t>
             <div class="oe_structure">
                 <div class="container">
@@ -24,7 +36,9 @@
                                                 <h6 t-field="property.date_availability" t-options='{"format": "long"}' />
                                                 <span >Expected Price : </span>
                                                 <span t-field="property.expected_price"/>
-                                                <span t-field="property.tag_ids" class="badge text-bg-secondary float-end"></span>
+                                                <t t-foreach="property.tag_ids" t-as="tags">
+                                                <span t-field="tags.name" class="badge text-bg-secondary float-end m-1"></span>
+                                                </t>
                                             </div>
                                         </div>
                                         <div class="card-footer text-muted"> Last Updated on : <span t-field="property.__last_update" t-options="{'widget':'relative'}" />
@@ -34,7 +48,7 @@
                             </div>
                         </t>
                     </div>
-                    <div>
+                    <div class="text-center">
                         <t t-call="website.pager"/>
                     </div>
                 </div>

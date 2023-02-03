@@ -5,6 +5,7 @@ from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
+import dateutil.parser
 
 
 class realEstate(models.Model):
@@ -104,6 +105,7 @@ class realEstate(models.Model):
 
     def action_cancel_button_header(self):
         for rec in self:
+            print("-------------",d)
             if rec.state == "sold":
                 raise UserError("Sold Property can't be calceld")
             else:
