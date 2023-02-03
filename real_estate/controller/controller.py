@@ -1,4 +1,5 @@
-from odoo import http
+from odoo import http# defining controller for the estate properties
+from odoo.addons.portal.controllers.portal import pager
 
 class RealEstate(http.Controller):
 
@@ -22,11 +23,22 @@ class RealEstate(http.Controller):
     #     )
 
     # defining controller for the estate properties
-    @http.route('/real_estate/', auth="public", website=True)
-    def index(self, **kw):
-        properties = http.request.env['estate.property']
+    @http.route(['/real_estate/', '/real_estate/page/<int:page>'], type="http", auth="public", website=True)
+    def index(self, page=1, items_per_page = 16, **kw):
+        domain = []
+        properties = http.request.env['estate.property'].search(domain)
+        total = properties.search_count(domain)
+        
+        pagination = pager(
+            url='/real_estate/',
+            total=total,
+            page=page,
+            step=items_per_page
+        )
+        new_properties = properties.search(domain,limit=items_per_page, offset=pagination['offset'])
         return http.request.render('real_estate.real_estate_web_view', {
-            'properties': properties.search([])
+            'properties': new_properties,
+            'pager': pagination,
         }
         )
     
