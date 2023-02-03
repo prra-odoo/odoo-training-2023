@@ -9,15 +9,43 @@
 
     <template id="index">
         <t t-call="website.layout">
-            <div class="container">
-                <div class="row" style="margin: 15px">
+            <div class="header" style="background: #63bf7c; padding: 10px">
+                <form method="get" class="d-flex justify-content-center">
+                    <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px; margin-right: 20px"/>
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                </form>
+            </div>
+            <form action="/estate/estate" class="my-3 w-50">
+                <t t-call="website.website_search_box">
+                    <t t-set="action" t-value="'/estate/'"/>
+                </t>
+            </form>
+            <div class="container border">
+                <div class="row row-cols-sm-3 row-cols-lg-5 d-flex justify-content-around">
                     <t t-foreach="properties" t-as="property">
-                            <div class="col-sm-6" style="justify-content: center; text-align: center">
-                                <a style="font-size: 30px" t-attf-href="/estate/{{ slug(property) }}">
-                                    <img style="padding: 20px; border-radius: 50px" t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ property.image }}" class = "w-100"/>
-                                    <div style="background-color: black; color: white; border-radius: 100px">
-                                        <t t-esc="property.name"/>
-                                    </div>
+                            <div class="col border shadow border-5 mx-2 my-2 p-2 d-flex flex-column align-items-center rounded">
+                                <img t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ property.image }}" class = "w-100"/>
+                                <h5>
+                                    <t t-esc="property.name"/>
+                                </h5>
+                                <t t-foreach="property.tags_ids" t-as="tag">
+                                    <span class="badge" style="color: black; background: #e8b610">
+                                        <t t-esc="tag.name"/>
+                                    </span>
+                                </t>
+                                <t t-foreach="property.sales_id" t-as="salesman">
+                                    <strong>
+                                        Seller: <t t-esc="salesman.name"/>
+                                    </strong>
+                                </t>
+                                <span>
+                                    Expected Price: <t t-esc="property.expected_price"/>
+                                </span>
+                                <span>
+                                    Total Area: <t t-esc="property.total_area"/>
+                                </span>
+                                <a t-attf-href="/estate/{{ slug(property) }}">
+                                    <button class="text-light bg-dark rounded-pill border border-3 shadow">Buy This</button>
                                 </a>
                             </div>
                     </t>
