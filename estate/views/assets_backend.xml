@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="assets_backend"  name="Backend Assets">
+    <t t-call="assets_backend">
+    <xpath expr="//script[last()]" position="after">
+      <script src="/estate/static/src/js/list_controller.js"></script>
+    </xpath>
+</t>
+  </template>
+</odoo>

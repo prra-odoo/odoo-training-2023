@@ -12,55 +12,67 @@
         <t t-call="website.layout"> 
             <nav class="navbar navbar-light border-top shadow-sm d-print-none">
                 <div class="container">
-                    <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
-                        <span class="navbar-brand h4 my-0 me-auto">Estate Property</span>
-                        <ul class="o_wevent_index_topbar_filters nav">
-                            <li class="nav-item dropdown me-2 my-1">
+                    <div t-if="enable_groups" id="div_property_group_temp"></div>
+                        <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
+                            <span class="navbar-brand h4 my-0 me-auto">Estate Property</span>
+                            <i class="nav-item dropdown my-1">
                                 <a href="#" role="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-folder-open"></i>
-                                Type
-                            </a>
+                                    <i class="fa fa-calendar"/>
+                                    <span>Upcoming Events</span>
+                                </a>
+                            </i>
+                            <div class="form-line flex-md-nowrap justify-content-between justify-content-md-center">
+                                <t t-call="estate.property_search"/>
+                            </div>
+                           
+                            <ul class="nav nav-pills flex-column">
+                                <li class="nav-item">
+                                    <a href="/estate/estate" t-attf-class="nav-link #{'' if proptype else 'active'} o_not_editable">
+                                        All Property Types
+                                    </a>
+                                
+                                <t t-foreach="groups" t-as="grp">
+                                    <li class="nav-items">
+                                        <!-- <select name="category"> -->
+                                            <a t-attf-href="/estate/estate/type/{{ slug(grp) }}"
+                                            t-attf-class="nav-link #{'active' if grp.id == proptype.id else ''} o_not_editable">
+                                            <span t-field="grp.name"/>
+                                        </a>
+                                        <!-- </select> -->
+                                    </li>
+                                </t>
                             </li>
-                            <li class="nav-item dropdown me-2 my-1">
-                                <a href="#" role="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-folder-open"></i>
-                                Tags
-                            </a>
-                            </li>
-                        </ul>
-                        <div class="d-flex align-items-center flex-wrap ps-sm-3 pe-0">
-                            <section class="s_searchbar">
-                                <div class="container">
-                                    <t t-snippet-call="website.s_searchbar_input"/>
-                                </div>
-                            </section>
+                                
+                            </ul>
                         </div>
+                    <div class="container">
+                    <t t-foreach="property" t-as="property">
+                        <div class="card" 
+                            style="
+                            width: 15rem; 
+                            height: 20rem; 
+                            display:inline-block; 
+                            margin: 30px;
+                            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
+                            <div class="card-body">
+                            <h5 class="card-title"><t t-esc="property.name"/></h5>
+                            <img class="card-img-top"  style="margin-bottom:20px; height:200px; wight:200px;" t-attf-src="data:image/jpg;base64,{{ property.images }}" alt="Here comes an Images ..."></img>
+                            <a t-attf-href="/estate/{{ slug(property) }}"  class="btn btn-primary" style="width: 100%;">
+                                    <t>
+                                        Click for more details !!
+                                    </t>
+                                </a>
+                            
+                            </div>
+                        </div>
+                    </t>
+                    <div t-if="pager" class="o_portal_pager d-flex justify-content-center">
+                        <t t-call="website.pager"/>
                     </div>
                 </div>
+                
+                </div>           
             </nav>
-            <div class="container">
-                <t t-foreach="property" t-as="property">
-                    <div class="card" 
-                         style="
-                         width: 20rem; 
-                         height: 30rem; 
-                         display:inline-block; 
-                         margin: 30px;
-                         box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
-                        <div class="card-body">
-                          <h5 class="card-title"><t t-esc="property.name"/></h5>
-                          <img class="card-img-top"  style="margin-bottom:20px; height:300px; wight:300px;" t-attf-src="data:image/jpg;base64,{{ property.images }}" alt="Here comes an Images ..."></img>
-                           <a t-attf-href="/estate/{{ slug(property) }}"  class="btn btn-primary" style="width: 100%;">
-                                <t>
-                                    <t t-esc="property.name" invisible="1"/>
-                                </t>
-                            </a>
-                         
-                        </div>
-                    </div>
-                </t>
-                <!-- <t t-call="website.pager"/> -->
-            </div>
         </t>
     </template>
     <template id="property_controller_template_redirect">
@@ -145,5 +157,12 @@
                   </table>
             </div>
         </t>
+    </template>
+    <template id="property_search" name="Property Search Box">
+        <form action="/estate/estate"> 
+            <t t-call="website.website_search_box">
+                <t t-set="action" t-value="'/estate/'"/>
+            </t>
+        </form>
     </template>
 </odoo> 

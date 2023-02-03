@@ -15,6 +15,7 @@
         'views/estate_tags.xml',
         'views/res_users.xml',
         'views/estate_template.xml',
+        'views/assets_backend.xml',
         'report/estate_property_report.xml',
         'report/estate_property_template.xml',
     ],
@@ -22,4 +23,5 @@
         'demo/estate_demodata.xml',
     ],
     'license': 'LGPL-3',
+    'qweb': ['static/src/xml/template.xml'],
 }
