@@ -7,28 +7,44 @@
             <field name="url">/estate/estate/</field>
         </record>
     </data>
+    
     <template id="index">  
         <t t-call="website.layout">
+            <form action="/estate/estate/">
+            <t t-call="website.website_search_box">
+                <t t-set="action" t-value= "'/estate/'"/>
+            </t>
+        </form>
             <t t-set="title">Estate Property</t>
             <div class="oe_structure">
                 <div class="container">
-                    <!-- <img src="/estate/static/description/web.jpg/" width="100%" height="10  0%" alt="Not Found" align="right"/> -->
-                    <t t-foreach="properties" t-as="property">
-                        <div class="card-body" style="float:left">
-                            <img class="card-img-top" style="margin-bottom:20px; height:200px; width:300px; display:inline-block" t-attf-src="data:image/jpg;base64,{{ property.images }}" alt="Here comes an Images ..."/>
-                            <p>
-                                <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary" style="width: 100%;">
-                                <t t-esc="property.name" invisible="1"/></a>
-                            </p>
-                        </div>
-                    </t>
+                    <div class="row row-cols-4">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col">
+                                <div class="card-group" style="height:25rem;width:18rem;padding:30px;margin-bottom:30px">
+                                    <div class="card">
+                                        <img class="card-img-top" style="margin-bottom:20px; height:100px width:300px;" t-attf-src="data:image/jpg;base64,{{ property.images }}" alt="Here comes an Images ..."/>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><span t-field="property.name"/></h5>
+                                            <span t-esc="property.date_availability" />
+                                            <div>Expected Price:<span t-esc="property.expected_price"/></div>
+                                            <center><a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary" width="100%">Details</a></center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                   
                 </div>
+            </div>
+            <div class="d-flex justify-content-center my-3">
+                <t t-call="website.pager">
+                </t>
             </div>
         </t>    
     </template>
 
-   
-    
     <template id="template_controller">
         <t t-call="website.layout">
             <div class="oe_structure">
@@ -46,4 +62,7 @@
             <div class="oe_structure"/>
         </t>
     </template>
+
+    
+    
 </odoo>

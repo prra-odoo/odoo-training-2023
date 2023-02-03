@@ -35,7 +35,7 @@
         <record id="Estate_company_rule_id" model = "ir.rule">
             <field name="name">Estate access rights for company</field>
             <field name="model_id" ref="model_estate_property"></field>
-            <field name="domain_force">['|',('company_id','=',False),('company_id','=','company_ids')]</field>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','in', 'company_ids')]</field>
         </record>
     </data>
 </odoo>
