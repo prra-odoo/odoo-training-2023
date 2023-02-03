@@ -16,7 +16,7 @@ class EstatePropertyType(models.Model):
     sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
     property_under_type_ids = fields.One2many("estate.property", "property_type_id", string="Properties according to type ")
     offer_ids = fields.One2many(related="property_under_type_ids.offer_ids")
-    offer_count=fields.Integer(compute="_compute_offer_count")
+    offer_count = fields.Integer(compute="_compute_offer_count")
 
     @api.depends('offer_ids')
     def _compute_offer_count(self):
