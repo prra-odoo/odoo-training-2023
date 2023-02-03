@@ -5,7 +5,7 @@ from odoo.addons.portal.controllers.portal import pager as portal_pager
 class Academy(http.Controller):
 
      @http.route(['/realestate/property/', '/realestate/property/page/<int:page>'],auth='public',website=True)
-     def index(self,page=1,item_per_page=6,**kw):
+     def index(self,page=1,item_per_page=8,**kw):
         domain = [('state', 'in', ['new', 'offer_recieved'])]
         property = http.request.env['estate.property'].search(domain)
         total = property.search_count(domain)

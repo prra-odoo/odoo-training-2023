@@ -1,6 +1,4 @@
 <odoo>
-
-
     <data>
         <record id="menu_shop" model="website.menu">
             <field name="name">Properties</field>
@@ -11,24 +9,30 @@
 
     <template id="index">
         <style>
-            .card{
-            transition: all 0.2s ease;
-             cursor: pointer;
-             }
-             .card:hover{
-             box-shadow: 5px 6px 6px 2px #e9ecef;
-             transform: scale(1.1);
-             }
+            
+            .container:hover .card {
+                filter: blur(5px);
+                transform: scale(0.9);
+                opacity: 0.5;
+            }
+            
+            .container .card:hover {
+                filter: blur(0px);
+                transform: scale(1.1);
+                opacity: 1;
+                transition: 0.2s;
+                
+            }
         </style>
         <t t-call="website.layout">
             <t t-set="title">Real Estate</t>
-            <div class="oe_structure" style="background-color: #F3E4F1">
+            <div class="oe_structure" style="background-color: #FAFAEB">
                 <div class="container">
                     <h2 class="text-center  text-secondary " style="font-weight:bold;margin-bottom:19px;">Properties</h2>
-                    <div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
+                    <div class="row row-cols-1 row-cols-md-4 g-4 mb-3">
                         <!-- row row-cols-3 -->
                         <t t-foreach="estates" t-as="estate">
-                            <div class="col">
+                            <div class="col-12">
                                 <div class="card h-100 shadow-sm bg-image hover-zoom" style="border-radius: 10px ">
                                     <img t-attf-src="data:image/png;base64,#{estate.image}" class="card-img-top" alt="..." />
                                     <div class="card-body text-secondary">
@@ -65,17 +69,24 @@
     </template>
 
     <template id="detail">
+    <style>
+            
+        </style>
         <t t-call="website.layout">
-            <div class="oe_structure" style="background-color: #FAFAEB">
-                <h1 class="text-secondary text-center" style="font-weight:bold; " t-field="person.name"></h1>
+            <div class="oe_structure" style="background-color: #F3E4F1">
+            <!-- #FAFAEB -->
                 <div class="container">
-                    <div class="card mb-3">
+                    <div class="card mb-3" style="margin-top:20px">
                         <div class="row g-0">
-                            <div class="col-md-4 bg-image hover-zoom">
-                                <img t-attf-src="data:image/png;base64,#{person.image}" width="350" height="350" class="rounded float-right" alt="..." />
+                            <div class="col-md-4">
+                                <img t-attf-src="data:image/png;base64,#{person.image}" width="350" height="350" style="margin-left:10px;margin-top:10px;" class="rounded float-right" alt="..." />
+                                <div class="text-center my-4 ">
+                                        <a  class="btn btn-outline-secondary">Buy Now</a>
+                                </div>
                             </div>
                             <div class="col-md-8">
                                 <div class = "card-body">
+                                    <h1 class="text-secondary " style="font-weight:bold; " t-field="person.name"></h1>
                                     <div>
                                         <span style="font-weight:bold;">About Property:</span>
                                         <p class="card-text" t-field="person.description"></p>
