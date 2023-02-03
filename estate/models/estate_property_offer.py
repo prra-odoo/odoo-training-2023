@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api,fields,models,exceptions
+from odoo import api,fields,models,exceptions,_
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
@@ -17,7 +17,7 @@ class EstatePropertyOffer(models.Model):
     date_deadline = fields.Date(string="Deadline",compute="_compute_deadline",inverse="_inverse_date_deadline")
     # Relational Fields
     partner_id = fields.Many2one('res.partner',required=True)
-    property_id = fields.Many2one('estate.property',required=True)
+    property_id = fields.Many2one('estate.property',required=True,ondelete="cascade")
     property_type_id = fields.Many2one(related="property_id.property_type_id")
 
     _sql_constraints= [
@@ -57,7 +57,7 @@ class EstatePropertyOffer(models.Model):
         res.status = 'offer_received'
 
         if vals['price'] < res.best_price :
-            raise exceptions.ValidationError("The Offer Price must be higher than the best offer price bidded till Now! ")
+            raise exceptions.ValidationError(_("The Offer Price must be higher than the best offer price bidded till Now! "))
 
         return super().create(vals)
 
