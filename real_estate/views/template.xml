@@ -10,35 +10,53 @@
        
         <template id="property_page">
             <t t-call="website.layout">
+
+                <div class="navbar-search ms-auto pagination justify-content-end" style="margin:20px;">
+                    <t t-call="real_estate.customer_search"/>
+                </div>
                 <t t-set="title">Property</t>
                     <div class="oe_structure">
                         <div class="container">
-                            <!-- <span style="text-align: right;"> -->
-                            <t t-call="website.website_search_box_input"/>
-                            <!-- </span> -->
-                            <div class="row">
-                            <t t-foreach="properties" t-as="property">                            
-                                <div style="display: inline-block;width: 300px;height: 250px;padding:10px;box-sizing: border-box;border-collapse: separate;border-spacing: 2px;margin: 25px;">
-                                    <p>
-                                        <div>
-                                        <a t-attf-href="/real_estate/{{ slug(property) }}">
-                                        <img t-attf-src="data:image/png;base64,{{property.image}}" style="width:280px;height:200px;"/>
-                                        </a>
-                                        </div>
-                                        <div style="border: 2px solid red;">
+                            <div class="row row-cols-2 row-cols-md-4">                                
+                                <t t-foreach="properties" t-as="property">
+                                <div class="col mb-4">
+                                    <div class="card" style="width:200px;margin:20px;">
                                         <center>
-                                            <span t-out="property.name"/>
+                                            <img t-attf-src="data:image/png;base64,{{property.image}}" class="card-img-top embed-responsive-item"  style="width:100%;"/> 
                                         </center>
-                                        <!-- <p><span t-out="property.expected_price"/></p> -->
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                 <a t-attf-href="/real_estate/{{ slug(property) }}">
+                                                    <span t-out="property.name"/>
+                                                </a>
+                                            </h5>
+                                          
+                                            <p style="font-size:12px;">
+                                               
+                                               Expected price :<span t-out="property.expected_price"/>
+                                            </p>
+                                            Tags:
+                                            <t t-foreach="property.property_tag_ids" t-as="tags">
+                                                <span t-field="tags.name" class="badge text-bg-secondary"/>
+                                            </t>
+                                            <center><a t-attf-href="/real_estate/{{ slug(property) }}" class="btn btn-outline-info btn-sm">
+                                                    View details
+                                            </a></center>
                                         </div>
-                                    </p>
-                                </div>
-                            </t>
+                                    </div>   
+                                </div> 
+                                </t>
+                           
+                                
                             </div>
-                            
                         </div>
-                    </div>
+
+                </div>
+                <div class="products_pager d-flex justify-content-center pt-5 pb-3">
+                                <t t-call="website.pager"/>
+                            </div>
             </t>
+
         </template>
 
         <template id="description">
