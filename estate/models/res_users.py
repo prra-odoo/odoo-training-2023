@@ -2,8 +2,8 @@
 from odoo import models,fields
 from odoo.exceptions import UserError, ValidationError
 
-class Res_Users(models.Model):
-    _name = "res.users"
-    _description = "users model"
+class Users(models.Model):
+    
+    _inherit = "res.users"
 
     property_ids = fields.One2many("estate.property","user_id", string="Property id")

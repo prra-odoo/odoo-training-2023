@@ -30,7 +30,7 @@ class Estate_Property(models.Model):
         readonly=False,
         store=True)
     garden_orientation = fields.Selection(
-        string = 'garden orientation',
+        string = 'Garden Orientation',
         selection = [('north','North'),
         ('south','South'),
         ('east','East'),
