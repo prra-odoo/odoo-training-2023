@@ -1,6 +1,7 @@
 from odoo import api, fields, models
 from datetime import timedelta
 from odoo.exceptions import UserError
+from odoo.tools import float_compare, float_is_zero
 import datetime
  
 
@@ -50,12 +51,24 @@ class RealEstatePropertyOffer(models.Model):
         for record in self:
             record.status = 'refused'
             
-            
-    @api.model
-    def create(self, vals_list):
-        for i in vals_list:
-            rec = self.env['real.estate.property'].browse(vals_list['property_id'])
-            rec.state =  'offer_received'
-            if rec.best_price >= vals_list['price'] :
-                raise UserError("you can not create an offer of lower amount than existing")
-        return super().create(vals_list)
+    
+    
+    def create(self, vals):
+        if vals.get("property_id") and vals.get("price"):
+            prop = self.env["real.estate.property"].browse(vals["property_id"])
+            # We check if the offer is higher than the existing offers
+            if prop.offer_ids:
+                max_offer = max(prop.mapped("offer_ids.price"))
+                if float_compare(vals["price"], max_offer, precision_rounding=0.01) <= 0:
+                    raise UserError("The offer must be higher than %.2f" % max_offer)
+            prop.state = "offer_received"
+        return super().create(vals)
+     
+    # @api.model
+    # def create(self, vals_list):
+    #     print(vals_list,"vals_list values")
+    #     rec = self.env['real.estate.property'].browse(vals_list['property_id'])
+    #     rec.state =  'offer_received'
+    #     if rec.best_price >= vals_list['price'] :
+    #         raise UserError("you can not create an offer of lower amount than existing")
+    #     return super().create(vals_list)

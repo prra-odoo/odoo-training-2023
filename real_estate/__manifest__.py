@@ -9,9 +9,9 @@
     'installable': True,
     'application': True,
     'data': [
-        
         'security/security.xml',
         'security/ir.model.access.csv',
+        'wizard/estate_property_offer_wizard.xml',
         'report/report_property_users_template.xml',
         'report/real_estate_property_reports.xml',
         'report/real_estate_templates.xml',

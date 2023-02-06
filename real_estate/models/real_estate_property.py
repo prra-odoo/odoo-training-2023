@@ -40,6 +40,22 @@ class RealEstateProperty(models.Model):
     tag_ids = fields.Many2many("real.estate.property.tags")
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
     offer_ids = fields.One2many("real.estate.property.offer", "property_id", string="Offers")
+    
+    def wizard_add_offer(self):
+        print(self.ids)
+        wizard = self.env['wizard.property.offer'].create({
+                    'property_ids': [(6, 0, self.ids)],
+                    # 'buyer_id': [(6, 0, self.ids.buyer_id)],
+                })
+        # return self.env['ir.actions.act_window']._for_xml_id('real_estate.add_offer_wizard_action')
+        return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'wizard.property.offer',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_id': wizard.id,
+                'target': 'new',
+            }
 
     @api.depends('name')
     def _compute_website_url(self):
