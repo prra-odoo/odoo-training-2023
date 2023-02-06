@@ -12,7 +12,7 @@
             <menuitem id="estate_model_menu_action" action="estate_property_action" name="Settings"/>
         </menuitem>
     </menuitem> -->
-    <menuitem id="estate_root_menu" name="Real_Estate">
+    <menuitem id="estate_root_menu" name="Real Estate" web_icon="real_estate,static/description/icon.png">
         <menuitem id="estate_first_level_menu1" name="Advertisements">
             <menuitem id="advertisements_menu1" action="estate_property_action" name="Properties" />
         </menuitem>

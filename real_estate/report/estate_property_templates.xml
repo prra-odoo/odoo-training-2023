@@ -149,8 +149,9 @@
     <template id="web_view_estate_page">
         <t t-call="website.layout">
             <div class="oe_structure">
-                    <div class="image" style="width: 100%;">
-                        <t t-esc="property.image" t-options="{'widget': 'image'}" class="img-fluid" style="width:10px;"/>
+                    <div class="container pt-3" >
+                        Hello World! What's up
+                        <div><t t-esc="property.image" t-options="{'widget': 'image'}" style="object-fit: cover; width: 2rem; height: 1rem;" /></div>
                     </div>
                     <div class="content">
                         <h1><t t-esc="property.name"/></h1>

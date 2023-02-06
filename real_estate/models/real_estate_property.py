@@ -46,6 +46,9 @@ class EstateProperty(models.Model):
     # image field
     image = fields.Binary("Image", help="Select image here")
 
+    # wizard field
+    # wizard_id = fields.Many2one("add.offer.wizard")
+
     # sql constraints while setting expected price
     _sql_constraints = [
         (

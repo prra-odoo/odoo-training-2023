@@ -7,6 +7,7 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        'wizard/add_offer_wizard_views.xml',
         'views/estate_property_offers_views.xml',
         'report/estate_property_reports.xml',
         'report/estate_property_templates.xml',

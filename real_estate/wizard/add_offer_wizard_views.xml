@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!-- defining action for the add offer wizard model -->
+    <record id="add_offer_wizard_action" model="ir.actions.act_window">
+        <field name="name">Add Offer Wizard Action</field>
+        <field name="res_model">add.offer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- defining form view for the add offer wizard model -->
+    <record id="add_offer_wizard_form_view" model="ir.ui.view">
+        <field name="name">Add Offer Wizard Form View</field>
+        <field name="model">add.offer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Offer">
+                <group>
+                    <field name="offer_price" string="Offer Price" />
+                    <field name="partner_buyer_id" string="Buyer " />
+                    <field name="sales_person_id" string="Seller" />
+
+                    <footer>
+                        <button string="Upload Offer" name="add_offer_function" type="object" class="btn-primary"  />
+                        <button string="Cancel" class="btn-secondary" special="cancel"/> 
+                    </footer>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>
