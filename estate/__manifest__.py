@@ -12,8 +12,9 @@
         'views/estate_property_views.xml',
         'views/estate_property_type_views.xml',
         'views/estate_menus.xml',
-        'views/settings_menu.xml',
         'views/estate_property_offer_views.xml',
+        'views/res_user_view.xml',
+        'views/settings_menu.xml',
     ],
 
     'demo':[
