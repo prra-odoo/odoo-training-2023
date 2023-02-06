@@ -10,3 +10,6 @@ real_estate_Agent,Agent User,model_real_estate_properties,estate_group_user,1,1,
 real_estate_type_Agent,Agent User,model_estate_property_type,estate_group_user,1,0,0,0
 real_estate_tag_Agent, Agent,model_estate_property_tag,estate_group_user,1,0,0,0
 real_estate_offer_Agent,Admin Agent,model_estate_property_offer,estate_group_user,1,1,1,1
+
+real_estate_offer_Agent,Agent Multipal offer,model_multipal_offer_wizard,,1,1,1,1
+

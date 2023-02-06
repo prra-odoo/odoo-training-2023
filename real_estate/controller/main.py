@@ -19,7 +19,7 @@ class Realestate(http.Controller):
 
 
     @http.route(['/realestate', '/realestate/page/<int:page>'], type="http", auth="public", website=True) 
-    def index(self, page=1, items_per_page=3, **kw): 
+    def index(self, page=1, items_per_page=10, **kw): 
 
         estate_property = http.request.env['real.estate.properties'] 
         estate_property_count = estate_property.search_count ([]) 

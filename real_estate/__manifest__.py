@@ -21,6 +21,7 @@
         'reports/estate_property_template.xml',
         'reports/property_user_template.xml',
         'reports/estate_property_report.xml',
+        'wizard/multipal_offer_wizard.xml'
         ],
     'demo' : [  
         'demo/estate_property_demo.xml',

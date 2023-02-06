@@ -10,8 +10,14 @@
     <template id="index">
         <t t-call="website.layout">
             <t t-set="title">Properties</t>
-            <div class="oe_structure">
+            <div class="oe_structure" style="background: #ADD8E6">
                 <div class="container">
+                    <div class="jumbotron">
+                        <h1 class="text-center"><p><strong>Properties</strong></p></h1>    
+                    </div>
+                    <div align="right">
+                        <input type='date' name="estate_date_picker"/>
+                    </div>
                     <div class="row gy-3 my-3">
                         <t t-foreach="properties" t-as="property">
                             <t t-if="property.state in ['new','offer_recieved']">
@@ -20,16 +26,21 @@
                                     <div class="card" style="width: 18rem;">
                                         <img class="card-img-top" t-attf-src="data:image/png;base64,#{property.property_image}" style="object-fit: contain;"/>
                                         <div class="card-body">
-                                            <h5 class="card-title"><t t-esc="property.name"/></h5>
+                                            <strong class="text-center"><h5 class="card-title" style="color: #87CEEB"><t t-esc="property.name"/></h5></strong>
                                             <p class="card-text">
                                                 <strong>Property Type  : </strong><t t-esc="property.property_type_id.name"/> <br />
-                                                <strong>Expected Price : </strong><t- t-esc="property.expected_price"/><br />
-                                                <strong>Tags : </strong><t- t-esc="property.tags_ids"/>
+                                                <strong>Expected Price : </strong><t t-esc="property.expected_price"/><span>&#8377;</span><br />        
+                                                <strong>Tags :</strong>  
+                                                    <t t-foreach="property.tag_ids" t-as="tag">
+                                                        <span class="badge" style="color: black; background: #87CEEB">
+                                                            <t t-esc="tag.name"/>
+                                                        </span>
+                                                    </t>
                                             </p>
                                             <a t-attf-href="/estate/{{slug(property) }}" class="btn btn-outline-primary">Check out this property</a>
                                         </div>
                                     </div>
-                                 </div> 
+                                </div> 
                             </t>
                         </t>
                     </div>
@@ -42,31 +53,33 @@
     </template>
     <template id="details">
         <t t-call="website.layout">
-            <div class="oe_structure">    
+            <div class="oe_structure" style="background: #ADD8E6">    
                 <div class="container">
                     <t t-foreach="properties" t-as="property">
-                        <div class="text-center">
-                            <strong><h1><t t-esc="property.name"/></h1></strong>
+                        <div class="jumbotron">
+                            <h1 class="text-center"><p><strong><t t-esc="property.name"/></strong></p></h1>    
                         </div>
-                        <center>
-                            <img t-attf-src="data:image/png;base64,#{property.property_image}" align='center' height='50%' width='50%'/>
-                        </center> 
-                        <h3 class="text-center">Property Details</h3>
                         <div class="row" style="font-size: 20px;">
                             <div style="margin-top: 20px;" class="col-6">
+                                <center>
+                                    <img t-attf-src="data:image/png;base64,#{property.property_image}" align='center' height='50%' width='50%'/>
+                               </center> 
+                            </div>
+                            <div style="margin-top: 20px; " class="col-6">    
+                            <h3 class="text-center"><strong>Property Details</strong></h3>
                                     <strong>Description : </strong><t t-esc="property.description"/><br />
                                     <strong>Postcode :</strong> <t t-esc="property.Postcode"/><br />
                                     <strong>Date Availability :</strong> <t t-esc="property.date_availablity"/><br />
                                     <strong>Expected Price :</strong> <t t-esc="property.expected_price"/><br />
-                            </div>
-                            <div style="margin-top: 20px; " class="col-6">
                                     <strong>Bedroom :</strong> <t t-esc="property.bedroom"/><br />
                                     <strong>Area :</strong> <t t-esc="property.living_area"/><br />
                                     <strong>Garden Orientation :</strong> <t t-esc="property.garden_orientation"/><br />
-                                    <strong>State :</strong> <t t-esc="property.state"/><br />
+                                    <strong>State :</strong> <p  class="badge" style="color: black; background: white"><t t-esc="property.state"/></p><br />
                             </div>
                         </div>
-                        <t t-call="real_estate.offers_template"/>
+                        <div class="text-center">
+                            <t t-call="real_estate.offers_template"/>
+                        </div>
                     </t>
                 </div>
             </div>

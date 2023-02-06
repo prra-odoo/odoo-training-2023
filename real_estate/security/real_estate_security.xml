@@ -5,6 +5,11 @@
         <field name="category_id" ref="base.module_category_real_estate_brokerage"/>  
     </record>
 
+    <record id="estate_portal_user" model="res.groups">
+        <field name="name">user</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage"/>  
+    </record>
+
 
     <record id="estate_group_manager" model="res.groups">
         <field name="name">Manager</field>

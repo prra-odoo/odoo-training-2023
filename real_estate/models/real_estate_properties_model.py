@@ -49,6 +49,7 @@ class real_Esate_Properties(models.Model):
 	best_price=fields.Float(compute="_best_price",default=0)
 	user_id=fields.Many2one("res.users")
 	company_id=fields.Many2one("res.company",required=True,default=lambda self: self.env.user.company_id)
+
 	@api.depends("living_area","gardan_area")
 	def _total_area(self):
 		for area in self:
@@ -105,5 +106,12 @@ class real_Esate_Properties(models.Model):
 		for record in self:
 			if record.state not in ['new','cancled']:
 				raise UserError("You Cannot delete the record")
+
+	def make_offer(self):
+		return {'type': 'ir.actions.act_window',
+    	        'res_model' : 'multipal.offer.wizard',
+    	        'view_mode' : 'form',
+    	        'target' : 'new'}
+
 
 	
