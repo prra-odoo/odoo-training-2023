@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="estate_property_list_view_inherited" model="ir.ui.view">
+        <field name="name">estate.property.list.view.inherited</field>
+        <field name="model">estate.property</field>
+        <field name="inherit_id" ref="real_estate.estate_property_model_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <header>
+                    <button name="%(real_estate.estate_property_offers_wizard)d" type="action" string="Add Offer" />
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

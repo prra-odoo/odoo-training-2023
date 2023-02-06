@@ -25,6 +25,8 @@
         'views/estate_property_views.xml',
         'views/res_users_inherited_views.xml',
         'views/estate_menus.xml',
+        'wizard/estate_property_list_view_inherited.xml',
+        'wizard/estate_property_offers_wizard.xml',
         'controllers/estate_property_controller_template.xml',
         'controllers/estate_website_controller_template.xml',
         'report/estate_property_offer_templates.xml',
