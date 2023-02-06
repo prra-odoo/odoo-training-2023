@@ -1,115 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<data>
-        <record id="menu_for_estate" model="website.menu">
-            <field name="name">Properties</field>
-            <field name="parent_id" ref="website.main_menu"/>
-            <field name="url">estate/estate</field>
-        </record>
-</data>
-<template id="demo_controller_template">
-<t t-call="website.layout">
-<div class="oe_structure" />
-        <div class="oe_structure">
-        <!-- <t t-call="web.html_container">
-            <t t-call="web.basic_layout"> -->
-            <t t-call="website.website_search_box"></t>
-                <div class="page">
-                    <t t-set="title">Estate Property</t>
-                    <div class="container">
-                    <div class="float-right">
-                        <t t-foreach="records" t-as="property">
-                            <h4 style="margin-top: 20px;">
-                                <a t-attf-href="/estate/{{ slug(property) }}">
-                                    <p>
-                                        <img t-attf-src="data:image/jpg;base64,{{property.image}}" style="align:left; width:100px;height:100px;"/>
-                                        <t t-esc="property.name"/>
-                                        
-                                    </p>
-                                </a>
-                            </h4>
-                        </t>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="products_pager form-inline justify-content-center mt-3">
-<t t-call="website.pager">
-<t t-set="_classes">mt-2 ml-md-2</t>
-</t>
-</div> -->
-            <!-- </t>
-        </t> -->
-        </div>
-        </t>
-    </template>
-    <template id="single_property_template">
+  <data>
+    <record id="estate_properties_website" model="website.menu">
+        <field name="name">Property</field>
+        <field name="url">/estate/estate/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">55</field>
+    </record>
+  </data>
+  <template id="index">
     <t t-call="website.layout">
-        <t t-call="web.html_container">
-            <!-- <t t-call="web.basic_layout"> -->
-                <div class="page">
-                    <t t-set="title">Estate Property</t>
-                    <div class="container">
-                        <h4 style="margin-top: 20px;">
-                              <p>
-                              <div>Property Name:<t t-esc="record.name"/></div>
-                             <div><t t-esc="record.postcode"/></div>
-                                <div>Property Price:<t t-esc="record.expeccted_price"/></div>
-                                <div>Bedroom: <t t-esc="record.bedroom"/></div>
-                                <div>Realated Image: <img t-attf-src="data:image/jpg;base64,{{record.image}}" style="align:left; width:100px;height:100px;"/></div>
-                                </p>
-                                <!-- <t t-esc="record.type_id"/> -->                            
-                        </h4>
+        <div class="navbar-search ms-auto pagination justify-content-end" style="margin:10px;">
+          <t t-call="real_estate.property_search"/>
+        </div>
+        <t t-set="title">Estate</t>
+        <div class="oe_structure">
+            <div class="container" style="margin: 60px;">
+              <div class="row row-cols-3 row-cols-md-4 g-4">
+              <!-- <div class="row"> -->
+                <!-- <div class="col-sm-6 mb-3 mb-sm-0"> -->
+                  <!-- <div class="col-sm-6"> -->
+                <t t-foreach="properties" t-as="property">  
+                  <div class="col">                          
+                  <div class="card" style="width: 14rem;" href="/estate/{{ slug(property) }}">
+                    <center><img t-attf-src="data:image/png;base64,{{property.image}}" class="card-img-top" alt="Image not displayed!"/></center>
+                    <div class="card-body">
+                      <h5 class="card-title"><span t-out="property.name"/></h5>
+                      <p class="card-text">Expected Price: <span t-out="property.expeccted_price"/></p>
+                        <p><t t-foreach="property.tag_ids" t-as="tags">
+                          <span class="badge rounded-pill text-bg-secondary"><span t-out="tags.name" /></span>
+                      </t>  
+                      </p>
+                      <!-- <button type="button" class="btn btn-outline-info"><a t-attf-href="/estate/{{ slug(property) }}">Property Details</a></button> -->
+                      <center>
+                        <a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-outline-info">Property Details</a>
+                      </center>
                     </div>
-                </div>
-            </t>
-        </t>
-    </template>
+                  </div>
+                  </div>
+                </t>
+              </div>
+            </div>
+            <div class="products_pager d-flex justify-content-center pt-5 pb-3">
+              <t t-call="website.pager"/>
+          </div>
+        </div>
+    </t>
+  </template>
 
-</odoo>
-
-    <!-- <template id="index">
-        <title>Estate</title>
-        <t t-call="website.layout">
+  <template id="description">
+    <t t-call="website.layout">
+        <t t-set="title">Properties</t>
         <div class="oe_structure">
-        <div class="container">        
-        <t t-foreach="property" t-as="property"> 
-              
-             <p>            
-             <h4 t-field="property.name"/>
-             <p>price: <i t-field="property.expeccted_price"/>  id:<i t-field="property.id"/></p>            
-             </p>
-         </t>
+            <div class="container">
+              <img t-attf-src="data:image/png;base64,{{property.image}}" style="width:200px;height:200px; float: right; margin: 60px;"/>
+              <h1 class="o_page_header mt32"> Property Name: <span class="text-primary" t-out="property.name"/></h1>
+              <!-- <h3>Property Name: <t t-esc="property.name"/></h3> -->
+              <p><strong>Salesman: </strong><t t-esc="property.sales_id.name"/></p>
+              <p><strong>Company Name: </strong><t t-esc="property.company_id.name"/></p>
+              <p><strong>Buyer Name: </strong><t t-esc="property.buyer_id.name"/></p>
+              <p><strong>Property Type: </strong><t t-esc="property.property_type_id.name"/></p>
+              <p><strong>Postcode: </strong><t t-esc="property.postcode"/></p>
+              <p><strong>Date Availability: </strong><t t-esc="property.date_availability"/></p>
+              <p><strong>Expected Price: </strong><t t-esc="property.expeccted_price"/></p>
+              <p><strong>Selling Price: </strong><t t-esc="property.selling_price"/></p>
+              <p><strong>Bedrooms: </strong><t t-esc="property.bedroom"/></p>
+              <p><strong>Living Area: </strong><t t-esc="property.living_area"/></p>
+              <p><strong>Facades: </strong><t t-esc="property.facades"/></p>
+              <p><strong>Garage: </strong><t t-esc="property.garage"/></p>
+              <p><strong>Garden: </strong><t t-esc="property.garden"/></p>
+              <p><strong>Garden Area: </strong><t t-esc="property.garden_area"/></p>
+              <p><strong>Total Area: </strong><t t-esc="property.total_area"/></p>
+              <p><strong>Best Price: </strong><t t-esc="property.best_price"/></p>
+            </div>
         </div>
-        </div>
-        </t>        
-    </template>
-    <template id="route">
-        <title>route</title>
-        <t t-call="website.layout">
-        <div class="oe_structure">
-        <div class="container">        
-        <t t-foreach="property" t-as="property"> 
-        <a t-attf-href="/estate/{{ slug(property) }}">
-                                    <center>
-                                        <t t-esc="property.name"/>
-                                    </center>
-        </a>
-        </t>
-        </div>
-        </div>
-        </t>
-        </template> -->
+    </t>
+  </template>
+    </odoo>
+
+    
 
 
 
-                    <!-- <div class="col-lg-8" id="ref_content">
-                <div class='d-flex m-2'>
-                    <t t-call="website.pager">
-                       <t t-set="classname" t-valuef="float-start"/>
-                    </t>
-                    <form action="" method="get" class="navbar-search ms-auto pagination">
-                        <t t-call="website.website_search_box">
-                            <t t-set="search" t-value="post.get('search', '')"/>
-                        </t>
-                    </form>
-                </div> -->
 

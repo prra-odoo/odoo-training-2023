@@ -28,13 +28,14 @@
         'views/estate_property_sales.xml',
         'views/estate_property_buyer.xml',
         'views/estate_property_offer.xml',
+        'wizard/estate_wizard.xml',
         'views/estate_property_views.xml',
         'views/inherited_model.xml',
-        'views/templates.xml',
+        'views/search.xml',
+        'views/templates.xml',        
         'report/estate_property_reports.xml',
-        'report/estate_property_templates.xml',
-        
-           
+        'report/estate_property_templates.xml',        
+               
 
     ],        
     

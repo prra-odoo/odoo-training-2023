@@ -41,7 +41,7 @@
   </field>
   </record>                          
     <record id="real_estate_view_form" model="ir.ui.view">
-    <field name="name">real.estare.view.form</field>
+    <field name="name">real.estate.view.form</field>
     <field name="model">estate.property</field>
     <field name="arch" type="xml">      
         <form >
@@ -126,6 +126,9 @@
             <tree string="Estate_Property" decoration-success="state == 'offer_received' or state == 'offer_accepted'"
                                            decoration-muted="state == 'sold'"
                                            decoration-bf="state == 'offer_accepted'">
+                <header>
+                <button name="%(estate_wizard_action)d" type="action" class="oe_stat_button" string="add offer" />
+                </header>
                 <field name="name"/>
                 <field name="expeccted_price"/>
                 <field name="date_availability" optional="hidden"/>
@@ -143,7 +146,7 @@
                 <field name="total_area"/>
                 <field name="state"/>
                 <field name="sales_id"/>
-                <field name="buyer_id"/> 
+                <field name="buyer_id"/>               
             </tree>
           </field>      
     </record>   

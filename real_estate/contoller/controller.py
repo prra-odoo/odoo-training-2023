@@ -1,21 +1,31 @@
-from requests import request
+from odoo.http import request
 from odoo import http
 
 class Estate(http.Controller):
-     @http.route('/estate/estate/', type="http", auth="public", website=True)
     
-     def index(self, **kw):
-        estate_property = http.request.env['estate.property'].sudo().search([])
-        data = {
-            'records': estate_property
-        }
-        return http.request.render("real_estate.demo_controller_template", data)
-    
-    # ROUTE 4
+
+  #for search...
+     @http.route(['/estate/estate/','/estate/estate/page/<int:page>'], auth='public', website=True)
+     def index(self, page=0, search=''):
+        domain = []
+        if search:
+            domain = [('name','ilike',search)]
+        total = http.request.env['estate.property'].search(domain)
+        total_count = len(total)
+        per_page = 4
+
+        pager = request.website.pager(url='/estate/estate',total=total_count, page=page,step=per_page,scope=3, url_args=None)
+        Properties = http.request.env['estate.property'].search(domain,limit=per_page, offset=pager['offset'],order='id asc')
+        return http.request.render('real_estate.index', {
+            'properties': Properties,
+            'pager': pager
+        })
+
      @http.route('/estate/<model("estate.property"):property>/', auth='public', website=True)
-    
-     def estate(self, property):
-        return http.request.render('real_estate.single_property_template', {'record': property})
+     def teacher(self, property):
+        return http.request.render('real_estate.description', {
+        'property': property
+    })
 
     #route for pager
     #  @http.route(['/customer', '/customer/page/<int:page>'], type="http", auth="public", website=True)
@@ -65,3 +75,17 @@ class Estate(http.Controller):
         #          'property': property,
         #     })
     #  @http.route('/academy/<model("estate.property"):property>/', auth='public', website=True)
+    #  @http.route('/estate/estate/', type="http", auth="public", website=True)
+    
+    #  def index(self, **kw):
+    #     estate_property = http.request.env['estate.property'].sudo().search([])
+    #     data = {
+    #         'records': estate_property
+    #     }
+    #     return http.request.render("real_estate.demo_controller_template", data)
+    
+    # ROUTE 4
+    #  @http.route('/estate/<model("estate.property"):property>/', auth='public', website=True)
+    
+    #  def estate(self, property):
+    #     return http.request.render('real_estate.single_property_template', {'record': property})
