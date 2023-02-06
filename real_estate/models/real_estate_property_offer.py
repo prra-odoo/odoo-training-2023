@@ -52,7 +52,7 @@ class RealEstatePropertyOffer(models.Model):
             record.status = 'refused'
             
     
-    
+    @api.model
     def create(self, vals):
         if vals.get("property_id") and vals.get("price"):
             prop = self.env["real.estate.property"].browse(vals["property_id"])

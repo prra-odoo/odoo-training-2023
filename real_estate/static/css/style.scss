@@ -1,0 +1,8 @@
+// To change odoo theme color
+
+$o-enterprise-color: #afff65 !default;
+$o-enterprise-primary-color: #5cbec4 !default;
+$o-enterprise-primary-color-light: scale-color($o-enterprise-primary-color, $lightness: 6%) !default;
+
+$o-brand-odoo: $o-enterprise-color !default;
+$o-brand-primary: $o-enterprise-primary-color !default;

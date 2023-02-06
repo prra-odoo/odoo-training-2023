@@ -34,6 +34,8 @@
     ],
     'assets':{
         'web.assets_frontend':[
-            'real_estate/static/css/main.scss'
+            'real_estate/static/css/style.scss',
+            'real_estate/static/css/main.scss',
+            
         ]},
 }

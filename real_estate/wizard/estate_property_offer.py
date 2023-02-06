@@ -1,4 +1,4 @@
-from odoo import fields,models,api,Command
+from odoo import fields,models,Command
 
 class WizardPropertyOffer(models.Model):
     _name = "wizard.property.offer"
@@ -12,19 +12,16 @@ class WizardPropertyOffer(models.Model):
     
     
     def action_add_offer(self):
-        print(self.read())
-        print(self.price)
-        print(self.status)
-        print(self.buyer_id)
-        print(self.property_ids)
-        print("You successfully clicked on wizard......")
         
-        vals = self.env['real.estate.property.offer'].browse(self._context.get('active_ids')).sudo().create(
-            (0,0,[{
-                'price':self.price,
-                'status':self.status,
-                'partner_id':self.buyer_id.id,
-                'property_id':self.property_ids.id,
-            }]),
-        )
-        return vals
+        active_ids = self._context.get('active_ids')
+        if active_ids:
+            for prop in active_ids:
+                return self.env['real.estate.property'].browse(prop).write({
+                    'offer_ids' : [
+                        Command.create({
+                        'price':self.price,
+                        'status':self.status,
+                        'partner_id':self.buyer_id.id,
+                    }),]
+                })
+    
