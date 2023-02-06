@@ -88,7 +88,7 @@ class estate_property(models.Model):
         if (self.state == 'cancel'):
             raise exceptions.UserError("Canceled properties cannot be sold.")
         else:
-            self.state = "sold"
+            self.state = "sold"        
 
     def action_cancel(self):
         if (self.state == 'sold'):
@@ -112,6 +112,3 @@ class estate_property(models.Model):
             raise exceptions.AccessError('Only new and canceled properties can be deleted.')
         else:
             return True
-            
-    
-
