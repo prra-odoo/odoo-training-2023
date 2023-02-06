@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="estate_property_report_template_badge">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="estate_property">
+                <t t-call="web.external_layout">
+                    <div class="page_badge">
+                        
+                        <h1><center><b>Estate Propert Sale Summary</b></center></h1>
+                        <h2>
+                            <label><b>Property Name:</b></label>
+                            <span t-field="estate_property.name"/>
+                        </h2>
+                        <h2>
+                            <label><b>Expected Price: </b></label>
+                            <span t-field="estate_property.expected_price"/>
+                        </h2>
+                        <h2>
+                            <label><b>Sales Person: </b></label>
+                            <span t-field="estate_property.sales_id"/>
+                        </h2>
+                        
+                        
+                        <t t-call="estate.offer_sub_template" >
+                            <t t-set="estate_property" t-value="estate_property"/>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="res_user_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="record">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2><center><b>User Report Summary</b></center></h2>
+                        <t t-set="properties" t-value="record.mapped('property_ids')"/>
+                        <t t-foreach="properties" t-as="property">
+                            <h1><span t-field="property.name"/><br/></h1>
+                            <t t-call="estate.offer_sub_template" >
+                                <t t-set="estate_property" t-value="property"/>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="offer_sub_template">
+            <!-- <t t-foreach="docs" t-as="test"> -->
+                    <div class="page">
+                        <t t-if="len(estate_property.offer_ids) > 0">
+                            <table class="table" style="">
+                                <thead>
+                                    <tr>
+                                        <th>Price</th>
+                                        <th>Partner</th>
+                                        <th>Validity</th>
+                                        <th>DeadLine</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="offers" t-value="estate_property.mapped('offer_ids')"/>
+                                    <tr t-foreach="offers" t-as="offer">
+                                        <td>
+                                            <span t-field="offer.price"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="offer.partner_id"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="offer.validity"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="offer.date_deadline"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="offer.status"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                        <t t-else="">
+                            <h1>
+                                Nothing To Print !!!!
+                            </h1>
+                        </t>
+                    </div>
+                <!-- </t>  -->
+    </template>
+</odoo>

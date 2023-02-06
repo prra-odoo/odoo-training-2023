@@ -13,36 +13,37 @@ class estateModel(models.Model):
     _order = "id desc"
     
     name = fields.Char('Name',required=True)
-    description = fields.Text('Description',copy=False,required=True)
+    images = fields.Image(string = "Property Images")
     postcode = fields.Char('Post Code',required=True)
-    date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
-    expected_price = fields.Float('Expected Price',required=True)
-    selling_price = fields.Float('Selling Price',default=0)
-    bedrooms = fields.Integer('Bedrooms',required=True)
-    living_area = fields.Integer('Living Area',copy=False)
-    facades = fields.Integer('Facades')
+    metadata = fields.Html(tracking=True)
     garage = fields.Boolean('Garage')
     garden = fields.Boolean('Garden')
-    garden_area = fields.Integer('Garden Area')
     active = fields.Boolean(default=True)
+    date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
+    expected_price = fields.Float('Expected Price')
+    selling_price = fields.Float('Selling Price',default=0)
+    total_area = fields.Float(compute="_compute_total_area")
+    best_price = fields.Float(compute="_compute_best_price")
+    bedrooms = fields.Integer('Bedrooms')
+    living_area = fields.Integer('Living Area',copy=False)
+    facades = fields.Integer('Facades')
+    garden_area = fields.Integer('Garden Area')
+    description = fields.Text('Description',copy=False,required=True)
     state=fields.Selection(selection=[('new', 'New'), ('offerrecieved', 'Offer Recieved'),('offeraccepted','Offer Accepted'),('sold','Sold'),('cancel','Cancel')],
         default='new',tracking=True,required=True)
     garage_orientation = fields.Selection(
-        string='Garden Orientation:',   
-        selection=[('east', 'East'), ('west', 'West'),('north','North'),('south','South')])
-    total_area = fields.Float(compute="_compute_total_area")
-    best_price = fields.Float(compute="_compute_best_price")
-    property_type_id=fields.Many2one("estate.property.type", string="Property")
+        string='Garden Orientation:',selection=[('east', 'East'), ('west', 'West'),('north','North'),('S','South')])
     tags_ids=fields.Many2many("estate.property.tags",string="Tags")
-    offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers",readonly=False)
     sales_id=fields.Many2one("res.users",string="Sales",default=lambda self: self.env.user)
     buyers_id=fields.Many2one("res.partner",string="Buyers")
+    property_type_id=fields.Many2one("estate.property.type", string="Property")
+    offer_ids=fields.One2many("estate.property.offer","property_id",string="Property Offers",readonly=False)
+    company_id=fields.Many2one("res.company",string="Company",default=lambda self: self.env.company)
 
     _sql_constraints=[
         ('check_expected_price','CHECK(expected_price >= 0)','Expected Price cannot be negative'),
         ('check_selling_price','CHECK(selling_price >= 0)','Selling cannot be negative')
     ]
-
 
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):

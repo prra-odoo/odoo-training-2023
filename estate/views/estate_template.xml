@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="website_menu" model="website.menu">
+            <field name="name">Properties</field>
+            <field name="url">/estate/estate</field>
+            <field name="parent_id" ref="website.main_menu"/>
+        </record>
+    </data>
+
+    <template id="property_controller_template">
+        <t t-call="website.layout"> 
+            <nav class="navbar navbar-light border-top shadow-sm d-print-none">
+                <div class="container">
+                    <div t-if="enable_groups" id="div_property_group_temp"></div>
+                        <div class="d-flex flex-column flex-sm-row justify-content-between w-100">
+                            <span class="navbar-brand h4 my-0 me-auto">Estate Property</span>
+                            <i class="nav-item dropdown my-1">
+                                <a href="#" role="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i class="fa fa-calendar"/>
+                                    <span>Upcoming Events</span>
+                                </a>
+                            </i>
+                            <div class="form-line flex-md-nowrap justify-content-between justify-content-md-center">
+                                <t t-call="estate.property_search"/>
+                            </div>
+                           
+                            <ul class="nav nav-pills flex-column">
+                                <li class="nav-item">
+                                    <a href="/estate/estate" t-attf-class="nav-link #{'' if proptype else 'active'} o_not_editable">
+                                        All Property Types
+                                    </a>
+                                
+                                <t t-foreach="groups" t-as="grp">
+                                    <li class="nav-items">
+                                        <!-- <select name="category"> -->
+                                            <a t-attf-href="/estate/estate/type/{{ slug(grp) }}"
+                                            t-attf-class="nav-link #{'active' if grp.id == proptype.id else ''} o_not_editable">
+                                            <span t-field="grp.name"/>
+                                        </a>
+                                        <!-- </select> -->
+                                    </li>
+                                </t>
+                            </li>
+                                
+                            </ul>
+                        </div>
+                    <div class="container">
+                    <t t-foreach="property" t-as="property">
+                        <div class="card" 
+                            style="
+                            width: 15rem; 
+                            height: 20rem; 
+                            display:inline-block; 
+                            margin: 30px;
+                            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
+                            <div class="card-body">
+                            <h5 class="card-title"><t t-esc="property.name"/></h5>
+                            <img class="card-img-top"  style="margin-bottom:20px; height:200px; wight:200px;" t-attf-src="data:image/jpg;base64,{{ property.images }}" alt="Here comes an Images ..."></img>
+                            <a t-attf-href="/estate/{{ slug(property) }}"  class="btn btn-primary" style="width: 100%;">
+                                    <t>
+                                        Click for more details !!
+                                    </t>
+                                </a>
+                            
+                            </div>
+                        </div>
+                    </t>
+                    <div t-if="pager" class="o_portal_pager d-flex justify-content-center">
+                        <t t-call="website.pager"/>
+                    </div>
+                </div>
+                
+                </div>           
+            </nav>
+        </t>
+    </template>
+    <template id="property_controller_template_redirect">
+        <t t-call="website.layout">
+            <div class="container"  style="display:relative; margin-top:50px; margin-bottom:50px " >
+                <img t-attf-alt="No Image Available"  
+                        t-attf-src="data:image/jpg;base64,{{ about.images }}" 
+                        style="
+                        float:right; 
+                        margin:40px; 
+                        height:400px; 
+                        wight:350px;
+                        background: #eee;
+                        box-shadow: 4px 8px 8px 4px grey;
+                        "
+                />
+                <div>
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px;padding-right:10px;">Name</label>
+                    <h2><b><p t-field="about.name"/></b></h2> 
+                    <p>Last modified: <i t-field="about.write_date" t-options='{"widget": "relative"}'/></p>
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Rating</label>
+                    <h3><p t-field="about.metadata"/></h3> 
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Description</label>
+                    <h5><p t-field="about.description"/></h5>
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Sales Person</label>
+                    <h5><p t-field="about.sales_id"/></h5> 
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Company</label>
+                    <h5><p t-field="about.company_id"/></h5> 
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Property Type</label>
+                    <h5><p t-field="about.property_type_id"/></h5>
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Expected Price</label>
+                    <h5><p t-field="about.expected_price"/></h5> 
+                    <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Selling Price</label>
+                    <h5><p t-field="about.selling_price"/></h5>
+                </div>
+                <label style="background-color: grey; color:white; border-radius: 5px; padding-left:10px; padding-right:10px;">Offers</label>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Date Availability</th>
+                            <th scope="col">Validity</th>
+                        </tr>
+                      </thead>                    
+                    <tr>
+                        <th scope="row">
+                            <t t-set="i" t-value="1"/>
+                            <t t-foreach="about.offer_ids" t-as="l" >
+                                <p><t t-esc="i"/></p>
+                                <t t-set="i" t-value="i+1"/>
+                            </t>
+                        </th>
+                        <td>
+                            <t t-foreach="about.offer_ids" t-as="i">
+                                <p t-field="i.price"/>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-foreach="about.offer_ids" t-as="i">
+                                <p t-field="i.status"/>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-foreach="about.offer_ids" t-as="i">
+                                <p t-field="i.partner_id"/>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-foreach="about.offer_ids" t-as="i">
+                                <p t-field="i.date_deadline"/>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-foreach="about.offer_ids" t-as="i">
+                                <p t-field="i.validity"/>
+                            </t>
+                        </td>
+                    </tr>
+                  </table>
+            </div>
+        </t>
+    </template>
+    <template id="property_search" name="Property Search Box">
+        <form action="/estate/estate"> 
+            <t t-call="website.website_search_box">
+                <t t-set="action" t-value="'/estate/'"/>
+            </t>
+        </form>
+    </template>
+</odoo> 
