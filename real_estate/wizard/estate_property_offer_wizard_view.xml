@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="estate_property_offer_wizard" model="ir.actions.act_window">
+        <field name="name">offer</field>
+        <field name="res_model">estate.property.offer.wizard</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+    <record id="estate_property_offer_wizard_form_view" model="ir.ui.view">
+        <field name="name">estate.property.offer.wizard.view.form</field>
+        <field name="model">estate.property.offer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Estate_Property">
+                   
+                <sheet>
+                    <!-- <group>
+
+                    <field name="name"/>
+                    </group> -->
+                    <group>
+                         <field name="offer_ids">
+                            <tree string= "offers" editable="top">
+                                <field name="price" optional="show"/>
+                                <field name="partner_id" optional="show"/>
+                                <!-- <field name="states" optional="show"/> -->
+                            </tree>
+                        </field>
+                        <footer> 
+                        <button name="make_an_offer" type="object" string="Make an offer" class="btn-secondary"/>           
+                        <button string="Cancel" class="btn-secondary"
+                                special="cancel" data-hotkey="z"/>
+                        </footer>
+                    
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record> 
+</odoo>

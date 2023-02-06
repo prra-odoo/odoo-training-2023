@@ -8,7 +8,9 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Estate_Property" decoration-success="status == 'offer received' or status == 'offer Accepted'" decoration-bf="status == 'offer Accepted'" decoration-muted="status == 'Sold'">
-                <!-- <field name="property_type_id"/> -->
+                <header>
+                   <button name="%(estate_property_offer_wizard)d" type="action" class="oe_stat_button" string="Add offers"/>     
+                </header>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="postcode"/>
@@ -20,7 +22,6 @@
                 <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="status" widget="badge" decoration-danger="status == 'cancelled'" />
                 <field name="image" widget="image" class="oe_avatar" options='{"size":[80,80]}'/>
-                <!-- <field name="property_tag_ids" widget="badge"/> -->
             </tree>
         </field>
     </record>
