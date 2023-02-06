@@ -10,6 +10,9 @@
                 <tree string="Properties" decoration-danger="state == 'cancel'"
                     decoration-success="state in ('received', 'accepted')"
                     decoration-muted="state == 'sold'" decoration-bf="state == 'accepted'">
+                    <header>
+                        <button type="action" name="%(estate_offer_apply_wizard_action)d" string="Add offer"/>
+                    </header>
                     <field name="name" />
                     <field name="property_type_id" />
                     <field name="postcode" />
@@ -99,9 +102,6 @@
                         <field name="state" widget="statusbar" options="{'clickable' : '1'}"></field>
                         <button name="action_sold" type="object" string="Sold" />
                         <button name="action_cancel" type="object" string="Cancel" />
-                        <button type="action" name="%(estate_model_action_property_type)d"
-                            string="Go" />
-
                     </header>
                     <sheet>
                         <widget name="web_ribbon" title="Sold" bg_color="bg-success"

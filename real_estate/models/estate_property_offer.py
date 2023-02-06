@@ -24,7 +24,9 @@ class estatePropertyOffer(models.Model):
     date_deadline = fields.Date('Date Deadline', compute="_compute_deadline", inverse = '_inverse_deadline')
     create_date = fields.Date(default=fields.Datetime.now(),string="Create Date",readonly=True)
 
-   
+    offer_id = fields.Many2one('estate.property.offer')
+    offer_ids= fields.One2many('estate.property.offer','offer_id')
+    
     @api.depends('validity')
     def _compute_deadline(self):
         for record in self:
