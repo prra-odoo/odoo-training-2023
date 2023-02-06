@@ -5,19 +5,17 @@
         <field name="model">real.estate.properties</field>
         <field name="arch" type="xml">
             <kanban default_group_by="type_id" records_draggable="False">
-
-                    <field name="state"/>
                     <field name="id"/>
+                    <field name="state"/>
                     <field name="property_image"/>
                     <templates>
                         <t t-name="kanban-box">
                            
                             <div class="oe_kanban_global_click" >
 
-                                <!-- <div class="kanaban_image d-none d-md-block"
-                                    t-attf-style="background-image:url('#{kanban_image('real.estate.properties','property_image', record.id.raw_value,placeholder)}')">
-                                </div>
-                                 -->
+                                <img t-att-src="kanban_image('real.estate.properties', 'property_image', record.id.raw_value)" alt="Approvals Types Image"
+                                class="oe_kanban_avatar float-start me-3" width="87" height="88"/>
+                                
                                 <strong class="o_kanban_record_title">
                                     <h3><field name="name" /></h3>
                                 </strong>
@@ -45,7 +43,9 @@
         <field name="model">real.estate.properties</field>
         <field name="arch" type="xml">
             <tree string="real_estate" decoration-success="state in ('offer recevied','offer accepted')" decoration-bf="state=='offer accepted'" decoration-muted="state == 'sold'">
-                
+                    <header>
+                        <button type="object" name="offer" string="Add Offers" />
+                    </header>
                     <field name="name"/>
                     <field name="state"/>
                     <field name="description"/>

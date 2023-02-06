@@ -21,6 +21,7 @@
         'reports/property_res_user_templates.xml',
         'reports/estate_property_reports.xml',
         'views/index_template.xml',
+        'wizards/properties_offer_wizard.xml',
     ],
      'demo':[
          'demo/estate_demo.xml',

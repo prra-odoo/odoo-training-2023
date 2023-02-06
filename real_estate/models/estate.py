@@ -97,3 +97,9 @@ class Estate(models.Model):
         for record in self:
             if record.state not in['new','canceled']:
                 raise UserError("Deletion of a property is not possible this state")
+
+    def offer(self):
+        return {'type': 'ir.actions.act_window',
+                'res_model' : 'properies.offer.wizard',
+                'view_mode' : 'form',
+                'target' : 'new'}
