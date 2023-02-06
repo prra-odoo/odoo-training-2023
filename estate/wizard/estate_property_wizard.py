@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import models, fields ,Command
 
 
 class EstatePropertyWizard(models.TransientModel):
@@ -12,4 +12,15 @@ class EstatePropertyWizard(models.TransientModel):
     partner_id = fields.Many2one("res.partner", string="Partner", required=True)
 
     def action_done_wizard(self):
-        pass
+        records = self.env['estate.property'].browse(self.env.context.get('active_ids'))
+        for rec in records: 
+            rec.write({
+                'offer_ids': [
+                    Command.create({
+                        'price':self.price,
+                        'partner_id':self.partner_id.id,
+                    })
+                ]
+                })
+
+        

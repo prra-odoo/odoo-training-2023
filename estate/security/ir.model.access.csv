@@ -7,3 +7,4 @@ estate.access_estate_property_tag_user,access_estate_property_tag,estate.model_e
 estate.access_estate_property_tag_manager,access_estate_property_tag,estate.model_estate_property_tag,estate.estate_group_manager,1,1,1,0
 estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,base.group_user,1,1,1,1
 estate.access_estate_property_customer,access_estate_property_customer,estate.model_estate_property_customer,base.group_user,1,1,1,1
+estate.access_estate_property_wizard,access_estate_property_wizard,estate.model_estate_property_wizard,base.group_user,1,1,1,1

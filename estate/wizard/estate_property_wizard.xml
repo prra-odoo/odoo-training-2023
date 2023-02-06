@@ -4,13 +4,14 @@
         <record id="estate_property_wizard_action" model="ir.actions.act_window">
             <field name="name">Estate Property Wizard</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">estate.property</field>
+            <field name="res_model">estate.property.wizard</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="estate.test_model_wizard_view_form"/>
             <field name="binding_model_id" ref="estate.model_estate_property"/>
+            <field name="binding_view_types">tree</field>
             <field name="target">new</field>
         </record>
-    
+
         <record id="test_model_wizard_view_form" model="ir.ui.view">
             <field name="name">estate.property.wizard.form</field>
             <field name="model">estate.property.wizard</field>
@@ -18,6 +19,8 @@
                 <form string="Test">
                     <group class="oe_title">
                         <field name="price"/>
+                        <field name="partner_id"/>
+                        <field name="status"/>
                     </group>
                     <footer>
                     <button string="Cancel" class="btn-secondary" special="cancel"/> 
