@@ -19,7 +19,8 @@ class EstatePropertyOffer(models.Model):
         copy=False
     )
     property_id = fields.Many2one('estate.property',required=True)
-    partner_id = fields.Many2one('res.partner','Salesperson',required=True)
+
+    partner_id = fields.Many2one('res.partner','Buyer',required=True)
     property_type_id = fields.Many2one('estate.property.type',related='property_id.property_type_id',string='Property type', store=True)
         # equivalent to -->
         # @api.depends("property_id.property_type_id")

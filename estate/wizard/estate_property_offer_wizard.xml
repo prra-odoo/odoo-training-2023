@@ -2,12 +2,20 @@
 <odoo>   
     <record id="estate_property_wizard_view_form" model="ir.ui.view">  
         <field name="name">estate.property.wizard.form</field>
-        <field name="model">estate.property</field>
+        <field name="model">estate.property.offer.wizard</field>
         <field name="arch" type="xml">
-            <form string="Test">
-                <group class="oe_title">
-                    <field name="name"/>
-                </group>
+            <form>
+                <sheet>
+                    <group>
+                        <field name="price" optional="show"/>
+                        <field name="buyer_id" optional="show"/>
+                        <field name="status" optional="show"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="create_offer" class="btn btn-primary" type="object" string="Make an offer" data-hotkey="q"/>
+                    <button special="cancel" data-hotkey="z" string="Cancel"/>
+                </footer>
             </form>
         </field>
     </record>
@@ -15,7 +23,7 @@
     <record id="estate_property_wizard_action" model="ir.actions.act_window">
         <field name="name">Estate Property Wizard</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">estate.property</field>
+        <field name="res_model">estate.property.offer.wizard</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="estate_property_wizard_view_form"/>
         <field name="target">new</field>

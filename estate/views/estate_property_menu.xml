@@ -46,6 +46,7 @@
         <menuitem id="estate_second_level_menu" name="Settings" groups="estate.estate_group_manager">
             <menuitem id="estate_model_menu_action2" action="property_type_model_action"/>
             <menuitem id="estate_model_menu_action3" action="estate_property_tag_model_action"/>
+            <menuitem id="estate_model_menu_action4" action="estate_property_wizard_action"/>
         </menuitem>
     </menuitem>   
 </odoo>

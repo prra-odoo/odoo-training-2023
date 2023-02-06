@@ -50,7 +50,10 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string= "Real Estate" decoration-success="state in ['offer_accepted', 'offer_received','new']" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
-                <!-- sequence - must be define in .py file. Allow to change order of things manually -->
+                <header>
+                   <button type="action" name="%(estate.estate_property_wizard_action)d" string="Add offer"/>
+                </header>
+                   <!-- sequence - must be define in .py file. Allow to change order of things manually -->
                     <field name="sequence" widget="handle"/>    
                     <field name="name"/>
                     <field name="property_type_id"/>
