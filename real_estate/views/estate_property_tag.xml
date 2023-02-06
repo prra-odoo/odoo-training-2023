@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <record id="estate_property_tag_actions" model="ir.actions.act_window">
-        <field name="name">Property tags</field>
-        <field name="res_model">estate.property.tag</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                    Empty
-            </p>
-        </field>
-    </record>
-
+    
 
     <record id="estate_property_tag_list" model="ir.ui.view">
           <field name="name">Property Tag List View</field>
@@ -19,7 +9,6 @@
           <field name="arch" type="xml">
              <tree string="Channel" >
                  <field name="name" string="Title" />
-                 <!-- <field name="Color" string="color" /> -->
              </tree>
           </field>
     </record>
@@ -28,10 +17,6 @@
         <field name="name">Property Tag Form View</field>
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
-           <!-- <tree string="Channel" >
-               <field name="name" string="Title" />
-               <field name="Color" string="color" options="{'color_field': 'x_studio_color', 'no_create_edit': True}"/>
-           </tree> -->
            <form>
                 <sheet>
                     <h1>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="teachers" t-as="teacher">
+                        <p><t t-esc="teacher.id"/> <t t-esc="teacher.name"/></p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="biography">
+        <t t-call="website.layout">
+            <t t-set="title">Agent Biography</t>
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <h3 t-field="person.name"/>
+                    <p>Last modified: <i t-field="person.write_date" t-options='{"widget": "relative"}'/></p>
+                    <div t-field="person.biography"/>
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+
+    <template id="practice">
+        <t t-call="website.layout">
+            <t t-set="title">Academy</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="teachers" t-as="teacher">
+                        <p>
+                            <a t-attf-href="/my_estate/{{ slug(teacher) }}">
+                            <t t-esc="teacher.name"/></a>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

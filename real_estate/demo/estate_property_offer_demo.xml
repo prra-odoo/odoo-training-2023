@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- do not add it in manifest file because it is not well prepred -->
+<odoo>
+    <data>
+        <record id="estate_property_offer_record_1" model="estate.property.offer">
+            <field name="price" >100000</field>
+            <field name="status">123456</field>
+            <field name="validity" >3</field>
+            <field name="property_id">1</field>
+        </record>
+
+        <record id="estate_property_offer_record_2" model="estate.property.offer">
+            <field name="price" >200000</field>
+            <field name="status">123456</field>
+            <field name="validity" >3</field>
+            <field name="property_id">2</field>
+        </record>
+
+        <record id="estate_property_offer_record_3" model="estate.property.offer">
+            <field name="price" >300000</field>
+            <field name="status">123456</field>
+            <field name="validity" >3</field>
+            <field name="property_id">3</field>
+        </record>
+
+        <record id="estate_property_offer_record_4" model="estate.property.offer">
+            <field name="price" >40000</field>
+            <field name="status">123456</field>
+            <field name="validity" >3</field>
+            <field name="property_id">4</field>
+        </record>
+    </data>
+</odoo>

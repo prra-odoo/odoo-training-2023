@@ -9,6 +9,7 @@
             <field name="living_area" >5000</field>
             <field name="expected_price">100000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
         </record>
 
         <record id="estate_property_record_2" model="estate.property.model">
@@ -18,6 +19,7 @@
             <field name="living_area" >4000</field>
             <field name="expected_price">200000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_tag_demo_2')])]"/>
         </record>
 
         <record id="estate_property_record_3" model="estate.property.model">
@@ -27,6 +29,7 @@
             <field name="living_area" >9000</field>
             <field name="expected_price">70000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1')])]"/>
         </record>
 
         <record id="estate_property_record_4" model="estate.property.model">
@@ -36,6 +39,67 @@
             <field name="living_area" >9000</field>
             <field name="expected_price">600000</field>
             <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
+        </record>
+
+        <record id="estate_property_record_5" model="estate.property.model">
+            <field name="name" >Infocity</field>
+            <field name="postcode">89765</field>
+            <field name="bedrooms" >6</field>
+            <field name="living_area" >90000</field>
+            <field name="expected_price">1000000</field>
+            <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
+        </record>
+
+        <record id="estate_property_record_6" model="estate.property.model">
+            <field name="name" >Giftcity</field>
+            <field name="postcode">76587</field>
+            <field name="bedrooms" >2</field>
+            <field name="living_area" >40000</field>
+            <field name="expected_price">500000</field>
+            <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
+        </record>
+
+        <record id="estate_property_record_7" model="estate.property.model">
+            <field name="name" >Vraj Vihar</field>
+            <field name="postcode">75587</field>
+            <field name="bedrooms" >3</field>
+            <field name="living_area" >2000</field>
+            <field name="expected_price">600000</field>
+            <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1')])]"/>
+        </record>
+
+        <record id="estate_property_record_8" model="estate.property.model">
+            <field name="name" >Sky heights</field>
+            <field name="postcode">989823</field>
+            <field name="bedrooms" >4</field>
+            <field name="living_area" >10000</field>
+            <field name="expected_price">200000</field>
+            <field name="selling_price">9000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
+        </record>
+
+        <record id="estate_property_record_9" model="estate.property.model">
+            <field name="name" >Gloria</field>
+            <field name="postcode">66587</field>
+            <field name="bedrooms" >1</field>
+            <field name="living_area" >400</field>
+            <field name="expected_price">9000</field>
+            <field name="selling_price">1000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_tag_demo_2')])]"/>
+        </record>
+
+        <record id="estate_property_record_10" model="estate.property.model">
+            <field name="name" >Burjh Al Arab</field>
+            <field name="postcode">9999</field>
+            <field name="bedrooms" >3</field>
+            <field name="living_area" >12000</field>
+            <field name="expected_price">700000</field>
+            <field name="selling_price">8000000</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('property_ag_demo_1','property_tag_demo_2')])]"/>
         </record>
     </data>
 </odoo>
