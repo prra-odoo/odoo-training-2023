@@ -30,6 +30,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+
+    
+    
+
     
     <menuitem id="estate_menu_root" name="Real Estate" web_icon="estate,static/description/deal.png">
         <menuitem id="estate_first_level_menu" name="Advertisments">

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models , fields,api
+from odoo import models , fields,api,_
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare,float_is_zero
@@ -96,6 +96,4 @@ class estate_property(models.Model):
     #     return super().unlink()
     
 
-              
     
-            

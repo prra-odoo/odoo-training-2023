@@ -58,6 +58,7 @@
                     <div>SalesMan: <span t-field="prop.salesperson_id"/></div>
                     <div>Tags: <span t-field="prop.tags_ids"/></div>
                 </div>
+                
             </div>
             <div class="oe_structure"/>
         </t>

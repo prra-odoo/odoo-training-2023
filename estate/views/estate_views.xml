@@ -8,6 +8,9 @@
             <field name="arch" type="xml">
                 <tree expand= "1" string="tree view" decoration-success = "state in ('sold','offer_accepted','offer_received')" 
                 decoration-bf="state=='offer_accepted'" decoration-muted="state=='cancel'">
+                    <header>
+                        <button name="%(estate.estate_model_wizard_action)d" type="action" string="Add offer" class="oe_highlight"/>
+                    </header>
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="postcode"/>
@@ -61,7 +64,7 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="estate_form">
-                    <header>
+                    <header>    
                         <button name="action_sold" type="object" string ="Sold" attrs="{'invisible': [('state','in',('sold','cancel'))]}"  />
                         <button name="action_cancel" type="object" string ="Cancel" attrs="{'invisible': [('state','in',('sold','cancel'))]}"/>
                         <button name="%(estate.estate_model_action01)d" type="action" string="Properties"/>

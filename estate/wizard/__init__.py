@@ -1,0 +1,2 @@
+# -*- ccoding: utf-8 -*-
+from . import estate_wizard
