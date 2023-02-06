@@ -47,11 +47,3 @@
         </field>
     </record>
 </odoo>
-
-<!-- <div name="button_box" class="oe_button_box" attrs="{'invisible': [('id', '=', False)]}">
-    <button class="oe_stat_button" type="action"
-            name="%(generated_transfers_action)d" icon="fa-book"
-            context="{'search_default_transfer_model_id': active_id, 'default_transfer_model_id': active_id}">
-        <field name="move_ids_count" string="Transfers" widget="statinfo"/>
-    </button>
-</div> -->

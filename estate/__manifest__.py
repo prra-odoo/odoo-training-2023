@@ -13,6 +13,7 @@
         'views/estate_property_offer.xml',
         'views/estate_property_type.xml',
         'views/estate_property_tag.xml',
+        'views/inherited_res_user_views.xml',
         'views/estate_menus.xml',
     ],
     'demo': [

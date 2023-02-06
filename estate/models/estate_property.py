@@ -52,11 +52,11 @@ class EstateProperty(models.Model):
         ('sufficient_selling_price','CHECK(selling_price > .9* expected_price)',"Selling price should be more than 90 percent of the Expected price"),
         # ('valid_postcode','CHECK(postcode >= 100000 AND postcode <= 999999)',"Enter a Valid Postcode")
         ]
-
+    # Compute Total Area
     @api.depends("living_area","garden_area")
     def _compute_total(self):
             self.total_area = self.living_area + self.garden_area
-
+    # Compute Best Offer
     @api.depends("offer_ids")
     def _compute_best_offer(self):
         for record in self:
@@ -65,7 +65,7 @@ class EstateProperty(models.Model):
             record.best_price = max(record.offer_ids.mapped('price'),default=0)
             # record.status = 'offer_received'
 
-
+    # Compute Garden
     @api.depends("garden")
     def _compute_garden(self):
         for record in self:
@@ -75,7 +75,7 @@ class EstateProperty(models.Model):
             else:
                 record.garden_area = 0
                 record.garden_orientation=""
-
+    # Sold Button Action
     def action_sold_btn(self):
         for record in self:
             if record.status=='canceled':
@@ -83,7 +83,7 @@ class EstateProperty(models.Model):
             record.status='sold'
         return True
         
-
+    # Cancel Button Action
     def action_cancel_btn(self):
         for record in self:
             if record.status=='sold':

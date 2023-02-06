@@ -47,7 +47,7 @@
             <form string="Estate Property Form View">
                 <header>
                     <field name="status" widget="statusbar" options="{'clickable': '1',}"/>
-                    <button name="action_sold_btn"  type="object" string="Sold" attrs="{'invisible' : [('status','in',['sold','canceled'])]}"/>
+                    <button name="action_sold_btn" class="oe_highlight" type="object" string="Sold" attrs="{'invisible' : [('status','in',['sold','canceled'])]}"/>
                     <button name="action_cancel_btn"  type="object" string="Cancel" attrs="{'invisible' : [('status','in',['sold','canceled'])]}"/>
                     <button name="%(estate_property_action)d" type="action" string="Redirect to properties"/>
                 </header>
