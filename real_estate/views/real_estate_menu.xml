@@ -52,11 +52,21 @@
                 </p>
             </field>
         </record>
+
+        <!-- offer menu action -->
+        <record id="estate_property_wizard_action" model="ir.actions.act_window">
+            <field name="name">Wizard</field>
+            <field name="res_model">property.estate.offers</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
     
 <!-- menu creation -->
         <menuitem id="estate_menu_root" name="Real Estate">
             <menuitem id="estate_first_level_menu" name="Advertisements">
                 <menuitem id="estate_model_menu_action1" action="estate_property_model_action" name="Properties"/>
+                <menuitem id="estate_model_menu_action2" action="estate_property_wizard_action" name="wizard"/>
             </menuitem>
 
             <menuitem id="estate_property_level_menu1" name="Settings" groups="estate_group_manager">

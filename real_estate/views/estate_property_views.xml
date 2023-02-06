@@ -6,6 +6,9 @@
        <field name="model">estate.property.model</field>
        <field name="arch" type="xml">
             <tree string="Channel" default_order="name desc"  decoration-success="state in ('offer_recieved','offer_accepted')" decoration-bf="state in ('offer_accepted')" decoration-muted="state in ('sold')">
+                <header>
+                    <button type="action" name="%(estate_property_wizard_action)d" string="Add offers"/>
+                </header>
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
                 <field name="bedrooms" string="Bedrooms"/>

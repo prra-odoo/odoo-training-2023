@@ -10,4 +10,5 @@ inherited_model_example_id,Inherited model admin,model_inherited_model_example,,
 user_property_cu_id,Estate User Cu,model_estate_property_model,estate_group_user,1,1,1,0
 
 estate_controller_id,Estate controller,model_estate_controller_practice,,1,0,0,0
+property_wizard_offers_id,Add Property Offers,model_property_estate_offers,,1,1,1,0
 

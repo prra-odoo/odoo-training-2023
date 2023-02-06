@@ -11,6 +11,7 @@
         'security/real_estate_security.xml',
         'security/ir.model.access.csv',
         'views/real_estate_menu.xml',
+        'wizard/property_wizard_view.xml',
         'views/estate_property_views.xml',
         'views/estate_property_offer.xml',
         'views/estate_property_type.xml',
@@ -19,9 +20,7 @@
         'views/estate_template.xml',
         'views/real_estate_main.xml',
         'report/estate_property_templates.xml',
-        'report/estate_property_reports.xml',
-       
-  
+        'report/estate_property_reports.xml',  
         
     ],
     'demo': [
