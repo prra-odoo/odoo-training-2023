@@ -26,7 +26,7 @@ class EstateProperty(models.Model):
     expected_price = fields.Float(
         string="Expected Price", required=True, default="1")
     selling_price = fields.Float(
-        string="Selling Price", readonly=True, copy=False)
+        string="Selling Price", readonly=True, copy=False,store=True)
     bedrooms = fields.Integer(string="Bedroom Number", default="2")
     living_area = fields.Integer(string="Living Area")
     facades = fields.Integer(string="Facades")
