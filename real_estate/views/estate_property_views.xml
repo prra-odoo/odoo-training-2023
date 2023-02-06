@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-
         <record id="estate_property_tree_view" model="ir.ui.view">
             <field name="name">Real Estate Tree View</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <tree decoration-success="state in ('offer_received', 'offer_accepted')" decoration-muted="state == 'sold'" decoration-bf="state == 'offer_accepted'" decoration-danger="state == 'cancel'">
+                    <header>
+                        <button name="make_offer" type="object" string="Add Offer" states="draft"></button>
+                    </header>
                     <field name="name"/>
                     <field name="property_type_id"/>
                     <field name="postcode"/>
@@ -58,8 +60,6 @@
                     <header>
                         <button name="sold_button" type="object" string="Sold" states='draft' attrs="{'invisible': [('state', 'in', ('sold', 'cancel'))]}"/>
                         <button name="cancel_button" type="object" string="Cancel" states='draft' attrs="{'invisible': [('state', 'in', ('sold', 'cancel'))]}"/>
-                        <!-- <button name="add_offer" type="object" string="Cancel" states="draft"></button> -->
-                        <!-- <button type="action" name="%(offers_action)d" string="Offers"/> -->
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                     </header>
                     <sheet>

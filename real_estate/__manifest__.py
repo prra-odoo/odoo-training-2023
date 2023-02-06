@@ -18,7 +18,8 @@
                 'views/res_users_view.xml',
                 'views/estate_property_controller.xml',
                 'reports/estate_property_templates.xml',
-                'reports/estate_property_reports.xml'
+                'reports/estate_property_reports.xml',
+                'wizard/estate_property_wizard.xml'
             ],
     'demo': [
                 'demo/demo.xml'

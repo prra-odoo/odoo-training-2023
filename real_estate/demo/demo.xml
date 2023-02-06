@@ -57,7 +57,7 @@
         <field name="description">A nice and big villa</field>
         <field name="postcode">12345</field>
         <field name="expected_price">1600000</field>
-        <field name="selling_price">120000</field>
+        <field name="selling_price">1700000</field>
         <field name="bedrooms">6</field>
         <field name="living_area">100</field>
         <field name="facades">4</field>

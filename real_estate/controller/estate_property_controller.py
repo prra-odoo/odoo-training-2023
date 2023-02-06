@@ -26,7 +26,3 @@ class estatePropertyController(http.Controller):
         return http.request.render('real_estate.property_list_view', {
             'estate': property
         })
-
-    # @http.route('/academy/<name>/', auth='public', website=True)
-    # def name(self, name):
-    #     return '<h1>{}</h1>'.format(name)

@@ -86,8 +86,6 @@ class estateProperty(models.Model):
             else:
                 record.status = 'cancel'
                 record.state = 'cancel'
-    # def add_offer(self):
-    #     for record in self:
 
     @api.constrains("expected_price", "selling_price")
     def _check_price_difference(self):
@@ -101,3 +99,13 @@ class estateProperty(models.Model):
             for record in self:
                 if record.state not in ['new', 'cancel']:
                     raise UserError("Only New and Canceled Properties can be deleted.")
+
+    def make_offer(self):
+        return {
+            'name': ('Real Estate Wizard'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'estate.property.wizard',
+            'view_mode': 'form',
+            'target': 'new'
+    }
+    
