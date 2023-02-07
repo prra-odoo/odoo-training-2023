@@ -11,5 +11,6 @@ estate.access_estate_property_tag_manager,access_estate_property_tag_manager,est
 estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,base.group_user,0,0,0,0
 estate.access_estate_property_offer_user,access_estate_property_offer_user,estate.model_estate_property_offer,estate.estate_group_user,1,1,1,1
 estate.access_estate_property_offer_manager,access_estate_property_offer_manager,estate.model_estate_property_offer,estate.estate_group_manager,1,1,1,1
+estate.access_estate_property_put_offer,access_estate_property_put_offer,estate.model_estate_property_put_offer,base.group_user,1,1,1,1
 
 

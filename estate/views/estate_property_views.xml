@@ -46,7 +46,16 @@
         <field name = "parent_id" ref = "website.main_menu"></field>
         <field name = "url">/estate/estate</field>
     </record>
-
+    <record id="estate_model_action_property_put_offer" model="ir.actions.act_window">
+        <field name="name">Put property offer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estate.property.put.offer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="estate.model_estate_property"/>
+        <field name="binding_view_types">list</field>
+    </record>
+ 
     <!-- ________________________Tree_View____________________ -->
 
     <record id="estate_property_view_tree" model="ir.ui.view">
@@ -54,6 +63,9 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="tree view" decoration-success="state in ('offer_accepted','offer_recieved')" decoration-bf="state=='offer_accepted'" decoration-muted ="state=='sold'">
+                <header>
+                    <button type = "action" name = "%(estate_model_action_property_put_offer)d" string = "Put offer"/>
+                </header>
                 <field name ="state" invisible="1"/>
                 <field name="name"></field>
                 <field name="property_type_id"/>

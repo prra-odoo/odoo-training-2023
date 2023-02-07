@@ -16,6 +16,8 @@
         'reports/reports.xml',
         'reports/templates.xml',
         'reports/template_web.xml',
+
+        'wizard/estate_property_put_offer.xml'
     ],
     'demo':[
         'demo/demo_data.xml',
