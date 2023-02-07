@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="estate_property_controller_template" name="Property Details">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div class="container">
+                        <br/>
+                        <center>
+                            <h2 style="font-weight: 600;">Property Details</h2>
+                        </center>
+                        <br/>
+                    </div>
+                    <table class="table-striped table">
+                        <thead style="font-size: 23px;">
+                            <tr>
+                                <h6>
+                                    <b>
+                                        <th>Property Name</th>
+                                        <th>Postcode</th>
+                                        <th>Bedrooms</th>
+                                        <th>Living Area (sqm)</th>
+                                        <th>Garden Area (sqm)</th>
+                                        <th>Expected Price</th>
+                                    </b>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="records" t-as="property">
+                                <tr>
+                                    <td>
+                                        <span t-esc="property.name" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="property.postcode" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="property.bedrooms" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="property.living_area" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="property.garden_area" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="property.expected_price" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

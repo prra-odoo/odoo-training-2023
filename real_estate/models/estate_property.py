@@ -7,6 +7,7 @@ from odoo.tools.float_utils import float_compare
 
 class EstateProperty(models.Model):
     _name = "estate.property"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Real estate module properties"
     _order = "id desc"
 
@@ -25,20 +26,22 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(string="Total Area (sqm)", compute="_compute_total_area", help="How much total area does your Property have?")
     garden_orientation = fields.Selection(string="Garden Orientation", selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')], compute="_compute_garden", readonly=False)
     active = fields.Boolean(string="Active", default=True)
-    state = fields.Selection(string="State", required=True, copy=False, selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')], default="new")
+    state = fields.Selection(string="State", readonly=True,required=True, copy=False, selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')], default="new", tracking=True)
     best_price = fields.Float(string="Best Offer", compute="_compute_best_offer", help="This will display best price from offers list.")
     property_type_id = fields.Many2one('estate.property.type', string='Type')
     buyer_id = fields.Many2one('res.partner', copy=False)
     salesperson_id = fields.Many2one('res.users', string='Salesperson', default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag', string='Tags')
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offers")  
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
+    description = fields.Html(string="Description")
+    property_image = fields.Binary(string="Property Image")
     
     _sql_constraints = [
         ('expected_price_positive', 'check (expected_price > 0)', "The expected price must be strictly positive."),
         ('selling_price_positive', 'check (selling_price > 0)', "The selling price must be strictly positive."),
     ]
 
-    
     # Button Methods
     
     def action_sold_btn(self):
@@ -46,8 +49,21 @@ class EstateProperty(models.Model):
             if record.state == 'cancelled':
                 raise UserError('Cancelled properties cannot be sold.')
         record.state = 'sold'
+        
+        # Passing this buyer data to the estate.sold.property Model
+        self.env['estate.sold.property'].sudo().create(
+            {
+                'name': self.name,
+                'postcode': self.postcode,
+                'selling_price': self.selling_price,
+                'property_type_id': self.property_type_id.id,
+                'total_area': self.total_area,
+                'buyer_id': self.buyer_id.id,
+                'salesperson_id': self.salesperson_id.id
+            },
+        )
         return True
-
+            
     def action_cancel_btn(self):
         for record in self:
             if record.state == 'sold':
@@ -89,23 +105,17 @@ class EstateProperty(models.Model):
                 record.garden_orientation = ''
     
     # Python Constraints
-            
-    # @api.constrains('selling_price', 'expected_price')
-    # def _check_selling_price(self):
-    #     for record in self:
-    #         if record.selling_price <= (0.9 * record.expected_price) and record.offer_ids: #Apply this constraint only if there if offers
-    #             raise ValidationError("The selling price must be least 90% of expected price. You must have to reduce expected price if you want to accept this offer!!!")
-    
     
     @api.constrains('selling_price', 'expected_price')
     def _check_selling_price(self):
         for record in self:
             if float_compare(record.selling_price, (0.9 * record.expected_price), precision_rounding=0.01) <= 0 and record.offer_ids:
                 raise ValidationError("The selling price must be least 90% of expected price. You must have to reduce expected price if you want to accept this offer!!!")
+            
+    # CRUD Methods
     
-    #### TODO ####     
-    # @api.constrains('state')
-    # def _check_offer_ids(self):
-    #     for record in self:
-    #         if len(record.offer_ids):
-    #             record.state = "offer_received"
+    @api.ondelete(at_uninstall=False)
+    def _unlink_new_cancelled(self):
+        for record in self:
+            if record.state not in ('new', 'cancelled'):
+                raise UserError('Only new and cancelled properties can be deleted!!!')

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- Estate Property Offer Report -->
+    <record id="estate_offer_report" model="ir.actions.report">
+        <field name="name">Property Offers Report</field>
+        <field name="model">estate.property</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate.report_property_offers</field>
+        <field name="report_file">real_estate.report_property_offers</field>
+        <field name="binding_model_id" ref="model_estate_property"/>
+        <field name="binding_type">report</field>
+    </record>
+    <!-- Estate Property User Report -->
+    <record id="estate_user_property_report" model="ir.actions.report">
+        <field name="name">User Property Report</field>
+        <field name="model">res.users</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">real_estate.report_user_property</field>
+        <field name="report_file">real_estate.report_user_property</field>
+        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

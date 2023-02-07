@@ -1,14 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <menuitem id="estate_property_menu_root" name="Real Estate">
+    <menuitem id="estate_property_menu_root" name="Real Estate" web_icon="real_estate,static/description/icon.png">
         <menuitem id="estate_property_first_level_menu_adv" name="Advertisements">
-            <menuitem id="estate_property_menu_action_1" action="estate_property_model_action" name="Temporary 1" sequence="1"/>
-            <menuitem id="estate_property_menu_action_2" action="estate_property_model_action" name="Temporary 2" sequence="2"/>
-            <menuitem id="estate_property_menu_action_3" action="estate_property_model_action" name="Temporary 3" sequence="3"/>
+            <menuitem id="estate_property_menu_action_1" action="estate_property_model_action" name="TODO" sequence="1"/>
+            <menuitem id="estate_property_menu_action_2" action="estate_property_sold_model_action" name="Sold Properties" sequence="2"/>
         </menuitem>
         <menuitem id="estate_property_first_level_menu_set" name="Settings">
-            <menuitem id="estate_property_menu_action_4" action="estate_property_type_model_action" name="Property Types" sequence="1"/>
-            <menuitem id="estate_property_menu_action_5" action="estate_property_tag_model_action" name="Property Tags" sequence="2"/>
+            <menuitem id="estate_property_menu_action_4" action="estate_property_type_model_action" name="Property Types" sequence="1" groups="estate_group_manager"/>
+            <menuitem id="estate_property_menu_action_5" action="estate_property_tag_model_action" name="Property Tags" sequence="2" groups="estate_group_manager"/>
         </menuitem>
     </menuitem>
 </odoo>
