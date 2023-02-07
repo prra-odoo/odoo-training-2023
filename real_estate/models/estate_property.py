@@ -7,8 +7,9 @@ class EstateProperty(models.Model):
     _description = "CRM Recurring revenue plans"
 
     name = fields.Char(required=True)
+    description=fields.Char()   
     postcode = fields.Char(default="0")
-    date_availability = fields.Date(readonly=True,default=lambda self:(fields.Datetime.now().date()+relativedelta(months=+3)))
+    date_availability = fields.Date(readonly=True, default=lambda self:(fields.Datetime.now().date()+relativedelta(months=+3)))
     expected_price = fields.Float()
     selling_price = fields.Float(readonly=True)
     bedrooms = fields.Integer(default=2)
@@ -22,7 +23,7 @@ class EstateProperty(models.Model):
         selection = [('north','North'),('south','South'),('east','East'),('west','West')],
         help="Type is used to separate Directions"
     )
-    active = fields.Boolean(default=False)
+    active = fields.Boolean(default=True)
     state = fields.Selection(
         string='State',
         selection = [('new','New'),('off_re','Offer Received'),('off_ac','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
