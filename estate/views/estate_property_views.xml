@@ -72,7 +72,7 @@
                                 <field name="total_area"/>
                             </group>
                         </page>
-                        <page string="Offers" >
+                        <page string="Offers">
                             <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('offer_accepted','sold','cancel'))]}">
                             </field>
                         </page>
@@ -110,7 +110,35 @@
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="search_postcode" context="{'group_by':'postcode'}"/>
                 </group>
+
             </search>
+        </field>
+    </record>
+
+    <record id="estate_property_kanban_view" model="ir.ui.view">
+        <field name="name">Estate_Property_kanban_view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" >
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="name"/>
+                            <!-- <field name="property_type_id"/> -->
+                            <div t-if="record.expected_price.raw_value > 0">
+                                Expected Price : <field name="expected_price"/>
+                            </div>
+                            <div t-if="record.best_offer.raw_value > 0">
+                                Best Offer : <field name="best_offer"/>
+                            </div>
+                            <div t-if="record.selling_price.raw_value > 0">
+                                Selling Price : <field name="selling_price"/>
+                            </div>
+                            <field name="tags_ids" options="{'color_field': 'color'}" />
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 </odoo>
