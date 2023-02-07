@@ -3,7 +3,7 @@
     <record id="estate_model_action" model="ir.actions.act_window">
         <field name="name">Estate</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="context">{"search_default_available":1}</field>
     </record>
     <record id ="estate_model_action_quality" model="ir.actions.act_window">
@@ -41,7 +41,21 @@
         <field name="view_mode">tree,form</field>
         <field name="domain">[('property_type_id', '=', active_id)]</field>
     </record>
-
+    <record id = "website_properties_menu" model = "website.menu">
+        <field name = "name">Properties</field>
+        <field name = "parent_id" ref = "website.main_menu"></field>
+        <field name = "url">/estate/estate</field>
+    </record>
+    <record id="estate_model_action_property_put_offer" model="ir.actions.act_window">
+        <field name="name">Put property offer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estate.property.put.offer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="estate.model_estate_property"/>
+        <field name="binding_view_types">list</field>
+    </record>
+ 
     <!-- ________________________Tree_View____________________ -->
 
     <record id="estate_property_view_tree" model="ir.ui.view">
@@ -49,6 +63,9 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="tree view" decoration-success="state in ('offer_accepted','offer_recieved')" decoration-bf="state=='offer_accepted'" decoration-muted ="state=='sold'">
+                <header>
+                    <button type = "action" name = "%(estate_model_action_property_put_offer)d" string = "Put offer"/>
+                </header>
                 <field name ="state" invisible="1"/>
                 <field name="name"></field>
                 <field name="property_type_id"/>
@@ -101,6 +118,7 @@
                         <group style="margin-top:30px">
                             <field name="postcode"/>
                         </group>
+                      
                         <group style="margin-top:30px">
                             <field name="date_availability"/>
                         </group>
@@ -112,6 +130,9 @@
                         </group>
                         <group style="margin-top:30px">
                             <field name="best_offers"/>
+                        </group>
+                        <group style="margin-top:30px">
+                            <field name="company_id"/>
                         </group>
                     </group>
                     <group style="margin-top:30px">
@@ -134,7 +155,8 @@
                                 </group> 
                                 <group style="margin-top:30px">
                                     <field name="total_area"/>
-                                </group>  
+                                </group> 
+                               
                             </group>
                         </page>
                         <page string="garden descriptions">
@@ -158,19 +180,19 @@
                                 <group style="margin-top:30px">
                                     <field name="salesperson_id" widget="many2one_avatar"/>
                                 </group>
+                                <group style="margin-top:30px">
+                                    <field name="sold_date" />
+                                </group>
                             </group>
                         </page>
                         <page string="Offers" >
-                            <field name="offer_ids" >
-                                <!-- attrs= "{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','cancelled')]}" -->
+                            <field name="offer_ids" attrs= "{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','cancelled')]}" >
                                 <tree editable = "bottom" decoration-danger ="status=='refused'" decoration-success="status=='accepted'">
                                     
                                     <field name="price"/>
                                     <field name="partner_id"/>
-                                    <!-- <button name="accepted_offer" type = "object" string="accept" icon ="fa-check" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}" />
-                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}"/> -->
-                                    <button name="accepted_offer" type = "object" string="accept" icon ="fa-check"  />
-                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" />
+                                    <button name="accepted_offer" type = "object" string="accept" icon ="fa-check" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}" />
+                                    <button name = "rejected_offer"  type ="object" string = "refuse" icon ="fa-times" attrs = "{'invisible':['|',('status','=','accepted'),('status','=','refused')]}"/>
                                     
                                     <field name="status" />
                                     <field name="validity"/>
@@ -178,6 +200,9 @@
                                     <field name ="property_type_id"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page name = "image">
+                            <field name = "image" widget = "image"></field>
                         </page>
                     </notebook>
                 </sheet>
@@ -187,6 +212,34 @@
                     <field name="activity_ids" widget="mail_thread"/>
                 </div>
             </form>
+        </field>
+    </record>
+    <!-- ___________________________Kanban View_________________________________ -->
+    <record id = "estate_property_kanban_view" model = "ir.ui.view">
+        <field name = "name">estate.property.kanban.view</field>
+        <field name = "model">estate.property</field>
+        <field name = "arch" type ="xml">
+            <kanban default_group_by = "property_type_id" records_draggable = "False">
+                <field name = "state"/>
+                <templates>
+                    <t t-name = "kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="name"/>
+                            <field name= "tag_ids" widget = "many2many_tags" options = "{'color_field':'color'}"/>
+                            <label for ="expected_price">Expected Price:</label>
+                            <field name = "expected_price"/>
+                            <div t-if="record.state.raw_value == 'offer_recieved'">
+                                    <label for ="best_offers">Best offer:</label>
+                                    <field name = "best_offers"/>       
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer_accepted'">
+                                    <label for= "selling_price">Selling Price:</label>
+                                    <field name = "selling_price"/>       
+                            </div>                             
+                        </div>                         
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
     <!-- ________________________Search VIEW____________________ -->
@@ -205,6 +258,7 @@
                 <field name="property_type_id"/>
                 
                 <filter name="available" string = "Available" domain="['|', ('state', '=', 'new'),('state', '=', 'offer_recieved')]"/>
+                <filter string="Last month sold" name="last month sale" domain="[('sold_date','&gt;=',(context_today() + relativedelta(months=-1)))]"/>
 
                 <separator/>
                 <field name="living_area" string="Living Area" filter_domain="[('living_area','>=',self)]"/>
@@ -242,5 +296,19 @@
                 <field name="property_type_id"/>
            </tree>
         </field>
-    </record>    
+    </record> 
+    
+    <!-- _______________________adding the page of property in the users form view -->
+    <record id="res_users_view_form" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit.gamification</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr = "//page[@name = 'preferences']" position = "after">
+                <page name = "real estate page" string = "real estate">
+                    <field name = "property_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>  
 </odoo>

@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 from odoo import models,fields,api
 from odoo.tools.date_utils import add
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError
+from odoo.tools.float_utils import float_compare
+
 
 
 
@@ -58,9 +61,20 @@ class estatePropertyOffer(models.Model):
             record.status = "refused"
 
 #   inheritance
+    # @api.model
+    # def create(self, vals):
+    #     self.env['estate.property'].browse(vals['property_id']).state='offer_recieved'
+    #     breakpoint()
+    #     return super().create(vals)
     @api.model
     def create(self, vals):
-        self.env['estate.property'].browse(vals['property_id']).state='offer_recieved'
+        if self.price:
+            max_price = max(record.mapped('self.price'))
+            if float_compare(vals['price'], max_price ,precision_rounding=0.01) <=0:
+                raise UserError("the offer price must be higher than %.2f" % max_price)
+        record = self.env['estate.property'].browse(vals['property_id'])
+        record.state = 'offer_recieved'
         return super().create(vals)
+        
         
 
