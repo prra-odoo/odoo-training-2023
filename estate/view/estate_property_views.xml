@@ -33,6 +33,7 @@
                     <field name="state" widget="statusbar" options="{'clickable': '1'}" />
                 </header>
                 <sheet>
+                    <field name="image" widget="image" class="oe_avatar" />
                     <widget name="web_ribbon" title="New" bg_color="bg-info" states="new"/>
                     <widget name="web_ribbon" title="Received" bg_color="bg-warning" states="offer_received"/>
                     <widget name="web_ribbon" title="Accepted" bg_color="bg-warning" states="offer_accepted"/>

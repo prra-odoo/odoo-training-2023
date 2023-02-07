@@ -14,6 +14,7 @@ class Estate_Property(models.Model):
     _order = "id desc"
 
     name = fields.Char(string = 'name',required=True)
+    image = fields.Image("Logo", max_width=128, max_height=128)
     description = fields.Text(string = 'description')
     postcode = fields.Char(string = 'postcode', required = True)
     data_avabilability = fields.Date('Datetime',default=fields.Date.today()+relativedelta(months=3), copy=False)

@@ -21,4 +21,5 @@
         'view/estate_menus.xml',
      ],
      'depends' : ['mail'],
+     'icon' : "estate/static/description/real-estate.png",
 }
