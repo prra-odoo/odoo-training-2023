@@ -52,6 +52,16 @@ class EstateProperty(models.Model):
         ('sufficient_selling_price','CHECK(selling_price > .9* expected_price)',"Selling price should be more than 90 percent of the Expected price"),
         # ('valid_postcode','CHECK(postcode >= 100000 AND postcode <= 999999)',"Enter a Valid Postcode")
         ]
+
+    # Sold Button Action
+    def action_sold_btn(self):
+        for record in self:
+            if record.status=='canceled':
+                raise exceptions.UserError('Cancelled property can\'t be sold.')
+            record.status='sold'
+        # return True
+        
+    
     # Compute Total Area
     @api.depends("living_area","garden_area")
     def _compute_total(self):
@@ -75,14 +85,7 @@ class EstateProperty(models.Model):
             else:
                 record.garden_area = 0
                 record.garden_orientation=""
-    # Sold Button Action
-    def action_sold_btn(self):
-        for record in self:
-            if record.status=='canceled':
-                raise exceptions.UserError('Cancelled property can\'t be sold.')
-            record.status='sold'
-        return True
-        
+    
     # Cancel Button Action
     def action_cancel_btn(self):
         for record in self:
