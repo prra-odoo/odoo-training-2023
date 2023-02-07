@@ -12,7 +12,7 @@ class EstateProperty(models.Model):
     name=fields.Char(required=True)
     description=fields.Char()
     postcode=fields.Char()
-    date_availability=fields.Date(copy=False, default= datetime.now() + relativedelta(months=3))
+    date_availability=fields.Date(copy=False, default= lambda self:(fields.Datetime.now().date()+relativedelta(months=+3)))
 
     expected_price=fields.Float(required=True)
     selling_price=fields.Float(readonly=True,copy=False)
@@ -45,4 +45,4 @@ class EstateProperty(models.Model):
         default="new"
     )
 
-    active=fields.Boolean("Active",default=False)
+    active=fields.Boolean("Active",default=True)
