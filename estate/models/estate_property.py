@@ -5,11 +5,11 @@ class TestModel(models.Model):
     _name = "estate.property"
     _description = "Real Estate Model"
 
-    name = fields.Char(required=True,default="Unknown")
+    name = fields.Char(required=True,default="My New house",size=100,visibility=50)
     description = fields.Text()
     postcode = fields.Char()
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
-    date_availability = fields.Date(default=lambda self: fields.Datetime.now()+relativedelta(months=3),copy=False)
+    date_availability = fields.Date(default=lambda self: fields.Datetime.now()+relativedelta(months=4),copy=False)
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True,copy=False)
     bedrooms = fields.Integer(default='2')
@@ -19,7 +19,7 @@ class TestModel(models.Model):
     garden = fields.Boolean()   
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(
-        string='Direction',
+        string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
         help="Select your direction!",default="north")
     active = fields.Boolean(default=True,required=True  )
