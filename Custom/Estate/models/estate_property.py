@@ -4,7 +4,6 @@ from dateutil.relativedelta import relativedelta
 class TestModel(models.Model):
     _name="estate.property"
     _description = "Testing an Estate Module"
-    active = False
 
     name = fields.Char(required=True,default="Unknown")
     description = fields.Text()
@@ -28,4 +27,5 @@ class TestModel(models.Model):
                       ('sold', 'Sold'), ('canceled', 'Canceled')  ],
                       default='new'
     )
+    active = fields.Boolean(default=True)
 

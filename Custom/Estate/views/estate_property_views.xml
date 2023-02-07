@@ -1,9 +1,68 @@
 <?xml version="1.0"?>
 <odoo>
   <record id="test_model_action" model="ir.actions.act_window">
-    <field name="name"> Action Perform</field>
+    <field name="name"> Propertys</field>
     <field name="res_model">estate.property</field>
     <field name="view_mode">tree,form</field>
 </record>
+
+
+<!--             List(Tree)  View Estate Property    -->
+   <record id="estate_propert_view_tree" model="ir.ui.view">
+        <field name="name">estate_property_view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="date_availability"/>
+            </tree>
+        </field>
+    </record>
+
+
+<!--           Form View Estate_Property    -->
+
+  <record id="estate_property_view_form" model="ir.ui.view"> 
+    <field name="name">estate_property_fromView </field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+        <form string="estate_form">
+          <sheet>
+
+             <group>
+            <group>
+                <field name="name"/>
+            </group>
+            <group>
+                <field name="bedrooms"/>
+            </group>
+           
+        </group>
+
+
+        <group>
+          <field name="expected_price"> </field>
+        </group>
+
+         <notebook>
+                <page string="description">
+                    <field name="description"/>
+                </page>
+            </notebook>
+
+          </sheet>
+        </form>
+    </field>
+
+
+  </record>
+
+ 
+
 
 </odoo>
