@@ -15,6 +15,7 @@
         'reports/estate_property_reports.xml',
         'views/inherited_model_views.xml',
         'views/inherited_res_partner_views.xml',
+        'wizard/offers2property_view.xml',
         'views/real_estate_property_views.xml',
         'views/real_estate_property_offer_views.xml',
         'views/real_estate_property_type_views.xml',
@@ -27,7 +28,11 @@
         ],
     'assets':{
         'web.assets_frontend':[
-            'real_estate/static/scss/main.scss'
+            'real_estate/static/src/scss/main.scss'
+        ],
+        'website.assets_wysiwyg': [
+          
+            'real_estate/static/src/js/options.js',
         ],
     },
     'summary':'A real estate module',

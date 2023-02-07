@@ -5,7 +5,9 @@
         <field name="name">real.estate.property.search</field>
         <field name="model">real.estate.property</field>
         <field name="arch" type="xml">
+           
             <search string="Property" >
+                
                 <field name="name" string="Property Name"/>
                 <field name="expected_price"/>
                 <field name="postcode"/>
@@ -29,6 +31,9 @@
         <field name="model">real.estate.property</field>
         <field name="arch" type="xml">
             <tree string="Channel" decoration-success="state in ('offer_received','offer_accepted')" decoration-muted="state=='sold'" decoration-bf="state=='offer_accepted'" >
+                <header>
+                    <button type="object" string="Add Offer" name="action_wizard_add_offer"/>
+                </header>
                 <field name="name"/>
                 <field name="date_availability" optional="hidden"/>
                 <field name="best_offer"/>
@@ -183,7 +188,7 @@
     <record id="real_estate_property_view" model="ir.actions.act_window">
         <field name="name">Property</field>
         <field name="res_model">real.estate.property</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="context">{'search_default_active':'True','search_default_bar':2}</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">

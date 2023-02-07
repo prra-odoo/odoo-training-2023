@@ -7,3 +7,5 @@ property_tags_manager,Property Tags Manager,model_real_estate_property_tags,esta
 property_tags_agent,Property Tags Agent,model_real_estate_property_tags,estate_group_user,1,0,0,0
 property_offer_manager,Property Offer Manager,model_real_estate_property_offer,estate_group_manager,1,1,1,1
 property_offer_agent,Property Offer Agent,model_real_estate_property_offer,estate_group_user,1,1,1,1
+property_offers2property_agent,Property Offers2Property Agent,model_real_estate_offers2property,estate_group_user,1,1,1,1
+property_offers2property_manager,Property Offers2Property Agent,model_real_estate_offers2property,estate_group_manager,1,1,1,1

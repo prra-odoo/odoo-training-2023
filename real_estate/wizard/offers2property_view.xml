@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="offers2property_action" model="ir.actions.act_window">
+        <field name="name">Add Offer to Properties</field>
+        <field name="res_model">real.estate.offers2property</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <record id="offers2property_form" model="ir.ui.view">
+        <field name="name">real.estate.offers2property.form</field>
+        <field name="model">real.estate.offers2property</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group><field name="partner_id"/></group>
+                    <group><field name="amount"/></group>
+                   
+                        <field name="property_ids">
+                            <tree>
+                            <field name="name"/>
+                            <field name="expected_price"/>
+                            <field name="best_offer"/>
+                            <field name="selling_price"/>
+                            </tree>
+                        </field>
+                    
+                </group>
+                <footer>
+                    <button type="object" name="action_add_offer2properties" string="Create"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

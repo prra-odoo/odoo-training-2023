@@ -1,11 +1,11 @@
-from odoo import models,fields,api,_
+from odoo import models,fields,api,_,Command
 from odoo.exceptions import UserError,ValidationError
 from odoo.tools.float_utils import float_is_zero,float_compare
 from dateutil.relativedelta import relativedelta
 from odoo.addons.http_routing.models.ir_http import slug
 
 class RealEstateProperty(models.Model):
-    _inherit = ['mail.thread', 'mail.activity.mixin','website.published.mixin',]
+    _inherit = ['mail.thread', 'mail.activity.mixin','website.published.multi.mixin','website.searchable.mixin',]
     _name='real.estate.property'
     _description="Property model"
     _order="id desc"
@@ -50,6 +50,18 @@ class RealEstateProperty(models.Model):
             if record.state=='sold':
                 raise UserError(_("A sold property cannot be set as canceled"))
             record.state='canceled'
+    def action_wizard_add_offer(self):
+        wizard = self.env['real.estate.offers2property'].create({
+                    'property_ids': [Command.set(self.ids)],
+                })
+        return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'real.estate.offers2property',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_id': wizard.id,
+                'target': 'new',
+            }
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
         for record in self:
