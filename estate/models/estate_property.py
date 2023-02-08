@@ -2,7 +2,7 @@ from odoo import models,fields
 
 from dateutil.relativedelta import relativedelta
 
-class Estate_Property(models.Model):
+class EstateProperty(models.Model):
 	_name='estate.property'
 	_description='demo model with property trsting'
 
@@ -64,5 +64,6 @@ class Estate_Property(models.Model):
 		('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
 		required=True,
 		copy=False,
-		default='new')
+		default='new',
+		string="status")
 
