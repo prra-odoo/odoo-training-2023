@@ -30,5 +30,5 @@ class EstateProperty(models.Model):
         required=True,default="new",copy=False
     )
 
-
+    property_type_id=fields.Many2one('estate.property.type',string="Property Type")
 
