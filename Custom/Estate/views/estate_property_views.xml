@@ -33,35 +33,64 @@
     <field name="arch" type="xml">
         <form string="estate_form">
           <sheet>
-
-             <group>
-            <group>
+                <h1>
                 <field name="name"/>
-            </group>
-            <group>
-                <field name="bedrooms"/>
-            </group>
-           
-        </group>
+             </h1>
 
+            <group> 
 
-        <group>
-          <field name="expected_price"> </field>
-        </group>
+              <group>
+                <field name="postcode"/>
+                <field name="date_availability"/> 
+              </group>
+
+                <group>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                </group>
+
+            </group>
+
 
          <notebook>
                 <page string="description">
-                    <field name="description"/>
+                  <group>
+                     <field string="Bedrooms" name="bedrooms"/>
+                     <field string="living Area(sqm)" name="living_area"/>
+                     <field name="facades"/>
+                     <field string="Description" name="description"/>
+                     <field name="garden"/>
+                     <field name="garden_area"/>
+                     <field name="garden_orientation"/>
+                  </group>
                 </page>
-            </notebook>
+        </notebook>
 
           </sheet>
         </form>
     </field>
-
-
   </record>
 
+
+<!-- Search for real estate list -->
+
+  <record id="search_estate_list" model="ir.ui.view">
+    <field name="name">Estate_Property_Search</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+         <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <filter string="State" name="State" domain="['|',('state', '=', 'new'), ('state','=','offer received')]"/>
+
+                    <group expand="1" string="Group By">
+                        <filter string="Bedrooms" name="Bedrooms" context="{'group_by':'bedrooms', 'residual_visible':True}"/>
+                        <filter string="Postcode" name="Postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                    </group>
+      </search>
+    </field>
+  </record>
  
 
 
