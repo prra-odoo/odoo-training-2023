@@ -6,10 +6,11 @@ class EstateProperty(models.Model):
     _description = "Estate Property Model"
 
     name = fields.Char(required=True,default="Unknown")
+    property_type_id = fields.Id()
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date(copy=False,default=lambda self: fields.Datetime.now()+relativedelta(months=3))
+    date_availability = fields.Date(copy=False,default=lambda self: fields.Datetime.today()+relativedelta(months=3))
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(default=2)
