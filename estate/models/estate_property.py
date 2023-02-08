@@ -10,11 +10,15 @@ class EstateProperty(models.Model):
 
     name = fields.Char()
     description = fields.Char()
-    postcode = fields.Char()
+    user_id = fields.Many2one('res.users', string='Salesperson',
+                              index=True, tracking=True, default=lambda self: self.env.user)
+    partner_id=fields.Many2one('res.partner',string='Buyer',index=True, tracking=True)
+    property_type_id = fields.Char(required=True)
+    postcode = fields.Char(required=True)
     date_availability = fields.Date(
-        default=lambda self: fields.Datetime.now() + relativedelta(months=3),copy=False)
+        default=lambda self: fields.Datetime.now() + relativedelta(months=3), copy=False)
     expected_price = fields.Float()
-    selling_price = fields.Float(readonly=True,copy=False)
+    selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -34,5 +38,5 @@ class EstateProperty(models.Model):
                    ('sold', 'Sold'), ('cancelled', 'Cancelled')],
         required=True,
         copy=False,
-        default='new'
+        default='new',
     )
