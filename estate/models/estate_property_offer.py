@@ -9,7 +9,7 @@ class estate_property_offer(models.Model):
     _description = "estate property offer model"
     _order = "price desc"
     _sql_constraints = [
-        ("check_price", "CHECK(price >0)",
+        ("check_price", "CHECK(price >0::double precision)",
          "An offer price must be strictly positive"),
     ]
 

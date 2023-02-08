@@ -20,3 +20,8 @@ class estate_property_type(models.Model):
     def _compute_offer_count(self):
         for record in self:
             record.offer_count= len(record.offer_ids)
+
+    #   @api.multi
+    # def associate_account(self):
+    #     for partner in self:
+    #         partner.associate_count = len(partner.associate_ids)
