@@ -7,7 +7,7 @@
         <field name="view_mode">tree,form</field>
          <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
-            Create a new Property!
+            Create a new Property!!!
           </p>
         </field>
     </record>
@@ -91,7 +91,7 @@
                 <field name="active"/>
                 <field name="state"/>
                 <separator/>
-                <filter string="Available" name="inactive" domain="[('active', '=', False)]" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                <filter string="Available" name="inactive" domain="[('active', '=', True)]" context="{'group_by':'postcode', 'residual_visible':True}"/>
             </search>
         </field>
     </record>
