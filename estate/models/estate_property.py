@@ -1,11 +1,11 @@
 from odoo import models,fields
 from dateutil.relativedelta import relativedelta
 
-class TestModel(models.Model):
+class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Model"
 
-    name = fields.Char(required=True,default="My New house",size=100,visibility=50)
+    name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
@@ -28,6 +28,7 @@ class TestModel(models.Model):
         selection=[('new', 'New'), ('offer received', 'Offer Received'), 
         ('offer accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')],
         help="What's the Status!",default="new",required=True,copy=False)
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")
 
     
 
