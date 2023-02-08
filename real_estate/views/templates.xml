@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="menu_shop" model="website.menu">
+            <field name="name">Properties</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="url">estate/home</field>
+        </record>
+    </data>
+    <template id="property">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="" style="background-color:#f5f5f5;">
+                    <nav aria-label="breadcrumb" style="background-color:transparent; position:absolute;">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="/estate/home" class="text-light">Properties</a></li>
+                          <li class="breadcrumb-item active text-light" aria-current="page"><t t-esc="properties.name"/></li>
+                        </ol>
+                      </nav>
+                    <img t-attf-alt="{{properties.name}}" t-attf-src="data:image/jpg;base64,{{ properties.image }}" style="height:80vh; width:100%;"/>
+                    <div class="container">
+                        <h2 t-field="properties.name" class="text-center mt-3" />
+                        <p class="text-end">Last modified: <i t-field="properties.write_date" t-options='{"widget":"relative"}'/></p>
+                        <div class="row mt-3 pb-5">
+                            <div class="col-md-4">
+                                <div class="bg-dark text-light py-4 px-3">
+                                    <h3 class="text-center">Highlights</h3>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Property Type</span>
+                                        <span t-field="properties.property_type_id" />
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Expected Price</span>
+                                        <span>$ <span t-field="properties.expected_price" /></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Postcode</span>
+                                        <span t-field="properties.postcode" />
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Date Availability</span>
+                                        <span t-field="properties.date_availability" />
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Bedrooms</span>
+                                        <span t-field="properties.bedrooms" />
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Living Area</span>
+                                        <span><span t-field="properties.living_area" /> m<sup>2</sup></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Garden</span>
+                                        <t t-if="properties.garden">
+                                            <span><span t-field="properties.garden_area" /> m<sup>2</sup></span>
+                                        </t>
+                                        <t t-else="">
+                                            <span>No</span>
+                                        </t>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Garage</span>
+                                        <t t-if="properties.garage">
+                                            <span>Yes</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span>No</span>
+                                        </t>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Facades</span>
+                                        <span t-field="properties.facades" />
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 border-bottom border-white">
+                                        <span>Total Area</span>
+                                        <span><span t-field="properties.total_area" /> m<sup>2</sup></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h4 style="font-family:Lato;">Description:</h4>
+                                <div t-field="properties.description"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="mt-4 d-flex justify-content-between mx-3 border-bottom pb-2">
+                <form class="d-flex" method="GET">
+                    <input type="date" id="filterDate" name="filterDate" class="form-control"/>
+                    <input type="submit" value="Listed After" class="btn btn-primary p-1 ms-2"/>
+                </form>
+                <form class="d-flex" method="GET">
+                    <input type="text" id="searchName" name="searchName" class="form-control" placeholder="Search"/>
+                    <input type="submit" value="Search" class="btn btn-primary p-1 ms-2"/>
+                </form>
+            </div>
+            <h1 class="text-center mt-3">Properties</h1>
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="row gx-5">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col-md-4 mt-2 px-0 mb-5">
+                                <div class="card shadow bg-body-tertiary position-relative mx-auto" style="border-radius:20px; width:90%;">
+                                    <t t-if="property.state == 'new'">
+                                    <span class="badge bg-success text-uppercase position-absolute end-0 mt-2 me-4">
+                                        New
+                                    </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge bg-primary text-uppercase position-absolute end-0 mt-2 me-4">
+                                            Offer Received
+                                        </span>
+                                    </t>
+                                    <img t-attf-alt="No Image Available" t-attf-src="data:image/jpg;base64,{{ property.image }}" class="img-fluid" style="height:250px; width:400px;"/>
+                                    <div class="d-flex">
+                                        <t t-foreach="property.tag_ids" t-as="tag">
+                                            <span class="badge bg-dark ms-2 mt-n4 h-100">
+                                                <t t-esc="tag.name" />
+                                            </span>
+                                        </t>
+                                    </div>
+                                    <div class="px-3 card-body">
+                                        <p class="blockquote-footer mt-1 text-end">Courtesy <t t-esc="property.salesperson_id.name"/>, <t t-esc="property.company_id.name" /></p>
+                                        <a t-attf-href="/estate/{{slug(property)}}" class="text-decoration-none link-dark">
+                                            <span class="h5">
+                                                <t t-esc="property.name" />, <span class="h6"><t t-esc="property.postcode" /></span>
+                                            </span>
+                                            <h6>
+                                               $ <t t-esc="'{0:,.2f}'.format(int(property.expected_price))"  />
+                                            </h6>
+                                        </a>
+                                        <div class="text-muted">
+                                            <span class="border-end pe-2 border-2"><i class="fa fa-bed"></i> <t t-esc="property.bedrooms" /> Beds</span>
+                                            <span class="border-end pe-2 border-2"><i class="fa fa-building"></i> <t t-esc="property.facades" /> Facades</span>
+                                            <span><i class="fa fa-ruler-horizontal"></i><t t-esc="property.total_area" /> m<sup>2</sup></span>
+                                        </div>
+                                        <p class="text-muted small mt-3 text-end text-primary" >
+                                            <a t-attf-href="/estate/{{slug(property)}}" class="text-decoration-none link-primary">
+                                                View Property <i class="fa fa-arrow-right"/> 
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+                <t t-call="website.pager"/>
+            </div>
+        </t>
+    </template>
+
+</odoo>

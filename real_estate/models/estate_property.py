@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 
-class estateProperty(models.Model):
+class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is a regarding Real Estate"
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -34,13 +34,15 @@ class estateProperty(models.Model):
         default='new',
         tracking=True
     )
-
+    image = fields.Binary(attachment=True, store=True)
     # Relational Fields
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
     buyer_id = fields.Many2one('res.partner', string="Buyer", copy=False, readonly=True)
-    salesperson_id = fields.Many2one('res.users', string="Sales Person", default=lambda self: self.env.user)
+    # salesperson_id = fields.Many2one('res.users', string="Sales Person", default=lambda self: self.env.user)
+    salesperson_id = fields.Many2one('res.users', string="Sales Person")
     tag_ids = fields.Many2many('estate.property.tag','property_tags_rel','ta_id','prop_id', string="Tags")
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string="Offer")
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id)
 
     # Computed Fields
     total_area = fields.Integer(compute="_compute_total_area")
@@ -88,6 +90,7 @@ class estateProperty(models.Model):
             if not float_is_zero(record.selling_price, precision_digits = 2) and float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                 raise ValidationError("The selling price must be 90 % of Expected Price")
 
+    # Delete Method
     @api.ondelete(at_uninstall=False)
     def _prevent_deletion(self):
         for record in self:

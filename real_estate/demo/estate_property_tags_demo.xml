@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
         <record model="estate.property.tag" id="real_estate_tag_demo_data_1">
@@ -8,4 +8,4 @@
             <field name="name">Renovated</field>
         </record>
     </data>
-</odoo>
+</odoo> -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
+    <!-- List View -->
     <record id="real_estate_list_view" model="ir.ui.view">
         <field name="name">Real Estate List View</field>
         <field name="model">estate.property</field>
@@ -21,6 +21,7 @@
         </field>
     </record>
 
+    <!-- Form View -->
     <record id="real_estate_form_view" model="ir.ui.view">
         <field name="name">Real Estate Form View</field>
         <field name="model">estate.property</field>
@@ -43,6 +44,7 @@
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible':[('state', '!=', 'sold')]}" />
                     <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
                     <field name="active" invisible="1" />
+                    <field name="image" widget='image' class="oe_avatar" nolabel="1" options="{'size': [200, 200]}"/>
                     <label for="name" string="Name"/>
                     <h1><field name="name"/></h1>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field':'Color', 'no_create':True}" />
@@ -85,6 +87,7 @@
                         <page string="Other info">
                             <group>
                                 <field name="salesperson_id" widget="many2one_avatar"/>
+                                <field name="company_id" />
                                 <field name="buyer_id"/>
                             </group>
                         </page>
@@ -99,6 +102,7 @@
         </field>
     </record>
 
+    <!-- Search View -->
     <record id="real_estate_search_view" model="ir.ui.view">
         <field name="name">estate.property.search</field>
         <field name="model">estate.property</field>
@@ -118,6 +122,42 @@
                     <filter string="Postcode" name="name" context="{'group_by':'postcode'}"/>
                 </group>
             </search>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="real_estate_kanban_view" model="ir.ui.view">
+        <field name="name">real.estate.kanban.view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" records_draggable="False">                        
+                <field name="name"/>
+                <field name="expected_price"/>
+                <field name="best_offer"/>
+                <field name="selling_price"/>
+                <field name="tag_ids"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box"> <!-- Kanban-box defines template -->
+                        <!-- oe_kanban_global_click allows us to open form view on click -->
+                        <div class="oe_kanban_global_click">
+                            <strong>
+                                <field name="name"/>
+                            </strong>
+                            <div>
+                                Expected Price: <field name="expected_price"/>
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer_received'">
+                                Best Offer: <field name="best_offer"/>
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer_accepted'">
+                                Selling Price: <field name="selling_price"/>
+                            </div>
+                            <field name="tag_ids" options="{'color_field':'Color'}"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 </odoo>
