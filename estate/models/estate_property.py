@@ -13,13 +13,13 @@ class EstateProperty(models.Model):
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(default="2")
-    living_area = fields.Integer(string='Living Area(sqm)')
+    living_area = fields.Integer(string='Living Area (sqm)')
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer()
+    garden_area = fields.Integer(string='Garden Area (sqm)')
     garden_orientation = fields.Selection(
-        string='Type',
+        string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
         help="Choose appropriate direction"
     )       
@@ -32,3 +32,5 @@ class EstateProperty(models.Model):
      copy=False,
      default='new' 
     )
+
+    property_type_id=fields.Many2one("estate.property.type", string = "Property Type")
