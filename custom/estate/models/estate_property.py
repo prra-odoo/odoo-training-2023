@@ -5,7 +5,7 @@ class EstatePlan(models.Model):
     _description = "estate property"
    
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, string="Title")
    
     active = fields.Boolean(default = True)
     description = fields.Text()
@@ -21,9 +21,10 @@ class EstatePlan(models.Model):
     garden = fields.Boolean()
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(
-        string = "Type",
-        selection = [('north','North'),('south','South'),('east','East'),('west','West'), ],
-        help = "Choose the direction"
+        string = "Garden Orientaiton",
+        selection = [('north','North'),('south','South'),('east','East'),('west','West')],
+        help = "Choose the direction",
+        required=True
     )
     states = fields.Selection(
         string = "States",
