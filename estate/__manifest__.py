@@ -11,8 +11,9 @@
     'summary': 'Application to manage your real estate business',
     'data': [
         'security/ir.model.access.csv',
-        'views/estate_property_views.xml',
-        'views/estate_purchase_views.xml',
+        'views/estate_property_view.xml',
+        'views/estate_property_type_view.xml',
+        'views/estate_property_tags_view.xml',
         'views/estate_menus.xml'
     ]
 }
