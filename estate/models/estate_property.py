@@ -1,13 +1,14 @@
+# -*- coding: utf-8 -*-
 from odoo import fields, models
 from dateutil.relativedelta import relativedelta
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
-    _description = "Estate Property Module"
+    _description = "Estate Property Model"
 
     name = fields.Char(required=True)
-    description = fields.Char()
+    description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(string='Availability Date', default=fields.Date.today()+relativedelta(months=+3), copy=False)
     expected_price = fields.Float(string='Expected Price',required=True)
@@ -28,4 +29,5 @@ class EstateProperty(models.Model):
                      ('offer_received','Offer Received'),
                      ('offer_accepted','Offer Accepted'),
                      ('sold','Sold'),
-                     ('canceled','Canceled')], string='State')
+                     ('canceled','Canceled')], string='State', default="new", copy=False)
+    property_type_id = fields.Many2one("estate.property.type", string="Property Types")
