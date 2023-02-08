@@ -9,7 +9,6 @@
                 Create a record
             </p>
         </field>
-        
     </record>
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">Property</field>
@@ -27,10 +26,25 @@
             </tree>
         </field>
     </record>
-    <!-- <search string="Properties">
-        <field name="name"/>
-        <field name="postcode"/>
-    </search> -->
+    <record id="estate_property_view_search" model="ir.ui.view">
+        <field name="name">estate.property.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name" />
+                <field name="postcode" />
+                <field name="bedrooms" />
+                <field name="living_area" />
+                <field name="expected_price" />
+                <field name="facades" />
+                <filter string ="Availble" name="available" domain="[('state','in',('new','Offer Received'))]"/>
+                <group>
+                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
+                </group>    
+            </search>
+  
+        </field>
+    </record>
     <record id="estate_property_view_form" model="ir.ui.view">
         <field name="name">Property</field>
         <field name="model">estate.property</field>
@@ -38,8 +52,8 @@
                 <form string="Estate Property">
                    <sheet>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
+                            <!-- <label for="name" class="oe_edit_only"/> -->
+                            <h1><field name="name" placeholder="eg. zeel patel"/></h1>
                         </div>
                         <group>
                         <group>
@@ -61,7 +75,16 @@
                                 <field name="garage" />
                                 <field name="garden" />
                                 <field name="garden_area" />
-                                <field name="garden_orientation" />
+                                <field name="property_type_id"/>
+                                <field name="garden_orientation"/>
+                                <field name="state" widget="radio"/>
+                            </group>
+                        </page>
+                        <page string="depicted">
+                            <group>
+                                <field name="salesmans" />
+                                <field name="buyer" />
+                                
                             </group>
                         </page>
                     </notebook>
