@@ -46,3 +46,4 @@ class EstateProperty(models.Model):
     )
 
     active=fields.Boolean("Active",default=True)
+

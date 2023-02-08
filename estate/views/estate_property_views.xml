@@ -14,6 +14,7 @@
 </record>
 
 
+
 <record id="estate_property_view_tree" model="ir.ui.view">
    <field name="name">estate.property.tree</field>
    <field name="model">estate.property</field>
@@ -36,9 +37,11 @@
     <field name="arch" type="xml">
         <form  string="Properties">
         <sheet>
-            <group>
-              <field name="name" />
-            </group>
+            <div class="oe_title">
+            
+              <h1><field name="name" /></h1>
+            
+            </div>
             <group>
             <group>
                <field name="postcode"/>
@@ -63,6 +66,7 @@
                    <field name="garden_area"/>
                    <field name="garden_orientation"/>
                    <field name="state"/>
+                   <field name="active"/>
                   </group>
                 </group>
                 </page>
