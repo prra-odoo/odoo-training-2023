@@ -23,8 +23,9 @@ class EstateProperty(models.Model):
         help="Choose direction"
     )
     state=fields.Selection(
-        string='state',
+        string='State',
         selection=[('new','New'),('offer received','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         default='new',
         required=True
     )
+    property_type_id=fields.Char()
