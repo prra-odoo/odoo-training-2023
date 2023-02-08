@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-	'name' : 'Estate Account',
-	'description' : 'A module for linking estate and accounting module ',
-	'license': 'LGPL-3',
-	'author' : "Nishit Thakkar",
-    'depends': ['estate','account'],
+    'name': 'Estate Account',
+    'description': 'A module for linking estate and accounting module ',
+    'license': 'LGPL-3',
+    'author': "Nishit Thakkar",
+    'depends': ['estate', 'account'],
     'category': 'Category',
-	'application' : True,
+    'application': True,
     'installable': True,
-    'auto_install': False,
-    'sequence':3,
+    'auto_install': True,
+    'sequence': 3,
 }
