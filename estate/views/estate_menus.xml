@@ -5,4 +5,10 @@
             <menuitem id="estate_model_menu_action" action="estate_property_action"/>
         </menuitem>
     </menuitem>
+
+     <menuitem id="estate_menu_root" name="Real Estate">
+        <menuitem id="estate_second_level_menu" name="Settings">
+            <menuitem id="estate_type_model_menu_action" action="estate_property_type_action"/>
+        </menuitem>
+    </menuitem>
 </odoo>
