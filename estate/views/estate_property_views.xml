@@ -17,12 +17,14 @@
         <field name="arch" type="xml">
             <tree string="Tree View">
                 <field name="name"/>
+                <field name="tag_ids" widget="many2many_tags"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability"/>
+                <field name="property_type_id"/>
             </tree>  
         </field>
     </record>
@@ -35,17 +37,23 @@
                 <sheet>
                     <h1>
                     <group>
-                        <field name="name" nolabel="1" class="oe_inline"/>
+                        <field name="name" nolabel="1" class="oe_inline" placeholder="Property Name"/>
                     </group>
                     </h1>
                     <group>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                    </group>
                     <group>
-                        <field name="postcode"/>
+                    <group>
+                        <field name="property_type_id"/>
                         <field name="expected_price"/>
                     </group>
                     <group>
-                        <field name="date_availability"/>
+                        <field name="postcode"/>
                         <field name="selling_price"/>
+                    </group>
+                    <group>
+                        <field name="date_availability"/>
                     </group>
                     </group>
                     <notebook>
@@ -73,6 +81,19 @@
                             </group>
                             <group>
                                 <field name="garden_orientation"/>
+                            </group>
+                        </page>
+                        <page string="Offers">
+                            <group>
+                                <field name="offer_ids" string=""/>
+                            </group>
+                        </page>
+                        <page string="Other info">
+                            <group>
+                            <field name="salesperson"/>
+                            </group>
+                            <group>
+                            <field name="buyer"/>
                             </group>
                         </page>
                     </notebook>
