@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
     <record id="real_estate_property_action" model="ir.actions.act_window">
-        <field name="name">Title</field>
+        <field name="name">Properties</field>
         <field name="res_model">estate.real.property</field>
         <field name="view_mode">tree,form</field>
         
@@ -13,14 +13,21 @@
             <form string="New">
                 <sheet>
                     <group>
+                        <h1><field name="name"/></h1>
+                    </group>
+                    <group>
                         <group>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="property_type"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
+                            <field name="state"/>
                         </group>
+                   
                         <notebook>
                             <page string="Description">
                                 <group>
@@ -34,18 +41,47 @@
                                         <field name="garden"/>
                                         <field name="garden_area"/>
                                         <field name="garden_orientation"/>
+                                        <field name="active"/>
                                     </group>
                                 </group>
+                            
 
                             </page>
+                            <page string="Other Info">
+                                <group>
+                                    <group>
+                                        <field name="buyer"/>
+                                        <field name="seller"/>
+                                    </group>
+                                </group>
+                           
+                            </page>
+                            <page string="Other info">
+                                <group>
+                                    <group>
+                                        <field name="offer_ids"/>
+                                        
+
+                                    </group>
+                                </group>
+                            </page>
+
                         </notebook>
+                       
+                   
+                        
+                        
+
+                        
+                        
+                    
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
     <record id="real_estate_property_search" model="ir.ui.view">
-        <field name="name">real.estate.property.search</field>
+        <field name="name">real_estate_property_search</field>
         <field name="model">estate.real.property</field>
         <field name="arch" type="xml">
             <search string="Title for:">
@@ -59,10 +95,10 @@
                 
 
                 <separator/>
-                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-                <!-- <group expand="1" string="Group By">
-                    <filter string="Provider" name="provider" context="{'group_by':'delivery_type', 'residual_visible':True}"/>
-                </group> --> 
+                <filter string="Available" name="available" domain="['|',('state', '=', 'new'),('state','=','recieved')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                </group> 
             </search>
         </field>
     </record>
@@ -92,10 +128,23 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="date_availability"/>
+                
 
             </tree>
         </field>
     </record>
+    <record id="real_estate_property_action_types" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        
+    </record> 
+     <record id="real_estate_property_action_tags" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+        
+    </record> 
 
     
 </odoo>

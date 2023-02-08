@@ -28,7 +28,12 @@ class realProperty(models.Model):
     state=fields.Selection(string='State',
         selection=[('new','New'),('recieved','Offer Recieved'),('accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
         help="select the state")
-
+    property_type=fields.Many2one("estate.property.type",name="Property Type")
+    buyer=fields.Many2one("estate.property.type",name="Buyer",index=True, tracking=True, default=lambda self: self.env.user)
+    seller=fields.Many2one("estate.property.type",name="Salesman",index=True, tracking=True, default=lambda self: self.env.user)
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    offer_ids=fields.One2many("estate.property.offer","partner_id",string="Offers")
+    
     
 
 
