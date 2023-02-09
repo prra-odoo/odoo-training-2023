@@ -7,3 +7,4 @@ class EstatePropertyType(models.Model):
 	name=fields.Char(string='Name',
 			required=True,
 			help="this is for property type name")
+	
