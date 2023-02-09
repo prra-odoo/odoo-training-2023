@@ -5,8 +5,12 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property Model"
 
-    name = fields.Char(required=True,default="Unknown")
-    property_type_id = fields.Id()
+    name = fields.Char(required=True)
+    offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    buyer_id = fields.Many2one("res.users", string="Buyer", copy=False)
+    salesperson_id = fields.Many2one("res.partner", string="Salesperson",default=lambda self:self.env.user)
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
     description = fields.Text()
     postcode = fields.Char()
@@ -20,7 +24,7 @@ class EstateProperty(models.Model):
     garden = fields.Boolean()
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(
-        string='Type',
+        string='Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
         help="Type is used to separate Leads and Opportunities")
     active = fields.Boolean(default=True)
