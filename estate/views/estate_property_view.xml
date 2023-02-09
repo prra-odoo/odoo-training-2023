@@ -113,6 +113,8 @@
                 <field name="facades"/>
                 <field name="garden_orientation"/>
                 <field name="property_type_id"/>
+                <field name="tag_ids"/>
+                <field name="offer_ids"/>
                 <!-- SEPERATOR -->
                 <separator/>
                 <filter name="search_state" string="Available"  domain="[('state', 'in', ['new','offer_received'])]"/>
@@ -123,4 +125,33 @@
             </search>
         </field>
     </record>    
+    <!-- KANBAN VIEW -->
+    <record id="estate_property_kanban_view" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <field name="name"/>
+                            </div>
+                            <div>
+                                Expected Price: <field name="expected_price"/>
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer_received'">
+                                Best Offer: <field name="best_price"/>
+                            </div>
+                            <div t-if="record.selling_price.raw_value >= 0">
+                                Selling Price: <field name="selling_price"/>
+                            </div>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
 </odoo>

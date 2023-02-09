@@ -13,15 +13,14 @@ class estate_property_type(models.Model):
     name=fields.Char(string="Name",required=True)
     property_types_ids=fields.One2many('estate.property','property_type_id')
     sequence = fields.Integer(string="Sequence")
-    offer_ids = fields.One2many(related='property_types_ids.offer_ids')
+    # ...........................('RELATED MODEL','RELATED FIELD')
+    offer_ids = fields.One2many('estate.property.offer','property_offers_id')
     offer_count = fields.Integer( string='Offers', compute='_compute_offer_count')
 
     @api.depends('offer_ids')
     def _compute_offer_count(self):
         for record in self:
             record.offer_count= len(record.offer_ids)
+    
 
-    #   @api.multi
-    # def associate_account(self):
-    #     for partner in self:
-    #         partner.associate_count = len(partner.associate_ids)
+    

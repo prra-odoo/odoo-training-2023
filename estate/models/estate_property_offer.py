@@ -3,7 +3,6 @@ from odoo import api, fields, models, exceptions, _
 from dateutil.relativedelta import relativedelta
 
 
-
 class estate_property_offer(models.Model):
     _name = "estate.property.offer"
     _description = "estate property offer model"
@@ -15,7 +14,7 @@ class estate_property_offer(models.Model):
 
     price = fields.Float(string="Price")
     status = fields.Selection([('accepted', 'Accepted'), ('refused', 'Refused'),], string="Status",
-        copy=False, default=False)
+                              copy=False, default=False)
     partner_id = fields.Many2one('res.partner', string='Buyer', required=True)
     property_id = fields.Many2one('estate.property', required=True)
     validity = fields.Integer(string="Validity (days)", default="7")
@@ -56,15 +55,10 @@ class estate_property_offer(models.Model):
 
     @api.model
     def create(self, vals):
-        property_id = self.env['estate.property'].browse(vals['property_id'])
-        maxoffer = max(property_id.offer_ids.mapped('price'), default=0)
-        if maxoffer > vals['price']:
-            raise exceptions.UserError("Offer price should be greater than previous offer")
+        res = self.env['estate.property'].browse(vals['property_id'])
+        if vals['price'] < res.best_offer:
+            raise exceptions.ValidationError(
+                "New offer should be greater than the best offer")
         else:
-            property_id.state = 'offer_received'
+            res.state = 'offer_received'
             return super().create(vals)
-
-    
-
-
-                

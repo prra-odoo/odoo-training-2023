@@ -9,6 +9,5 @@
                 <field name="name"/>
             </tree>
         </field>
-    </record>
-     
+    </record>    
 </odoo>
