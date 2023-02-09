@@ -11,7 +11,7 @@
           </p>
         </field>
     </record>
-
+<!-- list/Tree view starts here -->
      <record id="estate_properties_views_list" model="ir.ui.view">
         <field name="name">Properties</field>
         <field name="model">estate.property</field>
@@ -19,56 +19,91 @@
             <tree string="Channel">
                 <field name="name"/>
                 <field name="postcode"/>
+                <field name="seller_id"/>
                 <field name="date_availability"/>
-                <field name="last_seen"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
-                <field name="facades"/>
                 <field name="garage"/>
-                <field name="garden"/>
+                <field name="property_type_id"/>
+                <field name="garden" optional="hide"/>
+                <!-- <field name="last_seen"/> -->
+                <!-- <field name="living_area"/> -->
+                <!-- <field name="facades"/> -->
+                <!-- <field name="state"/> -->
+                
             </tree>
         </field>
     </record>
+    <!-- form view starts here -->
    <record id="estate_properties_views_form" model="ir.ui.view">
         <field name="name">Properties</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
           <form string="Test">
-            <sheet>
-              <group>
+          <header>
+            <field name="state" widget="statusbar" options="{'clickable':1}" />
+          </header>
+            <sheet>                
+                    <label for="name" string="Property Name"/>
+                    <h1><field name="name" class="oe_inline" placeholder="My new house"/></h1>              
                   <group>
-                      <field name="postcode"/>
-                      <field name="date_availability"/>
+                    <field name="tag_ids" widget="many2many_tags" nolabel="1" placeholder="Tags" colspan="2"/>
                   </group>
-                  <group>
-                      <field name="expected_price"/>
-                      <field name="selling_price"/>
-                      
+                    <group col="3">
+                        <group>
+                            <field name="property_type_id"/>
+                            <field name="postcode"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                        </group>
+                        <group>
+                            <field name="date_availability"/>
+                            <field name="last_seen"/>
+                        </group>
                   </group>
                   <notebook>
                       <page string="Description">
-                      <group>
-                          <field name="name"/>
-                      <field name="postcode"/>
-                      <field name="date_availability"/>
-                      <field name="last_seen"/>
-                      <field name="expected_price"/>
-                      <field name="selling_price"/>
-                      <field name="bedrooms"/>
-                      <field name="living_area"/>
-                      <field name="facades"/>
-                      <field name="garage"/>
-                      <field name="garden"/>
-                    </group>
+                        <group>
+                            <!-- <field name="name"/> -->
+                            <!-- <field name="postcode"/> -->
+                            <!-- <field name="date_availability"/> -->
+                            
+                            <!-- <field name="expected_price"/>
+                            <field name="selling_price"/> -->
+                            <group>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="facades"/>
+                            <field name="garage"/>
+                            <field name="garden"/>
+                            </group>
+                            <group>
+                            <field name="garden_area"/>
+                            <field name="garden_orientation"/>
+                            <field name="active"/>
+                            <field name="state"/> 
+                            </group>                
+                        </group>
+                      </page>
+                      <page string="Offers">
+                        <field name="offer_ids"/>
+                      </page>
+                      <page string="Other Info">
+                        <group>
+                            <field name="buyer_id"/>
+                            <field name="seller_id"/>
+                        </group>
                       </page>
                   </notebook>
-              </group>
+             
           </sheet>
       </form>
       </field>
 </record>
+<!-- search view starts here -->
 <record id="estate_properties_view_search" model="ir.ui.view">
         <field name="name">Properties</field>
         <field name="model">estate.property</field>
@@ -83,16 +118,30 @@
                 <field name="selling_price"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
-                <field name="facades"/>
+                <!-- <field name="facades"/> -->
                 <field name="garage"/>
                 <field name="garden"/>
                 <field name="garden_area"/>
                 <field name="garden_orientation"/>
                 <field name="active"/>
                 <field name="state"/>
+                <field name="property_type_id"/>
                 <separator/>
-                <filter string="Available" name="inactive" domain="[('active', '=', True)]" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                <filter string="Available" name="state" domain="['|',('state', '=', 'offer receieved'),('state', '=', 'new')]"/>
+                <separator/>
+                <!-- seperator shows a line between both and two filters in same part are filtered in one whereas other would be shown in different filter -->
+                <filter string="Cozy" name="bedrooms" domain="['|',('bedrooms','=','1'),('bedrooms','=','2')]"/>
+                <filter string="Luxury" name="bedrooms" domain="[('bedrooms','>','2')]"/>
+                <separator/>
+                <filter string="Garden Available" name="garden" domain="[('garden','=','1')]"/>
+                <group expand="1" string="Group By">
+                        <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
+                </group>
+                <group expand="1" string="Group By">
+                        <filter string="Seller" name="seller_id" context="{'group_by':'seller_id'}"/>
+                </group>
+
             </search>
         </field>
-    </record>
+    </record> 
 </odoo>
