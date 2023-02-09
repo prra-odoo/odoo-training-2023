@@ -10,11 +10,11 @@ class EstateProperty(models.Model):
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date(string='Availability Date', default=fields.Date.today()+relativedelta(months=+3), copy=False)
+    date_availability = fields.Date(string='Availability Date', default=lambda self: fields.Date.today()+relativedelta(months=+3), copy=False)
     expected_price = fields.Float(string='Expected Price',required=True)
     selling_price = fields.Float(string='Selling Price', readonly=True, copy=False)
     bedrooms = fields.Integer(default=2)
-    living_area = fields.Integer(string='Living Area')
+    living_area = fields.Integer(string='Living Area(sqm)')
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
@@ -30,4 +30,7 @@ class EstateProperty(models.Model):
                      ('offer_accepted','Offer Accepted'),
                      ('sold','Sold'),
                      ('canceled','Canceled')], string='State', default="new", copy=False)
-    property_type_id = fields.Many2one("estate.property.type", string="Property Types")
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    user_id = fields.Many2one('res.users', string='Salesman', default=lambda self: self.env.user)
+    buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False)
+    tag_ids = fields.Many2many("estate.property.tag", string="Property Tag")
