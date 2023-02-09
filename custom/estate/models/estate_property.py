@@ -19,9 +19,11 @@ class EstateProperty(models.Model):
         selection = [('north','North'),('South','South'),('East','East'),('West','West')],
         help = "Choose the direction"
     )
-    property_type_id = fields.Many2one("res.partner")
-    buyer = fields.Many2one("res.users", copy=False)
-    seller = fields.Many2one("res.partner", default=lambda self: self.env.user)
+    offer_ids = fields.One2many('estate.property.offer', 'property_id')
+    tag_id = fields.Many2many("estate.property.tag", string="Tags")
+    property_type_id = fields.Many2one("estate.property.type")
+    buyer = fields.Many2one("res.partner", copy=False)
+    seller = fields.Many2one("res.users", default=lambda self: self.env.user)
     selling_price = fields.Float(readonly=True, copy=False)
     living_area = fields.Integer()
     garage = fields.Boolean()
