@@ -11,15 +11,15 @@
             </p>
         </field>
     </record>
-    
+
     <!-- display tree view -->
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Property">
-                <field name="name"/>
-                <field name="postcode"/>
+                <field name="name" />
+                <field name="postcode" optional="show"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="expected_price"/>
@@ -35,7 +35,11 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Property">
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
                 <sheet>
+                    <lable for="name"><b>Property Name</b></lable>
                     <h1>
                         <field name="name"/>
                     </h1>
@@ -56,16 +60,23 @@
 
                         <notebook>
                             <page string="Description">
-                            <group>
-                                <field name="description"/>
-                                <field name="bedrooms"/>
-                                <field name="living_area"/>
-                                <field name="facades"/>
-                                <field name="garage"/>
-                                <field name="garden"/>
-                                <field name="garden_area"/>
-                                <field name="garden_orientation"/>
-                                <field name="state"/>
+                                <group>
+                                    <field name="description"/>
+                                    <field name="bedrooms"/>
+                                    <field name="living_area"/>
+                                    <field name="facades"/>
+                                    <field name="garage"/>
+                                    <field name="garden"/>
+                                    <field name="garden_area"/>
+                                    <field name="garden_orientation"/>
+                                    <field name="state"/>
+                                </group>
+                            </page>
+
+                            <page string="Other Info">
+                            <group >
+                                    <field name="buyer" />
+                                    <field name="seller" />                                   
                             </group>
                             </page>
                         </notebook>
@@ -86,11 +97,34 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="facades"/>
-                <filter name="State" string="State" domain="['|',('state', '=', 'offer received'),('state', '=', 'new')]"  />
+                <filter name="State" string="State" domain="[('state', 'in', ['offer received','new'])]"  />
                 <group expand="1" string="Group By">
                     <filter name="Postcode" string="Postcode" context="{'group_by': 'postcode', 'residual_visible':True}" />
                 </group>
             </search> 
         </field>
     </record> 
+
+
+    <!-- display property type -->
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Property Type</field>
+            <field name="res_model">estate.property.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html"> 
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Property type
+                </p>            
+            </field>
+    </record>
+
+    <record id="estate_property_type_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.type.tree</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="Property Type">
+                <field name="name"></field>
+            </tree>
+        </field>
+    </record>
 </odoo>

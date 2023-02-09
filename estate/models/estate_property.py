@@ -34,3 +34,6 @@ class EstateProperty(models.Model):
     ],
     default='new',
     )
+
+    buyer = fields.Many2one("res.partner", string="Buyer")
+    seller = fields.Many2one("res.users",string="Seller")
