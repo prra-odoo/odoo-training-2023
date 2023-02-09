@@ -56,14 +56,19 @@ class estateProperty(models.Model):
         pass
 
     def accept_offer(self):
-        for record in self:            
-            record.status='accepted'
-            record.property_id.selling_price=record.price
-            record.property_id.state='offer_accepted'
-
-            for records in self.property_id.offer_ids:
-                if records != self:
-                    records.status='refused'
+        for record in self:
+            # breakpoint()
+            if record.price >= 0.9*record.property_id.expected_price:       
+                record.status='accepted'
+                record.property_id.selling_price=record.price
+                record.property_id.state='offer_accepted'
+                record.property_id.buyer_id=record.partner_id
+                for records in self.property_id.offer_ids:
+                    if records != self:
+                        records.status='refused'
+            else:
+                raise UserError('Please accept a higher offer')
+            
 
     def reject_offer(self):
         for record in self:

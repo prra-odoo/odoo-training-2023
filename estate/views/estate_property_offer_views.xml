@@ -9,8 +9,8 @@
                      <tree string="..." decoration-success="status=='accepted'" decoration-danger="status=='refused'" editable="top">
                         <field name="price"/>
                         <field name="partner_id"/>
-                        <button name="accept_offer" type="object" string="  " icon="fa-check" attrs="{'invisible': [('status', '=', 'accepted')]}"/>
-                        <button name="reject_offer" type="object" string="  " icon="fa-times" attrs="{'invisible': [('status', '=', 'accepted')]}"/>
+                        <button name="accept_offer" type="object" string="  " icon="fa-check" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
+                        <button name="reject_offer" type="object" string="  " icon="fa-times" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
                         <field name="status" invisible="1"/>
                      </tree>
                  </field>

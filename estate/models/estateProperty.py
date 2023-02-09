@@ -68,8 +68,8 @@ class estateProperty(models.Model):
         ('check_expected_price', 'CHECK(expected_price > 0)',
          'Expected Price should be greater than 0'),
 
-        ('check_selling_price_required', 'CHECK(selling_price >=(0.9* expected_price))',
-         'Selling Price should be greater than 90pc of expected price')
+        # ('check_selling_price_required', 'CHECK(selling_price >=(0.9* expected_price))',
+        #  'Selling Price should be greater than 90pc of expected price')
     ]
 
 
@@ -94,6 +94,7 @@ class estateProperty(models.Model):
             else:
                 if record.state=='offer_accepted':
                     record.state='sold'
+                    
                 else:
                     raise UserError('Please accept an offer first')
 
