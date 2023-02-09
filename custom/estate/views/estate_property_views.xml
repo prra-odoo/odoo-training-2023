@@ -12,6 +12,7 @@
             <tree string="Channel">
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
+                <field name="property_type_id"/>
                 <field name="bedrooms"/>
                 <field name="living_area" string="Living Area(sqm)"/>
                 <field name="expected_price"/>
@@ -24,15 +25,19 @@
         <field name="name">estate.property.form</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
+            
             <form string="Description">
             <sheet>
+            <label for="name" string="Property Name"/>
              <div class="oe_title">
                         <h1 class="mb32">
                             <field name="name" class="mb16"/>
                         </h1>
+                        <field name="tag_ids" widget="many2many_tags" string="Tags"/>
                     </div>
             <group>               
                  <group>
+                  <field name="property_type_id"/>
                     <field name="postcode"/>
                     <field name="expected_price"/>
                  </group>
@@ -45,27 +50,36 @@
                 <group>
                 <group>
                     <field name="description"/>
-                 <!-- </group>
-                 <group> -->
+                 
                     <field name="bedrooms"/>
-                <!-- </group>
-                <group> -->
+            
                     <field name="living_area" string="Living Area (sqm)"/>
-                <!-- </group>
-                <group> -->
+            
                     <field name="facades"/>
-                <!-- </group> -->
-                <!-- <group> -->
-                    <field name="garage"/>
-                <!-- </group> -->
-                <!-- <group> -->
+                   <field name="garage"/>
                     <field name="garden_area" string="Garden Area (sqm)"/>
-                <!-- </group> -->
-                <!-- <group> -->
+                
                     <field name="garden_orientation"/>
                     <field name="state"/>
                 </group>
                 </group>
+                </page>
+                <page string="Other info">
+                <group>
+                <group>
+                        <field name="salesperson"/>
+                        <field name="buyer"/>
+                </group>
+                </group>
+                </page>
+                <page string="Offers">
+                 <field name="offer_id">
+                    <tree>
+                    <field name="price"/>
+                    <field name="partner_id"/>
+                    <field name="status"/>
+                    </tree>
+                </field>
                 </page>
             </notebook>
             </group>
@@ -80,15 +94,20 @@
                 <search string="estate property">
                     <field name="name" string="Title"/>
                     <field name="postcode"/>
+                     <field name="property_type_id"/>
                     <field name="expected_price"/>
                     <field name="bedrooms"/>
                     <field name="living_area" string="Living Area (sqm)"/>
                     <field name="facades"/>
                     <!-- <field name="delivery_type"/>-->
                     
-                    <filter string="Available" name="state" domain="['|',('state', '=','new'),('state', '=','offer received')]"/>
+                    <filter string="Available" name="state" domain="[('state', 'in',['new','offer received'])]"/>
+                    <separator/>
+                    <filter string="Available" name="state" domain="[('state', 'in',['new','offer received'])]"/>
+                    
                     <group expand="1" string="Group By">
                         <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                        <filter string="Bedrooms" name="bedrooms" context="{'group_by':'bedrooms'}"/>
                     </group> 
                 </search>
             </field>
