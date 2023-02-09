@@ -23,6 +23,9 @@
                 <field name="living_area"/>
                 <field name="date_availability"/>
 
+                <field name="property_type_id" optional="show"/>
+                <field name="property_tag_id" optional="hide"/>
+
             </tree>
         </field>
     </record>
@@ -37,6 +40,8 @@
                 <field name="living_area" />
                 <field name="expected_price" />
                 <field name="facades" />
+                <field name="property_type_id"/>
+                <field name="property_tag_id"/>
                 <filter string ="Availble" name="available" domain="[('state','in',('new','Offer Received'))]"/>
                 <group>
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
@@ -59,12 +64,15 @@
                         <group>
                             <field name="postcode"/>
                             <field name="date_availability"/>
+                            <field name="property_type_id"/>
                         </group>
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
+                            <field name="property_tag_id" widget="many2many_tags"/>
                         </group>
                     </group>
+                    <br/>
                     <notebook>
                         <page string="Description">
                             <group>
@@ -75,18 +83,25 @@
                                 <field name="garage" />
                                 <field name="garden" />
                                 <field name="garden_area" />
-                                <field name="property_type_id"/>
                                 <field name="garden_orientation"/>
                                 <field name="state" widget="radio"/>
                             </group>
                         </page>
-                        <page string="depicted">
+                        
+                        <page string="Offers">
+                            <group>
+                                <field name="offer_ids" string=""/>
+                            </group>
+                        </page>
+
+                        <page string="Other Info">
                             <group>
                                 <field name="salesmans" />
                                 <field name="buyer" />
                                 
                             </group>
                         </page>
+                        
                     </notebook>
                     </sheet>
                 </form>
