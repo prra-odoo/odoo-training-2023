@@ -20,12 +20,16 @@ class TestModel(models.Model):
     garden_orientation = fields.Selection(
         string = 'Type',
         selection = [('north','North'), ('south','South'), ('east','East'), ('west','West')],
-        help = 'Select one from Below '
-    )
+        help = 'Select one from Below ')
     state = fields.Selection(
         selection = [('new','New'), ('offer received', 'Offer Received'), ('offer accepted', 'Offer Accepted'),
                       ('sold', 'Sold'), ('canceled', 'Canceled')  ],
-                      default='new'
-    )
+                      default='new')
     active = fields.Boolean(default=True)
+    # Linking Others Modules
+    property_type_ID= fields.Many2one('estate.property.type',string="estate_type_partner")
+    buyer=fields.Many2one('res.partner')
+    salesperson = fields.Many2one('res.users', default= lambda self : self.env.user)
+    tag_ids = fields.Many2many('estate.property.tag', string="estate_tags")
+    offer_ids = fields.One2many('estate.property.offer',"property_id")
 

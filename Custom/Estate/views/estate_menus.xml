@@ -7,9 +7,13 @@
         <menuitem id="test_model_menu_action" action="test_model_action"/>
     </menuitem>
 
-    <!-- Property Type -->
+    <!-- Setting section -->
+    
     <menuitem id="estate_property_type" name="Setting">
+    <!-- Property Type -->
         <menuitem id="property_type_action" action="estate_property_type_action"/>
+    <!-- Property Tag -->
+        <menuitem id="property_tag_action" action="estate_property_tags_action"/>
     </menuitem>
 
     </menuitem>
