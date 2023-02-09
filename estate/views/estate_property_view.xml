@@ -31,9 +31,6 @@
                 <field name="state" />
                 <field name="buyer" />
                 <field name="salesperson" />
-                <field name="price" />
-                <field name="partner_id" />
-                <field name="status" />
             </tree>
         </field>
     </record>
@@ -44,6 +41,9 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                </header>
                 <sheet>
                     <h1>
                         <field name="name" />
@@ -57,6 +57,7 @@
                         </group>
                         <group name="group_right">
                             <field name="expected_price" />
+                            <field name="best_price" />
                             <field name="selling_price" />
                         </group>
                     </group>
@@ -73,13 +74,12 @@
                                 <field name="garden_orientation" />
                                 <field name="active" />
                                 <field name="state" />
+                                <field name="total_area" />
                             </group>
                         </page>
                         <page string="Offers">
                             <group>
-                                <field name="price" />
-                                <field name="partner_id" />
-                                <field name="status" />
+                                <field name="offer_ids" />
                             </group>
                         </page>
                         <page string="Other Info">
@@ -111,9 +111,9 @@
                     <filter string="Postcode" name="postcode"
                         context="{'group_by':'postcode', 'residual_visible':True}" />
                 </group>
+                <separator/>
                 <filter string="New" name="state" domain="[('state','=','new')]" />
-                <filter string="Offer Received" name="state"
-                    domain="[('state','=','offer_received')]" />
+                <filter string="Offer Received" name="state" domain="[('state','=','offer_received')]" />
             </search>
         </field>
     </record>
