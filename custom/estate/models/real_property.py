@@ -29,10 +29,15 @@ class realProperty(models.Model):
         selection=[('new','New'),('recieved','Offer Recieved'),('accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
         help="select the state")
     property_type=fields.Many2one("estate.property.type",name="Property Type")
-    buyer=fields.Many2one("estate.property.type",name="Buyer",index=True, tracking=True, default=lambda self: self.env.user)
-    seller=fields.Many2one("estate.property.type",name="Salesman",index=True, tracking=True, default=lambda self: self.env.user)
+    buyer=fields.Many2one("res.partner",name="Buyer",copy=False)
+    seller=fields.Many2one("res.users",name="Salesman", default=lambda self: self.env.user)
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
-    offer_ids=fields.One2many("estate.property.offer","partner_id",string="Offers")
+    offer_ids = fields.One2many(
+        comodel_name='estate.property.offer',
+        inverse_name='property_id',
+        string='Offers',
+        required=True        
+    )
     
     
 

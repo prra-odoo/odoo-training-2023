@@ -12,12 +12,15 @@
         <field name="arch" type="xml">
             <form string="New">
                 <sheet>
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                    </header>
                     <group>
-                        <h1><field name="name"/></h1>
+                        <h1><field name="name" nolabel="1"/></h1>
                     </group>
                     <group>
                         <group>
-                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="tag_ids" widget="many2many_tags"/> 
                             <field name="property_type"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
@@ -25,7 +28,7 @@
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
-                            <field name="state"/>
+                            
                         </group>
                    
                         <notebook>
@@ -34,7 +37,6 @@
                                     <group>
                                         <field name="description"/>
                                         <field name="bedrooms"/>
-                                
                                         <field name="living_area"/>
                                         <field name="facades"/>
                                         <field name="garage"/>
@@ -44,8 +46,6 @@
                                         <field name="active"/>
                                     </group>
                                 </group>
-                            
-
                             </page>
                             <page string="Other Info">
                                 <group>
@@ -56,25 +56,14 @@
                                 </group>
                            
                             </page>
-                            <page string="Other info">
+                            <page string="Offers">
                                 <group>
                                     <group>
-                                        <field name="offer_ids"/>
-                                        
-
+                                        <field name="offer_ids" string="offers"/>
                                     </group>
                                 </group>
                             </page>
-
                         </notebook>
-                       
-                   
-                        
-                        
-
-                        
-                        
-                    
                     </group>
                 </sheet>
             </form>
@@ -91,11 +80,8 @@
                 <field name="bedrooms" />
                 <field name="living_area"/>
                 <field name="facades"/>
-                    
-                
-
                 <separator/>
-                <filter string="Available" name="available" domain="['|',('state', '=', 'new'),('state','=','recieved')]"/>
+                <filter string="Available" name="available" domain="[('state', 'in', ['new','recieved'])]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
                 </group> 
@@ -128,8 +114,6 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="date_availability"/>
-                
-
             </tree>
         </field>
     </record>
@@ -139,12 +123,46 @@
         <field name="view_mode">tree,form</field>
         
     </record> 
+
      <record id="real_estate_property_action_tags" model="ir.actions.act_window">
         <field name="name">Property Tags</field>
         <field name="res_model">estate.property.tag</field>
         <field name="view_mode">tree,form</field>
-        
     </record> 
 
+    <record id="real_estate_property_offer_tree" model="ir.ui.view">
+        <field name="name">real_estate_property_offer_tree</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="price"/>
+                <field name="status"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
     
+    <record id="real_estate_property_offer_form" model="ir.ui.view">
+        <field name="name">real_estate_property_offer_form</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <notebook>
+                    <page string="offers">
+                        <group>
+                            <group>
+                                <field name="price"/>
+                                <field name="status"/>
+                                <field name="partner_id"/>
+                            
+                            </group>
+                        
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+        </field>
+    </record> 
 </odoo>
