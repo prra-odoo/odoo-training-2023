@@ -20,12 +20,14 @@
             <tree string="Properties">
                 <field name="name"/>
                 <field name="postcode"/>
+                <field name="salesman_id" string="Salesperson"/>
+                <field name="property_type_id"/>                             
                 <field name="bedrooms" optional="hide"/>
                 <field name="living_area"/>
                 <field name="expected_price" optional="show"/>
-                <field name="selling_price"/>
-                <field name="date_availability"/>
-                <field name="property_type_id"/>
+                <field name="selling_price" optional="hide"/>
+                <field name="date_availability" optional="hide"/>
+                <field name="property_tag_ids" widget="many2many_tags" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -35,12 +37,18 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Form">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable':1}"/>
+                </header>
                 <sheet>
+                    <label for="name" string="Property Name"/>
+                    <h1><field name="name" nolabel="1" class="oe_inline" placeholder="My New House"/></h1>
                     <group>
-                        <h1><field name="name" nolabel="1" class="oe_inline" placeholder="Property Name"/></h1>
+                        <field name="property_tag_ids" widget="many2many_tags" nolabel="1" placeholder="Enter Tags" colspan="4"/>
                     </group>
                     <group>   
                         <group>
+                            <field name="property_type_id"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -50,19 +58,30 @@
                         </group>
                         <notebook>
                             <page string="Description">
+                                <group col="2">
+                                    <group>
+                                        <field name="description" placeholder="Details about the property!"/>                             
+                                        <field name="last_seen"/>
+                                        <field name="bedrooms"/>
+                                        <field name="living_area"/>
+                                        <field name="facades"/>
+                                    </group>    
+                                    <group>
+                                        <field name="garage"/>
+                                        <field name="garden"/>
+                                        <field name="garden_area"/>
+                                        <field name="garden_orientation"/>
+                                        <field name="active"/>
+                                    </group>                                   
+                                </group>
+                            </page>
+                            <page string="Offers">
+                                <field name="offer_ids" class="oe_inline"/>                          
+                            </page>
+                            <page string="Other Info">
                                 <group>
-                                    <field name="description" placeholder="Write Something"/>                             
-                                    <field name="last_seen"/>
-                                    <field name="bedrooms"/>
-                                    <field name="living_area"/>
-                                    <field name="facades"/>
-                                    <field name="garage"/>
-                                    <field name="garden"/>
-                                    <field name="garden_area"/>
-                                    <field name="garden_orientation"/>
-                                    <field name="active"/>
-                                    <field name="state"/>
-                                    <field name="property_type_id"/>
+                                    <field name="salesman_id" class="oe_inline"/>                             
+                                    <field name="buyer_id" class="oe_inline"/>
                                 </group>
                             </page>
                         </notebook>
@@ -84,8 +103,16 @@
                 <field name="living_area"/>
                 <field name="facades"/>
                 <field name="property_type_id"/>
+                <field name="property_tag_ids" widget="many2many_tags"/>
+                <filter string="My Properties" name="salesman_id" domain="[('salesman_id', '=', 'Manushi')]"/>
                 <separator/>
-                <filter string="Available" name="state" domain="['|',('state', '=', 'new'),('state', '=', 'offer received')]"/>
+                <!-- <filter string="Available" name="state" domain="['|',('state', '=', 'new'),('state', '=', 'offer received')]"/> -->
+                <filter string="Available" name="state" domain="[('state', 'in', ['new','offer received'])]"/>
+                <separator/>
+                <filter string="Cozy" name="bedrooms" domain="[('bedrooms', 'in', [1,2])]"/>
+                <filter string="Luxury" name="bedrooms" domain="[('bedrooms', '>', '2')]"/>
+                <separator/>
+                <filter string="Garden" name="garden" domain="[('garden', '=', '1')]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                 </group>
