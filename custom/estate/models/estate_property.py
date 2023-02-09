@@ -6,7 +6,7 @@ class EstatePlan(models.Model):
    
 
     name = fields.Char(required=True, string="Title")
-   
+    property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
     active = fields.Boolean(default = True)
     description = fields.Text()
     # state = fields.Text()
@@ -33,4 +33,6 @@ class EstatePlan(models.Model):
         help = "Choose the state",
         required = True
     )
+    buyer = fields.Many2one("res.partner", string="Buyer")
+    salesperson = fields.Many2one("res.users",string = "Salesperson", default=lambda self: self.env.user)
   

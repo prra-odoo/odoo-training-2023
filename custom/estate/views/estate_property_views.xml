@@ -11,6 +11,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Channel">
+                <field name="property_type_id" />
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
                 <field name="bedrooms" optional= "hide"/>
@@ -35,6 +36,7 @@
                     </div>
                     <group>
                         <group>
+                            <field name="property_type_id"/>
                             <field name="name"/>
                             <field name="expected_price"/>
                         </group>
@@ -58,7 +60,18 @@
                                 </group>
                                 </group>
                             </page>
-                        </notebook>
+                       
+                        
+                            <page string="Other Info">
+                                <group>
+                                    <group>
+                                        <field name = "salesperson"/>
+                                        <field name = "buyer"/>
+
+                                    </group>
+                                </group>
+                            </page>
+                         </notebook>
                     </group>
                 </sheet>
             </form>
