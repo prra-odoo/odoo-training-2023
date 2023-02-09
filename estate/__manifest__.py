@@ -1,5 +1,6 @@
 {
     'name': "Real Estate",
+    'author': "Shubham Thanki (shut)",
     'sequence': -100,
     'depends': ['base'],
     'application': True,
