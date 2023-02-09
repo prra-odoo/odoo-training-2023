@@ -9,7 +9,7 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel" >
+            <tree string="Channel" expand="1">
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
@@ -33,11 +33,13 @@
                         </div>
                     <group>    
                         <group>
+                            <field name="property_type_id"/>
                             <field name="postcode"/>
-                            <field name="expected_price"/>
+                            <field name="date_availability"/>
+                            
                         </group>
                         <group>
-                            <field name="date_availability"/>
+                            <field name="expected_price"/>
                             <field name="selling_price"/>
                         </group>
                         <notebook>
@@ -52,6 +54,12 @@
                                     <field name="garden_area"/>
                                     <field name="garden_orientation"/>
                                     <field name="status"/>
+                                </group>
+                            </page>
+                            <page string="Other Info">
+                                <group col="3">
+                                    <field name="sales_person_id"/>
+                                    <field name="buyer_id"/>
                                 </group>
                             </page>
                         </notebook>
