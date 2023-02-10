@@ -17,10 +17,25 @@ class EstatePropertyOffer(models.Model):
     @api.depends("validity","create_date")
     def _computed_date_deadline(self):
         for record in self:
-            try:
-                record.date_deadline = fields.Date.from_string(record.create_date) + relativedelta(days=record.validity)
-            except:
-                record.date_deadline = fields.Date.today() + relativedelta(days=record.validity)
+            if(not record.create_date):
+                record.create_date = fields.Date.today()
+            record.date_deadline = fields.Date.from_string(record.create_date) + relativedelta(days=record.validity)
+
     def _inverse_date_deadline(self):
         for record in self:
                 record.validity = (record.date_deadline-datetime.date(record.create_date)).days
+
+    def offer_accept(self):
+        for record in self:
+            for offers in self.property_id.offer_ids:
+                offers.status = "refused"
+            record.status="accepted"
+            self.property_id.state="offer_accepted"
+            self.property_id.selling_price=record.price
+            self.property_id.buyer=record.partner_id
+        return True
+    
+    def offer_reject(self):
+        for record in self:
+            record.status="refused"
+        return True

@@ -4,10 +4,10 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
-         <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
             Create a new Property
-          </p>
+            </p>
         </field>
     </record>
 
@@ -25,7 +25,7 @@
                 <field name="selling_price"/>
                 <field name="date_availability"/>
                 <field name="property_type_id"/>
-            </tree>  
+            </tree>
         </field>
     </record>
 
@@ -35,14 +35,17 @@
         <field name="arch" type="xml">
             <form string="Form View">
                 <header>
+                    <button name="property_sold" type="object" string="Sold" class="oe_highlight"/>
+                    <button name="property_cancel" type="object" string="Cancel"/>
+
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>
                 <sheet>
                     <h1>
-                    <label for="name"/>
-                    <group>
-                        <field name="name" nolabel="1" class="oe_inline" placeholder="Property Name"/>
-                    </group>
+                        <label for="name"/>
+                        <group>
+                            <field name="name" nolabel="1" class="oe_inline" placeholder="Property Name"/>
+                        </group>
                     </h1>
                     <group>
                         <group>

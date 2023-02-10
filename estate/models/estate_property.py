@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api,fields, models
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 class EstateProperty(models.Model):
     _name="estate.property"
@@ -42,7 +43,6 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area=record.living_area+record.garden_area
 
-
     @api.depends("offer_ids")
     def _compute_best_offer(self):
         for record in self:
@@ -60,3 +60,25 @@ class EstateProperty(models.Model):
         else:
             self.garden_area = 0
             self.garden_orientation=""
+
+
+    def property_sold(self):
+        for record in self:
+            if(record.state!="cancelled"):
+                record.state = "sold"
+            else:
+                raise UserError("Cancelled Property can not be Sold.")
+        return True
+
+    def property_cancel(self):
+        for record in self:
+            if(record.state!="sold"):
+                record.state = "cancelled"
+            else:
+                raise UserError("Sold Property can not be Cancelled.")
+        return True
+       
+    def offer_accept(self):
+        for record in self:
+            record.status="sold"
+        return True
