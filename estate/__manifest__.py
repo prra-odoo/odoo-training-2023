@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': ' Real estate',
-    'category': 'sales',
+    'category': 'Real Estate/Brokerage',
     'summary': ' For buying and selling proerties.',
     'description': ' This is a  real estate Module',
     'author': 'Karnav',
@@ -13,6 +13,7 @@
     'auto_install': False,
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/estate_menu.xml',
         'views/estate_property_view.xml',
         'views/estate_property_type_view.xml',

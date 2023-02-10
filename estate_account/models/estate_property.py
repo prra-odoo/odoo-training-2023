@@ -18,5 +18,11 @@ class estate_property(models.Model):
                         (0,0,{"name": "Administrative fees","quantity": 1.0,"price_unit": 100.0,},),
                     ],
                 }
-            )                
+            )     
+            self.env['project.project'].create(
+                {
+                    'name': self.name,
+                    'task_ids': [(0, 0, {'name': "Cleaning",}),]
+                }
+            )           
         return res      
