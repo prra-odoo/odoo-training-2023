@@ -117,18 +117,9 @@
             </tree>
         </field>
     </record>
-    <record id="real_estate_property_action_types" model="ir.actions.act_window">
-        <field name="name">Property Types</field>
-        <field name="res_model">estate.property.type</field>
-        <field name="view_mode">tree,form</field>
-        
-    </record> 
+    
 
-     <record id="real_estate_property_action_tags" model="ir.actions.act_window">
-        <field name="name">Property Tags</field>
-        <field name="res_model">estate.property.tag</field>
-        <field name="view_mode">tree,form</field>
-    </record> 
+     
 
     <record id="real_estate_property_offer_tree" model="ir.ui.view">
         <field name="name">real_estate_property_offer_tree</field>
