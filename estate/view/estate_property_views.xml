@@ -99,7 +99,7 @@
         <field name="name">Estate Property kanban View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="property_type_id">
+            <kanban default_group_by="property_type_id" records_draggable="0">
                 <field name="state"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -112,7 +112,7 @@
                                 <field name="expected_price"/>
                             </div>
                             <div t-if="record.state.raw_value == 'offer_received'">
-                                Best Offer:
+                                Best Offer: 
                                 <field name="best_price"/>
                             </div>
                             <div t-if="record.state.raw_value == 'offer_accepted'">
