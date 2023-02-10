@@ -2,7 +2,7 @@
 {
     'name': "Real Estate",
     'version': '1.0',
-    'category': "Category",
+    'category': "Real Estate/Brokerage",
     'summary': 'Manage Property Related Offers and more',
     'description': "Real Estate module",
     'author': "Raj Patani",
@@ -17,6 +17,8 @@
         'views/estate_menus.xml',
     ],
     'demo': [
+        'demo/real_estate_property_tags_demo_data.xml',
+        'demo/real_estate_property_type_demo_data.xml',
         'demo/real_estate_demo_data.xml',
     ],
     'sequence' :-100,

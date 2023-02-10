@@ -6,12 +6,32 @@
             <field name="name">ABC</field>
             <field name="expected_price">1200000</field>
             <field name="postcode">390051</field>
+            <field name="property_type_id">1</field>
+            <field name="tag_ids" eval="[(6, 0, [1,3])]"/>
         </record> 
     
         <record id="estate_property_demo_data_2" model="estate.property">
             <field name="name">Indraprasth</field>
             <field name="expected_price">52000000</field>
             <field name="postcode">370051</field>
+            <field name="property_type_id">2</field>
+            <field name="tag_ids" eval="[(6, 0, [2,3])]"/>
         </record> 
+
+        <record id="estate_property_demo_data_3" model="estate.property">
+            <field name="name">NeelKanth Heights</field>
+            <field name="expected_price">600000</field>
+            <field name="postcode">560009</field>
+            <field name="property_type_id">2</field>
+            <field name="tag_ids" eval="[(6, 0, [3])]"/>
+        </record>
+
+        <record id="estate_proprety_demo_data_4" model="estate.property">
+            <field name="name">Riverside</field>
+            <field name="expected_price">8000000</field>
+            <field name="postcode">780009</field>
+            <field name="property_type_id">3</field>
+            <field name="tag_ids" eval="[(6, 0, [1,3,2])]"/>
+        </record>
     </data>
 </odoo>
