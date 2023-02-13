@@ -27,6 +27,7 @@
                 <field name="expected_price" />
                 <field name="selling_price" />
                 <field name="date_availability" />
+                <field name="tag_ids" widget="many2many_tags" />
             </tree>
         </field>
     </record>
@@ -49,6 +50,9 @@
                         </h1>
                     </div>
                     <br />
+                    <group>
+                        <field name="tag_ids" widget="many2many_tags" />
+                    </group>
                     <br />
                     <group>
                         <group>
@@ -75,6 +79,11 @@
                                     <field name="last_seen" />
                                     <field name="active" />
                                     <field name="state" />
+                                </group>
+                            </page>
+                            <page name="offers_page" string="Offers">
+                                <group>
+                                    <field name="offer_ids" />
                                 </group>
                             </page>
                             <page name="info_page" string="Other Info">
