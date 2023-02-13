@@ -42,6 +42,8 @@
         <field name="arch" type="xml">
           <form string="Test">
           <header>
+          <button type="object" name="action_sold" string="SOLD"/>
+          <button type="object" name="action_cancel" string="CANCELLED"/>
             <field name="state" widget="statusbar" options="{'clickable':1}" />
           </header>
             <sheet>                
@@ -52,6 +54,7 @@
                   </group>
                     <group col="3">
                         <group>
+                            <field name="state"/>
                             <field name="property_type_id"/>
                             <field name="postcode"/>
                         </group>
@@ -62,6 +65,7 @@
                         <group>
                             <field name="date_availability"/>
                             <field name="last_seen"/>
+                            <field name="best_offer"/>
                         </group>
                   </group>
                   <notebook>
@@ -85,6 +89,7 @@
                             <field name="garden_orientation"/>
                             <field name="active"/>
                             <field name="state"/> 
+                            <field name="total_area"/>
                             </group>                
                         </group>
                       </page>
