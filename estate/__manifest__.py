@@ -8,6 +8,7 @@
     'author': "Raj Patani",
     'depends': ['mail'],
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/estate_property_views.xml',
         'views/estate_property_offer.xml',
@@ -15,6 +16,7 @@
         'views/estate_property_tag.xml',
         'views/inherited_res_user_views.xml',
         'views/estate_menus.xml',
+        
     ],
     'demo': [
         'demo/real_estate_property_tags_demo_data.xml',

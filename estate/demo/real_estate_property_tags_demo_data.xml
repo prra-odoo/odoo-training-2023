@@ -2,14 +2,15 @@
 
 <odoo>
     <data>
+        <!-- Demo data - 1 -->
         <record id="estate_property_tag_demo_1" model="estate.property.tag">
             <field name="name">sea facing</field>
         </record>
-
+        <!-- Demo data - 2 -->
         <record id="estate_property_tag_demo_2" model="estate.property.tag">
             <field name="name">3BHK</field>
         </record>
-
+        <!-- Demo data - 3 -->
         <record id="estate_property_tag_demo_3" model="estate.property.tag">
             <field name="name">gym area</field>
         </record>
