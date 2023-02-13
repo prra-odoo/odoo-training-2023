@@ -1,4 +1,4 @@
-from odoo import models,fields
+from odoo import models,fields,api
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -38,8 +38,35 @@ class realProperty(models.Model):
         string='Offers',
         required=True        
     )
-    
-    
+    total_area=fields.Float(compute='_compute_total')
+    @api.depends('garden_area','living_area')
+    def _compute_total(self):
+        for record in self:
+            record.total_area=record.garden_area+record.living_area
+    description_buyer=fields.Char(compute='_compute_description_buyer')
+    @api.depends('buyer.name')
+    def _compute_description_buyer(self):
+        for record in self:
+             record.description_buyer= record.buyer.name
+    best_price=fields.Float(compute='_compute_best_price')
+    @api.depends('offer_ids.price')
+    def _compute_best_price(self):
+        for record in self:
+            if(record.offer_ids):
+                record.best_price=max(record.offer_ids.mapped("price"))
+            else:
+                record.best_price=0.0
+    @api.onchange('garden')
+    def onchange_check_garden(self):
+        if self.garden==True:
+            self.garden_area=10
+            self.garden_orientation='north'
+        else:
+            self.garden_area=0
+            self.garden_orientation=""
+
+           
+
 
 
     

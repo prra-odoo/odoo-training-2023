@@ -28,7 +28,8 @@
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
-                            
+                            <field name="description_buyer"/>
+                            <field name="best_price"/>
                         </group>
                    
                         <notebook>
@@ -42,6 +43,7 @@
                                         <field name="garage"/>
                                         <field name="garden"/>
                                         <field name="garden_area"/>
+                                        <field name="total_area"/>
                                         <field name="garden_orientation"/>
                                         <field name="active"/>
                                     </group>
@@ -146,6 +148,8 @@
                                 <field name="price"/>
                                 <field name="status"/>
                                 <field name="partner_id"/>
+                                <field name="validity"/>
+                                <field name="date_deadline"/>
                             
                             </group>
                         
