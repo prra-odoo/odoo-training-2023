@@ -33,6 +33,7 @@
                         </div>
                     <group>    
                         <group>
+                            <field name="tag_ids" widget="many2many_tags"/>
                             <field name="property_type_id"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
@@ -60,6 +61,13 @@
                                 <group col="3">
                                     <field name="sales_person_id"/>
                                     <field name="buyer_id"/>
+                                </group>
+                            </page>
+                            <page string="Offers">
+                                <group>
+                                    <field name="offer_ids">
+                                        
+                                    </field>
                                 </group>
                             </page>
                         </notebook>
