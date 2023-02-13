@@ -86,11 +86,7 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <group>
-                                <field name="price"/>
-                                <field name="partner_id"/>
-                                <field name="status"/>
-                            </group>
+                                <field name="offers_id"/>
                         </page>
                     </notebook>
                 </sheet>
