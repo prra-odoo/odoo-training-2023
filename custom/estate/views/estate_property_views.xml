@@ -19,6 +19,9 @@
                 <field name="expected_price" optional = "show"/>
                 <field name="selling_price"/>
                 <field name="dateavailability"/>
+                <field name="price"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="status" string="Status"/>
             </tree> 
         </field>
     </record>
@@ -35,6 +38,7 @@
                             </h1>
                     </div>
                     <group>
+                        <field name="property_tag_ids" widget="many2many_tags"/> 
                         <group>
                             <field name="property_type_id"/>
                             <field name="name"/>
@@ -57,17 +61,26 @@
                                     <field name = "garden_area"/>
                                     <field name = "garden_orientation"/>
                                     <field name = "states"/>
+                                    <field name = "totalarea"/>
                                 </group>
                                 </group>
                             </page>
                        
-                        
+                            <page string="Offers">
+                                <field name="property_id">
+                                    <tree>
+                                        <field name="price"/>
+                                        <field name="partner_id" string="Partner"/>
+                                        <field name="status" string="Status"/>
+                                    </tree>
+                                </field>
+                            </page>
+
                             <page string="Other Info">
                                 <group>
                                     <group>
                                         <field name = "salesperson"/>
                                         <field name = "buyer"/>
-
                                     </group>
                                 </group>
                             </page>
@@ -94,7 +107,5 @@
             </group>
         </search>
         </field>
-    </record>
-            
-            
+    </record>   
 </odoo>
