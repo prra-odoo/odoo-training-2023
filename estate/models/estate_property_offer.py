@@ -26,13 +26,12 @@ class EstatePropertyOffer(models.Model):
                 record.validity = (record.date_deadline-datetime.date(record.create_date)).days
 
     def offer_accept(self):
-        for record in self:
-            for offers in self.property_id.offer_ids:
-                offers.status = "refused"
-            record.status="accepted"
-            self.property_id.state="offer_accepted"
-            self.property_id.selling_price=record.price
-            self.property_id.buyer=record.partner_id
+        for offers in self.property_id.offer_ids:
+            offers.status = "refused"
+        self.status="accepted"
+        self.property_id.state="offer_accepted"
+        self.property_id.selling_price=self.price
+        self.property_id.buyer=self.partner_id
         return True
     
     def offer_reject(self):
