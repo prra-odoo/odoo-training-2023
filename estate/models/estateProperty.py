@@ -37,7 +37,6 @@ class estateProperty(models.Model):
             if(record.garden==True):
                 record.garden_area=10
                 record.garden_orientation='north'
-                # res.update({'warning': {'title': _('Warning !'), 'message': _('Bau paisa laage chhe!')}})
             else:
                 record.garden_area=0
                 record.garden_orientation=''
