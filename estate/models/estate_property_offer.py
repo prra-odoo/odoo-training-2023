@@ -1,7 +1,7 @@
 from odoo import models,fields
 
-class EstatePropertyTag(models.Model):
-    _name='estate.property.tag'
+class EstatePropertyOffer(models.Model):
+    _name='estate.property.offer'
     _description='adding property tags in property'
 
     price=fields.Float(string='Price',
