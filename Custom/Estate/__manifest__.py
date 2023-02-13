@@ -13,6 +13,6 @@
         'views/estate_property_tag.xml',
         'views/estate_Type.xml',
         'views/estate_menus.xml',
-    ]
+    ],
 }
 

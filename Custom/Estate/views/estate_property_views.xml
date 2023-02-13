@@ -5,8 +5,6 @@
     <field name="res_model">estate.property</field>
     <!-- <field name="view_mode">tree,form</field> -->
   </record>
-
-
 <!--             List(Tree)  View Estate Property    -->
    <record id="estate_propert_view_tree" model="ir.ui.view">
         <field name="name">estate_property_view</field>
@@ -23,10 +21,7 @@
             </tree>
         </field>
     </record>
-
-
 <!--           Form View Estate_Property    -->
-
   <record id="estate_property_view_form" model="ir.ui.view"> 
     <field name="name">estate_property_fromView </field>
     <field name="model">estate.property</field>
@@ -42,9 +37,7 @@
               <p>
                 <field name="tag_ids" widget="many2many_tags" />
               </p>
-
             <group> 
-
               <group>
                 <field name="property_type_ID" string="Property Type"/>
                 <field name="postcode"/>
@@ -54,8 +47,8 @@
                 <group>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
+                <field name="best_offer"/>
                 </group>
-
             </group>
 
          <notebook>
@@ -69,15 +62,13 @@
                      <field name="garden"/>
                      <field name="garden_area"/>
                      <field name="garden_orientation"/>
+                     <field name="total_area"></field>
                   </group>
                 </page>
-
           <!-- Offers Tab -->
-
                 <page string="Offers">
                   <field name="offer_ids"/>
                 </page>
-
           <!--   Other Info Tab -->
                 <page string="Other Info">
                 <group>
@@ -85,17 +76,12 @@
                   <field name="buyer"/>
                 </group>
                 </page>
-
         </notebook>
-
           </sheet>
         </form>
     </field>
   </record>
-
-
 <!-- Search View -->
-
   <record id="search_estate_list" model="ir.ui.view">
     <field name="name">Estate_Property_Search</field>
     <field name="model">estate.property</field>
@@ -106,19 +92,14 @@
         <field name="postcode"/>
         <field name="expected_price"/>
         <field name="garden_area"/>
-
          <separator/>
-                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
-                    <filter string="State" name="State" domain="['|',('state', '=', 'new'), ('state','=','offer received')]"/>
-
-                    <group expand="1" string="Group By">
-                        <filter string="Bedrooms" name="Bedrooms" context="{'group_by':'bedrooms', 'residual_visible':True}"/>
-                        <filter string="Postcode" name="Postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
-                    </group>
+         <filter string="State" name="State" domain="['|',('state', '=', 'new'), ('state','=','offer received')]"/>
+         <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+         <filter string="Bedrooms" name="Bedrooms" context="{'group_by':'bedrooms', 'residual_visible':True}"/>
+         <group expand="1" string="Group By">
+        </group>
+        <filter string="Postcode" name="Postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
       </search>
     </field>
   </record>
- 
-
-
 </odoo>
