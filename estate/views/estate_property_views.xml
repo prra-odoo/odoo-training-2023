@@ -47,23 +47,16 @@
                 <sheet>
                     <label for="name" string="Property Name"/>
                     <h1><field name="name" placeholder="My New House"/></h1>
+                    <field name="tag_ids" string="Tags" widget="many2many_tags"/>
                     <group>
                         <group>
-                            <field name="tag_ids" string="Tags" widget="many2many_tags"/>
-                        </group>
-                        <group>
                             <field name="property_type_id" string="Property Type"/>
-                        </group>
-                        <group>
                             <field name="postcode"/>
-                        </group>
-                        <group>
-                            <field name="expected_price"/>
-                        </group>
-                        <group>
                             <field name="date_availability" string="Available From"/>
                         </group>
                         <group>
+                            <field name="expected_price"/>
+                            <field name="best_price" string="Best Offer"/>
                             <field name="selling_price"/>
                         </group>
                         <notebook>
@@ -72,14 +65,15 @@
                                     <group>
                                         <field name="description"/>
                                         <field name="bedrooms"/>
-                                        <field name="living_area" string="Living Area (sqm)"/>
                                         <field name="facades"/>
+                                        <field name="living_area" string="Living Area (sqm)"/>
+                                        <field name="total_area" string="Total Area (sqm)"/>
                                         <field name="active"/>
                                     </group>
                                     <group string="Garden">
                                         <field name="garage"/>
                                         <field name="garden"/>
-                                        <field name="garden_area"/>
+                                        <field name="garden_area" string="Garden Area (sqm)"/>
                                         <field name="garden_orientation"/>
                                     </group>
                                 </group>
@@ -193,7 +187,9 @@
         <field name="arch" type="xml">
             <tree string="Channel">
                 <field name="price"/>
-                <field name="partner_id"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="validity" string="Validity (Days)"/>                    
+                <field name="date_deadline" string="Deadline"/>
                 <field name="status"/>
             </tree>
         </field>
@@ -207,7 +203,9 @@
                 <sheet>
                     <group>
                         <field name="price"/>
-                        <field name="partner_id"/>
+                        <field name="price"/><field name="partner_id" string="Partner"/>
+                        <field name="validity" string="Validity (Days)"/>                    
+                        <field name="date_deadline" string="Deadline"/>
                         <field name="status"/>
                     </group>
                 </sheet>
