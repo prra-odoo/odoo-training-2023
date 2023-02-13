@@ -35,5 +35,8 @@ class EstateProperty(models.Model):
     default='new',
     )
 
-    buyer = fields.Many2one("res.partner", string="Buyer")
-    seller = fields.Many2one("res.users",string="Seller")
+    buyer = fields.Many2one("res.partner", string="Buyer",copy=False)
+    seller = fields.Many2one("res.users",string="Seller",default=lambda self: self.env.user)
+    property_type_id = fields.Many2one("estate.property.type",string="Property Type",required=True)
+    tag_ids = fields.Many2many("estate.property.tag",string="Property Tag",required=True)
+    offer_ids = fields.One2many("estate.property.offer","property_id",string="")

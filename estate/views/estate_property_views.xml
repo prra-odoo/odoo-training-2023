@@ -19,6 +19,7 @@
         <field name="arch" type="xml">
             <tree string="Property">
                 <field name="name" />
+                <field name="property_type_id" />
                 <field name="postcode" optional="show"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
@@ -43,10 +44,11 @@
                     <h1>
                         <field name="name"/>
                     </h1>
-                    
+                    <field name="tag_ids" widget="many2many_tags"/>
                     <group>
 
                         <group>
+                            <field name="property_type_id" />
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -73,6 +75,11 @@
                                 </group>
                             </page>
 
+                            <page string="Offers">
+                                <group >
+                                    <field name="offer_ids" string=" "/>
+                                </group>
+                            </page>
                             <page string="Other Info">
                             <group >
                                     <field name="buyer" />
@@ -99,32 +106,12 @@
                 <field name="facades"/>
                 <filter name="State" string="State" domain="[('state', 'in', ['offer received','new'])]"  />
                 <group expand="1" string="Group By">
-                    <filter name="Postcode" string="Postcode" context="{'group_by': 'postcode', 'residual_visible':True}" />
+                    <filter name="Postcode" string="Postcode" context="{'group_by': 'postcode'}" />
                 </group>
+                <group expand="1" string="Group By">
+                    <filter name="property_type_id" string="Property Type" context="{'group_by': 'property_type_id'}" />
+                </group>                
             </search> 
         </field>
     </record> 
-
-
-    <!-- display property type -->
-    <record id="estate_property_type_action" model="ir.actions.act_window">
-        <field name="name">Property Type</field>
-            <field name="res_model">estate.property.type</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html"> 
-                <p class="o_view_nocontent_smiling_face">
-                    Create a new Property type
-                </p>            
-            </field>
-    </record>
-
-    <record id="estate_property_type_view_tree" model="ir.ui.view">
-        <field name="name">estate.property.type.tree</field>
-        <field name="model">estate.property.type</field>
-        <field name="arch" type="xml">
-            <tree string="Property Type">
-                <field name="name"></field>
-            </tree>
-        </field>
-    </record>
 </odoo>
