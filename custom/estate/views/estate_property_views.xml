@@ -27,6 +27,9 @@
         <field name="arch" type="xml">
             
             <form string="Description">
+            <header>
+                <field name="state" widget="statusbar"/>
+            </header>
             <sheet>
             <label for="name" string="Property Name"/>
              <div class="oe_title">
@@ -44,6 +47,7 @@
                   <group>
                     <field name="date_availability"/>
                     <field name="selling_price"/>
+                    <field name="best_offer"/>
                  </group>
                  <notebook>
                 <page string="Description">
@@ -60,7 +64,8 @@
                     <field name="garden_area" string="Garden Area (sqm)"/>
                 
                     <field name="garden_orientation"/>
-                    <field name="state"/>
+                    <field name="total_area" string="Total Area (sqm)"/>  
+                    
                 </group>
                 </group>
                 </page>
