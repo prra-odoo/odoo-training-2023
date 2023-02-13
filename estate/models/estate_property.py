@@ -63,6 +63,8 @@ class Estate_Property(models.Model):
     user_id = fields.Many2one('res.users', string='Salesperson',default=lambda self: self.env.user)
     buyer_id = fields.Many2one('res.partner',string = 'Buyer',copy=False)
 
+    # company_id=fields
+
 
     #compute method('garden_orientation', 'in', ['north','south'])
     @api.depends("living_area","garden_area")

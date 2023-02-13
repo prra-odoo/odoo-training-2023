@@ -3,9 +3,9 @@
     'name': "Real Estate",
     'summary': "Module for real estate",
     'author': "Ayushi Gorai(aygo)",
-    'category': 'Category',
+    'category': 'Real Estate/Brokerage',
     'license': 'LGPL-3',
-    'description': "real estate module",
+    'description': "real estate module",        
     'installable':True,
     'application':True,
     'demo': [
@@ -13,6 +13,7 @@
      ],
      'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'view/estate_property_offer_view.xml',
         'view/estate_property_views.xml',
         'view/res_users_view.xml',
