@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Blank Record -->
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first property
+            </p>
+        </field>
+    </record>
+    <!-- Tree View  -->
+     <record id="estate_property_title_tree_view" model="ir.ui.view">
+        <field name="name">estate.property.tree</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="postcode" />
+                <field name="description" />
+                <field name="bedrooms" optional="hide" />
+                <field name="living_area" />
+                <field name="expected_price" optional="show" />
+                <field name="selling_price" />
+                <field name="date_availability" />
+                <field name="active" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record> 
+
+    
+</odoo>
