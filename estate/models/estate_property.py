@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 
 
@@ -52,4 +52,21 @@ class EstateProperty(models.Model):
         comodel_name="estate.property.tag", string="Tags", copy=False)
 
     offer_ids = fields.One2many(
-        comodel_name="estate.property.offer", inverse_name="property_id", string="00000")
+        comodel_name="estate.property.offer", inverse_name="property_id")
+
+    total_area = fields.Float(compute='_compute_total_area')
+
+    best_price = fields.Float(compute='_compute_best_price')
+
+    @api.depends("garden_area", "living_area")
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area = record.garden_area+record.living_area
+
+    @api.depends("offer_ids.price")
+    def _compute_best_price(self):
+        for record in self:
+
+            # can also be written as record.offer_ids.mapped('price')
+            amount = max(record.mapped('offer_ids.price'))
+            record.best_price = amount
