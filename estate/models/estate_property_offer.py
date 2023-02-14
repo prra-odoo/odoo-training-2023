@@ -1,4 +1,4 @@
-from odoo import models,fields,api
+from odoo import models,fields,api,exceptions
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
@@ -33,10 +33,20 @@ class EstatePropertyOffer(models.Model):
 # now from here the ACCEPT and REFUSE state code starts
 
     def accept_offer(self):
-        self.status = "accepted"
-        
-        
-    
+        for offers in self.property_id.offer_ids:
+            offers.status = "refused"
+        self.status="accepted"
+        self.property_id.state="offer accepted"
+        self.property_id.selling_price=self.price
+        self.property_id.buyer_id=self.partner_id
+        return True
+               
     def refuse_offer(self):
         self.status = "refused"
     
+ # now to check that the property selling price is not negative
+    @api.constrains('price')
+    def _check_offer_price(self):
+        for property in self:
+            if property.price <= 0:
+                raise exceptions.ValidationError("offer price cannot be negative.")

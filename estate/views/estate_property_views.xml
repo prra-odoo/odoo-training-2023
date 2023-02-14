@@ -42,8 +42,8 @@
         <field name="arch" type="xml">
           <form string="Test">
           <header>
-          <button type="object" name="action_sold" string="SOLD"/>
-          <button type="object" name="action_cancel" string="CANCELLED"/>
+          <button type="object" name="action_sold" string="SOLD" class="oe_highlight"/>
+          <button type="object" name="action_cancel" string="CANCELLED" class="oe_highlight"/>
             <field name="state" widget="statusbar" options="{'clickable':1}" />
           </header>
             <sheet>                
@@ -131,6 +131,10 @@
                 <field name="active"/>
                 <field name="state"/>
                 <field name="property_type_id"/>
+                <!-- <field name="buyer_id"/>
+                <field name="seller_id"/>
+                <field name="offer_ids"/>
+                <field name="tad_ids"/> -->
                 <separator/>
                 <filter string="Available" name="state" domain="['|',('state', '=', 'offer receieved'),('state', '=', 'new')]"/>
                 <separator/>
