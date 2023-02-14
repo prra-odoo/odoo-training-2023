@@ -6,14 +6,7 @@
         <record id="property_1" model="estate.property">
             <field name="name">Shreeji Apartments</field>
             <field name="expected_price">10000</field>
-<!--             <field name="tag_ids">
-                <record id="tags_1" model="estate.property.tags">
-                    <field name="name">cozy</field>
-                </record>
-                <record id="tags_2" model="estate.property.tags">
-                    <field name="name">garden</field>
-                </record>        
-            </field> -->
+            <field name="tag_ids" eval="[(6,0,[1,2])]"/>
         </record>
         <record id="property_2" model="estate.property">
             <field name="name">Godrej</field>
