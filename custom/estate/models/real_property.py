@@ -28,10 +28,10 @@ class realProperty(models.Model):
     state=fields.Selection(string='State',
         selection=[('new','New'),('recieved','Offer Recieved'),('accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
         help="select the state")
-    property_type=fields.Many2one("estate.property.type",name="Property Type")
-    buyer=fields.Many2one("res.partner",name="Buyer",copy=False)
-    seller=fields.Many2one("res.users",name="Salesman", default=lambda self: self.env.user)
-    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    property_type_id=fields.Many2one("estate.property.type",name="Property Type")
+    buyer_id=fields.Many2one("res.partner",name="Buyer",copy=False)
+    seller_id=fields.Many2one("res.users",name="Salesman", default=lambda self: self.env.user)
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags", relation='tag_ids_m2m')
     offer_ids = fields.One2many(
         comodel_name='estate.property.offer',
         inverse_name='property_id',
@@ -44,10 +44,10 @@ class realProperty(models.Model):
         for record in self:
             record.total_area=record.garden_area+record.living_area
     description_buyer=fields.Char(compute='_compute_description_buyer')
-    @api.depends('buyer.name')
+    @api.depends('buyer_id.name')
     def _compute_description_buyer(self):
         for record in self:
-             record.description_buyer= record.buyer.name
+             record.description_buyer= record.buyer_id.name
     best_price=fields.Float(compute='_compute_best_price')
     @api.depends('offer_ids.price')
     def _compute_best_price(self):
