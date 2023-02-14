@@ -76,10 +76,9 @@
                             </page>
 
                             <page string="Offers">
-                                <group >
-                                    <field name="offer_ids" string=" "/>
-                                </group>
+                                    <field name="offer_ids" editable="True"/>
                             </page>
+                            
                             <page string="Other Info">
                             <group >
                                     <field name="buyer" />
@@ -104,13 +103,25 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="facades"/>
+                <field name="buyer"/>
+                <field name="tag_ids"/>
+                <!-- Filter based on offer status -->
+                <filter name="offers_accepted" string="Has accepted offers" domain="[('offer_ids.status','=','accepted')]"/>
+                <filter name="offers_refused" string="Has Refused offers" domain="[('offer_ids.status','=','refused')]"/>
+
                 <filter name="State" string="State" domain="[('state', 'in', ['offer received','new'])]"  />
+                <!-- Group by Postcode -->
                 <group expand="1" string="Group By">
                     <filter name="Postcode" string="Postcode" context="{'group_by': 'postcode'}" />
                 </group>
+                <!-- Group by Property Type -->
                 <group expand="1" string="Group By">
                     <filter name="property_type_id" string="Property Type" context="{'group_by': 'property_type_id'}" />
                 </group>                
+                <!-- Group by Offer Status
+                <group expand="1" string="Group By">
+                    <filter name="offer_ids_status" string="Offer Status" context="{'group_by': 'offer_ids.status'}" />
+                </group>   -->
             </search> 
         </field>
     </record> 
