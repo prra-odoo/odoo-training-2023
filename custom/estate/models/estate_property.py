@@ -16,12 +16,12 @@ class EstateProperty(models.Model):
     facades=fields.Integer()
     garage=fields.Boolean()
     garden=fields.Boolean()
-    garden_area=fields.Integer()
+    garden_area=fields.Integer(default=0)
     garden_orientation=fields.Selection(
         string='Type',
         selection=[('N','North'),('S','South'),('E','East'),('W','West')],
         help="Choose direction"
-    )
+    )   
     state=fields.Selection(
         string='State',
         selection=[('new','New'),('offer received','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
@@ -43,9 +43,18 @@ class EstateProperty(models.Model):
 
     @api.depends("offer_id.price")
     def _compute_bestoffer(self):
-        # x=None
         for record in self:
             if record.offer_id:
                 record.best_offer=max(record.offer_id.mapped('price'))
             else:
                 record.best_offer=0
+
+    @api.onchange("garden")
+    def _onchange_garden(self):
+        if self.garden:
+            self.garden_area=10
+            self.garden_orientation='N'
+        else:
+            self.garden_area=0
+            self.garden_orientation=''
+        
