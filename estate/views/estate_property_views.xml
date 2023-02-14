@@ -79,14 +79,12 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <group>
-                                <field name="offer_ids" string=""/>
-                            </group>
+                            <field name="offer_ids"/>
                         </page>
                         <page string="Other info">
                             <group>
-                                <field name="salesperson"/>
-                                <field name="buyer"/>
+                                <field name="salesperson_id"/>
+                                <field name="buyer_id"/>
                             </group>
                         </page>
                     </notebook>

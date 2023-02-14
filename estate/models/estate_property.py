@@ -31,9 +31,9 @@ class EstateProperty(models.Model):
         default='new'
     )
     property_type_id = fields.Many2one("estate.property.type",string="Property Type")
-    buyer = fields.Many2one("res.partner",string="Buyer",copy=False)
-    salesperson = fields.Many2one("res.users",string="Salesman",default= lambda self : self.env.user)
-    tag_ids = fields.Many2many("estate.property.tag",string="Tags")
+    buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
+    salesperson_id = fields.Many2one("res.users",string="Salesman",default= lambda self : self.env.user)
+    tag_ids = fields.Many2many("estate.property.tag",string="Tags",relation="property_tags_rel",column1="property_id",column2="tag_id")
     offer_ids = fields.One2many("estate.property.offer","property_id",string="Offers")
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer = fields.Float(compute="_compute_best_offer")
@@ -47,6 +47,8 @@ class EstateProperty(models.Model):
     def _compute_best_offer(self):
         for record in self:
             if(record.offer_ids):
+                if(record.state=="new"):
+                    record.state="offer_received"
                 record.best_offer=max(record.offer_ids.mapped("price"))
             else:
                 record.best_offer=0.0
@@ -63,22 +65,15 @@ class EstateProperty(models.Model):
 
 
     def property_sold(self):
-        for record in self:
-            if(record.state!="cancelled"):
-                record.state = "sold"
-            else:
-                raise UserError("Cancelled Property can not be Sold.")
+        if(self.state!="cancelled"):
+            self.state = "sold"
+        else:
+            raise UserError("Cancelled Property can not be Sold.")
         return True
 
     def property_cancel(self):
-        for record in self:
-            if(record.state!="sold"):
-                record.state = "cancelled"
-            else:
-                raise UserError("Sold Property can not be Cancelled.")
-        return True
-       
-    def offer_accept(self):
-        for record in self:
-            record.status="sold"
+        if(self.state!="sold"):
+            self.state = "cancelled"
+        else:
+            raise UserError("Sold Property can not be Cancelled.")
         return True
