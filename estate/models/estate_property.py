@@ -1,4 +1,4 @@
-from odoo import models,fields
+from odoo import api, models,fields
 from odoo.tools.rendering_tools import relativedelta_proxy
 
 class EstateProperty(models.Model):
@@ -29,7 +29,21 @@ class EstateProperty(models.Model):
         help = "Choose the direction"
     )
     property_type_id = fields.Many2one("estate.property.type",string="Property Type")
-    buyer = fields.Many2one("res.partner",string="Buyer",copy=False)
-    salesperson = fields.Many2one("res.users",string="Salesman",default=lambda self: self.env.user)
+    buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
+    salesperson_id = fields.Many2one("res.users",string="Salesman",default=lambda self: self.env.user)
     tag_ids = fields.Many2many("estate.property.tags", string="Property Tags")
     offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
+    total_area = fields.Integer(compute="_compute_total")
+    best_offer = fields.Float(compute = "_best_offer")
+    
+    @api.depends("living_area","garden_area")
+    
+    def _compute_total(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+            
+    @api.depends("offer_ids.price")
+    
+    def _best_offer(self):
+        for record in self:
+            record.best_offer = max(record.offer_ids.mapped("price")) 

@@ -52,6 +52,7 @@
             
                 <group>
                     <field name="expected_price"/>
+                    <field name="best_offer"/>
                     <field name="selling_price"/>
                     <br/>
                 </group>
@@ -70,24 +71,22 @@
                                 <field name="state" string="State"/>
                                 <field name="garden_area" string="Garden Area (sqms)"/>
                                 <field name="garden_orientation" string="Garden Orientation"/>
+                                <field name="total_area" string="Total Area(sqms)"/>
                         </group>
                     </group>
                 </page>
                 
                 <page string="Offer">
-                <field name="offer_ids">
-                        <tree>
-                        <field name="price"/>
-                        <field name="partner_id"/>
-                        <field name="status"/>
-                        </tree>
-                        </field>
+
+                    <field name="offer_ids">
+                    </field>
                  </page>
+
                     <page string="Other Info">
                         <group>
                             <group>
-                                <field name="buyer" string="Buyer"/>
-                                <field name="salesperson" string="Salesman"/> 
+                                <field name="buyer_id" string="Buyer"/>
+                                <field name="salesperson_id" string="Salesman"/> 
                             </group>
                         </group>
                      </page>
