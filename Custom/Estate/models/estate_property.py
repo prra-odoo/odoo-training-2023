@@ -28,8 +28,8 @@ class TestModel(models.Model):
     active = fields.Boolean(default=True)
     # Linking Others Modules
     property_type_ID= fields.Many2one('estate.property.type',string="estate_type_partner")
-    buyer=fields.Many2one('res.partner')
-    salesperson = fields.Many2one('res.users', default= lambda self : self.env.user)
+    buyer_id=fields.Many2one('res.partner')
+    salesperson_id = fields.Many2one('res.users', default= lambda self : self.env.user)
     tag_ids = fields.Many2many('estate.property.tag', string="estate_tags")
     offer_ids = fields.One2many('estate.property.offer',"property_id")
     total_area = fields.Integer(compute="_compute_total_area")
@@ -40,11 +40,12 @@ class TestModel(models.Model):
         for record in self:
             record.total_area= record.living_area + record.garden_area
 
-    @api.depends("offer_ids.price")
+    @api.depends("offer_ids")
     def _compute_best_offer(self):
         for record in self:
             if(record.offer_ids):
-                record.best_offer = max(record.offer_ids.mapped('price'))                           
+                # record.offer_ids.mapped('price')
+                record.best_offer = max(offer.price for offer in record.offer_ids)                           
             else:
                 record.best_offer = 0
     
