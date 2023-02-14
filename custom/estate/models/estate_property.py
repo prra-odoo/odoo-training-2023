@@ -21,7 +21,7 @@ class EstatePlan(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     # garden_area = fields.Integer()
-    garden_orientation = fields.Selection(
+    garden_direction = fields.Selection(
         string = "Garden Orientaiton",
         selection = [('north','North'),('south','South'),('east','East'),('west','West')],
         help = "Choose the direction",
@@ -38,12 +38,7 @@ class EstatePlan(models.Model):
     salesperson = fields.Many2one("res.users",string = "Salesperson", default=lambda self: self.env.user)
     price = fields.Float(string="Price")
     status = fields.Selection(copy=False,selection=[('accepted','Accepted'),('refused','Refused')])
-    partner_id = fields.One2many("estate.property.offer","partner_id",required=True)
-    property_id = fields.One2many("estate.property.offer","property_id",required=True)
-
-    # class TotalAreaComputed(models.Model):
-    #     _name = "totalarea.computed"
-
+    offer_ids = fields.One2many("estate.property.offer","property_id",required=True)
     totalarea = fields.Float(compute="_total_area")
 
     living_area = fields.Float()
@@ -53,3 +48,14 @@ class EstatePlan(models.Model):
     def _total_area(self):
         for area in self:
             area.totalarea = area.living_area + area.garden_area
+
+    best_price=fields.Integer(compute="_max_price",readonly=True)
+    
+    @api.depends("offer_ids")
+    def _max_price(self):
+        for highest in (self):
+            if (highest.offer_ids):
+                highest.best_price=max(highest.offer_ids.mapped('price'))
+            else:
+                highest.best_price = 0
+

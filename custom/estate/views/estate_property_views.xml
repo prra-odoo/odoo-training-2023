@@ -20,22 +20,25 @@
                 <field name="selling_price"/>
                 <field name="dateavailability"/>
                 <field name="price"/>
-                <field name="partner_id" string="Partner"/>
+                <field name="offer_ids" string="Partner"/>
                 <field name="status" string="Status"/>
             </tree> 
         </field>
     </record>
     
-     <record id="estate_property_form_view" model="ir.ui.view">
+    <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">estate.property.from.view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="estate property">
+                <header>
+                    <field name="states" widget="statusbar" options = '{"clickable":"1"}'/>
+                </header>
                 <sheet> 
                     <div class="oe_title">
-                            <h1 class="title_header">
-                                <field name="name" class="oe_inline"/>
-                            </h1>
+                        <h1 class="title_header">
+                            <field name="name" class="oe_inline"/>
+                        </h1>
                     </div>
                     <group>
                         <field name="property_tag_ids" widget="many2many_tags"/> 
@@ -47,6 +50,7 @@
                         <group>
                             <field name="dateavailability"/>
                             <field name="selling_price"/>
+                            <field name="best_price"/>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -59,23 +63,23 @@
                                     <field name = "garage"/>
                                     <field name = "garden"/>
                                     <field name = "garden_area"/>
-                                    <field name = "garden_orientation"/>
-                                    <field name = "states"/>
+                                    <field name = "garden_direction"/>
+                                    <!-- <field name = "states"/> -->
                                     <field name = "totalarea"/>
                                 </group>
                                 </group>
-                            </page>
-                       
+                            </page>                      
                             <page string="Offers">
-                                <field name="property_id">
+                                <field name="offer_ids">
                                     <tree>
                                         <field name="price"/>
                                         <field name="partner_id" string="Partner"/>
+                                        <field name="date_deadline" string="Date Deadline"/>
+                                        <field name="validity" string="Validity"/>
                                         <field name="status" string="Status"/>
                                     </tree>
                                 </field>
                             </page>
-
                             <page string="Other Info">
                                 <group>
                                     <group>
@@ -101,6 +105,7 @@
             <field name = "bedrooms"/>
             <field name = "living_area" string ="Living Area(sqm)"/>
             <field name = "facades"/>
+            <field name = "property_tag_ids"/>
             <filter string = "Available" name = "states" domain="['|',('states','=','new'),('states','=','offered received')]"/>
             <group expand = '1' string ="Group By">
                 <filter string = "Postcode" name="postcode" context = "{'group_by':'postcode','residual_visible':True}"/> 
