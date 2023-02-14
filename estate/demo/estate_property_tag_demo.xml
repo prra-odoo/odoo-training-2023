@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="property_tag_demo_1" model="estate.property.tag">
+            <field name="name">3BHK</field>
+        </record>
+        <record id="property_tag_demo_2" model="estate.property.tag">
+            <field name="name">4BHK</field>
+        </record>
+        <record id="property_tag_demo_3" model="estate.property.tag">
+            <field name="name">Luxurious</field>
+        </record>
+        <record id="property_tag_demo_4" model="estate.property.tag">
+            <field name="name">Sea-facing</field>
+        </record>
+        <record id="property_tag_demo_5" model="estate.property.tag">
+            <field name="name">Renovated</field>
+        </record>
+    </data>
+</odoo>

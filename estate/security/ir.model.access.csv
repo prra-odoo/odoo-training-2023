@@ -7,3 +7,5 @@ estate.access_estate_property_user,access_estate_property_user,estate.model_esta
 estate.access_estate_property_type_user,access_estate_property_type_user,estate.model_estate_property_type,estate_group_user,1,0,0,0
 estate.access_estate_property_tag_user,access_estate_property_tag_user,estate.model_estate_property_tag,estate_group_user,1,0,0,0
 estate.access_estate_property_offer_user,access_estate_property_offer_user,estate.model_estate_property_offer,estate_group_user,1,1,1,1
+
+

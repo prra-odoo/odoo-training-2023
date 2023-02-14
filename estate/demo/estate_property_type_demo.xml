@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="property_type_demo_1" model="estate.property.type">
+            <field name="name">House</field>
+        </record>
+        <record id="property_type_demo_2" model="estate.property.type">
+            <field name="name">Flat</field>
+        </record>
+        <record id="property_type_demo_3" model="estate.property.type">
+            <field name="name">Apartment</field>
+        </record>
+        <record id="property_type_demo_4" model="estate.property.type">
+            <field name="name">villa</field>
+        </record>    
+    </data>
+</odoo>
