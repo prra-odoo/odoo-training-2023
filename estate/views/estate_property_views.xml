@@ -24,7 +24,7 @@
                 <field name="date_availability"/>
 
                 <field name="property_type_id" optional="show"/>
-                <field name="property_tag_id" optional="hide"/>
+                <field name="property_tag_ids" optional="hide"/>
 
             </tree>
         </field>
@@ -41,7 +41,7 @@
                 <field name="expected_price" />
                 <field name="facades" />
                 <field name="property_type_id"/>
-                <field name="property_tag_id"/>
+                <field name="property_tag_ids"/>
                 <filter string ="Availble" name="available" domain="[('state','in',('new','Offer Received'))]"/>
                 <group>
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
@@ -55,9 +55,13 @@
         <field name="model">estate.property</field>
                 <field name="arch" type="xml">
                 <form string="Estate Property">
+                    <header>
+                        <field name="state" class="oe_edit_only" widget="statusbar" options="{'clickable':'1'}"/>
+                        
+                    </header>
                    <sheet>
                         <div class="oe_title">
-                            <!-- <label for="name" class="oe_edit_only"/> -->
+                            <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" placeholder="eg. zeel patel"/></h1>
                         </div>
                         <group>
@@ -69,7 +73,8 @@
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
-                            <field name="property_tag_id" widget="many2many_tags"/>
+                            <field name="best_price"/>
+                            <field name="property_tag_ids" widget="many2many_tags"/>
                         </group>
                     </group>
                     <br/>
@@ -84,7 +89,8 @@
                                 <field name="garden" />
                                 <field name="garden_area" />
                                 <field name="garden_orientation"/>
-                                <field name="state" widget="radio"/>
+                                <field name="total_area"/>
+                                
                             </group>
                         </page>
                         
