@@ -16,9 +16,11 @@
         <field name="name">estate.offer.type</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="top">
                 <field name="price" />
                 <field name="partner_id" />
+                <button name="action_accept" string="Accept" type="object" icon="fa-check" />
+                <button name="action_refuse" string="Refuse" type="object" icon="fa-times" />
                 <field name="status" />
                 <field name="validity" />
                 <field name="date_deadline" />
@@ -39,6 +41,8 @@
                             <field name="partner_id" />
                             <field name="validity" />
                             <field name="date_deadline" />
+                            <!-- <button name="action_accept" string="Accept" states="draft" type="object" icon="fa-check" />
+                            <button name="action_refuse" string="Refuse" states="draft" type="object" icon="fa-times" /> -->
                             <field name="status" />
                         </group>
                     </group>

@@ -5,7 +5,7 @@
     'sequence': -100,
     'author': 'sankalp (schh)',
     'category': 'Management',
-    'installable': True,
+    'installable':True,
     'application':True,
     'license': 'LGPL-3',
     'summary': 'Application to manage your real estate business',

@@ -1,6 +1,6 @@
 from odoo import api, models, fields
 from dateutil.relativedelta import relativedelta
-
+from odoo import exceptions
 
 class EstatePropertyModel(models.Model):
     _name = "estate.property"
@@ -30,7 +30,7 @@ class EstatePropertyModel(models.Model):
     active = fields.Boolean(default=True)
     state = fields.Selection(
         string="Status",
-        selection=[('new', 'New'), ('offer_received', 'Offer Received'),('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancled', 'Cancled')],
+        selection=[('new', 'New'), ('offer_received', 'Offer Received'),('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')],
         default="new",
         required=True,
         copy=False
@@ -39,10 +39,26 @@ class EstatePropertyModel(models.Model):
     salesperson = fields.Many2one('res.users', string='Salesperson', index=True, default=lambda self: self.env.user)
     buyer = fields.Many2one('res.partner', string='Buyer', index=True)
     tag_ids= fields.Many2many('estate.property.tag')
-    offer_ids = fields.One2many('estate.property.offer','property_id',)
+    offer_ids = fields.One2many('estate.property.offer','property_id')
     total_area = fields.Float(compute="_compute_total_area")
-    best_price = fields.Float(compute="_compute_best_price")
+    best_price = fields.Integer(compute="_compute_best_price")
+    cancel_btn = fields.Boolean(default=False)
+    sold_btn = fields.Boolean(default=False)
 
+    def action_set_sold(self):
+        for record in self:
+            # record.sold_btn=True
+            if record.state=='canceled':
+                raise exceptions.UserError("Canceled Property cannot be Sold")
+            else:record.state='sold'
+
+        
+    def action_set_cancel(self):
+        for record in self:
+            if record.state=='sold':
+                raise exceptions.UserError("Sold property cannot be Canceled")
+            else:record.state='canceled'
+    
     @api.depends("garden_area","living_area")
     def _compute_total_area(self):
         for record in self:
@@ -65,3 +81,11 @@ class EstatePropertyModel(models.Model):
             else:
                 record.garden_area=0
                 record.garden_orientation= ''
+    
+    
+    # @api.onchange("sold_btn")
+    # def _onchange_sold_btn(self):
+    #         for record in self:
+    #             if (record.state=='canceled'):
+    #                 raise exceptions.UserError("Canceled Property cannot be Sold")
+    

@@ -42,9 +42,16 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}" />
+                    <button name="action_set_sold" string="Sold" type="object" class="oe_highlight"
+                        attrs="{'state': 'sold'}" />
+                    <button name="action_set_cancel" string="Cancel" type="object"
+                        class="oe_highlight" attrs="{'state': 'canceled'}" />
                 </header>
                 <sheet>
+                    <group>
+                        <lable for="name" widget="ui_improvement">Name</lable>
+                    </group>
                     <h1>
                         <field name="name" />
                     </h1>
@@ -79,9 +86,7 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <group>
-                                <field name="offer_ids" />
-                            </group>
+                            <field name="offer_ids" nolable="1" />
                         </page>
                         <page string="Other Info">
                             <group>
@@ -112,9 +117,10 @@
                     <filter string="Postcode" name="postcode"
                         context="{'group_by':'postcode', 'residual_visible':True}" />
                 </group>
-                <separator/>
+                <separator />
                 <filter string="New" name="state" domain="[('state','=','new')]" />
-                <filter string="Offer Received" name="state" domain="[('state','=','offer_received')]" />
+                <filter string="Offer Received" name="state"
+                    domain="[('state','=','offer_received')]" />
             </search>
         </field>
     </record>
