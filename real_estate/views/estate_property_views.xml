@@ -31,6 +31,9 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                </header>
                 <sheet>
                     <h1>
                         <field name="name" />
@@ -46,6 +49,7 @@
                         <group>
                             <field name="selling_price" />
                             <field name="expected_price" />
+                            <field name="best_price"/>
                         </group>
                     </group>
                     <notebook>
@@ -58,14 +62,12 @@
                                 <field name="garage" />
                                 <field name="garden" />
                                 <field name="garden_area" />
-                                <field name="state" />
                                 <field name="garden_orientation" />
+                                <field name="total_area"/>
                             </group>
                         </page>
                         <page string="Offers">
-                            <group>
-                                <field name="offer_id"/>
-                            </group>
+                            <field name="offer_id"/>
                         </page>
                         <page string="Other Info">
                             <group>
@@ -90,7 +92,7 @@
                 <field name="expected_price" />
                 <field name="facades" />
                 <filter string="Availble" name="available"
-                    domain="[('state','in',('new','Offer Received'))]" />
+                    domain="[('state','in',['new','Offer Received'])]" />
                 <group>
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}" />
                 </group>
