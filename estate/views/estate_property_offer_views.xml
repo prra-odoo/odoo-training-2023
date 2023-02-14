@@ -22,11 +22,10 @@
             <field name="name">estate.property.offer.view.form</field>
             <field name="model">estate.property.offer</field>
             <field name="arch" type="xml">
-                <tree string="Property offer">
+                <tree string="Property offer" editable="bottom">
                     <field name="price"/>
                     <field name="partner_id"/>
                     <field name="status"/>
-
                 </tree>
             </field>
     </record>

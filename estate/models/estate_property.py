@@ -1,4 +1,4 @@
-from odoo import fields,models
+from odoo import fields,models,api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
  
@@ -41,3 +41,34 @@ class EstateProperty(models.Model):
         comodel_name='estate.property.offer',
         inverse_name='property_id',
         string='Offers')
+    total_area=fields.Float(compute="_compute_total")
+    best_price=fields.Float(compute="_compute_best_price")
+
+
+    @api.depends('living_area','garden_area')
+    def _compute_total(self):
+        for record in self:
+            record.total_area=record.living_area + record.garden_area
+
+    @api.depends("offer_ids.price")
+    def _compute_best_price(self):
+        for best_price in self:
+            if(best_price.offer_ids):
+                best_price.best_price=max(best_price.offer_ids.mapped('price'))
+            else:
+                best_price.best_price=0.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
