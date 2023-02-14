@@ -1,12 +1,20 @@
 from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
-
+from odoo.exceptions import UserError,ValidationError
+from odoo.tools.float_utils import float_is_zero,float_compare
 import odoo
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Model"
+    _sql_constraints = [
+        ('expected_price', 'CHECK(expected_price >= 0)',
+         'The expected price should be a positive number only.'),
+        ('selling_price', 'CHECK(selling_price >= 0)',
+         'The selling price price should be a positive number only.'),
+        ('best_offer', 'CHECK(best_offer >= 0)',
+         'The best_offer should be a positive number only.')
+    ]
 
     name = fields.Char(required=True, string="Title")
     description = fields.Text()
@@ -30,12 +38,12 @@ class EstateProperty(models.Model):
         string='State',
         selection=[('new', 'New'), ('offer received', 'Offer Received'), 
         ('offer accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')],
-        help="What's the Status!",default="new",required=True,copy=False)
+        help="What's the Status!",default="new",required="true",copy=False)
 
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
-    salesman_id = fields.Many2one("res.partner", string="Salesman", default=lambda self: self.env.user)
-    buyer_id = fields.Many2one("res.users", string="Buyer",copy=False)
-    property_tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    salesman_id = fields.Many2one("res.users", string="Salesman", default=lambda self: self.env.user)
+    buyer_id = fields.Many2one("res.partner", string="Buyer",copy=False, readonly=True)
+    property_tag_ids = fields.Many2many("estate.property.tag", string="Tags", relation="many2many_mash_tags_rel")
     offer_ids = fields.One2many("estate.property.offer", "property_id")
 
     total_area = fields.Integer(compute="_total_area")
@@ -77,4 +85,18 @@ class EstateProperty(models.Model):
             else:
                 record.state = 'cancelled'
 
+    # now to check that the selling price is not less than 90% of its expected price
+    #    -1 : If the first value is less than the second value.
+    #    0 : If the first value is equal to the second value.
+    #    1 : If the first value is greater than the second value.
+
+    @api.constrains('expected_price', 'selling_price')
+    def _selling_price(self):
+        for record in self:
+            if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
+                if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
+                    raise ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+
+    
+    
 

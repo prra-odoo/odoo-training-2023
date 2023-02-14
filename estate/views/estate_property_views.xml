@@ -48,7 +48,7 @@
                     <group>
                         <field name="property_tag_ids" widget="many2many_tags" nolabel="1" placeholder="Enter Tags" colspan="4"/>
                     </group>
-                    <group>   
+                    <group col='3'>   
                         <group>
                             <field name="property_type_id"/>
                             <field name="postcode"/>
@@ -56,8 +56,11 @@
                         </group>
                         <group>
                             <field name="expected_price"/>
-                            <field name="best_offer"/>
                             <field name="selling_price"/>
+                        </group>
+                        <group>
+                            <field name="best_offer"/>
+                            <field name="buyer_id"/>
                         </group>
                         <notebook>
                             <page string="Description">
