@@ -6,7 +6,7 @@
         <field name="name">Estate Property Tree View</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="tree_view">
+            <tree string="tree_view" editable="bottom">
                 <field name="price"/>
                 <field name="status"/>
                 <field name="partner_id"/>

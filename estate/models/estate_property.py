@@ -6,15 +6,16 @@ from datetime import datetime
 
 class EstateProperty(models.Model):
     _name = "estate.property"
-    _description = "estate_property Model"
+    _description = "estate property Model"
 
     name = fields.Char(required=True)
     description = fields.Text()
     user_id = fields.Many2one('res.users', string='Salesperson',
                               index=True, default=lambda self: self.env.user)
-    partner_id=fields.Many2one('res.partner',string='Buyer',index=True)
-    property_type_id = fields.Many2one('estate.property.type',required=True,index=True)
-    property_tag_id = fields.Many2many('estate.property.tag',required=True)
+    partner_id = fields.Many2one('res.partner', string='Buyer', index=True)
+    property_type_id = fields.Many2one(
+        'estate.property.type', required=True, index=True)
+    property_tag_id = fields.Many2many('estate.property.tag', relation='tag_connection', required=True)
     postcode = fields.Char(required=True)
     date_availability = fields.Date(
         default=lambda self: fields.Datetime.now() + relativedelta(months=3), copy=False)
@@ -39,6 +40,6 @@ class EstateProperty(models.Model):
                    ('sold', 'Sold'), ('cancelled', 'Cancelled')],
         required=True,
         copy=False,
-        default='new',
+        default='new',  
     )
-    offers_id=fields.One2many('estate.property.offer','property_id') 
+    offers_id = fields.One2many('estate.property.offer', 'property_id')
