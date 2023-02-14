@@ -42,6 +42,12 @@
         <field name="arch" type="xml">
             <form string="Channel">
                 <header>
+                    <button name="action_sold" string="Sold"
+                            type="object" class="oe_highlight"/>
+
+                    <button name="action_cancel" string="Cancel"
+                            type="object" class="oe_highlight"/>
+                        
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>        
                 <sheet>
@@ -50,6 +56,7 @@
                     <field name="tag_ids" string="Tags" widget="many2many_tags"/>
                     <group>
                         <group>
+                            <field name="state" string="Status"/>
                             <field name="property_type_id" string="Property Type"/>
                             <field name="postcode"/>
                             <field name="date_availability" string="Available From"/>
@@ -185,11 +192,13 @@
         <field name="name">estate.property.offer.view.tree</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Channel" editable="bottom">
                 <field name="price"/>
                 <field name="partner_id" string="Partner"/>
                 <field name="validity" string="Validity (Days)"/>                    
                 <field name="date_deadline" string="Deadline"/>
+                <!-- <button name="accept_offer" type="object" icon="fa-check"/>
+                <button name="refuse_offer" type="object" icon="fa-times"/> -->
                 <field name="status"/>
             </tree>
         </field>
@@ -203,7 +212,7 @@
                 <sheet>
                     <group>
                         <field name="price"/>
-                        <field name="price"/><field name="partner_id" string="Partner"/>
+                        <field name="partner_id" string="Partner"/>
                         <field name="validity" string="Validity (Days)"/>                    
                         <field name="date_deadline" string="Deadline"/>
                         <field name="status"/>

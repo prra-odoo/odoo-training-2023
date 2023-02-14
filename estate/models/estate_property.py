@@ -1,4 +1,4 @@
-from odoo import api,fields, models
+from odoo import api,fields, models,exceptions
 from dateutil.relativedelta import relativedelta
 
 class EstateProperty(models.Model):
@@ -8,7 +8,7 @@ class EstateProperty(models.Model):
     name = fields.Char(required=True)
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
     description = fields.Text()
-    postcode = fields.Char()
+    postcode = fields.Char() 
     date_availability = fields.Date(copy=False,default=lambda self: fields.Datetime.today()+relativedelta(months=3))
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True, copy=False)
@@ -31,7 +31,7 @@ class EstateProperty(models.Model):
     buyer_id = fields.Many2one("res.users", string="Buyer", copy=False)
     salesperson_id = fields.Many2one("res.partner", string="Salesperson",default=lambda self:self.env.user)
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
-    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags", relation="tag_ids_m2m")
     offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
     total_area = fields.Float(compute="_compute_total_area")
     @api.depends("living_area","garden_area")
@@ -56,3 +56,14 @@ class EstateProperty(models.Model):
         else:
             self.garden_area = 0
             self.garden_orientation = ''
+
+    def action_cancel(self):
+        for record in self:
+            if record.state == 'sold':
+                raise exceptions.UserError("sold property can't be cancelled.")
+            else:record.state = 'cancelled'
+    def action_sold(self):
+        for record in self:
+            if record.state == 'cancelled':
+                raise exceptions.UserError("cancelled property can't be sold.")
+            else: record.state = 'sold'
