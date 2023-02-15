@@ -10,4 +10,25 @@
             </p>
         </field>
     </record>
+    <record id="estate_property_type_tree_view" model="ir.ui.view">
+        <field name="name">estate.property.tree.view</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="Type Tree View">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="estate_property_type_form_view" model="ir.ui.view">
+        <field name="name">estate.property.form.view</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Property Type Form View">
+                <sheet>
+                    <field name="name"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>
