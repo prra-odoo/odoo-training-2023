@@ -9,6 +9,8 @@
                 <field name="price" />
                 <field name="partner_id"/>
                 <field name="status"/>
+                <field name="validity" />
+                <field name="date_deadline" />
             </tree>
         </field>
     </record>
@@ -23,10 +25,24 @@
                             <field name="price" />     
                             <field name="partner_id"/>
                             <field name="status"/>  
+                            <field name="validity" />
+                            <field name="date_deadline" />
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
 
+    <record id="estate_property_offer_view_search" model="ir.ui.view">
+        <field name="name">estate.property.offer.search</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <search string="Property Offers">
+                <field name="price"/>
+                <field name="status"/>
+                <field name="partner_id"/>
+                <field name="property_id"/>
+            </search>
+        </field>
+    </record>
 </odoo>
