@@ -27,6 +27,8 @@
         <field name="arch" type="xml">    
             <form string="Description">
                 <header>
+                <button name="sold_action" type="object" string="Sold"/>
+                <button name="cancel_action" type="object" string="Cancel"/>
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>
                 <sheet>
@@ -74,11 +76,14 @@
                             </page>
                             <page string="Offers">
                                 <field name="offer_id">
-                                    <tree>
+                                    <tree editable="bottom">
                                         <field name="partner_id"/>
                                         <field name="price"/>
+                                        <!-- <field name="create_date"/> -->
                                         <field name="validity"/>
                                         <field name="date_deadline" string="Deadline"/>
+                                        <button name="accept_action" type="object" nolabel="1" icon="fa-check" title="Accept"/> 
+                                        <button name="refuse_action" type="object" icon="fa-times" title="Refuse"/> 
                                         <field name="status"/>
                                     </tree>
                                 </field>
