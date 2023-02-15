@@ -197,8 +197,8 @@
                 <field name="partner_id" string="Partner"/>
                 <field name="validity" string="Validity (Days)"/>                    
                 <field name="date_deadline" string="Deadline"/>
-                <!-- <button name="accept_offer" type="object" icon="fa-check"/>
-                <button name="refuse_offer" type="object" icon="fa-times"/> -->
+                <button name="action_accept_offer" title="Accept" type="object" icon="fa-check"/>
+                <button name="action_refuse_offer" title="Refuse" type="object" icon="fa-times"/>
                 <field name="status"/>
             </tree>
         </field>
