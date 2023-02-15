@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<!-- <?xml version="1.0"?>
 <odoo>
     <record id="estate_property_offer_form_view" model="ir.ui.view">
         <field name="name">estate.property.offer.form.view</field>
@@ -17,4 +17,4 @@
             </form>
         </field>
     </record>
-</odoo>
+</odoo> -->
