@@ -18,7 +18,7 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer()
+
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection=[('N', 'North'), ('S', 'South'),
@@ -58,6 +58,9 @@ class EstateProperty(models.Model):
 
     best_price = fields.Float(compute='_compute_best_price')
 
+    garden_area = fields.Integer(compute="_compute_garden_area",
+                                 inverse="_inverse_garden_area", string='Garden Area (sqm)')
+
     @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
         for record in self:
@@ -66,7 +69,23 @@ class EstateProperty(models.Model):
     @api.depends("offer_ids.price")
     def _compute_best_price(self):
         for record in self:
+            if (len(record.offer_ids.mapped('price')) > 0):
+                amount = max(record.mapped('offer_ids.price'))
+                record.best_price = amount
+            else:
+                record.best_price = 0
 
-            # can also be written as record.offer_ids.mapped('price')
-            amount = max(record.mapped('offer_ids.price'))
-            record.best_price = amount
+    flag = True
+
+    @api.depends("garden")
+    def _compute_garden_area(self):
+        for record in self:
+            if (record.garden):
+                record.garden_area = 10
+                record.garden_orientation = "N"
+            else:
+                pass
+
+    def _inverse_garden_area(self):
+        for record in self:
+            record.garden_area = 99
