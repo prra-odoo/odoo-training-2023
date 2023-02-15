@@ -61,6 +61,7 @@
                     <notebook>
                         <page string="Description">
                             <group>
+                                <field name="last_update_color"/>
                                 <field name="description"/>
                                 <field name="bedrooms"/>
                                 <field name="living_area" options='{"type": "number"}' />
@@ -119,7 +120,9 @@
         <field name="name">Estate_Property_kanban_view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="property_type_id" >
+            <kanban default_group_by="property_type_id" records_draggable="0" >
+                <progressbar field="state" colors='{"new":"primary","offer_received":"warning","offer_accepted": "success"}'/>
+                <field name="last_update_color"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
@@ -135,6 +138,11 @@
                                 Selling Price : <field name="selling_price"/>
                             </div>
                             <field name="tags_ids" options="{'color_field': 'color'}" />
+                            <div class="oe_kanban_bottom_right float-end">
+                                <field t-if="record.state.value &amp;&amp; widget.editable" name="state" widget="project_state_selection" options="{'color_field': 'last_update_color'}"/>
+                                <span t-if="record.state.value &amp;&amp; !widget.editable" t-att-class="'o_status_bubble mx-0 o_color_bubble_' + record.last_update_color.value" t-att-title="record.state.value"></span>
+                                <field name="salesperson_id" widget="many2one_avatar_user" t-if="record.salesperson_id.raw_value"/>
+                            </div>
                         </div>
                     </t>
                 </templates>

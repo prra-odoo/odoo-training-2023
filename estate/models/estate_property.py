@@ -4,6 +4,15 @@ from odoo import fields, models, api, _, exceptions
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
+STATUS_COLOR = {
+    'offer_accepted': 20,  # green / success
+    'new': 2,  # orange
+    'cancel': 23,  # red / danger
+    'offer_received': 4,  # light blue
+    False: 0,  # default grey -- for studio
+    # Only used in project.task
+    'sold': 0,
+}
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -57,6 +66,8 @@ class EstateProperty(models.Model):
         compute="_compute_total_area", string="Total Property Area")
     best_offer = fields.Float(
         compute="_compute_best_offer", string="Best Offer")
+    last_update_color = fields.Integer(compute='_compute_last_update_color')
+
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
@@ -100,6 +111,11 @@ class EstateProperty(models.Model):
         else:
             self.state = 'cancel'
             return True
+
+    @api.depends('state')
+    def _compute_last_update_color(self):
+        for rec in self:
+            rec.last_update_color = STATUS_COLOR[rec.state]
 
 
     @api.constrains('selling_price')
