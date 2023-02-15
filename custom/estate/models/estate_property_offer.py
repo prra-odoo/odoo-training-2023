@@ -25,4 +25,19 @@ class EstatePropertyType(models.Model):
 
     def _compute_inverse_date(self):
         for record in self:
-            record.validity = (record.date_deadline-date.today()).days
+            if(record.date_deadline>date.today()):
+                record.validity = (record.date_deadline-date.today()).days
+            else:
+                record.validity=0.0
+    @api.depends('property_id','price')
+    def action_accept(self):
+        for record in self:
+                record.status='accepted'
+                record.property_id.selling_price=record.price
+                if(record.status=='refused'):
+                    record.property_id.selling_price=0.00
+                    
+    def action_refused(self):
+        for record in self:
+            record.status='refused'
+            record.property_id.selling_price=0.00

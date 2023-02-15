@@ -1,6 +1,9 @@
 from odoo import models,fields,api
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import warnings
+
+from odoo.exceptions import UserError
 
 
 
@@ -13,17 +16,18 @@ class realProperty(models.Model):
     postcode=fields.Char()
     date_availability=fields.Datetime(default=datetime.now() + relativedelta(months=3))
     expected_price=fields.Float(required=True)
-    selling_price=fields.Float()
+    selling_price=fields.Float(readonly=True)
     bedrooms=fields.Integer(default="2")
     living_area=fields.Integer()
     facades=fields.Integer()
     garage=fields.Boolean()
     garden=fields.Boolean()
-    garden_area=fields.Integer()
+    garden_area=fields.Integer(compute="_compute_garden" ,store=True, readonly=False)
     garden_orientation=fields.Selection(
-        string='Type',
+        string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'),('east', 'East'),('west', 'West')],
-        help="Select an appropriate direction")
+        help="Select an appropriate direction",
+        compute="_compute_garden",store=True,readonly=False)
     active=fields.Boolean()
     state=fields.Selection(string='State',
         selection=[('new','New'),('recieved','Offer Recieved'),('accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
@@ -56,14 +60,43 @@ class realProperty(models.Model):
                 record.best_price=max(record.offer_ids.mapped("price"))
             else:
                 record.best_price=0.0
-    @api.onchange('garden')
+    """ @api.onchange('garden')
     def onchange_check_garden(self):
         if self.garden==True:
             self.garden_area=10
             self.garden_orientation='north'
         else:
             self.garden_area=0
-            self.garden_orientation=""
+            self.garden_orientation="" 
+   
+    @api.depends('garden')
+    def _compute_inverse_garden(self):
+        for record in self:
+            if record.garden==True:
+                record.garden_area=10
+                record.garden_orientation='north'
+            else:
+                record.garden_area=0
+                record.garden_orientation=''  """
+    @api.depends('garden')
+    def _compute_garden(self):
+        for record in self:
+            if(record.garden==True):
+                record.garden_area=10
+                record.garden_orientation='north'
+            else:
+                record.garden_area=0
+                record.garden_orientation=''
+    def action_sold(self):
+        for record in self:
+            if(record.state=='cancelled'):
+                raise UserError(("Cancelled property cannot be sold."))
+            else:
+                record.state='new'
+
+    def action_cancelled(self):
+        for record in self:
+            record.state='cancelled'
 
            
 
