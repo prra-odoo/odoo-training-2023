@@ -16,7 +16,8 @@
         <field name="name">estate.offer.type</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <!-- editable="top" -->
+            <tree >
                 <field name="price" />
                 <field name="partner_id" />
                 <button name="action_accept" string="Accept" type="object" icon="fa-check" />

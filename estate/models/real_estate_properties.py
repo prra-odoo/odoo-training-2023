@@ -1,10 +1,19 @@
 from odoo import api, models, fields
 from dateutil.relativedelta import relativedelta
 from odoo import exceptions
+from odoo.tools.float_utils import float_compare, float_is_zero
+
 
 class EstatePropertyModel(models.Model):
     _name = "estate.property"
     _description = "this is the Estate Property Model"
+    _sql_constraints = [
+        (
+            'check_expected_price',
+            'CHECK(expected_price>0)',
+            'Expected price should be positive and greater than 0'
+        )
+    ]
 
     name = fields.Char(required=True)
     description = fields.Char()
@@ -23,7 +32,7 @@ class EstatePropertyModel(models.Model):
         selection=[('north', 'North'), ('south', 'South'),('east', 'East'), ('west', 'West')],
         help="Type is used to show direction"
     )
-    selling_price = fields.Integer(readonly=True, copy=False)
+    selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(default=2)
     date_availability = fields.Date(default=lambda self: (fields.Datetime.today(
     )+relativedelta(months=+3)), copy=False, string="Available From")
@@ -35,57 +44,62 @@ class EstatePropertyModel(models.Model):
         required=True,
         copy=False
     )
-    property_type_id = fields.Many2one('estate.property.type', string="Property Type")
-    salesperson = fields.Many2one('res.users', string='Salesperson', index=True, default=lambda self: self.env.user)
+    property_type_id = fields.Many2one(
+        'estate.property.type', string="Property Type")
+    salesperson = fields.Many2one(
+        'res.users', string='Salesperson', index=True, default=lambda self: self.env.user)
     buyer = fields.Many2one('res.partner', string='Buyer', index=True)
-    tag_ids= fields.Many2many('estate.property.tag')
-    offer_ids = fields.One2many('estate.property.offer','property_id')
+    tag_ids = fields.Many2many('estate.property.tag')
+    offer_ids = fields.One2many('estate.property.offer', 'property_id')
     total_area = fields.Float(compute="_compute_total_area")
-    best_price = fields.Integer(compute="_compute_best_price")
+    best_price = fields.Float(compute="_compute_best_price")
     cancel_btn = fields.Boolean(default=False)
     sold_btn = fields.Boolean(default=False)
+    color = fields
+
+    
 
     def action_set_sold(self):
         for record in self:
             # record.sold_btn=True
-            if record.state=='canceled':
+            if record.state == 'canceled':
                 raise exceptions.UserError("Canceled Property cannot be Sold")
-            else:record.state='sold'
+            else:
+                record.state = 'sold'
 
-        
     def action_set_cancel(self):
         for record in self:
-            if record.state=='sold':
+            if record.state == 'sold':
                 raise exceptions.UserError("Sold property cannot be Canceled")
-            else:record.state='canceled'
-    
-    @api.depends("garden_area","living_area")
+            else:
+                record.state = 'canceled'
+
+    @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
-    
+
     @api.depends("offer_ids")
     def _compute_best_price(self):
         for record in self:
-            if(record.offer_ids):
-                record.best_price=max(record.offer_ids.mapped("price"))
+            if (record.offer_ids):
+                record.best_price = max(record.offer_ids.mapped("price"))
             else:
-                record.best_price=0.0
+                record.best_price = 0.0
 
     @api.onchange("garden")
     def _onchange_garden(self):
         for record in self:
             if record.garden:
-                record.garden_area=100
-                record.garden_orientation= 'north'
+                record.garden_area = 100
+                record.garden_orientation = 'north'
             else:
-                record.garden_area=0
-                record.garden_orientation= ''
-    
-    
-    # @api.onchange("sold_btn")
-    # def _onchange_sold_btn(self):
-    #         for record in self:
-    #             if (record.state=='canceled'):
-    #                 raise exceptions.UserError("Canceled Property cannot be Sold")
-    
+                record.garden_area = 0
+                record.garden_orientation = ''
+
+    @api.constrains('selling_price')
+    def _check_selling_price(self):
+        for record in self:
+            if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
+                if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
+                    raise exceptions.ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
