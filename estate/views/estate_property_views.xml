@@ -38,8 +38,8 @@
         <field name="arch" type="xml">
             <form string="Form">
                 <header>
-                    <button name="action_sold" type="object" string="SOLD"/>
-                    <button name="action_cancel" type="object" string="CANCEL"/>
+                    <button name="action_sold" type="object" string="SOLD" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="CANCEL" class="oe_highlight"/>
                     <field name="state" widget="statusbar" options="{'clickable':1}"/>
                 </header>
                 <sheet>
@@ -76,8 +76,8 @@
                                     <group>
                                         <field name="garage"/>
                                         <field name="garden"/>
-                                        <field name="garden_area"/>
-                                        <field name="garden_orientation"/>
+                                        <field name="garden_area" attrs="{'readonly':[('garden','=',False)]}"/>
+                                        <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
                                         <field name="active"/>
                                     </group>                                   
                                 </group>

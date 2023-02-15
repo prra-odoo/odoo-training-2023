@@ -12,8 +12,6 @@ class EstateProperty(models.Model):
          'The expected price should be a positive number only.'),
         ('selling_price', 'CHECK(selling_price >= 0)',
          'The selling price price should be a positive number only.'),
-        ('best_offer', 'CHECK(best_offer >= 0)',
-         'The best_offer should be a positive number only.')
     ]
 
     name = fields.Char(required=True, string="Title")
@@ -28,15 +26,15 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()   
-    garden_area = fields.Integer()
+    garden_area = fields.Integer(compute='_compute_garden_values',store=True)
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
-        help="Select your direction!")
+        help="Select your direction!",compute='_compute_garden_values')
     active = fields.Boolean(default=True,required=True)
     state = fields.Selection(
         string='State',
-        selection=[('new', 'New'), ('offer received', 'Offer Received'), 
+        selection=[('new', 'New'), ('offer recieved', 'Offer Recieved'), 
         ('offer accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')],
         help="What's the Status!",default="new",required="true",copy=False)
 
@@ -57,16 +55,21 @@ class EstateProperty(models.Model):
     def _best_offer(self):
         for record in self:
             if record.offer_ids:
+                if(record.state == "new"):
+                    record.state = "offer recieved"
                 record.best_offer = max(record.offer_ids.mapped('price'))
             else:
                record.best_offer =  0.0
+               if(record.state == "offer recieved"):
+                if(not record.offer_ids):
+                    record.state = "new"
 
-    @api.onchange('garden')
-    def _onchange_garden(self):
+    @api.depends('garden')
+    def _compute_garden_values(self):
         for record in self:
-            if record.garden: 
-                record.garden_area = 10
-                record.garden_orientation = "north"
+            if (record.garden==True):
+                record.garden_area = 10.0
+                record.garden_orientation = 'north'
             else:
                 record.garden_area = 0.0
                 record.garden_orientation = False
@@ -96,6 +99,8 @@ class EstateProperty(models.Model):
             if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
                 if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+
+    
 
     
     
