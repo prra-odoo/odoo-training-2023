@@ -111,6 +111,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <kanban default_group_by="property_type_id" records_draggable="0">
+                <progressbar field="status" colors='{ "new": "info", "offer_accepted": "warning", "sold": "success", "cancel": "danger"}'/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click" >
@@ -129,6 +130,8 @@
                                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 </div>
                                 <div class="oe_kanban_bottom_right">
+                                    <field t-if="record.status.raw_value &amp;&amp; widget.editable" name="status" widget="project_state_selection"  options="{'color_field': 'status', 'hide_label': 1}"/>
+                                    <span t-if="record.status.raw_value &amp;&amp; !widget.editable" t-att-class="'o_status_bubble mx-0 o_color_bubble_' + record.status.raw_value" t-att-title="record.status.raw_value"/>
                                     <field name="salesperson_id" widget="many2one_avatar_user" t-if="record.salesperson_id.raw_value"/>
                                 </div>
                             </div>
