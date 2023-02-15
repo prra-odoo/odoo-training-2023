@@ -17,11 +17,12 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer(string='Garden Area (sqm)')
+    garden_area = fields.Integer(string='Garden Area (sqm)',compute="_compute_value", store=True, readonly=False)
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
-        help="Choose appropriate direction"
+        help="Choose appropriate direction",
+        compute="_compute_value", store=True, readonly=False
     )       
 
     active=fields.Boolean('Active', default=True)
@@ -41,34 +42,29 @@ class EstateProperty(models.Model):
         comodel_name='estate.property.offer',
         inverse_name='property_id',
         string='Offers')
-    total_area=fields.Float(compute="_compute_total")
+    total_area=fields.Float(compute="_compute_total_area")
     best_price=fields.Float(compute="_compute_best_price")
-
+   
 
     @api.depends('living_area','garden_area')
-    def _compute_total(self):
+    def _compute_total_area(self):
         for record in self:
             record.total_area=record.living_area + record.garden_area
 
     @api.depends("offer_ids.price")
     def _compute_best_price(self):
-        for best_price in self:
-            if(best_price.offer_ids):
-                best_price.best_price=max(best_price.offer_ids.mapped('price'))
+        for record in self:
+            if(record.offer_ids):
+                record.best_price=max(record.offer_ids.mapped('price'))
             else:
-                best_price.best_price=0.0
+                record.best_price=0.0
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @api .depends("garden")
+    def _compute_value(self):
+      for record in self : 
+        if (record.garden==True):
+            record.garden_area=10
+            record.garden_orientation="north"
+        else:        
+            record.garden_area=0
+            record.garden_orientation=''
