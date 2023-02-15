@@ -32,6 +32,8 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="action_sold" type="object" string="Sold"/>
+                    <button name="action_cancle" type="object" string="Cancle"/>
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>
                 <sheet>
@@ -44,7 +46,7 @@
                             <field name="property_type_id" />
                             <field name="postcode" />
                             <field name="date_availability" />
-                            <field name="property_tag_id" widget="many2many_tags" />
+                            <field name="property_tag_ids" widget="many2many_tags" />
                         </group>
                         <group>
                             <field name="selling_price" />
@@ -67,12 +69,12 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <field name="offer_id"/>
+                            <field name="offer_ids"/>
                         </page>
                         <page string="Other Info">
                             <group>
-                                <field name="buyers" />
-                                <field name="salesmen" />
+                                <field name="buyers_id" />
+                                <field name="salesmen_id" />
                             </group>
                         </page>
                     </notebook>

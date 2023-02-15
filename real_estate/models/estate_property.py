@@ -1,6 +1,7 @@
 from odoo import fields,models,api
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -17,11 +18,12 @@ class EstateProperty(models.Model):
     total_area=fields.Float(compute="_total_area",readonly=True)
     facades = fields.Integer()
     garage = fields.Boolean()
-    garden = fields.Boolean()
-    garden_area = fields.Integer()
+    garden = fields.Boolean(store=True)
+    
+    garden_area = fields.Integer(compute="_compute_area",store=True,readonly=False)
     best_price = fields.Float(compute="_compute_discount")
     garden_orientation = fields.Selection(
-        string='Type',
+        string='Type',compute="_compute_area",readonly=False,
         selection = [('north','North'),('south','South'),('east','East'),('west','West')],
         help="Type is used to separate Directions"
     )
@@ -33,12 +35,12 @@ class EstateProperty(models.Model):
     )
 
     property_type_id=fields.Many2one('estate.property.type',string="Property Type")
-    property_tag_id=fields.Many2many('estate.property.tag',relation='property_tag_rel',string="Property Tag")
-    offer_id=fields.One2many('estate.property.offer','property_id',string="Offer")
+    property_tag_ids=fields.Many2many('estate.property.tag',relation='property_tag_rel',string="Property Tag")
+    offer_ids=fields.One2many('estate.property.offer','property_id',string="Offer")
 
 
-    buyers=fields.Many2one('res.partner',copy=False)
-    salesmen=fields.Many2one('res.users',default=lambda self:self.env.user)
+    buyers_id=fields.Many2one('res.partner',copy=False)
+    salesmen_id=fields.Many2one('res.users',default=lambda self:self.env.user)
 
     @api.depends("living_area","garden_area")
     def _total_area(self):
@@ -46,10 +48,32 @@ class EstateProperty(models.Model):
             record.total_area = record.living_area + record.garden_area
 
 
-    @api.depends("offer_id")
+    @api.depends("offer_ids")
     def _compute_discount(self):
         for record in self:
-            if(record.offer_id): 
-                record.best_price = max(record.offer_id.mapped("price"))
+            if(record.offer_ids): 
+                record.best_price = max(record.offer_ids.mapped("price"))
             else:
                 record.best_price=0.0 
+
+    @api.depends("garden")
+    def _compute_area(self):
+        for record in self:
+            if record.garden:
+                record.garden_area=10
+                record.garden_orientation='north'
+            else:
+                record.garden_area=False
+                record.garden_orientation=False
+
+    def action_sold(self):
+        for record in self:
+            if self.mapped("state"):
+                raise UserError("Cancelled properties not sold.")
+            return self.write({"state": "sold"})
+            
+    def action_cancle(self):
+        for record in self:
+            if self.mapped("state"):
+                 raise UserError("Sold properties not be cancelled.")
+            return self.write({"state": "canceled"})
