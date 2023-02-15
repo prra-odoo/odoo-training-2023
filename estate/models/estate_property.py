@@ -48,13 +48,17 @@ class EstateProperty(models.Model):
 			help="this is for garden")
 
 	garden_area=fields.Integer(string='Garden area',
-			help="this is for garden area")
+			help="this is for garden area",
+			compute="_compute_value",
+			store=True)
 
 	garden_orientation=fields.Selection(selection = [('north','North'),
         ('south','South'),
         ('east','East'),
         ('west','West')],
-        string= "Garden Orientation",)
+        string= "Garden Orientation",
+		compute="_compute_value",
+		store=True)
 
 	Active=fields.Boolean(default=True)
 
@@ -75,7 +79,7 @@ class EstateProperty(models.Model):
 		default=lambda self: self.env.user)
 
 	tag_ids=fields.Many2many('estate.property.tag',
-		string="Tags")
+		string="Tags",relation="estate_tag")
 	offer_ids = fields.One2many("estate.property.offer", "property_id", string="Tests")
 
 	total_area=fields.Integer(compute="_total_sum",
@@ -95,3 +99,12 @@ class EstateProperty(models.Model):
 				record.best_price = max(self.offer_ids.mapped('price'))
 			else:
 				record.best_price=0
+	@api.depends("garden","garden_orientation")
+	def _compute_value(self):
+		for record in self:
+			if record.garden==True:
+				record.garden_area=10
+				record.garden_orientation="north"
+			else:
+				record.garden_area=False
+				record.garden_orientation=False
