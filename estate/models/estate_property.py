@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 from odoo import api,fields, models
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
+from odoo.tools import float_utils
 
 class EstateProperty(models.Model):
     _name="estate.property"
     _description="Estate Property Description"
+    _sql_constraints = [
+        ('expected_price', 'CHECK(expected_price>0)','The Expected Price must be strictly positive'),
+        ('selling_price','CHECK(selling_price>=0)','The Selling Price must be positive')
+    ]
     
     name = fields.Char(required=True,string="Title")
     description = fields.Text()
@@ -18,10 +23,13 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean(default=True)
-    garden_area = fields.Integer(string="Garden Area (sqm)")
+    garden_area = fields.Integer(string="Garden Area (sqm)",compute="_compute_garden",store=True,default=10)
     garden_orientation = fields.Selection(
         string="Garden Orientation",
-        selection=[('north',"North"),('south',"South"),('east',"East"),('west',"West")]
+        selection=[('north',"North"),('south',"South"),('east',"East"),('west',"West")],
+        compute="_compute_garden",
+        store=True,
+        default="north"
     )
     active = fields.Boolean(default=True,required=True)
     state = fields.Selection(
@@ -51,18 +59,25 @@ class EstateProperty(models.Model):
                     record.state="offer_received"
                 record.best_offer=max(record.offer_ids.mapped("price"))
             else:
+                if(record.state=="offer_received"):
+                    record.state="new"
                 record.best_offer=0.0
 
-    @api.onchange("garden")
-    def _onchange_garden(self):
-        if(self.garden==True):
-            self.garden_area=10
-            self.garden_orientation="north"
+    @api.depends("garden")
+    def _compute_garden(self):
+        for record in self:
+            if(record.garden==False):
+                record.garden_area = 0
+                record.garden_orientation=""
+            elif(record.garden==True and record.garden_area==0 and record.garden_orientation==False):
+                record.garden_area = 10
+                record.garden_orientation = "north"
 
-        else:
-            self.garden_area = 0
-            self.garden_orientation=""
-
+    @api.constrains('selling_price','expected_price')
+    def _check_selling_price(self):
+        for record in self:
+            if((not float_utils.float_is_zero(record.selling_price,2)) and ((float_utils.float_compare(record.expected_price-record.selling_price,record.expected_price*0.1,0))==1)):
+                raise ValidationError("The Selling Price must be at least 90% of the expected price")
 
     def property_sold(self):
         if(self.state!="cancelled"):

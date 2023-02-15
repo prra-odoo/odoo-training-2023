@@ -73,8 +73,8 @@
                                 <field name="facades"/>
                                 <field name="garage"/>
                                 <field name="garden"/>
-                                <field name="garden_area"/>
-                                <field name="garden_orientation"/>
+                                <field name="garden_area" attrs="{'readonly':[('garden','=',False)]}"/>
+                                <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
                                 <field name="total_area"/>
                             </group>
                         </page>

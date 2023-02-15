@@ -6,6 +6,9 @@ from datetime import datetime
 class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
     _description = "Estate Property Offer Model _description"
+    _sql_constraints = [
+        ('price','CHECK(price>0)','Offer Price must be strictly positive')
+    ]
 
     price = fields.Float()
     status = fields.Selection(string="Status",selection=[('accepted',"Accepted"),('refused',"Refused")],copy=False)
