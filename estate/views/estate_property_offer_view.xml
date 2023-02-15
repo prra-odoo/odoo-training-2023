@@ -2,12 +2,6 @@
 
 <odoo>
 
-    <!-- <record id="estate_offer_action" model="ir.actions.act_window">
-        <field name="name">OFFERS </field>
-        <field name="res_model">estate.property.offer</field>
-        <field name="view_mode">tree,form </field>
-    </record> -->
-
     <record id="estate_property_offer_view_tree" model="ir.ui.view">
     <field name="name">estate.offer.tree</field>
     <field name="model">estate.property.offer</field>
@@ -15,6 +9,8 @@
         <tree>    
             <field name="price"/>
             <field name="partner_id"/>
+            <field name="validity"/>
+            <field name="date_deadline"/>
             <field name="status"/>
         </tree>
     </field>
@@ -24,11 +20,13 @@
     <field name="name">estate.offer.form</field>
     <field name="model">estate.property.offer</field>
     <field name="arch" type="xml">
-        <form >
+        <form>
            <sheet>
                
             <group>
                 <field name="price"/>
+                <field name="validity"/>
+                <field name="date_deadline"/>
                 <field name="partner_id"/>
                 <field name="status"/> 
             </group>
