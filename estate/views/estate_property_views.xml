@@ -124,9 +124,15 @@
                             <div t-if="record.selling_price.raw_value > 0">
                                 Selling Price: <field name="selling_price"/>
                             </div>
-                            <div>
-                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <div class="o_kanban_record_bottom mt-3">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="salesperson_id" widget="many2one_avatar_user" t-if="record.salesperson_id.raw_value"/>
+                                </div>
                             </div>
+                            
                         </div>
                     </t>
                 </templates>
