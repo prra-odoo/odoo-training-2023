@@ -1,35 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Blank Record -->
+    <!-- Blank Record(smile) -->
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create your first property
+				Create your first property
             </p>
         </field>
     </record>
-    <!-- Tree View  -->
-     <record id="estate_property_title_tree_view" model="ir.ui.view">
-        <field name="name">estate.property.tree</field>
+    <!-- Tree View -->
+    <record id="estate_property_tree_view" model="ir.ui.view">
+        <field name="name">Estate Properties Tree View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
+                <field name="property_type_id" />
                 <field name="postcode" />
-                <field name="description" />
-                <field name="bedrooms" optional="hide" />
+                <field name="bedrooms" />
                 <field name="living_area" />
+                <field name="tag_ids" widget="many2many_tags" />
                 <field name="expected_price" optional="show" />
                 <field name="selling_price" />
                 <field name="date_availability" />
-                <field name="active" />
-                <field name="state" />
             </tree>
         </field>
-    </record> 
-
-    
+    </record>
+    <!-- Form View -->
+    <record id="estate_property_form_view" model="ir.ui.view">
+        <field name="name">Estate Property Form View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}" />
+                </header>
+                <sheet>
+                    <div>
+                        <label for="name" string="Property Name" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group name="main">
+                        <group name="group_left">
+                            <field name="property_type_id" />
+                            <field name="postcode" />
+                            <field name="date_availability" string="Available From" />
+                            <field name="tag_ids" widget="many2many_tags" />
+                        </group>
+                        <group name="group_right">
+                            <field name="expected_price" />
+                            <field name="best_price"/>
+                            <field name="selling_price" />
+                        </group>
+                    </group>
+                    <!-- Add a menu tab below in the form -->
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description" />
+                                <field name="bedrooms" />
+                                <field name="living_area" />
+                                <field name="facades" />
+                                <field name="garage" />
+                                <field name="garden" />
+                                <field name="garden_area" string="Garden Area(sqm)" />
+                                <field name="garden_orientation" string="Garden Orientation" />
+                                <field name="total_area"/>
+                            </group>
+                        </page>
+                        <page string="offers">
+                            <group>
+                                <field name="offer_ids" />
+                            </group>
+                        </page>
+                        <page string="other info">
+                            <group>
+                                <field name="salesperson" />
+                                <field name="buyer" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Search View -->
+    <record id="estate_property_search_view" model="ir.ui.view">
+        <field name="name">Estate Property Search View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="postcode" />
+                <field name="expected_price" />
+                <field name="bedrooms" />
+                <field name="living_area" />
+                <field name="facades" />
+                <filter string="Available" name="state_search" domain="[('state','in', ['new','offer_received'])]" />
+                <group string="Group By">
+                    <filter string="Postcode" name="gorupby_postcode" context="{'group_by':'postcode'}" />
+                    <filter string="Garden" name="gorupby_garden" context="{'group_by':'garden'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>
