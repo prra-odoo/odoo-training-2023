@@ -1,8 +1,22 @@
 <?xml version='1.0'?>
 <odoo>
 
+    <record id='estate_property_offer_tree' model='ir.ui.view'>
+        <field name='name'>estate.property.offer.tree</field>
+        <field name='model'>estate.property.offer</field>
+        <field name='arch' type='xml'>
+            <tree editable="bottom">
+                <field name='price'/>
+                <field name='partner_id'/>
+                <field name='validity'/>
+                <field name='date_deadline' widget='date'/>
+                <field name='status'/>
+            </tree>
+        </field>
+    </record>
+
      <record id='estate_property_offer_form' model='ir.ui.view'>
-        <field name='name'>estate.property.offer</field>
+        <field name='name'>estate.property.offer.form</field>
         <field name='model'>estate.property.offer</field>
         <field name='arch' type='xml'>
             <form string='Estate Property Offer Form'>
@@ -13,6 +27,7 @@
                             <field name='partner_id'/>
                             <field name='validity'/>
                             <field name='date_deadline' widget='date'/>
+                            <!-- <button name='action_accept' string='Accept' type='object' icon='fa-check'/> -->
                             <field name='status'/>
                         </group>
                     </group>

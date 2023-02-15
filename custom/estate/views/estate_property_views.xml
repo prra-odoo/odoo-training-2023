@@ -36,6 +36,9 @@
         <field name='arch' type='xml'>
             <form string='Estate Property Form'>
                 <header>
+                    <button name="action_button_sold" string="Sold" type="object"/>
+                    <button name="action_button_cancel" string="Cancel" type="object"/>
+
                     <field name='state' widget='statusbar' options='{"clickable": "1"}'/>
                 </header>
                 <sheet>
@@ -72,15 +75,7 @@
                                 </group>
                             </page>
                              <page string='Offers'>
-                                <field name='offer_ids'>
-                                    <tree editable="bottom">
-                                        <field name='price'/>
-                                        <field name='partner_id'/>
-                                        <field name='validity'/>
-                                        <field name='date_deadline' widget='date'/>
-                                        <field name='status'/>
-                                    </tree>
-                                </field>
+                                <field name='offer_ids'></field>
                             </page>
                             <page string='Other Info'>
                                 <group>
