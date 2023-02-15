@@ -85,8 +85,8 @@
                             <field name="garden"/>
                             </group>
                             <group>
-                            <field name="garden_area"/>
-                            <field name="garden_orientation"/>
+                            <field name="garden_area" attrs="{'readonly':[('garden','=',False)]}"/>
+                            <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
                             <field name="active"/>
                             <field name="state"/> 
                             <field name="total_area"/>

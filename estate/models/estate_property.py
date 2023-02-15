@@ -28,7 +28,7 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer()
+    garden_area = fields.Integer(compute='_compute_garden_values',store=True)
     active = fields.Boolean(default=True)
     state = fields.Selection(
         string='state',
@@ -41,7 +41,9 @@ class EstateProperty(models.Model):
     garden_orientation = fields.Selection(
         string='Direction',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
-        help="Select your direction!"
+        help="Select your direction!",
+        compute='_compute_garden_values',
+        store=True
         )
     property_type_id = fields.Many2one("estate.property.type", string="Property Type",required=True)
     buyer_id = fields.Many2one('res.partner',string="Buyer",copy=False)
@@ -52,6 +54,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer", "property_id")
     # one2Many(comodel name, inverse name)    
     total_area = fields.Integer(compute="_total_area",store=True)
+    # @ depends - decorators (if we dont write @api line then compute works but only after save.)
     @api.depends('living_area','garden_area')
     def _total_area(self):
         for record in self:
@@ -62,20 +65,23 @@ class EstateProperty(models.Model):
     def _best_offer(self):
         for record in self:
             if(record.offer_ids):
-                record.best_offer=max(record.offer_ids.mapped("price"))
+                if(record.state == "new"):
+                    record.state = "offer recieved"
+                    record.best_offer=max(record.offer_ids.mapped("price"))
             else:
                 record.best_offer=0.0
     # onchange function when garden field is enabled
-    @api.onchange('garden')
-    def onchange_garden(self):
+    # compute field is not stored in DB by default
+    @api.depends('garden')
+    def _compute_garden_values(self):
         for record in self:
-            if record.garden:
+            if (record.garden==True):
                 record.garden_area = 10.0
                 record.garden_orientation = 'north'
             else:
                 record.garden_area = 0.0
                 record.garden_orientation = False
-            
+
     #function making two button of sold and cancelled in header
     def action_cancel(self):
         for record in self:
