@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -18,9 +19,9 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer()
+    garden_area = fields.Integer(compute='_compute_garden_fields',store=True, readonly=False)
     garden_orientation = fields.Selection(
-        string='Garden Orientattion',
+        string='Garden Orientattion',compute='_compute_garden_fields',store=True, readonly=False,
         selection=[('north', 'North'), ('south', 'South'),
                    ('east', 'East'), ('west', 'West')],
     )
@@ -47,18 +48,45 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
-    # @api.depends("offer_ids")
-    # def _compute_best_price(self):
-    #     for record in self:
-    #         if(record.offer_ids):
-    #             record.best_price = max(record.offer_ids.mapped("price"))
-    #         else:
-    #             record.best_price = 0.0
-
-    @api.depends('offer_ids')
+    @api.depends("offer_ids")
     def _compute_best_price(self):
         for record in self:
             if(record.offer_ids):
-                record.best_price = max(offer.price for offer in record.offer_ids)
+                record.best_price = max(record.offer_ids.mapped("price"))
+                print(record)
             else:
                 record.best_price = 0.0
+
+    # @api.depends('offer_ids')
+    # def _compute_best_price(self):
+    #     for record in self:
+    #         if(record.offer_ids):
+    #             record.best_price = max(offer.price for offer in record.offer_ids)
+    #         else:
+    #             record.best_price = 0.0
+
+    @api.depends("garden")
+    def _compute_garden_fields(self):
+        if self.garden:
+            self.garden_area = 10
+            self.garden_orientation = 'north'
+        else:
+            self.garden_area = 0
+            self.garden_orientation = False 
+
+    def action_sold(self):
+        for record in self:
+            if record.state != "cancelled":
+                record.state = "sold"
+            else:
+                raise UserError("This property can not be sold because it is cancelled")
+        return True
+    
+    def action_cancel(self):
+        for record in self:
+            if record.state != "sold":
+                record.state = "cancelled"
+            else:
+                raise UserError("This property can not be cancelled because it is sold")
+        return True
+            
