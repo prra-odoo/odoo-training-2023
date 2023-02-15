@@ -21,11 +21,12 @@ class EstateProperty(models.Model):
     facades=fields.Integer()
     garage=fields.Boolean()
     garden=fields.Boolean()
-    garden_area=fields.Integer()
+    garden_area=fields.Integer(compute="_compute_garden")
     garden_orientation=fields.Selection(
         
         selection=[('E','East'),('W','West'),('N','North'),('S','South')],
-        string="Garden Orientation"
+        string="Garden Orientation",
+        compute="_compute_garden"
         
     )
 
@@ -54,7 +55,7 @@ class EstateProperty(models.Model):
     buyer_id=fields.Many2one('res.partner', string='Buyer',copy=False)
 
     salesperson_id=fields.Many2one('res.users',string="Salesman",default=lambda self:self.env.user)
-    tag_ids=fields.Many2many('estate.property.tag')
+    tag_ids=fields.Many2many('estate.property.tag',relation="tag_property")
     offer_ids=fields.One2many('estate.property.offer','property_id',string="Offer")
 
 
@@ -72,3 +73,15 @@ class EstateProperty(models.Model):
                 record.best_offer=max(self.offer_ids.mapped('price'))
             else:
                 record.best_offer=0
+
+    
+    @api.depends('garden')
+    def _compute_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area=10
+                record.garden_orientation="N"
+            else:
+                record.garden_area=False
+                record.garden_orientation=False
+           
