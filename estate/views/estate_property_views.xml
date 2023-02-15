@@ -56,8 +56,9 @@
                 <field name="arch" type="xml">
                 <form string="Estate Property">
                     <header>
+                        <button name="action_do_sold" class="oe_highlight" type="object" string="Sold"/>
+                        <button name="action_do_cancel" type="object" string="Cancel"/>
                         <field name="state" class="oe_edit_only" widget="statusbar" options="{'clickable':'1'}"/>
-                        
                     </header>
                    <sheet>
                         <div class="oe_title">

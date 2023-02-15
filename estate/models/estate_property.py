@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 from datetime import date
 from dateutil.relativedelta import relativedelta
-
+from odoo.exceptions import UserError
 
 class EstateProperty(models.Model):
 
@@ -21,10 +21,13 @@ class EstateProperty(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     garden_area = fields.Float()
+    #selection is use to create dropdown and radio
     garden_orientation = fields.Selection(
         string = "Direction",
         selection = [('north','North'),('south','South'),('east','East'),('west','West')],
-        help  = "Select Direction"
+        help  = "Select Direction",
+        compute="_compute_garden",
+        readonly=False
         )
          
     active = fields.Boolean("Active",default=True)
@@ -37,10 +40,10 @@ class EstateProperty(models.Model):
         )
     
     property_type_id = fields.Many2one('estate.property.type',string="Property Type")
-    property_tag_ids = fields.Many2many('estate.property.tag', string="Property Tag")
+    property_tag_ids = fields.Many2many('estate.property.tag', string="Property Tag", relation="tag_table")
     offer_ids = fields.One2many('estate.property.offer',"property_id",string="Offers")
     
-    buyer = fields.Many2one('res.partner',copy=False)
+    buyer = fields.Many2one('res.partner',copy=False, readonly=True)
     salesmans = fields.Many2one('res.users', default=lambda self:self.env.user)
 
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
@@ -52,6 +55,7 @@ class EstateProperty(models.Model):
 
     best_price = fields.Float(compute = "_compute_best_offer" ,string="Best Price", readonly=True)
 
+    #api.depends use to set dependancy on function. parameters field change value or on save action  then call this function
     @api.depends('offer_ids')
     def _compute_best_offer(self):
         for record in self:
@@ -59,12 +63,28 @@ class EstateProperty(models.Model):
                 record.best_price = max(record.offer_ids.mapped('price'))
             else: 
                 record.best_price = 0.0
-
-    @api.onchange('garden')
-    def _onchange_garden(self):
+    
+    # api.onchange use to set dependancy on function when parameter field change data it call automatically
+    @api.depends('garden')
+    def _compute_garden(self):
         if self.garden:
             self.garden_area = 10
             self.garden_orientation = 'north' 
         else:
             self.garden_area = 0
             self.garden_orientation = '' 
+    
+    #sold button action
+    def action_do_sold(self):
+        for record in self:
+            if( record.state == 'canceled'):
+                raise UserError(("Cancel Property (%s) can not be Sold.")% record.name)
+            else:
+                record.state = "sold"
+        return True
+    
+    #cancel button action
+    def action_do_cancel(self):
+        for record in self:
+            record.state = "canceled"
+        return True
