@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id ="real_estate_type_data1" model = "estate.property.type">
+        <field name = 'name'>House</field>
+    </record>
+    <record id ="real_estate_type_data2" model = "estate.property.type">
+        <field name = 'name'>Flat</field>
+    </record>
+    <record id ="real_estate_type_data3" model = "estate.property.type">
+        <field name = 'name'>Apartment</field>
+    </record>
+    <record id ="real_estate_type_data4" model = "estate.property.type">
+        <field name = 'name'>Villa</field>
+    </record>
+</odoo>

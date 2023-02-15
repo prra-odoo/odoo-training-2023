@@ -9,6 +9,7 @@
                 <field name="name"/>
                 <field name="description" optional="hide"/>
                 <field name="postcode"/>
+                <field name = "tag_ids"/>
                 <field name="bedrooms" optional="show"/>
                 <field name="living_area" optional="hide"/>
                 <field name="facades"/>
@@ -19,6 +20,7 @@
                 <field name="garden_area" optional="hide"/>
                 <field name="garden_orientation" optional="hide"/>  
                 <field name="state"/>
+                <field name = "property_type_id"/>
             </tree>
         </field>
     </record>

@@ -32,10 +32,6 @@
             <field name="perm_create" eval="False"/>
             <field name="perm_unlink" eval="False"/>
             <field name="groups" eval="[Command.link(ref('estate_group_manager'))]"/>
-            <field name="domain_force">[
-                '|', ('user_id', '=', user.id),
-                    ('user_id', '=', False)
-            ]</field>
         </record>
         </data>
 </odoo>

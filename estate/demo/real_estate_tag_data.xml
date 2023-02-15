@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="real_estate_tag_data1" model ="estate.property.tag">
+        <field name="name">Cozy</field>
+    </record>
+    <record id="real_estate_tag_data2" model ="estate.property.tag">
+        <field name="name">3bhk</field>
+    </record>
+    <record id="real_estate_tag_data3" model ="estate.property.tag">
+        <field name="name">Luxurious</field>
+    </record>
+    <record id="real_estate_tag_data4" model ="estate.property.tag">
+        <field name="name">Sea-facing</field>
+    </record>
+    <record id="real_estate_tag_data5" model ="estate.property.tag">
+        <field name="name">4bhk</field>
+    </record>
+    <record id="real_estate_tag_data6" model ="estate.property.tag">
+        <field name="name">Renovated</field>
+    </record>
+    <record id="real_estate_tag_data7" model ="estate.property.tag">
+        <field name="name">Beautiful</field>
+    </record>
+</odoo>

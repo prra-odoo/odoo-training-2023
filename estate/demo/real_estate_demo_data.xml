@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="estate_property_house" model="estate.property">
-        <field name="name">Zydus Apartments</field>
+        <field name="name">Ghar 1</field>
         <field name="expected_price">1000</field>
         <field name="postcode">390051</field>
         <field name="bedrooms">3</field>
@@ -14,10 +14,12 @@
         <field name="garden_area">157</field>
         <field name="garden_orientation">north</field>
         <field name="state">new</field>
+        <field name="property_type_id" ref="real_estate_type_data1"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate_tag_data5'),ref('real_estate_tag_data6')])]"/>
 
     </record>
     <record id="estate_property_house_1" model="estate.property">
-        <field name="name">Adharsh Apartments</field>
+        <field name="name">Ghar 2</field>
         <field name="expected_price">1500</field>
         <field name="postcode">345651</field>
         <field name="bedrooms">4</field>
@@ -29,12 +31,13 @@
         <field name="garden_area">456</field>
         <field name="garden_orientation">south</field>
         <field name="state">new</field>
-
+        <field name="property_type_id" ref="real_estate_type_data2"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate_tag_data3'),ref('real_estate_tag_data7')])]"/>
     </record>
 
 
     <record id="estate_property_house_2" model="estate.property">
-        <field name="name">Khushi villa</field>
+        <field name="name">Ghar 3</field>
         <field name="expected_price">700</field>
         <field name="postcode">385651</field>
         <field name="bedrooms">6</field>
@@ -46,6 +49,41 @@
         <field name="garden_area">456</field>
         <field name="garden_orientation">south</field>
         <field name="state">new</field>
+        <field name="property_type_id" ref="real_estate_type_data3"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate_tag_data2'),ref('real_estate_tag_data1')])]"/>
+    </record>
 
+    <record id="estate_property_house_3" model="estate.property">
+        <field name="name">Ghar 4</field>
+        <field name="expected_price">700</field>
+        <field name="postcode">385651</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">56528</field>
+        <field name="facades">1</field>
+        <field name="data_avabilability">2023-05-08</field>
+        <field name="selling_price">3300</field>
+        <field name="garage">no</field>
+        <field name="garden_area">456</field>
+        <field name="garden_orientation">south</field>
+        <field name="state">new</field>
+        <field name="property_type_id" ref="real_estate_type_data3"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate_tag_data2'),ref('real_estate_tag_data1')])]"/>
+    </record>
+
+    <record id="estate_property_house_4" model="estate.property">
+        <field name="name">Ghar 5</field>
+        <field name="expected_price">700</field>
+        <field name="postcode">387851</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">528</field>
+        <field name="facades">1</field>
+        <field name="data_avabilability">2023-05-08</field>
+        <field name="selling_price">3300</field>
+        <field name="garage">no</field>
+        <field name="garden_area">436</field>
+        <field name="garden_orientation">north</field>
+        <field name="state">new</field>
+        <field name="property_type_id" ref="real_estate_type_data4"/>
+        <field name="tag_ids" eval="[(6,0,[ref('real_estate_tag_data5'),ref('real_estate_tag_data7')])]"/>
     </record>
 </odoo>

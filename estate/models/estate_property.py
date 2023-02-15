@@ -51,7 +51,7 @@ class Estate_Property(models.Model):
         ('sold','Sold'),
         ('canceled','Canceled')]
     )
-    active = fields.Boolean("Active", default=False)
+    active = fields.Boolean("Active", default=True)
 
     tag_ids = fields.Many2many("estate.property.tag","estate_property_rel","property_id","property_tag", string="Tags")
     offer_ids = fields.One2many("estate.property.offer",'property_id',string="Offer")
