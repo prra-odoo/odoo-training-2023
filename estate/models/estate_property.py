@@ -27,7 +27,7 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many('estate.property.tag')
     offer_ids = fields.One2many('estate.property.offer','property_id')
     total_area = fields.Float(compute = "_compute_area")
-    best_price = fields.Float(compute = "_compute_bestprice")
+    best_price = fields.Float(compute = "_compute_bestprice",default=0)
 
     @api.depends("living_area","garden_area")
     def _compute_area(self):
@@ -36,6 +36,28 @@ class EstateProperty(models.Model):
     @api.depends("offer_ids.price")
 
     def _compute_bestprice(self):
+        for record in self:      
+            if len(record.mapped('offer_ids.price')) > 0:
+                record.best_price = max(record.mapped('offer_ids.price'))
+            else:
+                record.best_price = 0
+
+    @api.onchange("garden")
+
+    def _onchange_garden(self):
         for record in self:
-            record.best_price = max(record.mapped('offer_ids.price'))
+            if(record.garden is True):
+                record.garden_area = 10
+                record.garden_orientation = "north"
+            else:
+                record.garden_area = 0
+                record.garden_orientation = ""
+    def action_sold(self):
+        for record in self:
+            record.status = "sold"
+        return True
+    def action_cancel(self):
+        for record in self:
+            record.status = "canceled"
+        return True
         
