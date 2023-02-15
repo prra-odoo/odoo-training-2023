@@ -60,4 +60,4 @@ class EstatePropertyOffer(models.Model):
     def _check_offer_price(self):
         for property in self:
             if property.price <= 0:
-                raise exceptions.ValidationError("offer price cannot be negative.")
+                raise exceptions.ValidationError("offer price must be positive.")

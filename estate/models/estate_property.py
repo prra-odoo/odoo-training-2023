@@ -32,7 +32,7 @@ class EstateProperty(models.Model):
     active = fields.Boolean(default=True)
     state = fields.Selection(
         string='state',
-        selection=[('new', 'New'), ('offer accepted', 'Offer Accepted'), ('offer recieved', 'Offer Recieved'), ('sold', 'Sold'),('cancelled','Cancelled')],
+        selection=[('new', 'New'),  ('offer received', 'Offer Received'),('offer accepted', 'Offer Accepted'), ('sold', 'Sold'),('cancelled','Cancelled')],
         help="Select your state!",
         required=True,
         default="new",
@@ -60,16 +60,29 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
-    best_offer = fields.Float(compute='_best_offer',store=True)
+    best_offer = fields.Float(compute='_compute_best_offer',store=True)
+    # @api.depends("offer_ids")
+    # def _best_offer(self):
+    #     for record in self:
+    #         if(record.offer_ids):
+    #             if(record.state == "new"):
+    #                 record.state = "offer recieved"
+    #                 record.best_offer=max(record.offer_ids.mapped("price"))
+    #         else:
+    #             record.best_offer=0.0
     @api.depends("offer_ids")
-    def _best_offer(self):
+    def _compute_best_offer(self):
         for record in self:
             if(record.offer_ids):
                 if(record.state == "new"):
-                    record.state = "offer recieved"
-                    record.best_offer=max(record.offer_ids.mapped("price"))
+                    record.state = "offer received"
+                    record.best_offer = max(record.offer_ids.mapped('price'))
             else:
-                record.best_offer=0.0
+                record.best_offer = 0.0
+
+            if(record.state == "offer received"):
+                if(not record.offer_ids):
+                    record.state = "new"
     # onchange function when garden field is enabled
     # compute field is not stored in DB by default
     @api.depends('garden')
@@ -81,6 +94,7 @@ class EstateProperty(models.Model):
             else:
                 record.garden_area = 0.0
                 record.garden_orientation = False
+            
 
     #function making two button of sold and cancelled in header
     def action_cancel(self):
