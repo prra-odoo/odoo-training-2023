@@ -9,7 +9,7 @@
                 <field name="name"/>
                 <field name="description" optional="hide"/>
                 <field name="postcode"/>
-                <field name = "tag_ids"/>
+                <field name ="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="bedrooms" optional="show"/>
                 <field name="living_area" optional="hide"/>
                 <field name="facades"/>
@@ -103,6 +103,7 @@
         <field name="arch" type="xml">
             <kanban default_group_by="property_type_id" records_draggable="0">
                 <field name="state"/>
+                <progressbar field="state" colors='{"sold": "muted", "cancel": "danger", "offer_received": "warning","offer_accepted": "success"}'/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
@@ -122,7 +123,11 @@
                                 <field name="selling_price"/>
                             </div>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                            <!-- <field name=""/> -->
+                            <div class="oe_kanban_bottom_right float-end">
+                                <field t-if="record.state.value &amp;&amp; widget.editable" name="state" widget="project_state_selection" options="{'color_field': 'state_color', 'hide_label': 1}"/>
+                                <span t-if="record.state.value &amp;&amp; !widget.editable" t-att-class="'o_status_bubble mx-0 o_colorbubble' + record.state_color.value" t-att-title="record.state.value"></span>
+                                <field name="user_id" widget="many2one_avatar_user" />
+                            </div>
                         </div>
                     </t>
                 </templates>

@@ -17,6 +17,8 @@
         'view/estate_property_type_view.xml',
         'view/estate_property_tag_view.xml',
         'view/estate_menus.xml',
+        'report/estate_property_report.xml',
+        'report/estate_property_template.xml',
       ],
     'demo': [
       'demo/real_estate_tag_data.xml',

@@ -18,6 +18,7 @@
         <field name="tag_ids" eval="[(6,0,[ref('real_estate_tag_data5'),ref('real_estate_tag_data6')])]"/>
 
     </record>
+    
     <record id="estate_property_house_1" model="estate.property">
         <field name="name">Ghar 2</field>
         <field name="expected_price">1500</field>
