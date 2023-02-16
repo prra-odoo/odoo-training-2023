@@ -36,11 +36,16 @@
     <field name="model">estate.property</field>
     <field name="arch" type="xml">
         <form string="estate">
-           <sheet>
+            <header>
+                <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                <button name="action_sold" type="object" string="SOLD"/>
+                <button name="action_cancel" type="object" string="CANCEL"/>
+            </header>
+            <sheet>
                 <div class="Title">
                     <h1>  <field name="name"/> </h1>
                     <br/>
-           </div>
+            </div>
         <!-- <label for="name" string="Hello!!!!"/>  to give label--> 
 
             <group>
@@ -86,7 +91,7 @@
                         <group>
                             <group>
                                 <field name="buyer_id" string="Buyer"/>
-                                <field name="salesperson_id" string="Salesman"/> 
+                                <field name="salesperson_id" string="Salesperson"/> 
                             </group>
                         </group>
                      </page>

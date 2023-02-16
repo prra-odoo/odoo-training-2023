@@ -1,4 +1,5 @@
-from odoo import api, models,fields
+from odoo import api, models,fields,_
+from odoo.exceptions import UserError
 from odoo.tools.rendering_tools import relativedelta_proxy
 
 class EstateProperty(models.Model):
@@ -35,7 +36,7 @@ class EstateProperty(models.Model):
     
     property_type_id = fields.Many2one("estate.property.type",string="Property Type")
     buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
-    salesperson_id = fields.Many2one("res.users",string="Salesman",default=lambda self: self.env.user)
+    salesperson_id = fields.Many2one("res.users",string="Salesperson",default=lambda self: self.env.user)
     tag_ids = fields.Many2many("estate.property.tags", string="Property Tags")
     offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
     total_area = fields.Integer(compute="_compute_total")
@@ -68,4 +69,24 @@ class EstateProperty(models.Model):
         for record in self:
                 record.garden_orientation = "north" if record.garden == True else ""
                 record.garden_area = 10 if record.garden == True else ""
+
+    
+    #sold button method
+    
+    def action_sold(self):
+        for record in self:
+            if record.state == "cancelled":
+                raise UserError(_("cancelled property cannot be sold"))
+            else:
+                record.state = "sold"
+            return True
+        
+    def action_cancel(self):
+        for record in self:
+            if record.state == "sold":
+                raise UserError(_("sold property cannot be cancelled"))
+            else:
+                record.state = "cancelled"
+            return True
                 
+    

@@ -16,7 +16,7 @@ class EstatePropertyOffer(models.Model):
     partner_id=fields.Many2one("res.partner",string="Partner", required=True)
     property_id=fields.Many2one("estate.property",string="Property Id", required=True)
     validity=fields.Integer(default=7)
-    date_deadline=fields.Date(compute="_compute_date_deadline",inverse = "_inverse_date_deadline")
+    date_deadline=fields.Date(compute="_compute_date_deadline",inverse="_inverse_date_deadline")
     
     #compute for date_deadline
     
@@ -27,7 +27,7 @@ class EstatePropertyOffer(models.Model):
             if record.create_date:
                 record.date_deadline = record.create_date + relativedelta(days=record.validity)
             else :
-                record.date_deadline = False 
+                record.date_deadline =  fields.Date.today() + relativedelta(days=record.validity)
                 
     #inverse of date_deadline
          
@@ -35,7 +35,21 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.validity = int(record.date_deadline.strftime("%d")) - int(record.create_date.strftime("%d"))
             
-        #strftime() used to convert datetime object into string
-        #strftime("%d") to extract date
-        #strftime("%m") for month 
-        #strftime("%Y") for year
+        # strftime() used to convert datetime object into string
+        # strftime("%d") to extract date
+        # strftime("%m") for month 
+        # strftime("%Y") for year
+    
+    # accept button method
+    
+    def action_accept(self):
+        for record in self:
+            record.status = "accepted"         
+            return True
+    
+    # refuse button method
+    
+    def action_refuse(self):
+        for record in self:
+            record.status = "refused"
+            return True
