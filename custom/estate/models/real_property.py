@@ -85,19 +85,25 @@ class realProperty(models.Model):
                 record.garden_area=10
                 record.garden_orientation='north'
             else:
-                record.garden_area=0
-                record.garden_orientation=''
+                 record.garden_area=0
+                 record.garden_orientation='' 
+               
     def action_sold(self):
         for record in self:
             if(record.state=='cancelled'):
                 raise UserError(("Cancelled property cannot be sold."))
             else:
-                record.state='new'
+                record.state='accepted'
+                
+                
 
     def action_cancelled(self):
         for record in self:
             record.state='cancelled'
-
+"""  def _compute_button_class(self):
+        for record in self:
+            if record.status == 'sold':
+                record.button_class = 'oe_highlight' """
            
 
 

@@ -25,7 +25,7 @@ class EstatePropertyType(models.Model):
 
     def _compute_inverse_date(self):
         for record in self:
-            if(record.date_deadline>date.today()):
+            if(record.date_deadline>date.today()): 
                 record.validity = (record.date_deadline-date.today()).days
             else:
                 record.validity=0.0

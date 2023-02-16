@@ -13,8 +13,8 @@
             <form string="New">
                 <header>
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
-                        <button name="action_sold" type="object" string="Sold"/>
-                        <button name="action_cancelled" type="object" string="Cancel"/>
+                        <button name="action_sold" type="object" string="Sold" class='oe_highlight'/>
+                        <button name="action_cancelled" type="object" string="Cancel" class='oe_highlight'/>
                     </header>
                 <sheet>
                     
@@ -52,6 +52,9 @@
                                     </group>
                                 </group>
                             </page>
+                            <page string="Offers">
+                                <field name="offer_ids" string="offers"/>
+                            </page>
                             <page string="Other Info">
                                 <group>
                                     <group>
@@ -61,9 +64,7 @@
                                 </group>
                            
                             </page>
-                            <page string="Offers">
-                                <field name="offer_ids" string="offers"/>
-                            </page>
+                           
                         </notebook>
                     </group>
                 </sheet>
@@ -131,10 +132,10 @@
             <tree string="Channel" editable="bottom">
                 <field name="price"/>
                 <field name="partner_id"/>
+                <button name="action_accept" type="object"  icon="fa-check"/>
+                <button name="action_refused" type="object" icon="fa-times"/> 
                 <field name="status"/>
-                <button name="action_accept" type="object" string="accept" icon="fa-check"/>
-                <button name="action_refused" type="object" string="refuse" icon="fa-times"/>
-                
+                            
             </tree>
         </field>
     </record>
@@ -151,8 +152,8 @@
                             <group>
                                 <field name="price"/>
                                 <field name="status"/>
-                                <button name="action_accept" type="object" string="accept" icon="fa-check"/>
-                                <button name="action_refused" type="object" string="refuse" icon="fa-times"/>
+                                <button name="action_accept" type="object" icon="fa-check"/>
+                                <button name="action_refused" type="object" icon="fa-times"/>
                                 <field name="partner_id"/>
                                 <field name="validity"/>
                                 <field name="date_deadline"/>
