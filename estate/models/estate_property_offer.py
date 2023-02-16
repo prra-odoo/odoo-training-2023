@@ -1,10 +1,13 @@
-from odoo import api,fields, models
+from odoo import api,fields, models,exceptions
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offer Model"
+    _sql_constraints = [
+        ('check_offer_price','CHECK(price>0)','The offer price must be strictly positive.'),
+    ]
 
     price = fields.Float()
     status = fields.Selection(
@@ -24,10 +27,10 @@ class EstatePropertyOffer(models.Model):
 
     def _inverse_deadline(self):
         for record in self:
-            if(record.date_deadline > datetime.date(datetime.today())):
+            if(record.date_deadline > fields.Date.today()):
                 record.validity = (record.date_deadline - datetime.date(record.create_date)).days
             else:
-                record.validity = 0
+                raise exceptions.ValidationError("Deadline cannot be set in the past.")
 
     def action_accept_offer(self):
         for offers in self.property_id.offer_ids:
@@ -40,6 +43,5 @@ class EstatePropertyOffer(models.Model):
 
     def action_refuse_offer(self):
         self.status = "refused"
-
 
     

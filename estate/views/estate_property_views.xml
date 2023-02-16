@@ -26,6 +26,7 @@
                 <field name="name" string="Title"/>
                 <field name="buyer_id" string="Buyer" optional="hide"/>
                 <field name="salesperson_id" string="Salesperson"/>
+                <field name="active"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
                 <field name="living_area" string="Living Area (sqm)"/>
@@ -80,8 +81,8 @@
                                     <group string="Garden">
                                         <field name="garage"/>
                                         <field name="garden"/>
-                                        <field name="garden_area" string="Garden Area (sqm)"/>
-                                        <field name="garden_orientation"/>
+                                        <field name="garden_area" string="Garden Area (sqm)" attrs="{'readonly':[('garden','=',False)]}"/>
+                                        <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
                                     </group>
                                 </group>
                             </page>
@@ -118,6 +119,8 @@
                 <!--
                 <filter string="Available" name="state" domain="['|',('state', '=', 'new'),('state','=','offer recieved')]"/>
                 -->
+                <filter string="Archived" name="active" domain="[('active', '=',False)]"/>
+                <separator/>
                 <filter string="My Properties" name="salesperson_id" domain="[('salesperson_id', '=','OdooBot')]"/>
                 <separator/>
                 <filter string="Available" name="state" domain="[('state', 'in',['new','offer recieved'])]"/>
@@ -125,7 +128,7 @@
                 <filter string="Garden" name="garden" domain="[('garden', '=','1')]"/>
                 <separator/>
                 <filter string="Cozy" name="bedrooms" domain="[('bedrooms', 'in',['1','2'])]"/>
-                <filter string="Luxury" name="bedrooms" domain="[('bedrooms', '>','2'   )]"/>
+                <filter string="Luxury" name="bedrooms" domain="[('bedrooms', '>','2')]"/>
                 <group string="Group By">
                         <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                         <filter string="Property Type" name="property_type_id" context="{'group_by':'property_type_id'}"/>
