@@ -11,6 +11,7 @@ class EstatePropertyOfferModel(models.Model):
             'Offer price should be positive and greater than 0'
         )
     ]
+    _order="price desc"
 
     price = fields.Float(string="Price")
     status = fields.Selection(string='Status',
@@ -43,10 +44,9 @@ class EstatePropertyOfferModel(models.Model):
         self.status='accepted'
         self.property_id.selling_price = self.price
         self.property_id.buyer = record.partner_id
+        self.property_id.state = 'offer_accepted'
         return True
 
     def action_refuse(self):
         for record in self:
             record.status='refused'
-
-    

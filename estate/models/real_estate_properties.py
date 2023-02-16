@@ -14,6 +14,7 @@ class EstatePropertyModel(models.Model):
             'Expected price should be positive and greater than 0'
         )
     ]
+    _order="id desc"
 
     name = fields.Char(required=True)
     description = fields.Char()
@@ -25,7 +26,7 @@ class EstatePropertyModel(models.Model):
     living_area = fields.Integer(string="Living Area (sqm)")
     facades = fields.Integer()
     garage = fields.Boolean()
-    garden = fields.Boolean()
+    garden = fields.Boolean(default=False)
     garden_area = fields.Integer()
     garden_orientation = fields.Selection(
         string='Garden Orientation',
@@ -55,7 +56,7 @@ class EstatePropertyModel(models.Model):
     best_price = fields.Float(compute="_compute_best_price")
     cancel_btn = fields.Boolean(default=False)
     sold_btn = fields.Boolean(default=False)
-    color = fields
+
 
     
 

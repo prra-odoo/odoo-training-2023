@@ -11,6 +11,9 @@ class EstatePropertyTypeModel(models.Model):
             'Property Type should be Unique'
         )
     ]
+    _order="name desc"
 
     name = fields.Char(required=True)
     property_ids = fields.One2many('estate.property','property_type_id')
+    sequence = fields.Integer('sequence', help="Used to order property types")
+
