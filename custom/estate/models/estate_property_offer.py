@@ -7,14 +7,17 @@ class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
     _description="Different offers"
 
-    price=fields.Float()
+    price=fields.Float(required=True)
     status=fields.Selection(copy=False,
-                            selection=[("accepted","Accepted"),("refused","Refused")])
+                            selection=[("accepted","Accepted"),("refused","Refused")],readonly=True)
     partner_id=fields.Many2one("res.partner",required=True)
     property_id=fields.Many2one("estate.property")
 
     validity=fields.Integer(default=7)
     date_deadline=fields.Date(compute="_compute_date",inverse="_inverse_date",readonly=False)
+    _sql_constraints=[
+        ( "check_price","CHECK(price>0)","Price must be positive" )
+    ]
 
     @api.depends("validity")
     def _compute_date(self):
@@ -34,7 +37,16 @@ class EstatePropertyOffer(models.Model):
                 record.validity=0
 
     def accept_action(self):
+        
+        for record in self.property_id.offer_ids:
+            record.status="refused"        
+            record.property_id.selling_price=self.price
+            record.property_id.buyer=self.partner_id
         self.status="accepted"
 
     def refuse_action(self):
-         self.status="refused"
+        for record in self:            
+            if record.status=="accepted":
+                record.property_id.selling_price=0
+                record.property_id.buyer=""
+            record.status="refused"

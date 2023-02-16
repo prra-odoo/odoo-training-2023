@@ -2,7 +2,8 @@
 from odoo import api,models,fields  
 from dateutil.relativedelta import relativedelta
 
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
 class EstateProperty(models.Model):
     _name="estate.property"
     _description="estate property project"
@@ -12,7 +13,7 @@ class EstateProperty(models.Model):
     postcode=fields.Char()
     date_availability=fields.Date(default=lambda self:fields.Date.today()+relativedelta(months=3),copy=False)
     expected_price=fields.Float(required=True)
-    # selling_price=fields.Float(readonly=True,copy=False,compute="_compute_selling_price")
+    selling_price=fields.Float(readonly=True,copy=False,default=0)
     bedrooms=fields.Integer(default=2)
     living_area=fields.Integer()
     facades=fields.Integer()
@@ -34,33 +35,33 @@ class EstateProperty(models.Model):
     buyer=fields.Many2one("res.partner",copy=False)
     salesperson=fields.Many2one('res.users',default=lambda self: self.env.user)
     tag_ids=fields.Many2many('estate.property.tag')
-    offer_id=fields.One2many('estate.property.offer','property_id')
+    offer_ids=fields.One2many('estate.property.offer','property_id')
     total_area=fields.Integer(compute="_compute_area",store=True)
     best_offer=fields.Float(compute="_compute_bestoffer",readonly=True)
-    selling_price=fields.Float(compute="_compute_selling_price")
+
+    _sql_constraints=[
+                (
+        "check_expected_price","CHECK(expected_price>0)","Price must be positive"
+                ),
+        
+                (
+        "check_selling_price","CHECK(selling_price>-1)","Price should not be negative"
+                )
+                      ]
+ 
     @api.depends("living_area","garden_area")
     def _compute_area(self):
         for record in self:
             record.total_area=record.living_area+record.garden_area
 
-    @api.depends("offer_id.price")
+    @api.depends("offer_ids.price")
     def _compute_bestoffer(self):
         for record in self:
-            if record.offer_id:
-                record.best_offer=max(record.offer_id.mapped('price'))
+            if record.offer_ids:
+                record.best_offer=max(record.offer_ids.mapped('price'))
             else:
                 record.best_offer=0
 
-    @api.depends("offer_id")
-    def _compute_selling_price(self):
-        for record in self:
-            if record.offer_id:
-                record.selling_price=100
-            else:
-                record.selling_price=0
-        # for record in self:
-        #     if record.offer_id.status == "accepted":
-        #         record.selling_price=10
 
     # @api.onchange("garden")
     # def _onchange_garden(self):
@@ -85,6 +86,18 @@ class EstateProperty(models.Model):
                 record.garden_area=10
             else:
                 record.garden_area=0
+
+    @api.constrains("selling_price")
+    def _check_offer_price(self):
+        for record in self:
+            sp=(90*record.expected_price)/100
+            if((   not float_is_zero(record.selling_price,precision_rounding=0.01)) and 
+                    float_compare(sp,record.selling_price,precision_rounding=0.01)>=0):
+                raise ValidationError("The selling price must be at least 90% of the expected price! You must reduce the expected price if want to accept this offer")
+                
+                        
+      
+
 
     def sold_action(self):
         for record in self:

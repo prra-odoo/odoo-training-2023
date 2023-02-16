@@ -75,7 +75,7 @@
                                 </group>
                             </page>
                             <page string="Offers">
-                                <field name="offer_id">
+                                <field name="offer_ids">
                                     <tree editable="bottom">
                                         <field name="partner_id"/>
                                         <field name="price"/>
