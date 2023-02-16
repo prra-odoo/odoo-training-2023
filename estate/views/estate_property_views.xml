@@ -39,7 +39,9 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <header>
-                    <field name="state" widget="statusbar" />
+                    <field name="state" widget="statusbar" options="{'clickable':1}"/> 
+                    <button string="Sold" name="action_set_state_sold" type="object" class="oe_highlight"/>
+                    <button string="Cancel" name="action_set_state_cancel" type="object" class="oe_highlight"/>
                 </header>
                 <sheet>
                     <lable for="name"><b>Property Name</b></lable>
@@ -50,6 +52,7 @@
                     <group>
 
                         <group>
+                            <field name="state" />
                             <field name="property_type_id" />
                             <field name="postcode"/>
                             <field name="date_availability"/>
@@ -72,8 +75,8 @@
                                     <field name="facades"/>
                                     <field name="garage"/>
                                     <field name="garden"/>
-                                    <field name="garden_area"/>
-                                    <field name="garden_orientation"/>
+                                    <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                     <field name="state"/>
                                     <field name="total_area" />
                                 </group>
@@ -115,7 +118,7 @@
                 <filter name="offers_accepted" string="Has accepted offers" domain="[('offer_ids.status','=','accepted')]"/>
                 <filter name="offers_refused" string="Has Refused offers" domain="[('offer_ids.status','=','refused')]"/>
 
-                <filter name="State" string="State" domain="[('state', 'in', ['offer received','new'])]"  />
+                <!-- <filter name="State" string="State" domain="[('state', 'in', ['offer received','new'])]"  /> -->
                 <!-- Group by Postcode -->
                 <group expand="1" string="Group By">
                     <filter name="Postcode" string="Postcode" context="{'group_by': 'postcode'}" />
