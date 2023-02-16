@@ -9,6 +9,8 @@
             <form string="Property">
                 <header>             
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                    <button name="action_sold" type="object" string="Sold"/>
+                    <button name="action_canceled" type="object" string="Cancel"/>
                 </header>
                 <sheet>                                    
                     <h1>                
