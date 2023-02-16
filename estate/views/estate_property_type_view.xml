@@ -14,7 +14,8 @@
         <field name="name">Property Type</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree>
+                <field name="sequence"/>
                 <field name="name"/>
             </tree>
         </field>
@@ -34,8 +35,18 @@
                 <field name="arch" type="xml">
                 <form string="Estate Property">
                    <sheet>
-                            <h1><field name="name" placeholder="eg. Commercial"/></h1>
-                        
+                        <h1><field name="name" placeholder="eg. Commercial"/></h1>
+                        <notebook>
+                            <page string="Properties">
+                                <field name="property_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="expected_price"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>    
                     </sheet>
                 </form>
                 </field>

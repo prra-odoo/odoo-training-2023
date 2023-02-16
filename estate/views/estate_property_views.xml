@@ -21,7 +21,7 @@
                 <field name="selling_price"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
-                <field name="date_availability"/>
+                <field name="date_availability" optional="hide"/>
 
                 <field name="property_type_id" optional="show"/>
                 <field name="property_tag_ids" optional="hide"/>
@@ -56,9 +56,14 @@
                 <field name="arch" type="xml">
                 <form string="Estate Property">
                     <header>
-                        <button name="action_do_sold" class="oe_highlight" type="object" string="Sold"/>
-                        <button name="action_do_cancel" type="object" string="Cancel"/>
-                        <field name="state" class="oe_edit_only" widget="statusbar" options="{'clickable':'1'}"/>
+                        <!-- for highlighting the button : class="oe_highlight" -->
+                        <button name="action_do_sold"  type="object" string="Sold" class="oe_highlight" attrs="{'invisible':[('state','in',('new','sold','received'))]}"/>
+                        <button name="action_do_sold"  type="object" string="Sold" attrs="{'invisible':[('state','not in',('new','received'))]}"/>
+                        <button name="action_do_cancel" type="object" string="Cancel" attrs="{'invisible':[('state','=','sold')]}"/>
+                        <!--  statusbar : use to display selection or many2one field as status
+                              clickable -1 : use to clickable statusbar 
+                              statusbar_visible : use to set how much content show on status bar-->
+                        <field name="state" class="oe_edit_only" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,received,accepted,sold"/>
                     </header>
                    <sheet>
                         <div class="oe_title">
@@ -69,13 +74,14 @@
                         <group>
                             <field name="postcode"/>
                             <field name="date_availability"/>
-                            <field name="property_type_id"/>
+                            <field name="property_type_id" options="{'no_quick_create': True,'no_create_edit':True}"/>
                         </group>
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                             <field name="best_price"/>
-                            <field name="property_tag_ids" widget="many2many_tags"/>
+                            <!-- color_field : use to set tag color -->
+                            <field name="property_tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                         </group>
                     </group>
                     <br/>
@@ -87,18 +93,18 @@
                                 <field name="living_area" />
                                 <field name="facades" />
                                 <field name="garage" />
-                                <field name="garden" />
-                                <field name="garden_area" />
-                                <field name="garden_orientation"/>
+                                <field name="garden"/>
+                                <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="total_area"/>
                                 
                             </group>
                         </page>
                         
                         <page string="Offers">
-                            <group>
-                                <field name="offer_ids" string=""/>
-                            </group>
+                            
+                                <field name="offer_ids" />
+                            
                         </page>
 
                         <page string="Other Info">

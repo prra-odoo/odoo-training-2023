@@ -1,13 +1,14 @@
 from odoo import models, fields, api
 from datetime import date
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 class EstateProperty(models.Model):
-
     _name = "estate.property"
     _description = "estate property detailed field"
-    
+    _order = "id desc"    # _order use to change display record in the list view by default on id and asc order
+   
     name = fields.Char(required=True)
     description = fields.Char()
     postcode = fields.Char(default="0")
@@ -47,6 +48,16 @@ class EstateProperty(models.Model):
     salesmans = fields.Many2one('res.users', default=lambda self:self.env.user)
 
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
+    
+    # contraints can not be apply on table and not change contraints
+    _sql_constraints = [
+        (
+            'check_prices_possitive',
+            'CHECK(expected_price > 0.0 AND selling_price >= 0.0)',
+            "Expected price and Selling price are not be negative.\n Expected price also not possible Zero(0)."
+        )
+    ]
+    
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
@@ -88,3 +99,19 @@ class EstateProperty(models.Model):
         for record in self:
             record.state = "canceled"
         return True
+    
+
+    @api.constrains('selling_price','expected_price')
+    def _check_selling_price(self):
+        for record in self:
+            # if(record.selling_price < (record.expected_price*0.9)):
+            #     raise ValidationError('Selling price is more less than experted price ')
+            if(not((float_is_zero(value=record.selling_price, precision_digits=2)))
+               and
+               not (float_is_zero(value=record.expected_price, precision_digits=2))):
+                if(float_compare(value1=record.selling_price, value2=(record.expected_price* 0.9), precision_digits=2) == -1):
+                
+                    raise ValidationError('Selling price is more less than experted price ')
+
+    
+   

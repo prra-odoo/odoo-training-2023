@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
     _description="list of property offers"
-    _table = "offer_table"
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection(
@@ -21,7 +21,18 @@ class EstatePropertyOffer(models.Model):
     validity = fields.Integer(string="Validity", default=7)
     # store attribute is use to control storage of data in DB with computaation and without change
     date_deadline = fields.Date(string="Deadline Date",compute="_compute_dead", inverse="_inverse_deadline", store=True)
-
+    
+    
+    # set sql validation
+    # if in table already have rows and that row not follow constraints then 
+    _sql_constraints = [
+        (
+            'check_offer_prices_possitive',
+            'CHECK(price > 0.0)',
+            "Offer price are not be negative."
+        )
+    ]
+    
     # compute attribute is use to change value base on changes of any other fields and change after removing focus
     @api.depends('validity')
     def _compute_dead(self):
@@ -41,6 +52,7 @@ class EstatePropertyOffer(models.Model):
         self.property_id.offer_ids.status = 'refused'
         for record in self:
             record.status = 'accepted'
+            record.property_id.state = 'accepted'
             record.property_id.selling_price = record.price
             record.property_id.buyer=record.partner_id
         
@@ -49,5 +61,6 @@ class EstatePropertyOffer(models.Model):
     def action_do_refuse(self):
         for record in self:
             record.status = 'refused'
+            record.property_id.state = 'received'
         
             
