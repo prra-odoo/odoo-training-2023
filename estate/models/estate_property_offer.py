@@ -30,4 +30,10 @@ class EstatePropertyOffer(models.Model):
             else:
                 delta = record.date_deadline - record.create_date
                 record.validity = delta.days
+    def action_accept(self):
+        for record in self.property_id.offer_ids:
+            record.status = "refused"
+        self.status = "accepted"
+    def action_refuse(self):
+        self.status = "refused"
     
