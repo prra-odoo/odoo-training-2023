@@ -1,11 +1,12 @@
 from odoo import api,fields, models
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError
+from odoo import *
+# from odoo import EstatePropertyOffer
 class EstatePlan(models.Model):
     _name = "estate.property"
     _description = "estate property"
    
-
     name = fields.Char(required=True, string="Title")
     property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
     property_tag_ids = fields.Many2many("estate.property.tag", string="Property Tags")
@@ -102,3 +103,10 @@ class EstatePlan(models.Model):
             else:
                 raise UserError("Property Sold Cannot Be Cancelled")   
         return True
+    
+   
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price >= 0)','The Expected value should be positive.'),
+        ('check_selling_price', "CHECK(selling_price >=0)","Selling Price must be positive"),
+      
+    ]
