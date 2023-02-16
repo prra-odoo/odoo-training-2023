@@ -3,11 +3,36 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Create a new Property
             </p>
+        </field>
+    </record>
+
+    <record id="estate_property_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" group_create="false" group_delete="false">
+                <field name="name"/>
+                <field name="property_type_id"/>
+                <field name="description"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>
+                                        <t t-esc="record.name.value"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
@@ -35,7 +60,8 @@
         <field name="arch" type="xml">
             <form string="Form View">
                 <header>
-                    <button name="property_sold" type="object" string="Sold" class="oe_highlight"/>
+                    <button name="property_sold" type="object" string="Sold" states="offer_accepted" class="oe_highlight"/>
+                    <button name="property_sold" type="object" string="Sold" states="new,offer_received,sold,cancelled"/>
                     <button name="property_cancel" type="object" string="Cancel"/>
 
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>

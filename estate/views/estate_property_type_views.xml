@@ -17,6 +17,7 @@
         <field name="arch" type="xml">
             <tree string="Tree View">
                 <field name="name"/>
+                <field name="sequence" widget="handle"/>
             </tree>
         </field>
     </record>
@@ -32,6 +33,17 @@
                             <field name="name" nolabel="1" class="oe_inline" placeholder="Property Type"/>
                         </group>
                     </h1>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api,fields, models
+from odoo import *
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError,ValidationError
 from odoo.tools import float_utils
@@ -11,6 +11,7 @@ class EstateProperty(models.Model):
         ('expected_price', 'CHECK(expected_price>0)','The Expected Price must be strictly positive'),
         ('selling_price','CHECK(selling_price>=0)','The Selling Price must be positive')
     ]
+    _order = "id desc"
     
     name = fields.Char(required=True,string="Title")
     description = fields.Text()
@@ -38,7 +39,7 @@ class EstateProperty(models.Model):
         selection=[('new',"New"),('offer_received',"Offer Received"),('offer_accepted',"Offer Accepted"),('sold',"Sold"),('cancelled',"Cancelled")],
         default='new'
     )
-    property_type_id = fields.Many2one("estate.property.type",string="Property Type")
+    property_type_id = fields.Many2one("estate.property.type",string="Property Type",required=True)
     buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
     salesperson_id = fields.Many2one("res.users",string="Salesman",default= lambda self : self.env.user)
     tag_ids = fields.Many2many("estate.property.tag",string="Tags",relation="property_tags_rel",column1="property_id",column2="tag_id")
