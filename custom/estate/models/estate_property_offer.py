@@ -1,4 +1,5 @@
 from odoo import api,models,fields
+import datetime
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
@@ -19,7 +20,7 @@ class EstatePropertyOffer(models.Model):
     @api.depends('validity')
     def _compute_date_deadline(self):
         for record in self:
-            if record.create_date:
+            if (record.create_date):
                 record.date_deadline = record.create_date + relativedelta(days=record.validity)
             else:
                 record.date_deadline = fields.Date.today() + relativedelta(days=record.validity)
@@ -28,11 +29,18 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.validity = (record.date_deadline - record.create_date.date()).days
 
-    # def action_accept(self):
-    #     for record in self.property_id.offer_ids:
-    #         record.status = 'refused'
-    #     record.status = 'accepted'
-    #     record.property_id.state = 'offer received'     
-    #     record.property_id.selling_price = self.price     
-    #     record.property_id.buyer_id = self.partner_id
-    #     return True     
+    def action_accept(self):
+        for record in self.property_id.offer_ids:
+            record.status = 'refused'   
+            record.property_id.selling_price = self.price     
+            record.property_id.buyer_id = self.partner_id
+        self.status = 'accepted'
+        return True     
+    
+    def action_refuse(self):
+        for record in self:
+            if(record.status == 'accepted'):
+                record.property_id.selling_price = 0
+                record.property_id.buyer_id = ''
+            record.status = 'refused'
+        return True

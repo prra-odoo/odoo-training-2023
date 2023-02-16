@@ -1,6 +1,8 @@
 from odoo import api,models,fields
 from odoo.exceptions import UserError
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
+from odoo.tools import float_is_zero, float_compare
 
 class EstateProperty(models.Model):
     _name = 'estate.property'
@@ -18,7 +20,7 @@ class EstateProperty(models.Model):
     property_type_id = fields.Many2one('estate.property.type')
     buyer_id = fields.Many2one('res.partner', copy=False)
     seller_id = fields.Many2one('res.users', default=lambda self: self.env.user)
-    selling_price = fields.Float(readonly=True, copy=False)
+    selling_price = fields.Float()
     garage = fields.Boolean()
     state = fields.Selection(
         string = 'State', 
@@ -32,6 +34,13 @@ class EstateProperty(models.Model):
     best_price = fields.Float(compute='_compute_best_price')
     total_area = fields.Integer(compute='_compute_total_area')
     living_area = fields.Integer()
+    garden = fields.Boolean(readonly=False)
+    garden_direction= fields.Selection(
+        readonly=False,
+        selection = [('north','North'),('south','South'),('east','East'),('west','West')],
+        compute='_compute_garden',
+        store=True)
+    garden_area = fields.Integer(compute='_compute_garden', store=True, readonly=False)
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
@@ -41,18 +50,8 @@ class EstateProperty(models.Model):
     @api.depends('offer_ids')
     def _compute_best_price(self):
         for record in self:
-            if(record.offer_ids):
-                record.best_price = max(record.offer_ids.mapped('price'))
-            else:
-                record.best_price = 0
+            record.best_price = max(record.offer_ids.mapped('price'),default=0)
 
-    garden = fields.Boolean(readonly=False)
-    garden_direction= fields.Selection(
-        readonly=False,
-        selection = [('north','North'),('south','South'),('east','East'),('west','West')],
-        compute='_compute_garden',
-        store=True)
-    garden_area = fields.Integer(compute='_compute_garden', store=True, readonly=False)
     @api.depends('garden')
     def _compute_garden(self):
         for record in self:
