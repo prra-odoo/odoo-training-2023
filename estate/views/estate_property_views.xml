@@ -38,6 +38,8 @@
     <field name="arch" type="xml">
         <form  string="Properties">
         <header>
+           <button name="action_sold" type="object" string="SOLD"/>
+           <button name="action_cancel" type="object" string="CANCEL"/>
            <field widget="statusbar" name="state" options="{'clickable':1}" />
         </header>
         <sheet>
@@ -79,6 +81,8 @@
                 
                 <page string="Offers">
                   <field name="offer_ids" />
+                  
+
                 </page>
 
                 <page string="Other Info">
