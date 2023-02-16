@@ -24,16 +24,19 @@ class EstatePropertyOffer(models.Model):
 
     @api.depends("validity")
     def _compute_date_deadline(self):
-        print("INSIDE COMPUTE-----------------------------------------------------------------------")
         for record in self:
+            # Here record.create_date is set as today's date, because when
+            # creating a new record, create_date is unavailable.
+            # print("CoMpUtE-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-")
             if (record.create_date):
                 record.date_deadline = fields.Date.add(
                     record.create_date, days=record.validity)
             else:
-                record.date_deadline = False
+                record.date_deadline = fields.Date.add(
+                    fields.Date.today(), days=record.validity)
 
     def _inverse_date_deadline(self):
-        print("------------------INVERSE------------------------------------------------------------")
+        # print("------------------------------------InVeRsE")
         for record in self:
             if (record.date_deadline <= record.create_date.date()):
                 record.validity = 0

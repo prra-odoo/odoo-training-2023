@@ -17,7 +17,7 @@ class EstateProperty(models.Model):
     living_area = fields.Integer(string='Living Area (sqm)')
     facades = fields.Integer()
     garage = fields.Boolean()
-    garden = fields.Boolean()
+    garden = fields.Boolean(default=False)
 
     garden_orientation = fields.Selection(
         string='Garden Orientation',
@@ -58,8 +58,9 @@ class EstateProperty(models.Model):
 
     best_price = fields.Float(compute='_compute_best_price')
 
-    garden_area = fields.Integer(compute="_compute_garden_area",
-                                 inverse="_inverse_garden_area", string='Garden Area (sqm)')
+    garden_area = fields.Integer(
+        compute="_compute_garden_area", string='Garden Area (sqm)',
+        inverse="_inverse_garden_area", store=True)
 
     @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
@@ -75,17 +76,24 @@ class EstateProperty(models.Model):
             else:
                 record.best_price = 0
 
-    flag = True
-
     @api.depends("garden")
     def _compute_garden_area(self):
+        # print("------------------------CoMpUtE---------------------------------")
+        # With store=True enabled, this function won't recompute the values when user
+        # has changed the values manually, while garden is True.
         for record in self:
             if (record.garden):
                 record.garden_area = 10
                 record.garden_orientation = "N"
             else:
-                pass
+                record.garden_area = 0
+                record.garden_orientation = False
 
     def _inverse_garden_area(self):
+        # The only use of this function is to reset the values when user has changed some
+        # values in garden area and orientation and saves when garden = False.
+        # print("---------------------Inverse-------------------------------")
         for record in self:
-            record.garden_area = 99
+            if (not record.garden):
+                record.garden_area = 0
+                record.garden_orientation = False
