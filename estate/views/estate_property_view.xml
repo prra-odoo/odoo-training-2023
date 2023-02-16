@@ -37,6 +37,11 @@
             <form>
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable':'1'}" />
+                    <button name="action_set_sold" string="SOLD" type="object" class="oe_highlight" attrs="{'state': 'sold'}"/>
+                    <button name="action_set_cancel" string="CANCEL" type="object" class="oe_highlight" attrs="{'state':'canceled'}" />
+                    <!-- <button name="action_set_sold" string="Sold" type="object" class="oe_highlight" attrs="{'state': 'sold'}"/>
+                    <button name="action_set_cancel" string="Cancel" type="object" class="oe_highlight" attrs="{'state': 'canceled'}"/> -->
+                
                 </header>
                 <sheet>
                     <div>
@@ -74,9 +79,7 @@
                             </group>
                         </page>
                         <page string="offers">
-                            <group>
-                                <field name="offer_ids" />
-                            </group>
+                                <field name="offer_ids" nolabel="1"/>
                         </page>
                         <page string="other info">
                             <group>
