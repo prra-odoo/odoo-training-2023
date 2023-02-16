@@ -29,6 +29,8 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <header>
+                    <button name="action_sold" type="object" string="Sold"/>
+                    <button name="action_cancle" type="object" string="Cancle"/>
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>
                 <sheet>
