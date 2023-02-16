@@ -45,6 +45,8 @@ class EstateProperty(models.Model):
     salesperson_id = fields.Many2one('res.users',string="Salesman", default=lambda self: self.env.user)
     tag_ids = fields.Many2many('estate.property.tag','property_tags_rel','prop_id','tag_id',string="Property Tags")
     offer_ids = fields.One2many('estate.property.offer','property_id')
+    company_id = fields.Many2one('res.company', string='Company', required=True,
+        default=lambda self: self.env.company)
     # SQL Constraints
     _sql_constraints=[
         ('positive_expected_price','CHECK(expected_price > 0)',"Expected Price Should be Positive"),

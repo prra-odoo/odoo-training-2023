@@ -15,6 +15,9 @@
         'views/estate_property_type.xml',
         'views/estate_property_tag.xml',
         'views/inherited_res_user_views.xml',
+        'report/estate_property_reports.xml',
+        'report/estate_property_templates.xml',
+        # 'report/estate_property_user_template.xml',
         'views/estate_menus.xml',
         
     ],
