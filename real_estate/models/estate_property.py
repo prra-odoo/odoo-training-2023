@@ -12,7 +12,7 @@ class EstateProperty(models.Model):
     postcode = fields.Char(default="0")
     date_availability = fields.Date(readonly=True, default=lambda self:(fields.Datetime.now().date()+relativedelta(months=+3)))
     expected_price = fields.Float()
-    selling_price = fields.Float(readonly=True)
+    selling_price = fields.Float()
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     total_area=fields.Float(compute="_total_area",readonly=True)
@@ -77,3 +77,15 @@ class EstateProperty(models.Model):
             if self.mapped("state"):
                  raise UserError("Sold properties not be cancelled.")
             return self.write({"state": "canceled"})
+
+    _sql_constraints = [
+        ('check_price','CHECK(expected_price >= 0 and selling_price >= 0)',
+         'Expected Price And Selling Price Must Be In Possitive Value.'),
+
+    ]
+
+
+   
+  
+
+    

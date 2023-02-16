@@ -41,4 +41,19 @@ class EstatePropertyOffer(models.Model):
             else:
                 record.validity=0
 
-   
+    def action_accept(self):
+        for record in self:
+            record.status="accepted"
+            record.property_id.selling_price=record.price
+            record.property_id.buyers_id=record.partner_id
+
+    def action_refused(self):
+        for record in self:
+            record.status="refused" 
+
+    _sql_constraints = [
+        ('check_offerprice', 'CHECK(price >= 0)',
+         'Offer Price Must Be In Possitive Value.')
+    ]
+
+    
