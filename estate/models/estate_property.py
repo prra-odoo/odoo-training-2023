@@ -70,6 +70,6 @@ class EstateProperty(models.Model):
                 record.garden_orientation = None
                 record.garden_area = 0
 
-        
+    
 
     
