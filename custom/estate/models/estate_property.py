@@ -42,6 +42,19 @@ class EstateProperty(models.Model):
         store=True)
     garden_area = fields.Integer(compute='_compute_garden', store=True, readonly=False)
 
+    _sql_constraints = [
+        ('check_expected_price','CHECK(expected_price >= 0)','The expected price cannot be negative.'),
+        ('check_selling_price','CHECK(selling_price >= 0)','The selling price cannot be negative.'),
+    ]
+
+    @api.constrains('selling_price','expected_price')
+    def _check_selling_price(self):
+        for record in self:
+            sp = (90 * record.expected_price) / 100
+            if(not float_is_zero(record.selling_price, precision_rounding=0.01)):
+                if (float_compare(sp,record.selling_price, precision_rounding=0.01) >= 0):
+                    raise ValidationError("The selling price must be at least 90% of the expected price! You must reduce the expected price if you want to accept this offer.")
+
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
         for record in self:

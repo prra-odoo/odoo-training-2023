@@ -17,6 +17,12 @@ class EstatePropertyOffer(models.Model):
     validity = fields.Integer(default=7, string='Validity (days)')
     date_deadline = fields.Date(string='Deadline', compute='_compute_date_deadline', inverse='_inverse_date_deadline')
 
+    _sql_constraints = [
+        (
+            'check_price','CHECK(price >= 0.0)',"The offer price cannot be negative.",
+        ),
+    ]
+
     @api.depends('validity')
     def _compute_date_deadline(self):
         for record in self:
@@ -32,15 +38,15 @@ class EstatePropertyOffer(models.Model):
     def action_accept(self):
         for record in self.property_id.offer_ids:
             record.status = 'refused'   
-            record.property_id.selling_price = self.price     
-            record.property_id.buyer_id = self.partner_id
+        self.property_id.selling_price = self.price     
+        self.property_id.buyer_id = self.partner_id
         self.status = 'accepted'
         return True     
     
     def action_refuse(self):
         for record in self:
             if(record.status == 'accepted'):
-                record.property_id.selling_price = 0
-                record.property_id.buyer_id = ''
+                self.property_id.selling_price = 0
+                self.property_id.buyer_id = ''
             record.status = 'refused'
         return True
