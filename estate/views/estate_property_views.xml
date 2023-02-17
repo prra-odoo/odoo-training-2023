@@ -6,11 +6,11 @@
         <field name="name">Estate_Property_treeview</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="name" />
+            <tree decoration-muted="state=='sold'" decoration-bf="state=='offer_accepted'" decoration-success="state=='offer_accepted' or state=='offer_received'">
+                <field name="name"/>
                 <field name="description" />
                 <field name="postcode"/>
-                <field name="tags_ids" widget="many2many_tags"/>
+                <field name="tags_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="date_availability"/>
                 <field name="expected_price"/>
                 <field name="selling_price" />
@@ -22,6 +22,7 @@
                 <field name="garden_area" optional="hide"/>
                 <field name="garden_orientation" optional="hide"/>
                 <field name="property_type_id" />
+                <field name="state" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -30,8 +31,15 @@
         <field name="name">Estate_Property_formview</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <form class="form o_appointment_appointments_list_form pt-3">
+            <form>
+                <header>
+                    <button name="sold_buisness_logic" class="oe_stat_button" type="object" string="Sold" attrs="{'invisible': [('state', 'in', ('sold','cancel'))]}" />
+                    <button name="cancel_buisness_logic" type="object" class="oe_stat_button" string="Cancel" attrs="{'invisible': [('state', 'in',('sold','cancel'))]}"/>
+                    <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1'}"/>
+                </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', '!=','cancel')]}"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=','sold')]}"/>
                     <div>
                         <h1>
                             <field name="name"/>
@@ -39,40 +47,34 @@
                     </div>
                     <group>
                         <group>
-                            <field name="tags_ids" widget="many2many_tags"/>
-                            <field name="postcode"/>
-                            <field name="expected_price"/>
-                            <field name="property_type_id" />
+                            <field name="tags_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="postcode" options='{"type": "number"}'/>
+                            <field name="expected_price" options='{"type": "number"}'/>
+                            <field name="property_type_id" options="{'no_create':True}"/>
                         </group>
                         <group>
                             <field name="date_availability"/>
-                            <!-- <field name="best_offer"/> -->
+                            <field name="best_offer"/>
                             <field name="selling_price"/>
                         </group>
-
                     </group>
                     <notebook>
                         <page string="Description">
                             <group>
+                                <field name="last_update_color"/>
                                 <field name="description"/>
                                 <field name="bedrooms"/>
-                                <field name="living_area" />
+                                <field name="living_area" options='{"type": "number"}' />
                                 <field name="facades" />
                                 <field name="garage"/>
                                 <field name="garden"/>
-                                <field name="garden_area"/>
-                                <field name="garden_orientation" />
-                                <field name="state"/>
+                                <field name="garden_area" options='{"type": "number"}' attrs="{'invisible': [('garden', '=', False)],'required':[('garden', '=', True)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}" />
                                 <field name="total_area"/>
-                                <!-- <field name="active" /> -->
                             </group>
                         </page>
                         <page string="Offers">
-                            <field name="offer_ids">
-                                <!-- <tree>
-                                    <field name="price"/>
-                                    <field name="status"/>
-                                </tree> -->
+                            <field name="offer_ids" attrs="{'readonly': [('state', 'in', ('offer_accepted','sold','cancel'))]}">
                             </field>
                         </page>
                         <page string="Other Info">
@@ -83,6 +85,11 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+                </div>
             </form>
         </field>
     </record>
@@ -96,25 +103,50 @@
                 <field name="postcode"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
+                <!-- <field name="living_area"/> -->
                 <field name="facades"/>
                 <!-- <separator/> -->
-                <filter string="State Search" name="search_state" domain="[('state', 'in', ['new','offer_received'])]"/>
+                <field name="living_area" string="Greater Living Area" filter_domain="[('living_area', '>=', self)]"/>
+                <filter string="Available" name="search_state" domain="[('state', 'in', ('new','offer_received'))]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="search_postcode" context="{'group_by':'postcode'}"/>
                 </group>
+
             </search>
         </field>
     </record>
-    <!-- Action -->
-    <record id="estate_property_action" model="ir.actions.act_window">
-        <field name="name">Properties</field>
-        <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Click here to create a new Advertisment.
-            </p>
+
+    <record id="estate_property_kanban_view" model="ir.ui.view">
+        <field name="name">Estate_Property_kanban_view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" records_draggable="0" >
+                <progressbar field="state" colors='{"new":"primary","offer_received":"warning","offer_accepted": "success"}'/>
+                <field name="last_update_color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="name"/>
+                            <!-- <field name="property_type_id"/> -->
+                            <div t-if="record.expected_price.raw_value > 0">
+                                Expected Price : <field name="expected_price"/>
+                            </div>
+                            <div t-if="record.best_offer.raw_value > 0">
+                                Best Offer : <field name="best_offer"/>
+                            </div>
+                            <div t-if="record.selling_price.raw_value > 0">
+                                Selling Price : <field name="selling_price"/>
+                            </div>
+                            <field name="tags_ids" options="{'color_field': 'color'}" />
+                            <div class="oe_kanban_bottom_right float-end">
+                                <field t-if="record.state.value &amp;&amp; widget.editable" name="state" widget="project_state_selection" options="{'color_field': 'last_update_color'}"/>
+                                <span t-if="record.state.value &amp;&amp; !widget.editable" t-att-class="'o_status_bubble mx-0 o_color_bubble_' + record.last_update_color.value" t-att-title="record.state.value"></span>
+                                <field name="salesperson_id" widget="many2one_avatar_user" t-if="record.salesperson_id.raw_value"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 </odoo>

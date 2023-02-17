@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+    <!-- Tree View -->
+    <record id="estate_property_type_tree_view" model="ir.ui.view">
+        <field name="name">Estate_Property_type_treeview</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
     <!-- Form -->
     <record id="estate_property_type_form_view" model="ir.ui.view">
         <field name="name">Estate_Property_type_formview</field>
@@ -8,6 +19,12 @@
         <field name="arch" type="xml">
             <form class="form o_appointment_appointments_list_form pt-3">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(estate_property_offer_action)d" icon="fa-dollar">
+                            <field string="Offers Available" name="offer_count" widget="statinfo" />
+                        </button>
+                    </div>
+
                     <div>
                         <h1>
                             <field name="name"/>
@@ -16,17 +33,6 @@
                     <field name="property_under_type_ids"/>
                 </sheet>
             </form>
-        </field>
-    </record>
-    <!-- Action -->
-    <record id="estate_property_type_action" model="ir.actions.act_window">
-        <field name="name">Properties Type</field>
-        <field name="res_model">estate.property.type</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                    Click here to create a new Advertisment.
-            </p>
         </field>
     </record>
 </odoo>

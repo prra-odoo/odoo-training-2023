@@ -1,29 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="estate_tag_1" model="estate.property.tags">
+            <field name="name">3BHK</field>
+        </record>
+        <record id="estate_tag_2" model="estate.property.tags">
+            <field name="name">2BHK</field>
+        </record>
+        <record id="estate_tag_3" model="estate.property.tags">
+            <field name="name">Luxorious</field>
+        </record>
+        <record id="estate_tag_4" model="estate.property.tags">
+            <field name="name">Cosy</field>
+        </record>
+
+        <record id="estate_property_type1" model="estate.property.type">
+            <field name="name">House</field>
+        </record>
+        <record id="estate_property_type2" model="estate.property.type">
+            <field name="name">Flat</field>
+        </record>
+        <record id="estate_property_type3" model="estate.property.type">
+            <field name="name">Mansion</field>
+        </record>
+        <record id="estate_property_type4" model="estate.property.type">
+            <field name="name">Villa</field>
+        </record>
+        <record id="estate_property_type5" model="estate.property.type">
+            <field name="name">Farm House</field>
+        </record>
         <record id="estate_property_house" model="estate.property">
             <field name="name">House 1</field>
             <field name="postcode">679874</field>
             <field name="expected_price">2000000</field>
-            <!-- <field name="bedrooms">4</field> -->
+            <field name="garden">True</field>
+            <field name="property_type_id" ref="estate_property_type4"/>
+            <field name="tags_ids" eval="[(6,0,[ref('estate_tag_1'),ref('estate_tag_3')])]"/>
         </record>
         <record id="estate_property_house1" model="estate.property">
             <field name="name">House 2</field>
             <field name="postcode">679855</field>
             <field name="expected_price">1000000.00</field>
-            <!-- <field name="bedrooms">5</field> -->
+            <field name="garden">True</field>
+            <field name="property_type_id" ref="estate_property_type1"/>
+            <field name="tags_ids" eval="[(6,0,[ref('estate_tag_2'),ref('estate_tag_3')])]"/>
         </record>
         <record id="estate_property_house2" model="estate.property">
             <field name="name">House 3</field>
             <field name="postcode">679874</field>
             <field name="expected_price">3000000.00</field>
-            <!-- <field name="bedrooms">6</field> -->
+            <field name="garden">True</field>
+            <field name="property_type_id" ref="estate_property_type2"/>  
+            <field name="tags_ids" eval="[(6,0,[ref('estate_tag_3'),ref('estate_tag_4'),ref('estate_tag_1')])]"/>      
         </record>
         <record id="estate_property_house3" model="estate.property">
             <field name="name">House 4</field>
             <field name="postcode">674532</field>
             <field name="expected_price">4000000.00</field>
-            <!-- <field name="bedrooms">7</field> -->
+            <field name="garden">True</field>
+            <field name="property_type_id" ref="estate_property_type3"/>
+            <field name="tags_ids" eval="[(6,0,[ref('estate_tag_4'),ref('estate_tag_2')])]"/>  
         </record>
     </data>
 </odoo>
