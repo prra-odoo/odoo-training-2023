@@ -18,6 +18,7 @@
         <field name="arch" type="xml">
             <tree string="Types">
                 <field name="name"/>
+                <field name="sequence" widget="handle"/>
             </tree>
         </field>
     </record>
@@ -31,6 +32,13 @@
                     <group>
                         <h1><field name="name" nolabel="1" class="oe_inline" placeholder="Property Type"/></h1>
                     </group>
+                    <field name="property_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                    </field>
                 </sheet>
             </form>
         </field>

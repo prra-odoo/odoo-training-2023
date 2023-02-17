@@ -121,6 +121,13 @@ class EstateProperty(models.Model):
     #     for property in self:
     #         if property.selling_price <= 0:
     #             raise exceptions.ValidationError("selling price cannot be negative.")
+    @api.constrains('name')
+    def _check_unique_name(self):
+        tag_ids = self.search([]) - self
+        value = [x.name.lower() for x in tag_ids]
+        if self.name and self.name.lower() in value:
+            raise exceptions.ValidationError(('The combination is already Exist'))
+        return True
 
     # now to check that the selling price is not less than 90% of its expected price
     #    -1 : If the first value is less than the second value.

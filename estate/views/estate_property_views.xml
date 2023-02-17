@@ -16,17 +16,17 @@
         <field name="name">Properties</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Tree View" decoration-bf="state=='offer accepted'" decoration-success="state=='offer received' or state=='offer   accepted'" decoration-muted="state=='sold'">
                 <field name="name"/>
-                <field name="postcode"/>
-                <field name="seller_id"/>
-                <field name="date_availability"/>
-                <field name="expected_price"/>
-                <field name="selling_price"/>
-                <field name="bedrooms"/>
-                <field name="garage"/>
                 <field name="property_type_id"/>
-                <field name="garden" optional="hide"/>
+                <field name="postcode"/>
+                <field name="tag_ids"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>            
+                <field name="state"/>    
+                <field name="date_availability" optional="hide"/>
                 <!-- <field name="last_seen"/> -->
                 <!-- <field name="living_area"/> -->
                 <!-- <field name="facades"/> -->
@@ -42,22 +42,33 @@
         <field name="arch" type="xml">
           <form string="Test">
           <header>
-          <button type="object" name="action_sold" string="SOLD" class="oe_highlight"/>
+          <!-- <button type="object" name="action_sold" string="SOLD" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'sold')], 'class': 'oe_highlight'}"/> -->
+          <button name="action_sold" type="object" string="Sold" states="new,offer received,sold,cancelled"/>
+          <button name="action_sold" type="object" string="Sold" states="offer accepted" class="oe_highlight"/>                   
           <button type="object" name="action_cancel" string="CANCELLED" class="oe_highlight"/>
-            <field name="state" widget="statusbar" options="{'clickable':1}" />
+            <field name="state" widget="statusbar"  options="{'clickable':1}" />
+            <!-- <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/> -->
           </header>
             <sheet>                
                     <label for="name" string="Property Name"/>
                     <h1><field name="name" class="oe_inline" placeholder="My new house"/></h1>              
                   <group>
-                    <field name="tag_ids" widget="many2many_tags" nolabel="1" placeholder="Tags" colspan="2"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" nolabel="1" placeholder="Tags" colspan="2"/>
                   </group>
                     <group col="3">
                         <group>
                             <field name="state"/>
-                            <field name="property_type_id"/>
+                            <field name="property_type_id" options="{'no_create': True}"/>
+
                             <field name="postcode"/>
                         </group>
+                        <!-- quick_create: allow the quick creation of related records (default: true)
+                              no_create: prevent the creation of related records - hide both the ‘Create “xxx”’ and “Create and Edit…” dropdown menu items (default: false)
+                              no_quick_create: prevent the quick creation of related records - hide the ‘Create “xxx”’ dropdown menu item (default: false)
+                              no_create_edit: hide the “Create and Edit…” dropdown menu item (default: false)
+                              create_name_field: when creating a related record, if this option is set, the value of the create_name_field will be filled with the value of the input (default: name)
+                              always_reload: boolean, default to false. If true, the widget will always do an additional name_get to fetch its name value. This is used for the situations where the name_get method is overridden (please do not do that)
+                              no_open: boolean, default to false. If set to true, the many2one will not redirect on the record when clicking on it (in readonly mode) -->
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
@@ -85,8 +96,8 @@
                             <field name="garden"/>
                             </group>
                             <group>
-                            <field name="garden_area" attrs="{'readonly':[('garden','=',False)]}"/>
-                            <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
+                            <field name="garden_area"  attrs="{'invisible': [('garden', '=', False)]}"/>
+                            <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                             <field name="active"/>
                             <field name="state"/> 
                             <field name="total_area"/>
@@ -137,6 +148,7 @@
                 <field name="tad_ids"/> -->
                 <separator/>
                 <filter string="Available" name="state" domain="['|',('state', '=', 'offer receieved'),('state', '=', 'new')]"/>
+                <field name="living_area" filter_domain="[('living_area','>=',self)]]"/>               
                 <separator/>
                 <!-- seperator shows a line between both and two filters in same part are filtered in one whereas other would be shown in different filter -->
                 <filter string="Cozy" name="bedrooms" domain="['|',('bedrooms','=','1'),('bedrooms','=','2')]"/>

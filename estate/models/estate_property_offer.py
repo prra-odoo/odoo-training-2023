@@ -6,6 +6,7 @@ class EstatePropertyOffer(models.Model):
     
     _name = "estate.property.offer"
     _description = "Property Offer Model"
+    _order = "price desc"
     _sql_constraints = [
         ('validity', 'CHECK(validity >= 0)',
          'The validity should be a positive number only.')
@@ -20,6 +21,7 @@ class EstatePropertyOffer(models.Model):
     partner_id = fields.Many2one("res.partner",string="partner",required=True)
     property_id = fields.Many2one("estate.property",required=True)
     validity = fields.Integer(default = "7")
+    property_type_id = fields.Many2one("estate.property.type",string="Property Type")
     # create_date = fields.Date(default=fields.Datetime.today())
 
 # for setting the deadline and even dynamically changing it
