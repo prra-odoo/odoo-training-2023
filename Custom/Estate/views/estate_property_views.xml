@@ -21,17 +21,19 @@
             </tree>
         </field>
     </record>
-<!--           Form View Estate_Property    -->
+<!--           Form View Estate_Property-->
   <record id="estate_property_view_form" model="ir.ui.view"> 
     <field name="name">estate_property_fromView </field>
     <field name="model">estate.property</field>
     <field name="arch" type="xml">
         <form string="estate_form">
-          <sheet>
           <header>
-                <field name="state" widget='statusbar' options="{'clickable':'1'}"/>
+            <button class="oe_highligh" name="sold_action_button" type="object"  string="Sold"/>
+            <button class="oe_highlight" name="cancel_action_button" type="object"  string="Cancel"/>
+            <field name="state" widget='statusbar' options="{'clickable':'1'}"/>
           </header>
-              <h1>
+          <sheet>
+              <h1 string="Customer Name">
                 <field name="name"/>
              </h1>
               <p>
