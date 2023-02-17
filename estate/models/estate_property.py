@@ -19,8 +19,8 @@ class EstateProperty(models.Model):
     garden = fields.Boolean()
     garden_area = fields.Integer(compute="_compute_garden",readonly=False)
     garden_orientation = fields.Selection(selection=[("north","North"),("south","South"),("east","East"),("west","West")],compute="_compute_garden",readonly=False)
-    active = fields.Boolean(default = False)
-    status = fields.Selection(selection=[("new","New"),("offer received","Offer Received"),("offer accepted","Offer Accepted"),("sold","Sold"),("canceled","Canceled")],default = "New",copy = False)
+    active = fields.Boolean(default = True)
+    status = fields.Selection(selection=[("new","New"),("offer received","Offer Received"),("offer accepted","Offer Accepted"),("sold","Sold"),("canceled","Canceled")],default = "new",copy = False)
     property_type_id = fields.Many2one("estate.property.type",string="Property Type")
     sales_person_id = fields.Many2one('res.users', string="Salesman",default = lambda self : self.env.user)
     buyer_id = fields.Many2one('res.partner', string="Buyer",compute="_compute_buyer_id")
@@ -28,6 +28,12 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many('estate.property.offer','property_id')
     total_area = fields.Float(compute = "_compute_area")
     best_price = fields.Float(compute = "_compute_bestprice",default=0)
+
+    _sql_constraints = [
+        ("check_expected_price","CHECK(expected_price > 0)","The expetcted price must be strictly positive"),
+        ("check_selling_price","CHECK(selling_price > 0)","The selling price must be strictly positive"),
+        
+    ]
 
     @api.depends("living_area","garden_area")
     def _compute_area(self):
@@ -82,3 +88,10 @@ class EstateProperty(models.Model):
                     flag = 1
             if(flag == 0):
                 record.buyer_id = ""
+
+    @api.constrains("selling_price")
+    def check_price(self):
+        for record in self:
+            if(record.selling_price < record.expected_price * 0.9):
+                raise exceptions.ValidationError(("The selling price must be at least 90% of the expected price. You must reduce the expected price if want to accept the offer."))
+                
