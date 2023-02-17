@@ -24,15 +24,16 @@
         <field name="arch" type="xml">
             <tree string="Channel">
                 <field name="name" string="Title"/>
-                <field name="buyer_id" string="Buyer" optional="hide"/>
-                <field name="salesperson_id" string="Salesperson"/>
-                <field name="active"/>
-                <field name="postcode"/>
-                <field name="bedrooms"/>
-                <field name="living_area" string="Living Area (sqm)"/>
+                <!-- <field name="buyer_id" string="Buyer" optional="hide"/> -->
+                <!-- <field name="salesperson_id" string="Salesperson"/> -->
+                <!-- <field name="active"/> -->
+                <!-- <field name="postcode"/> -->
+                <!-- <field name="bedrooms"/> -->
+                <!-- <field name="living_area" string="Living Area (sqm)"/> -->
                 <field name="expected_price"/>
-                <field name="selling_price" optional="hide"/>
-                <field name="date_availability" string="Available From" optional="hide"/>
+                <field name="state" string="Status"/>
+                <!-- <field name="selling_price" optional="hide"/> -->
+                <!-- <field name="date_availability" string="Available From" optional="hide"/> -->
             </tree>
         </field>
     </record>
@@ -142,6 +143,7 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <tree string="Channel">
+                <field name="sequence" widget="handle"/>
                 <field name="name" string="Title"/>
             </tree>
         </field>
@@ -152,9 +154,10 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <form string="Channel">
-                <sheet>
-                    <h1><field name="name"/></h1>
-                </sheet>
+                <h1><field name="name"/></h1>
+                <tree>
+                    <field name="property_ids"/>
+                </tree>
             </form>
         </field>
     </record>

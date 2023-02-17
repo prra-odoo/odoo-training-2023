@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offer Model"
+    _order = "price desc"
     _sql_constraints = [
         ('check_offer_price','CHECK(price>0)','The offer price must be strictly positive.'),
     ]

@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property Model"
+    _order = "id desc"
     _sql_constraints = [
         ('check_expected_price','CHECK(expected_price>0)','The expected price must be strictly positive.'),
     ]

@@ -3,6 +3,7 @@ from odoo import api,fields, models,exceptions
 class EstatePropertyTag(models.Model):
     _name = "estate.property.tag"
     _description = "Estate Property Tag Model"
+    _order = "name"
     _sql_constraints = [
     ('check_tag_name_uniq', 'UNIQUE (name)', 'You can not have two property tags with the same name !')
     ]
