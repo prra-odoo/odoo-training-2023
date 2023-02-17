@@ -1,7 +1,9 @@
 from datetime import date
 from isodate import strftime
-from odoo import models,fields,api
+from odoo import models,fields,api,_
 from dateutil.relativedelta import relativedelta
+
+from odoo.exceptions import UserError
 
 class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
@@ -43,13 +45,19 @@ class EstatePropertyOffer(models.Model):
     # accept button method
     
     def action_accept(self):
-        for record in self:
-            record.status = "accepted"         
-            return True
+        for record in self.property_id.offer_ids:
+            record.status = "refused"
+            record.property_id.selling_price = self.price
+            record.property_id.buyer_id = self.partner_id
+        self.status = "accepted"
+        return True
     
     # refuse button method
     
     def action_refuse(self):
         for record in self:
+            if(record.status == "accepted"):
+                record.property_id.selling_price = 0
+                record.property_id.buyer_id = ''
             record.status = "refused"
-            return True
+        return True
