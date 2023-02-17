@@ -17,6 +17,7 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one("estate.property",required=True,ondelete="cascade")
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_computed_date_deadline",inverse="_inverse_date_deadline")
+    property_type_id = fields.Many2one(related="property_id.property_type_id",store=True)
 
     @api.depends("validity","create_date")
     def _computed_date_deadline(self):
@@ -33,7 +34,7 @@ class EstatePropertyOffer(models.Model):
                     record.validity = 0
 
 
-    def offer_accept(self):
+    def action_accept(self):
         for offers in self.property_id.offer_ids:
             offers.status = "refused"
         self.status="accepted"
@@ -42,6 +43,6 @@ class EstatePropertyOffer(models.Model):
         self.property_id.buyer_id=self.partner_id
         return True
     
-    def offer_reject(self):
+    def action_reject(self):
         self.status="refused"
         return True

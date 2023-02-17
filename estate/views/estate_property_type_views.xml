@@ -28,10 +28,23 @@
         <field name="arch" type="xml">
             <form string="Form View">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(estate_property_offer_action)d" icon="fa-money">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="offer_count"/>
+                                    </span>
+                                    <span class="o_stat_text">
+                                        Offers
+                                    </span>
+                                </div>
+                        </button>
+                    </div>
                     <h1>
                         <group>
                             <field name="name" nolabel="1" class="oe_inline" placeholder="Property Type"/>
                         </group>
+                        <field name="offer_count" invisible="1"/>
                     </h1>
                     <notebook>
                         <page string="Properties">
@@ -39,7 +52,7 @@
                                 <tree>
                                     <field name="name"/>
                                     <field name="expected_price"/>
-                                    <field name="state"/>
+                                    <field name="state"/>               
                                 </tree>
                             </field>
                         </page>

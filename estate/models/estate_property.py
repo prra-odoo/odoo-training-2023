@@ -24,13 +24,13 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean(default=True)
-    garden_area = fields.Integer(string="Garden Area (sqm)",compute="_compute_garden",store=True,default=10)
+    garden_area = fields.Integer(string="Garden Area (sqm)",compute="_compute_garden",inverse="_inverse_garden",store=True)
     garden_orientation = fields.Selection(
         string="Garden Orientation",
         selection=[('north',"North"),('south',"South"),('east',"East"),('west',"West")],
         compute="_compute_garden",
+        inverse="_inverse_garden",
         store=True,
-        default="north"
     )
     active = fields.Boolean(default=True,required=True)
     state = fields.Selection(
@@ -70,9 +70,12 @@ class EstateProperty(models.Model):
             if(record.garden==False):
                 record.garden_area = 0
                 record.garden_orientation=""
-            elif(record.garden==True and record.garden_area==0 and record.garden_orientation==False):
+            else:
                 record.garden_area = 10
                 record.garden_orientation = "north"
+    
+    def _inverse_garden(self):
+        pass
 
     @api.constrains('selling_price','expected_price')
     def _check_selling_price(self):
@@ -80,16 +83,18 @@ class EstateProperty(models.Model):
             if((not float_utils.float_is_zero(record.selling_price,2)) and ((float_utils.float_compare(record.expected_price-record.selling_price,record.expected_price*0.1,0))==1)):
                 raise ValidationError("The Selling Price must be at least 90% of the expected price")
 
-    def property_sold(self):
-        if(self.state!="cancelled"):
-            self.state = "sold"
-        else:
-            raise UserError("Cancelled Property can not be Sold.")
-        return True
+    def action_sold(self):
+        for record in self:
+            if(record.state!="cancelled"):
+                record.state = "sold"
+            else:
+                raise UserError("Cancelled Property can not be Sold.")
+            return True
 
-    def property_cancel(self):
-        if(self.state!="sold"):
-            self.state = "cancelled"
-        else:
-            raise UserError("Sold Property can not be Cancelled.")
-        return True
+    def action_cancel(self):
+        for record in self:
+            if(record.state!="sold"):
+                record.state = "cancelled"
+            else:
+                raise UserError("Sold Property can not be Cancelled.")
+            return True
