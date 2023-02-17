@@ -42,8 +42,20 @@
                 <header>
                     <field name="state" widget="statusbar"
                         options="{'clickable': '1'}" />
+                    <button id="btn_sold" string="Sold" name="btn_sold" type="object"
+                        class="btn-primary" confirm="Are you sure you want to mark this as sold ?"
+                        attrs="{'invisible': [('state', '==', 'S')]}" />
+                    <button id="btn_cancel" string="Cancel" name="btn_cancel" type="object"
+                        class="btn-primary"
+                        confirm="Are you sure you want to mark this as cancelled ?"
+                        attrs="{'invisible': [('state', '==', 'C')]}" />
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="SOLD"
+                        attrs="{'invisible': [('state', 'in', ['N','OR','OA','C'])]}" />
+                    <widget name="web_ribbon" title="CANCELLED"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('state', 'in', ['N','OR','OA','S'])]}" />
                     <div class="oe_title">
                         <h1>
                             <field name="name" />

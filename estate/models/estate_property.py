@@ -1,5 +1,6 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 
 class EstateProperty(models.Model):
@@ -46,7 +47,8 @@ class EstateProperty(models.Model):
     salesman_id = fields.Many2one(
         'res.users', string="Salesman", default=lambda self: self.env.user)
 
-    buyer_id = fields.Many2one('res.partner', string="Buyer", copy=False)
+    buyer_id = fields.Many2one(
+        comodel_name='res.partner', string="Buyer", copy=False)
 
     tag_ids = fields.Many2many(
         comodel_name="estate.property.tag", string="Tags", copy=False)
@@ -67,13 +69,17 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area = record.garden_area+record.living_area
 
-    @api.depends("offer_ids.price")
+    @api.depends("offer_ids")
     def _compute_best_price(self):
         for record in self:
-            if (len(record.offer_ids.mapped('price')) > 0):
+            if (record.offer_ids):
+                if (record.state == "N"):
+                    record.state = "OR"
                 amount = max(record.mapped('offer_ids.price'))
                 record.best_price = amount
             else:
+                if (record.state == "OR"):
+                    record.state = 'N'
                 record.best_price = 0
 
     @api.depends("garden")
@@ -97,3 +103,19 @@ class EstateProperty(models.Model):
             if (not record.garden):
                 record.garden_area = 0
                 record.garden_orientation = False
+
+    def btn_sold(self):
+        for record in self:
+            if (record.state != "C"):
+                record.state = 'S'
+            else:
+                raise UserError(
+                    _('Cancelled Properties cannot be sold.'))
+
+    def btn_cancel(self):
+        for record in self:
+            if (record.state != "S"):
+                record.state = 'C'
+            else:
+                raise UserError(
+                    _('Already sold properties cannot be cancelled.'))
