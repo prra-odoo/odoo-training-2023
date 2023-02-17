@@ -25,6 +25,7 @@
       'demo/real_estate_type_data.xml',
       'demo/real_estate_demo_data.xml',
      ],
-     'depends' : ['mail'],
+     'depends' : ['mail','website'],
      'icon' : "estate/static/description/real-estate.png",
+     
 }

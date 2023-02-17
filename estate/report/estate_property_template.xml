@@ -21,7 +21,6 @@
                             <span t-field="property.state"/>
                         </div>
                         <t t-call="estate.sub_report_property_offers"/>
-                       
                     </div>
                     
                 </t>
@@ -69,5 +68,39 @@
                 </t>
                
     </template>
+    <!-- <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Academy</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <title>properties</title>
+                    <t t-foreach="properties" t-as="property">
+                        <p><t t-esc="property.id"/><t t-esc="property.name"/></p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template> -->
+    <!-- <template id="index">
+        <title>Estate</title>
+        <t t-foreach="properties" t-as="property">
+            <p><t t-esc="property"/></p>
+        </t>
+    </template> -->
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Estate</t>
+            <div class="oe_structure">
+            <div class="container">
+                <title>Estate</title>
+                    <t t-foreach="properties" t-as="property">
+                    <p><t t-esc="property.id"/> <t t-esc="property.name"/></p>
+                    </t>
+            </div>
+            </div>
+        </t>
+    </template>
+
+
     
 </odoo> 
