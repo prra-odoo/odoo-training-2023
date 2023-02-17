@@ -13,7 +13,6 @@ class EstatePropertyOffer(models.Model):
     status = fields.Selection(copy=False,selection=[('accepted','Accepted'),('refused','Refused')])
     partner_id = fields.Many2one("res.partner",required=True)
     property_id = fields.Many2one("estate.property",required=True)
-    # acceptrefusebutton = fields.Selection(selection=[('refused',"Refused"),('accepted',"Accepted")])
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_date",inverse="_inverse_date")
   
@@ -22,7 +21,6 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.date_deadline = fields.Date.today()+relativedelta(days=record.validity)
            
-    
     @api.depends("date_deadline")
     def _inverse_date(self):
         for record in self:
@@ -30,9 +28,7 @@ class EstatePropertyOffer(models.Model):
 
     def action_accepted(self):
         for record in self.property_id.offer_ids:
-                record.status = "refused"
-                # record.status = "accepted"
-                
+            record.status = "refused"
         self.status ="accepted"
         self.property_id.buyer=self.partner_id
         self.property_id.selling_price=self.price
@@ -40,7 +36,11 @@ class EstatePropertyOffer(models.Model):
     
     def action_refused(self):
         for record in self:
-           record.status = "refused"
+           if(record.status =='accepted'):
+                record.property_id.selling_price = 0
+                record.property_id.buyer = ""
+        self.status = 'refused' 
+        
         return True
     
     _sql_constraints = [
