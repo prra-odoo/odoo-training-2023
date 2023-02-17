@@ -10,8 +10,8 @@
                 <field name="partner_id" />
                 <field  name="validity"/>
                 <field name="date_deadline"/>
-                <button name="action_accepted" type="object" icon="fa-check"/>
-                <button name="action_refused" type="object" icon="fa-times"/>
+                <button name="action_accepted" title="Accepted" type="object" icon="fa-check"/>
+                <button name="action_refused" title="Refused" type="object" icon="fa-times"/>
                 <field name="status"/>
             </tree>
         </field>

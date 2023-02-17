@@ -1,12 +1,17 @@
 from odoo import models, fields,api
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError 
 
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
-    _description = "This is a real estate module"
+    _description = "This is a real estate module"  
+    _sql_constraints=[
+       ("check_expected_price","CHECK(expected_price > 0)","The expected price must be strictly positive"),
+                  ("check_selling_price","CHECK(selling_price >= 0)","The offer price must be strictly positive")
+     ]
+    
    
 
     name = fields.Char(required=True, string="Title")
@@ -17,16 +22,16 @@ class EstateProperty(models.Model):
     selling_price = fields.Float(string='Selling Price',readonly=True , copy =False)
     bedrooms = fields.Integer(default = 2)
     living_area = fields.Integer(string="Living Area(sqm)")
-    facades = fields.Integer()
-    garage = fields.Boolean()
-    garden = fields.Boolean()
+    facades = fields.Integer("Facades")
+    garage = fields.Boolean("Garage")
+    garden = fields.Boolean("Garden")
     garden_area = fields.Integer(string="Garden Area(sqm)", compute="_compute_garden")
     garden_orientation = fields.Selection(
         selection =[('N','North'),('E' , 'East'),('S','South'),('W','West')],
         help = 'Type is used to seprate directions' , 
         compute="_compute_garden"
     )
-    active = fields.Boolean(String="Active", default = True)
+    active = fields.Boolean("Active", default = True)
     state = fields.Selection(
         selection=[
         ("new", "New"),
@@ -85,8 +90,7 @@ class EstateProperty(models.Model):
              raise UserError("sold property cannot be canceled.")
           else:
              record.state="canceled"
-           
-   
+
 
 
 

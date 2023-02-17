@@ -11,7 +11,7 @@ class EstatePropertyOffer (models.Model):
         help="status is used to show offer status",copy=False)
    partner_id = fields.Many2one('res.partner',required=True)
    property_id=fields.Many2one('estate.property',required=True)
-   validity=fields.Integer(defaul=7) 
+   validity=fields.Integer(default=7) 
    date_deadline=fields.Date(compute="_compute_date_deadline" , inverse="_inverse_date_deadline")
 
    @api.depends("validity", "create_date")

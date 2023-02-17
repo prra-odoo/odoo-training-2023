@@ -11,6 +11,7 @@
             </p>
         </field>
     </record>
+    
     <!-- Tree View -->
     <record id="estate_property_tree_view" model="ir.ui.view">
         <field name="name">Estate Properties Tree View</field>
@@ -61,6 +62,7 @@
                             <field name="expected_price" />
                             <field name="best_price"/>
                             <field name="selling_price" />
+                            
                         </group>
                     </group>
                     <!-- Add a menu tab below in the form -->
