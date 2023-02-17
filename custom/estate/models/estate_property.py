@@ -91,8 +91,8 @@ class EstateProperty(models.Model):
     def _check_offer_price(self):
         for record in self:
             sp=(90*record.expected_price)/100
-            if((   not float_is_zero(record.selling_price,precision_rounding=0.01)) and 
-                    float_compare(sp,record.selling_price,precision_rounding=0.01)>=0):
+            if((not float_is_zero(record.selling_price,precision_rounding=0.01)) and 
+                float_compare(sp,record.selling_price,precision_rounding=0.01)>=0):
                 raise ValidationError("The selling price must be at least 90% of the expected price! You must reduce the expected price if want to accept this offer")
                 
                         

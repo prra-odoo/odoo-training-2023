@@ -29,6 +29,7 @@
                 <header>
                 <button name="sold_action" type="object" string="Sold"/>
                 <button name="cancel_action" type="object" string="Cancel"/>
+                <button type="action" string="Jump2Types" name="%(estate.estate_property_types_action)d" />
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                 </header>
                 <sheet>
