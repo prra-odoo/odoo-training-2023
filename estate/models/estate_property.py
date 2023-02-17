@@ -87,3 +87,17 @@ class EstateProperty(models.Model):
         else:
             record.state="canceled"        
         return True
+    
+    _sql_constraints=[(
+        'check_expected_price',
+        'CHECK(expected_price>0)',
+        'Expected price should be positive and greater than 0')
+    ]
+
+    _sql_constraints=[(
+        'check_selling_price',
+        'CHECK(selling_price>0)',
+        'Selling price should be positive and greater than 0')
+    ]
+
+    
