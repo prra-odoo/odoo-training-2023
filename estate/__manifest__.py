@@ -22,8 +22,9 @@
         'views/estate_property_tags.xml',
         'views/estate_property_offer.xml',
         'views/inherit_user.xml',
+        'controller/estate_templete.xml',
         ],
-    'depends':['mail',],
+    'depends':['mail','website'],
     'demo':[
         'demo/estate_property_demo.xml',
     ],

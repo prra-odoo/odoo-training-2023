@@ -49,6 +49,7 @@
     </template>
     <template id="offer_table">
         <t>
+            <p style="page-break-before:always;"> </p>
             <table class="table" t-if="property.offer_ids">
                 <thead>
                     <tr>
@@ -80,7 +81,9 @@
                     </tr>
                 </tbody>
             </table>
+            
             <strong t-else="">Currently No offer</strong>
+            
         </t>
     </template>
 </odoo>

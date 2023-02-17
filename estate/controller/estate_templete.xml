@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <odoo>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Academy</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="teachers" t-as="teacher">
+                        <p>
+                            <a t-attf-href="/estate/{{ slug(teacher) }}">
+                            <t t-esc="teacher.name"/></a>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo> -->
+
+
+<odoo>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Academy</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <p><t t-esc="property.id"/> <t t-esc="property.name"/></p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
