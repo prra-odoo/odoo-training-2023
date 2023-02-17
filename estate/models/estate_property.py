@@ -1,12 +1,12 @@
 from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Property"
-
+    
   
 
     name=fields.Char(required=True)
@@ -21,12 +21,14 @@ class EstateProperty(models.Model):
     facades=fields.Integer()
     garage=fields.Boolean()
     garden=fields.Boolean()
-    garden_area=fields.Integer(compute="_compute_garden")
+    garden_area=fields.Integer(compute="_compute_garden",readonly=False,store=True)
     garden_orientation=fields.Selection(
         
         selection=[('E','East'),('W','West'),('N','North'),('S','South')],
         string="Garden Orientation",
-        compute="_compute_garden"
+        compute="_compute_garden",
+        readonly=False,
+        store=True
         
     )
 
@@ -58,7 +60,17 @@ class EstateProperty(models.Model):
     tag_ids=fields.Many2many('estate.property.tag',relation="tag_property")
     offer_ids=fields.One2many('estate.property.offer','property_id',string="Offer")
 
+    @api.constrains('selling_price')
+    def _check_selling_price(self):
+      for record in self:
+        if record.selling_price < record.expected_price*0.90:
+            raise ValidationError("The selling price less than 90% of the expected price could not be accepted")
 
+
+    _sql_constraints=[
+        ('check_expected_price','CHECK (expected_price>=0)','Expected peice must be positive.'),
+         ('check_selling_price','CHECK (selling_price>=0)','Selling price must be positive.')
+    ]
 
     @api.depends('living_area','garden_area')
     def _compute_area(self):

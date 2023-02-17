@@ -10,6 +10,8 @@
        <field name="partner_id"/>
        <field name="validity"/>
        <field name="date_deadline"/>
+       <button name="action_accept" type="object" title="Accept" icon="fa-check" class="oe_highlight" />
+       <button name="action_refuse" type="object" title="Refuse" icon="fa-times" class="btn-danger"/>
        <field name="status"/>
     </tree>
   </field>
@@ -26,8 +28,6 @@
           <field name="partner_id"/>
           <field name="validity"/>
           <field name="date_deadline"/>
-          <button string="Confirm" states="accepted" type="object" icon="fa-check"/>
-          <button string="Cancel" states="refused" type="object" icon="fa-times"/>
           <field name="status"/>
         </group>
       </sheet>
