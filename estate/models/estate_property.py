@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models , fields,api
+from odoo import models , fields,api,_
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare,float_is_zero
@@ -19,7 +19,8 @@ class estate_property(models.Model):
     
     
     name = fields.Char(required=True)
-    postcode = fields.Integer(default = 104,readonly=True)
+    images = fields.Image(help="Select Image here")
+    postcode = fields.Integer()
     description = fields.Text(copy=False)
     date_availability = fields.Date('Date Avilability',default=lambda self: fields.datetime.today()+relativedelta(months=3))
     expected_price = fields.Float(default= 100)
@@ -49,6 +50,7 @@ class estate_property(models.Model):
     tags_ids = fields.Many2many("estate.property.tag",required=True,string="Tags")
     offer_ids = fields.One2many("estate.property.offer","property_id",string = "Property offer")
     country_id = fields.Many2one("res.country",string="Country")
+    company_id = fields.Many2one('res.company',string="Company")
     
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
@@ -87,13 +89,11 @@ class estate_property(models.Model):
               
                 raise UserError("Selling Price must 90percent of the expected price")
         
-    def unlink(self):
-        for record in self:
-            if record.state not in {'new','cancel'}:
-                raise UserError("Only new and canceled properties can be deleted")
-        return super().unlink()
+    # def unlink(self):
+    #     for record in self:
+    #         if record.state not in {'new','cancel'}:
+    #             raise UserError("Only new and canceled properties can be deleted")
+    #     return super().unlink()
     
 
-              
     
-            

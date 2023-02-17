@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_model_wizard_form_view" model="ir.ui.view">
+        <field name="name">Estate Model Wizard</field>
+        <field name="model">estate.wizard</field>
+        <field name="acrh" type="xml">
+            <form string="Estate Wizard">
+                
+                <group class="oe_title"/>
+                <field name="pricing"/>
+                <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="estate_model_wizard_action" model="ir.actions.act_window">
+        <field name="name">Estat wizard action</field>
+        <field name="res_model">estate.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="estate_model_wizard_form_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

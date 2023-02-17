@@ -8,7 +8,10 @@
             <field name="arch" type="xml">
                 <tree expand= "1" string="tree view" decoration-success = "state in ('sold','offer_accepted','offer_received')" 
                 decoration-bf="state=='offer_accepted'" decoration-muted="state=='cancel'">
-                    <!-- <field name="sequence" widget="handle"/> -->
+                    <header>
+                        <button name="%(estate.estate_model_wizard_action)d" type="action" string="Add offer" class="oe_highlight"/>
+                    </header>
+                    <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="postcode"/>
                     <field name="bedrooms"/>
@@ -51,6 +54,7 @@
                             <filter string="Estate_bedroom" name="bedroom" context="{'group_by':'living_area', 'garage':True}"/>
                         </group>
                 </search>
+                
             </field>
         </record>
 
@@ -60,7 +64,7 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <form string="estate_form">
-                    <header>
+                    <header>    
                         <button name="action_sold" type="object" string ="Sold" attrs="{'invisible': [('state','in',('sold','cancel'))]}"  />
                         <button name="action_cancel" type="object" string ="Cancel" attrs="{'invisible': [('state','in',('sold','cancel'))]}"/>
                         <button name="%(estate.estate_model_action01)d" type="action" string="Properties"/>
@@ -71,10 +75,13 @@
                         <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible':[('state','in',('new','offer_received','offer_accepted','sold'))]}" />
                         <label for="name"></label>
                             <h1><field name="name"/></h1>
-                        <group>
+                        <group> 
                             <group style="Margin-top:30px">
                             <field name="tags_ids" widget ="many2many_tags" options="{'color_field': 'colors' , 'no_create':True, 'no_edit': True}" />
                             </group>  
+                            <group>
+                                <field name="images" widget="image" class="oe_avatar" no_label="1"/>
+                            </group>
                             <group style="Margin-top:30px">
                                 <field name="postcode"/>
                             </group>  
@@ -100,6 +107,9 @@
                                 <field name="country_id"/>
                             </group>
                             <group style="Margin-top:30px">
+                                <field name="company_id"/>
+                            </group>
+                            <group style="Margin-top:30px">
                                 <field name="best_offer"/>
                             </group>
                         </group>
@@ -121,7 +131,7 @@
                                 <field name="other_info"></field>
                             </page>
                             <page string="Offer">
-                                <field name="offer_ids" attrs="{'readonly':[('state','in',('offer_received','offer_accepted','sold'))]}">
+                                <field name="offer_ids" >
                                     <tree editable="top" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                                         <field name ="price"/>
                                         <field name ="partner_id"/>
@@ -144,15 +154,39 @@
                 </form>
             </field>
         </record>
-         <record id="Estate_searchpanel_view" model="ir.ui.view">
-            <field name="name">Estate search panel view</field>
+
+        ------------------------ KANBAN VIEW ---------------------
+        <record id="estate_kanban_view" model="ir.ui.view">
+            <field name="name">estate.property.kanban.view</field>
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
-                <search position="inside">
-                    <searchpanel>
-                        <field name="property_type_id"/>
-                    </searchpanel>
-                </search>
+                <kanban default_group_by='property_type_id' record_draggable="0">
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div>
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div>Expected Price: <field name="expected_price"/></div>
+                                <div t-if="record.state.raw_value=='offer_received'">
+                                    Best Offer: <field name="best_offer"/>
+                                </div>
+                                <div t-if="record.state.raw_value=='offer_accepted'">
+                                    Selling Price: <field name="selling_price"/>
+                                </div>
+                                <div>
+                                    <field name="tags_ids" widget="many2many_tags" options="{'color_field':'colors'}"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>   
             </field>
         </record>
     </data>
