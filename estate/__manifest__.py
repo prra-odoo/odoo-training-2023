@@ -5,7 +5,7 @@
     'summary': ' For buying and selling proerties.',
     'description': ' This is a  real estate Module',
     'author': 'Karnav',
-    'depends' : ['mail'],
+    'depends' : ['mail','website'],
     'sequence': 1,
     'data': [
         'security/security.xml',

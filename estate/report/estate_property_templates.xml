@@ -124,4 +124,18 @@
         </table>
         <strong t-else="">No offers have been made yet :(</strong>
     </template>  
+
+    <template id="estate_property">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <title>properties</title>
+                    <t t-foreach="properties" t-as="property">
+                        <p><t t-esc="property.id"/><t t-esc="property.name"/></p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>
