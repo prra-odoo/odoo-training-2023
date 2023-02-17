@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -12,9 +13,9 @@ class EstateProperty(models.Model):
     postcode = fields.Char(required=True)
     date_availability = fields.Date(
         default=lambda self: fields.Date.today() + relativedelta(months=3), copy=False)
-    expected_price = fields.Float()
+    expected_price = fields.Float()#constrains='_check_expected_price'
     selling_price = fields.Float(readonly=True, copy=False)
-    bedrooms = fields.Integer(default=2)
+    bedrooms = fields.Integer(default=2)#constrains='_check_bedrooms'
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
@@ -90,3 +91,34 @@ class EstateProperty(models.Model):
                 raise UserError("This property can not be cancelled because it was sold")
         return True
             
+    # @api.constrains('expected_price')
+    # def _check_expected_price(self):
+    #     for record in self:
+    #         if record.expected_price <= 0:
+    #             raise ValidationError("Expected Price Must be Positive")
+
+    # @api.constrains('bedrooms')
+    # def _check_bedrooms(self):
+    #     for record in self:
+    #         if record.bedrooms < 2:
+    #             raise ValidationError("Bedrooms must be more than 1")
+
+    # _sql_constraints = [
+    #     ('check_bedrooms',
+    #     'CHECK(bedrooms > 1)',
+    #     'Bedrooms must be more than 1')
+    # ]
+
+    _sql_constraints = [
+        ('check_expected_price',
+        'CHECK(expected_price > 0)',
+        'Expected Price Must be Positive'),
+        ('check_selling_price',
+        'CHECK(selling_price > 0)',
+        'Selling Price Must be Positive'),
+    ]
+
+    @api.constrains('expected_price','selling_price')
+    def _validate_expected_price(self):
+        if float_compare(self.expected_price*0.9, self.selling_price, precision_digits=2) == 1:
+            raise ValidationError("The selling price must be minimum 90% of the Expected Price")

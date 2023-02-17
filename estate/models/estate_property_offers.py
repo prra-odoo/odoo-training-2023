@@ -1,7 +1,6 @@
 # -- coding: utf-8 --
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
 
 class EstatePropertyOffers(models.Model):
     _name = "estate.property.offers"
@@ -45,24 +44,23 @@ class EstatePropertyOffers(models.Model):
     #         else:
     #             record.validity = 0
 
-    def action_accept(self):
-        self.status = "accepted"
-
-    def action_refuse(self):
-        self.status = "refused" 
-
     def action_accept_offer(self):
         for record in self.property_id.offer_ids:
             record.status = "refused"
-            record.property_id.selling_price = self.price
-            record.property_id.buyer_id = self.buyer_id
-        self.status = 'accepted'
+        self.status = "accepted"
+        self.property_id.state = "offer_accepted"
+        self.property_id.selling_price = self.price
+        self.property_id.buyer_id = self.buyer_id
         return True
 
     def action_refuse_offer(self):
-        for record in self:
-            if record.status == "accepted":
-                record.property_id.selling_price = 0
-                record.property_id.buyer_id = None
-            self.status = 'refused'
-            return True
+        self.status == "refused"
+        self.property_id.selling_price = 0
+        self.property_id.buyer_id = None
+        return True
+            
+    _sql_constraints = [
+        ('check_price',
+        'CHECK(price > 0)',
+        'Offer Price Must be Positive')
+    ]
