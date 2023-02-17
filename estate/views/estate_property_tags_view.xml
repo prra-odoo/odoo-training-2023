@@ -14,9 +14,22 @@
         <field name="name">Estate Property Tag Tree</field>
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree >
                 <field name="name" />
             </tree>
+        </field>
+    </record>
+    <record id="estate_property_form_tree_view" model="ir.ui.view">
+        <field name="name">Estate Property Tag Form</field>
+        <field name="model">estate.property.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 </odoo>

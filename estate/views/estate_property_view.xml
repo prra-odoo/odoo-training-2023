@@ -4,6 +4,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
+        <field name="context">{'search_default_active':True}</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -17,13 +18,13 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree multi_edit="1">
+            <tree multi_edit="1" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-bf="state == 'offer_accepted'" decoration-muted="state == 'sold'" decoration-info="state=='new'">
                 <field name="name" />
                 <field name="property_type_id" />
                 <field name="postcode" />
                 <field name="bedrooms" optional="hide" />
                 <field name="living_area" />
-                <field name="tag_ids" widget="many2many_tags" />
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="expected_price" optional="show" />
                 <field name="selling_price" />
                 <field name="date_availability" />
@@ -45,10 +46,11 @@
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"
                         statusbar_visible="new,offer_received,offer_accepted,sold" />
                     <button name="action_set_sold" string="Sold" type="object" class="oe_highlight"
-                    states="offer_accepted" />
+                    states="offer_accepted"/>
                     <button name="action_set_sold" string="Sold" type="object" states="new,offer_received,cancelled"  />
                     <button name="action_set_sold" string="Sold" type="object" states="sold" invisible="1" />
                     <button name="action_set_cancel" string="Cancel" type="object" attrs="{'invisible':[('state','=','sold')]}"/>
+                    <button name />
                 </header>
                 <sheet>
                     <group>
@@ -94,7 +96,7 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <field name="offer_ids" nolable="1"  />
+                            <field name="offer_ids" nolable="1" attrs="{'readonly':['|','|',('state','=','offer_accepted'),('state','=','sold'),('state','=','canceled')]}" />
                         </page>
                         <page string="Other Info">
                             <group>
@@ -118,7 +120,7 @@
                 <field name="bedrooms" />
                 <field name="postcode" />
                 <field name="expected_price" />
-                <field name="living_area" />
+                <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
                 <field name="facades" />
                 <filter string="Available" name="active" domain="[('active','=','True')]" />
                 <group expand="1" string="Group By">

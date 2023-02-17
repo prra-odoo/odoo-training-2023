@@ -34,6 +34,10 @@
                             <field placeholder="Property Type" name="name" />
                         </h1>
                     </div>
+                    <group>
+                        <field name="offer_ids" />
+                        <field name="offer_count" />
+                    </group>
                     <notebook>
                         <page string="Properties">
                             <field name="property_ids">

@@ -16,14 +16,14 @@
         <field name="name">estate.offer.type</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree editable="top"  >
+            <tree editable="top" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                 <field name="price" />
                 <field name="partner_id" />
                 <button name="action_accept" string="Accept" type="object" icon="fa-check"
-                    attrs="{'invisible':[('status','=','accepted')]}" />
+                attrs="{'invisible':['|',('status','=','refused'),('status','=','accepted')]}" />
                 <button name="action_refuse" string="Refuse" type="object" icon="fa-times"
-                    attrs="{'invisible':[('status','=','accepted')]}" />
-                <field name="status" />
+                    attrs="{'invisible':['|',('status','=','refused'),('status','=','accepted')]}" />
+                <field name="status" invisible="1"/>
                 <field name="validity" />
                 <field name="date_deadline" />
             </tree>
@@ -37,6 +37,7 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <field name="property_type_id"/>
                     <group name="main">
                         <group name="group_left">
                             <field name="price" />
