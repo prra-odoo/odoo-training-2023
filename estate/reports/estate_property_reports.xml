@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
         <data>
                 <record id="report_event_registration_badge" model="ir.actions.report">
@@ -6,7 +7,6 @@
                         <field name="report_type">qweb-pdf</field>
                         <field name="report_name">estate.estate_property_template_badge</field>
                         <field name="report_file">estate.estate_property_template_badge</field>
-                        <!-- <field name="print_report_name">' - %s' % (object.name or 'Attendee').replace('/','')</field> -->
                         <field name="binding_model_id" ref="model_estate_property"/>
                         <field name="binding_type">report</field>
                 </record>

@@ -49,12 +49,10 @@ class estateProperty(models.Model):
         for record in self:
             record.date_deadline=TODAY+relativedelta(days=record.validity)
 
-
     def _compute_days(self):
-        # for record in self:
-        #     record.validity=record.date_deadline-record.create_date.date
-        pass
-
+        for record in self:
+            record.validity = (record.date_deadline - record.create_date.date()).days
+    
     def accept_offer(self):
         for record in self:
             # breakpoint()

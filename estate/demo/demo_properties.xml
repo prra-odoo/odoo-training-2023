@@ -2,20 +2,6 @@
 
 <odoo>
     <data>
-        <!-- properties -->
-        <record id="property_1" model="estate.property">
-            <field name="name">Shreeji Apartments</field>
-            <field name="expected_price">10000</field>
-            <field name="tag_ids" eval="[(6,0,[1,2])]"/>
-        </record>
-        <record id="property_2" model="estate.property">
-            <field name="name">Godrej</field>
-            <field name="expected_price">200000</field>
-        </record>
-        <record id="property_3" model="estate.property">
-            <field name="name">Alux</field>
-            <field name="expected_price">10000</field>
-        </record>
         <!-- tags -->
         <record id="tag_1" model="estate.property.tags">
             <field name="name">cozy</field>
@@ -33,8 +19,27 @@
         <record id="type_2" model="estate.property.type">
             <field name="name">Bungalow</field>
         </record>
-         <record id="type_3" model="estate.property.type">
+        <record id="type_3" model="estate.property.type">
             <field name="name">Vilaa</field>
+        </record>
+        <!-- properties -->
+        <record id="property_1" model="estate.property">
+            <field name="name">Shreeji Apartments</field>
+            <field name="expected_price">10000</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tag_1'),ref('tag_3')])]"/>
+            <field name="property_type_id">1</field>
+        </record>
+        <record id="property_2" model="estate.property">
+            <field name="name">Godrej</field>
+            <field name="expected_price">200000</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tag_2'),ref('tag_3')])]"/>
+            <field name="property_type_id">2</field>
+        </record>
+        <record id="property_3" model="estate.property">
+            <field name="name">Alux</field>
+            <field name="expected_price">10000</field>
+            <field name="tag_ids" eval="[(6,0,[ref('tag_2'),ref('tag_1')])]"/>
+            <field name="property_type_id">3</field>
         </record>
         <!-- offers -->
         <record id="offer_1" model="estate.property.offer">
