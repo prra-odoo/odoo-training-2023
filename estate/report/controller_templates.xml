@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="menu_prop" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="url">estate/estate</field>
+    </record>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <div class="header" style="background: #63bf7c; padding: 10px">
+                <form method="get" class="d-flex justify-content-center">
+                    <input type="date" name="date_availability" class="form-control o_website_form_input o_website_form_date" style="width: 200px; margin-right: 20px"/>
+                    <input type="submit" value="Submit" class="btn btn-primary"/>
+                </form>
+            </div>
+            <form action="/estate/estate" class="my-3 w-50">
+                <t t-call="website.website_search_box">
+                    <t t-set="action" t-value="'/estate/'"/>
+                </t>
+            </form>
+            <div class="container border">
+                <div class="row row-cols-sm-3 row-cols-lg-5 d-flex justify-content-around">
+                    <t t-foreach="properties" t-as="property">
+                            <div class="col border shadow border-5 mx-2 my-2 p-2 d-flex flex-column align-items-center rounded">
+                                <img t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ property.image }}" class = "w-100"/>
+                                <h5>
+                                    <t t-esc="property.name"/>
+                                </h5>
+                                <t t-foreach="property.tags_ids" t-as="tag">
+                                    <span class="badge" style="color: black; background: #e8b610">
+                                        <t t-esc="tag.name"/>
+                                    </span>
+                                </t>
+                                <t t-foreach="property.sales_id" t-as="salesman">
+                                    <strong>
+                                        Seller: <t t-esc="salesman.name"/>
+                                    </strong>
+                                </t>
+                                <span>
+                                    Expected Price: <t t-esc="property.expected_price"/>
+                                </span>
+                                <span>
+                                    Total Area: <t t-esc="property.total_area"/>
+                                </span>
+                                <a t-attf-href="/estate/{{ slug(property) }}">
+                                    <button class="text-light bg-dark rounded-pill border border-3 shadow">Buy This</button>
+                                </a>
+                            </div>
+                    </t>
+                </div>
+                <div t-if="pager" class="o_portal_pager d-flex justify-content-center">
+                    <t t-call="website.pager"/>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="listing">
+        <t t-call="website.layout">
+            <div class="container">
+                <div style="float:right; margin: 20px">
+                    <img style="border-radius: 30px" t-attf-alt="No Image Available"  t-attf-src="data:image/jpg;base64,{{ plot.image }}" class = "w-100"/>
+                </div>
+                <h1 t-field="plot.name"/>
+                <div style="font-style: italic" t-field="plot.listing"/>
+                <div style="margin: 5px">
+                    Last modified: <i t-field="plot.write_date" t-options='{"widget": "relative"}'/>
+                </div>
+                <div style="margin: 5px">
+                    Postcode : <span t-field="plot.postcode"/>
+                </div>
+                <div style="margin: 5px">
+                    Property Type : <span t-field="plot.property_type_id"/>
+                </div>
+                <div style="margin: 5px">
+                    Expected Price : <span t-field="plot.expected_price"/>
+                </div>
+                <div style="margin: 5px">
+                    Selling Price : <span t-field="plot.selling_price"/>
+                </div>
+                <div style="margin: 5px">
+                    Date Availability : <span t-field="plot.date_availability"/>
+                </div>
+                <div style="margin: 5px">
+                    Description : <span t-field="plot.description"/>
+                </div>
+                <t t-if="plot.offer_ids">
+                    <table class="table" style="margin: 5px; padding: 10px; border: 2px solid black">
+                        <thead>
+                            <tr>
+                                <th>Price</th>
+                                <th>Partner</th>
+                                <th>Validity</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="offers" t-value="plot.mapped('offer_ids')"/>
+                            <tr t-foreach="offers" t-as="offer">
+                                <td>
+                                    <span t-field="offer.price"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.partner_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.validity"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.date_deadline"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.status"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+                <t t-else="">
+                    <strong>This Property Has No Offers!</strong>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

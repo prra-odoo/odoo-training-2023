@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <record id="estate_model_settings_type" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <record id="estate_property_type_view_tree" model="ir.ui.view">
         <field name="name">estate.property.type.view.tree</field>
         <field name="model">estate.property.type</field>
@@ -32,6 +38,9 @@
                     <notebook>
                         <page string="Properties">
                             <field name="list_property"/>
+                        </page>
+                        <page string="description">
+                            <field name="description"/>
                         </page>
                     </notebook>
                 </sheet>
