@@ -1,6 +1,7 @@
 from odoo import api,models,fields
 import odoo.exceptions
 from dateutil.relativedelta import relativedelta
+from odoo.tools.float_utils import float_is_zero,float_compare
 
 class EstateProperty(models.Model):
 	_name='estate.property'
@@ -120,3 +121,25 @@ class EstateProperty(models.Model):
 				raise odoo.exceptions.UserError('Sold properties can not be canceled')
 			else:
 				record.state="canceled"
+	_sql_constraints=[
+		('chech_price','CHECK (expected_price>0 and selling_price>=0)','Expected peice must be positive.')
+	]
+	'''@api.constrains('expected_price')
+	def _check_exp_price(self):
+		for record in self:
+			if record.expected_price<=0:
+				raise odoo.exceptions.ValidationError("Expected price should be positive number.")'''
+
+	'''#selling_price
+	@api.constrains('selling_price')
+	def _check_sel_price(self):
+		for record in self:
+			if record.selling_price<0:
+				raise odoo.exceptions.ValidationError("Selling price should be positive number.")'''
+
+	@api.constrains('expected_price','selling_price')
+	def check_exp_price(self):
+		for record in self:
+			if not float_is_zero(record.expected_price,precision_digits=2) and not float_is_zero(record.selling_price,precision_digits=2):
+				if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
+					raise odoo.exceptions.ValidationError("selling price must not be lower than 90 persent of exception price.")

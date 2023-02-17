@@ -1,6 +1,8 @@
 from odoo import api,models,fields
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
+import odoo.exceptions
+import odoo.tools.float_utils
 
 class EstatePropertyOffer(models.Model):
     _name='estate.property.offer'
@@ -35,10 +37,22 @@ class EstatePropertyOffer(models.Model):
     def action_accept(self):
       for record in self:
         record.status="accepted"
-        record.property_id.selling_price=record.property_id.best_price
+        record.property_id.selling_price=record.price
         record.property_id.buyer_id=record.partner_id
+        record.property_id.state="offer accepted"
 
     def action_refuse(self):
       for record in self:
         record.status="refused"
-        
+        record.property_id.state="offer received"
+#price
+    _sql_constraints=[
+		  ('check_offer_price','CHECK (price>0)','Price must be positive.')
+	  ]
+    '''@api.constrains("price")
+    def _check_sel_price(self):
+      for record in self:
+        if record.price<=0:
+          raise odoo.exceptions.ValidationError("Price must be positive.")    ''' 
+
+    
