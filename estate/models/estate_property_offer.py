@@ -19,6 +19,9 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one('estate.property',required=True)
 
     validity = fields.Integer(string="Validity", default=7)
+    property_type_id = fields.Many2one('estate.property.type',related = "property_id.property_type_id",
+                                        string="Property Type", store=True)
+
     # store attribute is use to control storage of data in DB with computaation and without change
     date_deadline = fields.Date(string="Deadline Date",compute="_compute_dead", inverse="_inverse_deadline", store=True)
     
@@ -32,7 +35,8 @@ class EstatePropertyOffer(models.Model):
             "Offer price are not be negative."
         )
     ]
-    
+
+        
     # compute attribute is use to change value base on changes of any other fields and change after removing focus
     @api.depends('validity')
     def _compute_dead(self):
@@ -63,4 +67,5 @@ class EstatePropertyOffer(models.Model):
             record.status = 'refused'
             record.property_id.state = 'received'
         
+
             

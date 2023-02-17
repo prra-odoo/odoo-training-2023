@@ -8,6 +8,8 @@ class EstatePropertyType(models.Model):
     name = fields.Char(required=True, inverse="_inverse_name")
     property_ids = fields.One2many('estate.property','property_type_id',string="Properties")
     sequence = fields.Integer(string='Sequence', default = 1, help="Used to properties stages")
+    offer_ids = fields.One2many('estate.property.offer', 'property_type_id',string="Offer id")
+    offer_count = fields.Integer(string="Offer Count",  default=0)
 
 
     _sql_constraints = [

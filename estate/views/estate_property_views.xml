@@ -4,17 +4,25 @@
         <field name="name">Property</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_available':True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a record
             </p>
         </field>
     </record>
-    <record id="estate_property_view_tree" model="ir.ui.view">
+    <record id="estate_property_tree_view" model="ir.ui.view">
         <field name="name">Property</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <!-- 
+                decoration-muted = use to row grey
+                decoration-success = use to row red
+                decoration-bf = use to row bold
+             -->
+            <tree string="Channel" decoration-muted="state == 'sold'" 
+                                   decoration-success="state in ('accepted','received')" 
+                                   decoration-bf="state == 'accepted'">
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="expected_price"/>
@@ -22,35 +30,16 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="date_availability" optional="hide"/>
+                <field name="state" optional="hide"/>
 
                 <field name="property_type_id" optional="show"/>
-                <field name="property_tag_ids" optional="hide"/>
+                <field name="property_tag_ids" optional="hide" widget="many2many_tags" options="{'color_field':'color'}"/>
 
             </tree>
         </field>
     </record>
-    <record id="estate_property_view_search" model="ir.ui.view">
-        <field name="name">estate.property.search</field>
-        <field name="model">estate.property</field>
-        <field name="arch" type="xml">
-            <search string="Search">
-                <field name="name" />
-                <field name="postcode" />
-                <field name="bedrooms" />
-                <field name="living_area" />
-                <field name="expected_price" />
-                <field name="facades" />
-                <field name="property_type_id"/>
-                <field name="property_tag_ids"/>
-                <filter string ="Availble" name="available" domain="[('state','in',('new','Offer Received'))]"/>
-                <group>
-                    <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
-                </group>    
-            </search>
-  
-        </field>
-    </record>
-    <record id="estate_property_view_form" model="ir.ui.view">
+    
+    <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">Property</field>
         <field name="model">estate.property</field>
                 <field name="arch" type="xml">
@@ -94,6 +83,9 @@
                                 <field name="facades" />
                                 <field name="garage" />
                                 <field name="garden"/>
+                                <!-- 
+                                    invisible : use to hide some fields
+                                 -->
                                 <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="total_area"/>
@@ -103,7 +95,8 @@
                         
                         <page string="Offers">
                             
-                                <field name="offer_ids" />
+                                <field name="offer_ids" attrs="{'readonly':['|','|',('state', '=' , 'sold'),('state', '=' , 'accepted'),('state', '=' , 'canceled')]}" />
+                                
                             
                         </page>
 
@@ -118,6 +111,28 @@
                     </notebook>
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <record id="estate_property_search_view" model="ir.ui.view">
+            <field name="name">estate.property.search</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="postcode" />
+                    <field name="bedrooms" />
+                    <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
+                    <field name="expected_price" />
+                    <field name="facades" />
+                    <field name="property_type_id"/>
+                    <field name="property_tag_ids"/>
+                    <filter string ="Available" name="available" domain="[('state','in',('new','Offer Received'))]"/>
+                    <group>
+                        <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
+                    </group>    
+                </search>
+      
             </field>
         </record>
 
