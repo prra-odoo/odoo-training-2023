@@ -19,6 +19,8 @@
     </t>
   </template>
 
+  
+
   <!-- <template id="property_detail">
     <h1>
         <span t-field="property.name"/>

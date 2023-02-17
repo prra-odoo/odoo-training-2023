@@ -85,14 +85,34 @@
         </table>  
 
     </template>
+    <!-- <template id="property_template_controller">
+        
+        <t t-foreach="docs" t-as="property">
+            <t t-call="website.layout">
+                <!<t t-call="web.external_layout"> -->
+                    <!-- <td align="center" valign="center">
+                                <img t-if="user.company_id.logo" t-att-src="image_data_uri(user.company_id.logo)" style="max-height:45pt;max-width:90%" alt="Company Logo"/>
+                            </td> -->
+                    <!-- <div class="container">
+                        <t t-call="estate.property_detail"/>
+                        <div>
+                            <t t-call="estate.property_offer"/>
+                        </div>
+                    </div> -->
+                <!-- </t> -->
+            <!-- </t>
+        </t> -->
+        
+    <!-- </template> --> -->
+
     <template id="property_template">
         
         <t t-foreach="docs" t-as="property">
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
-                    <td align="center" valign="center">
+                    <!-- <td align="center" valign="center">
                                 <img t-if="user.company_id.logo" t-att-src="image_data_uri(user.company_id.logo)" style="max-height:45pt;max-width:90%" alt="Company Logo"/>
-                            </td>
+                            </td> -->
                     <div class="page">
                         <t t-call="estate.property_detail"/>
                         <div>
@@ -103,5 +123,20 @@
             </t>
         </t>
         
+    </template>
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <h2>
+                            <a t-attf-href="/estate/{{ slug(property) }}"></a>
+                            <t t-esc="property.id"/> <t t-esc="property.name"/>
+                        </h2>
+                    </t>
+                </div>
+            </div>
+        </t>
     </template>
 </odoo>

@@ -4,6 +4,6 @@
     'version': "1.0",
     'summary':"Estate Account Module",
     'author': "Raj Patani (rapa)",
-    'depends': ['account','estate'],
+    'depends': ['account','estate','website'],
     'installable': True,
 }
