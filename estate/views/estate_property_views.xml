@@ -83,7 +83,7 @@
                             </page>
 
                             <page string="Offers">
-                                    <field name="offer_ids" editable="True"/>
+                                    <field name="offer_ids" editable="True"/>   
                             </page>
                             
                             <page string="Other Info">
@@ -118,7 +118,7 @@
                 <filter name="offers_accepted" string="Has accepted offers" domain="[('offer_ids.status','=','accepted')]"/>
                 <filter name="offers_refused" string="Has Refused offers" domain="[('offer_ids.status','=','refused')]"/>
 
-                <!-- <filter name="State" string="State" domain="[('state', 'in', ['offer received','new'])]"  /> -->
+                <filter name="State" string="State" domain="[('state', 'in', ['offer_received','new'])]"  />
                 <!-- Group by Postcode -->
                 <group expand="1" string="Group By">
                     <filter name="Postcode" string="Postcode" context="{'group_by': 'postcode'}" />

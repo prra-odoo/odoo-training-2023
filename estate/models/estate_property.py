@@ -41,16 +41,16 @@ class EstateProperty(models.Model):
     )
     
 
-    # refering other tables 
+    # Relationals Fields
     buyer_id = fields.Many2one("res.partner", string="Buyer",copy=False)
     seller_id = fields.Many2one("res.users",string="Seller",default=lambda self: self.env.user)
     property_type_id = fields.Many2one("estate.property.type",string="Property Type",required=True)
     tag_ids = fields.Many2many("estate.property.tag",string="Property Tag",required=True)
-    offer_ids = fields.One2many("estate.property.offer","property_id",required=True)
+    offer_ids = fields.One2many("estate.property.offer","property_id")
 
     # computed fields
     total_area = fields.Float(compute="_compute_total_area")
-    best_price = fields.Float(compute = "_compute_best_price")
+    best_price = fields.Float(compute = "_compute_best_price",default=0)
 
     # Compute method for calculating total area
     @api.depends("living_area","garden_area")
@@ -66,6 +66,9 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             record.best_price = max(record.offer_ids.mapped("price"),default=0)
+            if record.offer_ids:
+                record.state = "offer_received"
+            
         
     # @api.depends("offer_ids")
     # def _compute_state(self):
@@ -87,4 +90,4 @@ class EstateProperty(models.Model):
                 raise UserError("Can't set sold property to cancel")
             else:
                 record.state = "canceled"
-        return True         
+        return True   

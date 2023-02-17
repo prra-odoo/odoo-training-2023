@@ -43,11 +43,11 @@ class EstatePropertyOffer(models.Model):
                 record.property_id.state = "offer_accepted"
                 record.status = "accepted"
                 record.property_id.buyer_id = record.partner_id
-        # return True
+        return True
     
     def action_set_status_refused(self):
         for record in self: 
             record.status = "refused"
         return True
 
-    # Auto called 
+    # Auto called
