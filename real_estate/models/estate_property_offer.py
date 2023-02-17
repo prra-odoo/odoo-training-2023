@@ -17,6 +17,8 @@ class EstatePropertyOffer(models.Model):
     partner_id = fields.Many2one('res.partner',required=True)
     property_id = fields.Many2one('estate.property',required=True)
 
+
+    #Compute a validity date for offers.
     @api.depends('create_date','validity')
     # def _compute_date(self):
     #     for record in self:
@@ -41,6 +43,8 @@ class EstatePropertyOffer(models.Model):
             else:
                 record.validity=0
 
+    #Accept and Refuse Action 
+    # offer is accepted, set the buyer and the selling price for the corresponding property.
     def action_accept(self):
         for record in self:
             record.status="accepted"
@@ -51,6 +55,7 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.status="refused" 
 
+    #An offer price must be strictly positive
     _sql_constraints = [
         ('check_offerprice', 'CHECK(price >= 0)',
          'Offer Price Must Be In Possitive Value.')

@@ -6,7 +6,7 @@ class EstatePropertyTag(models.Model):
 
     name = fields.Char(required=True)
 
-
-_sql_constraints = [
-    ('property_type', 'unique(name)', 'This property type is already available.')
-]
+    #A property tag name must be unique
+    _sql_constraints = [
+        ('property_tag', 'unique(name)', 'Property Tag Is Already Available.')
+    ]
