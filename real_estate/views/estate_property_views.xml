@@ -1,25 +1,74 @@
 <?xml version="1.0"?>
   <odoo> 
+    <record id="real_estate_kanban_form" model="ir.ui.view">
+    <field name="name">real.estare.view.kanban</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+    <kanban default_group_by="type_id" sample="1">
+     <field name="state"/>
+    <templates>
+        <t t-name="kanban-box">
+            <div class="oe_kanban_global_click"> 
+                <div class="row">
+                <div class="col-12">
+                <strong><field name="name"/></strong>
+                </div>
+                </div>
+               <div class="row">
+               <div class="col-12" t-if="record.state.raw_value == 'offer_accepted'">
+                Selling Price:<field name="selling_price"/>
+               </div>
+               </div>
+               <div class="row">
+              <div class="col-12" t-if="record.state.raw_value == 'offer_received'">
+              Best Price:<field name="best_price"/>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-12">
+              Expected Price:<field name="expeccted_price"/>
+              </div>
+             </div>
+             <div class="row">
+             <div class="col-12">
+             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+             </div>
+             </div>
+             </div>
+        </t>
+    </templates>
+   </kanban>
+  </field>
+  </record>                          
     <record id="real_estate_view_form" model="ir.ui.view">
-    <field name="name">real.estare.view.form</field>
+    <field name="name">real.estate.view.form</field>
     <field name="model">estate.property</field>
     <field name="arch" type="xml">      
         <form >
             <header>
-                <button name="sold_action" type="object" string="sold"/>
-                <button name="canceled_action" type="object" string="canceled"/> 
-                 <field name="state" widget="statusbar" options='{"clickable": "1"}' />               
-            </header> 
-            <sheet>             
+                <button name="sold_action" type="object" string="sold" states="new,offer_received,offer_accepted,canceled" class="oe_highlight"/>
+                <button name="canceled_action" type="object" string="canceled" states="new,offer_received,offer_accepted,sold" class="oe_highlight"/> 
+                <field name="state" widget="statusbar" options='{"clickable": "1"}'/>               
+             </header> 
+            <sheet> 
+             <widget name="web_ribbon" title="canceled" bg_color="bg-danger"
+                        attrs="{'invisible': [('state', '!=', 'canceled')]}"/> 
+                <widget name="web_ribbon" title="sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>              
                  <h1>
                     <field name="name" />                  
                  </h1>              
                  <group>
 								 <group>  
 								 <field name="tag_ids" widget="many2many_tags" string="" options="{'color_field':'color'}"/>
-								 </group>                              
+								 </group> 
+                 <group>
+                  <field name="type_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>                                                                                                             
+                 </group>
                  <group>																		  
                   <field name="postcode"/>
+                 </group>
+                 <group>																		  
+                  <field name="company_id"/>
                  </group>
                  <group>
                    <field name="expeccted_price"/>
@@ -33,20 +82,16 @@
                  <group>
                    <field name="best_price"/>																					
                  </group>
-								 <group>
-								   <!-- <field name="state"/> -->
-								 </group>
-                <notebook>
+								 <notebook>
                  <page string="Description">
                  <group>
                   <field name="description"/> 
-                  <field name="type_id" options="{'no_quick_create': True, 'no_create_edit' : True}"/>                                                                                                             
                   <field name="living_area"/>                                                
                   <field name="facades"/>                                                
                   <field name="garage"/>                                                
                   <field name="garden"/>
-                  <field name="garden_area" attrs="{'invisible': [('garden', '=',False)]}"/>                                                
-                  <field name="garden_orientation"  attrs="{'invisible': [('garden', '=',False)]}"/>
+                  <field name="garden_area" />                                                
+                  <field name="garden_orientation"  />
                   <field name="total_area"/>                                              
                   </group> 
                   </page>
@@ -55,6 +100,7 @@
                   </page>  
                   <page string="Other Info.">
                     <group>
+                      <field name="image" widget="image"/>
                        <field name="sales_id"/>                                                
                        <field name="buyer_id"/>
                     </group>   
@@ -63,7 +109,13 @@
                                     
              </group>
           </sheet>
+           <div class="oe_chatter">
+              <field name="message_follower_ids"/>
+              <field name="activity_ids"/>
+              <field name="message_ids"/>
+            </div>
          </form>
+         
         </field>
     </record>
 
@@ -74,29 +126,30 @@
             <tree string="Estate_Property" decoration-success="state == 'offer_received' or state == 'offer_accepted'"
                                            decoration-muted="state == 'sold'"
                                            decoration-bf="state == 'offer_accepted'">
+                <header>
+                <button name="%(estate_wizard_action)d" type="action" class="oe_stat_button" string="add offer" />
+                </header>
                 <field name="name"/>
                 <field name="expeccted_price"/>
                 <field name="date_availability" optional="hidden"/>
                 <field name="selling_price"/>
                 <field name="description"/>
                 <field name="type_id"/>
-                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" />
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" /> 
                 <!-- <field name="bedroom"/>
                 <field name="living_area"/>
                 <field name="facades"/>
-                <field name="garage"/> -->
+                <field name="garage"/>
                 <field name="garden"/>
-                <field name="garden_area"/>
+                <field name="garden_area"/> -->
                 <field name="garden_orientation"/>
                 <field name="total_area"/>
                 <field name="state"/>
                 <field name="sales_id"/>
-                <field name="buyer_id"/> 
+                <field name="buyer_id"/>               
             </tree>
-        </field>
-        
-    </record>
-   
+          </field>      
+    </record>   
     <record id="real_estate_search" model="ir.ui.view">
               <field name="name">estate.property.search</field>
               <field name="model">estate.property</field>

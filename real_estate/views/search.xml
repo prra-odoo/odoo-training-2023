@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="property_search" name="Customer search box">
+        <form action="/estate/estate/">
+            <t t-call="website.website_search_box">
+                <t t-set="action" t-value="'/estate/estate'"/>
+            </t>
+        </form>
+    </template>
+</odoo>
