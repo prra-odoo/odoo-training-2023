@@ -26,7 +26,20 @@
         <field name="arch" type="xml">
             <form string="Property Type Form View">
                 <sheet>
-                    <field name="name"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_id">
+                                <tree string="properties">
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

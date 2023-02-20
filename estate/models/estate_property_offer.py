@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError , ValidationError
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
@@ -9,6 +9,7 @@ class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "estate property offer Model"
     _rec_name = "price"
+    _order = "price desc"
 
     price = fields.Float(string='Price')
     status = fields.Selection(
@@ -32,23 +33,36 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             if(record.date_deadline > datetime.date(datetime.today())):
                 record.validity = (record.date_deadline - record.create_date.date()).days
-            else:
-                record.validity = 0
+            
 
     def action_accept(self):
         for record in self.property_id.offers_id:
-            if record.status == "accepted":
-                raise UserError("Alredy one offer accepted.")
-            else:
+            if record.status != "accepted":
                 self.status = "accepted"
                 self.property_id.selling_price = self.price
+                self.property_id.partner_id = self.partner_id
         return True
 
 
     def action_refuse(self):
         for record in self.property_id.offers_id:
-            if self.status == "accepted":
-                raise UserError("Alredy offer accepted.")
-            else:
+            if self.status != "accepted":
                 self.status = "refused"
         return True
+
+    _sql_constraints = [
+        ('check_price','CHECK(price>0)','Offer price must be positive.'),
+        ('check_validity', 'CHECK(validity>0)','validity must be greater than 0.')
+    ]
+
+    @api.constrains('price')
+    def valid_price(self):
+        for record in self:
+            if record.price < (record.property_id.expected_price * 0.9 ):
+                raise ValidationError('Offer price must be greater than 90% of the expected price.')
+
+    @api.constrains('date_deadline')
+    def valid_date(self):
+        for record in self:
+            if record.date_deadline < fields.Date.today():
+                raise ValidationError("Enter Valid Date.")

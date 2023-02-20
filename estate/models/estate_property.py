@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
+import re
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate property Model"
+    _order = "id desc"
 
     name = fields.Char(required=True)
     description = fields.Text()
     user_id = fields.Many2one('res.users', string='Salesperson',
                               index=True, default=lambda self: self.env.user)
-    partner_id = fields.Many2one('res.partner', string='Buyer', index=True)
+    partner_id = fields.Many2one(
+        'res.partner', string='Buyer', index=True, readonly=True)
     property_type_id = fields.Many2one(
         'estate.property.type', required=True, index=True)
     property_tag_id = fields.Many2many(
@@ -28,7 +31,8 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer(compute='_compute_garden',readonly=False,store=True)
+    garden_area = fields.Integer(
+        compute='_compute_garden', readonly=False, store=True)
     total_area = fields.Integer(
         compute="_compute_total_area", string="Total Area")
     best_offer = fields.Float(
@@ -37,7 +41,7 @@ class EstateProperty(models.Model):
     garden_orientation = fields.Selection(
         string='Garden Orientattion',
         selection=[('north', 'North'), ('south', 'South'),
-                   ('east', 'East'), ('west', 'West')], compute='_compute_garden',readonly=False,store=True
+                   ('east', 'East'), ('west', 'West')], compute='_compute_garden', readonly=False, store=True
     )
     active = fields.Boolean(default=True)
     state = fields.Selection(
@@ -76,7 +80,8 @@ class EstateProperty(models.Model):
             if record.state == "sold":
                 raise UserError("This property alredy sold")
             elif record.state == "cancelled":
-                raise UserError("This property can not be sold because it was cancelled")
+                raise UserError(
+                    "This property can not be sold because it was cancelled")
             else:
                 record.state = "sold"
         return True
@@ -86,11 +91,21 @@ class EstateProperty(models.Model):
             if record.state == "cancelled":
                 raise UserError("This property alredy cancelled")
             elif record.state == "sold":
-                raise UserError("This property can not be cancel because it was sold")
+                raise UserError(
+                    "This property can not be cancel because it was sold")
             else:
                 record.state = "cancelled"
         return True
 
-    
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price >= 0)',
+         'Expectted Price must be positive.'),
+        ('check_selling_price', 'CHECK(selling_price >= 0)',
+         'Selling Price must be positive')
+    ]
 
-    
+    @api.constrains('name')
+    def valid_name(self):
+        for record in self:
+            if not re.match(r'^[a-zA-Z]+$', record.name):
+                raise ValidationError("Invalid property name.")
