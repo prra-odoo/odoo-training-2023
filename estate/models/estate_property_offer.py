@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offer Model"
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection(
@@ -39,10 +40,11 @@ class EstatePropertyOffer(models.Model):
     
     def action_cancel_offer(self):
         self.status = 'refused'
-        self.property_id.selling_price = 0
+        # self.property_id.selling_price = 0
         self.property_id.buyer_id = None
         return True
     
     _sql_constraints = [
-        ('check_offer_price','CHECK(price > 0)','The offer price must be strictly positive.')
+        ('check_offer_price','CHECK(price > 0)','The offer price must be strictly positive.'),
+        ('check_validity_days','CHECK(validity > 0)','Validity must be positive.')
     ]
