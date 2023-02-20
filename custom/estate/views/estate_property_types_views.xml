@@ -17,8 +17,29 @@
                             <field name="name" class="mb16"/>
                         </h1>
                     </div>
+                    <notebook>
+                    <page string="Properties">
+                        <field name="property_ids">
+                            <tree string="Property">
+                            <field name="name" string="Title"/>
+                            <field name="expected_price"/>
+                            <field name="state"/>
+                            </tree>
+                        </field>
+                        </page>
+                    </notebook>
                      </sheet>
                 </form>
+        </field>
+    </record>
+    <record id="estate_property_type_tree" model="ir.ui.view">
+        <field name="name">estate.types.tree</field>
+        <field name="model">estate.property.types</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
         </field>
     </record>
 </odoo>

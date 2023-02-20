@@ -27,10 +27,10 @@
         <field name="arch" type="xml">    
             <form string="Description">
                 <header>
-                <button name="sold_action" type="object" string="Sold"/>
-                <button name="cancel_action" type="object" string="Cancel"/>
+                <button name="sold_action" type="object" string="Sold" states="new,offer received,offer accepted"/>
+                <button name="cancel_action" type="object" string="Cancel" states="new,offer received,offer accepted"/>
                 <button type="action" string="Jump2Types" name="%(estate.estate_property_types_action)d" />
-                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <label for="name" string="Property Name"/>
@@ -38,11 +38,11 @@
                         <h1 class="mb32">
                             <field name="name" class="mb16"/>
                         </h1>
-                        <field name="tag_ids" widget="many2many_tags" string="Tags"/>
+                        <field name="tag_ids" widget="many2many_tags" string="Tags" options="{'color_field':'color'}"/>
                     </div>
                     <group>               
                         <group>
-                            <field name="property_type_id"/>
+                            <field name="property_type_id" options="{'no_create':True,'no_open':True}"/>
                             <field name="postcode"/>
                             <field name="expected_price"/>
                         </group>
@@ -53,16 +53,16 @@
                         </group>
                         <notebook>
                             <page string="Description">
-                                <group>
+                                <group col='1'>
                                     <group>
                                         <field name="description"/>
                                         <field name="bedrooms"/>
                                         <field name="living_area" string="Living Area (sqm)"/>
                                         <field name="facades"/>
-                                        <field name="garage"/>                   
+                                        <field name="garage"/>                      
                                         <field name="garden"/>                    
-                                        <field name="garden_area" string="Garden Area (sqm)"/>
-                                        <field name="garden_orientation"/>
+                                        <field name="garden_area" string="Garden Area (sqm)" attrs="{'invisible':[('garden','=',False)]}"/>
+                                        <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                         <field name="total_area" string="Total Area (sqm)"/>  
                                     </group>
                                 </group>
@@ -76,15 +76,15 @@
                                 </group>
                             </page>
                             <page string="Offers">
-                                <field name="offer_ids">
+                                <field name="offer_ids" attrs="{'readonly':[('state','not in',['new','offer received'])]}">
                                     <tree editable="bottom">
                                         <field name="partner_id"/>
                                         <field name="price"/>
                                         <!-- <field name="create_date"/> -->
                                         <field name="validity"/>
                                         <field name="date_deadline" string="Deadline"/>
-                                        <button name="accept_action" type="object" nolabel="1" icon="fa-check" title="Accept"/> 
-                                        <button name="refuse_action" type="object" icon="fa-times" title="Refuse"/> 
+                                        <button name="accept_action" type="object" nolabel="1" icon="fa-check" title="Accept" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/> 
+                                        <button name="refuse_action" type="object" icon="fa-times" title="Refuse" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/> 
                                         <field name="status"/>
                                     </tree>
                                 </field>

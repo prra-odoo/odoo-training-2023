@@ -1,11 +1,10 @@
-import datetime
-import dateutil.parser
 from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
     _description="Different offers"
+    _order="price desc"
 
     price=fields.Float(required=True)
     status=fields.Selection(copy=False,
@@ -43,6 +42,7 @@ class EstatePropertyOffer(models.Model):
             record.property_id.selling_price=self.price
             record.property_id.buyer=self.partner_id
         self.status="accepted"
+        self.property_id.state='offer accepted'
 
     def refuse_action(self):
         for record in self:            
