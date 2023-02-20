@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
 
 
 class TestModel(models.Model):
@@ -91,5 +91,13 @@ class TestModel(models.Model):
     ]
     
 
-
-    
+    @api.constrains('selling_price')
+    def find_selling_price(self):
+        # breakpoint()
+        for record in self:
+            ten=record.expected_price*10/100
+            actual=record.expected_price-ten
+            if record.selling_price <actual:
+                raise ValidationError("Selling price is not close to expected price")
+            else:
+                pass

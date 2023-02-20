@@ -11,8 +11,8 @@
         <field name="status"/>
         <field name="validity"/>
         <field name="date_deadline"/>
-        <button name="accept_action_estate_offer" type="object" icon="fa-check"/>
-        <button name="refuse_action_estate_offer" type="object" icon="fa-close"/>
+        <button name="accept_action_estate_offer" type="object" icon="fa-check" title="Check-Yes"/>
+        <button name="refuse_action_estate_offer" type="object" icon="fa-close" title="close-No"/>
     </tree>
     </field>
     </record>
