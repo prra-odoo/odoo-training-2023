@@ -7,6 +7,7 @@ from odoo.tools.float_utils import *
 class EstatePlan(models.Model):
     _name = "estate.property"
     _description = "estate property"
+    _order = "id desc"
    
     name = fields.Char(required=True, string="Title")
     property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
@@ -105,27 +106,12 @@ class EstatePlan(models.Model):
     
     @api.constrains('selling_price')
     def _check_selling_price(self):
-        # for record in self:
-            # per = record.offer_ids.price/record.expected_price *100
-            # if per >= 90:
-            # if float_compare(record.expected_price,record.offer_ids.price, precision_rounding=0.01):
-            #     record.selling_price = record.offer_ids.price
-            # else:
-            #     raise UserError("selling price should be greater than 90 percentage")
-            # if float_is_zero('selling_price',precision_rounding=0.00):
-            #     val = float_compare(record.expected_price,record.offer_ids.price, precision_rounding=0.01)
-            #     per = record.offer_ids.price/record.expected_price *100
-            #     if val>per:
-            #         record.selling_price = record.offer_ids.price
-            #     else:
-            #         raise UserError("selling price should be greater than 90 percentage")
-            
         for record in self:
             sp = (90 * record.expected_price) / 100
             if(not float_is_zero(record.selling_price, precision_rounding=0.01)):
                 if (float_compare(sp,record.selling_price, precision_rounding=0.01) >= 0):
                     raise ValidationError("The selling price must be at least 90%")
-
+            
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price >= 0)','The Expected value should be positive.'),
         ('check_selling_price', "CHECK(selling_price >=0)","Selling Price must be positive"),
