@@ -3,18 +3,28 @@
 {
     'name': 'Real Estate',
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['base','website'],
     'author': 'mobe',
-    'category' :'Marketing',
+    'category' :'Real Estate/Brokerage',
     'data' : [
+         'security/security.xml',
          'security/ir.model.access.csv',
+         'views/estate_property_menus.xml',
          'views/estate_property_views.xml',
          'views/property_type_views.xml',
          'views/property_tags_views.xml',
          'views/property_offer_views.xml',
-         'views/estate_property_menus.xml',
+         'views/res_users_views.xml',
+         'report/estate_property_templates.xml',
+         'report/estate_property_reports.xml',
+         'report/estate_user_reports.xml',
 
     ],
+    'assets':{
+        'web.assets_frontend':[
+            'real_estate/static/scss/main.scss'
+        ],
+    },
     'demo' : [
         'demo/estate_properties_demo.xml',
         'demo/estate_property_type_demo.xml',
@@ -24,4 +34,5 @@
     'application' : True,
     'installable' :True,
     'auto_install' : False,
+    "license": "LGPL-3",
 }

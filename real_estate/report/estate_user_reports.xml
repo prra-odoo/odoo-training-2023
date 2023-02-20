@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template id="report_estate_users" name="report_estate_users">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="user">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <div style="text-align: center;">
+                                <span t-field="user.name" style="font-size: 50px; font-weight: 600; padding: 10px"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <h1 style="text-align: center;">List of all Properties</h1>
+                        </div>
+                        <t t-set="properties" t-value="user.mapped('property_ids')"/>
+                        <tr t-foreach="properties" t-as="property">
+                            <div style="border: 2px solid gray; margin-top: 100px">
+                                <div>
+                                    <span t-field="property.name" style="font-size: 40px; font-weight: 600; padding: 10px"></span>
+                                </div>
+                                <div style="font-size: 20px; font-weight: 500; padding: 10px">
+                                Salesperson :
+                                    <span t-field="property.salesperson_id"></span>
+                                </div>
+                                <div style="font-size: 20px; font-weight: 500; padding: 10px">
+                                Expected Price :
+                                    <span t-field="property.expected_price"></span>
+                                </div>
+                                <div style="font-size: 20px; font-weight: 500; padding: 10px">
+                                Status :
+                                    <span t-field="property.state"></span>
+                                </div>
+                                <t t-call="real_estate.report_property_offer"/>
+                            </div>
+                        </tr>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

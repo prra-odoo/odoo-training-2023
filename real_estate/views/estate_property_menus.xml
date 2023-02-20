@@ -1,10 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <!-- Property Action -->
+  <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">estate.properties</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_available':True}</field>
+        <!-- 'search_default_active' : True -->
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No property for Advertisment found, Please add your property over here</p>
+            <p>Use the top left
+                <strong>CREATE</strong> button to add new property type!!!
+            </p>
+        </field>
+    </record>
+
+<!-- offer action -->
+      <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <!-- <field name="domain">[('property_type_id', '=', active_id)]</field> -->
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No property type found, Please add your property type over here</p>
+            <p>Use the top left
+                <strong>CREATE</strong> button to add new property type!!!
+            </p>
+        </field>
+    </record>
+
+<!-- Tag Action -->
+
+    <record id="estate_property_tags_action" model="ir.actions.act_window">
+        <field name="name">Property tags</field>
+        <field name="res_model">estate.property.tags</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No property tags found, Please add your property tags over here</p>
+            <p>Use the top left
+                <strong>CREATE</strong> button to add new property tags!!!
+            </p>
+        </field>
+    </record>
+<!-- Type Action -->
+
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No property type found, Please add your property type over here</p>
+            <p>Use the top left
+                <strong>CREATE</strong> button to add new property type!!!
+            </p>
+        </field>
+    </record>
+
+    <!-- website menu -->
+    <record id="menu_properties" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/estate/estate/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+    <!-- Menus -->
     <menuitem id="estate_property_menu_root" name="Real Estate">
         <menuitem id="estate_property_first_level_menu" name="Advertisment">
             <menuitem id="estate_property_action_menu" action="estate_property_action"/>
         </menuitem>
-        <menuitem id="estate_property_type_first_level_menu" name="Settings">
+        <menuitem id="estate_property_type_first_level_menu" name="Settings" groups="estate_group_manager">
             <menuitem id="estate_property_type_action_menu" action="estate_property_type_action"/>
             <menuitem id="estate_property_tags_action_menu" action="estate_property_tags_action"/>
         </menuitem>
