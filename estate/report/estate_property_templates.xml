@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="property_detail">
+        <h1>
+            <span t-field="property.name"/>
+        </h1>
+        <div>
+            <strong>Salesman:</strong>
+            <span t-field="property.salesperson_id.name"/>
+        </div>
+        <div>
+            <strong>Expected Price:</strong>
+            <span t-field="property.expected_price"/>
+        </div>
+        <div>
+            <strong>State:</strong>
+            <span t-field="property.status"/>
+        </div>
+        <div>
+            <t t-if="property.best_price > 0">
+                <strong>Best Offer:</strong>
+                <span t-field="property.best_price"/>
+            </t>
+        </div>
+    </template>
+    <template id="user_property_details">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            <span t-field="property.name"/>
+                        </h2>
+                        <t t-if="property.property_ids">
+                            <t t-set="properties" t-value="property.mapped('property_ids')"/>
+                            <t t-foreach="properties" t-as="property">
+                                <h3>
+                                    <span t-field="property.name"/>
+                                </h3>
+                                <t t-call="estate.property_offer"/>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="property_offer">
+        <table class="table">
+            <t t-set="offers" t-value="property.mapped('offer_ids')" />
+            <t t-if="offers">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>Partner</th>
+                        <th>Validity (days)</th>
+                        <th>Deadline</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>                               
+                    <tr t-foreach="offers" t-as="offer">
+                        <td>
+                            <span t-field="offer.price"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.partner_id"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.validity"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.date_deadline"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.status"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </t>
+            <t t-else="">
+                <h1>No Offers are there for this property</h1>
+            </t>
+        </table>  
+
+    </template>
+    <!-- <template id="property_template_controller">
+        
+        <t t-foreach="docs" t-as="property">
+            <t t-call="website.layout">
+                <!<t t-call="web.external_layout"> -->
+                    <!-- <td align="center" valign="center">
+                                <img t-if="user.company_id.logo" t-att-src="image_data_uri(user.company_id.logo)" style="max-height:45pt;max-width:90%" alt="Company Logo"/>
+                            </td> -->
+                    <!-- <div class="container">
+                        <t t-call="estate.property_detail"/>
+                        <div>
+                            <t t-call="estate.property_offer"/>
+                        </div>
+                    </div> -->
+                <!-- </t> -->
+            <!-- </t>
+        </t> -->
+        
+    <!-- </template> --> -->
+
+    <template id="property_template">
+        
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <!-- <td align="center" valign="center">
+                                <img t-if="user.company_id.logo" t-att-src="image_data_uri(user.company_id.logo)" style="max-height:45pt;max-width:90%" alt="Company Logo"/>
+                            </td> -->
+                    <div class="page">
+                        <t t-call="estate.property_detail"/>
+                        <div>
+                            <t t-call="estate.property_offer"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+        
+    </template>
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <h2>
+                            <a t-attf-href="/estate/{{ slug(property) }}"></a>
+                            <t t-esc="property.id"/> <t t-esc="property.name"/>
+                        </h2>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

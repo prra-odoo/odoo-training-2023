@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- Demo Data - 1 -->
+        <record id="estate_property_type_demo_1" model="estate.property.type">
+            <field name="name">Mansion</field>
+        </record>
+        <!-- Demo Data - 2 -->
+        <record id="estate_property_type_demo_2" model="estate.property.type">
+            <field name="name">Bungalows</field>
+        </record>
+        <!-- Demo Data - 3 -->
+        <record id="estate_property_type_demo_3" model="estate.property.type">
+            <field name="name">3BHK Flats</field>
+        </record>
+
+    </data>
+</odoo>

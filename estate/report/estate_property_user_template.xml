@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+  <template id="user_property_details">
+    <t t-foreach="docs" t-as="user">
+        <t t-set="properties" t-value="user.mapped(property_ids)"/>
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="properties" t-as="property">
+                    <div class="page">
+                        <t t-call="estate.property_detail"/>
+                        <div>
+                            <t t-call="estate.property_offer"/>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </t>
+  </template>
+
+  
+
+  <!-- <template id="property_detail">
+    <h1>
+        <span t-field="property.name"/>
+    </h1>
+    <div>
+        <strong>Salesman:</strong>
+        <span t-field="property.salesperson_id.name"/>
+    </div>
+    <div>
+        <strong>Expected Price:</strong>
+        <span t-field="property.expected_price"/>
+    </div>
+    <div>
+        <strong>State:</strong>
+        <span t-field="property.status"/>
+    </div>
+    <div>
+        <t t-if="property.best_price > 0">
+            <strong>Best Offer:</strong>
+            <span t-field="property.best_price"/>
+        </t>
+    </div>
+</template>
+<template id="property_offer">
+    <table class="table">
+        <t t-set="offers" t-value="property.mapped('offer_ids')" />
+        <t t-if="offers">
+            <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Partner</th>
+                    <th>Validity (days)</th>
+                    <th>Deadline</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody>                               
+                <tr t-foreach="offers" t-as="offer">
+                    <td>
+                        <span t-field="offer.price"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.partner_id"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.validity"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.date_deadline"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.status"/>
+                    </td>
+                </tr>
+            </tbody>
+        </t>
+        <t t-else="">
+            <h1>No Offers are there for this property</h1>
+        </t>
+    </table>  
+
+</template> -->
+</odoo>

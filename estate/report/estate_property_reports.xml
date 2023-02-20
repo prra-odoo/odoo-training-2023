@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="report_property_details" model="ir.actions.report">
+        <field name="name">Estate Property Details</field>
+        <field name="model">estate.property</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">estate.property_template</field>
+        <field name="report_file">estate.property_template</field>
+        <field name="print_report_name">'Estate Property - %s' % (object.name)</field>
+        <field name="paperformat_id" ref="base.paperformat_us"/>
+        <field name="binding_model_id" ref="model_estate_property"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_property_user_details" model="ir.actions.report">
+        <field name="name">Estate User Property Details</field>
+        <field name="model">res.users</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">estate.user_property_details</field>
+        <field name="report_file">estate.user_property_details</field>
+        <!-- <field name="print_report_name">'Estate User Property - %s' % (object.name)</field> -->
+        <!-- <field name="paperformat_id" ref="base.paperformat_us"/> -->
+        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

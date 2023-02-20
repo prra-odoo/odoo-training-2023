@@ -6,11 +6,11 @@
         <field name="name">Estate property view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Tree View">
+            <tree string="Tree View" decoration-success="status in ('offer_received','offer_accepted')" decoration-bf="status == 'offer_accepted'" decoration-muted="status == 'sold'" decoration-danger="status == 'canceled'">
                 <field name="name" />
                 <field name="description" optional="hidden" />
                 <field name="property_type_id"/>
-                <field name="tag_ids" optional="show" widget="many2many_tags"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                 <field name="postcode" />
                 <field name="date_availability" optional="hidden" />
                 <field name="expected_price" />
@@ -21,6 +21,7 @@
                 <field name="garden" optional="hidden" />
                 <field name="garden_area" optional="hidden" />
                 <field name="garden_orientation" optional="hidden" />
+                <field name="status" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -28,7 +29,8 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_available_properties': True}</field> 
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Add New Properties
@@ -43,7 +45,15 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Estate Property Form View">
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1',}"/>
+                    <button name="action_sold_btn" class="oe_highlight" type="object" string="Sold" attrs="{'invisible' : [('status','in',['sold','canceled'])]}"/>
+                    <button name="action_cancel_btn"  type="object" string="Cancel" attrs="{'invisible' : [('status','in',['sold','canceled'])]}"/>
+                    <button name="%(estate_property_action)d" type="action" string="Redirect to properties"/>
+                </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('status','in',['new','offer_accepted','offer_received','canceled'])]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('status','in',['new','offer_received','offer_accepted','sold'])]}"/>
                     <div class="title" name="property_title">
                         <h1>
                             <field name="name" placeholder="Property Name" />
@@ -51,13 +61,14 @@
                     </div>
                     <group name="main">
                         <group name="main_left">
-                            <field name="tag_ids" widget="many2many_tags"/>
-                            <field name="property_type_id"/>
-                            <field name="postcode" />
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="property_type_id" options="{'no_create':True}"/>
+                            <field name="postcode"/>
                             <field name="date_availability" />
                         </group>
                         <group name="main_right">
                             <field name="expected_price" />
+                            <field name="best_price"/>
                             <field name="selling_price" />
                         </group>
                     </group>
@@ -69,15 +80,14 @@
                                 <field name="living_area" />
                                 <field name="facades" />
                                 <field name="garden" />
-                                <field name="garden_area" />
-                                <field name="garden_orientation" />
+                                <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
+                                <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="total_area"/>
-                                <field name="status" />
                                 <field name="active" />
                             </group>
                         </page>
                         <page string="Offers">  
-                            <field name="offer_ids"/>
+                            <field name="offer_ids" attrs="{'readonly':[('status','in',['offer_accepted','sold','cancel'])]}"/>
                         </page>
                         <page string="Other Info">
                             <group>
@@ -87,9 +97,54 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+               </div>
             </form>
         </field>
+    </record> 
+    <!-- Kanban View -->
+    <record id="estate_property_kanban_view" model="ir.ui.view">
+        <field name="name">Estate Property Kanban View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" records_draggable="0">
+                <progressbar field="status" colors='{ "new": "info", "offer_accepted": "warning", "sold": "success", "cancel": "danger"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click" >
+                            <field name="name" style="font-weight:bold"/>
+                            <div>
+                                Expected Price: <field name="expected_price"/>
+                            </div>
+                            <div t-if="record.best_price.raw_value > 0">
+                                Best Offer: <field name="best_price"/>
+                            </div>
+                            <div t-if="record.selling_price.raw_value > 0">
+                                Selling Price: <field name="selling_price"/>
+                            </div>
+                            <div class="o_kanban_record_bottom mt-3">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field t-if="record.status.raw_value &amp;&amp; widget.editable" name="status" widget="project_state_selection"  options="{'color_field': 'status', 'hide_label': 1}"/>
+                                    <span t-if="record.status.raw_value &amp;&amp; !widget.editable" t-att-class="'o_status_bubble mx-0 o_color_bubble_' + record.status.raw_value" t-att-title="record.status.raw_value"/>
+                                    <field name="salesperson_id" widget="many2one_avatar_user" t-if="record.salesperson_id.raw_value"/>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
     </record>
+
+
+
     <!-- Search View -->
     <record id="estate_property_view_search" model="ir.ui.view">
         <field name="name">Estate property view</field>
@@ -102,7 +157,7 @@
                 <field name="tag_ids"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
-                <field name="living_area"/>
+                <field name="living_area" filter_domain="[('living_area','>=',self)]"/>
                 <field name="facades"/>
                 <filter string="Available Properties" name="available_properties" domain="['|',('status','=','new'),('status','=','offer_received')]"/>
                 <group>
