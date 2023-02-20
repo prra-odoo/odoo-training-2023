@@ -1,5 +1,4 @@
-from odoo import fields, models 
-from odoo import api
+from odoo import fields, models ,api
 from odoo.tools.date_utils import add
 from odoo.exceptions import UserError
 from odoo.tools import float_compare
@@ -44,3 +43,15 @@ class propertyoffer(models.Model):
             record.status='refused'
             
             # record.state='offer accepted'
+
+    @api.model
+    def create(self, vals):
+        if vals.get('property_id') and vals.get('price'):
+            records = self.env['estate.property'].browse(vals['property_id'])
+            if records.offer_ids:
+                maxoffer = max(records.mapped('offer_ids.price'))
+                if float_compare(vals['price'], maxoffer, precision_rounding=0.01) <= 0:
+                    raise UserError(("Offer Price must be higher than", maxoffer))
+            
+            records.state = 'offer_recieved'
+        return super().create(vals)

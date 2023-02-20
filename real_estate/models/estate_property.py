@@ -11,6 +11,7 @@ class estateProperty(models.Model):
     _inherit = ["mail.thread","mail.activity.mixin"]
 
     name = fields.Char('Name :', required = True)
+    detail = fields.Html()
     description = fields.Text('Description ')
     postcode = fields.Char('Postcode ')
     date_availability = fields.Date(default=lambda self: fields.Datetime.now())
@@ -21,10 +22,9 @@ class estateProperty(models.Model):
     facades = fields.Integer('Facades ')
     garage = fields.Boolean('Garage ')
     garden = fields.Boolean('Garden ')
-    garden_area = fields.Integer('Garden Area ')
+    garden_area = fields.Integer('Garden Area ',compute='_compute_garden')
     garden_orientation = fields.Selection(string="Orientation ",
-        selection=[('north', 'North'), ('south', 'South'), ('east','East'), ('west','West')],
-        help="Type is used to separate Leads and Opportunities")
+        selection=[('north', 'North'), ('south', 'South'), ('east','East'), ('west','West')])
     state = fields.Selection(selection= [('new','New'),('cancel','Cancel'),('offer_recieved','Offer Recieved'),('offer_accepted','Offer Accepted'),('sold','Sold')], default="new",tracking=True)
     activate = fields.Boolean(default=True)
     property_type_id = fields.Many2one("estate.property.type",string= "Property type")
@@ -35,6 +35,17 @@ class estateProperty(models.Model):
     total_area= fields.Float(compute='_compute_total_area')
     best_price = fields.Float(compute='_compute_best_price')
     status =fields.Char()
+    company_id = fields.Many2one('res.company',string='Company', required=True, default=lambda self: self.env.user.company_id,)
+    image = fields.Binary("Property Image:", attachment=True, store=True)
+
+
+    # company = self.env['res.company'].create({'name': 'New Company'})
+
+    # agent = self.env['res.users'].create({
+    #     'name': 'New Estate Agent',
+    #     'company_ids': [(6, 0, [company.id])],
+    #     'company_id': company.id, })
+
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
@@ -74,8 +85,28 @@ class estateProperty(models.Model):
                     "The selling price must be at least 90% of the expected price! "
                     + "You must reduce the expected price if you want to accept this offer."
                 )
+
+
+    @api.depends('garden')
+    def _compute_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area=10
+                record.garden_orientation= "north"
+            else:
+                record.garden_area=0
+                record.garden_orientation=False
             
+
+    # @api.ondelete(at_uninstall=False)
+    # def _unlink_state(self):
+    #     for record in self:
+    #         if record.state not in ['new','cancel']:
+    #             raise UserError('you can not delete this record.')
+
+
     _sql_constraints = [
+
         ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be positive"),
         ("check_selling_price", "CHECK(selling_price >= 0)", "The selling price must be positive"),
     ]
