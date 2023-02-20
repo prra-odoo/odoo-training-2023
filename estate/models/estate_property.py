@@ -7,6 +7,7 @@ from odoo.tools.float_utils import float_compare
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate_property Model"
+    _order ="id desc"
 
     name = fields.Char(required=True)
     description = fields.Text()
@@ -120,5 +121,6 @@ class EstateProperty(models.Model):
 
     @api.constrains('expected_price','selling_price')
     def _validate_expected_price(self):
-        if float_compare(self.expected_price*0.9, self.selling_price, precision_digits=2) == 1:
-            raise ValidationError("The selling price must be minimum 90% of the Expected Price")
+        for record in self:
+            if float_compare(self.expected_price*0.9, self.selling_price, precision_digits=2) == 1 and self.offer_ids:
+                raise ValidationError("The selling price must be minimum 90% of the Expected Price")

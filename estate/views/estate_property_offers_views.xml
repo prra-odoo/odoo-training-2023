@@ -13,6 +13,7 @@
 				<button name="action_accept_offer" type="object" title="Accept" icon="fa-check"/>
 				<button name="action_refuse_offer" type="object" title="Refuse" icon="fa-remove"/>
 				<field name="status"/>	
+				<field name="sequence"/>
 			</tree>
 		</field>
 	</record>

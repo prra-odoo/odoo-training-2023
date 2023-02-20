@@ -5,8 +5,10 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffers(models.Model):
     _name = "estate.property.offers"
     _description = "estate property offer Model"
+    _order = "sequence,price desc"
 
     price = fields.Float(string='Price')
+    sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
     status = fields.Selection(
         selection=[('accepted','Accepted'),('refused','Refused')],
         copy=False
@@ -16,13 +18,13 @@ class EstatePropertyOffers(models.Model):
     validity = fields.Integer(default = 7)
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline")
 
-    @api.depends('validity', 'create_date')
+    @api.depends('create_date', 'validity')
     def _compute_date_deadline(self):
         for record in self:
             if record.create_date:
                 record.date_deadline = record.create_date + relativedelta(days = record.validity)
             else:
-                record.validity = 0    
+                record.date_deadline = fields.Date.today() + relativedelta(days = record.validity)    
 
     def _inverse_date_deadline(self): 
         for record in self:
@@ -54,13 +56,16 @@ class EstatePropertyOffers(models.Model):
         return True
 
     def action_refuse_offer(self):
-        self.status == "refused"
-        self.property_id.selling_price = 0
+        self.status = "refused"
+        # self.property_id.selling_price = 0
         self.property_id.buyer_id = None
         return True
             
     _sql_constraints = [
         ('check_price',
         'CHECK(price > 0)',
-        'Offer Price Must be Positive')
+        'Offer Price Must be Positive'),
+        ('check_validity',
+        'CHECK(validity > 0)',
+        'Validity Must be more than 0!!')
     ]

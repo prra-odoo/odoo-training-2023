@@ -52,7 +52,6 @@
 					<br></br>
 					<group>
 						<group>
-							<field name="state"/>
 							<field name="property_type_id" string="Property Type"/>
 							<field name="postcode"/>
 							<field name="date_availability"/>
