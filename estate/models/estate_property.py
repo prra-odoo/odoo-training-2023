@@ -8,7 +8,7 @@ class estateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property module "
     _inherit= ['mail.thread','mail.activity.mixin']
-    _order = "id desc"
+    # _order = "id desc"
 
     name = fields.Char( string="Title",required=True)
     postcode = fields.Char()
@@ -22,6 +22,7 @@ class estateProperty(models.Model):
     garage = fields.Boolean(string="Garage",default=False)
     garden = fields.Boolean(string="Garden")
     garden_area = fields.Integer(string="Garden Area")
+    image=fields.Image(string="Property Image")
     garden_orientation = fields.Selection(
         string='Garden Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
@@ -33,10 +34,11 @@ class estateProperty(models.Model):
     salesman_id = fields.Many2one('res.users', string='Salesman')
     property_tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     offer_ids=fields.One2many('estate.property.offer','property_id',string="Offers")
-    total_area=fields.Integer("Total Area",compute='_compute_total_area')
+    total_area=fields.Integer("Total Area",compute='_compute_total_area',store=True)
     best_price=fields.Float("Best Offer",compute="_compute_best_price", default =0)
+    company_id=fields.Many2one('res.company',string="Company",required=True,default=lambda self:self.env.company)
 
-    #constraints
+    #<------------------------Constraints---------------------------->
     _sql_constraints = [('check_expected_price','CHECK(expected_price>=0)','Expected Price must be positive.'),
     ('check_selling_price','CHECK(selling_price>=0)','Selling Price must be positive.'),
     ('check_living_area','CHECK(living_area>=0)','Living Area must be positive.')]
@@ -47,7 +49,7 @@ class estateProperty(models.Model):
             if  float_compare(record.selling_price,record.expected_price*0.9,precision_digits =2) == -1:
                 raise ValidationError(_("Selling Price must be atleast 90% of the Expected price"))
 
-    #compute fields
+    # <------------------------computed Fields --------------------------->
     @api.depends('garden_area','living_area')
     def _compute_total_area(self):
         for record in self:
@@ -58,6 +60,7 @@ class estateProperty(models.Model):
         for record in self:
             record.best_price=max(record.offer_ids.mapped('price'),default=0)
 
+    #<--------------Action Butons--------------->
     def sold_button(self):
         for record in self:
             if record.state =="cancel":

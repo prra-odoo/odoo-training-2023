@@ -3,38 +3,42 @@
     <record id="estate_property_offer_action" model="ir.actions.act_window">
         <field name="name">Property offer</field>
         <field name="res_model">estate.property.offer</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="domain">[('property_type_id', '=', active_id)]</field>
     </record>
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Estate Property</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name= "context">{'search_default_avilable_filter':True}</field>
     </record>  
     
     <record id="property_type_action" model="ir.actions.act_window">
         <field name="name">property Type</field>
         <field name="res_model">estate.property.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
     </record>
     <record id="property_tag_action" model="ir.actions.act_window">
         <field name="name">Property tag</field>
         <field name="res_model">estate.property.tag</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
     </record>
+
     
     
-    <menuitem id="estate_menu_root" name="Real Estate">
-        <menuitem id="gandhinagar_properties_menu" name="Gandhinagar properties">
-            <menuitem id="Sector2A_menu_action" action="estate_property_action" name="Sector2A" />
-            <menuitem id="Sector2B_menu_action" action="estate_property_action" name="Sector2B"/>
+    
+    <menuitem id="estate_menu_root" name="Real Estate" web_icon="estate,static/description/icon.png">
+        <menuitem id="properties_menu" name="Advertisement">
+            <menuitem id="gandhinagar_properties_menu" name="Gandhinagar properties">
+                <menuitem id="Sector2A_menu_action" action="estate_property_action" name="Sector2A" />
+                <menuitem id="Sector2B_menu_action" action="estate_property_action" name="Sector2B"/>
+            </menuitem>
+            <menuitem id="vadodara_properties_menu" name="Vadodara properties">
+                <menuitem id="vrundavan_menu_action" action="estate_property_action" name="Vrundavan"></menuitem>
+                <menuitem id="Waghodia_menu_action" action="estate_property_action" name="Waghodia"></menuitem>
+            </menuitem>
         </menuitem>
-        <menuitem id="vadodara_properties_menu" name="Vadodara properties">
-            <menuitem id="vrundavan_menu_action" action="estate_property_action" name="Vrundavan"></menuitem>
-            <menuitem id="Waghodia_menu_action" action="estate_property_action" name="Waghodia"></menuitem>
-        </menuitem>
-        <menuitem id="Settings_menu" name="Settings">
+        <menuitem id="settings_menu" name="Settings" groups="estate.estate_group_manager"> 
             <menuitem id="property_type_menu_action" action="property_type_action" name="Property Type"/>
             <menuitem id="property_tag_menu_action" action="property_tag_action" name="Property Tag"/>
         </menuitem>

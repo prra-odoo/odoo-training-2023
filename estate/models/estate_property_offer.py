@@ -5,6 +5,7 @@ from odoo.tools.date_utils import add,subtract
 from dateutil.relativedelta import relativedelta
 from datetime import timedelta
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_compare
 
 
 class esattePropertyOffer(models.Model):
@@ -42,17 +43,33 @@ class esattePropertyOffer(models.Model):
 			if record.property_id == self.property_id:
 				raise ValidationError("Can't accept more than one offer")
 			else:
-				for i in record:
-					record.status='refused'
-			self.status='accepted'
-			self.property_id.selling_price = self.price
-			self.property_id.buyer_id = self.partner_id
-			self.property_id.state='offer_accepted'
+				record.status='refused'
+		self.status='accepted'
+		self.property_id.selling_price = self.price
+		self.property_id.buyer_id = self.partner_id
+		self.property_id.state='offer_accepted'
 
 	def refused_action(self):
 		for record in self:
 			record.status = "refused"
 		return True
+
+
+	@api.model
+	def create(self,vals):
+		rec = self.env['estate.property'].browse(vals['property_id'])
+
+		# for self in rec:
+		# 	max_price = max(self.offer_ids.mapped('price'))
+		# 	if float_compare(vals['price'],max_price,precision_digits=2)<=0:
+		# 		raise UserError(('price must be higher than',max_price))
+
+		if rec.offer_ids:
+			max_price=max(rec.offer_ids.mapped('price'),default=0)
+			if float_compare(vals['price'],max_price,precision_digits=2)<=0:
+		 		raise UserError(('price must be higher than',max_price))
+		rec.state="offer_recieved"
+		return super().create(vals)
 
 	
 

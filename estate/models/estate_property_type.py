@@ -12,6 +12,7 @@ class estatePropertyType(models.Model):
     property_ids=fields.One2many('estate.property','property_type_id',string="Property List")
     offer_ids = fields.One2many("estate.property.offer","property_type_id",string = "Offers")
     offer_count = fields.Integer(string='Property Type Count',compute="_compute_offer_count")
+    
     _sql_constraints=[('property_type_unique','unique(name)','!!This property type is already there.')]
 
     @api.depends('offer_ids')
