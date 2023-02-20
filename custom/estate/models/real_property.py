@@ -15,6 +15,7 @@ class realProperty(models.Model):
          "Selling Price must be positive")
 
     ]
+    _order="id desc"
 
     @api.constrains('expected_price', 'selling_price')
     def _selling_price(self):
@@ -52,7 +53,7 @@ class realProperty(models.Model):
     property_type_id = fields.Many2one(
         "estate.property.type", name="Property Type")
     buyer_id = fields.Many2one("res.partner", name="Buyer", copy=False)
-    seller_id = fields.Many2one(
+    seller_id = fields.Many2one(            
         "res.users", name="Salesman", default=lambda self: self.env.user)
     tag_ids = fields.Many2many(
         "estate.property.tag", string="Tags", relation='tag_ids_m2m')
@@ -63,6 +64,7 @@ class realProperty(models.Model):
         required=True
     )
     total_area = fields.Float(compute='_compute_total')
+   
 
     @api.depends('garden_area', 'living_area')
     def _compute_total(self):
@@ -116,14 +118,12 @@ class realProperty(models.Model):
             if (record.state == 'cancelled'):
                 raise UserError(("Cancelled property cannot be sold."))
             else:
-                record.state = 'accepted'
+                record.state = 'sold'
 
     def action_cancelled(self):
         for record in self:
-            record.state = 'cancelled'
+            record.state = 'cancelled' 
 
 
-"""  def _compute_button_class(self):
-        for record in self:
-            if record.status == 'sold':
-                record.button_class = 'oe_highlight' """
+    
+ 
