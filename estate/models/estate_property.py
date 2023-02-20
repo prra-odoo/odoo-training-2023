@@ -8,12 +8,14 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Model"
     _sql_constraints = [
-        ('expected_price', 'CHECK(expected_price >= 0)',
-         'The expected price should be a positive number only.'),
-        ('selling_price', 'CHECK(selling_price >= 0)',
-         'The selling price price should be a positive number only.'),
+        ('expected_price', 'CHECK(expected_price > 0)',
+         'The expected price should be strictly positive only.'),
+        ('selling_price', 'CHECK(selling_price > 0)',
+         'The selling price price should be strictly positive only.'),
     ]
+    _order = "id desc"
 
+    id = fields.Integer()
     name = fields.Char(required=True, string="Title")
     description = fields.Text()
     postcode = fields.Char()
@@ -59,10 +61,10 @@ class EstateProperty(models.Model):
                     record.state = "offer recieved"
                 record.best_offer = max(record.offer_ids.mapped('price'))
             else:
-               record.best_offer =  0.0
-               if(record.state == "offer recieved"):
-                if(not record.offer_ids):
-                    record.state = "new"
+                record.best_offer =  0.0
+                if(record.state == "offer recieved"):
+                    if(not record.offer_ids):
+                        record.state = "new"
 
     @api.depends('garden')
     def _compute_garden_values(self):
@@ -73,6 +75,8 @@ class EstateProperty(models.Model):
             else:
                 record.garden_area = 0.0
                 record.garden_orientation = False
+    def _inverse_garden(self):
+        pass
     
     def action_sold(self):
         for record in self:

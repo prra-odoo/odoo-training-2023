@@ -32,9 +32,19 @@
                     <group>
                         <h1><field name="name" nolabel="1" class="oe_inline" placeholder="Property Type"/></h1>
                     </group>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
-
 </odoo>

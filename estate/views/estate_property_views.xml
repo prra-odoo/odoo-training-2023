@@ -17,17 +17,19 @@
         <field name="name">Properties</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Properties">
+            <tree string="Tree View" decoration-bf="state=='offer accepted'" 
+            decoration-success="state=='offer recieved' or state=='offer accepted'" decoration-muted="state=='sold'">
                 <field name="name"/>
+                <field name="property_type_id"/>
                 <field name="postcode"/>
-                <field name="salesman_id" string="Salesperson"/>
-                <field name="property_type_id"/>                             
-                <field name="bedrooms" optional="hide"/>
+                <field name="property_tag_ids" widget="many2many_tags"/>
+                <field name="bedrooms" optional="show"/>
                 <field name="living_area"/>
                 <field name="expected_price" optional="show"/>
-                <field name="selling_price" optional="hide"/>
+                <field name="selling_price" optional="show"/>
+                <field name="salesman_id" string="Salesperson" optional="hide"/>
+                <field name="state" optional="hide"/>
                 <field name="date_availability" optional="hide"/>
-                <field name="property_tag_ids" widget="many2many_tags" optional="hide"/>
             </tree>
         </field>
     </record>
@@ -38,15 +40,16 @@
         <field name="arch" type="xml">
             <form string="Form">
                 <header>
-                    <button name="action_sold" type="object" string="SOLD" class="oe_highlight"/>
-                    <button name="action_cancel" type="object" string="CANCEL" class="oe_highlight"/>
-                    <field name="state" widget="statusbar" options="{'clickable':1}"/>
+                    <button name="action_sold" type="object" string="Sold" states="new,offer received,sold,cancelled"/>
+                    <button name="action_sold" type="object" string="Sold" states="offer accepted" class="oe_highlight"/>
+                    <button type="object" name="action_cancel" string="CANCELLED" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" options="{'clickable':1}" class="oe_highlight"/>
                 </header>
                 <sheet>
                     <label for="name" string="Property Name"/>
                     <h1><field name="name" nolabel="1" class="oe_inline" placeholder="My New House"/></h1>
                     <group>
-                        <field name="property_tag_ids" widget="many2many_tags" nolabel="1" placeholder="Enter Tags" colspan="4"/>
+                        <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" nolabel="1" placeholder="Enter Tags" colspan="2"/>
                     </group>
                     <group col='3'>   
                         <group>
@@ -76,8 +79,8 @@
                                     <group>
                                         <field name="garage"/>
                                         <field name="garden"/>
-                                        <field name="garden_area" attrs="{'readonly':[('garden','=',False)]}"/>
-                                        <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
+                                        <field name="garden_area" attrs="{'readonly':[('garden','=',False)], 'invisible': [('garden', '=', False)]}" />
+                                        <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)], 'invisible': [('garden', '=', False)]}"/>
                                         <field name="active"/>
                                     </group>                                   
                                 </group>

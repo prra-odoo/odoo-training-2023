@@ -8,6 +8,7 @@ class EstatePropertyOffer(models.Model):
     _sql_constraints = [
                     ('name', 'UNIQUE (name)', 'You can not have two properties with the same name !')
                 ]
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection(string='Status',
@@ -48,6 +49,8 @@ class EstatePropertyOffer(models.Model):
 
     def refuse_offer(self):
         self.status = "refused"
+
+    
 
     
     
