@@ -22,7 +22,8 @@
              -->
             <tree string="Channel" decoration-muted="state == 'sold'" 
                                    decoration-success="state in ('accepted','received')" 
-                                   decoration-bf="state == 'accepted'">
+                                   decoration-bf="state == 'accepted'"
+                                   decoration-info="state== 'new'">
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="expected_price"/>

@@ -9,7 +9,7 @@ class EstatePropertyType(models.Model):
     property_ids = fields.One2many('estate.property','property_type_id',string="Properties")
     sequence = fields.Integer(string='Sequence', default = 1, help="Used to properties stages")
     offer_ids = fields.One2many('estate.property.offer', 'property_type_id',string="Offer id")
-    offer_count = fields.Integer(string="Offer Count",  default=0)
+    offer_count = fields.Integer(string="Offer Count",  default=0, compute = "_compute_offer_count")
 
 
     _sql_constraints = [
@@ -20,5 +20,9 @@ class EstatePropertyType(models.Model):
     def _inverse_name(self):
         for record in self:
             record.name = record.name.title()
+
+    def _compute_offer_count(self):
+        for record in self:
+            record.offer_count=len(record.offer_ids)
 
     
