@@ -114,23 +114,24 @@
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
-                                <field name="name"/>
+                                Name: <field name="name"/>
                                 <div class="oe_kanban_global_click">
-                                    <group><field name="expected_price"/></group>
+                                    Expected Price: <field name="expected_price"/>
                                 </div>
                                 <div widget="many2many_tags" class="oe_kanban_global_click">
-                                    <field name="tag_ids"/>
+                                    Tags: <field name="tag_ids"/>
                                 </div>
                                 <div t-if="record.best_offer.raw_value>0" class="oe_kanban_global_click">
-                                    <field name="best_offer"/>
+                                    Best offer: <field name="best_offer"/>
                                 </div>
                                 <div t-if="record.selling_price.raw_value > '0'" class="oe_kanban_global_click">
-                                    <field name="selling_price"/>
+                                   Selling price: <field name="selling_price"/>
                                 </div>
-                            </div> 
-                            <div class="oe_kanban_bottom_right float-end">
+                                <div class="oe_kanban_bottom_right float-end">
                                 <field name="salesperson_id" widget="many2one_avatar_user"  t-if="record.salesperson_id.raw_value"/>
-                            </div>                           
+                                </div>   
+                            </div> 
+                                                    
                         </t>
                     </templates>
                 </kanban>
