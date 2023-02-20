@@ -11,7 +11,7 @@
         </field>
     </record>
 
-    <record id='estate_property_view_tree' model='ir.ui.view'>
+    <record id='estate_property_tree' model='ir.ui.view'>
         <field name='name'>estate.property.tree</field>
         <field name='model'>estate.property</field>
         <field name='arch' type='xml'>
@@ -21,23 +21,22 @@
                 <field name='tag_ids'/>
                 <field name='property_type_id'/>
                 <field name='bedrooms'/>
-                <field name='garden' optional='hidden'/>
                 <field name='living_area' optional='show'/>
                 <field name='expected_price'/>
                 <field name='selling_price'/>
-                <field name='date_availability'/>
+                <field name='date_availability' optional='hidden'/>
             </tree>
         </field>
     </record>
 
-    <record id='estate_property_view_form' model='ir.ui.view'>
+    <record id='estate_property_form' model='ir.ui.view'>
         <field name='name'>estate.property.form</field>
         <field name='model'>estate.property</field>
         <field name='arch' type='xml'>
             <form string='Estate Property Form'>
                 <header>
-                    <button name="action_button_sold" string="Sold" type="object"/>
-                    <button name="action_button_cancel" string="Cancel" type="object"/>
+                    <button name='action_button_sold' states='new,offer received,offer accepted' string='Sold' type='object'/>
+                    <button name='action_button_cancel' states='new,offer received,offer accepted' string='Cancel' type='object'/>
 
                     <field name='state' widget='statusbar' options='{"clickable": "1"}'/>
                 </header>
@@ -46,10 +45,10 @@
                         <label for='name' string='Property'/>
                         <h1><field name='name' placeholder='Title'/></h1>
                     </div>
-                        <field name='tag_ids' nolabel='1' widget='many2many_tags' placeholder='tags'/>
+                        <field name='tag_ids' nolabel='1' options='{"color_field": "color"}' widget='many2many_tags' placeholder='tags'/>
                     <group>
                         <group>
-                            <field name='property_type_id'/>
+                            <field name='property_type_id' options='{"no_create":True}'/>
                             <field name='postcode'/>
                             <field name='date_availability'/>
                         </group>
@@ -68,14 +67,14 @@
                                         <field name='facades'/>  
                                         <field name='garage'/>
                                         <field name='garden'/>
-                                        <field name='garden_direction' string='Gardern Orientation'/>
-                                        <field name='garden_area' string='Garden Area (sqm)'/>
+                                        <field name='garden_direction' string='Gardern Orientation' attrs='{"invisible": [("garden", "=", False)]}'/>
+                                        <field name='garden_area' string='Garden Area(sqm)' attrs='{"invisible": [("garden", "=", False)]}'/>
                                         <field name='total_area' string='Total Area (sqm)'/>
                                     </group>
                                 </group>
                             </page>
                              <page string='Offers'>
-                                <field name='offer_ids'></field>
+                                <field name='offer_ids' attrs='{"readonly": [("state", "in", ["offer accepted", "sold", "canceled"])]}'></field>
                             </page>
                             <page string='Other Info'>
                                 <group>
@@ -94,7 +93,7 @@
         </field>
     </record>
 
-    <record id='estate_property_view_search' model='ir.ui.view'>
+    <record id='estate_property_search' model='ir.ui.view'>
             <field name='name'>estate.property.search</field>
             <field name='model'>estate.property</field>
             <field name='arch' type='xml'>

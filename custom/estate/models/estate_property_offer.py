@@ -1,10 +1,11 @@
 from odoo import api,models,fields
-import datetime
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
 
 class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'
     _description = 'estate property offer'
+    _order = 'price desc'
 
     price = fields.Float()
     status = fields.Selection(
@@ -19,8 +20,8 @@ class EstatePropertyOffer(models.Model):
 
     _sql_constraints = [
         (
-            'check_price','CHECK(price >= 0.0)',"The offer price cannot be negative.",
-        ),
+            'check_price','CHECK(price >= 0.0)',"The offer price cannot be negative."
+        )
     ]
 
     @api.depends('validity')
@@ -38,6 +39,7 @@ class EstatePropertyOffer(models.Model):
     def action_accept(self):
         for record in self.property_id.offer_ids:
             record.status = 'refused'   
+        self.property_id.state = 'offer accepted'
         self.property_id.selling_price = self.price     
         self.property_id.buyer_id = self.partner_id
         self.status = 'accepted'
@@ -46,7 +48,8 @@ class EstatePropertyOffer(models.Model):
     def action_refuse(self):
         for record in self:
             if(record.status == 'accepted'):
+                self.property_id.state = 'offer received'
                 self.property_id.selling_price = 0
                 self.property_id.buyer_id = ''
-            record.status = 'refused'
+        record.status = 'refused'
         return True

@@ -7,6 +7,7 @@ from odoo.tools import float_is_zero, float_compare
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'estate property advertisment'
+    _order = 'id desc'
 
     name = fields.Char(required=True, string='Title')
     active = fields.Boolean(default=True)
@@ -25,7 +26,7 @@ class EstateProperty(models.Model):
     state = fields.Selection(
         string = 'State', 
         default = 'offer received',
-        selection = [('new','New'),('offer received','Offer Received'),('sold','Sold'),('canceled','Canceled')],
+        selection = [('new','New'),('offer received','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         help = 'Choose the direction',
         required = True,
         copy = False
@@ -77,18 +78,19 @@ class EstateProperty(models.Model):
 
     def action_button_sold(self):
         for record in self:
-            if(record.state == 'canceled'):
-                raise UserError('Canceled properties can not be sold.')
-            else:
-                record.state = 'sold'
+            # if(record.state == 'canceled'):
+            #     raise UserError('Canceled properties can not be sold.')
+            # else:
+            #     record.state = 'sold'
+            record.state = 'sold'
         return True
     
     def action_button_cancel(self):
         for record in self:
-            if(record.state == 'sold'):
-                raise UserError('Sold properties can not be canceled.')
-            else:
-                record.state = 'canceled'
+        #     if(record.state == 'sold'):
+        #         raise UserError('Sold properties can not be canceled.')
+        #     else:
+            record.state = 'canceled'
         return True
     
     

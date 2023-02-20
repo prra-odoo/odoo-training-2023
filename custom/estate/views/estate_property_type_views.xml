@@ -1,13 +1,49 @@
 <?xml version='1.0'?>
 <odoo>    
   <record id='estate_property_type_action' model='ir.actions.act_window'>
-      <field name='name'>Properties Types</field>
-      <field name='res_model'>estate.property.type</field>
-      <field name='view_mode'>tree,form</field>
-        <field name='help' type='html'>
-        <p class='o_view_nocontent_smiling_face'>
-          Create your Property Types
-        </p>
-      </field>
+    <field name='name'>Properties Types</field>
+    <field name='res_model'>estate.property.type</field>
+    <field name='view_mode'>tree,form</field>
+      <field name='help' type='html'>
+      <p class='o_view_nocontent_smiling_face'>
+        Create your Property Types
+      </p>
+    </field>
+  </record>
+
+  <record id='estate_property_type_tree' model='ir.ui.view'>
+    <field name='name'>estate.property.type.tree</field>
+    <field name='model'>estate.property.type</field>
+    <field name='arch' type='xml'>
+      <tree string='Estate Property Tree'>
+        <field name='sequence' widget='handle'/>
+        <field name='property_name'/>
+      </tree>
+    </field>
+  </record>
+
+  <record id='estate_property_type_form' model='ir.ui.view'>
+    <field name='name'>estate.property.type.form</field>
+    <field name='model'>estate.property.type</field>
+    <field name='arch' type='xml'>
+      <form string='Estate Property Type Form'>
+        <sheet>
+          <div>
+            <h1><field name='property_name'/></h1>
+          </div>
+          <notebook>
+            <page string='Description'>
+              <field name='property_ids' nolabel='1'>
+                <tree>
+                  <field name='name'/>
+                  <field name='expected_price'/>
+                  <field name='state'/>
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
   </record>
 </odoo>
