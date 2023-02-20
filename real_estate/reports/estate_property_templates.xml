@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="estate_property_template_view">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            <span t-field="property.name"/>
+                        </h2>
+                        <div>
+                            <strong>Expected Price: </strong>
+                            <span t-field="property.expected_price"/>
+                        </div>
+
+                        <t t-call="real_estate.estate_property_sub_template_view"></t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="estate_property_sub_template_view">
+        <div class="page">
+
+            <table class="table" t-if="property.offer_ids">
+                <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>Partner</th>
+                        <th>Validity</th>
+                        <th>Property</th>
+                        <th>Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                    <tr t-foreach="offers" t-as="offer">
+                        <td>
+                            <span t-field="offer.price"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.partner_id"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.validity"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.property_type_id"/>
+                        </td>
+                        <td>
+                            <span t-field="offer.date_deadline"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <strong t-else="">Oops! You don't have an offer</strong>
+        </div>
+    </template>
+
+    <template id="estate_property_res_users_template_view">
+        <t t-foreach="docs" t-as="res">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <h2>
+                            <span t-field="res.name"/>
+                            </h2>
+                        </div>
+                        <t t-call="real_estate.estate_property_res_users_sub_template_view"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="estate_property_res_users_sub_template_view">
+        <t t-if="res.property_ids">
+            <t t-set="properties" t-value="res.mapped('property_ids')"/>
+            <t t-foreach="properties" t-as="property" class="mb-5">
+                <table class="table" t-if="res.property_ids">
+                    <div class="page">
+                        <div>
+                            <h2>Property: 
+                                <span t-field="property.name"/>
+                            </h2>
+                        </div>
+
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Bedrooms</th>
+                                <th>Living Area</th>
+                                <th>Property Tags</th>
+                                <th>Company Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span t-field="property.description"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.bedrooms"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.living_area"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.tag_ids"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.company_id"/>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+
+                    </div>
+                </table>
+            </t>
+        </t>
+        <strong t-else="">Oops! You don't have an offer</strong>
+
+    </template>
+</odoo>

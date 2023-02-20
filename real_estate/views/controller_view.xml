@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="property_menu" model="website.menu">
+            <field name="name">Real Estate</field>
+            <field name="parent_id" search="[('parent_id','=',False),('website_id','=',1)]"/>
+            <field name="website_id" ref="website.default_website"/>
+        </record>
+        <record id="property_sub_menu" model="website.menu">
+            <field name="name">Properties</field>
+            <field name="url">controller/controller</field>
+            <field name="parent_id" ref="real_estate.property_menu"></field>
+            <field name="website_id" ref="website.default_website"></field>
+        </record>
+        <template id="property_view">
+            <t t-call="website.layout">
+                <t t-set="title">Real Estate</t>
+                <div class="oe_structure">
+                    <section style="background-color: #e8cbc0;  background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+                    background: linear-gradient(to right, #e8cbc0, #636fa4);
+                    min-height: 100vh;">
+                    <div class="container">
+                        <div class="row text-center text-white">
+                            <div class="col-lg-8 mx-auto">
+                                <h1 class="display-4">Find it. Tour it. Own it.</h1>
+                                <p class="lead mb-0" style="font-weight:bold;">Let's find a property that's perfect for you.</p>
+                                <p class="lead">Properties by<a href="https://www.odoo.com/" class="text-white">
+                                    <u>Odoo</u></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class='row row-cols-3 justify-content-center'>
+                            <t t-foreach="properties" t-as="estate">
+                                <div class="card m-3" style="width: 20rem; border-radius: 2em; text-align: center;box-shadow: 0 5px 10px rgba(0,0,0,.2);">
+                                    <img t-attf-src="data:image/*;base64,{{estate.image}}" class="card-img-top mt-3" alt="hello" style="width: 65%;
+                                        border-radius: 7%;
+                                        margin: 0 auto;
+                                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);" />
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="font-weight: 700; font-size: 1.5em;">
+                                            <t t-esc="estate.name"/>
+                                        </h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <a t-attf-href="/controller/{{ slug(estate) }}" class="btn btn-primary" style="border-radius:2em;
+                                        background-color: teal;
+                                        color: #ffffff;
+                                        padding: .5em 1.5em;  background-color: rgba(0, 128, 128, 0.7);
+                                        color: #ffffff;
+                                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">Go Checkout</a>
+                                    </div>
+                                    <div>
+                                        <span class="float-end badge rounded-pill bg-secondary fa fa-coffee m-3 " t-field="estate.tag_ids"></span>
+                                    </div>
+                                    <!-- <div class="card-footer">
+                                        <small class="text-muted">Last modified: <i t-field="estate.write_date" />
+                                        </small>
+                                    </div> -->
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+                </div>
+                <div t-if="pager" class="o_portal_pager d-flex justify-content-center">
+                    <t t-call="website.pager"/>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="property_list_view">
+            <t t-call="website.layout">
+                <t t-set="title">Property list views</t>
+                <div class="oe_structure"/>
+                <div class="oe_structure">
+                    <section style="background-color: #e8cbc0;  background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+                    background: linear-gradient(to right, #e8cbc0, #636fa4);
+                    min-height: 100vh;">
+                    <div class="container pt-2">
+                        <div class="card m-3" style="width: 20rem; border-radius: 2em; text-align: center;box-shadow: 0 5px 10px rgba(0,0,0,.2);">
+                            <img t-attf-src="data:image/*;base64,{{person.image}}" class="card-img-top mt-3" alt="hello" style="width: 65%;
+                                        border-radius: 7%;
+                                        margin: 0 auto;
+                                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);" />
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <h3 t-field="person.name"/>
+                                </h5>
+                                <p class="card-text">
+                                    <p> 
+                                        <t t-esc = "person.description"/>
+                                    </p> 
+
+                                    <p> Bedrooms :
+                                        <t t-esc = "person.bedrooms"/>
+                                    </p>
+                                    <p> Expected Price :
+                                        <t t-esc = "person.expected_price"/>
+                                    </p>
+                                    <p> Selling Price :
+                                        <t t-esc = "person.selling_price"/>
+                                    </p>
+                                </p>
+
+                            </div>
+                        </div>
+<!-- 
+                        <section style="background-color: #9de2ff;">
+                            <div class="container py-5 h-100">
+                                <div class="row d-flex justify-content-center align-items-center h-100">
+                                    <div class="col-8">
+                                        <div class="card" style="border-radius: 15px;">
+                                            <div class="card-body p-4">
+                                                <div class="d-flex text-black">
+                                                    <div class="flex-shrink-0">
+                                                        <img t-attf-src="data:image/*;base64,{{person.image}}" class="card-img-top mt-3" alt="hello" style="width: 65%;
+                                                        border-radius: 25%;
+                                                        margin: 0 auto;
+                                                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);" />                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h5 class="mb-1">Danny McLoan</h5>
+                                                        <p class="mb-2 pb-1" style="color: #2b2a2a;">
+                                            Senior Journalist
+                                                        </p>
+                                                        <div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
+                                                            <div>
+                                                                <p class="small text-muted mb-1">
+                                                Articles
+                                                                </p>
+                                                                <p class="mb-0">41</p>
+                                                            </div>
+                                                            <div class="px-3">
+                                                                <p class="small text-muted mb-1">
+                                                Followers
+                                                                </p>
+                                                                <p class="mb-0">976</p>
+                                                            </div>
+                                                            <div>
+                                                                <p class="small text-muted mb-1">
+                                                Rating
+                                                                </p>
+                                                                <p class="mb-0">8.5</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex pt-1">
+                                                            <button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
+                                              Chat
+                                                            </button>
+                                                            <button type="button" class="btn btn-primary flex-grow-1">
+                                              Follow
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section> -->
+                    </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

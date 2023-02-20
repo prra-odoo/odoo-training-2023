@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <record id="estate_group_user" model="res.groups">
+      <field name="name">Agent</field>
+      <field name="category_id" ref="base.module_category_real_estate_brokerage"></field>
+    </record>
+
+    <record id="estate_group_manager" model="res.groups">
+      <field name="name">Manager</field>
+      <field name="category_id" ref="base.module_category_real_estate_brokerage" />
+      <field name="implied_ids" eval="[(4,ref('real_estate.estate_group_user'))]" />
+    </record>
+
+
+    <record id="salesperson_id_user" model="ir.rule">
+      <field name="name">Salesperson User</field>
+      <field name="model_id" ref="model_real_estate" />
+      <field name="groups" eval="[(4,ref('real_estate.estate_group_user'))]" />
+      <field name="domain_force">[('salesperson_id','in',[user.id,False])]</field>
+    </record>
+
+    <record id="salesperson_id_manager" model="ir.rule">
+      <field name="name">SalesPerson Manager</field>
+      <field name="model_id" ref="model_real_estate"/>
+      <field name="groups" eval="[(4,ref('real_estate.estate_group_manager'))]"/>
+    </record>
+
+
+    <record id="company_id_user" model="ir.rule">
+      <field name="name">Company user</field>
+      <field name="model_id" ref="model_real_estate"/>
+      <field name="groups" eval="[(4,ref('real_estate.estate_group_user'))]"/>
+      <field name="domain_force">[('company_id','in',company_ids)]</field>
+    </record>
+    <record id="company_id_manager" model="ir.rule">
+      <field name="name">Company manager</field>
+      <field name="model_id" ref="model_real_estate"/>
+      <field name="groups" eval="[(4,ref('real_estate.estate_group_manager'))]"/>
+    </record>
+  </data>
+</odoo>
