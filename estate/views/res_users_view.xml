@@ -5,11 +5,33 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form" />
             <field name="arch" type="xml">
-                <notebook>
+                <xpath expr="//page[@name='preferences']" position="after">
                     <page name="estate_properties" string="RealEstate Property">
                         <field name="property_ids" />
                     </page>
-                </notebook>
+                </xpath>
+                <field name="email" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+                <xpath expr="//group[@name='preferences']" position='inside'>
+                    <group>
+                        <field name="create_uid"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="real_estate_customer_form_view" model="ir.ui.view">
+            <field name="name">Real Estate</field>
+            <field name="model">estate.property.customer</field>
+            <field name="arch" type="xml">
+                <form string="Real Estate">
+                    <sheet>
+                        <group>
+                            <field name="demo"></field>
+                            <field name="name"></field>
+                        </group>
+                    </sheet>
+                </form>
             </field>
         </record>
     </data>

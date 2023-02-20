@@ -14,3 +14,4 @@ class EstatePropertyTag(models.Model):
     _sql_constraints = [
         ('unique_property_tag', 'unique(name)', 'Property Tags can not Be Same')
     ]
+    

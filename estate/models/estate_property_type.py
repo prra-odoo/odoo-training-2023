@@ -24,3 +24,4 @@ class EstatePropertyType(models.Model):
     def _offer_count(self):
         for rec in self:
             rec.offer_count = len(rec.offer_ids)
+            

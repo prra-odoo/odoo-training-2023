@@ -15,7 +15,7 @@
             <field name="name">Real Estate</field>
             <field name="model">estate.property.tag</field>
             <field name="arch" type="xml">
-                <form string="Real Estate">
+                <form string="customer">
                     <sheet>
                         <group>
                             <field name="name" />

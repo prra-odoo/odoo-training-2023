@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="../static/src/style.css"?>
+<odoo>
+    <record id="demo_page_menu" model="website.menu">
+        <field name="name">Property</field>
+        <field name="url">/estate</field>
+        <field name="parent_id" ref="website.main_menu" />
+    </record>
+
+    <template id="estate.home">
+        <t t-call="website.layout">
+            <header>
+                <form method="GET">
+                    <t t-call="website.website_search_box">
+                    </t>
+                </form>
+                <span>    
+                    <form method="GET">
+                        <input type="date" name="date"/>
+                        <input type="submit" value="Listed After"/>
+                    </form>
+                </span>
+            </header>
+            <t t-set="title">Estate Property</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-md-3 g-4 my-4">
+                        <t t-foreach="estate" t-as="property">
+                            <div class="col">
+                                <a t-attf-href="/estate/{{ slug(property) }}" class="text-decoration-none">
+                                    <div class="card h-100">
+                                        <img t-attf-src="data:image/jpeg;base64,#{property.image}" alt="Not Found" class="card-img-top" />
+                                        <div class="card-body">
+                                            <h3 t-field="property.name" class="card-title fs-3 align-top" />
+                                            <div class="card-text">
+                                                <h6 t-field="property.date_availability" t-options='{"format": "long"}' />
+                                                <span >Expected Price : </span>
+                                                <span t-field="property.expected_price"/>
+                                                <t t-foreach="property.tag_ids" t-as="tags">
+                                                <span t-field="tags.name" class="badge text-bg-secondary float-end m-1"></span>
+                                                </t>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer text-muted"> Last Updated on : <span t-field="property.__last_update" t-options="{'widget':'relative'}" />
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                    <div class="text-center">
+                        <t t-call="website.pager"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="estate.index">
+        <t t-call="website.layout">
+            <header>
+                <div id="website_published_button" class="float-right">
+                    <t t-call="website.publish_management">
+                        <t t-set="object" t-value="new"/>
+                        <t t-set="publish_edit" t-value="True"/>
+                        <t t-set="action" t-value="'estate.real_estate_action'"/>
+                    </t>
+                </div>
+            </header>
+            <t t-set="title">Property</t>
+            <div class="oe_structure">
+                <div class="container my-5  ">
+                    <div>
+                        <h2 t-field="new.name" class="text-end"/>
+                    </div>
+                    <img t-attf-src="data:image/jpeg;base64,#{new.image}" alt="Not Found" class="rounded float-end my-4" width="500px" hight="500px" />
+                    <div>
+                        <h3>Description : </h3>
+                        <p t-field="new.description" class="text-start"></p>
+                        <div>
+                            <strong>Expected Price: </strong>
+                            <span t-field="new.expected_price"/>
+                        </div>
+                        <div>
+                            <strong>Status: </strong>
+                            <span t-field="new.state"/>
+                        </div>
+                        <div>
+                            <strong>Salesman: </strong>
+                            <span t-field="new.salesperson_id"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="oe_structure" />
+        </t>
+    </template>
+</odoo>

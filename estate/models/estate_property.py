@@ -5,20 +5,22 @@ from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
+import dateutil.parser
 
 
 class realEstate(models.Model):
     _name = "estate.property"
     _description = "This is the Database for the all clients and their requirements"
     _order = "id desc"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ["mail.thread", "mail.activity.mixin",'website.published.mixin']
 
     name = fields.Char("Name", required=True)
+    # biography = fields.Html()
     description = fields.Text("Description")
     postcode = fields.Char("Post Code")
-    date_availability = fields.Date(
+    date_availability = fields.Datetime(
         "Available From", default=fields.Datetime.now()+relativedelta(months=3))
-    expected_price = fields.Float("Excepted Price")
+    expected_price = fields.Float("Excepted Price",default="120.00")
     selling_price = fields.Float("Selling Price", readonly=True, tracking=True)
     bedrooms = fields.Integer("Bedrooms")
     living_area = fields.Integer("Living Area", default="1")
@@ -34,8 +36,9 @@ class realEstate(models.Model):
     property_type_id = fields.Many2one(
         "estate.property.type", string="Property Type")
     salesperson_id = fields.Many2one(
-        "res.users", string="Salesperson", default=lambda self: self.env.user, copy=False)
+        "res.users", string="Salesperson")
     buyer_id = fields.Many2one("res.partner", string="Buyer")
+    company_id = fields.Many2one('res.company', string="Company")
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     offer_ids = fields.One2many(
         "estate.property.offer", 'property_id', string="Offer")
@@ -47,8 +50,13 @@ class realEstate(models.Model):
             ('offer_received', 'Offer Received'),
             ('offer_accepted', 'Offer Accepted'),
             ('sold', 'Sold'),
-            ('canceled', 'Canceled')], default="new", readonly=True, tracking=True
+            ('canceled', 'Canceled')], default="new", tracking=True
     )
+    image = fields.Binary('image')
+    color= fields.Integer()
+    website_published = fields.Boolean('Website Published')
+    website_url = fields.Char('Website URL',compute="_compute_website_url")
+
 
     _sql_constraints = [
         ("check_excepted_price", "CHECK(selling_price > 0)",
@@ -97,6 +105,7 @@ class realEstate(models.Model):
 
     def action_cancel_button_header(self):
         for rec in self:
+            print("-------------",d)
             if rec.state == "sold":
                 raise UserError("Sold Property can't be calceld")
             else:
@@ -116,3 +125,16 @@ class realEstate(models.Model):
         for rec in self:
             if not (rec.state in ['new', 'canceled']):
                 raise UserError("Can't Remove The Property.")
+
+    @api.model
+    def create(self,vals):
+        print('estate property create method:',vals)
+        return super(realEstate,self).create(vals)
+
+    def write(self,vals):
+        print('estate property write method:',vals)
+        return super(realEstate,self).write(vals)
+    
+    def _compute_website_url(self):
+        for rec in self:
+            rec.website_url = "/estate/%s" % (rec.id)
