@@ -9,6 +9,7 @@ class Estate(models.Model):
     _name="real.estate.properties"
     _description="Property Model"
     _order ="id desc"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name=fields.Char(string="Title",required=True)
     description=fields.Text('Description')
@@ -24,14 +25,17 @@ class Estate(models.Model):
     garden_area=fields.Integer(compute='_compute_garden',store=True,readonly=False)
     garden_orientation=fields.Selection(selection=[('north','North'), ('south','South'), ('east','East'),('west','West')])
     active=fields.Boolean(default=True)
-    state=fields.Selection(selection=[('new','New'),('offer recevied','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],default='new' ,copy=False)
+    state=fields.Selection(selection=[('new','New'),('offer recevied','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],default='new',tracking=True)
     type_id=fields.Many2one('real.estate.property.type',string="Property type")
-    user_id = fields.Many2one('res.users', string='Salesperson',default=lambda self: self.env.user)
+    user_id = fields.Many2one('res.users', string='Salesperson')
     buyer_id = fields.Many2one('res.partner', string='Buyer')
     tag_ids = fields.Many2many('real.estate.property.tag',string="Property Tags")
     offer_ids = fields.One2many('real.estate.property.offer','property_id',string="Property Offer")
     total_area=fields.Float(compute='_compute_total_area')
     best_offer=fields.Integer(compute='_compute_best_offer')
+    company_id=fields.Many2one('res.company',default=lambda self: self.env.user.company_id)
+    property_image=fields.Image(string="Image")
+
     _sql_constraints = [
         ('expected_price_constraints', 'CHECK(expected_price>=0)', "A Expected Price must be postive."),
         ('selling_price_constraint','CHECK(selling_price>=0)',"A Selling Proce Must be postive"),
@@ -49,8 +53,9 @@ class Estate(models.Model):
     @api.depends('offer_ids.price')
     def _compute_best_offer(self):
         for record in self:
-            print(record.offer_ids.mapped('price'))
+            # print(record.offer_ids.mapped('price'))
             record.best_offer = max(record.offer_ids.mapped('price'),default=0)
+            
             # ids = [l.price for l in record.offer_ids]
             # print(ids)
             # record.best_offer = max(ids)
@@ -86,3 +91,15 @@ class Estate(models.Model):
             for record in self:
                 if (not float_is_zero(record.selling_price, precision_rounding=0.1)) and float_compare(record.selling_price, 0.9* record.expected_price,precision_rounding=0.1) == -1:
                     raise ValidationError("selling price cannot be less than 90% of expected price")
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_state(self):
+        for record in self:
+            if record.state not in['new','canceled']:
+                raise UserError("Deletion of a property is not possible this state")
+
+    def offer(self):
+        return {'type': 'ir.actions.act_window',
+                'res_model' : 'properies.offer.wizard',
+                'view_mode' : 'form',
+                'target' : 'new'}

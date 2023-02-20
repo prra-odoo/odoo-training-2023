@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="real_estate_type_action" model="ir.actions.act_window">
-        <field name="name">Type</field>
-        <field name="res_model">real.estate.property.type</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a New Property Using CREATE Button!!
-            </p>
-        </field>
-    </record>
+    
 
     <record id="property_type_tree_view" model="ir.ui.view">
         <field name="name">Property Type</field>
@@ -29,10 +20,14 @@
             <form string="real_estate_form">
                 
                 <sheet>
+                    <div  class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action" name="%(real_estate_offer_action)d" string="offers" icon="fa-money">
+                            <field string="Offer Count" name="offer_count" widget="statinfo"/>
+                        </button>  
+                    </div>   
                     <h1><field name="name" placeholder="Enter Property Type"/></h1>
                         <group>
-                            <field name="description"/>
-                             
+                            <field name="description"/>                            
                         </group>  
                         <notebook>
                             <page name="Properties" string="Properties">
@@ -40,13 +35,11 @@
                                 <tree>
                                     <field name="name"/>
                                     <field name="expected_price"/>
-                                    <field name="state"/>
-                                   
+                                    <field name="state"/>                                 
                                 </tree>
                             </field>
                         </page>
-                        </notebook> 
-                   
+                        </notebook>                   
                 </sheet>
             </form>
         </field>

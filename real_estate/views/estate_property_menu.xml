@@ -1,13 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<!-- estate property action -->
+    <record id="real_estate_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">real.estate.properties</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="context">{'search_default_available':True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a New Property Using CREATE Button!!
+            </p>
+           </field>
+           
+    </record>
+<!-- estate property type action -->
+    <record id="real_estate_type_action" model="ir.actions.act_window">
+        <field name="name">Type</field>
+        <field name="res_model">real.estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a New Property Using CREATE Button!!
+            </p>
+        </field>
+    </record>
+<!-- estate property tag action -->
+    <record id="real_estate_tag_action" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">real.estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a New Property Using CREATE Button!!
+            </p>
+        </field>
+    </record>
+<!-- estate property offer action -->
+    <record id="real_estate_offer_action" model="ir.actions.act_window">
+        <field name="name">Offers</field>
+        <field name="res_model">real.estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a New Property Using CREATE Button!!
+            </p>
+        </field>
+    </record>
 
-    <menuitem id="real_estate" name="Real Estate">
+    <record id="menu_properties" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/real_estate</field>
+        <field name="parent_id" ref="website.main_menu"/>
+
+
+    </record>
+
+    <menuitem id="real_estate" name="Real Estate" web_icon="real_estate,static/description/icon.png">
         <menuitem id="real_estate_first_level" name="Property">
             <menuitem id="real_estate_model" action="real_estate_action" name="Property List" />
             <menuitem id="real_estate_model2" action="real_estate_action" name="Property Names" />
         </menuitem>
 
-        <menuitem id="real_estate_type_first_level" name="Settings">
+        <menuitem id="real_estate_type_first_level" name="Settings" groups="estate_group_manager">
             <menuitem id="real_estate_type_model" action="real_estate_type_action" name="Property Type"/>
             <menuitem id="real_estate_tag_model" action="real_estate_tag_action" name="Property Tags"/>
         </menuitem>

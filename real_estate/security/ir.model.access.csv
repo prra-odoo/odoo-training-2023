@@ -1,5 +1,10 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-property_manager,Property Manager,model_real_estate_properties,,1,1,1,1
-property_type,Property Type,model_real_estate_property_type,,1,1,1,1
-property_tag,Property Tag,model_real_estate_property_tag,,1,1,1,1
-property_offer,Property Offer,model_real_estate_property_offer,,1,1,1,1
+property_manager,Property Manager,model_real_estate_properties,estate_group_manager,1,1,1,1
+property_type,Property Type,model_real_estate_property_type,estate_group_manager,1,1,1,1
+property_tag,Property Tag,model_real_estate_property_tag,estate_group_manager,1,1,1,1
+property_offer,Property Offer,model_real_estate_property_offer,estate_group_manager,1,1,1,1
+property_agent,Property Agent,model_real_estate_properties,estate_group_user,1,1,1,0
+property_type_agent,Property Type Agent,model_real_estate_property_type,estate_group_user,1,0,0,0
+property_tag_agent,Property Tag Agent,model_real_estate_property_tag,estate_group_user,1,0,0,0
+property_offer_agent,Property Offer Agent,model_real_estate_property_offer,estate_group_user,1,1,1,1
+real_estate.access_properies_offer_wizard,access_properies_offer_wizard,real_estate.model_properies_offer_wizard,base.group_user,1,1,1,1
