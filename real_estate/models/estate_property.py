@@ -15,29 +15,36 @@ class estateProperty(models.Model):
     description = fields.Text(string='Description')
     postcode = fields.Integer(string='Postcode')
     date_availability = fields.Date(string='Available From', default=lambda self: fields.Datetime.now())
-    expected_price = fields.Float(string='Expected Price')
-    selling_price = fields.Float(string='Selling Price')
-    bedrooms = fields.Integer(string='Bedrooms')
+    expected_price = fields.Float(string='Expected Price', required=True)
+    selling_price = fields.Float(string='Selling Price', copy=False, readonly=True)
+    bedrooms = fields.Integer(string='Bedrooms', default=2)
     living_area = fields.Integer(string='Living Area(sqm)')
     facades = fields.Integer(string='Facades')
     garage = fields.Boolean(string='Garage')
     garden=fields.Boolean(string='Garden')
-    garden_area = fields.Integer(string='Garden Area')
+    garden_area = fields.Integer(string='Garden Area',  compute = "_compute_garden")
     garden_orientation = fields.Selection(string='Garden Orientation',
-        selection=[('east', 'East'), ('west', 'West'), ('north', 'North'), ('south', 'South')]
-        )
-    state = fields.Selection(selection=[('new', 'New'), ('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancel', 'Cancel')],
-                                        default='new', tracking=True
-        )
+        selection=[('east', 'East'), 
+                   ('west', 'West'),
+                   ('north', 'North'),
+                   ('south', 'South')])
+    state = fields.Selection(selection=[('new', 'New'),
+                                        ('offer_received', 'Offer Received'),
+                                        ('offer_accepted', 'Offer Accepted'),
+                                        ('sold', 'Sold'),
+                                        ('cancel', 'Cancel')],
+                                        default='new', tracking=True)
     active = fields.Boolean(default = True)
     property_type_id = fields.Many2one("estate.property.type", string='Property Type')
     buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
-    salesman_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user )
-    tag_ids=fields.Many2many("estate.property.tag", string='Tags')
-    offer_ids=fields.One2many("estate.property.offer","property_id", string="Offer")
-    total_area=fields.Float(string="Total Area", compute="_compute_total")
-    best_offer=fields.Float(string="Best Offer",compute="_compute_best_offer")
-    status=fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
+    salesperson_id = fields.Many2one("res.users",string="Salesperson", default=lambda self: self.env.user )
+    tag_ids = fields.Many2many("estate.property.tag", string='Tags')
+    offer_ids = fields.One2many("estate.property.offer","property_id", string="Offer")
+    total_area = fields.Float(string="Total Area", compute="_compute_total")
+    best_offer = fields.Float(string="Best Offer",compute="_compute_best_offer")
+    status = fields.Selection(string="Status", selection=[("sold", "Sold"), ("cancel", "Cancel")])
+    company_id = fields.Many2one("res.company", string="Company", required=True, default=lambda self: self.env.company)
+    image = fields.Binary(string="Image", store=True)
 
     _sql_constraints = [
         ('expected_price', 'CHECK(expected_price >= 0)', 'A property expected price should be positive.'),
@@ -49,6 +56,17 @@ class estateProperty(models.Model):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
+    @api.depends("garden")
+    def _compute_garden(self):
+        for record in self:
+            if record.garden:
+                record.garden_area = 10
+                record.garden_orientation = "north"
+            else:
+                record.garden_area = 0
+                record.garden_orientation = False
+
+    @api.depends('offer_ids.price')
     def _compute_best_offer(self):
         for record in self:
             record.best_offer = max(self.offer_ids.mapped('price'), default=0)
@@ -56,7 +74,7 @@ class estateProperty(models.Model):
     def sold_button(self):
         for record in self:
             if record.status=='cancel':
-                raise UserError(('Cancelled property can not be sold.'))
+                raise UserError(('Canceled property can not be sold.'))
             else:
                 record.status = 'sold'
                 record.state  = 'sold'
@@ -82,7 +100,12 @@ class estateProperty(models.Model):
                 if record.state not in ['new', 'cancel']:
                     raise UserError("Only New and Canceled Properties can be deleted.")
 
-    @api.model
-    def create(self, vals):
-
-        return super().create(vals)
+    def make_offer(self):
+        return {
+            'name': ('Real Estate Wizard'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'estate.property.wizard',
+            'view_mode': 'form',
+            'target': 'new'
+    }
+    

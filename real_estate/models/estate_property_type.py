@@ -8,10 +8,10 @@ class estatePropertyType(models.Model):
     _order = "name desc"
 
     name = fields.Char(string='Name')
-    property_ids=fields.One2many("estate.property", "property_type_id")
-    sequence=fields.Integer(string='Sequence', default=1)
-    offer_ids=fields.One2many("estate.property.offer", "property_type_id", string="Offer")
-    offer_count=fields.Integer(string="Offer Count", compute="_compute_offer_count")
+    property_ids = fields.One2many("estate.property", "property_type_id")
+    sequence = fields.Integer(string='Sequence', default=1)
+    offer_ids = fields.One2many("estate.property.offer", "property_type_id", string="Offer")
+    offer_count = fields.Integer(string="Offer Count", compute="_compute_offer_count")
 
     _sql_constraints = [
         ('name_unique', 'UNIQUE(name)', 'A Property type name should be unique.')

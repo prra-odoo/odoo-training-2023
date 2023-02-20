@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_property_offers">
+        <t t-foreach="docs" t-as="property">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <h2>
+                                <strong>Property: </strong>
+                                <span t-field="property.name"/>
+                            </h2>
+                            <div class="page">
+                                <div>
+                                    <strong>Salesman: </strong>
+                                    <span t-field="property.salesperson_id"/>
+                                </div>
+                                <div>
+                                    <strong>Expected Price: </strong>
+                                    <span t-field="property.expected_price"/>
+                                </div>
+                                <div>
+                                    <strong>State: </strong>
+                                    <span t-field="property.state"/>
+                                </div>
+                            </div>
+                            <t t-call="real_estate.sub_template_report_property_offers" />
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="sub_template_report_property_offers">
+        <table class="table" t-if="property.offer_ids">
+            <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Partner</th>
+                    <th>Property Type</th>
+                    <th>Status</th>
+                    <th>Validity(Days)</th>
+                    <th>Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                <tr t-foreach="offers" t-as="offer">
+                    <td>
+                        <span t-field="offer.price"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.partner_id"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.property_type_id"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.status"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.validity"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.date_deadline"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <strong t-else="">Oops!!!!</strong>
+    </template>
+    <template id="res_users_pdf_format">
+        <t t-foreach="docs" t-as="res">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>
+                            <h2>Salesman: 
+                                <span t-field="res.name"/>
+                            </h2>
+                        </div>
+                        <t t-call="real_estate.res_users_pdf_sub_template_format"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="res_users_pdf_sub_template_format">
+        <t t-if="res.property_ids">
+            <t t-set="properties" t-value="res.mapped('property_ids')" />
+            <t t-foreach="properties" t-as="property" class="mb-5">
+                <table class="table" t-if="res.property_ids">
+                    <div class="page">
+                        <div>
+                            <h2>Property:
+                                <span t-field="property.name"/>
+                            </h2>
+                        </div>
+                        <div>
+                            <strong>Expected Price: </strong>
+                            <span t-field="property.expected_price"/>
+                        </div>
+                        <div>
+                            <strong>State: </strong>
+                            <span t-field="property.state"/>
+                        </div>
+                        <thead>
+                            <tr>
+                                <th>Property Type</th>
+                                <th>Postcode</th>
+                                <th>Tags</th>
+                                <th>Bedrooms</th>
+                                <th>Living Area(sqm)</th>
+                                <th>Expected Price</th>
+                                <th>Selling Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span t-field="property.property_type_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.postcode"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.tag_ids"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.bedrooms"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.living_area"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.expected_price"/>
+                                </td>
+                                <td>
+                                    <span t-field="property.selling_price"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </table>
+            </t>
+        </t>
+        <strong t-else="">Oops!!!!</strong>
+    </template>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="real_estate_category">
+            <field name="name">Real Estate</field>
+            <field name="description">Real Estate Access Rights</field>
+        </record>
+        <record model="res.groups" id="estate_group_user">
+            <field name="name">Agent</field>
+            <field name="category_id" ref="real_estate_category"/>
+        </record>
+
+        <record model="res.groups" id="estate_group_manager">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="real_estate_category"/>
+            <field name="implied_ids" eval="[(4, ref('real_estate.estate_group_user'))]"/>
+        </record>
+        <record id="estate_property_agent_rule" model="ir.rule">
+            <field name="name">Real Estate Agent Rule</field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="groups" eval="[(4, ref('real_estate.estate_group_user'))]"/>
+            <field name="domain_force">[('salesperson_id', 'in',[user.id, False])]</field>
+        </record>
+        <record id="estate_property_manager_rule" model="ir.rule">
+            <field name="name">Real Estate Manager Rule</field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="groups" eval="[(4, ref('real_estate.estate_group_manager'))]"/>
+        </record>
+        <record id="estate_property_company_agent_rule" model="ir.rule">
+            <field name="name">Real Estate User Company</field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="groups" eval="[(4, ref('real_estate.estate_group_user'))]"/>
+            <field name="domain_force">[('company_id','in',company_ids)]</field>
+        </record>
+        <record id="estate_property_company_manager_rule" model="ir.rule">
+            <field name="name">Real Estate Manager Company </field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="groups" eval="[(4, ref('real_estate.estate_group_manager'))]"/>
+        </record>
+    </data>
+</odoo>
