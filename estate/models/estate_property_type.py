@@ -5,9 +5,9 @@ class EstatePropertyType(models.Model):
     _name="estate.property.type"
     _description = "Estate Property Type Model _description"
     _sql_constraints = [
-        ('name','UNIQUE(name)','Type Name must be unique')
+        ('unique_name','UNIQUE(name)','Type Name must be unique')
     ]
-    _order = "sequence,name asc"
+    _order = "sequence,name"
     
 
     name = fields.Char(required=True)

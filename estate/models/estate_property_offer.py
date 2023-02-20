@@ -7,7 +7,7 @@ class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
     _description = "Estate Property Offer Model _description"
     _sql_constraints = [
-        ('price','CHECK(price>0)','Offer Price must be strictly positive')
+        ('check_price','CHECK(price>0)','Offer Price must be strictly positive')
     ]
     _order = "price desc"
 
@@ -35,14 +35,16 @@ class EstatePropertyOffer(models.Model):
 
 
     def action_accept(self):
-        for offers in self.property_id.offer_ids:
-            offers.status = "refused"
-        self.status="accepted"
-        self.property_id.state="offer_accepted"
-        self.property_id.selling_price=self.price
-        self.property_id.buyer_id=self.partner_id
+        for record in self:
+            for offers in record.property_id.offer_ids:
+                offers.status = "refused"
+            record.status="accepted"
+            record.property_id.state="offer_accepted"
+            record.property_id.selling_price=record.price
+            record.property_id.buyer_id=record.partner_id
         return True
     
     def action_reject(self):
-        self.status="refused"
+        for record in self:
+            self.status="refused"
         return True
