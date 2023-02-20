@@ -7,7 +7,9 @@ class EstatePropertyTag(models.Model):
     _sql_constraints = [
     ('check_tag_name_uniq', 'UNIQUE (name)', 'You can not have two property tags with the same name !')
     ]
+
     name = fields.Char(required=True)
+    color = fields.Integer()
 
     @api.constrains('name')
     def _check_tag_unique_name(self):

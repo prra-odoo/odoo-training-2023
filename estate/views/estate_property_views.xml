@@ -55,11 +55,11 @@
                 <sheet>
                     <label for="name" string="Property Name"/>
                     <h1><field name="name" placeholder="My New House"/></h1>
-                    <field name="tag_ids" string="Tags" widget="many2many_tags"/>
+                    <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <group>
                         <group>
                             <field name="state" string="Status"/>
-                            <field name="property_type_id" string="Property Type"/>
+                            <field name="property_type_id" string="Property Type" options="{'no_create': True}"/>
                             <field name="postcode"/>
                             <field name="date_availability" string="Available From"/>
                         </group>
@@ -82,14 +82,14 @@
                                     <group string="Garden">
                                         <field name="garage"/>
                                         <field name="garden"/>
-                                        <field name="garden_area" string="Garden Area (sqm)" attrs="{'readonly':[('garden','=',False)]}"/>
-                                        <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)]}"/>
+                                        <field name="garden_area" string="Garden Area (sqm)" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                        <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                     </group>
                                 </group>
                             </page>
 
                             <page string="Offers">
-                                <field name="offer_ids"/>
+                                <field name="offer_ids" attrs="{'readonly': ['|',('state', '=', 'offer accepted'),|,('state', '=', 'sold'),('state', '=', 'cancelled')]}"/>
                             </page>
                             
                             <page string="Other Info">
