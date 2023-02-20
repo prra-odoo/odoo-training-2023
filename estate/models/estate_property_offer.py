@@ -8,6 +8,9 @@ class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "This is an Estate Property offers Model"
 
+    _sql_constraints = [("ofr_price_pos", "CHECK (price>=0)",
+                         "The offer price must be greater than 0."),]
+
     price = fields.Float(string="Price", required=True)
     status = fields.Selection(copy=False, selection=[
                               ("act", "Accepted!"), ("ref", "Refused!")])
@@ -16,7 +19,10 @@ class EstatePropertyOffer(models.Model):
         comodel_name="res.partner", string="Partner", required=True)
 
     property_id = fields.Many2one(
-        comodel_name="estate.property", string="Property", required=True)
+        comodel_name="estate.property", string="Property", required=True, ondelete="cascade")
+    # Here ondelete="cascade" means that the property will be deleted even if it has offers, before it was
+    # violating the foreign key constraint. Because a deleted property cannot have it's offers present in
+    # the estate.property.offer table. The corresponding offers will also be deleted.
 
     validity = fields.Integer(string="Validity (Days)", default=7)
 
@@ -50,6 +56,8 @@ class EstatePropertyOffer(models.Model):
             raise UserError(
                 ('More than one offer can not be accepted at the same time.'))
         else:
+            # To set the offers, other than the accepted offer as refused.
+            # First all offers are set REFUSED then the particular offer is set ACCEPTED.
             for var in self.property_id.offer_ids:
                 var.status = "ref"
             self.property_id.state = "OA"

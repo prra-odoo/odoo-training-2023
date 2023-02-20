@@ -44,11 +44,11 @@
                         options="{'clickable': '1'}" />
                     <button id="btn_sold" string="Sold" name="btn_sold" type="object"
                         class="btn-primary" confirm="Are you sure you want to mark this as sold ?"
-                        attrs="{'invisible': [('state', '==', 'S')]}" />
+                        attrs="{'invisible': [('state', 'in', ['S','N','OR'])]}" />
                     <button id="btn_cancel" string="Cancel" name="btn_cancel" type="object"
                         class="btn-primary"
                         confirm="Are you sure you want to mark this as cancelled ?"
-                        attrs="{'invisible': [('state', '==', 'C')]}" />
+                        attrs="{'invisible': [('state', 'in', ['C','N','OR'])]}" />
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="SOLD"

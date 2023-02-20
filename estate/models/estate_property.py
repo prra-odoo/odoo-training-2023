@@ -1,11 +1,19 @@
 from odoo import models, fields, api, _
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is an Estate Model"
+
+    _sql_constraints = [
+        ('exp_price_pos', 'CHECK(expected_price >= 0)',
+         'The expected price must be greater than 0.'),
+        ('sell_price_pos', 'CHECK(selling_price >= 0)',
+         'The selling price must be greater than 0.'),
+    ]
 
     name = fields.Char(required=True, default="Unknown Estate")
     description = fields.Text()
@@ -13,7 +21,7 @@ class EstateProperty(models.Model):
     date_availability = fields.Date(
         string='Available From', copy=False, default=lambda self: fields.Datetime.now() + relativedelta(months=3))
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float(copy=False, readonly=True)
+    selling_price = fields.Float(copy=False, readonly=True, default=0)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer(string='Living Area (sqm)')
     facades = fields.Integer()
@@ -74,12 +82,15 @@ class EstateProperty(models.Model):
         for record in self:
             if (record.offer_ids):
                 if (record.state == "N"):
+                    # Whenever a new offer is created, state changes to "OR".
                     record.state = "OR"
                 amount = max(record.mapped('offer_ids.price'))
                 record.best_price = amount
             else:
-                if (record.state == "OR"):
+                # To mark the property as new when all the offers are deleted.
+                if (record.state in ["OR", "OA", "S", "C"]):
                     record.state = 'N'
+
                 record.best_price = 0
 
     @api.depends("garden")
@@ -119,3 +130,19 @@ class EstateProperty(models.Model):
             else:
                 raise UserError(
                     _('Already sold properties cannot be cancelled.'))
+
+    # @api.constrains("selling_price")
+    # def check_selling_price(self):
+    #     for record in self:
+    #         print(record.selling_price)
+    #         if (record.selling_price > 0):
+    #             desired_sell_price = 0.9*record.expected_price
+    #             check_sell_price = float_compare(
+    #                 desired_sell_price, record.selling_price,  precision_digits=2)
+    #             print(desired_sell_price, record.selling_price,
+    #                   check_sell_price, "-----------------------------")
+    #             if (check_sell_price >= 0):
+    #                 raise ValidationError("ERRROOORR")
+    @api.constrains("selling_price")
+    def check_selling_price(self):
+        print("-----------------INSIDE FUNCTION---------------------")
