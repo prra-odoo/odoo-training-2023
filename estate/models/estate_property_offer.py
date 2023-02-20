@@ -6,6 +6,7 @@ from odoo.exceptions import UserError
 class EstatePropertyOffer(models.Model):
     _name="estate.property.offer"
     _description="Estate Property Offer"
+    _order="price desc"
   
 
 
@@ -44,9 +45,17 @@ class EstatePropertyOffer(models.Model):
 
     def action_accept(self):
         for record in self:
-             for rec in self.property_id.offer_ids:
+            
+            for rec in self.property_id.offer_ids:
+
+               
                 if(rec.status == "accepted") >0:
                       raise UserError("You cannot select")
+
+
+              
+     
+
                 
                 
         record.status="accepted"

@@ -6,7 +6,7 @@ from odoo.exceptions import UserError,ValidationError
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Property"
-    
+    _order="sequence,id desc"
   
 
     name=fields.Char(required=True)
@@ -14,8 +14,11 @@ class EstateProperty(models.Model):
     postcode=fields.Char()
     date_availability=fields.Date(copy=False, default= lambda self:(fields.Datetime.now().date()+relativedelta(months=+3)))
 
+    sequence=fields.Integer('Sequence',default=1,help="Used to order stages")
+
+
     expected_price=fields.Float(required=True)
-    selling_price=fields.Float(readonly=True,copy=False)
+    selling_price=fields.Float(readonly=True,copy=False,default=0)
     bedrooms=fields.Integer(default=2)
     living_area=fields.Integer()
     facades=fields.Integer()
@@ -47,6 +50,8 @@ class EstateProperty(models.Model):
         copy=False,
         default="new"
     )
+
+
 
     active=fields.Boolean("Active",default=True)
 
@@ -87,6 +92,9 @@ class EstateProperty(models.Model):
                 record.best_offer=0
 
     
+                 
+
+
     @api.depends('garden')
     def _compute_garden(self):
         for record in self:
@@ -111,3 +119,4 @@ class EstateProperty(models.Model):
             self.state="cancelled"
        
            
+
