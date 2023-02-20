@@ -2,16 +2,31 @@
 <odoo>
     <data>
 
-        <record id="estate_property_treeView" model="ir.ui.view">
+        <record id="property_offer_treeView" model="ir.ui.view">
              <field name="name">Offers</field>
              <field name="model">estate.property.offer</field>
                  <field name="arch" type="xml">
-                     <tree string="...">
+                     <tree string="..." decoration-success="status=='accepted'" decoration-danger="status=='refused'" editable="top">
                         <field name="price"/>
                         <field name="partner_id"/>
-                        <field name="status"/>
+                        <button name="accept_offer" type="object" string="  " icon="fa-check" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
+                        <button name="reject_offer" type="object" string="  " icon="fa-times" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
+                        <field name="status" invisible="1"/>
                      </tree>
                  </field>
+        </record>
+
+
+        <record id="property_offer_action" model="ir.actions.act_window">
+            <field name="name">Property Offers</field>
+            <field name="res_model">estate.property.offer</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="domain">[('type_id', '=', active_id)]</field> -->
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new property offer
+                </p>
+            </field>
         </record>
         
 

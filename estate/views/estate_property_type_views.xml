@@ -5,20 +5,41 @@
 
         <!-- treee view -->
          <record id="estate_property_type_view" model="ir.ui.view">
-         <field name="name">Properties</field>
-         <field name="model">estate.property</field>
+         <field name="name">Property Types</field>
+         <field name="model">estate.property.type</field>
              <field name="arch" type="xml">
-                 <tree string="...">    
+                 <tree string="Property Type TV">    
                     <field name="name" />
-                    <field name="description" />
-                    <field name="bedrooms" />
-                    <field name="expected_price"/>
-                    <field name="garden" />
-                    <field name="living_area"/>
-                    <field name="tag_ids" widget="many2many_tags"/>
+                    <field name="sequence" widget="handle" />
                  </tree>
              </field>
         </record>
+
+        <!-- form view -->
+         <record id="property_type_form__view" model="ir.ui.view">
+         <field name="name">Property Type</field>
+         <field name="model">estate.property.type</field>
+             <field name="arch" type="xml">
+                 <form string="Type Form">    
+                    <sheet>
+                        
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <notebook>
+                            <page string="Properties">                    
+                                <field name="property_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                 </form>
+             </field>
+        </record>
+
 
 
         <record id="property_type_action" model="ir.actions.act_window">
