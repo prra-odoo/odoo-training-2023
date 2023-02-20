@@ -30,7 +30,7 @@ class EstateProperty(models.Model):
 	selling_price=fields.Float(string='Selling Price',
 			help="this is for selling price",
 			readonly=True,
-			copy=False)
+			default=0)
 
 	bedrooms=fields.Integer(string='Bedrooom',
 			default=2,
@@ -114,6 +114,8 @@ class EstateProperty(models.Model):
 		for record in self:
 			if record.state=="canceled":
 				raise odoo.exceptions.UserError('Canceled properties can not be sold')
+			else:
+				record.state="sold"
 
 	def action_cancle(self):
 		for record in self:
@@ -124,22 +126,16 @@ class EstateProperty(models.Model):
 	_sql_constraints=[
 		('chech_price','CHECK (expected_price>0 and selling_price>=0)','Expected peice must be positive.')
 	]
-	'''@api.constrains('expected_price')
-	def _check_exp_price(self):
-		for record in self:
-			if record.expected_price<=0:
-				raise odoo.exceptions.ValidationError("Expected price should be positive number.")'''
 
-	'''#selling_price
-	@api.constrains('selling_price')
-	def _check_sel_price(self):
-		for record in self:
-			if record.selling_price<0:
-				raise odoo.exceptions.ValidationError("Selling price should be positive number.")'''
 
-	@api.constrains('expected_price','selling_price')
+	
+
+	
+	'''@api.constrains('expected_price','selling_price')
 	def check_exp_price(self):
 		for record in self:
 			if not float_is_zero(record.expected_price,precision_digits=2) and not float_is_zero(record.selling_price,precision_digits=2):
 				if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
-					raise odoo.exceptions.ValidationError("selling price must not be lower than 90 persent of exception price.")
+					raise odoo.exceptions.ValidationError("selling price must not be lower than 90 persent of exception price.")'''
+
+	

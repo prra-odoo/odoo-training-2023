@@ -8,8 +8,7 @@ class EstatePropertyOffer(models.Model):
     _name='estate.property.offer'
     _description='adding property tags in property'
 
-    price=fields.Float(string='Price',
-		help="this is for property offer price")
+    price=fields.Float(string="Price")
     status=fields.Selection(selection=[('accepted','Accepted'),('refused','Refused')],
 		copy=False,
 		string="status")
@@ -46,13 +45,7 @@ class EstatePropertyOffer(models.Model):
         record.status="refused"
         record.property_id.state="offer received"
 #price
+    
     _sql_constraints=[
 		  ('check_offer_price','CHECK (price>0)','Price must be positive.')
 	  ]
-    '''@api.constrains("price")
-    def _check_sel_price(self):
-      for record in self:
-        if record.price<=0:
-          raise odoo.exceptions.ValidationError("Price must be positive.")    ''' 
-
-    
