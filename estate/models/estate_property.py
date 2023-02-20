@@ -1,11 +1,22 @@
 from odoo import fields,models,api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
+from odoo.tools.float_utils import float_compare,float_is_zero
  
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is a real-estate property model"
+    _order="id desc"
+    _sql_constraints=[
+         ('check_expected_price',
+         'CHECK(expected_price > 0)',
+         'Expected price should be positive and greater than 0'),
+         ('check_selling_price',
+        'CHECK(selling_price>0)',
+        'Selling price should be positive and greater than 0')
+    ]
+
 
     name = fields.Char(string= 'Title',required=True)
     description = fields.Text()
@@ -38,7 +49,7 @@ class EstateProperty(models.Model):
     property_type_id=fields.Many2one("estate.property.type", string = "Property Type")
     seller_id=fields.Many2one('res.users',string='Salesman', default=lambda self: self.env.user)
     buyer_id=fields.Many2one('res.partner',string='Buyer',copy=False)
-    tags_id=fields.Many2many('estate.property.tags')
+    tags_ids=fields.Many2many('estate.property.tags')
     offer_ids=fields.One2many(
         comodel_name='estate.property.offer',
         inverse_name='property_id',
@@ -78,6 +89,8 @@ class EstateProperty(models.Model):
             record.state="sold"            
         return True  
             
+
+    
     
     
     def action_canceled(self):
@@ -88,16 +101,14 @@ class EstateProperty(models.Model):
             record.state="canceled"        
         return True
     
-    _sql_constraints=[(
-        'check_expected_price',
-        'CHECK(expected_price>0)',
-        'Expected price should be positive and greater than 0')
-    ]
+    @api.constrains('selling_price','expected_price')
+    def _check_selling_price(self):
+        for record in self:
+            if not float_is_zero(record.selling_price,precision_digits=2):
+                if float_compare(record.selling_price,record.expected_price*0.9,precision_digits=2)<=0:
+                    raise ValidationError("Selling price should not be lower than 90% the expected price")
 
-    _sql_constraints=[(
-        'check_selling_price',
-        'CHECK(selling_price>0)',
-        'Selling price should be positive and greater than 0')
-    ]
+ 
 
-    
+                
+

@@ -17,10 +17,11 @@
                         <field name = "name" placeholder="Name"/>
                     </h1>                    
                     <group>
-                        <field name = "tags_id" widget="many2many_tags"/> 
+                    <field name="tags_ids" widget="many2many_tags" />
+                        
                         <group>    
                             
-                            <field name = "property_type_id"/>                                
+                            <field name = "property_type_id" options="{'no_create':True}"/>                                
                             <field name = "postcode"/>   
                             <field name ="date_availability"/>
                         </group>
@@ -73,7 +74,7 @@
             <tree string="Channel">
                 <field name="name"/>
                 <field name="postcode"/>
-                <field name = "tags_id" widget="many2many_tags"/>
+                <field name = "tags_ids" widget="many2many_tags"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="expected_price"/>
