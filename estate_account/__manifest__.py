@@ -4,15 +4,13 @@
     'author': "Sanket Brahmbhatt(sabr)",
     'summary': "Build a Application for estate_account",
     'version': '1.0',
-    'depends': ['mail','real_estate','account'],
+    'depends': ['mail', 'real_estate', 'account', 'project'],
     'data': [
-        # 'views/account_view.xml',
-        # 'views/estate_property.xml',
-        # 'views/estate_account_menu.xml',
-        'security/ir.model.access.csv',
+            'report/report_temp.xml',
     ],
     'application': True,
     'installable': True,
+    'auto_install': True,
     'license': 'LGPL-3',
 
 }

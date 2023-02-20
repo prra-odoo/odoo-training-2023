@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Inherited Template -->
+    <template id="report_property_pdf_inherit" inherit_id="real_estate.offeres_ids_template">
+        <xpath expr="//table" position="before">
+            <strong>Invoice has already been created</strong>
+        </xpath>
+    </template>
+</odoo>

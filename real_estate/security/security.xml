@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <odoo>
+        <data>
+        <record id="estate_group_user" model="ir.module.category">
+            <field name="name">The Real Estate</field>
+            <field name="description">Helps you manage your employees.</field>
+        </record>
+
+        <record
+            model="res.groups" id="estate_group_user_data">
+            <field name="name">Agent</field>
+            <field name="category_id" ref="real_estate.estate_group_user" />
+        </record>
+
+        <record
+            model="res.groups" id="estate_group_manager">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="real_estate.estate_group_user" />
+            <field name="implied_ids" eval="[(4,ref('real_estate.estate_group_user_data'))]" />
+        </record>
+
+        <!-- <record
+            model="ir.model.access" id="access_auth_full">
+            <field
+        name="name">access rules1</field>
+            <field name="model_id"
+        ref="advertisement_Create_task_model_action" />
+            <field name="group_id"
+        ref="real_estate.estate_group_manager" />
+            <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+            <field name="perm_create">1</field>
+            <field
+        name="perm_unlink">1</field>
+        </record> -->
+
+        <record model="ir.rule" id="saleperson_id_only">
+            <field name="name">Saleperson</field>
+            <field name="model_id" ref="model_estate_property" />
+            <field name="groups" eval="[(4,ref('real_estate.estate_group_manager'))]" />
+            <field name="domain_force">[('salesperson_id','=',user.id)]</field>
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="False" />
+            <field name="perm_create" eval="False" />
+            <field name="perm_unlink" eval="False" />
+
+        </record>
+
+        <record model="ir.rule" id="company_id_model_data">
+            <field name="name">Company</field>
+            <field name="model_id" ref="model_estate_property" />
+            <field name="domain_force">[('company_id','in',company_ids)]</field>
+        </record>
+
+        <!-- <record model="ir.rule" id="company_id_only">
+            <field name="name">Company</field>
+            <field name="model_id" ref="model_estate_property" />
+            <field name="groups" eval="[(4,ref('real_estate.estate_group_manager'))]" />
+        </record> -->
+    </data>
+</odoo>
