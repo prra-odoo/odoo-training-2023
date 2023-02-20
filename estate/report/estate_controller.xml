@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="menu_properties" model="website.menu">
+            <field name="name">Properties</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="url">/estate/estate/</field>
+        </record>
+    </data>
+    
+    <template id="index">  
+        <t t-call="website.layout">
+            <form action="/estate/estate/">
+            <t t-call="website.website_search_box">
+                <t t-set="action" t-value= "'/estate/'"/>
+            </t>
+        </form>
+            <t t-set="title">Estate Property</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="row row-cols-4">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col">
+                                <div class="card-group" style="height:25rem;width:18rem;padding:30px;margin-bottom:30px">
+                                    <div class="card">
+                                        <img class="card-img-top" style="margin-bottom:20px; height:100px width:300px;" t-attf-src="data:image/jpg;base64,{{ property.images }}" alt="Here comes an Images ..."/>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><span t-field="property.name"/></h5>
+                                            <span t-esc="property.date_availability" />
+                                            <div>Expected Price:<span t-esc="property.expected_price"/></div>
+                                            <center><a t-attf-href="/estate/{{ slug(property) }}" class="btn btn-primary" width="100%">Details</a></center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="d-flex justify-content-center my-3">
+                <t t-call="website.pager">
+                </t>
+            </div>
+        </t>    
+    </template>
+
+    <template id="template_controller">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div><i t-field="prop.images" t-options='{"widget":"image"}' style="float:right; margin:40px; height:200px; wight:300px;"/></div>
+                    <h3 t-esc="prop.name"/>
+                    <div><span t-field="prop.description"/></div>   
+                    <div>Last Modified: <i t-field="prop.write_date" t-options='{"widget":"relative"}'/></div>
+                    <div>Expected Price: <span t-field="prop.expected_price"/></div>
+                    <div>Selling Price: <span t-field="prop.selling_price"/></div>
+                    <div>SalesMan: <span t-field="prop.salesperson_id"/></div>
+                    <div>Tags: <span t-field="prop.tags_ids"/></div>
+                </div>
+                
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+
+    
+    
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="estate_module_cateory" model = "ir.module.category">
+            <field name="name">Estate Property</field>
+            <field name="description">Category of estate property</field>
+        </record>
+
+        <record id="estate_group_user" model="res.groups">
+            <field name="name">Agents</field>
+            <field name="category_id" ref="base.module_category_real_estate_brokerage"/>
+        </record>
+
+        <record id="estate_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="base.module_category_real_estate_brokerage"/>
+            <field name="implied_ids" eval="[(4, (ref('estate.estate_group_user')))]"/>
+        </record>
+
+        <record id="Estate_user_rule_id" model="ir.rule">
+            <field name="name">Estate access rights for users</field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="perm_read" eval="True"/>
+            <field name="groups" eval="[(4,ref('estate.estate_group_user'))]"/>
+            <field name="domain_force">['|',('salesperson_id','=',user.id),('salesperson_id','=',False)]</field>
+        </record>
+
+        <record id="Estate_manager_rule_id" model="ir.rule">
+            <field name="name">Estate access rights for manager</field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="perm_read" eval="True"/>
+            <field name="groups" eval="[(4,ref('estate.estate_group_manager'))]"/>
+        </record>
+
+        <record id="Estate_company_rule_id" model = "ir.rule">
+            <field name="name">Estate access rights for company</field>
+            <field name="model_id" ref="model_estate_property"></field>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','in', 'company_ids')]</field>
+        </record>
+    </data>
+</odoo>
