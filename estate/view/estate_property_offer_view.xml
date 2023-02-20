@@ -4,10 +4,14 @@
         <field name="name">Estate Property Offer Tree View</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="Tree View">
+            <tree string="Tree View" editable="bottom" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
                 <field name="price"/>
                 <field name="partner_id"/>
+                <field name="validity"/>
+                <field name="date_deadline"/>
                 <field name="status"/>
+                <button name="action_accept" type="object" title="Accept" icon="fa-check" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
+                <button name="action_refuse" type="object" title="Refuse" icon="fa-times" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
             </tree>
         </field>
     </record>
@@ -21,9 +25,22 @@
                         <field name="price"/>
                         <field name="partner_id"/>
                         <field name="status"/>
+                        <field name="validity"/>
+                        <field name="date_deadline"/>
                     </group>
                 </sheet>
             </form>   
         </field>
-    </record>         
+    </record>   
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">estate property offer</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create a new property
+            </p>
+        </field>
+    </record>      
 </odoo>
