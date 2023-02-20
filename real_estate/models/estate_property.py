@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "CRM Recurring revenue plans"
+    _order = "id desc"
 
     name = fields.Char(required=True)
     description=fields.Char()   
@@ -20,6 +21,7 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean(store=True)
+  
     
     garden_area = fields.Integer(compute="_compute_area",store=True,readonly=False)
     best_price = fields.Float(compute="_compute_discount")
@@ -73,15 +75,19 @@ class EstateProperty(models.Model):
     #canceled property cannot be set as sold, and a sold property cannot be canceled.
     def action_sold(self):
         for record in self:
-            if self.mapped("state"):
+            if record.state == "canceled":
                 raise UserError("Cancelled properties not sold.")
-            return self.write({"state": "sold"})
+            else:
+                record.state="sold"
+            
             
     def action_cancle(self):
         for record in self:
-            if self.mapped("state"):
+            if record.state == "sold":
                  raise UserError("Sold properties not be cancelled.")
-            return self.write({"state": "canceled"})
+            else:
+                record.state="canceled"
+           
 
     #expected price must be strictly positive,selling price must be positive
     _sql_constraints = [

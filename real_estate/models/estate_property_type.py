@@ -3,6 +3,7 @@ from odoo import fields,models
 class EstatePropertyType(models.Model):
     _name = "estate.property.type"
     _description = "Estate Properties"
+    _order="sequence,name,id"
 
     name = fields.Char(required=True)
 
@@ -11,14 +12,9 @@ class EstatePropertyType(models.Model):
         ('property_type', 'unique(name)', 'Property Type Is Already Available.')
     ]
 
-    property_ids = fields.One2many("estate.model.line", "model_id")
+    property_ids = fields.One2many("estate.property", "property_type_id")
+    sequence = fields.Integer('Sequence', default=1)
 
-    class EstateTypeLine(models.Model):
-        _name = "estate.model.line"
-        _description = "estate Model Line"
 
-        model_id = fields.Many2one("estate.property.type")
-        name = fields.Char()
-        expected_price = fields.Integer()
-        status = fields.Char()
+   
 

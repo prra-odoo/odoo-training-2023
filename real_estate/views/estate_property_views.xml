@@ -32,9 +32,15 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_sold" type="object" string="Sold"/>
-                    <button name="action_cancle" type="object" string="Cancle"/>
-                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                    
+                    <!-- <button name="action_sold"  type="object" string="Sold" class="oe_highlight" attrs="{'invisible':[('state','=',('new','sold','off_re'))]}"/>
+                    <button name="action_sold" type="object" string="Sold" attrs="{'invisible':[('state','not in',('new','off_re'))]}"/>
+                    <button name="action_cancle" type="object" string="Cancle" attrs="{'invisible':[('state','=','sold')]}"/> -->
+                    <button name="action_sold"  type="object" string="Sold" class="oe_highlight" attrs="{'invisible':[('state','in',('new','sold','off_re'))]}"/>
+                        <button name="action_sold"  type="object" string="Sold" attrs="{'invisible':[('state','not in',('new','off_re'))]}"/>
+                        <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible':[('state','=','sold')]}"/>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,off_re,off_ac,sold"/>
+
                 </header>
                 <sheet>
                     <h1>
@@ -46,7 +52,7 @@
                             <field name="property_type_id" />
                             <field name="postcode" />
                             <field name="date_availability" />
-                            <field name="property_tag_ids" widget="many2many_tags" />
+                            <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         </group>
                         <group>
                             <field name="selling_price" />

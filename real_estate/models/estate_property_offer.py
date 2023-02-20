@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Properties Offers"
+    _order="price desc"
 
     price = fields.Float(required=True)
     status = fields.Selection(
@@ -53,7 +54,7 @@ class EstatePropertyOffer(models.Model):
 
     def action_refused(self):
         for record in self:
-            record.status="refused" 
+            record.status="refused"
 
     #An offer price must be strictly positive
     _sql_constraints = [

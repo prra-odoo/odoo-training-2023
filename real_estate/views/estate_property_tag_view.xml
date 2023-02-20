@@ -22,10 +22,6 @@
         <field name="arch" type="xml">
             <form string="Properties">
                 <sheet>
-                    <h1>
-                       Hello
-                    </h1>
-                    <br/>
                     <group>
                         <group>
                             <field name="name" />
