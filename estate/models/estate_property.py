@@ -4,14 +4,15 @@ from dateutil.relativedelta import relativedelta
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate property model"
-
+    _order = "id desc"
+ 
     name = fields.Char(default="Unknown")
     last_seen = fields.Datetime("Last seen",default = lambda self : fields.Datetime().now())
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date("Available from",default = lambda self : fields.Date.today()+relativedelta(months=3))
     expected_price = fields.Float()
-    selling_price = fields.Float(compute = "_compute_selling_price")
+    selling_price = fields.Float(readonly = True,default = 0)
     bedrooms = fields.Integer(default = 2)
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -31,7 +32,7 @@ class EstateProperty(models.Model):
 
     _sql_constraints = [
         ("check_expected_price","CHECK(expected_price > 0)","The expetcted price must be strictly positive"),
-        ("check_selling_price","CHECK(selling_price > 0)","The selling price must be strictly positive"),
+        ("check_selling_price","CHECK(selling_price >= 0)","The selling price must be strictly positive"),
         
     ]
 
@@ -70,15 +71,7 @@ class EstateProperty(models.Model):
             record.status = "canceled"
     @api.depends("offer_ids.status")
 
-    def _compute_selling_price(self):
-        for record in self:
-            flag = 0
-            for field in record.offer_ids:
-                if (field.status == "accepted"):
-                    record.selling_price = field.price
-                    flag = 1
-            if(flag == 0):
-                record.selling_price = 0
+    
     def _compute_buyer_id(self):
         for record in self:
             flag = 0
@@ -89,9 +82,11 @@ class EstateProperty(models.Model):
             if(flag == 0):
                 record.buyer_id = ""
 
-    @api.constrains("selling_price")
-    def check_price(self):
+    @api.constrains("selling_price","expected_price")
+
+    def check_selling_price(self):
         for record in self:
-            if(record.selling_price < record.expected_price * 0.9):
-                raise exceptions.ValidationError(("The selling price must be at least 90% of the expected price. You must reduce the expected price if want to accept the offer."))
+            if(record.selling_price != 0 and record.selling_price < record.expected_price * 0.9):
+                raise exceptions.ValidationError("The selling price must be at least 90% of the expected price. You must reduce the expected price if want to accept the offer.")
+            
                 

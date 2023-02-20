@@ -28,6 +28,7 @@
             <header>
                 <button name="action_sold" type="object" string="SOLD"/>
                 <button name="action_cancel" type="object" string="CANCEL"/>
+                <field name="status" widget="statusbar" statusbar_visible="new,offer received,offer accepted,sold" clickable="1"/>
             </header>
                 <sheet>
                         <div>
