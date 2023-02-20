@@ -8,12 +8,18 @@ class EstateProperty(models.Model):
     _description = "Real Estate Model"
     _sql_constraints = [
         ('expected_price', 'CHECK(expected_price >= 0)',
-         'The expected price should be a positive number only.'),
-         ('selling_price', 'CHECK(selling_price >= 0)',
-         'The selling price should be a positive number only.')
+'The expected price should be a positive number only.'),
+('selling_price', 'CHECK(selling_price >= 0)',
+'The selling price should be a positive number only.')
 
     ]
+    _order = 'id desc'
+    # note that ordering can also be given in view file using
+    # <tree string="Properties" default_order="id desc"> Here instead of _order , default_order is used
 
+    
+    
+    id = fields.Char()
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()
@@ -28,7 +34,7 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer(compute='_compute_garden_values',store=True)
+    garden_area = fields.Integer(compute='_compute_garden_values',inverse = '_inverse_garden',store=True)
     active = fields.Boolean(default=True)
     state = fields.Selection(
         string='state',
@@ -43,6 +49,7 @@ class EstateProperty(models.Model):
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
         help="Select your direction!",
         compute='_compute_garden_values',
+        inverse = '_inverse_garden',
         store=True
         )
     property_type_id = fields.Many2one("estate.property.type", string="Property Type",required=True)
@@ -85,15 +92,18 @@ class EstateProperty(models.Model):
                     record.state = "new"
     # onchange function when garden field is enabled
     # compute field is not stored in DB by default
-    @api.depends('garden')
+    @api.depends("garden")
     def _compute_garden_values(self):
         for record in self:
-            if (record.garden==True):
-                record.garden_area = 10.0
-                record.garden_orientation = 'north'
+            if(record.garden==False):
+                record.garden_area = 0
+                record.garden_orientation=""
             else:
-                record.garden_area = 0.0
-                record.garden_orientation = False
+                record.garden_area = 10
+                record.garden_orientation = "north"
+    
+    def _inverse_garden(self):
+        pass
             
 
     #function making two button of sold and cancelled in header
@@ -140,5 +150,3 @@ class EstateProperty(models.Model):
             if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
                 if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise exceptions.ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
-
-   

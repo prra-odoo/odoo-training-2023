@@ -17,10 +17,11 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Tree View" decoration-bf="state=='offer accepted'" decoration-success="state=='offer received' or state=='offer   accepted'" decoration-muted="state=='sold'">
+                <field name="id"/>
                 <field name="name"/>
                 <field name="property_type_id"/>
                 <field name="postcode"/>
-                <field name="tag_ids"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="expected_price"/>
@@ -96,8 +97,8 @@
                             <field name="garden"/>
                             </group>
                             <group>
-                            <field name="garden_area"  attrs="{'invisible': [('garden', '=', False)]}"/>
-                            <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
+                            <field name="garden_area" attrs="{'readonly':[('garden','=',False)], 'invisible': [('garden', '=', False)]}" />
+                            <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)], 'invisible': [('garden', '=', False)]}"/>
                             <field name="active"/>
                             <field name="state"/> 
                             <field name="total_area"/>
@@ -114,7 +115,6 @@
                         </group>
                       </page>
                   </notebook>
-             
           </sheet>
       </form>
       </field>

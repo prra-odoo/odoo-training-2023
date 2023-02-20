@@ -9,7 +9,7 @@ class EstatePropertyOffer(models.Model):
     _order = "price desc"
     _sql_constraints = [
         ('validity', 'CHECK(validity >= 0)',
-         'The validity should be a positive number only.')
+'The validity should be a positive number only.')
 
     ]
 
@@ -19,9 +19,9 @@ class EstatePropertyOffer(models.Model):
         selection=[('accepted','Accepted'),('refused','Refused')],
         copy=False)
     partner_id = fields.Many2one("res.partner",string="partner",required=True)
-    property_id = fields.Many2one("estate.property",required=True)
     validity = fields.Integer(default = "7")
-    property_type_id = fields.Many2one("estate.property.type",string="Property Type")
+    property_id = fields.Many2one("estate.property",required=True)
+    property_type_id = fields.Many2one("estate.property.type",string="Property Type",related='property_id.property_type_id', store=True)
     # create_date = fields.Date(default=fields.Datetime.today())
 
 # for setting the deadline and even dynamically changing it
@@ -52,12 +52,11 @@ class EstatePropertyOffer(models.Model):
         self.property_id.state="offer accepted"
         self.property_id.selling_price=self.price
         self.property_id.buyer_id=self.partner_id
-        return True
-               
+        return True           
     def refuse_offer(self):
         self.status = "refused"
     
- # now to check that the property selling price is not negative
+# now to check that the property selling price is not negative
     @api.constrains('price')
     def _check_offer_price(self):
         for property in self:

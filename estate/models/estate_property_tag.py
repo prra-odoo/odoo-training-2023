@@ -9,8 +9,8 @@ class EstatePropertyTag(models.Model):
     name = fields.Char(required=True)
     color = fields.Integer()
     _sql_constraints = [
-          ('name_uniq', 'unique (name)', "Property tag already exists !"),
-       ]
+('name_uniq', 'unique (name)', "Property tag already exists !"),
+]
     @api.constrains('name')
     def _check_unique_name(self):
         tag_ids = self.search([]) - self
