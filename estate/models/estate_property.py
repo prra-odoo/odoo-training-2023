@@ -1,12 +1,13 @@
 from odoo import models, fields,api
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError 
+from odoo.exceptions import UserError ,ValidationError
+from odoo.tools import float_compare , float_is_zero
 
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
-    _description = "This is a real estate module"  
+    _description = "This is a real estate property model"  
     _sql_constraints=[
        ("check_expected_price","CHECK(expected_price > 0)","The expected price must be strictly positive"),
                   ("check_selling_price","CHECK(selling_price >= 0)","The offer price must be strictly positive")
@@ -18,8 +19,8 @@ class EstateProperty(models.Model):
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(string='Availabel From', default=lambda self: fields.Date.today()+relativedelta(months=+3), copy=False)
-    expected_price = fields.Float(required=True)
-    selling_price = fields.Float(string='Selling Price',readonly=True , copy =False)
+    expected_price = fields.Float("Expected Price" ,required=True)
+    selling_price = fields.Float(string='Selling Price',readonly=True , copy=False)
     bedrooms = fields.Integer(default = 2)
     living_area = fields.Integer(string="Living Area(sqm)")
     facades = fields.Integer("Facades")
@@ -90,6 +91,22 @@ class EstateProperty(models.Model):
              raise UserError("sold property cannot be canceled.")
           else:
              record.state="canceled"
+
+    @api.constrains('selling_price','expected_price')
+    def check_price_difference(self): 
+      for record in self:
+         if (
+            not float_is_zero(record.selling_price, precision_rounding=2)
+            and float_compare(record.selling_price,record.expected_price*0.9 , precision_digits=2)==-1
+           ):
+            raise ValidationError("The selling price must be at least 90 percent of the expected price")
+
+   #  @api.constrains("selling_price","expected_price")
+   #  def check_price_difference(self):
+   #     for record in self:
+   #        if record.selling_price < record.expected_price*0.9:
+   #           raise ValidationError("eroor")
+
 
 
 
