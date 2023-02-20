@@ -1,5 +1,6 @@
 from odoo import api, models,fields,_
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
 from odoo.tools.rendering_tools import relativedelta_proxy
 
 class EstateProperty(models.Model):
@@ -90,3 +91,27 @@ class EstateProperty(models.Model):
             return True
                 
     
+    # SQL constraints
+    
+    _sql_constraints = [
+        ("positive_expected_price","check(expected_price > 0)","The expected price must be strictly positive "),
+        ("positive_selling_price","check(selling_price >= 0)","The selling price must be positive"),
+        
+    ]
+    
+    # python constrains
+    
+    @api.constrains("selling_price","expected_price")
+    
+    def _check_expected_price(self):
+        for record in self:
+            if (
+                not float_is_zero(record.selling_price, precision_digits=2)
+                and float_compare(record.selling_price, record.expected_price * 90.0 / 100.0, precision_digits=4) < 0
+            ):
+   
+                raise ValidationError("The selling price must be atleast '90%' 0f expected price")
+            
+                
+            
+            

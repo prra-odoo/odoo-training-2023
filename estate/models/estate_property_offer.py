@@ -47,17 +47,23 @@ class EstatePropertyOffer(models.Model):
     def action_accept(self):
         for record in self.property_id.offer_ids:
             record.status = "refused"
+            self.status = "accepted"
             record.property_id.selling_price = self.price
             record.property_id.buyer_id = self.partner_id
-        self.status = "accepted"
         return True
     
     # refuse button method
     
     def action_refuse(self):
         for record in self:
-            if(record.status == "accepted"):
-                record.property_id.selling_price = 0
-                record.property_id.buyer_id = ''
             record.status = "refused"
+            record.property_id.selling_price = 0
+            record.property_id.buyer_id = ""
+            
         return True
+    
+    # SQL constraints
+    
+    _sql_constraints = [
+        ("positive_price","check(price >= 0)","The offer price must be strictly positive")
+    ]
