@@ -61,6 +61,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Form View">
+                
                 <header>
                     <button name="action_sold" type="object" string="Sold" states="offer_accepted" class="oe_highlight"/>
                     <button name="action_sold" type="object" string="Sold" states="new,offer_received"/>
@@ -68,6 +69,8 @@
                     <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" states="sold"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" states="cancelled"/>
                     <h1>
                         <label for="name"/>
                         <group>
@@ -106,7 +109,25 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <field name="offer_ids" attrs="{'readonly':[('state','in',['offer_accepted','sold','cancelled'])]}"/>
+                            <field name="offer_ids" attrs="{'readonly':[('state','in',['offer_accepted','sold','cancelled'])]}">
+                                <kanban class="o_kanban_mobile">
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.status.value)} oe_kanban_global_click">					
+                                                <div class="oe_kanban_details">
+                                                    <b>Price:</b> <field name="price"/><br/>
+                                                    <b>Partner:</b> <field name="partner_id"/><br/>
+                                                    <b>Validity:</b> <field name="validity"/><br/>
+                                                    <b>Deadline:</b> <field name="date_deadline"/><br/>
+                                                    <b>Status:</b> <field name="status"/><br/>
+                                                    <button name="action_accept" title="Accept" type="object" icon="fa-check" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
+                                                    <button name="action_reject" title="Refuse" type="object" icon="fa-times" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
                         </page>
                         <page string="Other info">
                             <group>
@@ -129,9 +150,9 @@
                 <field name="postcode"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
-                <field name="living_area" filter_domain="[('living_area','>=',self)]]"/>
+                <field name="living_area" string="Living Area" filter_domain="[('living_area','>=',self)]]"/>
                 <field name="facades"/>
-                <filter string="Available" name="state" domain="[('state','in',['new','offer_recieved'])]"/>
+                <filter string="Available" name="state" domain="[('state','in',['new','offer_received'])]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                 </group>

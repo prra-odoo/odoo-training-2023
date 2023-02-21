@@ -12,12 +12,25 @@ class EstatePropertyOffer(models.Model):
     _order = "price desc"
 
     price = fields.Float()
-    status = fields.Selection(string="Status",selection=[('accepted',"Accepted"),('refused',"Refused")],copy=False)
+    status = fields.Selection(string="Status",selection=[('refused',"Refused"),('accepted',"Accepted")],copy=False)
     partner_id = fields.Many2one("res.partner",string="Partner",required=True)
     property_id = fields.Many2one("estate.property",required=True,ondelete="cascade")
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_computed_date_deadline",inverse="_inverse_date_deadline")
     property_type_id = fields.Many2one(related="property_id.property_type_id",store=True)
+    color = fields.Integer("Color",compute="_compute_color",default=0,inverse="_inverse_color")
+
+    @api.depends("status")
+    def _compute_color(self):
+        for record in self:
+            if(record.status):
+                if(record.status=="accepted"):
+                    record.color=10
+                else:
+                    record.color=1
+    
+    def _inverse_color(self):
+        pass
 
     @api.depends("validity","create_date")
     def _computed_date_deadline(self):
@@ -46,5 +59,5 @@ class EstatePropertyOffer(models.Model):
     
     def action_reject(self):
         for record in self:
-            self.status="refused"
+            record.status="refused"
         return True
