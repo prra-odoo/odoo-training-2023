@@ -10,7 +10,6 @@ class EstatePropertyOffer(models.Model):
 
     price= fields.Float()
     status=fields.Selection(
-        string="Status",
         selection=[('accepted','Accepted'),('refused','Refused')],
         copy=False
     )
