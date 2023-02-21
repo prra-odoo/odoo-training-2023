@@ -27,24 +27,20 @@ class EstatePropertyOffer(models.Model):
                 record.date_deadline = record.create_date + relativedelta(days=record.validity) 
             else:
                 record.date_deadline = fields.Date.today() + relativedelta(days=record.validity)
-
+        return True
     def _inverse_date_deadline(self):
         for record in self:
             record.validity = (record.date_deadline - record.create_date.date()).days
     
     # Actions Methods
+
     def action_set_status_accepted(self):
-        for record in self:
-            if record.property_id.state == "sold" :
-                raise UserError("Property already sold")
-            elif record.property_id.state == "canceled":
-                raise UserError("Property already canceled")
-            else:
-                # breakpoint()
-                record.property_id.state = "offer_accepted"
-                record.status = "accepted"
-                record.property_id.buyer_id = record.partner_id
-                record.property_id.selling_price = record.price
+        for record in self.property_id.offer_ids:
+            record.status = "refused"   
+        self.status="accepted"
+        self.property_id.state = "offer_accepted"
+        self.property_id.buyer_id = self.partner_id
+        self.property_id.selling_price = self.price
         return True
     
     def action_set_status_refused(self):

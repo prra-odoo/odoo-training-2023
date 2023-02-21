@@ -72,14 +72,9 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             record.best_price = max(record.offer_ids.mapped("price"),default=0)
-            
-        
-    # @api.depends("offer_ids")
-    # def _compute_state(self):
-    #     for record in self:
-    #         if record.offer_ids:
-    #             record.state = "offer_received"
-    # Action methods
+            if record.offer_ids and record.offer_ids.status=="refused" or record.offer_ids.status==False:
+                record.state = "offer_received"
+
     def action_set_state_sold(self):
         for record in self:
             if record.state == "canceled":
