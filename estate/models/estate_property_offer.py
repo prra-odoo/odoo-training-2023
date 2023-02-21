@@ -10,6 +10,7 @@ class EstatePropertyOffer(models.Model):
 
     _sql_constraints = [("ofr_price_pos", "CHECK (price>=0)",
                          "The offer price must be greater than 0."),]
+    _order = "price desc"
 
     price = fields.Float(string="Price", required=True)
     status = fields.Selection(copy=False, selection=[
@@ -62,6 +63,7 @@ class EstatePropertyOffer(models.Model):
                 var.status = "ref"
             self.property_id.state = "OA"
             self.status = "act"
+            # breakpoint()
             self.property_id.selling_price = self.price
             self.property_id.buyer_id = self.partner_id
 

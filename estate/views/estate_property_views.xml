@@ -40,8 +40,12 @@
         <field name="arch" type="xml">
             <form string="Form View String">
                 <header>
+                    <!-- "statusbar_visible" defines the states to display initially. -->
+                    <!-- The states not defined inside the statusbar_visible, when selected, will be
+                    dynamically added to the statusbar widget. -->
                     <field name="state" widget="statusbar"
-                        options="{'clickable': '1'}" />
+                        options="{'clickable': '1'}"
+                        statusbar_visible="N,OR,OA" />
                     <button id="btn_sold" string="Sold" name="btn_sold" type="object"
                         class="btn-primary" confirm="Are you sure you want to mark this as sold ?"
                         attrs="{'invisible': [('state', 'in', ['S','N','OR'])]}" />

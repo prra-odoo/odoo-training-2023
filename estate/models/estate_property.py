@@ -7,6 +7,7 @@ from odoo.tools.float_utils import float_compare
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is an Estate Model"
+    _order = "id desc"
 
     _sql_constraints = [
         ('exp_price_pos', 'CHECK(expected_price >= 0)',
@@ -21,7 +22,7 @@ class EstateProperty(models.Model):
     date_availability = fields.Date(
         string='Available From', copy=False, default=lambda self: fields.Datetime.now() + relativedelta(months=3))
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float(copy=False, readonly=True, default=0)
+    selling_price = fields.Float(copy=False, readonly=True)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer(string='Living Area (sqm)')
     facades = fields.Integer()
@@ -44,7 +45,6 @@ class EstateProperty(models.Model):
         selection=[('N', 'New'), ('OR', 'Offer Recieved!'),
                    ('OA', 'Offer Accepted!'), ('S', 'Sold'), ('C', 'Cancelled')],
         help="Deal Status to be provided here...",
-        required=True,
         copy=False,
         default='N'
     )
@@ -91,6 +91,9 @@ class EstateProperty(models.Model):
                 if (record.state in ["OR", "OA", "S", "C"]):
                     record.state = 'N'
 
+                # To reset the selling price if an already accepted offer has been deleted.
+                record.selling_price = 0
+                record.buyer_id = False
                 record.best_price = 0
 
     @api.depends("garden")
@@ -131,18 +134,15 @@ class EstateProperty(models.Model):
                 raise UserError(
                     _('Already sold properties cannot be cancelled.'))
 
-    # @api.constrains("selling_price")
-    # def check_selling_price(self):
-    #     for record in self:
-    #         print(record.selling_price)
-    #         if (record.selling_price > 0):
-    #             desired_sell_price = 0.9*record.expected_price
-    #             check_sell_price = float_compare(
-    #                 desired_sell_price, record.selling_price,  precision_digits=2)
-    #             print(desired_sell_price, record.selling_price,
-    #                   check_sell_price, "-----------------------------")
-    #             if (check_sell_price >= 0):
-    #                 raise ValidationError("ERRROOORR")
     @api.constrains("selling_price")
     def check_selling_price(self):
-        print("-----------------INSIDE FUNCTION---------------------")
+        for record in self:
+            if (record.selling_price > 0):
+                desired_sell_price = 0.9*record.expected_price
+                check_sell_price = float_compare(
+                    desired_sell_price, record.selling_price,  precision_digits=2)
+                # desired_sell_price >,=,< record.selling_price => [1,0,-1]
+                # here we need record.selling_price > desired_sell_price, therefore -1.
+                if (check_sell_price >= 0):
+                    raise ValidationError(
+                        "Selling Price cannot be lower than 90% of the expected price.")
