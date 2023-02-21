@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <!-- List/Tree View -->
+    <record id="estate_property_type_tree_view" model="ir.ui.view">
+        <field name="name">Estate Property Type Tree View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
     <!-- Form View -->
     <record id="estate_property_type_form_view" model="ir.ui.view">
         <field name="name">Estate Property Type Form View</field>
@@ -10,7 +21,6 @@
                     <div>
                         <h1>
                             <field name="name" nolabel="1"/>
-                            <!-- <field name="sequence" widget="handle"/> -->
                         </h1>
                     </div>
                     <notebook>

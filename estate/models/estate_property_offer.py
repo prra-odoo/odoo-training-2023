@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from odoo import api, fields, models
 from dateutil.relativedelta import relativedelta
 
@@ -36,6 +37,7 @@ class EstatePropertyOffer(models.Model):
         self.property_id.selling_price = self.price
         self.property_id.buyer_id = self.partner_id
         self.status = 'accepted'
+        self.property_id.state = 'offer_accepted'
         return True
     
     def action_cancel_offer(self):

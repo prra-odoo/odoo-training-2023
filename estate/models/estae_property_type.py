@@ -9,7 +9,7 @@ class EstatePropertyType(models.Model):
 
     name = fields.Char(required=True)
     property_ids = fields.One2many('estate.property','property_type_id')
-    # sequence = fields.Integer(default=1, help="Used to order stages.")
+    sequence = fields.Integer(default=1, help="Used to order property type.")
 
     _sql_constraints = [
         ('check_property_type','unique(name)','The property type name must be unique.')

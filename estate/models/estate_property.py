@@ -34,7 +34,7 @@ class EstateProperty(models.Model):
                      ('canceled','Canceled')], default='new', copy=False)
     property_type_id = fields.Many2one('estate.property.type', string='Property Type')
     user_id = fields.Many2one('res.users', string='Salesman', default=lambda self: self.env.user)
-    buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False)
+    buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False, readonly=True)
     tag_ids = fields.Many2many('estate.property.tag', relation='estate_property_tag_rel', string='Property Tag')
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string='Offer')
     total_area = fields.Integer(compute='_compute_total_area', string='Total Area')
@@ -68,6 +68,7 @@ class EstateProperty(models.Model):
         for record in self:
             if(record.status != "Canceled"):
                 record.status = "Accepted"
+                record.state = "sold"
             else:
                 raise UserError("Canceled property can't be sold")
         return True
@@ -76,6 +77,7 @@ class EstateProperty(models.Model):
         for record in self:
             if(record.status != "Accepted"):
                 record.status = "Canceled"
+                record.state = "canceled"
             else:
                 raise UserError("Sold property can't be canceled")
         return True
