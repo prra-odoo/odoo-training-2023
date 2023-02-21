@@ -5,10 +5,9 @@ from dateutil.relativedelta import relativedelta
 class EstatePropertyOffers(models.Model):
     _name = "estate.property.offers"
     _description = "estate property offer Model"
-    _order = "sequence,price desc"
+    _order = "price desc"
 
     price = fields.Float(string='Price')
-    sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
     status = fields.Selection(
         selection=[('accepted','Accepted'),('refused','Refused')],
         copy=False

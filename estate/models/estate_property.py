@@ -32,7 +32,7 @@ class EstateProperty(models.Model):
     active = fields.Boolean(default=True)
     state = fields.Selection(
         string="Status",
-        selection=[('new', 'New'), ('offer_recieved', 'Offer_Recieved'), ('offer_accepted', 'Offer Accepted'),
+        selection=[('new', 'New'), ('offer_recieved', 'Offer Recieved'), ('offer_accepted', 'Offer Accepted'),
                    ('sold', 'Sold'), ('cancelled', 'Cancelled')],
         required=True,
         copy=False,
@@ -54,10 +54,11 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             if(record.offer_ids):
-                record.best_price = max(record.offer_ids.mapped("price"))
-                print(record)
+                if record.state=="new":
+                    record.state="offer_recieved"
             else:
-                record.best_price = 0.0
+                record.state="new"
+            record.best_price = max(record.mapped("offer_ids.price"),default=0)
 
     # @api.depends('offer_ids')
     # def _compute_best_price(self):
