@@ -3,6 +3,7 @@ from odoo import models,fields
 class EstatePropertyType(models.Model):
 	_name='estate.property.type'
 	_description='adding property type in property'
+	_order='name'
 
 	name=fields.Char(string='Name',
 			required=True,
@@ -13,6 +14,7 @@ class EstatePropertyType(models.Model):
 	]
 
 	property_ids=fields.One2many("estate.property","property_type_id")
-
+		
+	sequence=fields.Integer(string="Sequence",default=1,help="use of handle widget")
 
 	

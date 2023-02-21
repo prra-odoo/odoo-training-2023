@@ -6,6 +6,7 @@ from odoo.tools.float_utils import float_is_zero,float_compare
 class EstateProperty(models.Model):
 	_name='estate.property'
 	_description='demo model with property trsting'
+	_order="id desc"
 
 	name=fields.Char(string='Name',
 			required=True,
@@ -51,7 +52,8 @@ class EstateProperty(models.Model):
 	garden_area=fields.Integer(string='Garden area',
 			help="this is for garden area",
 			compute="_compute_value",
-			store=True)
+			store=True,
+			readonly=False)
 
 	garden_orientation=fields.Selection(selection = [('north','North'),
         ('south','South'),
@@ -59,7 +61,8 @@ class EstateProperty(models.Model):
         ('west','West')],
         string= "Garden Orientation",
 		compute="_compute_value",
-		store=True)
+		store=True,
+		readonly=False)
 
 	Active=fields.Boolean(default=True)
 
@@ -100,7 +103,7 @@ class EstateProperty(models.Model):
 				record.best_price = max(self.offer_ids.mapped('price'))
 			else:
 				record.best_price=0
-	@api.depends("garden","garden_orientation")
+	@api.depends("garden")
 	def _compute_value(self):
 		for record in self:
 			if record.garden==True:

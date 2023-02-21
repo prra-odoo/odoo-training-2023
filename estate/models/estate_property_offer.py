@@ -7,6 +7,7 @@ import odoo.tools.float_utils
 class EstatePropertyOffer(models.Model):
     _name='estate.property.offer'
     _description='adding property tags in property'
+    _order='price desc'
 
     price=fields.Float(string="Price")
     status=fields.Selection(selection=[('accepted','Accepted'),('refused','Refused')],
