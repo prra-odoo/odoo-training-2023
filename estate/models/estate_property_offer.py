@@ -45,4 +45,11 @@ class EstatePropertyOffer(models.Model):
     def action_refuse_offer(self):
         self.status = "refused"
 
-    
+    color = fields.Integer(compute="_compute_color")
+    @api.depends('status')
+    def _compute_color(self):
+        for record in self:
+            if(record.status == 'accepted'):
+                record.color= 10
+            else:
+                record.color = 10
