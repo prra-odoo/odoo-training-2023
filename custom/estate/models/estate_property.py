@@ -60,9 +60,13 @@ class EstateProperty(models.Model):
     def _compute_bestoffer(self):
         for record in self:
             if record.offer_ids:
+                if record.state=="new":
+                    record.state="offer received"
                 record.best_offer=max(record.offer_ids.mapped('price'))
+
             else:
                 record.best_offer=0
+                record.state="new"
 
 
     # @api.onchange("garden")
