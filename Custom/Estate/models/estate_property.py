@@ -6,6 +6,7 @@ from odoo.exceptions import UserError,ValidationError
 class TestModel(models.Model):
     _name="estate.property"
     _description = "Testing an Estate Module"
+    _order="id desc"
 
     name = fields.Char(required=True,default="Unknown")
     description = fields.Text()

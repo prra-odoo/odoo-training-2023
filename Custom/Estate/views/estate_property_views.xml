@@ -3,6 +3,7 @@
   <record id="test_model_action" model="ir.actions.act_window">
     <field name="name"> Propertys</field>
     <field name="res_model">estate.property</field>
+    <field name="context">{'search_default_state':True}</field>
     <!-- <field name="view_mode">tree,form</field> -->
   </record>
 <!--             List(Tree)  View Estate Property    -->
@@ -10,7 +11,7 @@
         <field name="name">estate_property_view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel" expand='1'>
+            <tree string="Channel" expand='1' decoration-success="state=='offer received'" decoration-muted="state=='sold'" decoration-danger="state=='canceled'">
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
@@ -18,6 +19,7 @@
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability"/>
+                <field name="state" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -28,16 +30,17 @@
     <field name="arch" type="xml">
         <form string="estate_form">
           <header>
-            <button class="oe_highligh" name="sold_action_button" type="object"  string="Sold"/>
+            <button class="oe_highligh" name="sold_action_button" type="object"  string="Sold" />
             <button class="oe_highlight" name="cancel_action_button" type="object"  string="Cancel"/>
             <field name="state" widget='statusbar' options="{'clickable':'1'}"/>
           </header>
           <sheet>
               <h1 string="Customer Name">
-                <field name="name"/>
+                <field name="name" placeholder="Name"/>
              </h1>
               <p>
-                <field name="tag_ids" widget="many2many_tags" />
+                <!--    Color changing tags -->
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
               </p>
             <group> 
               <group>
@@ -62,14 +65,15 @@
                      <field name="facades"/>
                      <field string="Description" name="description"/>
                      <field name="garden"/>
-                     <field name="garden_area"/>
-                     <field name="garden_orientation"/>
+                     <!--    It is important to note that a field used in an attrs must be present in the view.  -->
+                     <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                     <field name="garden_orientation" attrs="{'invisible':[('garden', '=', False)]}"/>
                      <field name="total_area"></field>
                   </group>
                 </page>
           <!-- Offers Tab -->
                 <page string="Offers">
-                  <field name="offer_ids"/>
+                  <field name="offer_ids" attrs="{'readonly':[('state','in',['offer accepted','sold','canceled'])]}"/>
                 </page>
           <!--   Other Info Tab -->
                 <page string="Other Info">
@@ -89,13 +93,15 @@
     <field name="model">estate.property</field>
     <field name="arch" type="xml">
       <search>
+        <!-- <filter name="available" string="Available" domain="[('state', 'in', ['new','offer_received'])]" help="Show only Available" default="1"/> -->
         <field name="name"/>
         <field name="bedrooms"/>
         <field name="postcode"/>
         <field name="expected_price"/>
         <field name="garden_area"/>
-         <separator/>
-         <filter string="State" name="State" domain="['|',('state', '=', 'new'), ('state','=','offer received')]"/>
+        <field name="living_area" filter_domain="[('living_area','>=','self)]"/>
+         <!-- <filter name="state" string="Available" domain="['|',('state', '=', 'new'), ('state','=','offer received')]"/> -->
+         <filter name="state" string="Available" domain="[('state', 'in', ['new','offer_received'])]"/>
          <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
          <filter string="Bedrooms" name="Bedrooms" context="{'group_by':'bedrooms', 'residual_visible':True}"/>
          <group expand="1" string="Group By">
