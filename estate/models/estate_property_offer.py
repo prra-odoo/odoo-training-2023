@@ -10,6 +10,7 @@ class EstatePropertyOffer(models.Model):
     _description="Real Estate Property Offers"
 
     price=fields.Float()
+    _order = "price desc"
     status=fields.Selection(
         copy=False,
         selection=[('accepted','Accepted'),('refused','Refused')]
@@ -19,7 +20,7 @@ class EstatePropertyOffer(models.Model):
     property_id=fields.Many2one("estate.property",string="Property Id", required=True)
     validity=fields.Integer(default=7)
     date_deadline=fields.Date(compute="_compute_date_deadline",inverse="_inverse_date_deadline")
-    
+
     #compute for date_deadline
     
     @api.depends("create_date","validity")

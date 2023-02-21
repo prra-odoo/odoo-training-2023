@@ -4,6 +4,7 @@
         <field name="name">properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_state': True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Define Property
@@ -17,16 +18,16 @@
     <field name="name">estate.property.tree</field>
     <field name="model">estate.property</field>
     <field name="arch" type="xml">
-        <tree string="estate">
+        <tree string="estate" default_order = "selling_price desc">
             <field name="name" string = "Title"/>
             <field name="postcode" string = "Postcode"/>
             <field name="property_type_id" string = "Property-Type"/>
-            <field name="tag_ids" string = "Tags"/>
+            <field name="tag_ids" string = "Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
             <field name="bedrooms" string = "Bedrooms"/>
             <field name="living_area" string = "Living Area(sqm)"/>
             <field name="expected_price" string = "Expected Price"/>
             <field name="selling_price" />
-            <field name="date_availability" string = "Available From"/>
+            <field name="date_availability" string = "Available From" optional = "hide"/>
             </tree>
         </field>
 </record>
@@ -50,7 +51,7 @@
 
             <group>
                 <group>
-                    <field name="tag_ids" string = "Tags" widget="many2many_tags"/>
+                    <field name="tag_ids" string = "Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <field name="postcode"/>
                     <field name="date_availability" string="Available From"/>
                 </group>
@@ -67,7 +68,7 @@
                         <group>
                             <group>
                                 <field name="description" string="Description"/>
-                                <field name="property_type_id" string = "Property Type"/>
+                                <field name="property_type_id" string = "Property Type" options='{"no_create_edit":True,"no_create":True}'/>
                                 <field name="bedrooms" string="Bedrooms"/>
                                 <field name="living_area" string="Living (sqms)"/>
                                 <field name="facades" string="Facades"/>
@@ -113,7 +114,8 @@
             <field name="property_type_id" string = "Property Type"/>
             <field name="expected_price" string="Expected Price"/>
             <field name="bedrooms" string="Bedrooms"/>
-            <field name="living_area" string="Living Area (sqms)"/>
+            <field name="living_area" string="Living Area (sqms)"
+            filter_domain = "[('living_area','>=', self)]"/>
             <field name="facades" string="Facades"/>
             <separator/>
             <filter string="Available" name="state" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer received')]"/>
