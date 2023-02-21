@@ -21,11 +21,14 @@ class EstatePropertyOffer(models.Model):
     validity = fields.Integer(string="Validity", default=7)
     property_type_id = fields.Many2one('estate.property.type',related = "property_id.property_type_id",
                                         string="Property Type", store=True)
+    #extra field for kanban view
+    color = fields.Integer(string="Color", compute="_compute_color")
+
 
     # store attribute is use to control storage of data in DB with computaation and without change
     date_deadline = fields.Date(string="Deadline Date",compute="_compute_dead", inverse="_inverse_deadline", store=True)
     
-    
+
     # set sql validation
     # if in table already have rows and that row not follow constraints then 
     _sql_constraints = [
@@ -66,6 +69,18 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.status = 'refused'
             record.property_id.state = 'received'
+
+    @api.depends('status')
+    def _compute_color(self):
+        for record in self:
+            if (record.status == 'accepted'):
+                record.color = 3
+            elif(record.status == 'refused'):
+                record.color = 9
+            else:
+                record.color=0
+    
+   
         
 
             

@@ -48,6 +48,7 @@ class EstateProperty(models.Model):
     salesmans = fields.Many2one('res.users', default=lambda self:self.env.user)
 
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
+
     
     # contraints can not be apply on table and not change contraints
     _sql_constraints = [
@@ -114,4 +115,3 @@ class EstateProperty(models.Model):
                     raise ValidationError('Selling price is more less than experted price ')
 
     
-   

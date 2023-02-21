@@ -36,19 +36,25 @@
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
             <form string="Property Offers">
+                
+                    
                 <sheet>
                     <group>
                         <group>
                             <field name="price"/>
-                            <field name="status"/>
                             <field name="partner_id"/>
+                            
+                        </group>
+                        <group>
                             <field name="validity"/>
                             <field name="date_deadline" />
                             
                         </group>
                     </group>
+                            
                 </sheet>
             </form>
         </field>
     </record>
+    
 </odoo>

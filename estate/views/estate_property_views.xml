@@ -23,7 +23,8 @@
             <tree string="Channel" decoration-muted="state == 'sold'" 
                                    decoration-success="state in ('accepted','received')" 
                                    decoration-bf="state == 'accepted'"
-                                   decoration-info="state== 'new'">
+                                   decoration-info="state== 'new'"
+                                   decoration-danger = "state=='canceled'">
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="expected_price"/>
@@ -55,8 +56,12 @@
                               statusbar_visible : use to set how much content show on status bar-->
                         <field name="state" class="oe_edit_only" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,received,accepted,sold"/>
                     </header>
+                    
                    <sheet>
+                        <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', 'not in', 'sold')]}"/>
+                        <widget name="web_ribbon" title="Cancel" bg_color="bg-danger" attrs="{'invisible': [('state', 'not in', 'canceled')]}"/>    
                         <div class="oe_title">
+                            
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" placeholder="eg. zeel patel"/></h1>
                         </div>
@@ -94,11 +99,49 @@
                             </group>
                         </page>
                         
+                        <!-- list view -->
+                        <!-- <page string="Offers">
+                            
+                            <field name="offer_ids" attrs="{'readonly':['|','|',('state', '=' , 'sold'),('state', '=' , 'accepted'),('state', '=' , 'canceled')]}" />
+                            
+                        </page> -->
+
+                        <!-- kanban view -->
                         <page string="Offers">
                             
-                                <field name="offer_ids" attrs="{'readonly':['|','|',('state', '=' , 'sold'),('state', '=' , 'accepted'),('state', '=' , 'canceled')]}" />
+                            <field name="offer_ids" widget="one2many" mode="kanban">
                                 
-                            
+                                <kanban class="o_res_partner_kanban">
+                                    <field name="partner_id" />
+                                    <field name="price" />
+                                    <field name="status"/>
+                                    <field name="color"/>
+
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                                                <div class="oe_kanban_details">
+                                                    <strong class="o_kanban_record_title">
+                                                        <field name="partner_id"/>
+                                                    </strong>
+                                                    <div t-if="record.price.value">
+                                                        <t t-esc="record.price.value"/>
+                                                    </div>
+                                                    <div t-if="record.status.value">
+                                                        <t t-esc="record.status.value"/>
+                                                    </div>
+                                                    <button name="action_do_accept" title="Accept" type="object" icon="fa-check" attrs="{'invisible':[('status','!=', False)]}"/>
+                                                    <button name="action_do_refuse" title="Reject" type="object" icon="fa-close" attrs="{'invisible':[('status','!=', False)]}"/>
+                                                        
+                                                </div>
+                
+                                            </div>
+                                                
+                                            
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
                         </page>
 
                         <page string="Other Info">
