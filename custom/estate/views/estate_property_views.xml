@@ -4,6 +4,7 @@
         <field name='name'>Properties</field>
         <field name='res_model'>estate.property</field>
         <field name='view_mode'>tree,form</field>
+        <field name="context">{'search_default_available' : True}</field>
          <field name='help' type='html'>
           <p class='o_view_nocontent_smiling_face'>
             Create your first property
@@ -15,16 +16,21 @@
         <field name='name'>estate.property.tree</field>
         <field name='model'>estate.property</field>
         <field name='arch' type='xml'>
-            <tree string='Estate Property Tree'>
+            <tree string='Estate Property Tree' 
+            decoration-success='state in ("offer received","offer accepted")'
+            decoration-bf='state=="offer accepted"'
+            decoration-muted='state=="sold"'
+            decoration-danger='state=="canceled"'>
                 <field name='name'/>
-                <field name='postcode'/>
-                <field name='tag_ids'/>
                 <field name='property_type_id'/>
+                <field name='postcode'/>
+                <field name='tag_ids' widget='many2many_tags' options='{"color_field": "color"}'/>
                 <field name='bedrooms'/>
                 <field name='living_area' optional='show'/>
                 <field name='expected_price'/>
                 <field name='selling_price'/>
                 <field name='date_availability' optional='hidden'/>
+                <field name='state' optional='hidden'/>
             </tree>
         </field>
     </record>
@@ -41,6 +47,8 @@
                     <field name='state' widget='statusbar' options='{"clickable": "1"}'/>
                 </header>
                 <sheet>
+                    <widget name='web_ribbon' title='Sold' bg_color="bg-success" attrs='{"invisible": [("state", "not in", ["sold"])]}'/>
+                    <widget name='web_ribbon' title='Canceled' bg_color='bg-danger' attrs='{"invisible": [("state", "not in", ["canceled"])]}'/>
                     <div>
                         <label for='name' string='Property'/>
                         <h1><field name='name' placeholder='Title'/></h1>
@@ -103,11 +111,12 @@
                     <field name='property_type_id'/>
                     <field name='expected_price'/>
                     <field name='bedrooms'/>
-                    <field name='living_area' string='Living Area (sqm)'/>
+                    <field name='living_area' string='Living Area (sqm)'
+                    filter_domain='[("living_area", ">=", self)]'/>
                     <field name='facades'/>
                     <filter string='Archived' name='inactive' domain='[("active", "=", False)]'/>
                     <separator/>
-                    <filter string='Available' name='state' domain='["|", ("state","=","new"),("state","=","offer received")]'/>
+                    <filter string='Available' name='available' domain='["|", ("state","=","new"),("state","=","offer received")]'/>
                     <group expand='1' string='Group By'>
                         <filter string='Postcode' name='postcode' context='{"group_by":"postcode"}'/>
                     </group> 

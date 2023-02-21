@@ -18,6 +18,8 @@
       <tree string='Estate Property Tree'>
         <field name='sequence' widget='handle'/>
         <field name='property_name'/>
+        <field name='offer_ids'/>
+        <field name='offer_count'/>
       </tree>
     </field>
   </record>
