@@ -6,11 +6,11 @@
         <field name="view_mode">tree,form</field>
         
     </record> 
-    <record id="real_estate_property_types" model="ir.ui.view">
+    <record id="real_estate_property_types_tree" model="ir.ui.view">
         <field name="name">real_estate_property_types_tree</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <tree string="Types">
+            <tree string="Types" editable="bottom">
                 <field name="sequence" widget="handle"/>
                 <field name="name"></field>
 

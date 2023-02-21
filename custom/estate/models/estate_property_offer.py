@@ -44,4 +44,4 @@ class EstatePropertyType(models.Model):
     def action_refused(self):
         for record in self:
             record.status='refused'
-            record.property_id.selling_price=0.00         
+                   
