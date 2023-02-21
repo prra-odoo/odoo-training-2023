@@ -12,6 +12,7 @@ class EstateProperty(models.Model):
        ("check_expected_price","CHECK(expected_price > 0)","The expected price must be strictly positive"),
                   ("check_selling_price","CHECK(selling_price >= 0)","The offer price must be strictly positive")
      ]
+    _order="id desc"
     
    
 
@@ -26,11 +27,12 @@ class EstateProperty(models.Model):
     facades = fields.Integer("Facades")
     garage = fields.Boolean("Garage")
     garden = fields.Boolean("Garden")
-    garden_area = fields.Integer(string="Garden Area(sqm)", compute="_compute_garden")
+    garden_area = fields.Integer(string="Garden Area(sqm)", compute="_compute_garden" ,readonly=False)
     garden_orientation = fields.Selection(
         selection =[('N','North'),('E' , 'East'),('S','South'),('W','West')],
         help = 'Type is used to seprate directions' , 
-        compute="_compute_garden"
+        compute="_compute_garden", readonly=False,
+        string="Garden Orientation"
     )
     active = fields.Boolean("Active", default = True)
     state = fields.Selection(
@@ -41,7 +43,7 @@ class EstateProperty(models.Model):
         ('sold','Sold'),
         ('canceled','Canceled')
         ],
-        string="State" ,default = "new",copy = False, required =True, 
+        string="Status" ,default = "new",copy = False, required =True, 
     )
     property_type_id=fields.Many2one("estate.property.type" , string="Property Type")
     salesperson = fields.Many2one("res.users", string="Salesperson",default=lambda self: self.env.user)

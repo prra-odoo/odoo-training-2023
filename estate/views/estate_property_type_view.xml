@@ -10,13 +10,45 @@
             </p>
         </field>
     </record>
+    <!-- Tree view -->
     <record id="estate_property_type_tree_view" model="ir.ui.view">
         <field name="name">Estate Property Type Tree View</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence"  widget="handle"/>
                 <field name="name"/>
             </tree>
         </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="estate_property_type_form_view" model="ir.ui.view">
+        <field name="name">Estate Property Type Form View</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="Properties">
+                            <field name="property_ids" readonly="1">
+                                <tree default_order="expected_price desc" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+
     </record>
 </odoo>
