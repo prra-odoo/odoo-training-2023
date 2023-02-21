@@ -21,7 +21,7 @@ class EstateProperty(models.Model):
     garden_area = fields.Integer(compute="_compute_garden",readonly=False)
     garden_orientation = fields.Selection(selection=[("north","North"),("south","South"),("east","East"),("west","West")],compute="_compute_garden",readonly=False)
     active = fields.Boolean(default = True)
-    status = fields.Selection(selection=[("new","New"),("offer received","Offer Received"),("offer accepted","Offer Accepted"),("sold","Sold"),("canceled","Canceled")],default = "new",copy = False)
+    state = fields.Selection(selection=[("new","New"),("offer received","Offer Received"),("offer accepted","Offer Accepted"),("sold","Sold"),("canceled","Canceled")],default = "new",copy = False,readonly=True)
     property_type_id = fields.Many2one("estate.property.type",string="Property Type")
     sales_person_id = fields.Many2one('res.users', string="Salesman",default = lambda self : self.env.user)
     buyer_id = fields.Many2one('res.partner', string="Buyer",compute="_compute_buyer_id")
@@ -29,6 +29,8 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many('estate.property.offer','property_id')
     total_area = fields.Float(compute = "_compute_area")
     best_price = fields.Float(compute = "_compute_bestprice",default=0)
+    is_partner = fields.Boolean(default = False)
+    has_offer = fields.Boolean(default = False,compute = "_compute_has_offer")
 
     _sql_constraints = [
         ("check_expected_price","CHECK(expected_price > 0)","The expetcted price must be strictly positive"),
@@ -61,14 +63,14 @@ class EstateProperty(models.Model):
                 record.garden_orientation = ""
     def action_sold(self):
         for record in self:
-            if (record.status == "canceled"):
+            if (record.state == "canceled"):
                 raise exceptions.UserError("Canceled properties can't be sold!")
             else:
-                record.status = "sold"
+                record.state = "sold"
             
     def action_cancel(self):
         for record in self:
-            record.status = "canceled"
+            record.state = "canceled"
     @api.depends("offer_ids.status")
 
     
@@ -88,5 +90,12 @@ class EstateProperty(models.Model):
         for record in self:
             if(record.selling_price != 0 and record.selling_price < record.expected_price * 0.9):
                 raise exceptions.ValidationError("The selling price must be at least 90% of the expected price. You must reduce the expected price if want to accept the offer.")
-            
+    @api.depends("offer_ids")
+    
+    def _compute_has_offer(self):
+        for record in self:
+            if (record.offer_ids):
+                record.has_offer = True
+            else:
+                record.has_offer = False
                 
