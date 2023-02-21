@@ -18,7 +18,7 @@ class EstateProperty(models.Model):
 
 
     expected_price=fields.Float(required=True)
-    selling_price=fields.Float(readonly=True,copy=False,default=0)
+    selling_price=fields.Float(readonly=True,copy=False)
     bedrooms=fields.Integer(default=2)
     living_area=fields.Integer()
     facades=fields.Integer()
@@ -91,7 +91,13 @@ class EstateProperty(models.Model):
             else:
                 record.best_offer=0
 
-    
+
+
+            
+                
+        
+             
+
                  
 
 

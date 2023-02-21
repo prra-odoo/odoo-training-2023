@@ -5,17 +5,19 @@
   <field name="name">estate.property.offer.tree</field>
   <field name="model">estate.property.offer</field>
   <field name="arch" type="xml">
-     <tree>
+     <tree editable="bottom">
        <field name="price"/>
        <field name="partner_id"/>
        <field name="validity"/>
        <field name="date_deadline"/>
-       <button name="action_accept" type="object" title="Accept" icon="fa-check" class="oe_highlight" />
-       <button name="action_refuse" type="object" title="Refuse" icon="fa-times" class="btn-danger"/>
+       <button name="action_accept" type="object" title="Accept" icon="fa-check" class="oe_highlight" attrs="{'invisible':[('status','!=',False)]}"/>
+       <button name="action_refuse" type="object" title="Refuse" icon="fa-times" class="btn-danger" attrs="{'invisible':[('status','!=',False)]}"/>
        <field name="status"/>
     </tree>
   </field>
 </record>
+
+
 
 <record id="estate_property_offer_view_form" model="ir.ui.view">
    <field name="name">estate.property.offer.form</field>

@@ -45,26 +45,17 @@ class EstatePropertyOffer(models.Model):
 
     def action_accept(self):
         for record in self:
-            
-            for rec in self.property_id.offer_ids:
-
-               
-                if(rec.status == "accepted") >0:
-                      raise UserError("You cannot select")
-
-
-              
-     
-
-                
-                
-        record.status="accepted"
-        record.property_id.selling_price=self.price
-        record.property_id.buyer_id=self.partner_id
-
+             record.status="accepted"
+             record.property_id.selling_price=self.price
+             record.property_id.buyer_id=self.partner_id
+             record.property_id.state="offer_accepted"
+             
+             
                 
     def action_refuse(self):
         for record in self:
             record.status="refused"
+   
+
 
 

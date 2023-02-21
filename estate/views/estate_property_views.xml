@@ -19,16 +19,18 @@
    <field name="name">estate.property.tree</field>
    <field name="model">estate.property</field>
    <field name="arch" type="xml">
-        <tree string="Properties">
+        <tree string="Properties" expand="1" decoration-success="state in ('offer_received','offer_accepted')" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
            <field name="sequence" widget="handle"/>
            <field name="name" />
            <field name="property_type_id"/>
-           <field name="postcode" />
+           <field name="postcode" />     
            <field name="bedrooms" />
+           <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
            <field name="living_area" />
            <field name="expected_price"/>
            <field name="selling_price"/>
-           <field name="date_availability"/>
+           <field name="date_availability" optional="1" />
+           <field name="state"/>
         </tree>
     </field>
 </record>
@@ -39,12 +41,17 @@
     <field name="arch" type="xml">
         <form  string="Properties">
         <header>
-           <button name="action_sold" type="object" string="SOLD"/>
-           <button name="action_cancel" type="object" string="CANCEL"/>
+           <button name="action_sold" states="new,offer_received" string="SOLD"/>
+           <button name="action_sold" states="offer_accepted" class="oe_highlight" type="object" string="SOLD"/>
+           <button name="action_cancel" type="object" states="new,offer_received,offer_accepted" string="CANCEL"/>
            <field widget="statusbar" name="state" options="{'clickable':1}" statusbar_visible="new,offer_received,offer_accepted,sold"/>
         </header>
         <sheet>
             <div class="oe_title">
+                <widget name="web_ribbon" title="SOLD" bg_color="bg-success" states="sold"/>
+                
+                <widget name="web_ribbon" title="CANCELLED" bg_color="bg-danger" states="cancelled"/>
+
               <h1><field name="name" /></h1>
             </div>
             <group>
@@ -53,7 +60,7 @@
               <group>
                <field name="property_type_id" options="{'create':false,'create_edit':false}"/>
                <field name="postcode"/>
-               <field name="date_availability"/>
+               <field name="date_availability" />
               </group>
               <group>
                 <field name="expected_price"/>
@@ -73,15 +80,16 @@
                    <field name="facades"/>
                    <field name="garage"/>
                    <field name="garden"/>
-                   <field name="garden_area"/>
-                   <field name="garden_orientation"/>
+                   <field name="garden_area" attrs="{'invisible':[('garden','=',False)]}"/>
+                   <field name="garden_orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                    <field name="total_area"/>
                   </group>
                 </group>
                 </page>
-                
+    
                 <page string="Offers">
-                  <field name="offer_ids" />
+                  <field name="offer_ids" attrs="{'readonly':[('state','in',('offer_accepted','sold','cancelled'))]}" />
+            
                 </page>
 
                 <page string="Other Info">
