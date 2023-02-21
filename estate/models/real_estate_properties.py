@@ -104,3 +104,10 @@ class EstatePropertyModel(models.Model):
             if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
                 if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise exceptions.ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+                
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_or_canceled(self,vals):
+        for record in self:
+            if record.state not in ('new','canceled'):
+                raise exceptions.UserError("Only new and canceled properties can be deleted")
+            return super().create(vals)
