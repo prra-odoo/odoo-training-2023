@@ -5,6 +5,17 @@
         <field name="res_model">estate.property.types</field>
         <field name="view_mode">tree,form</field>
     </record>
+    
+    <record id = "estate_property_types_tree_view" model="ir.ui.view">
+        <field name="name">estate.property.types.tree.view</field>
+        <field name="model">estate.property.types</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
 
     <record id="estate_property_types_form_view" model="ir.ui.view">
         <field name="name">estate.property.types.form.view</field>
@@ -19,7 +30,6 @@
                     </div>
                     <notebook>
                         <page string = "Properties">
-                        <field name="sequence" widget="handle"/>
                         <field name="property_ids">
                             <tree create="False" delete="False">
                                 <field name="name"/>

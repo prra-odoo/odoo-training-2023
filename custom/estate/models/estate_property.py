@@ -31,8 +31,8 @@ class EstatePlan(models.Model):
         help = "Choose the direction",
         default='north'
     )
-    states = fields.Selection(
-        string = "States",
+    state = fields.Selection(
+        string = "state",
         selection = [('new','New'),('offered received','Offered Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled'),],
         default='new',
         help = "Choose the state",
@@ -90,19 +90,19 @@ class EstatePlan(models.Model):
 
     def action_sold(self):
         for record in self:
-            if record.states != "canceled":
-                record.states = "sold"
-            else:
-                raise UserError("Property Cancelled Cannot Be Sold")
-        return True
+            # if record.state != "canceled":
+            #     record.state = "sold"
+            # else:
+            #     raise UserError("Property Cancelled Cannot Be Sold")
+            return True
 
     def action_canceled(self):
         for record in self:
-            if record.states != "sold":
-                record.states = "canceled"
-            else:
-                raise UserError("Property Sold Cannot Be Cancelled")   
-        return True
+            # if record.state != "sold":
+            #     record.state = "canceled"
+            # else:
+            #     raise UserError("Property Sold Cannot Be Cancelled")   
+            return True 
     
     @api.constrains('selling_price')
     def _check_selling_price(self):
