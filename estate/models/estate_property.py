@@ -14,6 +14,7 @@ class EstateProperty(models.Model):
 
     ]
     _order = 'id desc'
+    # _inherit = ['mail.thread']
     # note that ordering can also be given in view file using
     # <tree string="Properties" default_order="id desc"> Here instead of _order , default_order is used
 
@@ -61,6 +62,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer", "property_id")
     # one2Many(comodel name, inverse name)    
     total_area = fields.Integer(compute="_total_area",store=True)
+    # chatter_messages = fields.Text(track_visibility='onchange')
     # @ depends - decorators (if we dont write @api line then compute works but only after save.)
     @api.depends('living_area','garden_area')
     def _total_area(self):

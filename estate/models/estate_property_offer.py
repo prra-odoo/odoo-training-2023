@@ -62,3 +62,12 @@ class EstatePropertyOffer(models.Model):
         for property in self:
             if property.price <= 0:
                 raise exceptions.ValidationError("offer price must be positive.")
+            
+    color = fields.Integer(compute="_compute_color")
+    @api.depends('status')
+    def _compute_color(self):
+        for record in self:
+            if(record.status == 'accepted'):
+                record.color = 10
+            else:
+                record.color = 2
