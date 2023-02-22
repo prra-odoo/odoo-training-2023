@@ -3,22 +3,25 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_state': True}</field>
     </record>
 
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel" expand="1" decoration-success="has_offer == True" decoration-bf="is_partner == True">
-                <field name="name"/>
+            <tree string="Channel" expand="1" decoration-success="offer_ids and state != 'sold'" decoration-bf="state == 'offer accepted'" decoration-muted="state == 'sold'">
+                <field name="name" string="Title"/>
+                <field name="property_type_id" string="Property Type"/>
                 <field name="postcode"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_quick_create': True}"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
-                <field name="date_availability"/>
-                <field name="is_partner" invisible="1"/>
-                <field name="has_offer" invisible="1"/>
+                <field name="date_availability" optional="hide"/>
+                <field name="offer_ids" invisible="1"/>
+                <field name="state" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -37,7 +40,6 @@
                             <h1>
                                 <field name="name" class="oe_inline"/>
                             </h1>
-                            
                         </div>
                         
                     <group>    
@@ -95,6 +97,7 @@
                 <field name="living_area"/>
                 <field name="facades"/>
                 <filter string="Available" name="state" domain="['|',('state', '=','new'),('state','=','offer received')]"/>
+                <field name="living_area" string="Living Area" filter_domain = "[('living_area','>=',self)]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
                 </group>

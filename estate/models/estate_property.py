@@ -29,8 +29,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many('estate.property.offer','property_id')
     total_area = fields.Float(compute = "_compute_area")
     best_price = fields.Float(compute = "_compute_bestprice",default=0)
-    is_partner = fields.Boolean(default = False)
-    has_offer = fields.Boolean(default = False,compute = "_compute_has_offer")
+
 
     _sql_constraints = [
         ("check_expected_price","CHECK(expected_price > 0)","The expetcted price must be strictly positive"),
@@ -90,7 +89,7 @@ class EstateProperty(models.Model):
         for record in self:
             if(record.selling_price != 0 and record.selling_price < record.expected_price * 0.9):
                 raise exceptions.ValidationError("The selling price must be at least 90% of the expected price. You must reduce the expected price if want to accept the offer.")
-    @api.depends("offer_ids")
+    @api.depends("offer_ids","state")
     
     def _compute_has_offer(self):
         for record in self:

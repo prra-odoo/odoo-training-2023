@@ -20,6 +20,9 @@
         <field name="arch" type="xml">
             <form string="Channel">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" icon="fa-money" name="action_do"/>
+                    </div>
                     <div>
                         <h1>
                             <field name="name" class="oe_inline"/>
