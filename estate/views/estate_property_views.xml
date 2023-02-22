@@ -125,6 +125,7 @@
                                                         <field name="partner_id"/>
                                                     </strong>
                                                     <div t-if="record.price.value">
+                                                        
                                                         <t t-esc="record.price.value"/>
                                                     </div>
                                                     <div t-if="record.status.value">
@@ -146,7 +147,7 @@
 
                         <page string="Other Info">
                             <group>
-                                <field name="salesmans" />
+                                <field name="salesmans" widget="many2one_avatar_user"/>
                                 <field name="buyer" />
                                 
                             </group>
