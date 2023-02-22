@@ -9,6 +9,7 @@ class EstatePropertyOffer(models.Model):
                     ('name', 'UNIQUE (name)', 'You can not have two properties with the same name !')
                 ]
     _order = "price desc"
+    _rec_name="price"
 
     price = fields.Float()
     status = fields.Selection(string='Status',

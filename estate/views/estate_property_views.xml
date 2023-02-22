@@ -18,12 +18,12 @@
         <field name="name">Properties</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Tree View" decoration-bf="state=='offer accepted'" 
-            decoration-success="state=='offer recieved' or state=='offer accepted'" decoration-muted="state=='sold'">
+            <tree string="Tree View" decoration-bf="state=='offer accepted'" decoration-danger="state=='cancelled'" decoration-info="state=='new'"
+            decoration-success="state=='offer recieved' or state=='offer accepted'" decoration-muted="state=='sold'" >
                 <field name="name"/>
                 <field name="property_type_id"/>
                 <field name="postcode"/>
-                <field name="property_tag_ids" widget="many2many_tags"/>
+                <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="bedrooms" optional="show"/>
                 <field name="living_area"/>
                 <field name="expected_price" optional="show"/>
@@ -90,7 +90,8 @@
                                 </group>
                             </page>
                             <page string="Offers">
-                                <field name="offer_ids" class="oe_inline"/>                          
+                                <field name="offer_ids" mode="kanban" class="oe_inline" />
+                                <!-- <field name="offer_ids" class="oe_inline" />                          -->
                             </page>
                             <page string="Other Info">
                                 <group>
@@ -101,6 +102,10 @@
                         </notebook>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
@@ -120,8 +125,8 @@
                 <field name="property_tag_ids" widget="many2many_tags"/>
                 <filter string="My Properties" name="salesman_id" domain="[('salesman_id', '=', 'Manushi')]"/>
                 <separator/>
-                <!-- <filter string="Available" name="state" domain="['|',('state', '=', 'new'),('state', '=', 'offer received')]"/> -->
-                <filter string="Available" name="state" domain="[('state', 'in', ['new','offer received'])]"/>
+                <!-- <filter string="Available" name="state" domain="['|',('state', '=', 'new'),('state', '=', 'offer recieved')]"/> -->
+                <filter string="Available" name="state" domain="[('state', 'in', ['new','offer recieved'])]"/>
                 <separator/>
                 <filter string="Cozy" name="bedrooms" domain="[('bedrooms', 'in', [1,2])]"/>
                 <filter string="Luxury" name="bedrooms" domain="[('bedrooms', '>', '2')]"/>

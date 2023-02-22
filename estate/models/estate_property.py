@@ -14,6 +14,7 @@ class EstateProperty(models.Model):
          'The selling price price should be strictly positive only.'),
     ]
     _order = "id desc"
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
 
     id = fields.Integer()
     name = fields.Char(required=True, string="Title")
