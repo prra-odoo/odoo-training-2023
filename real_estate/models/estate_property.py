@@ -57,9 +57,12 @@ class EstateProperty(models.Model):
     def _compute_discount(self):
         for record in self:
             if(record.offer_ids): 
+                if(record.state=='new'):
+                    record.state='off_re'
                 record.best_price = max(record.offer_ids.mapped("price"))
             else:
                 record.best_price=0.0 
+
 
     #Set values for garden area and orientation.
     @api.depends("garden")

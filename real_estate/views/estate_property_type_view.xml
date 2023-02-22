@@ -21,16 +21,6 @@
         <field name="name">estate.property.form</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <!-- <form string="Properties">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="name" />
-                        </group>
-                    </group>                       
-                </sheet>
-            </form> -->
-            
             <form>
                 <h1>
                     <field name="name"/>

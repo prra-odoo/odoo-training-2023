@@ -51,6 +51,7 @@ class EstatePropertyOffer(models.Model):
             record.status="accepted"
             record.property_id.selling_price=record.price
             record.property_id.buyers_id=record.partner_id
+            record.property_id.state = 'off_ac'
 
     def action_refused(self):
         for record in self:
@@ -61,5 +62,3 @@ class EstatePropertyOffer(models.Model):
         ('check_offerprice', 'CHECK(price >= 0)',
          'Offer Price Must Be In Possitive Value.')
     ]
-
-    
