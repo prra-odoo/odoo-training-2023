@@ -90,18 +90,18 @@ class EstatePlan(models.Model):
 
     def action_sold(self):
         for record in self:
-            # if record.state != "canceled":
-            #     record.state = "sold"
-            # else:
-            #     raise UserError("Property Cancelled Cannot Be Sold")
+            if record.state != "canceled":
+                record.state = "sold"
+            else:
+                raise UserError("Property Cancelled Cannot Be Sold")
             return True
 
     def action_canceled(self):
         for record in self:
-            # if record.state != "sold":
-            #     record.state = "canceled"
-            # else:
-            #     raise UserError("Property Sold Cannot Be Cancelled")   
+            if record.state != "sold":
+                record.state = "canceled"
+            else:
+                raise UserError("Property Sold Cannot Be Cancelled")   
             return True 
     
     @api.constrains('selling_price')

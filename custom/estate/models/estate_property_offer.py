@@ -22,7 +22,6 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.date_deadline = fields.Date.today()+relativedelta(days=record.validity)
            
-    @api.depends("date_deadline")
     def _inverse_date(self):
         for record in self:
             record.validity = (record.date_deadline - fields.Date.today()).days

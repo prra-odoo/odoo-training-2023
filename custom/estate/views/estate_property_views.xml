@@ -4,6 +4,7 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_state': True}</field>
     </record>
 
     <record id="estate_property_view_tree" model="ir.ui.view">
@@ -34,11 +35,13 @@
         <field name="arch" type="xml">
             <form string="estate property">
                 <header>
-                    <button name = "action_sold" type="object" string="Sold" states="new" class="oe_highlight" />
-                    <button name = "action_canceled" type="object" string="Cancel"  class="oe_highlight"/>
+                    <button name = "action_sold" type="object" string="Sold" states="new" class="oe_highlight" attrs="{'invisible':[('state','in',('sold','canceled'))]}"/>
+                    <button name = "action_canceled" type="object" string="Cancel"  class="oe_highlight"  attrs="{'invisible':[('state','in',('sold','canceled'))]}"/>
                     <field name="state" widget="statusbar" options = '{"clickable":"1"}'/>
                 </header>
                 <sheet> 
+                <widget name="web_ribbon" title="Sold" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('offered received','new','canceled','offer accepted'))]}"/>
+                <widget name="web_ribbon" title="Accepted" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('offered received','new','canceled','sold'))]}"/>
                     <div class="oe_title">
                         <h1 class="title_header">
                             <field name="name" class="oe_inline"/>
@@ -75,7 +78,7 @@
                                 </group>
                             </page>                      
                             <page string="Offers">
-                                <field name="offer_ids" attrs="{'readonly':[('state','in',['offer accepted','sold','canceled'])]}">
+                                <field name="offer_ids"  attrs="{'readonly':[('state','in',['offer accepted','sold','canceled'])]}">
                                     <tree editable = 'bottom' create = 'True' decoration-success="status=='accepted'" decoration-danger="status=='refused'">
                                         <field name="price"/>
                                         <field name="partner_id" string="Partner"/>
@@ -87,6 +90,7 @@
                                     </tree>
                                 </field>
                             </page>
+                
                             <page string="Other Info">
                                 <group>
                                     <group>
@@ -110,7 +114,7 @@
             <field name = "postcode"/>
             <field name = "expected_price"/>
             <field name = "bedrooms"/>
-            <field name = "living_area" string ="Living Area(sqm)"/>
+            <field name = "living_area" string ="Living Area(sqm)" filter_domain="[('living_area','>=',self)]"/>
             <field name = "facades"/>
             <field name = "property_tag_ids"/>
             <filter string = "Available" name = "state" domain="['|',('state','=','new'),('state','=','offered received')]"/>
