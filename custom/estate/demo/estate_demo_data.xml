@@ -1,0 +1,34 @@
+<odoo>
+        <record id="record_1" model="estate.property">
+            <field name="name">Big Villa</field>
+            <field name="state">new</field>
+            <field name="description">A nice and big villa</field>
+            <field name="postcode">12345</field>
+            <field name="date_availability">2020-02-02</field>
+            <field name="expected_price">1600000</field>
+            <field name="selling_price"></field>
+            <field name="bedrooms">6</field>
+            <field name="living_area">100</field>
+            <field name="facades">4</field>
+            <field name="garage" eval="True"/>
+            <field name="garden" eval="True"/>
+            <field name="garden_area">100000</field>
+            <field name="garden_orientation">south</field>
+        </record>
+    </odoo>
+    <!-- <record id="record_2" model="estate.propery">
+        <field name="name"></field>
+        <field name="state"></field>
+        <field name="description"></field>
+        <field name="postcode"></field>
+        <field name="date_availability"></field>
+        <field name="expected_price"></field>
+        <field name="selling_price"></field>
+        <field name="bedrooms"></field>
+        <field name="living_area"></field>
+        <field name="facades"></field>
+        <field name="garage"></field>
+        <field name="garden"></field>
+        <field name="garden_area"></field>
+        <field name="garden_orientation"></field>
+    </record> -->
