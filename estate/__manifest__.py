@@ -10,8 +10,10 @@
 		'views/estate_property_offers_views.xml',
 		'views/estate_menus.xml'
 		],
-	'image':['static/description/icon.png'],	
-	
+	'image':['static/description/icon.png'],
+	'demo': [
+        'demo/estate_property_demo_data.xml'	
+		],
 	'application': True,
 	'license': 'LGPL-3',
 }
