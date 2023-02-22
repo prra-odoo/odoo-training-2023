@@ -95,7 +95,7 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <field name="offers_id" attrs="{'readonly' : [('state', 'in',['offer_accepted','sold','cancelled'] )]}"/>
+                            <field name="offers_id" mode ='kanban' attrs="{'readonly' : [('state', 'in',['offer_accepted','sold','cancelled'] )]}"/>
                         </page>
                     </notebook>
                 </sheet>

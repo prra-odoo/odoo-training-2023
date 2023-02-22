@@ -8,9 +8,10 @@
             'views/estate_property_type_views.xml',
             'views/estate_property_tag.xml',
             'views/estate_menus.xml'
-            
     ],
-    
+    'demo':[ 'data/estate_demo_data.xml',
+    ],
+
     'application': True,
     'license': 'LGPL-3',
     'images': ['static/description/icon.png']

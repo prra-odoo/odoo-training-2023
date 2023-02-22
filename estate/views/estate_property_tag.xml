@@ -17,6 +17,7 @@
             <tree string="Tag Tree View" default_order="name" editable="bottom"> 
                 <field name="sequence" widget="handle"/>
                 <field name="name" />
+                <field name="color_tag" widget="color_picker"/>
             </tree>
         </field>
     </record>

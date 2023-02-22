@@ -18,9 +18,9 @@ class EstateProperty(models.Model):
     partner_id = fields.Many2one(
         'res.partner', string='Buyer', index=True, readonly=True)
     property_type_id = fields.Many2one(
-        'estate.property.type', required=True, index=True)
+        'estate.property.type', index=True)
     property_tag_id = fields.Many2many(
-        'estate.property.tag', relation='tag_connection', required=True)
+        'estate.property.tag', relation='tag_connection')
     postcode = fields.Char(required=True)
     date_availability = fields.Date(
         default=lambda self: fields.Datetime.now() + relativedelta(months=3), copy=False)
@@ -37,7 +37,6 @@ class EstateProperty(models.Model):
         compute="_compute_total_area", string="Total Area")
     best_offer = fields.Float(
         compute="_compute_best_offer", string="Best Offer")
-    log_access = True
     garden_orientation = fields.Selection(
         string='Garden Orientattion',
         selection=[('north', 'North'), ('south', 'South'),
@@ -113,5 +112,6 @@ class EstateProperty(models.Model):
     @api.constrains('name')
     def valid_name(self):
         for record in self:
+            # breakpoint()
             if not re.match(r'^[a-zA-Z]+$', record.name):
                 raise ValidationError("Invalid property name.")
