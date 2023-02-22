@@ -50,3 +50,5 @@ class EstatePropertyOffer(models.Model):
          'Offer price should be positive and greater than 0'
          )
     ]
+
+        

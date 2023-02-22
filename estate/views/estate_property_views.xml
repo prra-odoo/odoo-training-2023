@@ -8,12 +8,14 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <header>             
-                    <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,offer_received,offer_accepted,sold"/>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,offer_received,offer_accepted,sold"  attrs="{'invisible' : [('state','=','sold')]}"/>
                     <button name="action_sold" type="object" string="Sold" class="oe_highlight" states="offer_accepted"/>
                     <button name="action_sold" type="object" string="Sold"  states="new,offer_received"/>
                     <button name="action_canceled" type="object" string="Cancel" class="oe_highlight" states="new,offer_received,offer_accepted"/>
                 </header>
-                <sheet>                                    
+                
+                <sheet>
+                <widget name="web_ribbon" title="Sold" attrs="{'invisible' : [('state','!=','sold')]}"/>                                    
                     <h1>                
                         <field name = "name" placeholder="Name"/>
                     </h1>                    
