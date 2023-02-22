@@ -36,7 +36,7 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(compute='_compute_total_area')
     living_area = fields.Integer()
     garden = fields.Boolean(readonly=False)
-    garden_direction= fields.Selection(
+    garden_orientation= fields.Selection(
         readonly=False,
         selection = [('north','North'),('south','South'),('east','East'),('west','West')],
         compute='_compute_garden',
@@ -70,10 +70,10 @@ class EstateProperty(models.Model):
     def _compute_garden(self):
         for record in self:
             if (record.garden==1):
-                record.garden_direction = 'north'
+                record.garden_orientation = 'north'
                 record.garden_area = 10
             else:
-                record.garden_direction = ''
+                record.garden_orientation = ''
                 record.garden_area = 0
 
     def action_button_sold(self):
