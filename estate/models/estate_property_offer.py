@@ -11,7 +11,7 @@ class EstatePropertyOffer(models.Model):
 
     price=fields.Float()
     _order = "price desc"
-    status=fields.Selection(
+    state=fields.Selection(
         copy=False,
         selection=[('accepted','Accepted'),('refused','Refused')]
     )
@@ -36,6 +36,8 @@ class EstatePropertyOffer(models.Model):
          
     def _inverse_date_deadline(self):
         for record in self:
+            print(record.validity)
+            breakpoint()
             record.validity = int(record.date_deadline.strftime("%d")) - int(record.create_date.strftime("%d"))
             
         # strftime() used to convert datetime object into string
@@ -47,17 +49,18 @@ class EstatePropertyOffer(models.Model):
     
     def action_accept(self):
         for record in self.property_id.offer_ids:
-            record.status = "refused"
-            self.status = "accepted"
+            record.state = "refused"
+            self.state = "accepted"
             record.property_id.selling_price = self.price
             record.property_id.buyer_id = self.partner_id
+            record.property_id.state = "accepted"
         return True
     
     # refuse button method
     
     def action_refuse(self):
         for record in self:
-            record.status = "refused"
+            record.state = "refused"
             record.property_id.selling_price = 0
             record.property_id.buyer_id = ""
             

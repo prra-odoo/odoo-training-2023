@@ -6,14 +6,16 @@
     <field name="name">estate.offer.tree</field>
     <field name="model">estate.property.offer</field>
     <field name="arch" type="xml">
-        <tree default_order="price asc" editable="bottom">    
+        <tree default_order="price asc"
+            decoration-success = "state == 'accepted'"
+            decoration-danger = "state == 'refused'">    
             <field name="price"/>
             <field name="partner_id"/>
             <field name="validity"/>
             <field name="date_deadline"/>
-            <button name="action_accept" type="object" icon="fa-check"/>
-            <button name="action_refuse" type="object" icon="fa-times"/>
-            <field name="status" widget="badge"/>
+            <button name="action_accept" type="object" icon="fa-check" attrs="{'invisible':['|',('state','=','accepted'),('state','=','refused')]}" />
+            <button name="action_refuse" type="object" icon="fa-times" attrs="{'invisible':['|',('state','=','refused'),('state','=','accepted')]}" />
+            <field name="state" widget="badge" invisible = "1"/>       
         </tree>
     </field>
     </record>
@@ -30,7 +32,7 @@
                 <field name="validity"/>
                 <field name="date_deadline"/>
                 <field name="partner_id"/>
-                <field name="status"/> 
+                <field name="state"/> 
             </group>
 
         </sheet>

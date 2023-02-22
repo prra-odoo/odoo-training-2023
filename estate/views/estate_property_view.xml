@@ -18,7 +18,11 @@
     <field name="name">estate.property.tree</field>
     <field name="model">estate.property</field>
     <field name="arch" type="xml">
-        <tree string="estate" default_order = "selling_price desc">
+        <tree string="estate" default_order = "selling_price desc" 
+            decoration-success = "state in ('received','accepted')"
+            decoration-bf = "state == 'accepted'"
+            decoration-muted = "state == 'sold'">
+
             <field name="name" string = "Title"/>
             <field name="postcode" string = "Postcode"/>
             <field name="property_type_id" string = "Property-Type"/>
@@ -28,6 +32,7 @@
             <field name="expected_price" string = "Expected Price"/>
             <field name="selling_price" />
             <field name="date_availability" string = "Available From" optional = "hide"/>
+            <field name="state" invisible = "1"/>
             </tree>
         </field>
 </record>
@@ -39,8 +44,9 @@
         <form string="estate">
             <header>
                 <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
-                <button name="action_sold" type="object" string="SOLD"/>
-                <button name="action_cancel" type="object" string="CANCEL"/>
+                <button name="action_sold" type="object" string="SOLD" states="new,received" />
+                <button name="action_sold" type="object" string="SOLD" class="btn btn-info" states="accepted" />
+                <button name="action_cancel" type="object" string="CANCEL" states="new,received,accepted" />
             </header>
             <sheet>
                 <div class="Title">
@@ -48,7 +54,8 @@
                     <br/>
             </div>
         <!-- <label for="name" string="Hello!!!!"/>  to give label--> 
-
+            <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold' )]}" />
+            <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled' )]}" />
             <group>
                 <group>
                     <field name="tag_ids" string = "Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
@@ -75,8 +82,8 @@
                                 <field name="garage" string="Garage"/>
                                 <field name="garden" string="Garden"/>
                                 <field name="state" string="State"/>
-                                <field name="garden_area" string="Garden Area (sqms)"/>
-                                <field name="garden_orientation" string="Garden Orientation"/>
+                                <field name="garden_area" string="Garden Area (sqms)" attrs="{'invisible':[('garden','=',False)]}"/>
+                                <field name="garden_orientation" string="Garden Orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="total_area" string="Total Area(sqms)"/>
                         </group>
                     </group>
@@ -84,7 +91,7 @@
                 
                 <page string="Offer">
 
-                    <field name="offer_ids">
+                    <field name="offer_ids" attrs="{'readonly':[('state','in',['accepted','cancelled','sold'])]}">
                     </field>
                  </page>
 
