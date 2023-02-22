@@ -12,7 +12,10 @@
         'views/estate_menus.xml'
         
     ],
-    'license':'LGPL-3'
+    'license':'LGPL-3',
+    'demo':[
+        'demo/estate_property_demo_data.xml',
+    ]
 
     
 }

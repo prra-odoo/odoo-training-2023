@@ -26,7 +26,7 @@ class realProperty(models.Model):
                         "selling price cannot be less than 90% the expected price")
 
     name = fields.Char(default="unknown")
-    description = fields.Char()
+    description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Datetime(
         default=datetime.now() + relativedelta(months=3))
@@ -45,7 +45,7 @@ class realProperty(models.Model):
                    ('east', 'East'), ('west', 'West')],
         help="Select an appropriate direction",
         compute="_compute_garden", store=True, readonly=False)
-    active = fields.Boolean()
+    active = fields.Boolean(default=True)
     state = fields.Selection(string='State',
                              selection=[('new', 'New'), ('recieved', 'Offer Recieved'), (
                                  'accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')],
@@ -54,9 +54,9 @@ class realProperty(models.Model):
         "estate.property.type", name="Property Type")
     buyer_id = fields.Many2one("res.partner", name="Buyer", copy=False)
     seller_id = fields.Many2one(            
-        "res.users", name="Salesman", default=lambda self: self.env.user)
+        "res.users", name="Salesman")
     tag_ids = fields.Many2many(
-        "estate.property.tag", string="Tags", relation='tag_ids_m2m')
+        "estate.property.tag", string="Tags")
     offer_ids = fields.One2many(
         comodel_name='estate.property.offer',
         inverse_name='property_id',

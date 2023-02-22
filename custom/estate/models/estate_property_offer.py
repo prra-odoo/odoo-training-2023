@@ -10,6 +10,8 @@ class EstatePropertyType(models.Model):
 
     ]
     _order="price desc"
+
+    
     price = fields.Float()
     status = fields.Selection(string="select the status",
                               selection=[("accepted", "Accepted"),
