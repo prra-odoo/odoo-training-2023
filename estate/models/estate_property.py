@@ -48,7 +48,10 @@ class EstateProperty(models.Model):
         string="Status",
         required=True,
         copy=False,
-        default="new"
+        default="new",
+        compute="_compute_state",
+        store=True
+
     )
 
 
@@ -87,16 +90,16 @@ class EstateProperty(models.Model):
     def _compute_best_offer(self):
         for record in self:
             if self.offer_ids:
-                record.best_offer=max(self.offer_ids.mapped('price'))
+                record.best_offer=max(self.offer_ids.mapped('price'))            
             else:
                 record.best_offer=0
-
-
-
-            
                 
-        
-             
+    @api.depends('offer_ids','offer_ids.status')
+    def _compute_state(self):
+       if self.offer_ids:
+        self.state="offer_received"
+ 
+
 
                  
 

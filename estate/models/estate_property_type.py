@@ -1,4 +1,5 @@
-from odoo import fields,models
+from odoo import fields,models,api
+from odoo.exceptions import ValidationError
 
 class EstatePropertyType(models.Model):
     _name="estate.property.type"
@@ -14,3 +15,8 @@ class EstatePropertyType(models.Model):
 
 
     property_ids=fields.One2many('estate.property','property_type_id')
+
+
+                     
+             
+         
