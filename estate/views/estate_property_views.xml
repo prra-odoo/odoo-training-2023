@@ -16,20 +16,26 @@
         <field name="name">estate.property.kanban</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="property_type_id" group_create="false" group_delete="false">
-                <field name="name"/>
-                <field name="property_type_id"/>
-                <field name="description"/>
+            <kanban default_group_by="property_type_id" group_create="false" group_delete="false" records_draggable="false">
+                <field name="state"/>
+                <field name="tag_ids"/>
+                <field name="color"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click">
-                            <div class="row">
-                                <div class="col-12">
-                                    <strong>
-                                        <t t-esc="record.name.value"/>
-                                    </strong>
+                        <div t-attf-class="{{'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) }} oe_kanban_global_click">
+                            <strong><field name="name"/></strong>
+                            <div class="text-muted">
+                                Expected Price : <field name="expected_price"/>
+                                <div t-if="record.state.raw_value == 'offer_accepted'">
+                                    Selling Price : <field name="selling_price"/>
+                                </div>
+                                <div t-if="record.state.raw_value == 'offer_received'">
+                                    Best Offer : <field name="best_offer"/>
                                 </div>
                             </div>
+                            <div t-if="record.tag_ids">
+                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </div>                        
                         </div>
                     </t>
                 </templates>
@@ -61,7 +67,6 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Form View">
-                
                 <header>
                     <button name="action_sold" type="object" string="Sold" states="offer_accepted" class="oe_highlight"/>
                     <button name="action_sold" type="object" string="Sold" states="new,offer_received"/>
@@ -109,25 +114,7 @@
                             </group>
                         </page>
                         <page string="Offers">
-                            <field name="offer_ids" attrs="{'readonly':[('state','in',['offer_accepted','sold','cancelled'])]}">
-                                <kanban class="o_kanban_mobile">
-                                    <templates>
-                                        <t t-name="kanban-box">
-                                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.status.value)} oe_kanban_global_click">					
-                                                <div class="oe_kanban_details">
-                                                    <b>Price:</b> <field name="price"/><br/>
-                                                    <b>Partner:</b> <field name="partner_id"/><br/>
-                                                    <b>Validity:</b> <field name="validity"/><br/>
-                                                    <b>Deadline:</b> <field name="date_deadline"/><br/>
-                                                    <b>Status:</b> <field name="status"/><br/>
-                                                    <button name="action_accept" title="Accept" type="object" icon="fa-check" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
-                                                    <button name="action_reject" title="Refuse" type="object" icon="fa-times" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
-                                                </div>
-                                            </div>
-                                        </t>
-                                    </templates>
-                                </kanban>
-                            </field>
+                            <field name="offer_ids" mode="kanban" attrs="{'readonly':[('state','in',['offer_accepted','sold','cancelled'])]}"/>
                         </page>
                         <page string="Other info">
                             <group>
@@ -137,6 +124,10 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

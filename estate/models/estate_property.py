@@ -6,12 +6,14 @@ from odoo.tools import float_utils
 
 class EstateProperty(models.Model):
     _name="estate.property"
+    _inherit = ['mail.thread']
     _description="Estate Property Description"
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price>0)','The Expected Price must be strictly positive'),
         ('check_selling_price','CHECK(selling_price>=0)','The Selling Price must be positive')
     ]
     _order = "id desc"
+    
     
     name = fields.Char(required=True,string="Title")
     description = fields.Text()
@@ -46,6 +48,21 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer","property_id",string="Offers")
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer = fields.Float(compute="_compute_best_offer")
+    color = fields.Integer(compute="_compute_color",default=4)
+
+    @api.depends("state")
+    def _compute_color(self):
+        for record in self:
+            if(record.state=="new"):
+                record.color = 4
+            elif(record.state=="offer_received"):
+                record.color = 8
+            elif(record.state=="offer_accepted"):
+                record.color = 3
+            elif(record.state=="sold"):
+                record.color = 10
+            else:
+                record.color = 1
 
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
