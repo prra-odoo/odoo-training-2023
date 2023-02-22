@@ -10,8 +10,8 @@ class EstatePropertyOffer(models.Model):
     _sql_constraints = [
         ('validity', 'CHECK(validity >= 0)',
 'The validity should be a positive number only.')
-
     ]
+    _rec_name = "price"
 
     price = fields.Float()
     status = fields.Selection(
@@ -63,11 +63,11 @@ class EstatePropertyOffer(models.Model):
             if property.price <= 0:
                 raise exceptions.ValidationError("offer price must be positive.")
             
-    color = fields.Integer(compute="_compute_color")
-    @api.depends('status')
-    def _compute_color(self):
-        for record in self:
-            if(record.status == 'accepted'):
-                record.color = 10
-            else:
-                record.color = 2
+    # color = fields.Integer(compute="_compute_color")
+    # @api.depends('status')
+    # def _compute_color(self):
+    #     for record in self:
+    #         if(record.status == 'accepted'):
+    #             record.color = 10
+    #         else:
+    #             record.color = 2

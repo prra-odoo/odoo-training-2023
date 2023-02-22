@@ -42,7 +42,7 @@
                                     </span>
                                 </div>
                             </button>
-</div>
+                        </div>
                     <group>
                         <h1><field name="name" nolabel="1" class="oe_inline" placeholder="Property Type"/></h1>
                     </group>

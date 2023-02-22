@@ -14,7 +14,7 @@ class EstateProperty(models.Model):
 
     ]
     _order = 'id desc'
-    # _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
     # note that ordering can also be given in view file using
     # <tree string="Properties" default_order="id desc"> Here instead of _order , default_order is used
 
