@@ -3,7 +3,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="context">{'search_default_state': True}</field>
     </record>
 
@@ -80,8 +80,9 @@
                             </page>
 
                             <page string="Offers">
-                                <!-- <field name="offer_ids" attrs="{'readonly': ['|','|',('state', '=', 'offer accepted'),('state', '=', 'sold'),('state', '=', 'cancelled')]}"/> -->
-                                <field name="offer_ids" nolabel="1">
+                                <field name="offer_ids" attrs="{'readonly': [('state', 'in', ['offer accepted', 'sold', 'cancelled'])]}"/>
+                                <!-- <field name="offer_ids" mode="kanban" attrs="{'readonly': [('state', 'in', ['offer accepted', 'sold', 'cancelled'])]}"/> -->
+                                <!-- <field name="offer_ids" nolabel="1">
                                     <kanban class="o_kanban_mobile">
                                         <field name="color"/>
                                         <templates>
@@ -112,7 +113,7 @@
                                             </group>
                                         </sheet>
                                     </form>
-                                </field>
+                                </field> -->
                             </page>
                             
                             <page string="Other Info">

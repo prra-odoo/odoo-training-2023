@@ -104,3 +104,5 @@ class EstateProperty(models.Model):
             if(tools.float_compare(record.expected_price,record.selling_price,precision_digits = 2) == 1):
                 if(tools.float_compare(record.selling_price,(0.9*record.expected_price),precision_digits = 2) == -1):
                     raise exceptions.ValidationError("Selling price cannot be lower than 90'%' of the expected price.")
+
+    
