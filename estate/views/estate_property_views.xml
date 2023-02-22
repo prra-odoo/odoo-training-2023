@@ -79,7 +79,7 @@
 
                         </page>
                         <page string="Offers">
-                            <field name="offer_ids" nolabel="1" attrs="{'readonly': [('state', 'in',('offer accepted','sold','canceled'))]}"/>
+                            <field name="offer_ids" nolabel="1" attrs="{'readonly': [('state', 'in',('offer accepted','sold','canceled'))]}" mode="kanban"/>
                         </page>
                         <page string="Other Info">
                             <group>
@@ -108,12 +108,13 @@
                 <field name="bedrooms"/>
                 <field name="living_area"/>
                 <field name="facades"/>
-                <filter string="Available" name="Available" domain="[('state', '=' ,'New'),('state', '=' ,'Offer Received')]"/>
+                
                 <group string="by Postcode">
                         <filter string="Postcode" name="by postcode" context="{'group_by':'postcode'}"/>
                 </group>
                 
-                <field name="available" string="available" domain="['|', ('state', '=', 'new'), ('state', '=', offer received)]"/>
+                <filter name="available" string="available" domain="['|', ('state', '=', 'new'), ('state', '=','offer received')]"/>
+                <field name="living_area" string="Living area" filter_domain="[('living_area', '>=', self)]"/>
             </search>
 
         </field>
