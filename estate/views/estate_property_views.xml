@@ -30,6 +30,7 @@
                 <field name="selling_price"/>
                 <field name="date_availability" optional="hidden"/>
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <!-- <field name="x" /> -->
             </tree>
         </field>
     </record>
@@ -62,6 +63,7 @@
                             <field name="property_type_id" options="{'no_create': True, 'no_open': True}"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
+                            <!-- <field name="x"/> -->
                         </group>
 
                         <group>

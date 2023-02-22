@@ -58,6 +58,21 @@ class EstateProperty(models.Model):
     total_area = fields.Float(compute="_compute_total_area")
     best_price = fields.Float(compute = "_compute_best_price",default=0)
 
+
+    # x = fields.Float(compute="_compute_x",default=0)
+
+    # # X compute method
+    # @api.depends("living_area")
+    # def _compute_x(self):
+    #     print(self.name)
+    #     print("Length =",len(self),"Type =",type(self))
+    #     print("*" * 100)
+    #     self.x = self.living_area
+    #     for record in self:
+    #         print(record.name)
+    #         print("Length =",len(record))
+    #         record.x = record.living_area
+
     # Compute method for calculating total area
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
@@ -72,8 +87,10 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             record.best_price = max(record.offer_ids.mapped("price"),default=0)
-            if record.offer_ids and record.offer_ids.status=="refused" or record.offer_ids.status==False:
+            if record.offer_ids and (record.offer_ids.status=="refused" or record.offer_ids.status == False):
+                print("*" * 100)
                 record.state = "offer_received"
+        return True
 
     def action_set_state_sold(self):
         for record in self:
@@ -81,6 +98,7 @@ class EstateProperty(models.Model):
                 raise UserError("Can't set canceled property to sold")
             else:
                 record.state = "sold"
+                print(self.name)
         return True
     
     def action_set_state_cancel(self):
