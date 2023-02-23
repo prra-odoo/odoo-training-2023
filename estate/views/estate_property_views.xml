@@ -15,7 +15,7 @@
                 </header>
                 
                 <sheet>
-                <widget name="web_ribbon" title="Sold" attrs="{'invisible' : [('state','!=','sold')]}"/>                                    
+                <widget name="web_ribbon" title="Sold" bg_color="bg_danger" attrs="{'invisible' : [('state','!=','sold')]}"/>                                    
                     <h1>                
                         <field name = "name" placeholder="Name"/>
                     </h1>                    
