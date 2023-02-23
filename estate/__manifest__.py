@@ -9,7 +9,7 @@
             'views/estate_property_tag.xml',
             'views/estate_menus.xml'
     ],
-    'demo':[ 'data/estate_demo_data.xml',
+    'demo':[ 'demo/estate_demo_data.xml',
     ],
 
     'application': True,

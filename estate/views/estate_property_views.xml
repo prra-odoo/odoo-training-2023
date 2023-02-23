@@ -115,7 +115,7 @@
                 <field name="selling_price"/>
                 <field name="description"/>
                 <field name="bedrooms"/>
-                <field name="living_area" filter_domain = "['|',('living_area','=',self),('living_area','>  ',self)]"/>
+                <field name="living_area" filter_domain = "[('living_area','>=',self)]"/>
                 <field name="facades"/>
                 <field name="garage"/>
                 <field name="garden"/>

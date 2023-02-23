@@ -82,23 +82,13 @@ class EstateProperty(models.Model):
 
     def action_sold(self):
         for record in self:
-            if record.state == "sold":
-                raise UserError("This property alredy sold")
-            elif record.state == "cancelled":
-                raise UserError(
-                    "This property can not be sold because it was cancelled")
-            else:
+            if record.state != "sold":
                 record.state = "sold"
         return True
 
     def action_cancel(self):
         for record in self:
-            if record.state == "cancelled":
-                raise UserError("This property alredy cancelled")
-            elif record.state == "sold":
-                raise UserError(
-                    "This property can not be cancel because it was sold")
-            else:
+            if record.state != "cancelled":
                 record.state = "cancelled"
         return True
 
@@ -113,5 +103,5 @@ class EstateProperty(models.Model):
     def valid_name(self):
         for record in self:
             # breakpoint()
-            if not re.match(r'^[a-zA-Z]+$', record.name):
+            if not re.match(r'^[a-zA-Z ]+$', record.name):
                 raise ValidationError("Invalid property name.")
