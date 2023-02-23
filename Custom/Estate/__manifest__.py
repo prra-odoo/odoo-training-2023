@@ -14,5 +14,8 @@
         'views/estate_Type.xml',
         'views/estate_menus.xml',
     ],
+    'demo':[
+        'demo/real_estate_demo_data.xml',
+    ]
 }
 

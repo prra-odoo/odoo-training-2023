@@ -30,11 +30,16 @@
     <field name="arch" type="xml">
         <form string="estate_form">
           <header>
+            <!-- stat Buttons -->
             <button class="oe_highligh" name="sold_action_button" type="object"  string="Sold" />
             <button class="oe_highlight" name="cancel_action_button" type="object"  string="Cancel"/>
             <field name="state" widget='statusbar' options="{'clickable':'1'}"/>
           </header>
           <sheet>
+            <!-- Add a Ribbon -->
+            <widget name='web_ribbon' title='Sold' bg_color="bg-success" attrs='{"invisible": [("state", "not in", ["sold"])]}'/>
+            <widget name='web_ribbon' title='Canceled' bg_color='bg-danger' attrs='{"invisible": [("state", "not in", ["canceled"])]}'/>
+            <!-- Customer Name in Heading -->
               <h1 string="Customer Name">
                 <field name="name" placeholder="Name"/>
              </h1>
