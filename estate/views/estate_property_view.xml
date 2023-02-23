@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Blank Record(smile) -->
-    <record id="estate_property_action" model="ir.actions.act_window">
+    <record id="estate_property_action" model="ir.actions.act_window"> <!--this model in \d ir_actions-->
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
@@ -43,10 +43,11 @@
                     states="offer_accepted" />
                     <button name="action_set_sold" string="Sold" type="object"
                     states="new,offer_received,cancelled" />
-                    <button name="action_set_sold" string="Sold" type="object" states="sold"
+                    <button name="action_set_sold" string="Sold" type="object" state="sold"
                     invisible="1" />
                     <button name="action_set_cancel" string="Cancel" type="object"
                     attrs="{'invisible':[('state','=','sold')]}" />
+                    <button name="%(estate_property_tag_action)d" type="action" string="Check Acion" />
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="sold" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('offer_recived','new','canceled','offer_accepted'))]}"/>
@@ -112,8 +113,7 @@
                 <field name="bedrooms" />
                 <field name="living_area"  filter_domain="[('living_area', '>=', self)]"/>
                 <field name="facades" />
-                <filter string="Available" name="available" domain="[('state','in', ('new','offer_received'))]"  />
-                <filter string="Available" name="available" domain="[('state','in', ('new','offer_received'))]"  />
+                <filter string="Available" name="available" domain="[('state','in', ('new','offer_received'))]"/>
                 <group string="Group By">
                     <filter string="Postcode" name="gorupby_postcode" context="{'group_by':'postcode'}" />
                     <filter string="Garden" name="gorupby_garden" context="{'group_by':'garden'}" />
