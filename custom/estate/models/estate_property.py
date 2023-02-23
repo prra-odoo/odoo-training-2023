@@ -107,15 +107,17 @@ class EstateProperty(models.Model):
 
     def sold_action(self):
         for record in self:
-            if record.state=='canceled':
-                raise UserError("Canceled Propery cannot be sold")
+            if record.selling_price==0:
+                if record.state=='canceled' :
+                    raise UserError("Canceled Propery cannot be sold")
             else:
                 record.state='sold'
 
     def cancel_action(self):
         for record in self:
-            if record.state=='sold':
-                raise UserError("Sold Propery cannot be canceled")
+            if record.selling_price==0:
+                if record.state=='sold':
+                    raise UserError("Sold Propery cannot be canceled")
             else:
                 record.state='canceled'
         
