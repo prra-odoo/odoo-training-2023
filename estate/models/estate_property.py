@@ -52,8 +52,7 @@ class EstateProperty(models.Model):
 	garden_area=fields.Integer(string='Garden area',
 			help="this is for garden area",
 			compute="_compute_value",
-			store=True,
-			readonly=False)
+			store=True)
 
 	garden_orientation=fields.Selection(selection = [('north','North'),
         ('south','South'),
@@ -71,7 +70,11 @@ class EstateProperty(models.Model):
 		required=True,
 		copy=False,
 		default='new',
-		string="status")
+		string="status",
+		readonly=False,
+		store=True)
+	#for state validation
+	stage_id2=fields.Selection(related='state')
 
 	property_type_id=fields.Many2one('estate.property.type',
 		string="Property_Type")

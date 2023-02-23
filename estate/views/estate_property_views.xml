@@ -18,7 +18,7 @@
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability" optional="1"/>
-                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -33,8 +33,14 @@
                     <button name="action_sold" type="object" string="Sold" class="oe_highlight" attrs="{'invisible':[('state','in',('new','sold','offer received'))]}"/>
                     <button name="action_sold" type="object" string="Sold" attrs="{'invisible':[('state','not in',('new','offer received'))]}"/>
                     <button name="action_cancle" type="object" string="Cancle" attrs="{'invisible': [('state','=','sold')]}"/>
-                    <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,offer received,offer accepted,sold"/>
+                    <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,offer received,offer accepted,sold" attrs="{'invisible':[('state','in',('sold','canceled'))]}"/>
+                    <field name="stage_id2" widget="statusbar" statusbar_visible="new,offer received,offer accepted,sold" attrs="{'invisible':[('state','in',('new','offer received','offer accepted'))]}"/>
+                    <!--<field name="stage_id" widget="statusbar" class="o_field_statusbar"
+                            options="{'clickable': '1', 'fold_field': 'fold'}"
+                            domain="['|', ('team_id', '=', team_id), ('team_id', '=', False)]"
+                            attrs="{'invisible': ['|', ('active', '=', False), ('type', '=', 'lead')]}"/>-->
                 </header>
+                
                 <sheet>
                     <group>
                         <div>
@@ -79,7 +85,7 @@
 
                         </page>
                         <page string="Offers">
-                            <field name="offer_ids" nolabel="1" attrs="{'readonly': [('state', 'in',('offer accepted','sold','canceled'))]}" mode="kanban"/>
+                            <field name="offer_ids" nolabel="1" attrs="{'readonly': [('state', 'in',('offer accepted','sold','canceled'))]}" />
                         </page>
                         <page string="Other Info">
                             <group>
