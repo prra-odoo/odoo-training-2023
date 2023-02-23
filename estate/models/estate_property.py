@@ -120,9 +120,12 @@ class EstateProperty(models.Model):
 
     def btn_sold(self):
         for record in self:
-            if (record.state != "C"):
+            if (record.state in ["N", "OR"]):
+                raise UserError(
+                    _('Properties can only be sold after accepting an offer.'))
+            elif (record.state == "OA"):
                 record.state = 'S'
-            else:
+            elif (record.state == "C"):
                 raise UserError(
                     _('Cancelled Properties cannot be sold.'))
 
@@ -145,4 +148,4 @@ class EstateProperty(models.Model):
                 # here we need record.selling_price > desired_sell_price, therefore -1.
                 if (check_sell_price >= 0):
                     raise ValidationError(
-                        "Selling Price cannot be lower than 90% of the expected price.")
+                        "Selling Price must be greater than 90% of the expected price.")

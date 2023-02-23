@@ -15,3 +15,6 @@ class EstatePropertyType(models.Model):
 
     property_ids = fields.One2many(
         comodel_name="estate.property", inverse_name="property_type_id")
+
+    sequence = fields.Integer(
+        default=1, help="Used to order stages.", string="Sequence")

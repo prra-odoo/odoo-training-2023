@@ -6,6 +6,7 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_state': True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create Your first PropertY!
@@ -19,15 +20,17 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Channel" decoration-success="state in ['OR','OA']"
+                decoration-bf="state in ['OA']" decoration-muted="state in ['S']">
                 <field name="name" string='Title' />
                 <field name="postcode" />
                 <field name="bedrooms" />
                 <field name="living_area" string='Living Area (sqm)' />
                 <field name="expected_price" />
                 <field name="selling_price" />
-                <field name="date_availability" />
-                <field name="tag_ids" widget="many2many_tags" />
+                <field name="date_availability" optional="hide" />
+                <field name="state" optional="hide" />
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
             </tree>
         </field>
     </record>
@@ -40,7 +43,7 @@
         <field name="arch" type="xml">
             <form string="Form View String">
                 <header>
-                    <!-- "statusbar_visible" defines the states to display initially. -->
+                    <!-- "statusbar_visible" defines the states to be displayed initially. -->
                     <!-- The states not defined inside the statusbar_visible, when selected, will be
                     dynamically added to the statusbar widget. -->
                     <field name="state" widget="statusbar"
@@ -48,11 +51,13 @@
                         statusbar_visible="N,OR,OA" />
                     <button id="btn_sold" string="Sold" name="btn_sold" type="object"
                         class="btn-primary" confirm="Are you sure you want to mark this as sold ?"
-                        attrs="{'invisible': [('state', 'in', ['S','N','OR'])]}" />
+                        states="OA,C" />
+                    <button id="btn_sold_2" string="Sold" name="btn_sold" type="object"
+                        attrs="{'invisible': [('state', 'in', ['OA','C','S'])]}" />
                     <button id="btn_cancel" string="Cancel" name="btn_cancel" type="object"
                         class="btn-primary"
                         confirm="Are you sure you want to mark this as cancelled ?"
-                        attrs="{'invisible': [('state', 'in', ['C','N','OR'])]}" />
+                        states="OA,S" />
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="SOLD"
@@ -67,7 +72,8 @@
                     </div>
                     <br />
                     <group>
-                        <field name="tag_ids" widget="many2many_tags" />
+                        <field name="tag_ids" widget="many2many_tags"
+                            options="{'no_create': True,'color_field': 'color'}" />
                     </group>
                     <br />
                     <group>
@@ -84,23 +90,29 @@
                         <notebook>
                             <page name="description_page" string="Description">
                                 <group>
-                                    <field name="description" string="Description"
-                                        placeholder="Property Description..." />
-                                    <field name="bedrooms" string="Bedrooms" />
-                                    <field name="living_area" />
-                                    <field name="facades" />
-                                    <field name="garage" />
-                                    <field name="garden" />
-                                    <field name="garden_area" />
-                                    <field name="garden_orientation" />
-                                    <field name="last_seen" />
-                                    <field name="active" />
-                                    <field name="state" />
-                                    <field name="total_area" />
+                                    <group string="General Info.">
+                                        <field name="description" string="Description"
+                                            placeholder="Property Description..." />
+                                        <field name="garden" />
+                                        <field name="bedrooms" string="Bedrooms" />
+                                        <field name="living_area" />
+                                        <field name="facades" />
+                                        <field name="garage" />
+                                        <field name="last_seen" />
+                                        <field name="active" />
+                                        <field name="state" />
+                                        <field name="total_area" />
+                                    </group>
+                                    <group name="garden_data" string="Garden"
+                                        attrs="{'invisible': [('garden', '==', False)]}">
+                                        <field name="garden_area" />
+                                        <field name="garden_orientation" />
+                                    </group>
                                 </group>
                             </page>
                             <page name="offers_page" string="Offers">
-                                <field name="offer_ids" />
+                                <field name="offer_ids"
+                                    attrs="{'readonly': [('state', 'in', ['OA','S','C'])]}" />
                             </page>
                             <page name="info_page" string="Other Info">
                                 <group>
@@ -126,7 +138,8 @@
                 <field name="postcode" />
                 <field name="expected_price" />
                 <field name="bedrooms" />
-                <field name="living_area" />
+                <field name="living_area"
+                    filter_domain="[('living_area', '>=', self)]" />
                 <field name="facades" />
                 <separator />
                 <filter string="Available" name="state"

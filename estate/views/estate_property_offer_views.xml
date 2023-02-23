@@ -7,16 +7,19 @@
         <field name="name">estate.property.offer.tree</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="Channel" editable="bottom">
+            <tree string="Channel" editable="bottom" decoration-danger="status == 'ref'"
+                decoration-success="status == 'act'">
                 <field name="price" />
                 <field name="partner_id" />
                 <field name="validity" />
                 <field name="date_deadline" />
                 <button name="accept_offer" string="Accept" type="object"
-                    icon="fa-check-square-o" />
+                    icon="fa-check-square-o"
+                    attrs="{'invisible': [('status', 'in', ['act','ref'])]}" />
                 <button name="reject_offer" string="Reject" type="object"
-                    icon="fa-times-circle-o" />
-                <field name="status" />
+                    icon="fa-times-circle-o"
+                    attrs="{'invisible': [('status', 'in', ['act','ref'])]}" />
+                <field name="status" widget="badge" optional="hide" />
             </tree>
         </field>
     </record>

@@ -14,6 +14,7 @@ class EstatePropertyTag(models.Model):
 
     name = fields.Char(string='Tag Name')
     cap_name = fields.Char(compute='capital_name', store=True)
+    color = fields.Integer()
 
     # This constraint ensures that the tag name is unique.
     @api.depends("name")
