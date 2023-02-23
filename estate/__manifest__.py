@@ -1,7 +1,7 @@
 {
     'name': "Real Estate",
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['base','base_address_extended'],
     'author': "Author Name",
     'category': 'Category',
      'license': 'LGPL-3',
@@ -9,6 +9,7 @@
     'description': """
     Description text
     """,
+
         
     'data': [
         "security/ir.model.access.csv",
@@ -19,6 +20,12 @@
         "views/estate_menus.xml"
         
     ],
+
+    'demo':[
+        "demo/demo_data.xml"
+        
+    ],
+
 
     'application': True
 

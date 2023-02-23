@@ -25,9 +25,9 @@
            <field name="sequence" widget="handle"/>
            <field name="name" />
            <field name="property_type_id"/>
-           <field name="postcode" />     
+           <field name="postcode" />  
+           <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>   
            <field name="bedrooms" />
-           <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
            <field name="living_area" />
            <field name="expected_price"/>
            <field name="selling_price"/>
