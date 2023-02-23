@@ -36,10 +36,13 @@ class EstatePropertyOffer(models.Model):
          
     def _inverse_date_deadline(self):
         for record in self:
-            print(record.validity)
-            breakpoint()
-            record.validity = int(record.date_deadline.strftime("%d")) - int(record.create_date.strftime("%d"))
-            
+            if record.date_deadline <= record.create_date.date():
+                record.validity = 0
+            else :
+                diff = record.date_deadline - record.create_date.date()
+                record.validity = diff.days
+              
+        # record.validity = int(record.date_deadline.strftime("%d")) - int(record.create_date.strftime("%d"))
         # strftime() used to convert datetime object into string
         # strftime("%d") to extract date
         # strftime("%m") for month 
