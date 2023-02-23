@@ -59,10 +59,12 @@ class EstatePlan(models.Model):
     def _max_price(self):
         for highest in (self):
             if (highest.offer_ids):
+                if highest.state == "new":
+                    highest.state = "offered received"
                 highest.best_price=max(highest.offer_ids.mapped('price'))
             else:
                 highest.best_price = 0
-                
+          
     # @api.onchange("garden")
     # def _onchange_garden(self):
     #     if self.garden:
@@ -86,7 +88,6 @@ class EstatePlan(models.Model):
             self.garden=True
         else:
             self.garden = False
-
 
     def action_sold(self):
         for record in self:

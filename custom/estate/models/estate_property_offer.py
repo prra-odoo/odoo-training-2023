@@ -32,6 +32,7 @@ class EstatePropertyOffer(models.Model):
         self.status ="accepted"
         self.property_id.buyer=self.partner_id
         self.property_id.selling_price=self.price
+        self.property_id.state = "offer accepted"
         return True
     
     def action_refused(self):
@@ -40,7 +41,6 @@ class EstatePropertyOffer(models.Model):
                 record.property_id.selling_price = 0
                 record.property_id.buyer = ""
         self.status = 'refused' 
-        
         return True
     
     _sql_constraints = [
