@@ -31,6 +31,7 @@
                 <field name="property_type_id"/>
                 <!-- here in buttons we can also add the string to specify the text we want to show -->
                 <field name="status"/>
+                <field name="property_id"/>
 
             </tree>
         </field>
@@ -50,6 +51,7 @@
                         <field name="validity"/>
                         <field name="date_deadline"/>
                         <field name="status"/>
+                        <field name="property_id"/>
                     </group>
                 </group>
                 </sheet>

@@ -8,7 +8,7 @@ class EstatePropertyType(models.Model):
 
     name = fields.Char(required=True)
     property_ids = fields.One2many("estate.property","property_type_id")
-    sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")    
+    sequence = fields.Integer('Sequence', default=1, help="Used to order stages. Lower is better.")
     _sql_constraints = [
 ('name_uniq', 'unique (name)', "Property type already exists !"),
 ]
