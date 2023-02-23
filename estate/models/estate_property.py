@@ -131,7 +131,7 @@ class EstateProperty(models.Model):
 
     def btn_cancel(self):
         for record in self:
-            if (record.state != "S"):
+            if (record.state in ["OR", "OA"]):
                 record.state = 'C'
             else:
                 raise UserError(

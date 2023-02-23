@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
 
-    <!-- DEFINING the VIEWS -->
+    <!-- DEFINING the ACTION -->
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
@@ -57,13 +57,12 @@
                     <button id="btn_cancel" string="Cancel" name="btn_cancel" type="object"
                         class="btn-primary"
                         confirm="Are you sure you want to mark this as cancelled ?"
-                        states="OA,S" />
+                        states="OR,OA,S" />
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="SOLD"
                         attrs="{'invisible': [('state', 'in', ['N','OR','OA','C'])]}" />
-                    <widget name="web_ribbon" title="CANCELLED"
-                        bg_color="bg-danger"
+                    <widget name="web_ribbon" title="CANCELLED" bg_color="bg-danger"
                         attrs="{'invisible': [('state', 'in', ['N','OR','OA','S'])]}" />
                     <div class="oe_title">
                         <h1>
@@ -142,7 +141,7 @@
                     filter_domain="[('living_area', '>=', self)]" />
                 <field name="facades" />
                 <separator />
-                <filter string="Available" name="state"
+                <filter string="Available(N,OR)" name="state"
                     domain="[('state', 'in', ['N','OR'])]" />
                 <filter string="Archived" name="active" domain="[('active', '=', False)]" />
 
