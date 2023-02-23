@@ -40,12 +40,6 @@
                             <field placeholder="Property Type" name="name" />
                         </h1>
                     </div>
-                    <!-- <group>
-                        <field name="offer_ids" />
-                    </group>
-                    <group>
-                        <field name="offer_count" string="Offer Count" />
-                    </group> -->
                     <notebook>
                         <page string="Properties">
                             <field name="property_ids">

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acom.access_acom_property_model,access_acom_property_model,acom.model_acom_property_model,base.group_user,1,1,1,1
+acom.access_acom_rooms_model,access_acom_rooms_model,acom.model_acom_rooms_model,base.group_user,1,1,1,1,
+acom.access_acom_tenant_model,access_acom_tenant_model,acom.model_acom_tenant_model,base.group_user,1,1,1,1

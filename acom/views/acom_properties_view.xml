@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Blank Record -->
+    <record id="acom_property_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">acom.property.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first property
+            </p>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="acom_property_tree_view" model="ir.ui.view">
+        <field name="name">acom.property.tree</field>
+        <field name="model">acom.property.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Property Name" />
+                <field name="propAddress" optional="hide" />
+                <field name="propPostcode" optional="hide" />
+                <field name="propLocation" />
+                <field name="propFor" />
+                <field name="propOccupancy" optional="show" string="Occupied" />
+                <field name="propRentalIncome" />
+                <field name="propRoomsNumber" optional="hide" />
+                <field name="propFloors" optional="hide" />
+                <field name="propActive" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="acom_property_form_view" model="ir.ui.view">
+        <field name="name">acom.property.form</field>
+        <field name="model">acom.property.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <lable for="propName" widget="ui_improvement">Property Name</lable>
+                    <div>
+                        <h1>
+                            <field name="name" string="Property Name" />
+                        </h1>
+                        <div style="position: absolute;right: 40px;top:15px">
+                            <field name="propImg" widget="image" class="oe_right oe_avatar" nolabel="1"/>
+                        </div>
+                        <div style="margin-top:30px;"/>
+                    </div>
+                    <group name="main">
+                        <group>
+                            <field name="propAddress" />
+                            <field name="propPostcode" />
+                            <field name="propLocation" />
+                        </group>
+                        <group>
+                            <field name="propFor" />
+                            <field name="propActive" />
+                        </group>
+                    </group>
+                    <group string="stats">
+                        <field name="propOccupancy" />
+                        <field name="totalOccupancy" />
+                        <field name="propRentalIncome" />
+                    </group>
+                    <!-- Add a menu tab below in the form -->
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="propRoomsNumber" />
+                                <field name="propFloors" />
+                                <field name="propEachRoomSharing" string="Each Room Sharing" />
+                            </group>
+                        </page>
+                        <page string="Rooms">
+                            <field name="propRooms_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

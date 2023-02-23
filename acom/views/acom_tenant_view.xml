@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="acom_tenant_action" model="ir.actions.act_window">
+        <field name="name">Tenants</field>
+        <field name="res_model">acom.tenant.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first tenant
+            </p>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="acom_tenant_tree_view" model="ir.ui.view">
+        <field name="name">acom.tenant.tree</field>
+        <field name="model">acom.tenant.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Name" />
+                <field name="age" />
+                <field name="gender" />
+                <field name="dateOfJoining" string="DOJ" />
+                <field name="contact" optional="hide" />
+                <!-- <field name="nextDues" /> -->
+                <field name="propAllocated_id" string="Property Allocated" />
+                <field name="roomRef_id" string="Room Number" />
+                <field name="birthdate" optional="hide" />
+                <field name="rent" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="acom_tenant_form_view" model="ir.ui.view">
+        <field name="name">acom.tenant.from</field>
+        <field name="model">acom.tenant.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <lable for="name" widget="ui_improvement">Name</lable>
+                    <div>
+                        <h1>
+                            <field name="name" placeholder="eg. abcd xyz" />
+                        </h1>
+                        <div style="position: absolute;right: 40px;top:15px">
+                            <field name="tenantImg" widget="image" class="oe_right oe_avatar"
+                                nolabel="1" />
+                        </div>
+                        <div style="margin-top:30px;" />
+                    </div>
+
+                    <div style="margin-top:30px;" />
+                    <group name="main">
+                        <group name="group_left">
+                            <field name="contact" />
+                            <field name="gender" />
+                            <field name="birthdate" />
+                            <field name="age" />
+                            <field name="dateOfJoining" string="Date of Joining" />
+                            <field name="propAllocated_id" string="Property Allocated" />
+                            <field name="roomRef_id" string="Room Number" />
+                            <field name="rent" />
+                            <!-- <field name="nextDues" /> -->
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <!-- <record id="acom_tenant_kanban_view" model="ir.ui.view">
+        <field name="name">acom.tenant.kanban</field>
+        <field name="model">acom.tenant.model</field>
+        <field name="arch" type="xml">
+            <kanban records_draggable="false" class="o_res_partner_kanban">
+                <field name="name" string="Name" />
+                <field name="gender" />
+                <field name="id" />
+                <field name="age" />
+                <field name="color" />
+                <field name="dateOfJoining" string="Date of Joining" />
+                <field name="propAllocated_id" string="Property Allocated" />
+                <field name="roomRef_id" string="Room Number" />
+                <field name="rent" />
+                <templates class="oe_background_grey o_kanban_dashboard o_account_kanban">
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img alt="Avatar"
+                                    t-att-src="kanban_image('acom.tenant.model', 'tenantImg',record.id.value)" />
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name" />
+                                </strong>
+                                <div t-if="record.propAllocated_id.value">
+                                    <t t-esc="record.propAllocated_id.value" />
+                                </div>
+                                <div t-if="record.roomRef_id.value">
+                                    <t t-esc="record.roomRef_id.value" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record> -->
+</odoo>

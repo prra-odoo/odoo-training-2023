@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="acom_root_menu" name="Acomm" web_icon="acom,static/description/icon.png">
+        <menuitem id="acom_first_level_menu" name="Home">
+            <menuitem id="acom_third_level_home_menu" name="Properties" action="acom_property_action" />
+            <menuitem id="acom_third_level_tenant_menu" name="Tenants" action="acom_tenant_action" />
+        </menuitem>
+    </menuitem>
+</odoo>
