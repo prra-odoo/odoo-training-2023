@@ -11,10 +11,3 @@ class EstatePropertyTag(models.Model):
 
     name = fields.Char(required=True)
     color = fields.Integer()
-
-    @api.constrains("name")
-    def _constrain_name_unique(self):
-        for record in self:
-            names = [name.lower() for name in self.mapped("name")]
-            if(record.name.lower() in names):
-                raise exceptions.ValidationError("This name already exists")

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="estate_property_tag_0" model="estate.property.tag">
         <field name="name">Big</field>
         <field name="color">4</field>
