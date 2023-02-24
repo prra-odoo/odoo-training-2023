@@ -18,7 +18,7 @@
         <field name="name">acom.property.tree</field>
         <field name="model">acom.property.model</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="propFor=='boys'" decoration-success="propFor=='girls'">
                 <field name="name" string="Property Name" />
                 <field name="propAddress" optional="hide" />
                 <field name="propPostcode" optional="hide" />
@@ -28,7 +28,7 @@
                 <field name="propRentalIncome" />
                 <field name="propRoomsNumber" optional="hide" />
                 <field name="propFloors" optional="hide" />
-                <field name="propActive" optional="hide" />
+                <field name="active" optional="hide" />
             </tree>
         </field>
     </record>
@@ -46,9 +46,10 @@
                             <field name="name" string="Property Name" />
                         </h1>
                         <div style="position: absolute;right: 40px;top:15px">
-                            <field name="propImg" widget="image" class="oe_right oe_avatar" nolabel="1"/>
+                            <field name="propImg" widget="image" class="oe_right oe_avatar"
+                                nolabel="1" />
                         </div>
-                        <div style="margin-top:30px;"/>
+                        <div style="margin-top:30px;" />
                     </div>
                     <group name="main">
                         <group>
@@ -58,7 +59,7 @@
                         </group>
                         <group>
                             <field name="propFor" />
-                            <field name="propActive" />
+                            <field name="active" />
                         </group>
                     </group>
                     <group string="stats">
@@ -81,6 +82,26 @@
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="acom_property_search_view" model="ir.ui.view">
+        <field name="name">acom.property.search</field>
+        <field name="model">acom.property.model</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Property Name"/>
+                <!-- <seperator/> -->
+                <field name="propLocation" string="Location"/>
+                <field name="propPostcode" string="Postcode"/>
+                <field name="propRoomsNumber" string="No. of Rooms" filter_domain="[('propRoomsNumber','>=','self')]"/>
+                <field name="propRentalIncome" string="Rental Income" filter_domain="[('propRentalIncome','>=','self')]"/>
+                    <filter string="Active" name="active" domain="[('active','=','True')]" />
+                <group expand="1" string="Group By">
+                    <filter name="propFor" string="Gender" context="{'group_by': 'propFor'}" />
+                </group>
+            </search>
         </field>
     </record>
 </odoo>

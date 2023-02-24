@@ -16,14 +16,14 @@
         <field name="name">acom.tenant.tree</field>
         <field name="model">acom.tenant.model</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="gender=='male'" decoration-success="gender=='female'">
                 <field name="name" string="Name" />
                 <field name="age" />
                 <field name="gender" />
                 <field name="dateOfJoining" string="DOJ" />
                 <field name="contact" optional="hide" />
                 <!-- <field name="nextDues" /> -->
-                <field name="propAllocated_id" string="Property Allocated" />
+                <field name="propAllocated_id" string="Property Allocated"/>
                 <field name="roomRef_id" string="Room Number" />
                 <field name="birthdate" optional="hide" />
                 <field name="rent" />
@@ -58,8 +58,8 @@
                             <field name="birthdate" />
                             <field name="age" />
                             <field name="dateOfJoining" string="Date of Joining" />
-                            <field name="propAllocated_id" string="Property Allocated" />
-                            <field name="roomRef_id" string="Room Number" />
+                            <field name="propAllocated_id" string="Property Allocated" options="{'no_create':True,'no_open':True}"/>
+                            <field name="roomRef_id" string="Room Number" options="{'no_create':True,'no_open':True}"/>
                             <field name="rent" />
                             <!-- <field name="nextDues" /> -->
                         </group>
@@ -109,4 +109,17 @@
             </kanban>
         </field>
     </record> -->
+
+    <!-- Search View -->
+    <record id="acom_tenant_search_view" model="ir.ui.view">
+        <field name="name">acom.tenant.search</field>
+        <field name="model">acom.tenant.model</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter name="gender" string="Gender" context="{'group_by': 'gender'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 </odoo>

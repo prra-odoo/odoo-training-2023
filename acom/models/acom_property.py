@@ -20,7 +20,7 @@ class AcomPropertyModel(models.Model):
     propFor = fields.Selection(string='For',
         selection=[('boys', 'Boys'), ('girls', 'Girls')],
         help="Boys/Girls Only")
-    propActive = fields.Boolean(default = True, string="Active")
+    active = fields.Boolean(default = True, string="Active")
     propEachRoomSharing = fields.Integer()
     propRooms_ids = fields.One2many('acom.rooms.model','property_id')
     propTenatAllocation_ids = fields.One2many('acom.tenant.model','propAllocated_id')
@@ -43,6 +43,3 @@ class AcomPropertyModel(models.Model):
     def _compute_rental_income(self):
         for record in self:
             record.propRentalIncome = sum(record.propRooms_ids.tenantRef_ids.mapped("rent"))
-
-    # @api.constrains("propRooms_ids")
-    # def _check_(self):

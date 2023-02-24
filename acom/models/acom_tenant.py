@@ -15,7 +15,6 @@ class AcomPropertyModel(models.Model):
     dateOfJoining = fields.Date(required=True)
     rent=fields.Integer()
     color = fields.Integer()
-    # roomAllocated = fields.Integer(readonly=True)
     # nextDues = fields.Date()
     # nextDues = fields.Date(default = lambda self:(fields.Date.today()+relativedelta(month=+1)))
     propAllocated_id = fields.Many2one('acom.property.model')
