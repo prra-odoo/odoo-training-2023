@@ -52,7 +52,8 @@ class EstateProperty(models.Model):
 	garden_area=fields.Integer(string='Garden area',
 			help="this is for garden area",
 			compute="_compute_value",
-			store=True)
+			store=True,
+			readonly=False)
 
 	garden_orientation=fields.Selection(selection = [('north','North'),
         ('south','South'),
@@ -72,7 +73,8 @@ class EstateProperty(models.Model):
 		default='new',
 		string="status",
 		readonly=False,
-		store=True)
+		store=True,
+		compute="_compute_receive")
 	#for state validation
 	stage_id2=fields.Selection(related='state')
 
@@ -143,5 +145,7 @@ class EstateProperty(models.Model):
 			if not float_is_zero(record.expected_price,precision_digits=2) and not float_is_zero(record.selling_price,precision_digits=2):
 				if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
 					raise odoo.exceptions.ValidationError("selling price must not be lower than 90 persent of exception price.")'''
-
-	
+	@api.depends('offer_ids')
+	def _compute_receive(self):
+		if self.offer_ids:
+			self.state="offer received"
