@@ -15,7 +15,7 @@
                 </header>
                 
                 <sheet>
-                <widget name="web_ribbon" title="Sold" bg_color="bg_danger" attrs="{'invisible' : [('state','!=','sold')]}"/>                                    
+                <widget name="web_ribbon" title="Sold" bg_color="bg-danger" attrs="{'invisible' : [('state','!=','sold')]}"/>                                    
                     <h1>                
                         <field name = "name" placeholder="Name"/>
                     </h1>                    
@@ -50,7 +50,8 @@
                             </page>  
 
                             <page string="Offers">
-                                <field name = "offer_ids" attrs="{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','canceled')]}"/>
+                                <field name = "offer_ids" 
+                                attrs="{'readonly':['|',('state','=','offer_accepted'),'|',('state','=','sold'),('state','=','canceled')]}" />
                             </page>  
                             
                             <page string="Other info">
