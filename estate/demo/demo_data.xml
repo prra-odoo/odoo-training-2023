@@ -31,6 +31,7 @@
       <field name="garden_area">100000</field>
       <field name="garden_orientation">S</field>
       <field name="property_type_id" ref="type_land"/>
+      <field name="offer_ids" eval="[(0,0,{'price':170000,'validity':7}),(0,0,{'price':180000,'validity':8})]"/>
    </record>
  
 </odoo>
