@@ -22,7 +22,14 @@
         
         'views/estate_menu.xml',
         
-    ]
+    ],
+
+    'demo' : [
+        'demo/estate_property_data.xml',
+        'demo/estate_property_type_data.xml',
+        'demo/estate_property_tag_data.xml',
+
+    ],
     
 
 }

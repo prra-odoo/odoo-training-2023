@@ -100,14 +100,14 @@
                         </page>
                         
                         <!-- list view -->
-                        <!-- <page string="Offers">
+                        <page string="Offers">
                             
                             <field name="offer_ids" attrs="{'readonly':['|','|',('state', '=' , 'sold'),('state', '=' , 'accepted'),('state', '=' , 'canceled')]}" />
                             
-                        </page> -->
+                        </page>
 
                         <!-- kanban view -->
-                        <page string="Offers">
+                        <!-- <page string="Offers">
                             
                             <field name="offer_ids" widget="one2many" mode="kanban">
                                 
@@ -143,13 +143,12 @@
                                     </templates>
                                 </kanban>
                             </field>
-                        </page>
+                        </page> -->
 
                         <page string="Other Info">
                             <group>
-                                <field name="salesmans" widget="many2one_avatar_user"/>
-                                <field name="buyer" />
-                                
+                                <field name="salesmans_id" widget="many2one_avatar_user"/>
+                                <field name="buyer_id"/>
                             </group>
                         </page>
                         

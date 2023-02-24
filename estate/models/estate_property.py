@@ -44,8 +44,8 @@ class EstateProperty(models.Model):
     property_tag_ids = fields.Many2many('estate.property.tag', string="Property Tag", relation="tag_table")
     offer_ids = fields.One2many('estate.property.offer',"property_id",string="Offers")
     
-    buyer = fields.Many2one('res.partner',copy=False, readonly=True)
-    salesmans = fields.Many2one('res.users', default=lambda self:self.env.user)
+    buyer_id = fields.Many2one('res.partner',copy=False, readonly=True)
+    salesmans_id = fields.Many2one('res.users', default=lambda self:self.env.user)
 
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
 
@@ -72,9 +72,12 @@ class EstateProperty(models.Model):
     def _compute_best_offer(self):
         for record in self:
             if(record.offer_ids):
+                record.state = 'received'
                 record.best_price = max(record.offer_ids.mapped('price'))
             else: 
                 record.best_price = 0.0
+
+    
     
     # api.onchange use to set dependancy on function when parameter field change data it call automatically
     @api.depends('garden')
@@ -85,6 +88,20 @@ class EstateProperty(models.Model):
         else:
             self.garden_area = 0
             self.garden_orientation = '' 
+    
+    @api.constrains('selling_price','expected_price')
+    def _check_selling_price(self):
+        for record in self:
+            # if(record.selling_price < (record.expected_price*0.9)):
+            #     raise ValidationError('Selling price is more less than experted price ')
+            if(not((float_is_zero(value=record.selling_price, precision_digits=2)))
+               and
+               not (float_is_zero(value=record.expected_price, precision_digits=2))):
+                if(float_compare(value1=record.selling_price, value2=(record.expected_price* 0.9), precision_digits=2) == -1):
+                
+                    raise ValidationError('Selling price is more less than experted price ')
+    
+    
     
     #sold button action
     def action_do_sold(self):
@@ -101,17 +118,5 @@ class EstateProperty(models.Model):
             record.state = "canceled"
         return True
     
-
-    @api.constrains('selling_price','expected_price')
-    def _check_selling_price(self):
-        for record in self:
-            # if(record.selling_price < (record.expected_price*0.9)):
-            #     raise ValidationError('Selling price is more less than experted price ')
-            if(not((float_is_zero(value=record.selling_price, precision_digits=2)))
-               and
-               not (float_is_zero(value=record.expected_price, precision_digits=2))):
-                if(float_compare(value1=record.selling_price, value2=(record.expected_price* 0.9), precision_digits=2) == -1):
-                
-                    raise ValidationError('Selling price is more less than experted price ')
 
     
