@@ -5,9 +5,5 @@
       <field name="name">Test Name</field>
       <field name="description">Test Description</field>
     </record>
-    <record id="id2" model="estate.property">
-      <field name="name">Test Name 2</field>
-      <field name="description">Test Description 2</field>
-    </record>
   </data>
 </odoo>

@@ -25,11 +25,11 @@ class EstateProperty(models.Model):
     garage = fields.Boolean()
     state = fields.Selection(
         string = 'State', 
-        default = 'offer received',
+        default = 'new',
         selection = [('new','New'),('offer received','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         help = 'Choose the direction',
         required = True,
-        copy = False
+        copy = False,
     )
     offer_ids = fields.One2many('estate.property.offer', 'property_id')
     best_price = fields.Float(compute='_compute_best_price')
@@ -64,7 +64,13 @@ class EstateProperty(models.Model):
     @api.depends('offer_ids')
     def _compute_best_price(self):
         for record in self:
-            record.best_price = max(record.offer_ids.mapped('price'),default=0)
+            if record.offer_ids:
+                if record.state == 'new':
+                    record.state = 'offer received'
+                record.best_price = max(record.offer_ids.mapped('price'),default=0)
+            else:
+                record.best_price = 0
+                record.state = 'new'
 
     @api.depends('garden')
     def _compute_garden(self):
