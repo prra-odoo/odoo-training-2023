@@ -117,7 +117,7 @@
             <field name = "living_area" string ="Living Area(sqm)" filter_domain="[('living_area','>=',self)]"/>
             <field name = "facades"/>
             <field name = "property_tag_ids"/>
-            <filter string = "Available" name = "state" domain="['|',('state','=','new'),('state','=','offered received')]"/>
+            <filter string = "Available" name = "state" domain="[('state','in',['offered received','new'])]"/>
             <group expand = '1' string ="Group By">
                 <filter string = "Postcode" name="postcode" context = "{'group_by':'postcode','residual_visible':True}"/> 
             </group>

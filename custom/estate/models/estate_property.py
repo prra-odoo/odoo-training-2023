@@ -11,7 +11,7 @@ class EstatePlan(models.Model):
    
     name = fields.Char(required=True, string="Title")
     property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
-    property_tag_ids = fields.Many2many("estate.property.tag", string="Property Tags")
+    property_tag_ids = fields.Many2many("estate.property.tag", string="Property Tags",column1='left', column2='right')
     active = fields.Boolean(default = True)
     description = fields.Text()
     # state = fields.Text()
@@ -64,7 +64,7 @@ class EstatePlan(models.Model):
                 highest.best_price=max(highest.offer_ids.mapped('price'))
             else:
                 highest.best_price = 0
-          
+
     # @api.onchange("garden")
     # def _onchange_garden(self):
     #     if self.garden:
