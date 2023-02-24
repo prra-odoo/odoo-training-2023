@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError,ValidationError
+from odoo.tools import float_compare,float_is_zero
 
 
 class TestModel(models.Model):
@@ -39,47 +40,7 @@ class TestModel(models.Model):
     tag_ids = fields.Many2many('estate.property.tag', string="estate_tags")
     offer_ids = fields.One2many('estate.property.offer',"property_id")
     total_area = fields.Integer(compute="_compute_total_area")
-    best_offer= fields.Integer(compute="_compute_best_offer")
-
-    @api.depends("garden_area","living_area")
-    def _compute_total_area(self):
-        for record in self:
-            record.total_area= record.living_area + record.garden_area
-
-    @api.depends("offer_ids")
-    def _compute_best_offer(self):
-        for record in self:
-            if(record.offer_ids):
-                # record.offer_ids.mapped('price')   Different  way of doing 
-                record.best_offer = max(offer.price for offer in record.offer_ids)                           
-            else:
-                record.best_offer = 0
-
-    @api.depends("garden")
-    def _compute_garden_fields(self):
-        for record in self:
-            if record.garden:
-                record.garden_area = 10
-                record.garden_orientation = 'north'
-            else:
-                record.garden_area = 0
-                record.garden_orientation = None
-
-
-    def sold_action_button(self):
-        if self.state == "canceled":
-            raise UserError('Cancelled properties cannot be sold.')
-
-    def cancel_action_button(self):
-        if self.state == "sold":
-            raise UserError("Sold property cant't be cancelled")
-
-
-
-    # _sql_constraints=[(
-    #     'expected_price_check',
-    #     'CHECK(expected_price>0)',
-    #     'Expected Price Must Be Strongly Positive')]
+    best_offer= fields.Integer(compute="_compute_best_price")
 
     _sql_constraints=[(
         'selling_price_positive','CHECK(selling_price>0)',
@@ -90,15 +51,53 @@ class TestModel(models.Model):
         'CHECK(expected_price > 0)',
         'Expected Price Must be Positive')
     ]
-    
 
-    @api.constrains('selling_price')
-    def find_selling_price(self):
-        # breakpoint()
+    @api.constrains('selling_price','expected_price')
+    def _check_selling_price(self):
         for record in self:
-            ten=record.expected_price*10/100
-            actual=record.expected_price-ten
-            if record.selling_price <actual:
-                raise ValidationError("Selling price is not close to expected price")
+            sp = (90 * record.expected_price) / 100
+            if(not float_is_zero(record.selling_price, precision_rounding=0.01)):
+                if (float_compare(sp,record.selling_price, precision_rounding=0.01) >= 0):
+                    raise ValidationError("The selling price must be at least 90% of the expected price! You must reduce the expected price if you want to accept this offer.")
+
+    @api.depends("garden_area","living_area")
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area= record.living_area + record.garden_area
+
+    @api.depends("offer_ids")
+    def _compute_best_price(self):
+        for record in self:
+            if(record.offer_ids):
+                if record.state=="new":
+                    record.state="offer received"
             else:
-                pass
+                record.state="new"
+            record.best_offer = max(record.mapped("offer_ids.price"),default=0)
+
+    @api.depends("garden")
+    def _compute_garden_fields(self):
+        for record in self:
+            if record.garden:
+                record.garden_area = 10
+                record.garden_orientation = 'north'
+            else:
+                record.garden_area = 0
+                record.garden_orientation = None
+            # SOLD BUTTON IN FORM
+    def sold_action_button(self):
+        for record in self:
+            if record.state == "canceled":
+                raise UserError('Cancelled properties cannot be sold.')
+            else:
+                self.state='sold'
+            # CANCEL BUTTON IN FORM
+    def cancel_action_button(self):
+        for record in self:
+            if record.state == "sold":
+                raise UserError("Sold property cant't be cancelled")
+            else:
+                record.state='canceled'
+
+
+

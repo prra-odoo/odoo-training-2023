@@ -35,15 +35,20 @@ class EstateOffers(models.Model):
 
     def accept_action_estate_offer(self):
         self.status="accepted"
+        self.property_id.state='offer accepted'
         self.property_id.selling_price= self.price
         self.property_id.buyer_id=self.partner_id
+        
 
     def refuse_action_estate_offer(self):
         self.status="refused"
         self.property_id.selling_price= 0.0
+        # self.property_id.selling_price = 0
+        self.property_id.buyer_id = None
 
 
 
+       
 
 
 
