@@ -38,8 +38,8 @@
                     <button name="action_sold" string="Sold" states="new,offer received" type="object"/>
                     <button name="action_sold"  string="Sold" states="offer accepted" class="oe_highlight" type="object"/>
                     <button name="action_cancel" string="Cancel" states="new,offer received,offer accepted" type="object"/>
-                        
-                    <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>    
+                    <!-- <field name="state" widget="statusbar" attrs="{'clickable':[('state','in',['new','offer recieved','offer accepted'])]}"/> -->
                 </header>        
                 <sheet>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>

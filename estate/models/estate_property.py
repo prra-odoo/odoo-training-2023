@@ -21,9 +21,8 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
-    garden_area = fields.Integer(compute = "_compute_garden_values", readonly = False, store = True)
+    garden_area = fields.Integer(readonly = False, store = True)
     garden_orientation = fields.Selection(
-        compute = "_compute_garden_values",
         readonly = False,
         string='Orientation',
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')],
@@ -45,7 +44,10 @@ class EstateProperty(models.Model):
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):
         for record in self:
-            record.total_area = record.living_area + record.garden_area
+            if (record.garden==True):
+                record.total_area = record.living_area + record.garden_area
+            else:
+                record.total_area = record.living_area
 
     best_price = fields.Float(compute="_compute_best_price",store=True)
     @api.depends("offer_ids")
@@ -62,35 +64,37 @@ class EstateProperty(models.Model):
                 if(not record.offer_ids):
                     record.state = "new"
 
-    @api.depends('garden')
-    def _compute_garden_values(self):
-        for record in self:
-            if (record.garden == True):
-                record.garden_area = 10
-                record.garden_orientation = 'north'
+    # @api.depends('garden')
+    # def _compute_garden_values(self):
+    #     for record in self:
+    #         if (record.garden == True):
+    #             record.garden_area = 10
+    #             record.garden_orientation = 'north'
             
-            else:
-                record.garden_area = 0
-                record.garden_orientation = ''
+    #         else:
+    #             record.garden_area = 0
+    #             record.garden_orientation = ''
             
     def action_sold(self):
         for record in self:
-            if record.state == 'cancelled':
-                raise exceptions.UserError("Cancelled properties cannot be sold.")
-            else: record.state = 'sold'
+            record.state = 'sold'
+            # if record.state == 'cancelled':
+            #     raise exceptions.UserError("Cancelled properties cannot be sold.")
+            # else: record.state = 'sold'
 
     def action_cancel(self):
         for record in self:
-            if record.state == 'sold':
-                raise exceptions.UserError("Sold properties cannot be cancelled.")
-            else:record.state = 'cancelled'
+            record.state = 'cancelled'
+            # if record.state == 'sold':
+            #     raise exceptions.UserError("Sold properties cannot be cancelled.")
+            # else:record.state = 'cancelled'
 
     # now to check that the selling price is not less than 90% of its expected price
     #    -1 : If the first value is less than the second value.
     #    0 : If the first value is equal to the second value.
     #    1 : If the first value is greater than the second value.
 
-    # @api.constrains('expected_price', 'selling_price')
+    # @api.constrains('expected_price')
     # def _selling_price(self):
     #     for record in self:
     #         if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
