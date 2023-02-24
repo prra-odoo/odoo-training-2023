@@ -140,11 +140,10 @@
                 <field name="living_area"
                     filter_domain="[('living_area', '>=', self)]" />
                 <field name="facades" />
-                <separator />
                 <filter string="Available(N,OR)" name="state"
                     domain="[('state', 'in', ['N','OR'])]" />
+                <separator />
                 <filter string="Archived" name="active" domain="[('active', '=', False)]" />
-
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode"
                         context="{'group_by':'postcode', 'state':'OR'}" />

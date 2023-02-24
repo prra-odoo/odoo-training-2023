@@ -149,3 +149,8 @@ class EstateProperty(models.Model):
                 if (check_sell_price >= 0):
                     raise ValidationError(
                         "Selling Price must be greater than 90% of the expected price.")
+
+    # @api.constrains("state")
+    # def check_state(self):
+    #     if (not self.offer_ids):
+    #         raise UserError("Nai chalega!!")
