@@ -9,6 +9,15 @@ class EstateProperty(models.Model):
     _description = "estate_property Model"
     _order ="id desc"
 
+    _sql_constraints = [
+        ('check_expected_price',
+        'CHECK(expected_price > 0)',
+        'Expected Price Must be Positive'),
+        ('check_selling_price',
+        'CHECK(selling_price > 0)',
+        'Selling Price Must be Positive'),
+    ]
+
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char(required=True)
@@ -41,7 +50,7 @@ class EstateProperty(models.Model):
     user_id = fields.Many2one(comodel_name='res.users', string='Salesperson',
                               index=True, default=lambda self: self.env.user)
     buyer_id=fields.Many2one(comodel_name='res.partner',string='Buyer',index=True)
-    property_type_id = fields.Many2one(comodel_name='estate.property.type',required=True,index=True)
+    property_type_id = fields.Many2one(comodel_name='estate.property.type',index=True)
     tag_ids = fields.Many2many(comodel_name='estate.property.tags',relation='tag_table',required=True)
     offer_ids=fields.One2many(comodel_name='estate.property.offers',inverse_name='property_id') 
 
@@ -54,8 +63,7 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             if(record.offer_ids):
-                if record.state=="new":
-                    record.state="offer_recieved"
+                record.state="offer_recieved"
             else:
                 record.state="new"
             record.best_price = max(record.mapped("offer_ids.price"),default=0)
@@ -111,14 +119,6 @@ class EstateProperty(models.Model):
     #     'Bedrooms must be more than 1')
     # ]
 
-    _sql_constraints = [
-        ('check_expected_price',
-        'CHECK(expected_price > 0)',
-        'Expected Price Must be Positive'),
-        ('check_selling_price',
-        'CHECK(selling_price > 0)',
-        'Selling Price Must be Positive'),
-    ]
 
     @api.constrains('expected_price','selling_price')
     def _validate_expected_price(self):

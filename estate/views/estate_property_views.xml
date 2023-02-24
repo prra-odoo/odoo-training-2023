@@ -117,7 +117,7 @@
 				<field name="property_type_id" string="Property Type"/>
 				<field name="description"/>
 				<field name="bedrooms"/>
-				<field name="living_area" filter_domain="['|', ('living_area', 'ilike', 'self')]"/>
+				<field name="living_area" filter_domain="[('living_area', 'ilike', 'self')]"/>
 				<field name="facades"/>
 				<field name="garage"/>
 				<field name="garden"/>

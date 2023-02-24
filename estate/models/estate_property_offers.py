@@ -7,6 +7,15 @@ class EstatePropertyOffers(models.Model):
     _description = "estate property offer Model"
     _order = "price desc"
 
+    _sql_constraints = [
+        ('check_price',
+        'CHECK(price > 0)',
+        'Offer Price Must be Positive'),
+        ('check_validity',
+        'CHECK(validity > 0)',
+        'Validity Must be more than 0!!')
+    ]
+
     price = fields.Float(string='Price')
     status = fields.Selection(
         selection=[('accepted','Accepted'),('refused','Refused')],
@@ -60,11 +69,3 @@ class EstatePropertyOffers(models.Model):
         self.property_id.buyer_id = None
         return True
             
-    _sql_constraints = [
-        ('check_price',
-        'CHECK(price > 0)',
-        'Offer Price Must be Positive'),
-        ('check_validity',
-        'CHECK(validity > 0)',
-        'Validity Must be more than 0!!')
-    ]
