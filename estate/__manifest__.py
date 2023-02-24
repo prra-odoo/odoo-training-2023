@@ -10,9 +10,9 @@
         'views/estate_menus.xml',
     ],
     
-    'demo':[
-        'demo/demo_data.xml'      
-    ],
+    # 'demo':[
+    #     'demo/demo_data.xml'      
+    # ],
     'installable':True,
     'application':True,
     'license':'LGPL-3', 

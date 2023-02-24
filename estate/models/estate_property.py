@@ -60,6 +60,7 @@ class EstateProperty(models.Model):
         for record in self:
             if record.offer_ids.mapped("price"):
                 record.best_offer = max(record.offer_ids.mapped("price"))
+                record.state = 'received'
             else:
                 record.best_offer = 0
     
@@ -112,7 +113,5 @@ class EstateProperty(models.Model):
             ):
    
                 raise ValidationError("The selling price must be atleast '90%' 0f expected price")
-            
-                
-            
-            
+    
+    

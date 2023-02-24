@@ -43,7 +43,7 @@
     <field name="arch" type="xml">
         <form string="estate">
             <header>
-                <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                <field name="state" widget="statusbar" options="{'clickable': '1'}" attrs="{'invisible':[('state','in',['sold','cancelled'])]}"/>
                 <button name="action_sold" type="object" string="SOLD" states="new,received" />
                 <button name="action_sold" type="object" string="SOLD" class="btn btn-info" states="accepted" />
                 <button name="action_cancel" type="object" string="CANCEL" states="new,received,accepted" />
@@ -81,7 +81,7 @@
                                 <field name="facades" string="Facades"/>
                                 <field name="garage" string="Garage"/>
                                 <field name="garden" string="Garden"/>
-                                <field name="state" string="State"/>
+                                <field name="state" string="State" attrs="{'readonly':[('state','in',['sold','cancelled'])]}"/>
                                 <field name="garden_area" string="Garden Area (sqms)" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="garden_orientation" string="Garden Orientation" attrs="{'invisible':[('garden','=',False)]}"/>
                                 <field name="total_area" string="Total Area(sqms)"/>
