@@ -6,6 +6,7 @@ from odoo.tools.float_utils import float_compare,float_is_zero
 
 class EstateProperty(models.Model):
     _name = "estate.property"
+    _inherit = "estate.x"
     _description = "It's a estate prooperty module"
     _order = "id desc"
     _sql_constraints = [
@@ -87,9 +88,9 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             record.best_price = max(record.offer_ids.mapped("price"),default=0)
-            if record.offer_ids and (record.offer_ids.status=="refused" or record.offer_ids.status == False):
-                print("*" * 100)
-                record.state = "offer_received"
+            # if record.offer_ids and (record.offer_ids.status=="refused" or record.offer_ids.status == False):
+            #     print("*" * 100)
+            #     record.state = "offer_received"
         return True
 
     def action_set_state_sold(self):

@@ -4,4 +4,5 @@ class EstateX(models.Model):
     _name = "estate.x"
     _description = "nothing"
 
-    name = fields.Char()
+    x = fields.Integer()
+    y = fields.Char()
