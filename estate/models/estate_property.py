@@ -6,7 +6,7 @@ from odoo.tools.rendering_tools import relativedelta_proxy
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description='Real Estate Property'
-    
+        
     name = fields.Char(required=True)
     description = fields.Char()
     _order = "id desc"
@@ -43,6 +43,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
     total_area = fields.Integer(compute="_compute_total")
     best_offer = fields.Float(compute = "_compute_bestoffer")
+    user_id = fields.Many2one("res.users")
     
     #compute for total_area
     
@@ -114,4 +115,4 @@ class EstateProperty(models.Model):
    
                 raise ValidationError("The selling price must be atleast '90%' 0f expected price")
     
-    
+         
