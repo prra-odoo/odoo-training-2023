@@ -8,6 +8,10 @@ class EstatePropertyOffer(models.Model):
     _description="Estate Property Offer"
     _order="price desc"
   
+    _sql_constraints=[
+        ('check_price','CHECK(price > 0)','Offer price must be positive')
+    ]
+
 
 
     price=fields.Float(string="Price")
@@ -21,10 +25,10 @@ class EstatePropertyOffer(models.Model):
 
     validity=fields.Integer(string="Validity",default="7")
     date_deadline=fields.Date(string="Deadline",compute="_compute_date_deadline",inverse="_inverse_date_deadline")
-    
-    _sql_constraints=[
-        ('check_price','CHECK(price > 0)','Offer price must be positive')
-    ]
+
+    property_type_id=fields.Many2one(related="property_id.property_type_id",store=True)
+
+
    
 
     @api.depends("create_date", "validity")

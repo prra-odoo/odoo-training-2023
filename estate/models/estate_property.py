@@ -7,7 +7,7 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Property"
     _order="sequence,id desc"
-  
+    _inherit = 'inherit.fields'  
 
     name=fields.Char(required=True)
     description=fields.Char()
@@ -67,6 +67,9 @@ class EstateProperty(models.Model):
     salesperson_id=fields.Many2one('res.users',string="Salesman",default=lambda self:self.env.user)
     tag_ids=fields.Many2many('estate.property.tag',relation="tag_property")
     offer_ids=fields.One2many('estate.property.offer','property_id',string="Offer")
+
+
+
 
     @api.constrains('selling_price')
     def _check_selling_price(self):
@@ -129,3 +132,8 @@ class EstateProperty(models.Model):
        
            
 
+class InheritedProperty(models.Model):
+        _inherit = "estate.property"
+
+        price=fields.Integer()
+        date=fields.Date()
