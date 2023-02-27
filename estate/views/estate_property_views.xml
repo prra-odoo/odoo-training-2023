@@ -10,7 +10,7 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Channel" expand="1" decoration-success="offer_ids and state != 'sold'" decoration-bf="state == 'offer accepted'" decoration-muted="state == 'sold'">
+            <tree string="Channel" expand="1" decoration-success="state in ['offer received','offer accepted']" decoration-bf="state == 'offer accepted'" decoration-muted="state == 'sold'">
                 <field name="name" string="Title"/>
                 <field name="property_type_id" string="Property Type"/>
                 <field name="postcode"/>
@@ -54,6 +54,8 @@
                             <field name="expected_price"/>
                             <field name="selling_price"/>
                             <field name="best_price"/>
+                            <field name="price"/>
+                            <field name="deadline"/>
                         </group>
                         <notebook>
                             <page string="Description">
