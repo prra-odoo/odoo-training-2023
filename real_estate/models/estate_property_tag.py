@@ -7,6 +7,8 @@ class EstatePropertyTag(models.Model):
 
     name = fields.Char(required=True)
     color=fields.Integer()
+    sequence = fields.Integer(string="Sequence", default=1)
+
 
     #A property tag name must be unique
     _sql_constraints = [

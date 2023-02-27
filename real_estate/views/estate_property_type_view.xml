@@ -10,7 +10,7 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <tree string="Prpperties" editable="bottom">
+            <tree string="Prpperties" expand="1">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
             </tree>

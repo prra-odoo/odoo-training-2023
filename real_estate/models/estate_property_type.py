@@ -3,7 +3,7 @@ from odoo import fields,models
 class EstatePropertyType(models.Model):
     _name = "estate.property.type"
     _description = "Estate Properties"
-    _order="sequence,name,id"
+    _order="name"
 
     name = fields.Char(required=True)
 
@@ -13,7 +13,7 @@ class EstatePropertyType(models.Model):
     ]
 
     property_ids = fields.One2many("estate.property", "property_type_id")
-    sequence = fields.Integer('Sequence', default=1)
+    sequence = fields.Integer(string="Sequence", default=1)
 
 
    
