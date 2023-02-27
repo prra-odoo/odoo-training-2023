@@ -15,6 +15,7 @@ class EstatePropertyModel(models.Model):
         )
     ]
     _order="id desc"
+    _inherit="estate.property.x"
 
     name = fields.Char(required=True)
     description = fields.Char()
