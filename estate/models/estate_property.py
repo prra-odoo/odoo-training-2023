@@ -5,6 +5,7 @@ from odoo.tools.float_utils import float_is_zero,float_compare
 
 class EstateProperty(models.Model):
 	_name='estate.property'
+	_inherit="model.test"
 	_description='demo model with property trsting'
 	_order="id desc"
 
@@ -136,9 +137,6 @@ class EstateProperty(models.Model):
 	]
 
 
-	
-
-	
 	'''@api.constrains('expected_price','selling_price')
 	def check_exp_price(self):
 		for record in self:
@@ -149,3 +147,12 @@ class EstateProperty(models.Model):
 	def _compute_receive(self):
 		if self.offer_ids:
 			self.state="offer received"
+
+	user_id=fields.Many2one("res.users")
+
+class ResUser(models.Model):
+	_inherit="estate.property"
+
+	price=fields.Float()
+	date=fields.Date()
+	facecode=fields.Char()
