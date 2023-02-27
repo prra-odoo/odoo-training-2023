@@ -8,7 +8,9 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate_property Model"
     _order ="id desc"
+    _inherit = "prototype.prototype" 
 
+# -*- Constraints Selction -*-
     _sql_constraints = [
         ('check_expected_price',
         'CHECK(expected_price > 0)',
@@ -18,6 +20,7 @@ class EstateProperty(models.Model):
         'Selling Price Must be Positive'),
     ]
 
+# -*- Field Selction -*-
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char(required=True)
@@ -54,6 +57,7 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many(comodel_name='estate.property.tags',relation='tag_table',required=True)
     offer_ids=fields.One2many(comodel_name='estate.property.offers',inverse_name='property_id') 
 
+# -*- Business Logic Selction -*-
     @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
         for record in self:
@@ -125,3 +129,9 @@ class EstateProperty(models.Model):
         for record in self:
             if float_compare(self.expected_price*0.9, self.selling_price, precision_digits=2) == 1 and self.offer_ids:
                 raise ValidationError("The selling price must be minimum 90% of the Expected Price")
+
+class ResUsers(models.Model):
+    _inherit = "res.users"
+
+    property_ids = fields.One2many('estate.property','user_id')
+    # temp = fields.Char()
