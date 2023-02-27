@@ -8,15 +8,17 @@ class EstatePlan(models.Model):
     _name = "estate.property"
     _description = "estate property"
     _order = "id desc"
+    _inherit="estate.inheritance"
+
    
-    name = fields.Char(required=True, string="Title")
+    # name = fields.Char(required=True, string="Title")
     property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
-    property_tag_ids = fields.Many2many("estate.property.tag", string="Property Tags",column1='left', column2='right')
+    property_tag_ids = fields.Many2many("estate.property.tag", string="Property Tags")
     active = fields.Boolean(default = True)
     description = fields.Text()
     # state = fields.Text()
-    postcode = fields.Char()
-    dateavailability = fields.Date(copy=False, default=lambda self: fields.Date.today()+relativedelta(months=3))
+    # postcode = fields.Char()
+    # dateavailability = fields.Date(copy=False, default=lambda self: fields.Date.today()+relativedelta(months=3))
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True,copy=False)
     bedrooms = fields.Integer(default=2)
