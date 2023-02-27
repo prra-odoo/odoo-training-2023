@@ -19,7 +19,7 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one('estate.property',required=True)
 
     validity = fields.Integer(string="Validity", default=7)
-    property_type_id = fields.Many2one('estate.property.type',related = "property_id.property_type_id",
+    property_type_id = fields.Many2one('estate.property.type',related = "property_id.property_type_id" ,
                                         string="Property Type", store=True)
     #extra field for kanban view
     color = fields.Integer(string="Color", compute="_compute_color")

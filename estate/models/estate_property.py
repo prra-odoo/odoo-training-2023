@@ -7,6 +7,7 @@ from odoo.tools.float_utils import float_compare, float_is_zero
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate property detailed field"
+    _inherit = "estate.new"
     _order = "id desc"    # _order use to change display record in the list view by default on id and asc order
    
     name = fields.Char(required=True)
@@ -46,6 +47,7 @@ class EstateProperty(models.Model):
     
     buyer_id = fields.Many2one('res.partner',copy=False, readonly=True)
     salesmans_id = fields.Many2one('res.users', default=lambda self:self.env.user)
+    user_id = fields.Many2one('res.users',string="User")
 
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
 
@@ -119,4 +121,7 @@ class EstateProperty(models.Model):
         return True
     
 
-    
+class Users(models.Model):
+    _inherit = "res.users"
+
+    property_ids = fields.One2many("estate.property","user_id", string="Properties")
