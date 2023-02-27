@@ -9,10 +9,10 @@ class EstateProperty(models.Model):
     _description = "This is a real-estate property model"
     _order="id desc"
     _sql_constraints=[
-         ('check_expected_price',
-         'CHECK(expected_price > 0)',
-         'Expected price should be positive and greater than 0'),
-         ('check_selling_price',
+        ('check_expected_price',
+        'CHECK(expected_price > 0)',
+        'Expected price should be positive and greater than 0'),
+        ('check_selling_price',
         'CHECK(selling_price>0)',
         'Selling price should be positive and greater than 0')
     ]
@@ -39,11 +39,11 @@ class EstateProperty(models.Model):
 
     active=fields.Boolean('Active', default=True)
     state = fields.Selection(
-     string='state',
-     selection=[('new', 'New'),('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')],
-     required=True, 
-     copy=False,
-     default='new' 
+        string='state',
+        selection=[('new', 'New'),('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')],
+        required=True, 
+        copy=False,
+        default='new' 
     )
 
     property_type_id=fields.Many2one("estate.property.type", string = "Property Type")
@@ -108,5 +108,8 @@ class EstateProperty(models.Model):
 
  
 
-                
+class ResUsers(models.Model):
+    _name="res.users"
+    _inherit="res.users"
 
+    property_ids=fields.One2many("estate.property","seller_id")
