@@ -1,5 +1,20 @@
 <?xml version="1.0" ?>
 <odoo>
+    <record id="stat_button_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id','=',active_id)]</field>
+        <field name="help" type="html">
+            <!-- <p class="o_view_nocontent_smiling_face">
+            Create a new Property Offer
+            </p> -->
+            <tree>
+            <field name="property_type_id"/>
+            </tree>
+        </field>
+    </record>
+
     <!-- Tree View in estate-Offer -->
     <record id="estate_property_offer_view" model="ir.ui.view"> 
     <field name="name">estate_property_Offer_View </field>
@@ -35,3 +50,30 @@
         </field>
     </record>
 </odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<field name="help" type="html">
+    <p class="o_view_nocontent_smiling_face">
+    Create a new Property Offer
+    </p>
+</field> -->

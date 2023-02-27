@@ -41,6 +41,8 @@ class TestModel(models.Model):
     offer_ids = fields.One2many('estate.property.offer',"property_id")
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer= fields.Integer(compute="_compute_best_price")
+    user_id = fields.Many2one('res.users')
+    
 
     _sql_constraints=[(
         'selling_price_positive','CHECK(selling_price>0)',
@@ -51,6 +53,11 @@ class TestModel(models.Model):
         'CHECK(expected_price > 0)',
         'Expected Price Must be Positive')
     ]
+
+    # @api.ondelete
+    # def unlink(self,val):
+    #     if self.state not in ['new','offer received']:
+
 
     @api.constrains('selling_price','expected_price')
     def _check_selling_price(self):
@@ -98,6 +105,9 @@ class TestModel(models.Model):
                 raise UserError("Sold property cant't be cancelled")
             else:
                 record.state='canceled'
+            #CLASSIC INHERITANCE
+class ResUsers(models.Model):
+    _inherit="res.users"
 
-
-
+    property_ids = fields.One2many('estate.property','user_id')
+    testing = fields.Char()
