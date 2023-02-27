@@ -27,6 +27,7 @@
     <record id="estate_property_0" model="estate.property">
         <field name="name">Big Villa</field>
         <field name="state">new</field>
+        <field name="salesperson_id" ref="base.user_admin"/>
         <field name="property_type_id" ref="estate_property_type_0"/>
         <field name="description">A nice and big villa</field>
         <field name="postcode">12345</field>
@@ -77,6 +78,7 @@
     <record id="estate_property_2" model="estate.property">
         <field name="name">Small Home</field>
         <field name="state">new</field>
+        <field name="salesperson_id" ref="base.user_admin"/>
         <field name="property_type_id" ref="estate_property_type_0"/>
         <field name="description">A cozy and small home</field>
         <field name="postcode">12345</field>
@@ -93,13 +95,13 @@
         <field name="offer_ids" eval="[
             Command.create({
                 'partner_id': ref('base.res_partner_12'),
-                'price':'64000',
-                'validity':'10',
+                'price': 66000,
+                'validity': 10,
             }),
             Command.create({
                 'partner_id': ref('base.res_partner_2'),
-                'price':'65000',
-                'validity':'5',
+                'price': 66000,
+                'validity': 5,
             }),
         ]"/>
     </record>

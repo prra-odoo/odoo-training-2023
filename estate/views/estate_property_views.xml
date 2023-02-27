@@ -49,7 +49,7 @@
         <field name="arch" type="xml">
             <tree string="Tree View" decoration-bf="state=='offer_accepted'" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-muted="state=='sold'">
                 <field name="name"/>
-                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>

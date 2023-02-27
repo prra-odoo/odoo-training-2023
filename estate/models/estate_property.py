@@ -6,7 +6,7 @@ from odoo.tools import float_utils
 
 class EstateProperty(models.Model):
     _name="estate.property"
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread','estate.prototype']
     _description="Estate Property Description"
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price>0)','The Expected Price must be strictly positive'),
@@ -73,12 +73,8 @@ class EstateProperty(models.Model):
     def _compute_best_offer(self):
         for record in self:
             if(record.offer_ids):
-                if(record.state=="new"):
-                    record.state="offer_received"
                 record.best_offer=max(record.offer_ids.mapped("price"))
             else:
-                if(record.state=="offer_received"):
-                    record.state="new"
                 record.best_offer=0.0
 
     @api.depends("garden")
@@ -115,3 +111,9 @@ class EstateProperty(models.Model):
             else:
                 raise UserError("Sold Property can not be Cancelled.")
             return True
+        
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_cancelled(self):
+        for record in self:
+            if(record.state not in ['new','cancelled']):
+                raise UserError("Only new and cancelled properties can be deleted.")
