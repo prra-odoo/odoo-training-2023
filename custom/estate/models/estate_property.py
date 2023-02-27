@@ -8,6 +8,7 @@ class EstateProperty(models.Model):
     _name="estate.property"
     _description="estate property project"
     _order="id desc"
+    _inherit="estate.proto"
 
     name=fields.Char(required=True) 
     active=fields.Boolean(default=True)
@@ -34,12 +35,18 @@ class EstateProperty(models.Model):
         required=True
     )
     property_type_id=fields.Many2one("estate.property.types",string="Property Type")
-    buyer=fields.Many2one("res.partner",copy=False)
-    salesperson=fields.Many2one('res.users',default=lambda self: self.env.user)
+    buyer_id=fields.Many2one("res.partner",copy=False)
+    user_id=fields.Many2one('res.users',string="Salesperson",default=lambda self: self.env.user)
     tag_ids=fields.Many2many('estate.property.tag')
     offer_ids=fields.One2many('estate.property.offer','property_id')
     total_area=fields.Integer(compute="_compute_area",store=True)
     best_offer=fields.Float(compute="_compute_bestoffer",readonly=True)
+
+    # class User(models.Model):
+    #     _inherit="res.users"
+
+    #     # num=fields.Float()
+    #     property_ids=fields.One2many('estate.property','user_id')
 
     _sql_constraints=[
                 (

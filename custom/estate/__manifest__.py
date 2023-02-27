@@ -12,6 +12,6 @@
             'views/estate_menus.xml',
     ],
     'demo':[ 'demo/estate_demo_data.xml',],
-
+    'images':['static/description/icon.png']
 }
 

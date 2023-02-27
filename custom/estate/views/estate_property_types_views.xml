@@ -12,7 +12,9 @@
                 <form>
                 <sheet>
                  <div class="oe_button_box" name="button_box">
-                           <button type="action" string="Offers" class="oe_stat_button" icon="fa-money" name="%(estate.estate_property_offer_action)d"/>
+                           <button type="action" class="oe_stat_button" icon="fa-money" name="%(estate_property_offer_action)d">
+                                <field name="offer_count"  widget="statinfo" string="Offers"/>
+                           </button>
                         </div>
                 <label for="name" string="Property Type"/>
                     <div class="oe_title">
@@ -20,6 +22,8 @@
                             <field name="name" class="mb16"/>
                         </h1>
                     </div>
+                    
+                    <!-- <field name=""/> -->
                     <notebook>
                     <page string="Properties">
                         <field name="property_ids">
