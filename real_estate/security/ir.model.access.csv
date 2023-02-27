@@ -3,3 +3,4 @@ real_estate.access_estate_property,access_estate_property,real_estate.model_esta
 real_estate.access_estate_property_type,access_estate_property_type,real_estate.model_estate_property_type,base.group_user,1,1,1,1
 real_estate.access_estate_property_tag,access_estate_property_tag,real_estate.model_estate_property_tag,base.group_user,1,1,1,1
 real_estate.access_estate_property_offer,access_estate_property_offer,real_estate.model_estate_property_offer,base.group_user,1,1,1,1
+real_estate.access_prototype_test,access_prototype_test,real_estate.model_prototype_test,base.group_user,1,1,1,1

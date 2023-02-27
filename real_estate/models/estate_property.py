@@ -7,8 +7,10 @@ from odoo.tools.float_utils import float_is_zero,float_compare
 
 class EstateProperty(models.Model):
     _name = "estate.property"
+    _inherit = "prototype.test"
     _description = "CRM Recurring revenue plans"
     _order = "id desc"
+   
 
     name = fields.Char(required=True)
     description=fields.Char()   
@@ -115,5 +117,11 @@ class EstateProperty(models.Model):
 
    
   
+class EstatePropertyInheritance(models.Model):
+    _inherit="estate.property"
 
+    price = fields.Float()
+    postcode = fields.Integer()
+    date = fields.Date()
+    
     
