@@ -6,6 +6,7 @@ from odoo.tools import float_is_zero, float_compare
 
 class EstateProperty(models.Model):
     _name = 'estate.property'
+    _inherit = 'estate.inherit'
     _description = 'estate property advertisment'
     _order = 'id desc'
 
@@ -20,6 +21,7 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many('estate.property.tag', string='Tags')
     property_type_id = fields.Many2one('estate.property.type')
     buyer_id = fields.Many2one('res.partner', copy=False)
+    user_id = fields.Many2one('res.users')
     seller_id = fields.Many2one('res.users', default=lambda self: self.env.user)
     selling_price = fields.Float()
     garage = fields.Boolean()
@@ -28,7 +30,6 @@ class EstateProperty(models.Model):
         default = 'new',
         selection = [('new','New'),('offer received','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         help = 'Choose the direction',
-        required = True,
         copy = False,
     )
     offer_ids = fields.One2many('estate.property.offer', 'property_id')
@@ -48,6 +49,12 @@ class EstateProperty(models.Model):
         ('check_selling_price','CHECK(selling_price >= 0)','The selling price cannot be negative.'),
     ]
 
+    @api.ondelete(at_uninstall=False)
+    def prevent_delete(self):
+        for record in self:
+            if (record.state not in ('new','canceled')):
+                raise UserError('Only new and canceled properties can be delete')
+
     @api.constrains('selling_price','expected_price')
     def _check_selling_price(self):
         for record in self:
@@ -64,13 +71,7 @@ class EstateProperty(models.Model):
     @api.depends('offer_ids')
     def _compute_best_price(self):
         for record in self:
-            if record.offer_ids:
-                if record.state == 'new':
-                    record.state = 'offer received'
-                record.best_price = max(record.offer_ids.mapped('price'),default=0)
-            else:
-                record.best_price = 0
-                record.state = 'new'
+            record.best_price = max(record.offer_ids.mapped('price'),default=0)
 
     @api.depends('garden')
     def _compute_garden(self):

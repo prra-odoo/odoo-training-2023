@@ -1,5 +1,6 @@
 from odoo import api,models,fields
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 class EstatePropertyOffer(models.Model):
     _name = 'estate.property.offer'
@@ -12,18 +13,26 @@ class EstatePropertyOffer(models.Model):
         copy = False,
         required=False
     )
-    partner_id = fields.Many2one('res.partner', required=True)
-    property_id = fields.Many2one('estate.property', required=True)
+    partner_id = fields.Many2one('res.partner')
+    property_id = fields.Many2one('estate.property')
     validity = fields.Integer(default=7, string='Validity (days)')
     date_deadline = fields.Date(string='Deadline', compute='_compute_date_deadline', inverse='_inverse_date_deadline')
 
-    # property_type_id = fields.Many2one('estate.property.type')
+    property_type_id = fields.Many2one(related='property_id.property_type_id', store=True)
 
     _sql_constraints = [
         (
             'check_price','CHECK(price >= 0.0)',"The offer price cannot be negative."
         )
     ]
+
+    @api.model
+    def create(self, vals_list):
+        record = self.env['estate.property'].browse(vals_list['property_id'])
+        record.state = 'offer received'
+        if((vals_list['price']) <= record.best_price):
+            raise UserError('Error')
+        return super().create(vals_list)
 
     @api.depends('validity')
     def _compute_date_deadline(self):
