@@ -14,7 +14,7 @@ class EstateProperty(models.Model):
 
     ]
     _order = 'id desc'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin','base.property']
     # note that ordering can also be given in view file using
     # <tree string="Properties" default_order="id desc"> Here instead of _order , default_order is used
 
@@ -92,6 +92,14 @@ class EstateProperty(models.Model):
             if(record.state == "offer received"):
                 if(not record.offer_ids):
                     record.state = "new"
+
+    # @api.depends("offer_ids")
+    # def _compute_best_price(self):
+    #     for record in self:
+    #         record.best_price = max(record.offer_ids.mapped("price"),default=0)
+    #         if record.offer_ids and (record.offer_ids.status=="refused" or record.offer_ids.status == False):
+    #             record.state = "offer_received"
+    #     return True
     # onchange function when garden field is enabled
     # compute field is not stored in DB by default
     @api.depends("garden")
@@ -152,3 +160,5 @@ class EstateProperty(models.Model):
             if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
                 if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise exceptions.ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+
+

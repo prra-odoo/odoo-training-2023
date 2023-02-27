@@ -27,7 +27,8 @@
                 <field name="living_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>            
-                <field name="state"/>    
+                <field name="state"/>
+                <field name="tag_ids"/>
                 <field name="date_availability" optional="hide"/>
                 <!-- <field name="last_seen"/> -->
                 <!-- <field name="living_area"/> -->
@@ -56,23 +57,23 @@
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" states="cancelled"/>
                     <label for="name" string="Property Name"/>
                     <h1><field name="name" class="oe_inline" placeholder="My new house"/></h1>              
-                  <group>
+                <group>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" nolabel="1" placeholder="Tags" colspan="2"/>
-                  </group>
+                </group>
                     <group col="3">
                         <group>
-                            <field name="state"/>
+                            <!-- <field name="state"/> -->
                             <field name="property_type_id" options="{'no_create': True}"/>
 
                             <field name="postcode"/>
                         </group>
                         <!-- quick_create: allow the quick creation of related records (default: true)
-                              no_create: prevent the creation of related records - hide both the ‘Create “xxx”’ and “Create and Edit…” dropdown menu items (default: false)
-                              no_quick_create: prevent the quick creation of related records - hide the ‘Create “xxx”’ dropdown menu item (default: false)
-                              no_create_edit: hide the “Create and Edit…” dropdown menu item (default: false)
-                              create_name_field: when creating a related record, if this option is set, the value of the create_name_field will be filled with the value of the input (default: name)
-                              always_reload: boolean, default to false. If true, the widget will always do an additional name_get to fetch its name value. This is used for the situations where the name_get method is overridden (please do not do that)
-                              no_open: boolean, default to false. If set to true, the many2one will not redirect on the record when clicking on it (in readonly mode) -->
+                            no_create: prevent the creation of related records - hide both the ‘Create “xxx”’ and “Create and Edit…” dropdown menu items (default: false)
+                            no_quick_create: prevent the quick creation of related records - hide the ‘Create “xxx”’ dropdown menu item (default: false)
+                            no_create_edit: hide the “Create and Edit…” dropdown menu item (default: false)
+                            create_name_field: when creating a related record, if this option is set, the value of the create_name_field will be filled with the value of the input (default: name)
+                            always_reload: boolean, default to false. If true, the widget will always do an additional name_get to fetch its name value. This is used for the situations where the name_get method is overridden (please do not do that)
+                            no_open: boolean, default to false. If set to true, the many2one will not redirect on the record when clicking on it (in readonly mode) -->
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
@@ -82,9 +83,9 @@
                             <field name="last_seen"/>
                             <field name="best_offer"/>
                         </group>
-                  </group>
-                  <notebook>
-                      <page string="Description">
+                </group>
+                <notebook>
+                    <page string="Description">
                         <group>
                             <!-- <field name="name"/> -->
                             <!-- <field name="postcode"/> -->
@@ -107,9 +108,9 @@
                             <field name="total_area"/>
                             </group>                
                         </group>
-                      </page>
-                      <page string="Offers">
-                        <field name="offer_ids" mode="kanban" attrs="{'readonly':[('state','in',['offer_accepted','sold','cancelled'])]}">
+                    </page>
+                    <page string="Offers">
+                        <field name="offer_ids" attrs="{'readonly':[('state','in',['offer_accepted','sold','cancelled'])]}">
                                 <!-- <kanban class="o_kanban_mobile">
                                     <templates>
                                         <t t-name="kanban-box">
@@ -128,23 +129,21 @@
                                     </templates>
                                 </kanban> -->
                             </field>
-                      </page>
-                      <page string="Other Info">
+                    </page>
+                    <page string="Other Info">
                         <group>
                             <field name="buyer_id"/>
                             <field name="seller_id"/>
                         </group>
-                      </page>
-                  </notebook>
-                  
-          </sheet>
-          <div class="oe_chatter">
+                    </page>
+                </notebook>
+        </sheet>
+        <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="message_ids" widget="mail_thread"/>
-          </div>
-          
-      </form>
-      </field>
+        </div>
+    </form>
+    </field>
 </record>
 <!-- search view starts here -->
 <record id="estate_properties_view_search" model="ir.ui.view">
@@ -169,6 +168,7 @@
                 <field name="active"/>
                 <field name="state"/>
                 <field name="property_type_id"/>
+                <field name="tag_ids"/>
                 <!-- <field name="buyer_id"/>
                 <field name="seller_id"/>
                 <field name="offer_ids"/>
