@@ -13,6 +13,7 @@ class EstateProperty(models.Model):
                   ("check_selling_price","CHECK(selling_price >= 0)","The offer price must be strictly positive")
      ]
     _order="id desc"
+    _inherit="estate.inheritance"
     
    
 
@@ -95,7 +96,7 @@ class EstateProperty(models.Model):
              record.state="canceled"
 
     @api.constrains('selling_price')
-    def check_price_difference(self): 
+    def _check_price_difference(self): 
       for record in self:
          if (
             not float_is_zero(record.selling_price, precision_rounding=2)

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="estate_property_type_demo_data" model="estate_property_type">
+    <field name="name">House</field>
+    </record>
+</odoo>
