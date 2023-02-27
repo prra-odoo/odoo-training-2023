@@ -15,3 +15,11 @@ class EstatePropertyType(models.Model):
     _sql_constraints = [
         ('check_name', 'UNIQUE(name)', 'This Property type alredy added.')
     ]
+
+    offers_id = fields.Many2one('estate.property.offer')
+    offer_count = fields.Integer(compute="_compute_offer_count")
+
+    @api.depends('offers_id')
+    def _compute_offer_count(self):
+        for record in self:
+            record.offer_count = self.env['estate.property.offer'].search_count([('property_type_id.name','=','record.name')])

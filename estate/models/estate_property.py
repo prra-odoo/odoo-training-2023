@@ -10,6 +10,7 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate property Model"
     _order = "id desc"
+    _inherit = ['new.estate']
 
     name = fields.Char(required=True)
     description = fields.Text()
@@ -53,6 +54,14 @@ class EstateProperty(models.Model):
     )
     offers_id = fields.One2many('estate.property.offer', 'property_id')
 
+    # Classic Inherit
+    class ResUsers(models.Model):
+        _inherit = "res.users"
+
+        property_ids = fields.One2many(
+            'estate.property', 'user_id', domain="[('states' ,'in',[new,offer_received])]")
+        jsk = fields.Char()
+
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for record in self:
@@ -61,14 +70,13 @@ class EstateProperty(models.Model):
     @api.depends('offers_id')
     def _compute_best_offer(self):
         for record in self:
-            if(record.offers_id):
-                 if record.state == "new":
+            if (record.offers_id):
+                if record.state == "new":
                     record.state = "offer_received"
             else:
                 record.state = "new"
             record.best_offer = max(record.mapped(
-                                        'offers_id.price'),default=0)
-            
+                'offers_id.price'), default=0)
 
     @api.depends('garden')
     def _compute_garden(self):
