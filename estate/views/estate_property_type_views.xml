@@ -38,7 +38,9 @@
                             <field name="name" placeholder="Enter Property Type..." />
                         </h1>
                     </div>
-
+                    <group>
+                        <field name="offer_count" />
+                    </group>
                     <notebook>
                         <page name="properties_page" string="Properties">
                             <field name="property_ids">

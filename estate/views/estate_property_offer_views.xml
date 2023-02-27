@@ -20,6 +20,7 @@
                     icon="fa-times-circle-o"
                     attrs="{'invisible': [('status', 'in', ['act','ref'])]}" />
                 <field name="status" widget="badge" optional="hide" />
+                <!-- <field name="property_type_id" /> -->
             </tree>
         </field>
     </record>

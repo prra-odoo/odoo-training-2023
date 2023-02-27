@@ -72,6 +72,8 @@ class EstateProperty(models.Model):
         compute="_compute_garden_area", string='Garden Area (sqm)',
         inverse="_inverse_garden_area", store=True)
 
+    user_id = fields.Many2one(comodel_name="res.users", string="User")
+
     @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
         for record in self:
@@ -81,9 +83,10 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             if (record.offer_ids):
-                if (record.state == "N"):
-                    # Whenever a new offer is created, state changes to "OR".
-                    record.state = "OR"
+                # Already implemented by overriding create method in estate_property_offer.
+                # if (record.state == "N"):
+                #     # Whenever a new offer is created, state changes to "OR".
+                #     record.state = "OR"
                 amount = max(record.mapped('offer_ids.price'))
                 record.best_price = amount
             else:
@@ -150,7 +153,9 @@ class EstateProperty(models.Model):
                     raise ValidationError(
                         "Selling Price must be greater than 90% of the expected price.")
 
-    # @api.constrains("state")
-    # def check_state(self):
-    #     if (not self.offer_ids):
-    #         raise UserError("Nai chalega!!")
+    @api.ondelete(at_uninstall=False)
+    def prevent_deletion_not_new_cancel(self):
+        for rec in self:
+            if (rec.state not in ["N", "C"]):
+                raise UserError(
+                    _('You can only delete properties that are not new or cancelled.'))

@@ -28,6 +28,9 @@ class EstatePropertyOffer(models.Model):
     date_deadline = fields.Date(
         string="Date Deadline", compute="_compute_date_deadline", inverse="_inverse_date_deadline")
 
+    property_type_id = fields.Many2one(
+        related="property_id.property_type_id", string="Property Type", store=True)
+
     @api.depends("validity")
     def _compute_date_deadline(self):
         for record in self:
@@ -68,3 +71,16 @@ class EstatePropertyOffer(models.Model):
     def reject_offer(self):
         for record in self:
             record.status = "ref"
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            estate_property_obj = self.env['estate.property'].browse(
+                vals['property_id'])
+            estate_property_obj.state = "OR"
+        return super().create(vals)
+
+    # @api.ondelete(at_uninstall=False)
+    # def mark_new_no_offer(self):
+    #     for rec in self:
+    #         print(type(rec), "-----------------------")
