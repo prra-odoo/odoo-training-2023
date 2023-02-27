@@ -8,6 +8,7 @@ class EstateProperty(models.Model):
     _sql_constraints = [
         ('check_expected_price','CHECK(expected_price>0)','The expected price must be strictly positive.'),
     ]
+    _inherit = "estate.prototype"
 
     name = fields.Char(required=True)
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
@@ -109,4 +110,8 @@ class EstateProperty(models.Model):
                 if(tools.float_compare(record.selling_price,(0.9*record.expected_price),precision_digits = 2) == -1):
                     raise exceptions.ValidationError("Selling price cannot be lower than 90'%' of the expected price.")
 
-    
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_cancelled(self):
+        for record in self:
+            if(record.state not in ['new','cancelled']):
+                raise exceptions.UserError("Only new and cancelled properties can be deleted.")

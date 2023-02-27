@@ -22,10 +22,27 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <form string="Channel">
-                <h1><field name="name"/></h1>
-                <tree>
-                    <field name="property_ids"/>
-                </tree>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="%(action_open_offers)d"
+                                type="action" icon="fa-money">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="offer_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Offers
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <h1><field name="name"/></h1>
+                        <group>
+                            <field name="property_ids" string="Properties"/>
+                            <field name="offer_ids" string="Offers"/>
+                            <field name="offer_count"/>
+                        </group>
+                </sheet>
             </form>
         </field>
     </record>

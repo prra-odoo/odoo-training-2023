@@ -53,3 +53,15 @@ class EstatePropertyOffer(models.Model):
     #             record.color= 10
     #         else:
     #             record.color = 1
+
+    @api.model
+    def create(self,vals):
+        if(vals['price']<self.env['estate.property'].browse(vals['property_id']).best_price):
+            raise exceptions.UserError("Offer price cannot be less than best offer.")
+        self.env['estate.property'].browse(vals['property_id']).state = 'offer received'
+        return super().create(vals)
+
+
+    property_type_id = fields.Many2one(related='property_id.property_type_id', store=True)
+    
+    
