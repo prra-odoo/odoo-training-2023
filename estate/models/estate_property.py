@@ -26,9 +26,9 @@ class EstateProperty(models.Model):
     postcode = fields.Char(required=True)
     date_availability = fields.Date(
         default=lambda self: fields.Date.today() + relativedelta(months=3), copy=False)
-    expected_price = fields.Float()#constrains='_check_expected_price'
+    expected_price = fields.Float()
     selling_price = fields.Float(readonly=True, copy=False)
-    bedrooms = fields.Integer(default=2)#constrains='_check_bedrooms'
+    bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
@@ -129,9 +129,3 @@ class EstateProperty(models.Model):
         for record in self:
             if float_compare(self.expected_price*0.9, self.selling_price, precision_digits=2) == 1 and self.offer_ids:
                 raise ValidationError("The selling price must be minimum 90% of the Expected Price")
-
-class ResUsers(models.Model):
-    _inherit = "res.users"
-
-    property_ids = fields.One2many('estate.property','user_id')
-    # temp = fields.Char()
