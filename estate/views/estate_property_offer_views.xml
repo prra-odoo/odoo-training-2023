@@ -27,8 +27,8 @@
                 <field name="date_deadline"/>
                 <button name="accept_offer"  type="object" icon="fa-check" title="Accept" attrs="{'invisible': [('status', 'in', ['accepted', 'refused'])]}"/>
                 <button name="refuse_offer"  type="object" icon="fa-times" title="Refuse" attrs="{'invisible': [('status', 'in', ['accepted', 'refused'])]}"/>
-                <!-- <field name="property_id"/> -->
-                <field name="property_type_id"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" nolabel="1" placeholder="Tags" colspan="2"/>
+
                 <!-- here in buttons we can also add the string to specify the text we want to show -->
                 <field name="status"/>
                 <!-- <field name="property_id"/> -->
@@ -51,7 +51,7 @@
                         <field name="validity"/>
                         <field name="date_deadline"/>
                         <field name="status"/>
-                        <!-- <field name="property_id"/> -->
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
                     </group>
                 </group>
                 </sheet>

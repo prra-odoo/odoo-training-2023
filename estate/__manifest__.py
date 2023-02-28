@@ -10,6 +10,7 @@
             'views/estate_property_type_views.xml',
             'views/estate_property_tag_views.xml',
             'views/estate_menus.xml',
+            'views/res_users_views.xml',
             'data/estate_property_master_data.xml'
             ],
     'demo' : ['demo/realestate_demo_data.xml']

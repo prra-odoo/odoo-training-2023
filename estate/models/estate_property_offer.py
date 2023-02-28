@@ -12,6 +12,7 @@ class EstatePropertyOffer(models.Model):
 'The validity should be a positive number only.')
     ]
     _rec_name = "price"
+    _inherits = {"estate.property":"property_id"}
 
     price = fields.Float()
     status = fields.Selection(
