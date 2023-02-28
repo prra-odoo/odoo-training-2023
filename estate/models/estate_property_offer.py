@@ -18,7 +18,7 @@ class EstatePropertyOffer(models.Model):
         comodel_name="res.partner", string="Partner", required=True)
 
     property_id = fields.Many2one(
-        comodel_name="estate.property", string="Property", required=True, ondelete="cascade")
+        comodel_name="estate.property", string="Property", required=True, ondelete="cascade", store=True)
     # Here ondelete="cascade" means that the property will be deleted even if it has offers, before it was
     # violating the foreign key constraint. Because a deleted property cannot have it's offers present in
     # the estate.property.offer table. The corresponding offers will also be deleted.
@@ -80,7 +80,10 @@ class EstatePropertyOffer(models.Model):
             estate_property_obj.state = "OR"
         return super().create(vals)
 
-    # @api.ondelete(at_uninstall=False)
-    # def mark_new_no_offer(self):
-    #     for rec in self:
-    #         print(type(rec), "-----------------------")
+    @api.ondelete(at_uninstall=False)
+    def mark_new_no_offer(self):
+        count = self.env['estate.property.offer'].search_count(
+            domain=[('id', 'in', self.property_id.offer_ids.ids)])
+        print(count, "--------------------------")
+        if (count == 1):
+            self.property_id.state = "N"

@@ -5,4 +5,4 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     property_ids = fields.One2many(
-        comodel_name="estate.property", inverse_name="user_id", domain="[('state', 'in', ['N','OR'])]")
+        comodel_name="estate.property", inverse_name="salesman_id", domain=[('state', 'in', ['N', 'OR'])])

@@ -53,7 +53,7 @@ class EstateProperty(models.Model):
         comodel_name="estate.property.type", string="Property Type")
 
     salesman_id = fields.Many2one(
-        'res.users', string="Salesman", default=lambda self: self.env.user)
+        comodel_name='res.users', string="Salesman", default=lambda self: self.env.user)
 
     buyer_id = fields.Many2one(
         comodel_name='res.partner', string="Buyer", copy=False)
@@ -62,7 +62,7 @@ class EstateProperty(models.Model):
         comodel_name="estate.property.tag", string="Tags", copy=False)
 
     offer_ids = fields.One2many(
-        comodel_name="estate.property.offer", inverse_name="property_id")
+        comodel_name="estate.property.offer", inverse_name="property_id", store=True)
 
     total_area = fields.Float(compute='_compute_total_area')
 
@@ -72,7 +72,7 @@ class EstateProperty(models.Model):
         compute="_compute_garden_area", string='Garden Area (sqm)',
         inverse="_inverse_garden_area", store=True)
 
-    user_id = fields.Many2one(comodel_name="res.users", string="User")
+    demo_id = fields.Many2one(comodel_name="res.users", string="testing")
 
     @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
@@ -83,16 +83,17 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             if (record.offer_ids):
+                # Whenever a new offer is created, state changes to "OR".
                 # Already implemented by overriding create method in estate_property_offer.
                 # if (record.state == "N"):
-                #     # Whenever a new offer is created, state changes to "OR".
                 #     record.state = "OR"
                 amount = max(record.mapped('offer_ids.price'))
                 record.best_price = amount
             else:
                 # To mark the property as new when all the offers are deleted.
-                if (record.state in ["OR", "OA", "S", "C"]):
-                    record.state = 'N'
+                # Done in estate_property_offer as mark_new_no_offer.
+                # if (record.state in ["OR", "OA", "S", "C"]):
+                #     record.state = 'N'
 
                 # To reset the selling price if an already accepted offer has been deleted.
                 record.selling_price = 0

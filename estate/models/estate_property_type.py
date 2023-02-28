@@ -25,6 +25,8 @@ class EstatePropertyType(models.Model):
     offer_count = fields.Integer(compute="_compute_total_offers")
 
     def _compute_total_offers(self):
+        # obj = self.env['estate.property.offer']
+        # print(obj.property_type_id, "----------")
         count = self.env['estate.property.offer'].search_count(
             domain=[("property_type_id", "=", self.id)])
         # The property_type_id is the field in estate_property_offer,
