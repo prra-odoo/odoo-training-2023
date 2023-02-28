@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="res_users_view_record" model="ir.ui.view">
-        <field name="name">res.users.view.form.inherit.estate</field>
-        <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_form"></field>
-        <field name="arch" type="xml">
-            <notebook position="inside">
-                <!-- <page name="estate.properties" string="Real Estate Properties">
-                    <field name="property_ids" />
-                </page> -->
-                <xpath expr="//field[@name='description']" position="after">
-                    <field name="new_field" />
+    <data>
+        <record id="res_users_view_form" model="ir.ui.view">
+            <field name="name">estate.res.users.view.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="name" string="Real Estate Properties">
+                        <field name="property_ids">
+                            <tree>
+                                <field name="name" string="Title" />
+                                <field name="property_type_id" string="Property Type" />
+                                <field name="postcode" string="Postcode" />
+                                <field name="tag_ids" string="Tags" />
+                                <field name="bedrooms" string="Bedrooms" />
+                                <field name="living_area" string="Living Area (sqm)" />
+                                <field name="expected_price" string="Expected Price" />
+                                <field name="selling_price" string="Selling Price" />
+                            </tree>
+                        </field>
+                    </page>
                 </xpath>
-            </notebook>
-        </field>
-    </record>
+            </field>
+        </record>
+    </data>
 </odoo>

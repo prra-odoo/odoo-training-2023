@@ -58,9 +58,6 @@ class EstatePropertyModel(models.Model):
     cancel_btn = fields.Boolean(default=False)
     sold_btn = fields.Boolean(default=False)
 
-
-    
-
     def action_set_sold(self):
         for record in self:
             # record.sold_btn=True

@@ -3,13 +3,15 @@
     <record id="estate_property_type_action" model="ir.actions.act_window">
         <field name="name">Property Type</field>
         <field name="res_model">estate.property.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first property Type
             </p>
         </field>
     </record>
+
+    <!-- Tree View -->
     <record id="estate_property_type_title_tree_view" model="ir.ui.view">
         <field name="name">Property Type Tree View</field>
         <field name="model">estate.property.type</field>
@@ -20,6 +22,8 @@
             </tree>
         </field>
     </record>
+    
+    <!-- Form View -->
     <record id="estate_property_type_form_view" model="ir.ui.view">
         <field name="name">estate.property.form</field>
         <field name="model">estate.property.type</field>
@@ -53,6 +57,26 @@
                     </notebook>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="estate_property_type_kanban_view" model="ir.ui.view">
+        <field name="name">estate.property.type.kanban</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="name" />
+                            <div t-if="record.property_ids.raw_value > 0">
+                                <field name="property_ids"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 </odoo>
