@@ -59,8 +59,7 @@ class EstateProperty(models.Model):
         _inherit = "res.users"
 
         property_ids = fields.One2many(
-            'estate.property', 'user_id', domain="[('states' ,'in',[new,offer_received])]")
-        jsk = fields.Char()
+            'estate.property', 'user_id')
 
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):

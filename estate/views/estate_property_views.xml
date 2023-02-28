@@ -41,9 +41,9 @@
                     <button string="Cancel" name="action_cancel" type="object" states="new,offer_received,offer_accepted"/>
                 </header>
                 <sheet>
-                <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>
-                <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
-                <widget name="web_ribbon" title="New" bg_color="bg-primary" attrs="{'invisible': [('state', '!=', 'new')]}"/>
+                    <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
+                    <widget name="web_ribbon" title="New" bg_color="bg-primary" attrs="{'invisible': [('state', '!=', 'new')]}"/>
                     <div>
                         <label for="name" string="Property Name"/>
                         <h1>
@@ -129,4 +129,29 @@
             </search>
         </field>
     </record>
+    <record id="res_users_model_form_view" model="ir.ui.view">
+        <field name="name">res.users.form.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Properties">
+                    <field name="property_ids">
+                        <!-- <tree string="properties">
+                            <field name="name"/>
+                            <field name="property_type_id"/>
+                            <field name="postcode"/>
+                            <field name="property_tag_id" widget="many2many_tags" options="{'color_field': 'color_tag'}"/>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="expected_price"/>
+                            <field name="selling_price"/>
+                        </tree> -->
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
 </odoo>
+
+<!-- attrs="{'domain' : [('states_a', 'in',['new'] )]}" -->
