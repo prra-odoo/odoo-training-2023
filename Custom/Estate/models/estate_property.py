@@ -42,6 +42,7 @@ class TestModel(models.Model):
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer= fields.Integer(compute="_compute_best_price")
     user_id = fields.Many2one('res.users')
+    # estate_delig_ids = fields.One2many('estate.deligation.test','estate_delig')
     
 
     _sql_constraints=[(

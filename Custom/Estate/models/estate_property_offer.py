@@ -15,7 +15,8 @@ class EstateOffers(models.Model):
     property_id = fields.Many2one('estate.property',required=True)
     validity = fields.Integer(default=7)
     date_deadline= fields.Date(compute="_compute_date_deadline",inverse="_inverse_date")
-    property_type_id = fields.Many2one(related="property_id.property_type_ID")
+    # Shows offers only specific types seperately
+    property_type_id = fields.Many2one(related="property_id.property_type_ID") 
 
     _sql_constraints=[(
         'offer_price_positive','CHECK(price>0)',
