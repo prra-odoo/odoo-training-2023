@@ -19,8 +19,10 @@ class EstatePropertyType(models.Model):
     )
     offer_count=fields.Integer(compute="_compute_offer_count")
 
-    @api.depends("offer_ids")
+    
+    @api.depends('offer_ids') 
     def _compute_offer_count(self):
-        for record in self:            
-            record.offer_count=len("offer_ids")
-            
+        for record in self:
+            record.offer_count=len(record.offer_ids)   
+
+   

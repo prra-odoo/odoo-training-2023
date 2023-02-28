@@ -14,7 +14,7 @@
         <form>
             <sheet>
                 <div class="oe_button_box" name="button_box">
-                    <button class="oe_stat_button" name="%(estate_property_offer_action)d"
+                    <button class="oe_stat_button" name="%(estate.estate_property_offer_action)d"
                             type="action" icon="fa-money">
                         <div class="o_stat_info">
                             <span class="o_stat_value">
@@ -54,8 +54,6 @@
         <tree>
             <field name="sequence" widget="handle"/>
             <field name="name"/>
-            <field name="offer_ids"/>
-            <field name="offer_count"/>
         </tree>
     </field>
  </record>
