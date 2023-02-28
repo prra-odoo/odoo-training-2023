@@ -37,17 +37,17 @@ class EstatePropertyOffer(models.Model):
                 record.validity=0
 
     def accept_action(self):
-        
+                
         for record in self.property_id.offer_ids:
             record.status="refused"        
             record.property_id.selling_price=self.price
-            record.property_id.buyer=self.partner_id
+            record.property_id.buyer_id=self.partner_id
         self.status="accepted"
         self.property_id.state='offer accepted'
 
     def refuse_action(self):
         for record in self:            
-            if record.status=="accepted":
-                record.property_id.selling_price=0
-                record.property_id.buyer=""
+            # if record.status=="accepted":
+            # record.property_id.selling_price=0
+            # record.property_id.buyer_id=""
             record.status="refused"
