@@ -55,15 +55,15 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             if(record.offer_ids):
-                if(record.state == "new"):
-                    record.state = "offer received"
+                # if(record.state == "new"):
+                #     record.state = "offer received"
                 record.best_price = max(record.offer_ids.mapped('price'))
             else:
                 record.best_price = 0.0
 
-            if(record.state == "offer received"):
-                if(not record.offer_ids):
-                    record.state = "new"
+            # if(record.state == "offer received"):
+            #     if(not record.offer_ids):
+            #         record.state = "new"
 
     # @api.depends('garden')
     # def _compute_garden_values(self):

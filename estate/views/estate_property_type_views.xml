@@ -37,11 +37,9 @@
                         </button>
                     </div>
                     <h1><field name="name"/></h1>
-                        <group>
-                            <field name="property_ids" string="Properties"/>
-                            <field name="offer_ids" string="Offers"/>
-                            <field name="offer_count"/>
-                        </group>
+                    <group>
+                        <field name="property_ids" string="Properties"/>
+                    </group>
                 </sheet>
             </form>
         </field>

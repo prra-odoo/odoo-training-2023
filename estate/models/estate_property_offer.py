@@ -17,6 +17,7 @@ class EstatePropertyOffer(models.Model):
     )
     partner_id = fields.Many2one('res.partner',required=True)
     property_id = fields.Many2one('estate.property',required=True)
+    property_type_id = fields.Many2one(related='property_id.property_type_id', store=True)
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_compute_deadline", inverse="_inverse_deadline")
     @api.depends('create_date','validity')
@@ -56,12 +57,12 @@ class EstatePropertyOffer(models.Model):
 
     @api.model
     def create(self,vals):
-        if(vals['price']<self.env['estate.property'].browse(vals['property_id']).best_price):
-            raise exceptions.UserError("Offer price cannot be less than best offer.")
-        self.env['estate.property'].browse(vals['property_id']).state = 'offer received'
+        property = self.env['estate.property'].browse(vals['property_id'])
+        if(vals['price'] < property.best_price):
+            raise exceptions.UserError("Offer price cannot be less than best offer. i.e. %d" %property.best_price)
+        property.state = 'offer received'
         return super().create(vals)
 
 
-    property_type_id = fields.Many2one(related='property_id.property_type_id', store=True)
     
     
