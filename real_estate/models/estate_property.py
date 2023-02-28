@@ -117,11 +117,11 @@ class EstateProperty(models.Model):
 
    
   
-class EstatePropertyInheritance(models.Model):
-    _inherit="estate.property"
+# class EstatePropertyInheritance(models.Model):
+#     _inherit="estate.property"
 
-    price = fields.Float()
-    postcode = fields.Integer()
-    date = fields.Date()
+#     price = fields.Float()
+#     postcode = fields.Integer()
+#     date = fields.Date()
     
     

@@ -4,4 +4,6 @@ class PrototypeTest(models.Model):
     _name = "prototype.test"
     _description="Testing Prototype Model"
 
-    test=fields.Char()
+    price = fields.Float()
+    postcode = fields.Integer()
+    date = fields.Date()
