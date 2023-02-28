@@ -6,7 +6,6 @@ from odoo.tools import float_is_zero, float_compare
 
 class EstateProperty(models.Model):
     _name = 'estate.property'
-    _inherit = 'estate.inherit'
     _description = 'estate property advertisment'
     _order = 'id desc'
 
@@ -21,7 +20,7 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many('estate.property.tag', string='Tags')
     property_type_id = fields.Many2one('estate.property.type')
     buyer_id = fields.Many2one('res.partner', copy=False)
-    user_id = fields.Many2one('res.users')
+    # user_id = fields.Many2one('res.users')
     seller_id = fields.Many2one('res.users', default=lambda self: self.env.user)
     selling_price = fields.Float()
     garage = fields.Boolean()
@@ -61,7 +60,7 @@ class EstateProperty(models.Model):
             sp = (90 * record.expected_price) / 100
             if(not float_is_zero(record.selling_price, precision_rounding=0.01)):
                 if (float_compare(sp,record.selling_price, precision_rounding=0.01) >= 0):
-                    raise ValidationError("The selling price must be at least 90% of the expected price! You must reduce the expected price if you want to accept this offer.")
+                    raise ValidationError('The selling price must be at least 90% of the expected price! You must reduce the expected price if you want to accept this offer.')
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

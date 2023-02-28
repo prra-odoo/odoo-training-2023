@@ -1,4 +1,4 @@
-from odoo import api,models,fields
+from odoo import api,models,fields, _
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError
 
@@ -29,9 +29,11 @@ class EstatePropertyOffer(models.Model):
     @api.model
     def create(self, vals_list):
         record = self.env['estate.property'].browse(vals_list['property_id'])
+        print(record)
         record.state = 'offer received'
         if((vals_list['price']) <= record.best_price):
-            raise UserError('Error')
+            higher_price = int(record.best_price)
+            raise UserError(_('Offer must be higher than %s', higher_price))
         return super().create(vals_list)
 
     @api.depends('validity')

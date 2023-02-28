@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<odoo>
+    <record id='test_two_action' model='ir.actions.act_window'>
+        <field name='name'>test</field>
+        <field name='res_model'>test.two</field>
+        <field name='view_mode'>tree,form</field>
+    </record>
+
+    <record id='test_two_tree' model='ir.ui.view'>
+        <field name='name'>test.two.tree</field>
+        <field name='model'>test.two</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name='test_two_name'/>
+                <field name='test_two_age'/>
+                <field name='test_one_name'/>
+                <field name='test_one_age'/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data noupdate="1">
     <record id="id1" model="estate.property">
@@ -6,4 +6,4 @@
       <field name="description">Test Description</field>
     </record>
   </data>
-</odoo>
+</odoo> -->

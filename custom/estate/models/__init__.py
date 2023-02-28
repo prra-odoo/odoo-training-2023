@@ -1,4 +1,5 @@
-from . import estate_inherit
+from . import test_one
+from . import test_two
 from . import users
 from . import estate_property
 from . import estate_property_type
