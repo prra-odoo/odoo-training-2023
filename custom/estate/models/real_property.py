@@ -16,6 +16,9 @@ class realProperty(models.Model):
 
     ]
     _order="id desc"
+    _inherit="estate_inheritance"
+    
+
 
     @api.constrains('expected_price', 'selling_price')
     def _selling_price(self):
@@ -64,6 +67,7 @@ class realProperty(models.Model):
         required=True
     )
     total_area = fields.Float(compute='_compute_total')
+    
    
 
     @api.depends('garden_area', 'living_area')
@@ -123,6 +127,9 @@ class realProperty(models.Model):
     def action_cancelled(self):
         for record in self:
             record.state = 'cancelled' 
+
+
+
 
 
     

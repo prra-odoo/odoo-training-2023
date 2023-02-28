@@ -3,13 +3,14 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 
-class EstatePropertyType(models.Model):
+class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Real Estate Property Offer"
     _sql_constraints=[ ('price_check','CHECK(price>0 and price != 0)',"offer price must be strictly positive")
 
     ]
     _order="price desc"
+    _inherits={'estate.real.property':'property_id'}
 
     
     price = fields.Float()
@@ -23,6 +24,7 @@ class EstatePropertyType(models.Model):
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(
         compute='_compute_date', inverse='_compute_inverse_date')
+    property_type_id=fields.Many2one('estate.property.type', related='property_id.property_type_id')
 
     @api.depends('create_date', 'validity')
     def _compute_date(self):
@@ -46,4 +48,6 @@ class EstatePropertyType(models.Model):
     def action_refused(self):
         for record in self:
             record.status='refused'
+
+
                    
