@@ -24,7 +24,8 @@ class EstateProperty(models.Model):
     state = fields.Selection(
         string="State",
         default="new",
-        selection=[('new','New'),('received','Offer Received'),('accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')]
+        selection=[('new','New'),('received','Offer Received'),('accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
+      
     )
     
     garden_orientation = fields.Selection(
@@ -43,7 +44,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
     total_area = fields.Integer(compute="_compute_total")
     best_offer = fields.Float(compute = "_compute_bestoffer")
-    user_id = fields.Many2one("res.users")
+  
     
     #compute for total_area
     
@@ -61,10 +62,9 @@ class EstateProperty(models.Model):
         for record in self:
             if record.offer_ids.mapped("price"):
                 record.best_offer = max(record.offer_ids.mapped("price"))
-                record.state = 'received'
             else:
                 record.best_offer = 0
-    
+            
     #compute for garden_orientation and garden_area
     
     @api.depends("garden")

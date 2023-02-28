@@ -18,5 +18,5 @@ class EstatePropertyType(models.Model):
     
     def _compute_offer_count(self):
         for rec in self:
-            rec.offer_count = self.search_count([('offer_ids.property_id.state','=','recieved')])
+            rec.offer_count = self.offer_ids.search_count([])
             

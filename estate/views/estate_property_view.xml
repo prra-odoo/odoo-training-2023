@@ -125,7 +125,7 @@
             filter_domain = "[('living_area','>=', self)]"/>
             <field name="facades" string="Facades"/>
             <separator/>
-            <filter string="Available" name="state" domain="['|', ('state', '=', 'new'), ('state', '=', 'offer received')]"/>
+            <filter string="Available" name="state" domain="['|', ('state', '=', 'new'), ('state', '=', 'received')]"/>
             
             <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
@@ -133,6 +133,20 @@
         </search>
     </field>
 </record>
+<record id="res_user_view_form_extend" model="ir.ui.view">
+        <field name="name">res.users.form.view.extends</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type = "xml">
+            
+            <xpath expr="//notebook" position="inside">
+                <page name="estate_properties" string="Real Estate Properties">
+                    <field name="property_ids"/>
+                </page>
+            </xpath> 
+
+        </field>
+    </record>
 
     
 

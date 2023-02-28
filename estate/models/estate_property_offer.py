@@ -74,3 +74,8 @@ class EstatePropertyOffer(models.Model):
     _sql_constraints = [
         ("positive_price","check(price >= 0)","The offer price must be strictly positive")
     ]
+    
+    @api.model
+    
+    def create(self, vals_list):
+        return super().create(vals_list)
