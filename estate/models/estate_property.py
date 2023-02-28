@@ -15,7 +15,7 @@ class EstateProperty(models.Model):
     _order="id desc"
     _inherit="estate.inheritance"
     
-   
+
 
     name = fields.Char(required=True, string="Title")
     description = fields.Text()
@@ -47,15 +47,15 @@ class EstateProperty(models.Model):
         string="Status" ,default = "new",copy = False, required =True, 
     )
     property_type_id=fields.Many2one("estate.property.type" , string="Property Type")
-    salesperson = fields.Many2one("res.users", string="Salesperson",default=lambda self: self.env.user)
+    user_id = fields.Many2one("res.users", string="Salesperson",default=lambda self: self.env.user)
     buyer = fields.Many2one("res.partner", string="Buyer", index=True , copy=False)    # copy=false it means when we duplicate a record it is not copied
     tag_ids= fields.Many2many("estate.property.tag" ,relation="estate_property_tag_rel")
     offer_ids = fields.One2many("estate.property.offer","property_id")
     total_area=fields.Float(compute="_compute_total_area")
     best_price=fields.Float(compute="_compute_best_price")
-   
-    
-    
+
+
+
     @api.depends("garden_area","living_area")
     def _compute_total_area(self):
         for record in self:
@@ -79,7 +79,7 @@ class EstateProperty(models.Model):
            record.garden_area=0
            record.garden_orientation=""
 
-   
+
     def action_set_sold(self):
      for record in self:
         if record.state=="canceled":

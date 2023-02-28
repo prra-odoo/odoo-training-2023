@@ -6,17 +6,21 @@
     'version':'1.0',
     'installable': True ,
     'application': True,
-    'auto_install': False,
+    'auto_install': True,
     'license': 'LGPL-3',
     'data': [
         'security/ir.model.access.csv',
         'views/estate_property_view.xml',
         'views/estate_property_tag_view.xml',
-        'views/estate_property_type_view.xml',
         'views/estate_property_offer_view.xml',
+        'views/estate_property_type_view.xml',
         'views/estate_menu.xml',
+        'views/res_users_views.xml',
         ],
 
-    'demo':['demo/estate_demo_data.xml'
-       ]    
+    'demo':[
+    'demo/estate_property_demo.xml',
+    'demo/estate_property_type_demo.xml',
+    'demo/estate_property_tag_demo.xml',
+    ]    
 }

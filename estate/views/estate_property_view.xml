@@ -27,7 +27,7 @@
                 <field name="expected_price" optional="show" />
                 <field name="selling_price" />
                 <field name="date_availability" optional="hide" />
-                   <field name="state" invisible="1"/>                                                                                                                                                                                                                                                                                                                                                                                                                                
+                <field name="state" invisible="1"/> 
             </tree>
         </field>
     </record>
@@ -91,7 +91,7 @@
                         </page>
                         <page string="other info">
                             <group>
-                                <field name="salesperson" />
+                                <field name="user_id" />
                                 <field name="buyer" />
                             </group>
                         </page>

@@ -18,6 +18,7 @@
             <tree>
                 <field name="sequence"  widget="handle"/>
                 <field name="name"/>
+                <!-- <field name="offer_ids"/> -->
             </tree>
         </field>
     </record>
@@ -29,13 +30,9 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <div>
-                        <button class="oe_stat_button" name="%(estate_property_offer_action)d" type="action" icon="fa-bars">
-                            <div class="o_stat_info">
-                              <span class="o_stat_value">
-                                  <field name="offer_count"/>
-                              </span>
-                            </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(estate.estate_property_offer_action)d" type="action" class="oe_stat_button" icon="fa-money">
+                            <field name="offer_count" widget="statinfo" string="Offers"/>
                         </button>
                     </div>
                     <div>
@@ -56,8 +53,6 @@
                     </notebook>
                 </sheet>
             </form>
-
         </field>
-
     </record>
 </odoo>
