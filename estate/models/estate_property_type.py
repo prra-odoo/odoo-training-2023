@@ -16,8 +16,6 @@ class EstatePropertyType(models.Model):
         ("unique_name", "UNIQUE(name)", "Tag names must be unique!")
     ]
 
-    def action_do(self):
-        print("==================", self.offer_count)
 
     @api.depends("offer_ids")
     def _compute_offer_count(self):

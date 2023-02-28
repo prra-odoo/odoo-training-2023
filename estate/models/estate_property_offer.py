@@ -59,12 +59,15 @@ class EstatePropertyOffer(models.Model):
             raise exceptions.ValidationError(
                 "The deadline can not be set in the past.")
 
+    @api.model
     def create(self, vals_list):
-        record = self.env["estate.property"].browse(
-            vals_list[0]["property_id"])
+        if(vals_list):
+            record = self.env["estate.property"].browse(
+                vals_list["property_id"])
         record.state = "offer received"
-        if (vals_list[0]["price"] <= record.best_price):
+        if (record and vals_list["price"] <= record.best_price):
             raise exceptions.UserError(
                 f"The offer must be higher than {record.best_price}")
+        print("======================",vals_list["property_id"])
 
         return super().create(vals_list)
