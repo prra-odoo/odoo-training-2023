@@ -94,10 +94,3 @@ class EstateProperty(models.Model):
         for record in self:
             if float_compare(self.expected_price*0.9, record.selling_price, precision_digits=2) == 1 and self.offer_ids:
                 raise ValidationError("The selling price must be 90% or greater of expected price")
-
-
-class ResUsers(models.Model):
-    _inherit = "res.users"
-
-    property_ids = fields.One2many('estate.property','user_id', domain="[('state','in',['new','offer_received'])]")
-    # test = fields.Char()

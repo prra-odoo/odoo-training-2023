@@ -127,4 +127,19 @@
             </p>
         </field>
     </record>
+    <!-- Inherited View -->
+    <record id="res_users_view_form" model="ir.ui.view">
+        <field name="name">Res Users View Form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']" position="after">
+             <!-- <xpath expr="//page[@name='access_rights']" position="replace"> -->
+                <page name="real_estate_properties" string="Real Estate Properties">
+                    <field name="property_ids"/>
+                </page>
+             <!-- <xpath expr="//page[@name='real_estate_properties']" position="move"/> -->
+            </xpath>
+        </field>
+    </record>
 </odoo>

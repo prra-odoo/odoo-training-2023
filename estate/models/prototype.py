@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import fields, models
 
+
 class Prototype(models.Model):
 	_name = "prototype.prototype"
 	_description = "Prototype Test Model"

@@ -4,3 +4,5 @@ estate.access_estate_property_type,access_estate_property_type,estate.model_esta
 estate.access_estate_property_tag,access_estate_property_tag,estate.model_estate_property_tag,base.group_user,1,1,1,1
 estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,base.group_user,1,1,1,1
 estate.access_prototype_prototype,access_prototype_prototype,estate.model_prototype_prototype,base.group_user,1,1,1,1
+estate.access_res_users,access_res_users,estate.model_res_users,base.group_user,1,1,1,1
+estate.access_delegation_inheritance,access_delegation_inheritance,estate.model_delegation_inheritance,base.group_user,1,1,1,1
