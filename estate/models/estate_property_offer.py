@@ -10,6 +10,7 @@ class EstatePropertyOffer(models.Model):
                 ]
     _order = "price desc"
     _rec_name="price"
+    _inherits = {"estate.property":"property_id"}
 
     price = fields.Float()
     status = fields.Selection(string='Status',
@@ -20,6 +21,14 @@ class EstatePropertyOffer(models.Model):
     property_id = fields.Many2one("estate.property", string="Property", required=True)
     validity = fields.Integer(default=7)
 
+    #Related Fields: You cannot chain Many2many or One2many fields in related fields dependencies. 
+    #                Related can be used to refer to a One2many or Many2many field on another model on the condition 
+    #                that it’s done through a Many2one relation on the current model. One2many and Many2many 
+    #                are not supported and the results will not be aggregated correctly:
+
+    property_type_id = fields.Many2one("estate.property.type",string="Property Type",related='property_id.property_type_id', store=True)
+
+ 
     #create_date = fields.Date(default=fields.date.today())
 
     date_deadline = fields.Date(compute="compute_date_deadline", inverse="inverse_date_deadline", string="Deadline")

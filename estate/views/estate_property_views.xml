@@ -44,8 +44,8 @@
                     <button name="action_sold" type="object" string="Sold" states="new,offer received,sold,cancelled"/>
                     <button name="action_sold" type="object" string="Sold" states="offer accepted" class="oe_highlight"/>
                     <button type="object" name="action_cancel" string="CANCELLED" class="oe_highlight"/>
-                    <field name="state" widget="statusbar" options="{'clickable':1}" class="oe_highlight"/>
-                </header>
+                    <field name="state" widget="statusbar" options="{'clickable':1}" statusbar_visible='new,offer recieved,offer accepted,sold' class="oe_highlight"/>
+                </header>'
                 <sheet>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" states = "sold"/> 
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" states="cancelled"/>
@@ -90,8 +90,8 @@
                                 </group>
                             </page>
                             <page string="Offers">
-                                <field name="offer_ids" mode="kanban" class="oe_inline" />
-                                <!-- <field name="offer_ids" class="oe_inline" />                          -->
+                                <!-- <field name="offer_ids" mode="kanban" class="oe_inline" /> -->
+                                <field name="offer_ids" class="oe_inline" />                         
                             </page>
                             <page string="Other Info">
                                 <group>
@@ -116,6 +116,7 @@
         <field name="arch" type="xml">
             <search string="Tests">
                 <field name="name"/>
+                <!-- <field name="test"/> -->
                 <field name="postcode"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
@@ -139,4 +140,4 @@
         </field>    
     </record>
 
-</odoo>
+</odoo> 

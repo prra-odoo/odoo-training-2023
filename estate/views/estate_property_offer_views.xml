@@ -2,12 +2,19 @@
 
 <odoo>
 
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id','=',active_id)]</field>
+    </record>
+
     <record id="estate_property_offer_view_list" model="ir.ui.view">
         <field name="name">Property Offer</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
             <tree string="Tree View" decoration-success="status=='accepted'" 
-            decoration-danger="status=='refused'" editable="bottom">
+            decoration-danger="status=='refused'" >
                 <field name="price"/>
                 <field name="partner_id"/>
                 <field name='validity'/>
@@ -15,6 +22,10 @@
                 <button name="refuse_offer" type="object" icon="fa-times" title="Refuse Offer" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
                 <field name="date_deadline"/>
                 <field name="status" invisible="1"/>
+                <field name="property_id"/>
+                <field name="property_type_id"/>
+                <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+
             </tree>
         </field>
     </record> 
@@ -31,6 +42,8 @@
                         <field name="validity"/>
                         <field name="date_deadline"/>
                         <field name="status"/>
+                        <field name="property_id"/>
+                        <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                 </sheet>
             </form>

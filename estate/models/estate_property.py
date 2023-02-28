@@ -2,7 +2,6 @@ from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError,ValidationError
 from odoo.tools.float_utils import float_is_zero,float_compare
-import odoo
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -14,7 +13,7 @@ class EstateProperty(models.Model):
          'The selling price price should be strictly positive only.'),
     ]
     _order = "id desc"
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin','base.property']
 
     id = fields.Integer()
     name = fields.Char(required=True, string="Title")
@@ -42,6 +41,7 @@ class EstateProperty(models.Model):
         help="What's the Status!",default="new",required="true",copy=False)
 
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    # test = fields.Integer(related="property_type_id.offer_count")
     salesman_id = fields.Many2one("res.users", string="Salesman", default=lambda self: self.env.user)
     buyer_id = fields.Many2one("res.partner", string="Buyer",copy=False, readonly=True)
     property_tag_ids = fields.Many2many("estate.property.tag", string="Tags", relation="many2many_mash_tags_rel")
@@ -101,9 +101,19 @@ class EstateProperty(models.Model):
     @api.constrains('expected_price', 'selling_price')
     def _selling_price(self):
         for record in self:
+
             if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
                 if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+                
+
+
+# class ResUsers(models.Model):
+#     _inherit = "res.users"
+
+#     property_ids = fields.One2many("estate.property", "salesman_id", domain="[('state', 'in', ['new','offer recieved'])]")
+    
+
 
     
 
