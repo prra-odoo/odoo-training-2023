@@ -21,12 +21,20 @@ class EstatePropertyType(models.Model):
 
     @api.depends('offer_ids')
     def _compute_offer_count(self):
-        for record in self:
-           if record.offer_ids:
-               record.offer_count=len(record.offer_ids)
-               #record.offer_count=self.env['estate.property.offer'].search_count([])
-           else:
-               record.offer_count=0
+        if self.offer_ids:
+            self.offer_count=self.env['estate.property.offer'].search_count([('property_type_id','=',self.id)])
+        else:
+            self.offer_count=0
+
+                    # rec.places_owned=self.env['place.details'].search_count([('host_email','=',rec.email)])
+
+
+        # for record in self:
+        #    if record.offer_ids:
+        #        record.offer_count=len(record.offer_ids)
+        #        #record.offer_count=self.env['estate.property.offer'].search_count([])
+        #    else:
+        #        record.offer_count=0
 
     
                      
