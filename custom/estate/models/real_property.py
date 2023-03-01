@@ -5,7 +5,7 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
 
 
-class realProperty(models.Model):
+class EstateRealProperty(models.Model):
     _name = "estate.real.property"
     _description = "Real estate model"
     _sql_constraints = [
@@ -15,16 +15,15 @@ class realProperty(models.Model):
          "Selling Price must be positive")
 
     ]
-    _order="id desc"
-    _inherit="estate_inheritance"
-    
-
+    _order = "id desc"
+    _inherit = "estate_inheritance"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     @api.constrains('expected_price', 'selling_price')
     def _selling_price(self):
         for record in self:
-            if not float_is_zero(record.expected_price,precision_digits=2) and not float_is_zero(record.selling_price,precision_digits=2):
-                if float_compare(record.selling_price, record.expected_price * 0.9,precision_digits=2) == -1:
+            if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
+                if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise ValidationError(
                         "selling price cannot be less than 90% the expected price")
 
@@ -52,11 +51,11 @@ class realProperty(models.Model):
     state = fields.Selection(string='State',
                              selection=[('new', 'New'), ('recieved', 'Offer Recieved'), (
                                  'accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')],
-                             help="select the state")
+                             help="select the state", tracking=True)
     property_type_id = fields.Many2one(
         "estate.property.type", name="Property Type")
     buyer_id = fields.Many2one("res.partner", name="Buyer", copy=False)
-    seller_id = fields.Many2one(            
+    seller_id = fields.Many2one(
         "res.users", name="Salesman")
     tag_ids = fields.Many2many(
         "estate.property.tag", string="Tags")
@@ -64,11 +63,9 @@ class realProperty(models.Model):
         comodel_name='estate.property.offer',
         inverse_name='property_id',
         string='Offers',
-        required=True
+        required=True, tracking=True
     )
     total_area = fields.Float(compute='_compute_total')
-    
-   
 
     @api.depends('garden_area', 'living_area')
     def _compute_total(self):
@@ -126,11 +123,11 @@ class realProperty(models.Model):
 
     def action_cancelled(self):
         for record in self:
-            record.state = 'cancelled' 
+            record.state = 'cancelled'
 
-
-
-
-
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_active_user(self):
+        if self.state in ['recieved','accepted','sold']:
+            raise UserError("Only new and cancelled properties can be deleted")
     
- 
+   

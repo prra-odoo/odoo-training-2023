@@ -17,7 +17,13 @@
                         <button type="object" name="action_sold" string="Sold" class='oe_highlight' states="accepted"/>
                         <button type="object" name="action_cancelled" string="Cancel" class='oe_highlight' states="accepted"/>
                     </header>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="message_ids" />
+                        <field name="activity_ids" />
+                   </div>
                 <sheet>
+            
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-info" attrs="{'invisible': [('state', '!=', 'sold')]}"/>
  

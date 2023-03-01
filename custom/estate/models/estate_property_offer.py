@@ -1,6 +1,8 @@
 from odoo import models, fields, api
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError, ValidationError
+
 
 
 class EstatePropertyOffer(models.Model):
@@ -48,6 +50,14 @@ class EstatePropertyOffer(models.Model):
     def action_refused(self):
         for record in self:
             record.status='refused'
+    @api.model
+    def create(self, vals):
+        p=self.env["estate.real.property"].browse(vals['property_id'])
+        if(vals['price']<p.best_price):
+            raise UserError("Cannot create an offer lesser than existing amount")
+        else:
+            p.state='recieved'
+            return super().create(vals)
 
 
                    
