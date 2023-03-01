@@ -48,6 +48,13 @@
                     <h1><field name="name" placeholder="My New House"/></h1>
                     <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     <group>
+                        <!-- example of prototype inheritance
+                        <group>
+                            <field name="price"/>
+                            <field name="postcode"/>
+                            <field name="date"/>
+                        </group> -->
+                        
                         <group>
                             <!-- <field name="state" string="Status"/> -->
                             <field name="property_type_id" string="Property Type" options="{'no_create': True}"/>
@@ -115,7 +122,6 @@
                                     </form>
                                 </field> -->
                             </page>
-                            
                             <page string="Other Info">
                                 <group>
                                     <field name="buyer_id" string="Buyer"/>
@@ -125,6 +131,11 @@
                         </notebook>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+                </div>
             </form>
         </field>
     </record>

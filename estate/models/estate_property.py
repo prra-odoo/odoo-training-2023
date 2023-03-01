@@ -8,7 +8,7 @@ class EstateProperty(models.Model):
     _sql_constraints = [
         ('check_expected_price','CHECK(expected_price>0)','The expected price must be strictly positive.'),
     ]
-    _inherit = "estate.prototype"
+    _inherit = ['estate.prototype','mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(required=True)
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
@@ -34,7 +34,7 @@ class EstateProperty(models.Model):
         string='State',
         selection=[('new', 'New'), ('offer received', 'Offer Received'), 
         ('offer accepted', 'Offer Accepted'), ('sold', 'Sold'), ('cancelled', 'Cancelled')],
-        help="What's the Status!",default="new",required=True,copy=False)
+        help="What's the Status!",default="new",required=True,copy=False,tracking = True)
     buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
     salesperson_id = fields.Many2one("res.users", string="Salesperson",default=lambda self:self.env.user)
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
