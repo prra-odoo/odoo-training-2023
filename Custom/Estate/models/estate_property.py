@@ -4,7 +4,7 @@ from odoo.exceptions import UserError,ValidationError
 from odoo.tools import float_compare,float_is_zero
 
 
-class TestModel(models.Model):
+class EstateModel(models.Model):
     _name="estate.property"
     _description = "Testing an Estate Module"
     _order="id desc"
@@ -55,9 +55,14 @@ class TestModel(models.Model):
         'Expected Price Must be Positive')
     ]
 
-    # @api.ondelete
-    # def unlink(self,val):
-    #     if self.state not in ['new','offer received']:
+    
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_available(self):
+        for record in self:
+            if record.state not in ['new','canceled']:
+                raise UserError("!!")
+
 
 
     @api.constrains('selling_price','expected_price')
@@ -79,6 +84,8 @@ class TestModel(models.Model):
             if(record.offer_ids):
                 if record.state=="new":
                     record.state="offer received"
+            elif record.state =="canceled":
+                record.state="canceled"
             else:
                 record.state="new"
             record.best_offer = max(record.mapped("offer_ids.price"),default=0)
@@ -97,18 +104,20 @@ class TestModel(models.Model):
         for record in self:
             if record.state == "canceled":
                 raise UserError('Cancelled properties cannot be sold.')
+            # elif record.state == "canceled":
+            #     record.state =="canceled"
             else:
-                self.state='sold'
+                record.state='sold'
             # CANCEL BUTTON IN FORM
     def cancel_action_button(self):
         for record in self:
             if record.state == "sold":
                 raise UserError("Sold property cant't be cancelled")
             else:
-                record.state='canceled'
+                record.state="canceled"
             #CLASSIC INHERITANCE
 class ResUsers(models.Model):
     _inherit="res.users"
 
-    property_ids = fields.One2many('estate.property','user_id')
+    property_ids = fields.One2many('estate.property','user_id',domain=[('state','in',['new','offer received'])])
     testing = fields.Char()

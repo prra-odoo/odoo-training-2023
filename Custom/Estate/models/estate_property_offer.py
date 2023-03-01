@@ -1,5 +1,6 @@
 from odoo import models,fields,api,_
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 class EstateOffers(models.Model):
     _name= 'estate.property.offer'
@@ -21,6 +22,14 @@ class EstateOffers(models.Model):
     _sql_constraints=[(
         'offer_price_positive','CHECK(price>0)',
         'Offere  Price Must be positive')]
+    
+    # 
+    @api.model
+    def create(self, vals):
+        offer = self.env['estate.property'].browse(vals['property_id'])
+        if(vals['price'] < offer.best_offer):
+            raise UserError("Offer price is shouldn't lower than %d"%offer.best_offer)
+        return super(EstateOffers,self).create(vals)
 
     @api.depends("validity","create_date")
     def _compute_date_deadline(self):
