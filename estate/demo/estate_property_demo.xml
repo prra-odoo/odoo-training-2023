@@ -6,7 +6,7 @@
         </record>
         <record id="demo_partner1" model="estate.property.type">
             <field name="name">society</field>
-        </record>
+		</record>
         <record id="estate_property_demo1" model="estate.property">
 			<field name="name">radhika residency</field>
 			<field name="state">new</field>

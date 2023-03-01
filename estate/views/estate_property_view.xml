@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Blank Record(smile) -->
-    <record id="estate_property_action" model="ir.actions.act_window"> <!--this model in \d ir_actions-->
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <!--this model in \d ir_actions-->
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
@@ -27,7 +28,7 @@
                 <field name="expected_price" optional="show" />
                 <field name="selling_price" />
                 <field name="date_availability" optional="hide" />
-                <field name="state" invisible="1"/> 
+                <field name="state" invisible="1"/>
             </tree>
         </field>
     </record>
@@ -51,7 +52,6 @@
                 <sheet>
                     <widget name="web_ribbon" title="sold" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('offer_recived','new','canceled','offer_accepted'))]}"/>
                     <widget name="web_ribbon" title="Accepted" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('offer_recived','new','canceled','sold'))]}"/>
-
                     <div>
                         <label for="name" string="Property Name" />
                         <h1>
@@ -97,6 +97,11 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+                </div>
             </form>
         </field>
     </record>

@@ -16,14 +16,21 @@
             </xpath> -->
 
 
-            <xpath expr="//page[@name='access_rights']" position="replace">
+            <!-- <xpath expr="//page[@name='access_rights']" position="replace">
                 <page string="Description">
                     <field name="property_ids"/>
                 </page>
-            </xpath>    
+            </xpath>    -->
+
+
+            <!-- <xpath expr="//page[@name='access_rights']" position="after">
+                <page string="Description">
+                    <field name="property_ids"/>
+                </page>    
+            </xpath> -->
 
             <xpath expr="//page[@name='access_rights']" position="before">
-                <page string="Description">
+                <page string="Real Estate Properties">
                     <field name="property_ids"/>
                 </page>    
             </xpath>

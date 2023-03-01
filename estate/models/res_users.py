@@ -4,5 +4,5 @@ class ResUsers(models.Model):
     _inherit="res.users" 
     # _here name is not necessary bcoz we manipulate in the same model
 
-    property_ids=fields.One2many("estate.property","user_id" , string="Properties" , domain="[('state' , 'in',('new','offer_received'))]")
-    numbs= fields.Float()
+    property_ids=fields.One2many("estate.property","user_id"  , domain=[('state', 'in', ('new', 'offer_received'))] )
+    # numbs= fields.Float()

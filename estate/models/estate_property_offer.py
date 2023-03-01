@@ -1,7 +1,9 @@
 from odoo import models , fields,api
 from dateutil.relativedelta import relativedelta
+from odoo.tools import float_compare
+from odoo.exceptions import UserError , ValidationError
 
-class EstatePropertyOffer (models.Model):
+class EstatePropertyOffer(models.Model):
    _name="estate.property.offer"
    _description="This is a property offer model"
    _order="price desc"
@@ -39,3 +41,13 @@ class EstatePropertyOffer (models.Model):
    def action_refused(self):
       for record in self:
          record.status="refused"
+
+
+   # CRUD operation      
+   @api.model
+   def create(self,vals):
+      # breakpoint()
+      property_record =self.env['estate.property'].browse(vals['property_id'])
+      if(vals['price'] < property_record.best_price):
+         raise UserError("Offer price is shouldn't lower than %d" %property_record.best_price)
+      return super().create(vals)    
