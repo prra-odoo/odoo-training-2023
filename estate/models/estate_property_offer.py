@@ -61,5 +61,25 @@ class EstatePropertyOffer(models.Model):
             record.status="refused"
    
 
+    @api.model
+    def create(self,vals):
+        count= self.env['estate.property'].browse(vals["property_id"])
+        if vals['price'] <= count.best_offer:
+            raise UserError("You cannot create lower offer than present offers")
+        count.state="offer_received"
+    
+        return super(EstatePropertyOffer,self).create(vals)
+        
+
+
+
+# @api.model
+#     def create(self,vals):
+#         property = self.env['estate.property'].browse(vals["property_id"])
+#         if(vals['price']< property.best_price):
+#             raise UserError("New Offer price should be greater than %d" %property.best_price)
+#         property.state = 'received'
+#         return super(EstatePropertyOffer,self).create(vals)
+
 
 

@@ -1,13 +1,15 @@
 from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
-from odoo.exceptions import UserError,ValidationError
+from odoo.exceptions import UserError,ValidationError,AccessError
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Real Estate Property"
     _order="sequence,id desc"
-    _inherit = 'inherit.fields'  
+    _inherit = 'inherit.fields'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+  
 
     name=fields.Char(required=True)
     description=fields.Char()
@@ -31,7 +33,10 @@ class EstateProperty(models.Model):
         string="Garden Orientation",
         compute="_compute_garden",
         readonly=False,
-        store=True
+        
+
+        store=True,
+
         
     )
 
@@ -50,7 +55,8 @@ class EstateProperty(models.Model):
         copy=False,
         default="new",
         compute="_compute_state",
-        store=True
+        store=True,
+        tracking=True
 
     )
 
@@ -130,7 +136,22 @@ class EstateProperty(models.Model):
          else:
             self.state="cancelled"
        
+
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_offer_received_accepted_sold(self):
+        if self.state not in ['new','cancelled']:
+            raise AccessError("Only new and cancelled properties can be deleted")
+
            
+    # @api.ondelete(at_uninstall=False)
+    # def _unlink_except_contains_journal_items(self):
+    #     if self.env['account.move.line'].search([('account_id', 'in', self.ids)], limit=1):
+    #         raise UserError(_('You cannot perform this action on an account that contains journal items.'))
+
+
+
+
 
 class InheritedProperty(models.Model):
         _inherit = "estate.property"
