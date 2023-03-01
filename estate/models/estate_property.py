@@ -15,6 +15,7 @@ class EstateProperty(models.Model):
         ('sell_price_pos', 'CHECK(selling_price >= 0)',
          'The selling price must be greater than 0.'),
     ]
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(required=True, default="Unknown Estate")
     description = fields.Text()
@@ -46,23 +47,24 @@ class EstateProperty(models.Model):
                    ('OA', 'Offer Accepted!'), ('S', 'Sold'), ('C', 'Cancelled')],
         help="Deal Status to be provided here...",
         copy=False,
-        default='N'
+        default='N',
+        tracking=True
     )
 
     property_type_id = fields.Many2one(
-        comodel_name="estate.property.type", string="Property Type")
+        comodel_name="estate.property.type", string="Property Type", tracking=True)
 
     salesman_id = fields.Many2one(
         comodel_name='res.users', string="Salesman", default=lambda self: self.env.user)
 
     buyer_id = fields.Many2one(
-        comodel_name='res.partner', string="Buyer", copy=False)
+        comodel_name='res.partner', string="Buyer", copy=False, tracking=True)
 
     tag_ids = fields.Many2many(
-        comodel_name="estate.property.tag", string="Tags", copy=False)
+        comodel_name="estate.property.tag", string="Tags", copy=False, tracking=True)
 
     offer_ids = fields.One2many(
-        comodel_name="estate.property.offer", inverse_name="property_id", store=True)
+        comodel_name="estate.property.offer", inverse_name="property_id", store=True, tracking=True)
 
     total_area = fields.Float(compute='_compute_total_area')
 
@@ -71,8 +73,6 @@ class EstateProperty(models.Model):
     garden_area = fields.Integer(
         compute="_compute_garden_area", string='Garden Area (sqm)',
         inverse="_inverse_garden_area", store=True)
-
-    demo_id = fields.Many2one(comodel_name="res.users", string="testing")
 
     @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
@@ -84,14 +84,14 @@ class EstateProperty(models.Model):
         for record in self:
             if (record.offer_ids):
                 # Whenever a new offer is created, state changes to "OR".
-                # Already implemented by overriding create method in estate_property_offer.
+                # --> Already implemented by overriding create method in estate_property_offer.
                 # if (record.state == "N"):
                 #     record.state = "OR"
                 amount = max(record.mapped('offer_ids.price'))
                 record.best_price = amount
             else:
                 # To mark the property as new when all the offers are deleted.
-                # Done in estate_property_offer as mark_new_no_offer.
+                # --> Done in estate_property_offer as mark_new_no_offer.
                 # if (record.state in ["OR", "OA", "S", "C"]):
                 #     record.state = 'N'
 
@@ -155,7 +155,7 @@ class EstateProperty(models.Model):
                         "Selling Price must be greater than 90% of the expected price.")
 
     @api.ondelete(at_uninstall=False)
-    def prevent_deletion_not_new_cancel(self):
+    def _unlink_except_new_cancel(self):
         for rec in self:
             if (rec.state not in ["N", "C"]):
                 raise UserError(

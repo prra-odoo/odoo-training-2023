@@ -2,7 +2,7 @@
     'name': "Real Estate",
     'author': "Shubham Thanki (shut)",
     'sequence': -100,
-    'depends': ['base'],
+    'depends': ['base', 'mail'],
     'application': True,
     'license': 'LGPL-3',
     'data': ['security/ir.model.access.csv',

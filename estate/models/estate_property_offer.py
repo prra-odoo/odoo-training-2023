@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class EstatePropertyOffer(models.Model):
@@ -75,13 +75,23 @@ class EstatePropertyOffer(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            # breakpoint()
+            # vals_list = [{'price': 123, 'partner_id': 27, 'validity': 7,
+            # 'date_deadline': '2023-03-08', 'status': False, 'property_id': 6}]
+            # The browse will fetch and give you the property under which we are adding offers,
+            # using property_id. property_id is provided by vals.
+            # vals is a dictionary and estate_property_obj is an object of the class estate.property,
+            # and this is the reason (.best_price) works while (vals.property_id) doesen't.
             estate_property_obj = self.env['estate.property'].browse(
                 vals['property_id'])
+            if (vals['price'] < estate_property_obj.best_price):
+                raise ValidationError(
+                    "Cannot offer a price that is less than the current best price available.")
             estate_property_obj.state = "OR"
         return super().create(vals)
 
     @api.ondelete(at_uninstall=False)
-    def mark_new_no_offer(self):
+    def mark_new_zero_offer(self):
         count = self.env['estate.property.offer'].search_count(
             domain=[('id', 'in', self.property_id.offer_ids.ids)])
         print(count, "--------------------------")
