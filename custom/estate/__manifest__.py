@@ -1,7 +1,7 @@
 
 {
     'name': "estate"   , 
-    'depends':['base',], 
+    'depends':['base','mail'], 
     'application': True,
     'license': 'LGPL-3',    
     'data':['security/ir.model.access.csv',

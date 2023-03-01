@@ -20,20 +20,5 @@
             <field name="garden_orientation">south</field>
             <field name="property_type_id" ref="property_type_rec1"/>
     </record>
-    <!-- <record id="record_2" model="estate.propery">
-        <field name="name"></field>
-        <field name="state"></field>
-        <field name="description"></field>
-        <field name="postcode"></field>
-        <field name="date_availability"></field>
-        <field name="expected_price"></field>
-        <field name="selling_price"></field>
-        <field name="bedrooms"></field>
-        <field name="living_area"></field>
-        <field name="facades"></field>
-        <field name="garage"></field>
-        <field name="garden"></field>
-        <field name="garden_area"></field>
-        <field name="garden_orientation"></field>
-    </record> -->
+   
 </odoo>

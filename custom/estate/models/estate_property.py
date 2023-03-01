@@ -9,6 +9,7 @@ class EstateProperty(models.Model):
     _description="estate property project"
     _order="id desc"
     _inherit="estate.proto"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name=fields.Char(required=True) 
     active=fields.Boolean(default=True)
@@ -32,13 +33,14 @@ class EstateProperty(models.Model):
         string='State',
         selection=[('new','New'),('offer received','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         default='new',
-        required=True
+        required=True,
+        tracking=True
     )
-    property_type_id=fields.Many2one("estate.property.types",string="Property Type")
+    property_type_id=fields.Many2one("estate.property.types",string="Property Type",tracking=True)
     buyer_id=fields.Many2one("res.partner",copy=False)
     user_id=fields.Many2one('res.users',string="Salesperson",default=lambda self: self.env.user)
-    tag_ids=fields.Many2many('estate.property.tag')
-    offer_ids=fields.One2many('estate.property.offer','property_id')
+    tag_ids=fields.Many2many('estate.property.tag',tracking=True)
+    offer_ids=fields.One2many('estate.property.offer','property_id',tracking=True)
     total_area=fields.Integer(compute="_compute_area",store=True)
     best_offer=fields.Float(compute="_compute_bestoffer",readonly=True)
 
@@ -63,17 +65,15 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area=record.living_area+record.garden_area
 
-    @api.depends("offer_ids.price")
+    @api.depends("offer_ids")
     def _compute_bestoffer(self):
         for record in self:
             if record.offer_ids:
                 if record.state=="new":
                     record.state="offer received"
-                record.best_offer=max(record.offer_ids.mapped('price'))
-
             else:
-                record.best_offer=0
                 record.state="new"
+            record.best_offer=max(record.offer_ids.mapped('price'),default=0)
 
 
     # @api.onchange("garden")
@@ -119,6 +119,7 @@ class EstateProperty(models.Model):
                     raise UserError("Canceled Propery cannot be sold")
             else:
                 record.state='sold'
+        return True
 
     def cancel_action(self):
         for record in self:
@@ -127,4 +128,13 @@ class EstateProperty(models.Model):
                     raise UserError("Sold Propery cannot be canceled")
             else:
                 record.state='canceled'
+        return True
+            
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_cancel(self):
+        for record in self:
+            if record.state not in ['new','canceled']:
+                raise UserError("Only new and canceled property can be deleted")
+
         
