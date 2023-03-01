@@ -6,7 +6,6 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate property model"
     _order = "id desc"
-    _inherit = "inheritance.demo"
 
     name = fields.Char(default="Unknown")
     last_seen = fields.Datetime(
@@ -75,8 +74,7 @@ class EstateProperty(models.Model):
                     "Canceled properties can't be sold!")
             else:
                 record.state = "sold"
-                print("=====================",
-                      record.sales_person_id.property_ids)
+            print("======================PARENT ACTION CALLED====")
 
     def action_cancel(self):
         for record in self:

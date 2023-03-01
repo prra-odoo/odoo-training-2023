@@ -4,6 +4,7 @@
     "installable" : True,
     "application" : True,
     "data" : [
+        "demo/demo_data.xml",
         "security/ir.model.access.csv",
         "views/estate_property_views.xml",
         "views/estate_property_offer_views.xml",
