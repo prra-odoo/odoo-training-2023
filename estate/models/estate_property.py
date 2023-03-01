@@ -70,15 +70,6 @@ class EstateProperty(models.Model):
             record.total_area = record.living_area + record.garden_area
 
     best_offer = fields.Float(compute='_compute_best_offer',store=True)
-    # @api.depends("offer_ids")
-    # def _best_offer(self):
-    #     for record in self:
-    #         if(record.offer_ids):
-    #             if(record.state == "new"):
-    #                 record.state = "offer recieved"
-    #                 record.best_offer=max(record.offer_ids.mapped("price"))
-    #         else:
-    #             record.best_offer=0.0
     @api.depends("offer_ids")
     def _compute_best_offer(self):
         for record in self:
@@ -87,11 +78,10 @@ class EstateProperty(models.Model):
                     record.state = "offer received"
                     record.best_offer = max(record.offer_ids.mapped('price'))
             else:
-                record.best_offer = 0.0
-
-            if(record.state == "offer received"):
-                if(not record.offer_ids):
-                    record.state = "new"
+                record.best_offer = 0.0 
+                if(record.state == "offer received"):
+                    if(not record.offer_ids):
+                        record.state = "new"
 
     # @api.depends("offer_ids")
     # def _compute_best_price(self):
@@ -115,6 +105,12 @@ class EstateProperty(models.Model):
     def _inverse_garden(self):
         pass
             
+    
+    def action_sold(self):
+        for record in self:
+            if record.state == 'cancelled':
+                raise exceptions.UserError("cancelled property can't be sold.")
+            else: record.state = 'sold'
 
     #function making two button of sold and cancelled in header
     def action_cancel(self):
@@ -122,11 +118,6 @@ class EstateProperty(models.Model):
             if record.state == 'sold':
                 raise exceptions.UserError("sold property can't be cancelled.")
             else:record.state = 'cancelled'
-    def action_sold(self):
-        for record in self:
-            if record.state == 'cancelled':
-                raise exceptions.UserError("cancelled property can't be sold.")
-            else: record.state = 'sold'
 
     # # now to check that the expected price must be strictly positive
     # @api.constrains('expected_price')
@@ -161,4 +152,15 @@ class EstateProperty(models.Model):
                 if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise exceptions.ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
 
+    # to use python inheritance that only new and cancelled properties can be deleted
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_cancelled(self):
+        for record in self:
+            if(record.state not in ['new','cancelled']):
+                raise exceptions.UserError("Only new and cancelled properties can be deleted.")
 
+    seq_name = fields.Char(string="Sequence Number", readonly=True, copy=False, default='New')
+    @api.model
+    def create(self,vals):
+        vals['seq_name'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty,self).create(vals)

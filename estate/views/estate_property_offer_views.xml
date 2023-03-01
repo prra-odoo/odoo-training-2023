@@ -19,7 +19,7 @@
         <field name="name">Property Offers</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree string="Tree View" editable="bottom" decoration-success="status=='accepted'" decoration-danger="status=='refused'">
+            <tree string="Tree View" decoration-success="status=='accepted'" decoration-danger="status=='refused'">
             <!-- here editable=top is used to directly add the new data and not open up the wizard ,if we use editable="bottom then new line willbe added at bottim of existing data and using top it is added at the top of existing data"-->
                 <field name="price"/>
                 <field name="partner_id"/>

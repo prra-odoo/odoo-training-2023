@@ -1,4 +1,5 @@
-from odoo import models,fields,api,exceptions
+from odoo import models,fields,api
+from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
@@ -40,7 +41,7 @@ class EstatePropertyOffer(models.Model):
             if(record.date_deadline > datetime.date(datetime.today())):
                 record.validity  = (record.date_deadline - record.create_date.date()).days
             else:
-                raise exceptions.UserError("Set a date after today's")
+                raise ValidationError("Set a date after today's")
 
             
             
@@ -62,13 +63,21 @@ class EstatePropertyOffer(models.Model):
     def _check_offer_price(self):
         for property in self:
             if property.price <= 0:
-                raise exceptions.ValidationError("offer price must be positive.")
-            
-    # color = fields.Integer(compute="_compute_color")
-    # @api.depends('status')
-    # def _compute_color(self):
-    #     for record in self:
-    #         if(record.status == 'accepted'):
-    #             record.color = 10
-    #         else:
-    #             record.color = 2
+                raise ValidationError("offer price must be positive.")
+
+    
+    color = fields.Integer(compute="_compute_color")
+    @api.depends('status') 
+    def _compute_color(self):
+        for record in self:
+            if(record.status == 'accepted'):
+                record.color = 10
+            else:
+                record.color = 2
+
+    @api.model
+    def create(self, vals):
+        if(vals['price'] < self.env['estate.property'].browse(vals['property_id']).best_offer):
+            raise ValidationError("Offer Price cannot be less than best offer.")
+        self.env['estate.property'].browse(vals['property_id']).state = 'offer received'
+        return super().create(vals)
