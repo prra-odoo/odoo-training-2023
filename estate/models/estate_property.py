@@ -88,18 +88,13 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             record.best_price = max(record.offer_ids.mapped("price"),default=0)
-            # if record.offer_ids and (record.offer_ids.status=="refused" or record.offer_ids.status == False):
-            #     print("*" * 100)
+            # if record.offer_ids and any(x.status != "accepted" for x in record.offer_ids):
             #     record.state = "offer_received"
         return True
 
     def action_set_state_sold(self):
         for record in self:
-            if record.state == "canceled":
-                raise UserError("Can't set canceled property to sold")
-            else:
-                record.state = "sold"
-                print(self.name)
+            record.state = "sold"
         return True
     
     def action_set_state_cancel(self):
@@ -124,3 +119,12 @@ class EstateProperty(models.Model):
         return True
             # if record.selling_price < (record.expected_price * 90)/100:
             #     raise ValidationError("the selling price cannot be lower than 90% of the expected price.")
+
+    # Python inheritance CRUD
+
+    @api.ondelete(at_uninstall=True)
+    def _unlink_if_state(self):
+        for record in self:
+            if record.state not in ['new','canceled']:
+                raise UserError("Only new and cancled property can be deleted")
+        # return super().unlink()

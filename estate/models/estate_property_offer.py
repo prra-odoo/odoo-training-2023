@@ -51,4 +51,11 @@ class EstatePropertyOffer(models.Model):
             record.status = "refused"
         return True
 
-    # Auto calle
+    # Python inheritance CRUD
+    @api.model
+    def create(self, vals):
+        if vals['price'] < self.env['estate.property'].browse(vals['property_id']).expected_price:
+            raise UserError("xx")
+        else:
+            self.env['estate.property'].browse(vals['property_id']).state = "offer_received"
+        return super(EstatePropertyOffer,self).create(vals)
