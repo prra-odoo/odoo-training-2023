@@ -9,16 +9,16 @@ class EstatePlan(models.Model):
     _description = "estate property"
     _order = "id desc"
     _inherit="estate.inheritance"
-
+    _inherit = ['mail.thread', 'mail.activity.mixin']
    
-    # name = fields.Char(required=True, string="Title")
+    name = fields.Char(required=True, string="Title")
     property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
     property_tag_ids = fields.Many2many("estate.property.tag", string="Property Tags")
     active = fields.Boolean(default = True)
     description = fields.Text()
     # state = fields.Text()
-    # postcode = fields.Char()
-    # dateavailability = fields.Date(copy=False, default=lambda self: fields.Date.today()+relativedelta(months=3))
+    postcode = fields.Char()
+    dateavailability = fields.Date(copy=False, default=lambda self: fields.Date.today()+relativedelta(months=3))
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True,copy=False)
     bedrooms = fields.Integer(default=2)
@@ -38,7 +38,8 @@ class EstatePlan(models.Model):
         selection = [('new','New'),('offered received','Offered Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled'),],
         default='new',
         help = "Choose the state",
-        required = True
+        required = True,
+        tracking=True
     )
     buyer = fields.Many2one("res.partner", string="Buyer")
     salesperson = fields.Many2one("res.users",string = "Salesperson", default=lambda self: self.env.user)
@@ -114,6 +115,11 @@ class EstatePlan(models.Model):
             if(not float_is_zero(record.selling_price, precision_rounding=0.01)):
                 if (float_compare(sp,record.selling_price, precision_rounding=0.01) >= 0):
                     raise ValidationError("The selling price must be at least 90%")
+                
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_create(self):
+            if self.state not in ['new','canceled']:
+                raise UserError("cannot delete the property")
             
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price >= 0)','The Expected value should be positive.'),

@@ -40,6 +40,7 @@
                     <field name="state" widget="statusbar" options = '{"clickable":"1"}'/>
                 </header>
                 <sheet> 
+                
                 <widget name="web_ribbon" title="Sold" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('offered received','new','canceled','offer accepted'))]}"/>
                 <widget name="web_ribbon" title="Accepted" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('offered received','new','canceled','sold'))]}"/>
                     <div class="oe_title">
@@ -102,6 +103,11 @@
                          </notebook>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+                </div>
             </form>
         </field>
     </record>

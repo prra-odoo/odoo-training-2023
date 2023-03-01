@@ -5,14 +5,16 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
-            <!-- <xpath expr="//notebook" position="inside">
+            <xpath expr="//notebook" position="inside">
                 <page string="Properties">
                     <field name="property_ids"/>
                 </page>
-            </xpath> -->
-            <xpath expr="//page[@name='access_rights']" position="before">
-                <field name="property_ids"/>
             </xpath>
+            <!-- <xpath expr="//page[@name='access_rights']" position="before">
+                <page string="Properties">
+                <field name="property_ids"/>
+                </page>
+            </xpath> -->
         </field>
     </record>
 </odoo>

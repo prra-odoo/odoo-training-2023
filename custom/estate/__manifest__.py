@@ -2,6 +2,7 @@
     'name': 'estate',
     'application': True,
     'license': 'LGPL-3',
+    'depends' : ['mail'],
     'data': 
     [
         'data/ir.model.access.csv',
