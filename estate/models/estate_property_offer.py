@@ -54,14 +54,16 @@ class EstatePropertyOffer(models.Model):
         ('check_validity', 'CHECK(validity>0)','validity must be greater than 0.')
     ]
 
-    @api.constrains('price')
-    def valid_price(self):
-        for record in self:
-            if record.price < (record.property_id.expected_price * 0.9 ):
-                raise ValidationError('Offer price must be greater than 90% of the expected price.')
-
     @api.constrains('date_deadline')
     def valid_date(self):
         for record in self:
             if record.date_deadline < fields.Date.today():
                 raise ValidationError("Enter Valid Date.")
+            
+    @api.model
+    def create(self,vals):
+        m = self.env['estate.property'].browse(vals['property_id'])
+        if (vals['price'] < m.best_offer):
+            raise UserError("Price must be greater than %d" %m.best_offer)
+        return super(EstatePropertyOffer,self).create(vals)
+    
