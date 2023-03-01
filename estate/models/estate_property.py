@@ -39,7 +39,8 @@ class EstateProperty(models.Model):
         string="State",
         required=True,
         selection=[('new',"New"),('offer_received',"Offer Received"),('offer_accepted',"Offer Accepted"),('sold',"Sold"),('cancelled',"Cancelled")],
-        default='new'
+        default='new',
+        tracking=True
     )
     property_type_id = fields.Many2one("estate.property.type",string="Property Type",required=True)
     buyer_id = fields.Many2one("res.partner",string="Buyer",copy=False)
