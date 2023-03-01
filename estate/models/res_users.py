@@ -6,5 +6,5 @@ class ResUsers(models.Model):
     _description="Res Users"
     _inherit = "res.users"
 
-    property_ids = fields.One2many("estate.property","salesperson_id")
-    test = fields.Char()
+    property_ids = fields.One2many("estate.property","salesperson_id", domain = [('state','in',['new','received'])])
+    

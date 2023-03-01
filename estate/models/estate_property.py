@@ -6,6 +6,7 @@ from odoo.tools.rendering_tools import relativedelta_proxy
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description='Real Estate Property'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
         
     name = fields.Char(required=True)
     description = fields.Char()
@@ -25,7 +26,7 @@ class EstateProperty(models.Model):
         string="State",
         default="new",
         selection=[('new','New'),('received','Offer Received'),('accepted','Offer Accepted'),('sold','Sold'),('cancelled','Cancelled')],
-      
+        tracking=True
     )
     
     garden_orientation = fields.Selection(
@@ -115,4 +116,9 @@ class EstateProperty(models.Model):
    
                 raise ValidationError("The selling price must be atleast '90%' 0f expected price")
     
-         
+    
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_received_accepted_state(self):
+        if self.state in ['received','accepted','sold']:
+            raise UserError("Only new or cancelled property can be deleted")
+            

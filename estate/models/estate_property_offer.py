@@ -78,4 +78,22 @@ class EstatePropertyOffer(models.Model):
     @api.model
     
     def create(self, vals_list):
+    
+        estate_property_object =self.env['estate.property'].browse(vals_list['property_id'])
+        
+        if vals_list['price'] <= estate_property_object.best_offer :
+            raise UserError(_("Price must be greater than existing offer"))
+        
+        estate_property_object.state = 'received'
+        
         return super().create(vals_list)
+    
+    # vals_list
+    # {'price': 456345678876678, 'validity': 7, 'date_deadline': '2023-03-08', 'partner_id': 14, 'state': False, 'property_id': 12}
+    
+    # we have not saved the record yet hence there is no record in self but the record is in
+    # vals_list
+    # self.env['estate.property'].browse(20)
+    # this will give the record in estate.property model for id = 20
+    # here we dont know id so we are using vals_list which contains the dic with all field name as key and value    
+    # vals_list is a dict and estat_property_obj is a object

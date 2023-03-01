@@ -7,4 +7,5 @@ class BaseModel(models.Model):
     
     price = fields.Char()
     date= fields.Date()
-    postcode = fields.Char
+    postcode = fields.Char()
+    test = fields.Char()

@@ -1,5 +1,7 @@
 {
     'name':'estate',
+    
+    'depends' : ['mail'],
  
     'data':[
         'security/ir.model.access.csv',
@@ -14,6 +16,9 @@
     'demo':[
         'demo/demo_data.xml',  
     ],
+    
+    
+    
     'installable':True,
     'application':True,
     'license':'LGPL-3', 
