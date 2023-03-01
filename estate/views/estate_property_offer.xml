@@ -7,11 +7,11 @@
         <field name="arch" type="xml">
             <tree string="tree_view" editable="bottom" decoration-success="status=='accepted'" decoration-danger="status=='refused'">
                 <field name="price"/>
-                <field name="partner_id"/>
+                <field name="partner_id" string="Buyer"/>
                 <field name="validity"/>
                 <field name="deadline_date"/>
-                <button name="action_accept_offer" title="Accept" type="object" icon="fa-check" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
-                <button name="action_cancel_offer" title="Refuse" type="object" icon="fa-remove" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
+                <button name="action_accept_offer" title="Accept" type="object" icon="fa-check" string="Accept" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
+                <button name="action_cancel_offer" title="Refuse" type="object" icon="fa-remove" string="Reject" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
                 <field name="status" invisible="1"/>
             </tree>
         </field>

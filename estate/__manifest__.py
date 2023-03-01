@@ -4,6 +4,7 @@
     'author': 'KASP',
     'depends': [
         'base',
+        'mail',
     ],
     'application': True,
     'installable': True,

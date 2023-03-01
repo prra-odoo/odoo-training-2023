@@ -9,7 +9,12 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property Model"
     _order = "id desc"
-    _inherit = "prototype.prototype"
+    _inherit = ['prototype.prototype', 'mail.thread', 'mail.activity.mixin']
+
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)', 'The expected price must be strictly positive.'),
+        ('check_selling_price', 'CHECK(selling_price > 0)', 'The selling price must be strictly positive.')
+    ]
 
     name = fields.Char(required=True)
     description = fields.Text()
@@ -32,7 +37,7 @@ class EstateProperty(models.Model):
                      ('offer_received','Offer Received'),
                      ('offer_accepted','Offer Accepted'),
                      ('sold','Sold'),
-                     ('canceled','Canceled')], default='new', copy=False)
+                     ('canceled','Canceled')], default='new', tracking=True, copy=False)
     property_type_id = fields.Many2one('estate.property.type', string='Property Type')
     user_id = fields.Many2one('res.users', string='Salesman', default=lambda self: self.env.user)
     buyer_id = fields.Many2one('res.partner', string='Buyer', copy=False, readonly=True)
@@ -51,7 +56,14 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             if(record.offer_ids):
-                record.state = "offer_received" 
+                if record.state =="new":
+                    record.state="offer_received"
+            elif record.state=="canceled":
+                record.state = "canceled"
+            elif record.state=="sold":
+                record.state = "sold"
+            elif record.state=="offer_accepted":
+                record.state = "offer_accepted"
             else:
                 record.state = "new"
             record.best_price = max(record.mapped("offer_ids.price"),default=0)
@@ -83,14 +95,15 @@ class EstateProperty(models.Model):
             else:
                 raise UserError("Sold property can't be canceled")
         return True
-    
-    _sql_constraints = [
-        ('check_expected_price', 'CHECK(expected_price > 0)', 'The expected price must be strictly positive.'),
-        ('check_selling_price', 'CHECK(selling_price > 0)', 'The selling price must be strictly positive.')
-    ]
 
     @api.constrains('expected_price','selling_price')
     def _validate_expected_price(self):
         for record in self:
             if float_compare(self.expected_price*0.9, record.selling_price, precision_digits=2) == 1 and self.offer_ids:
                 raise ValidationError("The selling price must be 90% or greater of expected price")
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_available(self):
+        for record in self:
+            if record.state not in ['new','canceled']:
+                raise UserError("You can't delete 'offer received', 'offer accepted' or 'sold' property")
