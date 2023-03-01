@@ -7,4 +7,4 @@ class EstateNew(models.Model):
 
     price_demo = fields.Integer(string = "Price")
     postcode_demo = fields.Integer(string = "PostCode")
-    date_demo = fields.Date(string = "Date")
+    date_demo = fields.Date(string = "Demo Date")

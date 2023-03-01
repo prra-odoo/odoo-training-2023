@@ -2,9 +2,9 @@
 {
     'name': "Real Estate",
     'application': True,
-    'sequance':1,
+    'sequence':1,
     'version': '1.0',
-    'depends': ['base'],
+    'depends': ['base','mail'],
     'author': "ZEPA",
     'category': 'Category',
     'summary': """

@@ -1,5 +1,6 @@
 from odoo import fields,models, api
 from datetime import datetime
+from odoo.exceptions import UserError
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
@@ -56,12 +57,13 @@ class EstatePropertyOffer(models.Model):
 
     #accept button action
     def action_do_accept(self):
-        self.property_id.offer_ids.status = 'refused'
-        for record in self:
-            record.status = 'accepted'
-            record.property_id.state = 'accepted'
-            record.property_id.selling_price = record.price
-            record.property_id.buyer_id=record.partner_id
+        for offers in self.property_id.offer_ids:
+            offers.status = "refused"
+        self.status="accepted"
+        self.property_id.state="accepted"
+        self.property_id.selling_price=self.price
+        self.property_id.buyer_id=self.partner_id
+        return True
         
 
     #refuse button action
@@ -79,6 +81,15 @@ class EstatePropertyOffer(models.Model):
                 record.color = 9
             else:
                 record.color=0
+
+    @api.model
+    def create(self,vals_list):
+        property = self.env['estate.property'].browse(vals_list["property_id"])
+        if(vals_list['price']< property.best_price):
+            raise UserError("New Offer price should be greater than %d" %property.best_price)
+        property.state = 'received'
+        return super(EstatePropertyOffer,self).create(vals_list)
+        
     
    
         

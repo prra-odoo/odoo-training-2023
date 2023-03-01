@@ -7,7 +7,7 @@ from odoo.tools.float_utils import float_compare, float_is_zero
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate property detailed field"
-    _inherit = "estate.new"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = "id desc"    # _order use to change display record in the list view by default on id and asc order
    
     name = fields.Char(required=True)
@@ -38,7 +38,8 @@ class EstateProperty(models.Model):
         selection = [('new','New'),('received','Offer Received'),('accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         help  = "Status",
         default = "new",
-        copy=False
+        copy=False,
+        tracking = True
         )
     
     property_type_id = fields.Many2one('estate.property.type',string="Property Type")
@@ -74,10 +75,15 @@ class EstateProperty(models.Model):
     def _compute_best_offer(self):
         for record in self:
             if(record.offer_ids):
-                record.state = 'received'
+                if(record.state == "new"):
+                    record.state = 'received'
                 record.best_price = max(record.offer_ids.mapped('price'))
             else: 
                 record.best_price = 0.0
+                if(record.state == 'received'):
+                    if(not record.offer_ids):
+                        record.state = 'new'
+
 
     
     
@@ -120,4 +126,9 @@ class EstateProperty(models.Model):
             record.state = "canceled"
         return True
     
+    @api.ondelete(at_uninstall = False)
+    def _unlink_except_posted_or_approved(self):
+        if (self.state not in ['new','canceled']):
+            raise UserError("New or Canceled Property can not be deleted")
+        # return()
 
