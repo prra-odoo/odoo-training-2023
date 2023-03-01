@@ -6,6 +6,7 @@ from odoo.tools.float_utils import float_is_zero,float_compare
 class EstateProperty(models.Model):
 	_name='estate.property'
 	_inherit="model.test"
+	_inherit = ['mail.thread', 'mail.activity.mixin']
 	_description='demo model with property trsting'
 	_order="id desc"
 
@@ -75,7 +76,8 @@ class EstateProperty(models.Model):
 		string="status",
 		readonly=False,
 		store=True,
-		compute="_compute_receive")
+		compute="_compute_receive",
+		tracking=True)
 	#for state validation
 	stage_id2=fields.Selection(related='state')
 
@@ -149,6 +151,16 @@ class EstateProperty(models.Model):
 			self.state="offer received"
 
 	user_id=fields.Many2one("res.users")
+
+	@api.ondelete(at_uninstall=False)
+	def _unlink_property(self):
+		for record in self:
+			if record.state not in ('new','canceled'):
+				raise odoo.exceptions.AccessError("only properties with stage sold and cancle are deleted.")
+
+	
+		
+		
 
 class ResUser(models.Model):
 	_inherit="estate.property"

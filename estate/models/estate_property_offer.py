@@ -54,3 +54,12 @@ class EstatePropertyOffer(models.Model):
     property_type_id=fields.Many2one(related="property_id.property_type_id",
                                     string="related example",
                                     store=True)
+    
+    @api.model
+    def create(self,vals):
+      count= self.env['estate.property'].browse(vals["property_id"])
+      if vals['price'] <= count.best_price:
+        raise odoo.exceptions.UserError("You cannot create lower offer than present offers")
+      count.state="offer received"
+      return super(EstatePropertyOffer,self).create(vals)
+		
