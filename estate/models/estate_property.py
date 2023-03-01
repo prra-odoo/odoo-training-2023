@@ -9,6 +9,7 @@ class EstateProperty(models.Model):
     _description = "estate_property Model"
     _order ="id desc"
     _inherit = "prototype.prototype" 
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
 # -*- Constraints Selction -*-
     _sql_constraints = [
@@ -49,6 +50,7 @@ class EstateProperty(models.Model):
         required=True,
         copy=False,
         default='new',
+        tracking=True
     )
     user_id = fields.Many2one(comodel_name='res.users', string='Salesperson',
                               index=True, default=lambda self: self.env.user)
@@ -67,9 +69,14 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for record in self:
             if(record.offer_ids):
-                record.state="offer_recieved"
-            else:
-                record.state="new"
+                if record.state =="new":
+                    record.state="offer_recieved"
+            elif record.state=="cancelled":
+                record.state = "cancelled"
+            elif record.state=="sold":
+                record.state = "sold"
+            elif record.state=="offer_accepted":
+                record.state = "offer_accepted"
             record.best_price = max(record.mapped("offer_ids.price"),default=0)
 
     # @api.depends('offer_ids')
@@ -129,3 +136,9 @@ class EstateProperty(models.Model):
         for record in self:
             if float_compare(self.expected_price*0.9, self.selling_price, precision_digits=2) == 1 and self.offer_ids:
                 raise ValidationError("The selling price must be minimum 90% of the Expected Price")
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_available(self):
+        for record in self:
+            if record.state not in ['new','cancelled']:
+                raise UserError("Property can only delete when state is in new or cancelled")
