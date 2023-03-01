@@ -13,7 +13,7 @@ class EstateProperty(models.Model):
          'The selling price price should be strictly positive only.'),
     ]
     _order = "id desc"
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin','base.property']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
 
     id = fields.Integer()
     name = fields.Char(required=True, string="Title")
@@ -106,6 +106,18 @@ class EstateProperty(models.Model):
                 if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
                     raise ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
                 
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_new_cancelled(self):
+        for record in self:
+            if(record.state not in ['new','cancelled']):
+                raise UserError("Only new and cancelled properties can be deleted.")
+                
+    seq_name = fields.Char(string="Sequence Number", readonly=True, copy=False, default='New')
+    @api.model
+    def create(self,vals):
+        vals['seq_name'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty,self).create(vals)
+
 
 
 # class ResUsers(models.Model):

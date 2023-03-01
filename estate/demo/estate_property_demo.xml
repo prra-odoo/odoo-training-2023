@@ -66,12 +66,12 @@
         <field name="offer_ids" eval="[
             Command.create({
                 'partner_id': ref('base.res_partner_12'),
-                'price':'64000',
+                'price':64000,
                 'validity':'10',
             }),
             Command.create({
                 'partner_id': ref('base.res_partner_2'),
-                'price':'65000',
+                'price':65000,
                 'validity':'5',
             }),
         ]"/>

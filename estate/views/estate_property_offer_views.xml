@@ -22,10 +22,7 @@
                 <button name="refuse_offer" type="object" icon="fa-times" title="Refuse Offer" attrs="{'invisible': [('status', 'in', ['accepted','refused'])]}"/>
                 <field name="date_deadline"/>
                 <field name="status" invisible="1"/>
-                <field name="property_id"/>
                 <field name="property_type_id"/>
-                <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-
             </tree>
         </field>
     </record> 
@@ -42,8 +39,6 @@
                         <field name="validity"/>
                         <field name="date_deadline"/>
                         <field name="status"/>
-                        <field name="property_id"/>
-                        <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                 </sheet>
             </form>

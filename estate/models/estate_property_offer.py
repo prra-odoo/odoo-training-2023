@@ -10,7 +10,6 @@ class EstatePropertyOffer(models.Model):
                 ]
     _order = "price desc"
     _rec_name="price"
-    _inherits = {"estate.property":"property_id"}
 
     price = fields.Float()
     status = fields.Selection(string='Status',
@@ -71,6 +70,12 @@ class EstatePropertyOffer(models.Model):
             else:
                 record.color=3
 
+    @api.model
+    def create(self, vals):
+        if(vals['price']<self.env['estate.property'].browse(vals['property_id']).best_offer):
+            raise ValidationError("Offer Price cannot be less than best offer.")
+        self.env['estate.property'].browse(vals['property_id']).state = 'offer recieved'
+        return super().create(vals)
     
 
     
