@@ -1,6 +1,7 @@
 from odoo import models,fields,api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
+from odoo.exceptions import UserError
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -55,4 +56,10 @@ class EstatePropertyOffer(models.Model):
         return True
     
     
-        
+    @api.model
+    def create(self,vals):
+        property=self.env['estate.property'].browse(vals['property_id'])
+    
+        if(vals['price']< property.best_price):
+            raise UserError('The offer price must be greater than %d'%property.best_price)
+        return super(EstatePropertyOffer,self).create(vals)

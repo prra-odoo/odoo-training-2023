@@ -1,4 +1,4 @@
-from odoo import fields,models,api
+from odoo import _,fields,models,api
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from odoo.exceptions import UserError,ValidationError
@@ -8,6 +8,7 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "This is a real-estate property model"
     _order="id desc"
+    _inherit=['mail.thread','mail.activity.mixin']
     _sql_constraints=[
         ('check_expected_price',
         'CHECK(expected_price > 0)',
@@ -43,11 +44,12 @@ class EstateProperty(models.Model):
         selection=[('new', 'New'),('offer_received', 'Offer Received'), ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')],
         required=True, 
         copy=False,
-        default='new' 
+        default='new',
+       
     )
 
     property_type_id=fields.Many2one("estate.property.type", string = "Property Type")
-    seller_id=fields.Many2one('res.users',string='Salesman', default=lambda self: self.env.user)
+    seller_id=fields.Many2one('res.users',string='Salesman', default=lambda self: self.env.user,tracking=True)
     buyer_id=fields.Many2one('res.partner',string='Buyer',copy=False)
     tags_ids=fields.Many2many('estate.property.tags')
     offer_ids=fields.One2many(
@@ -63,14 +65,20 @@ class EstateProperty(models.Model):
         for record in self:
             record.total_area=record.living_area + record.garden_area
 
-    @api.depends("offer_ids.price")
+    @api.depends("offer_ids")
     def _compute_best_price(self):
-        for record in self:
+
+         for record in self:
             if(record.offer_ids):
-                record.state="offer_received"
-                record.best_price=max(record.offer_ids.mapped('price'))
-            else:
-                record.best_price=0.0
+                if(record.state == "new"):
+                    record.state = 'offer_received'
+                record.best_price = max(record.offer_ids.mapped('price'))
+            else: 
+                record.best_price = 0.0
+                if(record.state == 'offer_received'):
+                    if(not record.offer_ids):
+                       record.state = 'new'
+      
 
     @api .depends("garden")
     def _compute_value(self):
@@ -105,7 +113,14 @@ class EstateProperty(models.Model):
             if not float_is_zero(record.selling_price,precision_digits=2):
                 if float_compare(record.selling_price,record.expected_price*0.9,precision_digits=2)<=0:
                     raise ValidationError("Selling price should not be lower than 90% the expected price")
-
+        
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_new_or_canceled(self):
+        for record in self:
+            if record.state in ['offer_received','offer_accepted','sold']:
+               raise UserError(_('You can only delete new or sold properties'))
+            
+    
  
 
 class ResUsers(models.Model):
