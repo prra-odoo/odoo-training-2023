@@ -1,5 +1,6 @@
 from odoo import fields,models,api
 from datetime import datetime
+import odoo.exceptions
 from dateutil.relativedelta import relativedelta
 
 class EstatePropertyOffer(models.Model):
@@ -16,7 +17,7 @@ class EstatePropertyOffer(models.Model):
     validity=fields.Integer(default=7)
     date_deadline=fields.Date(compute="_compute_date",inverse="_inverse_date")
     partner_id = fields.Many2one('res.partner',required=True)
-    property_id = fields.Many2one('estate.property',required=True)
+    property_id = fields.Many2one('estate.property')
 
     property_type_id = fields.Many2one(related = "property_id.property_type_id", store = True)
 
@@ -65,4 +66,21 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.status="refused"
 
+
+    # @api.model
+    # def create(self,vals):
+    #     best= self.env['estate.property'].browse(vals['property_id'])
+    #     if vals['price'] <= best.best_price:
+    #         raise odoo.exceptions.UserError("You cannot create lower offer than present offers")
+    #     best.state='off_re'
+
+    #     return super(EstatePropertyOffer,self).create(vals)
+
+    @api.model
+    def create(self,vals):
+      count= self.env['estate.property'].browse(vals["property_id"])
+      if vals['price'] <= count.best_price:
+        raise odoo.exceptions.UserError("You cannot create lower offer than present offers")
+      count.state="off_re"
+      return super(EstatePropertyOffer,self).create(vals)
     

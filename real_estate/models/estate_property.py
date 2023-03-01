@@ -1,13 +1,13 @@
 from odoo import fields,models,api
 from datetime import date
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
-from odoo.exceptions import ValidationError
+import odoo.exceptions
 from odoo.tools.float_utils import float_is_zero,float_compare
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _inherit = "prototype.test"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "CRM Recurring revenue plans"
     _order = "id desc"
    
@@ -37,13 +37,13 @@ class EstateProperty(models.Model):
     state = fields.Selection(
         string='State',
         selection = [('new','New'),('off_re','Offer Received'),('off_ac','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
-        required=True,default="new",copy=False
+        required=True,default="new",copy=False,tracking=True
+
     )
 
     property_type_id=fields.Many2one('estate.property.type',string="Property Type")
     property_tag_ids=fields.Many2many('estate.property.tag',relation='property_tag_rel',string="Property Tag")
     offer_ids=fields.One2many('estate.property.offer','property_id',string="Offer")
-
 
     
     buyers_id=fields.Many2one('res.partner',copy=False)
@@ -113,7 +113,15 @@ class EstateProperty(models.Model):
       for record in self:
         if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
           if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
-            raise exceptions.ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+            raise ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+
+    
+    @api.ondelete(at_uninstall=False)
+    def  _unlink_ondelete(self):
+        for record in self:
+            if record.state not in ('new','canceled'):
+                raise odoo.exceptions.AccessError("State Is Not New And Canclede")
+    
 
    
   
