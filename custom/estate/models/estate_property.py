@@ -6,6 +6,7 @@ from odoo.tools import float_is_zero, float_compare
 
 class EstateProperty(models.Model):
     _name = 'estate.property'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'estate property advertisment'
     _order = 'id desc'
 
@@ -21,7 +22,7 @@ class EstateProperty(models.Model):
     property_type_id = fields.Many2one('estate.property.type')
     buyer_id = fields.Many2one('res.partner', copy=False)
     # user_id = fields.Many2one('res.users')
-    seller_id = fields.Many2one('res.users', default=lambda self: self.env.user)
+    seller_id = fields.Many2one('res.users', default=lambda self: self.env.user.id)
     selling_price = fields.Float()
     garage = fields.Boolean()
     state = fields.Selection(
@@ -30,6 +31,7 @@ class EstateProperty(models.Model):
         selection = [('new','New'),('offer received','Offer Received'),('offer accepted','Offer Accepted'),('sold','Sold'),('canceled','Canceled')],
         help = 'Choose the direction',
         copy = False,
+        tracking = True,
     )
     offer_ids = fields.One2many('estate.property.offer', 'property_id')
     best_price = fields.Float(compute='_compute_best_price')
@@ -48,11 +50,18 @@ class EstateProperty(models.Model):
         ('check_selling_price','CHECK(selling_price >= 0)','The selling price cannot be negative.'),
     ]
 
-    @api.ondelete(at_uninstall=False)
-    def prevent_delete(self):
+    def unlink(self):
         for record in self:
-            if (record.state not in ('new','canceled')):
+            if(record.state not in ('new','canceled')):
                 raise UserError('Only new and canceled properties can be delete')
+        return super().unlink()
+    
+
+    # @api.ondelete(at_uninstall=False)
+    # def prevent_delete(self):
+    #     for record in self:
+    #         if (record.state not in ('new','canceled')):
+    #             raise UserError('Only new and canceled properties can be delete')
 
     @api.constrains('selling_price','expected_price')
     def _check_selling_price(self):
@@ -82,8 +91,9 @@ class EstateProperty(models.Model):
                 record.garden_orientation = ''
                 record.garden_area = 0
 
-    def action_button_sold(self):
+    def action_sold(self):
         for record in self:
+            print('estate property')
             # if(record.state == 'canceled'):
             #     raise UserError('Canceled properties can not be sold.')
             # else:
@@ -91,7 +101,7 @@ class EstateProperty(models.Model):
             record.state = 'sold'
         return True
     
-    def action_button_cancel(self):
+    def action_cancel(self):
         for record in self:
         #     if(record.state == 'sold'):
         #         raise UserError('Sold properties can not be canceled.')

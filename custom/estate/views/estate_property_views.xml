@@ -4,7 +4,7 @@
         <field name='name'>Properties</field>
         <field name='res_model'>estate.property</field>
         <field name='view_mode'>tree,form</field>
-        <field name="context">{'search_default_available' : True}</field>
+        <field name='context'>{'search_default_available' : True}</field>
          <field name='help' type='html'>
           <p class='o_view_nocontent_smiling_face'>
             Create your first property
@@ -41,13 +41,18 @@
         <field name='arch' type='xml'>
             <form string='Estate Property Form'>
                 <header>
-                    <button name='action_button_sold' states='new,offer received' string='Sold' type='object'/>
-                    <button name='action_button_sold' states='offer accepted' string='Sold' type='object' class='oe_highlight'/>
-                    <button name='action_button_cancel' states='new,offer received,offer accepted' string='Cancel' type='object'/>
+                    <button name='action_sold' states='new,offer received' string='Sold' type='object'/>
+                    <button name='action_sold' states='offer accepted' string='Sold' type='object' class='oe_highlight'/>
+                    <button name='action_cancel' states='new,offer received,offer accepted' string='Cancel' type='object'/>
                     <field name='state' widget='statusbar'/>
                 </header>
+                <div class='oe_chatter'>
+                    <field name='message_follower_ids'/>
+                    <field name='message_ids'/>
+                    <field name='activity_ids'/>
+                </div>
                 <sheet>
-                    <widget name='web_ribbon' title='Sold' bg_color="bg-success" attrs='{"invisible": [("state", "not in", ["sold"])]}'/>
+                    <widget name='web_ribbon' title='Sold' bg_color='bg-success' attrs='{"invisible": [("state", "not in", ["sold"])]}'/>
                     <widget name='web_ribbon' title='Canceled' bg_color='bg-danger' attrs='{"invisible": [("state", "not in", ["canceled"])]}'/>
                     <div>
                         <label for='name' string='Property'/>

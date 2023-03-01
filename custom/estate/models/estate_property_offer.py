@@ -22,7 +22,7 @@ class EstatePropertyOffer(models.Model):
 
     _sql_constraints = [
         (
-            'check_price','CHECK(price >= 0.0)',"The offer price cannot be negative."
+            'check_price','CHECK(price >= 0.0)','The offer price cannot be negative.'
         )
     ]
 

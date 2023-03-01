@@ -4,5 +4,3 @@ access_estate_property_type,access_estate_property_type,model_estate_property_ty
 access_estate_property_tag,access_estate_property_tag,model_estate_property_tag,base.group_user,1,1,1,1
 access_estate_property_offer,access_estate_property_offer,model_estate_property_offer,base.group_user,1,1,1,1
 access_res_users,access_res_users,model_res_users,base.group_user,1,1,1,1
-access_test_one,access_test_one,model_test_one,base.group_user,1,1,1,1
-access_test_two,access_test_two,model_test_two,base.group_user,1,1,1,1
