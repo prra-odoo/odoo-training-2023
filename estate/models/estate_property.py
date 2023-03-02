@@ -16,6 +16,7 @@ class EstateProperty(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
 
     id = fields.Integer()
+    color = fields.Integer()
     name = fields.Char(required=True, string="Title")
     description = fields.Text()
     postcode = fields.Char()
