@@ -62,6 +62,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer", "property_id")
     # one2Many(comodel name, inverse name)    
     total_area = fields.Integer(compute="_total_area",store=True)
+    color = fields.Integer()
     # chatter_messages = fields.Text(track_visibility='onchange')
     # @ depends - decorators (if we dont write @api line then compute works but only after save.)
     @api.depends('living_area','garden_area')

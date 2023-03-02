@@ -4,23 +4,92 @@
     <record id="estate_properties_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <!-- <field name="context">{"search_default_state":1}</field> -->
         <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
+        <p class="o_view_nocontent_smiling_face">
             Create a new Property!!!
-          </p>
+        </p>
         </field>
     </record>
+    <!-- for generating sequence like S0001 -->
     <record id="sequence_model" model="ir.sequence">
         <field name="name">estate.property</field>
         <field name="code">estate.property</field>
         <field name="active">TRUE</field>
-        <field name="prefix">SS</field>
+        <field name="prefix">S</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>
         <field name="number_increment">1</field>
-     </record>
+    </record>
+    <!-- kanban view -->
+    <!-- <record id="estate_properties_views_kanban" model="ir.ui.view">
+    <field name="name">Properties Kanban View</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+        <kanban>
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click">
+                        <field name="name"/>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+    </record> -->
+    <record model="ir.ui.view" id="kanban_view_properties">
+    <field name="name">Properties Kanban View</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+        <kanban default_group_by="property_type_id" group_create="true" group_delete="false" records_draggable="false">
+                <field name="state"/>
+                <field name="tag_ids"/>
+                <field name="color"/>
+                <field name="buyer_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="{{'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) }} oe_kanban_global_click">
+                            <strong><field name="name"/></strong>
+                            <div class="text-muted">
+                                <div t-if="record.buyer_id.value">
+                                    <span class="fa fa-user me-2" aria-label="Buyer" title="Buyer"></span><t t-esc="record.buyer_id.value"/>
+                                </div>
+                                Expected Price : <field name="expected_price"/>
+                                <div t-if="record.state.raw_value == 'offer accepted' or record.state.raw_value=='sold'">
+                                    Selling Price : <field name="selling_price"/>
+                                </div>
+                                <div t-if="record.state.raw_value == 'offer received'">
+                                    Best Offer : <field name="best_offer"/>
+                                </div>
+                            </div>
+                            <div t-if="record.tag_ids" class="oe_kanban_bottom_left float-start">
+                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </div>
+                            <div class="oe_kanban_bottom_right float-end">
+                                <field name="seller_id" widget="many2one_avatar_user"/>
+                            </div>                        
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+            <!-- <kanban default_group_by="property_type_id" records_draggable='False'>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <b><field name="name"/></b><br/>
+                                <field name="state" invisible='1'/><br/>
+                                Best Price : <field name="best_price" t-if="record.state.raw_value == 'offer received'"/><br/>
+                                Selling Price : <field name="selling_price" t-if="record.state.raw_value == 'offer accepted'"/><br/>
+                                <field name="tag_ids" options="{'color_field':'color'}"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban> -->
+    </field>
+</record>
+
+
 <!-- list/Tree view starts here -->
     <record id="estate_properties_views_list" model="ir.ui.view">
         <field name="name">Properties</field>
@@ -28,6 +97,7 @@
         <field name="arch" type="xml">
             <tree string="Tree View" decoration-bf="state=='offer accepted'" decoration-success="state=='offer received' or state=='offer   accepted'" decoration-muted="state=='sold'">
                 <field name="id"/>
+                <field name="seq_name"/>
                 <field name="name"/>
                 <field name="property_type_id"/>
                 <field name="postcode"/>
@@ -73,8 +143,8 @@
                         <group>
                             <!-- <field name="state"/> -->
                             <field name="property_type_id" options="{'no_create': True}"/>
-
                             <field name="postcode"/>
+                            <field name="seq_name"/>
                         </group>
                         <!-- quick_create: allow the quick creation of related records (default: true)
                             no_create: prevent the creation of related records - hide both the ‘Create “xxx”’ and “Create and Edit…” dropdown menu items (default: false)
