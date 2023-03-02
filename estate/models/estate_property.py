@@ -9,7 +9,16 @@ class EstateProperty(models.Model):
     _description = "estate property detailed field"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = "id desc"    # _order use to change display record in the list view by default on id and asc order
-   
+     # contraints can not be apply on table and not change contraints
+    _sql_constraints = [
+        (
+            'check_prices_possitive',
+            'CHECK(expected_price > 0.0 AND selling_price >= 0.0)',
+            "Expected price and Selling price are not be negative.\n Expected price also not possible Zero(0)."
+        )
+    ]
+    
+
     name = fields.Char(required=True)
     description = fields.Char()
     postcode = fields.Char(default="0")
@@ -51,24 +60,24 @@ class EstateProperty(models.Model):
     user_id = fields.Many2one('res.users',string="User")
 
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
+    best_price = fields.Float(compute = "_compute_best_offer" ,string="Best Price", readonly=True)
+    #ir.sequence
+    property_seq = fields.Char(string='Property ID',required=True,readonly=True,
+                                default=lambda self: ('New'))
 
-    
-    # contraints can not be apply on table and not change contraints
-    _sql_constraints = [
-        (
-            'check_prices_possitive',
-            'CHECK(expected_price > 0.0 AND selling_price >= 0.0)',
-            "Expected price and Selling price are not be negative.\n Expected price also not possible Zero(0)."
-        )
-    ]
-    
+    @api.model
+    def create(self,vals):
+        vals['property_seq'] = self.env['ir.sequence'].next_by_code('estate.property')
+        print(vals['property_seq'])
+        return super(EstateProperty,self).create(vals)
 
+   
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
-    best_price = fields.Float(compute = "_compute_best_offer" ,string="Best Price", readonly=True)
+    
 
     #api.depends use to set dependancy on function. parameters field change value or on save action  then call this function
     @api.depends('offer_ids')
