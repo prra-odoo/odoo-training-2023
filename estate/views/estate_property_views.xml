@@ -20,11 +20,19 @@
                 <field name="state"/>
                 <field name="tag_ids"/>
                 <field name="color"/>
+                <field name="buyer_id"/>
+                <field name="is_favorite"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="{{'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) }} oe_kanban_global_click">
+                        <div class="o_kanban_primary_left">
+                            <span class="me-2"><field name="is_favorite" widget="boolean_favorite" nolabel="1" force_save="1"/></span>
                             <strong><field name="name"/></strong>
+                        </div>
                             <div class="text-muted">
+                                <div t-if="record.buyer_id.value">
+                                    <span class="fa fa-user me-2" aria-label="Buyer" title="Buyer"></span><t t-esc="record.buyer_id.value"/>
+                                </div>
                                 Expected Price : <field name="expected_price"/>
                                 <div t-if="record.state.raw_value == 'offer_accepted' or record.state.raw_value=='sold'">
                                     Selling Price : <field name="selling_price"/>
@@ -33,8 +41,11 @@
                                     Best Offer : <field name="best_offer"/>
                                 </div>
                             </div>
-                            <div t-if="record.tag_ids">
+                            <div t-if="record.tag_ids" class="oe_kanban_bottom_left float-start">
                                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </div>
+                            <div class="oe_kanban_bottom_right float-end">  
+                                <field name="salesperson_id" widget="many2one_avatar_user"/>
                             </div>                        
                         </div>
                     </t>
@@ -144,6 +155,8 @@
                 <field name="living_area" string="Living Area" filter_domain="[('living_area','>=',self)]]"/>
                 <field name="facades"/>
                 <filter string="Available" name="state" domain="[('state','in',['new','offer_received'])]"/>
+                <separator/>
+                <filter string="Favorites" name="is_favorite" domain="[('is_favorite','=',True)]"/>
                 <group expand="1" string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}"/>
                 </group>

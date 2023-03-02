@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import *
+from odoo import fields,models,exceptions,api
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError,ValidationError
 from odoo.tools import float_utils
 
 class EstateProperty(models.Model):
@@ -26,12 +25,12 @@ class EstateProperty(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean(default=True)
-    garden_area = fields.Integer(string="Garden Area (sqm)",compute="_compute_garden",inverse="_inverse_garden",store=True)
+    garden_area = fields.Integer(string="Garden Area (sqm)",compute="_compute_garden",readonly=False,store=True)
     garden_orientation = fields.Selection(
         string="Garden Orientation",
         selection=[('north',"North"),('south',"South"),('east',"East"),('west',"West")],
         compute="_compute_garden",
-        inverse="_inverse_garden",
+        readonly=False,
         store=True,
     )
     active = fields.Boolean(default=True,required=True)
@@ -50,6 +49,7 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer = fields.Float(compute="_compute_best_offer")
     color = fields.Integer(compute="_compute_color",default=4)
+    is_favorite = fields.Boolean(default=False,string="Favorite")
 
     @api.depends("state")
     def _compute_color(self):
@@ -87,22 +87,19 @@ class EstateProperty(models.Model):
             else:
                 record.garden_area = 10
                 record.garden_orientation = "north"
-    
-    def _inverse_garden(self):
-        pass
 
     @api.constrains('selling_price','expected_price')
     def _check_selling_price(self):
         for record in self:
             if((not float_utils.float_is_zero(record.selling_price,2)) and ((float_utils.float_compare(record.expected_price-record.selling_price,record.expected_price*0.1,0))==1)):
-                raise ValidationError("The Selling Price must be at least 90% of the expected price")
+                raise exceptions.ValidationError("The Selling Price must be at least 90% of the expected price")
 
     def action_sold(self):
         for record in self:
             if(record.state!="cancelled"):
                 record.state = "sold"
             else:
-                raise UserError("Cancelled Property can not be Sold.")
+                raise exceptions.UserError("Cancelled Property can not be Sold.")
             return True
 
     def action_cancel(self):
@@ -110,11 +107,11 @@ class EstateProperty(models.Model):
             if(record.state!="sold"):
                 record.state = "cancelled"
             else:
-                raise UserError("Sold Property can not be Cancelled.")
+                raise exceptions.UserError("Sold Property can not be Cancelled.")
             return True
         
     @api.ondelete(at_uninstall=False)
     def _unlink_if_new_cancelled(self):
         for record in self:
             if(record.state not in ['new','cancelled']):
-                raise UserError("Only new and cancelled properties can be deleted.")
+                raise exceptions.UserError("Only new and cancelled properties can be deleted.")

@@ -18,7 +18,7 @@ class EstatePropertyOffer(models.Model):
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute="_computed_date_deadline",inverse="_inverse_date_deadline")
     property_type_id = fields.Many2one(related="property_id.property_type_id",store=True)
-    color = fields.Integer("Color",compute="_compute_color",default=0,inverse="_inverse_color")
+    color = fields.Integer("Color",compute="_compute_color",default=0,readonly=False)
 
     @api.depends("status")
     def _compute_color(self):
@@ -28,9 +28,6 @@ class EstatePropertyOffer(models.Model):
                     record.color=10
                 else:
                     record.color=1
-    
-    def _inverse_color(self):
-        pass
 
     @api.depends("validity","create_date")
     def _computed_date_deadline(self):
