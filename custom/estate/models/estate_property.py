@@ -50,6 +50,8 @@ class EstatePlan(models.Model):
 
     living_area = fields.Float()
     garden_area = fields.Float(compute="_compute_garden_area",inverse="_inverse_garden_area")
+
+    seq_name = fields.Char(string='Reference', required=True,readonly=True, default=lambda self: ('New'))
         
     @api.depends("living_area","garden_area")
     def _total_area(self):
@@ -121,7 +123,14 @@ class EstatePlan(models.Model):
             if self.state not in ['new','canceled']:
                 raise UserError("cannot delete the property")
             
+    
+
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price >= 0)','The Expected value should be positive.'),
         ('check_selling_price', "CHECK(selling_price >=0)","Selling Price must be positive"),
     ]
+
+    @api.model
+    def create(self,vals):
+        vals['seq_name'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstatePlan,self).create(vals)

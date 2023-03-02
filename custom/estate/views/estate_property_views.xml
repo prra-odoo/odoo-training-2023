@@ -3,10 +3,43 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="context">{'search_default_state': True}</field>
     </record>
-
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban.view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+        <kanban default_group_by="property_type_id" records_draggable="false">
+            <field name="state"/>
+        <templates>
+            <t t-name="kanban-box">
+                <div class="oe_kanban_global_click">
+                    <div>
+                        <field name="name"/>
+                        <div>
+                            <span>Expected Price:<field name="expected_price"/></span>
+                            <!-- Expected Price:<field name="expected_price"/> -->
+                        </div> 
+                        <div t-if="record.state.raw_value == 'offered received'">
+                            <span>Best Price:<field name="best_price"/></span>
+                        </div>
+                        <div t-if="record.state.raw_value == 'offer accepted'">
+                            <span>Selling Price:<field name="selling_price"/></span>
+                        </div>
+                        <div >
+                            <field name="property_tag_ids" options="{'color_field':'color'}"/>
+                        </div>
+                    </div>    
+                </div>
+                <!-- <div t-if="record.state.raw_value == 'new'">
+                    This is new!
+                </div> -->
+            </t>
+        </templates>
+        </kanban>
+        </field>
+    </record>
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">estate.property.tree.view</field>
         <field name="model">estate.property</field>
@@ -14,6 +47,7 @@
             <tree string="Channel" decoration-success="state in ('offered received','offer accepted')"
                                    decoration-bf="state=='offer accepted'"
                                    decoration-muted="state == 'sold'">
+                <field name="seq_name"/>
                 <field name='state' invisible="True"/>
                 <field name="property_type_id" />
                 <field name="name" string="Title"/>
@@ -28,7 +62,7 @@
             </tree> 
         </field>
     </record>
-    
+
     <record id="estate_property_form_view" model="ir.ui.view">
         <field name="name">estate.property.from.view</field>
         <field name="model">estate.property</field>
@@ -60,6 +94,7 @@
                             <field name="dateavailability"/>
                             <field name="selling_price"/>
                             <field name="best_price"/>
+                            <field name="seq_name"/>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -100,7 +135,7 @@
                                     </group>
                                 </group>
                             </page>
-                         </notebook>
+                        </notebook>
                     </group>
                 </sheet>
                 <div class="oe_chatter">
@@ -111,8 +146,8 @@
             </form>
         </field>
     </record>
-     
-     <record id="estate_property_search" model="ir.ui.view">
+    
+    <record id="estate_property_search" model="ir.ui.view">
         <field name="name">estate.property.search</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
@@ -130,4 +165,11 @@
         </search>
         </field>
     </record>   
+    <record id="seq_task_order" model="ir.sequence">
+        <field name="name">Reference</field>
+        <field name="code">estate.property</field>
+        <field name="prefix">EP</field>
+        <field name="padding">3</field>
+        <field name="company_id" eval="False"/>
+    </record>
 </odoo>
