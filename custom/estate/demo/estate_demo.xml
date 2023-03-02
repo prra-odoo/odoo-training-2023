@@ -1,0 +1,99 @@
+<?xml version='1.0'?>
+<odoo>
+    <record id='type_one' model='estate.property.type'>
+      <field name='property_name'>House</field>
+    </record>
+
+    <record id='type_two' model='estate.property.type'>
+      <field name='property_name'>Apartment</field>
+    </record>
+
+    <record id='type_three' model='estate.property.type'>
+      <field name='property_name'>Villa</field>
+    </record>
+
+    <record id='tag_one' model='estate.property.tag'>
+      <field name='name'>Cozy</field>
+      <field name='color'>6</field>
+    </record>
+
+    <record id='tag_two' model='estate.property.tag'>
+      <field name='name'>Luxury</field>
+      <field name='color'>11</field>
+    </record>
+
+    <record id='tag_three' model='estate.property.tag'>
+      <field name='name'>Furnished</field>
+      <field name='color'>10</field>
+    </record>
+
+    <record id='estate_property_record_two' model='estate.property'>
+      <field name='name'>Space Villa</field>
+      <field name='description'>A nice and big villa and space and others.</field>
+      <field name='property_type_id' ref='type_three'/>
+      <field name='postcode'>2000</field>
+      <field name='state'>new</field>
+      <field name='date_availability'>2020-03-10</field>
+      <field name='expected_price'>200000</field>
+      <field name='tag_ids' eval='[(6, 0, [2,3])]'/>
+      <field name='bedrooms'>4</field>
+      <field name='living_area'>250</field>
+      <field name='facades'>2</field>
+      <field name='garage' eval='True'/>
+      <field name='garden' eval='True'/>
+      <field name='garden_area'>5000</field>
+      <field name='garden_orientation'>north</field>
+    </record>
+    
+    <record id='estate_property_record_four' model='estate.property'>
+      <field name='name'>Test House</field>
+      <field name='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique asperiores explicabo officiis? Recusandae distinctio numquam nam earum error. Quibusdam, eius?</field>
+      <field name='property_type_id' ref='type_one'/>
+      <field name='postcode'>3201</field>
+      <field name='state'>new</field>
+      <field name='date_availability'>2020-04-25</field>
+      <field name='expected_price'>320000</field>
+      <field name='bedrooms'>5</field>
+      <field name='tag_ids' eval='[(6, 0, [2])]'/>
+      <field name='living_area'>450</field>
+      <field name='facades'>6</field>
+      <field name='garage' eval='True'/>
+      <field name='garden' eval='True'/>
+      <field name='garden_area'>7200</field>
+      <field name='garden_orientation'>east</field>
+    </record>
+
+    <record id='estate_property_record_one' model='estate.property'>
+      <field name='name'>Big House</field>
+      <field name='description'>A nice and big villa</field>
+      <field name='property_type_id' ref='type_one'/>
+      <field name='postcode'>12345</field>
+      <field name='state'>new</field>
+      <field name='date_availability'>2020-02-02</field>
+      <field name='expected_price'>160000</field>
+      <field name='bedrooms'>6</field>
+      <field name='living_area'>100</field>
+      <field name='facades'>4</field>
+      <field name='tag_ids' eval='[(6, 0, [1,2,3])]'/>
+      <field name='garage' eval='True'/>
+      <field name='garden' eval='True'/>
+      <field name='garden_area'>100000</field>
+      <field name='garden_orientation'>south</field>
+    </record>
+
+    <record id='estate_property_record_three' model='estate.property'>
+      <field name='name'>Apartment</field>
+      <field name='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique asperiores explicabo officiis? Recusandae distinctio numquam nam earum error. Quibusdam, eius?</field>
+      <field name='property_type_id' ref='type_two'/>
+      <field name='postcode'>1270</field>
+      <field name='state'>new</field>
+      <field name='date_availability'>2020-03-21</field>
+      <field name='expected_price'>270000</field>
+      <field name='bedrooms'>4</field>
+      <field name='tag_ids' eval='[(6, 0, [1,3])]'/>
+      <field name='living_area'>300</field>
+      <field name='facades'>2</field>
+      <field name='garage' eval='True'/>
+      <field name='garden' eval='False'/>
+    </record>
+</odoo>
