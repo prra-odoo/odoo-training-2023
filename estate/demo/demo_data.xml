@@ -1,0 +1,44 @@
+<odoo>
+    <record id="demo_data_tag_1" model="estate.property.tag">
+        <field name="name">cozy</field>
+    </record> 
+
+    <record id="demo_data_tag_2" model="estate.property.tag">
+        <field name="name">renovated</field>
+    </record>
+
+    <record id="demo_data_prop_type_1" model="estate.property.type">
+        <field name="name">House</field>
+    </record> 
+  
+    <record id="demo_data_prop_type_2" model="estate.property.type">
+        <field name="name">Flat</field>
+    </record>
+    
+    <record id="demo_data_prop_1" model="estate.property">
+        <field name="name">Silver cottage</field>
+        <field name="expected_price">100000</field>
+        <field name="property_type_id" ref='demo_data_prop_type_1' />
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_data_tag_1')])]" />
+    </record>
+
+    <record id="demo_data_prop_2" model="estate.property">
+        <field name="name">Applewood</field>
+        <field name="expected_price">100000</field>
+        <field name="property_type_id" ref='demo_data_prop_type_1' />
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_data_tag_2')])]" />
+    </record>
+
+    <record id="demo_data_prop_3" model="estate.property">
+        <field name="name">Middleearth</field>
+        <field name="expected_price">100000</field>
+        <field name="property_type_id" ref='demo_data_prop_type_2' />
+        
+    </record>
+
+    <record id="demo_data_prop_4" model="estate.property">
+        <field name="name">Dream Villa</field>
+        <field name="expected_price">100000</field>
+        <field name="property_type_id" ref='demo_data_prop_type_2' />
+    </record>
+</odoo>
