@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- List/Tree View -->
+    <record id="estate_property_offer_tree_view" model="ir.ui.view">
+        <field name="name">Estate Property Offer Tree View</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <tree string="tree_view" editable="bottom" decoration-success="status=='accepted'" decoration-danger="status=='refused'">
+                <field name="price"/>
+                <field name="partner_id" string="Buyer"/>
+                <field name="validity"/>
+                <field name="deadline_date"/>
+                <button name="action_accept_offer" title="Accept" type="object" icon="fa-check" string="Accept" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
+                <button name="action_cancel_offer" title="Refuse" type="object" icon="fa-remove" string="Reject" attrs="{'invisible':[('status','in',['accepted','refused'])]}"/>
+                <field name="status" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Action Menu -->
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id','=',active_id)]</field>
+        <field name="help" type="html">
+            <field name="property_type_id"/>
+        </field>
+    </record>
+    <!-- Form View -->
+    <!-- <record id="estate_property_offer_form_view" model="ir.ui.view">
+        <field name="name">Estate Property Offer Form View</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form string="form_view">
+                <sheet>
+                    <field name="price"/>
+                    <field name="partner_id"/>
+                    <field name="status"/>
+                </sheet>
+            </form>
+        </field>
+    </record> -->
+</odoo>
