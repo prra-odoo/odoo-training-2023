@@ -5,7 +5,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="context">{'search_default_state': True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -157,5 +157,87 @@
         </field>
     </record>
 
+
+    <!-- KANBAN VIEW -->
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id"
+                class="o_kanban_small_column o_opportunity_kanban">
+                <field name="name" />
+                <field name="garden" />
+                <field name="state" />
+                <field name="tag_ids" />
+                <progressbar field="state"
+                    colors='{"OA": "success", "OR": "warning", "C": "danger","S":"info"}' />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="ribbon ribbon-top-right"
+                                attrs="{'invisible': [('state', '!=', 'C')]}">
+                                <span class="bg-danger">Cancelled</span>
+                            </div>
+
+                            <div class="o_dropdown_kanban dropdown">
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">
+                                            Delete</a>
+                                    </t>
+                                    <!-- <ul class="oe_kanban_colorpicker" data-field="color" /> -->
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content flex-grow-1">
+                                <div class="o_kanban_record_title oe_kanban_details">
+                                    <strong>
+                                        <field name="name" />
+                                    </strong>
+                                </div>
+                                <!-- <div class="o_kanban_record_subtitle">
+                                    <t t-if="record.expected_revenue.raw_value">
+                                        <field name="expected_revenue" widget="monetary"
+                                            options="{'currency_field': 'company_currency'}" />
+                                        <span
+                                            t-if="record.recurring_revenue and record.recurring_revenue.raw_value"
+                                            groups="crm.group_use_recurring_revenues"> + </span>
+                                    </t>
+                                    <t
+                                        t-if="record.recurring_revenue and record.recurring_revenue.raw_value">
+                                        <field name="recurring_revenue" widget="monetary"
+                                            options="{'currency_field': 'company_currency'}"
+                                            groups="crm.group_use_recurring_revenues" />
+                                        <field name="recurring_plan"
+                                            groups="crm.group_use_recurring_revenues" />
+                                    </t>
+                                </div> -->
+
+                                <div>
+                                    <field name="tag_ids" widget="many2many_tags"
+                                        options="{'color_field': 'color'}" />
+                                </div>
+                            </div>
+                            <!-- FOOTER HERE -->
+                            <!-- <div class="oe_kanban_footer">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="priority" widget="priority"
+                                            groups="base.group_user" />
+                                        <field name="activity_ids" widget="kanban_activity" />
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="user_id" widget="many2one_avatar_user" />
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
 
 </odoo>
