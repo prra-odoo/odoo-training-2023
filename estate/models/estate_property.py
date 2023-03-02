@@ -55,6 +55,8 @@ class EstateProperty(models.Model):
    offer_ids = fields.One2many("estate.property.offer","property_id")
    total_area=fields.Float(compute="_compute_total_area" , tracking = True)
    best_price=fields.Float(compute="_compute_best_price")
+   seq_name = fields.Char(string='Property Reference', required=True,readonly=True, default=lambda self: ('New'))
+
    @api.depends("garden_area","living_area")
    def _compute_total_area(self):
       for record in self:
@@ -117,5 +119,8 @@ class EstateProperty(models.Model):
          if record.state not in ['new','cancelled']:
             raise UserError("Only new and canceled properties can be deleted.")
 
-
-
+   # method for ir sequence
+   @api.model
+   def create(self,vals):
+      vals['seq_name'] = self.env['ir.sequence'].next_by_code('estate.property')
+      return super(EstateProperty,self).create(vals)

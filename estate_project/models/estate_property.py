@@ -1,4 +1,4 @@
-from odoo import models , fields
+from odoo import models , fields , Command
 
 class EstateProperty(models.Model):
     _inherit="estate.property"
@@ -6,16 +6,15 @@ class EstateProperty(models.Model):
     def action_set_sold(self):
         self.env['project.project'].create(
             {
-            "name":self.name
+            "name":self.name,
+            'partner_id':self.buyer.id,
+            'task_ids':[
+            Command.create(
+            {
+            'name':'maintenance',
+            }
+            )
+            ]
             }
         )
-        # newtask =self.env['project.task'].create(
-        #     {
-        #     "name":"newtask", 
-        #     "project_id":project.id
-        #     }
-        # )
         return super().action_set_sold()
-    
-
-
