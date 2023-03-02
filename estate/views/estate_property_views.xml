@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- DEFINING the ACTION -->
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_state': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your first PropertY!
+            </p>
+        </field>
+    </record>
+
+
+    <!-- TREE(LIST) VIEW -->
+    <record id="estate_property_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.tree</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Channel" decoration-success="state in ['OR','OA']"
+                decoration-bf="state in ['OA']" decoration-muted="state in ['S']">
+                <field name="name" string='Title' />
+                <field name="postcode" />
+                <field name="bedrooms" />
+                <field name="living_area" string='Living Area (sqm)' />
+                <field name="expected_price" />
+                <field name="selling_price" />
+                <field name="date_availability" optional="hide" />
+                <field name="state" optional="hide" />
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- FORM VIEW -->
+    <record id="estate_property_view_form" model="ir.ui.view">
+        <field name="name">estate.property.form</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="Form View String">
+                <header>
+                    <!-- "statusbar_visible" defines the states to be displayed initially. -->
+                    <!-- The states not defined inside the statusbar_visible, when selected, will be
+                    dynamically added to the statusbar widget. -->
+                    <field name="state" widget="statusbar"
+                        options="{'clickable': '1'}"
+                        statusbar_visible="N,OR,OA" />
+                    <button id="btn_sold" string="Sold" name="btn_sold" type="object"
+                        class="btn-primary" confirm="Are you sure you want to mark this as sold ?"
+                        states="OA,C" />
+                    <button id="btn_sold_2" string="Sold" name="btn_sold" type="object"
+                        attrs="{'invisible': [('state', 'in', ['OA','C','S'])]}" />
+                    <button id="btn_cancel" string="Cancel" name="btn_cancel" type="object"
+                        class="btn-primary"
+                        confirm="Are you sure you want to mark this as cancelled ?"
+                        states="OR,OA,S" />
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="SOLD"
+                        attrs="{'invisible': [('state', 'in', ['N','OR','OA','C'])]}" />
+                    <widget name="web_ribbon" title="CANCELLED" bg_color="bg-danger"
+                        attrs="{'invisible': [('state', 'in', ['N','OR','OA','S'])]}" />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <br />
+                    <group>
+                        <field name="tag_ids" widget="many2many_tags"
+                            options="{'no_create': True,'color_field': 'color'}" />
+                    </group>
+                    <br />
+                    <group>
+                        <group>
+                            <field name="postcode" />
+                            <field name="date_availability" />
+                            <field name="property_type_id" />
+                        </group>
+                        <group>
+                            <field name="expected_price" />
+                            <field name="best_price" />
+                            <field name="selling_price" />
+                        </group>
+                        <notebook>
+                            <page name="description_page" string="Description">
+                                <group>
+                                    <group string="General Info.">
+                                        <field name="description" string="Description"
+                                            placeholder="Property Description..." />
+                                        <field name="garden" />
+                                        <field name="bedrooms" string="Bedrooms" />
+                                        <field name="living_area" />
+                                        <field name="facades" />
+                                        <field name="garage" />
+                                        <field name="last_seen" />
+                                        <field name="active" />
+                                        <field name="state" />
+                                        <field name="total_area" />
+                                    </group>
+                                    <group name="garden_data" string="Garden"
+                                        attrs="{'invisible': [('garden', '==', False)]}">
+                                        <field name="garden_area" />
+                                        <field name="garden_orientation" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="offers_page" string="Offers">
+                                <field name="offer_ids"
+                                    attrs="{'readonly': [('state', 'in', ['OA','S','C'])]}" />
+                            </page>
+                            <page name="info_page" string="Other Info">
+                                <group>
+                                    <field name="salesman_id" />
+                                    <field name="buyer_id" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                    <field name="activity_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- SEARCH VIEW -->
+    <record id="estate_property_view_search" model="ir.ui.view">
+        <field name="name">estate.property.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Search View String">
+                <field name="name" string="Title" />
+                <field name="postcode" />
+                <field name="expected_price" />
+                <field name="bedrooms" />
+                <field name="living_area"
+                    filter_domain="[('living_area', '>=', self)]" />
+                <field name="facades" />
+                <filter string="Available(N,OR)" name="state"
+                    domain="[('state', 'in', ['N','OR'])]" />
+                <separator />
+                <filter string="Archived" name="active" domain="[('active', '=', False)]" />
+                <group expand="1" string="Group By">
+                    <filter string="Postcode" name="postcode"
+                        context="{'group_by':'postcode', 'state':'OR'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- KANBAN VIEW -->
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id"
+                class="o_kanban_small_column o_opportunity_kanban">
+                <field name="name" />
+                <field name="garden" />
+                <field name="state" />
+                <field name="tag_ids" />
+                <progressbar field="state"
+                    colors='{"OA": "success", "OR": "warning", "C": "danger","S":"info"}' />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="ribbon ribbon-top-right"
+                                attrs="{'invisible': [('state', '!=', 'C')]}">
+                                <span class="bg-danger">Cancelled</span>
+                            </div>
+
+                            <div class="o_dropdown_kanban dropdown">
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">
+                                            Delete</a>
+                                    </t>
+                                    <!-- <ul class="oe_kanban_colorpicker" data-field="color" /> -->
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content flex-grow-1">
+                                <div class="o_kanban_record_title oe_kanban_details">
+                                    <strong>
+                                        <field name="name" />
+                                    </strong>
+                                </div>
+                                <!-- <div class="o_kanban_record_subtitle">
+                                    <t t-if="record.expected_revenue.raw_value">
+                                        <field name="expected_revenue" widget="monetary"
+                                            options="{'currency_field': 'company_currency'}" />
+                                        <span
+                                            t-if="record.recurring_revenue and record.recurring_revenue.raw_value"
+                                            groups="crm.group_use_recurring_revenues"> + </span>
+                                    </t>
+                                    <t
+                                        t-if="record.recurring_revenue and record.recurring_revenue.raw_value">
+                                        <field name="recurring_revenue" widget="monetary"
+                                            options="{'currency_field': 'company_currency'}"
+                                            groups="crm.group_use_recurring_revenues" />
+                                        <field name="recurring_plan"
+                                            groups="crm.group_use_recurring_revenues" />
+                                    </t>
+                                </div> -->
+
+                                <div>
+                                    <field name="tag_ids" widget="many2many_tags"
+                                        options="{'color_field': 'color'}" />
+                                </div>
+                            </div>
+                            <!-- FOOTER HERE -->
+                            <!-- <div class="oe_kanban_footer">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="priority" widget="priority"
+                                            groups="base.group_user" />
+                                        <field name="activity_ids" widget="kanban_activity" />
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="user_id" widget="many2one_avatar_user" />
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+</odoo>
