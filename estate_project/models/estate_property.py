@@ -7,8 +7,18 @@ class EstateProperty(models.Model):
     _inherit = 'estate.property'
 
     def action_sold(self):
-        self.env['project.project'].create([{
-            'name' : self.name
+        project = self.env['project.project'].create([{
+            'name' : self.name,
+            'type_ids' :[ Command.create({
+            'name' : "New"
+            
+            })]
+        }])
+       
+        self.env['project.task'].create([{
+            'name' : "Maintainance",
+            'project_id' : project.id,
+            'partner_id' : self.partner_id.id,
         }])
         # self.env['project.task'].create([{
         #     # 'project_id': ,
