@@ -5,7 +5,8 @@
         <field name="name">Estate Property Tree View</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="tree_view" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
+            <tree string="tree_view" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'" decoration-danger="state=='canceled'">
+                <field name="property_seq"/>
                 <field name="name" string="Title"/>
                 <field name="property_type_id"/>
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field':'colors'}"/>
@@ -54,6 +55,7 @@
                             <field name="date_availability" string="Available From"/>
                         </group>
                         <group>
+                            <field name="property_seq"/>
                             <field name="expected_price"/>
                             <field name="best_price"/>
                             <field name="selling_price"/>
@@ -96,6 +98,51 @@
             </form>
         </field>
     </record>
+    <!-- Kanban View -->
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">Estate Property Kanban View</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" records_draggable="false">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <field name="is_favorite" widget="boolean_favorite" nolabel="1" class="me-2"/>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div t-if="record.buyer_id.value">
+                                <i class="fa fa-user me-2"/>
+                                <strong><field name="buyer_id" widget="many2one_avatar_partner"/></strong>
+                            </div>
+                            <div>Expected Price : 
+                                <strong><field name="expected_price"/></strong>
+                            </div>
+                            <div t-if="record.state.raw_value=='offer_received'">Best Offer :
+                                <strong><field name="best_price"/></strong>
+                            </div>
+                            <div t-if="record.state.raw_value=='sold'">Selling Price :
+                                <strong><field name="selling_price"/></strong>                          
+                            </div>
+                            <div>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                            </div>
+                            <!-- <div class="o_kanban_record_bottom"> -->
+                                <!-- <div class="oe_kanban_bottom_left">
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                </div> -->
+                                <div class="oe_kanban_bottom_right float-end">
+                                    <field name="kanban_state" class="me-2" widget="state_selection"/>
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                </div>
+                            <!-- </div> -->
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
     <!-- Search View -->
     <record id="estate_property_search" model="ir.ui.view">
         <field name="name">Estate Property Search</field>
@@ -120,11 +167,18 @@
             </search>
         </field>
     </record>
+    <!-- Sequence Numner -->
+    <record id="seq_property_ref" model="ir.sequence">
+        <field name="name">Property Reference</field>
+        <field name="code">estate.property</field>
+        <field name="prefix">PID</field>
+        <field name="padding">3</field>
+    </record>
     <!-- Action Menu -->
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="context">{'search_default_available':True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

@@ -29,6 +29,7 @@ class EstateProperty(models.Model):
                 	'price_unit': 100,
 
                 })
-            ],
+              ],
 			})
+
 		return super(EstateProperty,self).action_sold()

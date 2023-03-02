@@ -17,6 +17,7 @@ class EstateProperty(models.Model):
     ]
 
     name = fields.Char(required=True)
+    property_seq = fields.Char(string='Property Reference', required=True, readonly=True, default=lambda self:('New'))
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(string='Availability Date', default=lambda self: fields.Date.today()+relativedelta(months=+3), copy=False)
@@ -46,6 +47,11 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(compute='_compute_total_area', string='Total Area')
     best_price = fields.Float(compute='_compute_best_price', string='Best Offer')
     status = fields.Char()
+    is_favorite = fields.Boolean()
+    kanban_state = fields.Selection(
+        [('normal', 'grey'),
+        ('done', 'green'),
+        ('blocked','red')], string='Kanban State')
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
@@ -107,3 +113,9 @@ class EstateProperty(models.Model):
         for record in self:
             if record.state not in ['new','canceled']:
                 raise UserError("You can't delete 'offer received', 'offer accepted' or 'sold' property")
+
+    @api.model
+    def create(self, vals):
+        vals['property_seq'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty,self).create(vals)
+
