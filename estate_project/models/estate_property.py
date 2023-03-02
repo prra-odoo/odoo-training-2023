@@ -4,7 +4,12 @@ class EstateProperty(models.Model):
     _inherit="estate.property"
 
     def action_sold(self):
-        self.env['project.project'].create({
+        project=self.env['project.project'].create({
             'name':self.name,
             })
-        return super[EstateProperty,self].action_sold()
+        
+        task=self.env['project.task'].create({
+            'name':("Maintenance"),
+            'project_id': project.id
+        })
+        return super().action_sold()

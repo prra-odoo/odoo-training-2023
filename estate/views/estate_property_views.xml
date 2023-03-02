@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+
+    <record id ="seq_property_order" model="ir.sequence">
+            <field name="name">Property Order </field>
+            <field name="code">estate.property</field>
+            <field name="prefix">PO</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+    </record>
     
     <record id="estate_property_view_form" model="ir.ui.view">
         <field name="name">estate.property.view.form</field>
@@ -20,11 +28,10 @@
                     <h1>                
                         <field name = "name" placeholder="Name"/>
                     </h1>                    
-                    <group>
-                    <field name="tags_ids" widget="many2many_tags" options="{'color_field':'color'}" />
+                    <group col='3'>
+                        <field name="tags_ids" widget="many2many_tags" options="{'color_field':'color'}" />
                         
-                        <group>    
-                            
+                        <group>  
                             <field name = "property_type_id" options="{'no_create':True}"/>                                
                             <field name = "postcode"/>   
                             <field name ="date_availability"/>
@@ -33,6 +40,9 @@
                             <field name ="expected_price"/>
                             <field name="best_price"/>
                             <field name ="selling_price"/>
+                        </group>
+                        <group>
+                            <field name ="seq_name"/>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -86,6 +96,7 @@
                   decoration-bf="state == 'offer_accepted'" 
                   decoration-muted="state =='sold'">
                 <field name="state" invisible='1'/>
+                <field name="seq_name"/>
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name = "tags_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
@@ -118,12 +129,50 @@
             </search>
         </field>
     </record>
-    
+
+
+
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.view.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class=" oe_kanban_global_click">
+                            <div class="row">
+                                
+                                <strong>                                
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    Expected Price: <field name="expected_price" />
+                                </div>
+                            </div>
+                        
+                            <div t-if="record.state.raw_value=='offer_received'">
+                                Best Price: <field name="best_price"/>
+                            </div>
+                            <div t-if="record.state.raw_value=='offer_accepted'">
+                                Selling Price:<field name="selling_price"/>
+                            </div>
+                            <field name = "tags_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>    
+                            
+                            
+                        </div>
+                    </t>        
+                        
+                        
+                </templates>
+            </kanban>
+        </field>
+    </record>
     
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="context">{'search_default_available':True}</field>
     </record>
 
@@ -140,4 +189,6 @@
             </xpath>
         </field> 
     </record>
+
+   
 </odoo>

@@ -18,7 +18,7 @@ class EstateProperty(models.Model):
         'Selling price should be positive and greater than 0')
     ]
 
-
+    seq_name=fields.Char(string="Property order",readonly=True,default=lambda self:('New'))
     name = fields.Char(string= 'Title',required=True)
     description = fields.Text()
     postcode = fields.Char()
@@ -57,7 +57,7 @@ class EstateProperty(models.Model):
         inverse_name='property_id',
         string='Offers')
     total_area=fields.Float(compute="_compute_total_area")
-    best_price=fields.Float(compute="_compute_best_price")
+    best_price=fields.Float(compute="_compute_best_price",store=True)
    
 
     @api.depends('living_area','garden_area')
@@ -118,7 +118,12 @@ class EstateProperty(models.Model):
     def _unlink_except_new_or_canceled(self):
         for record in self:
             if record.state in ['offer_received','offer_accepted','sold']:
-               raise UserError(_('You can only delete new or sold properties'))
+               raise UserError(_('You can only delete new or canceled properties'))
+            
+    @api.model
+    def create(self,vals):
+        vals['seq_name']=self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty,self).create(vals)
             
     
  

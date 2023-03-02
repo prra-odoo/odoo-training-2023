@@ -29,4 +29,7 @@
         <field name="facades">4</field>
         <field name="garage">False</field>                     
     </record>
+
+    
+    
 </odoo>
