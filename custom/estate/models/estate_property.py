@@ -12,6 +12,10 @@ class EstateProperty(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name=fields.Char(required=True) 
+    priority = fields.Selection([
+        ('0', 'Low'),
+        ('1', 'High'),
+    ], default='0', index=True, tracking=True)
     active=fields.Boolean(default=True)
     description=fields.Text()
     postcode=fields.Char()
@@ -137,4 +141,9 @@ class EstateProperty(models.Model):
             if record.state not in ['new','canceled']:
                 raise UserError("Only new and canceled property can be deleted")
 
+    seq_pr=fields.Char(string="PR Number",required=True,readonly=True,default=lambda self:('New') )
+    @api.model
+    def create(self,vals):
+        vals['seq_pr']=self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty,self).create(vals)
         

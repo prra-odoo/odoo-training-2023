@@ -12,10 +12,11 @@
         <field name="arch" type="xml">
             <tree string="Channel" decoration-success="state in ['offer accepted','offer received']"
                                    decoration-bf="state=='offer accepted'" decoration-muted="state=='sold'" >
+                <field name="seq_pr"/>
                 <field name="name" string="Title"/>
                 <field name="property_type_id"/>
                 <field name="postcode"/>
-                 <field name="tag_ids" widget="many2many_tags" string="Tags" options="{'color_field':'color'}"/>
+                <field name="tag_ids" widget="many2many_tags" string="Tags" options="{'color_field':'color'}"/>
                 <field name="bedrooms"/>
                 <field name="living_area" string="Living Area(sqm)"/>
                 <field name="expected_price"/>
@@ -105,6 +106,12 @@
             </form>
         </field>
     </record>
+    <record id="estate_property_order" model="ir.sequence">
+        <field name="name">Property types </field>
+        <field name="code">estate.property</field>
+        <field name="prefix">PR</field>
+        <field name="padding">3</field> 
+    </record>
     <record id="estate_property_search" model="ir.ui.view">
         <field name="name">estate.property.search</field>
         <field name="model">estate.property</field>
@@ -137,4 +144,51 @@
             </xpath>
         </field>
     </record>
+    <record id="estate_property_kanban_view" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+        <kanban default_group_by="property_type_id" records_draggable="False">
+        <templates>
+        <field name="state"/>
+        <t t-name="kanban-box">
+            <div class="oe_kanban_global_click">
+            <div class="oe_kanban_details">
+            <h4 class='oe_kanban_title'>
+                <field name="priority" class="me-2" widget="priority"/>                  
+                <field name="name"/>
+            </h4>
+            <div class="text-muted">
+            <div >
+             <span>Expected Price:</span>
+                <field icon="fa-book" name="expected_price"/>
+
+            </div>
+            <div>
+            </div>
+            <div t-if="record.state.raw_value!= 'new'">
+            <span>Best Offer:</span>
+                <field name="best_offer"/>
+            </div>
+            <div t-if="record.state.raw_value !='new' and record.state.raw_value !='offer received' and record.state.raw_value !='canceled' ">
+            <!-- <button icon="fa-rupee"/> -->
+             <span>Selling Price:</span>
+                 <field name="selling_price" widget="icon" options="{'icon':'fa-book'}"/>
+            </div>
+            <div>
+                <field name="tag_ids" options="{'color_field':'color'}"/>
+            </div>
+            </div>
+            <div class="oe_kanban_bottom_right">
+            <field name="user_id" widget="many2one_avatar_user" class="float-end"/>
+            </div>
+            </div>
+
+            </div>
+        </t>    
+    </templates>     
+        </kanban>
+        </field>
+    </record>
+
 </odoo>
