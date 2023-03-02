@@ -13,7 +13,7 @@ class EstateProperty(models.Model):
     _order = "id desc"
     postcode = fields.Char()
     date_availability = fields.Date(copy = False,default = lambda self : fields.Date.today()+relativedelta_proxy(months=3))
-    expected_price = fields.Float(required=True)
+    expected_price = fields.Float(required=True, string="Expected Price")
     selling_price = fields.Float(readonly=True,copy= False)
     bedrooms = fields.Integer(default = 2)
     living_area = fields.Integer()
@@ -45,7 +45,11 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
     total_area = fields.Integer(compute="_compute_total")
     best_offer = fields.Float(compute = "_compute_bestoffer")
-  
+    kanban_state = fields.Selection([
+                    ('normal', 'In Progress'),
+                    ('done', 'Ready'),
+                    ('blocked', 'Blocked')], string='Status',
+                    copy=False, default='normal', required=True)
     
     #compute for total_area
     
@@ -84,6 +88,7 @@ class EstateProperty(models.Model):
                 raise UserError(_("cancelled property cannot be sold"))
             else:
                 record.state = "sold"
+                record.kanban_state = "done"
             return True
         
     def action_cancel(self):
@@ -92,6 +97,7 @@ class EstateProperty(models.Model):
                 raise UserError(_("sold property cannot be cancelled"))
             else:
                 record.state = "cancelled"
+                record.kanban_state = "blocked"
             return True
                 
     
