@@ -7,6 +7,9 @@
                 ],
     'author': 'Astik singh',
     'description': 'Link module between estate and project modules',
+    'data' : [
+        'security/ir.model.access.csv'
+    ],
     'application': True,
     'installable' :True
 }

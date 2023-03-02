@@ -42,6 +42,7 @@ class EstateModel(models.Model):
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer= fields.Integer(compute="_compute_best_price")
     user_id = fields.Many2one('res.users')
+    seq_name = fields.Char(string='Sequence', default=lambda self: ('New'))
     # estate_delig_ids = fields.One2many('estate.deligation.test','estate_delig')
     
 
@@ -55,6 +56,10 @@ class EstateModel(models.Model):
         'Expected Price Must be Positive')
     ]
 
+    @api.model
+    def create(self,vals):
+        vals['seq_name'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateModel,self).create(vals)
     
 
     @api.ondelete(at_uninstall=False)
@@ -121,3 +126,6 @@ class ResUsers(models.Model):
 
     property_ids = fields.One2many('estate.property','user_id',domain=[('state','in',['new','offer received'])])
     testing = fields.Char()
+
+
+
