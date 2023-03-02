@@ -11,6 +11,7 @@ class EstateProperty(models.Model):
     _order = 'id desc'
 
     name = fields.Char(required=True, string='Title')
+    number = fields.Char(string='Property No.',default=lambda self: ('New'))
     active = fields.Boolean(default=True)
     description = fields.Text()
     postcode = fields.Char()
@@ -21,7 +22,6 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many('estate.property.tag', string='Tags')
     property_type_id = fields.Many2one('estate.property.type')
     buyer_id = fields.Many2one('res.partner', copy=False)
-    # user_id = fields.Many2one('res.users')
     seller_id = fields.Many2one('res.users', default=lambda self: self.env.user.id)
     selling_price = fields.Float()
     garage = fields.Boolean()
@@ -50,13 +50,17 @@ class EstateProperty(models.Model):
         ('check_selling_price','CHECK(selling_price >= 0)','The selling price cannot be negative.'),
     ]
 
+    @api.model
+    def create(self,vals):
+        vals['number'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty,self).create(vals)
+
     def unlink(self):
         for record in self:
             if(record.state not in ('new','canceled')):
                 raise UserError('Only new and canceled properties can be delete')
         return super().unlink()
     
-
     # @api.ondelete(at_uninstall=False)
     # def prevent_delete(self):
     #     for record in self:
@@ -108,7 +112,3 @@ class EstateProperty(models.Model):
         #     else:
             record.state = 'canceled'
         return True
-    
-    
-
-    

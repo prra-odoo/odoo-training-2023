@@ -13,22 +13,23 @@
     </record>
 
     <record id='tag_one' model='estate.property.tag'>
-      <field name='name'>Cozy</field>
+      <field name='name'>renovated</field>
       <field name='color'>6</field>
     </record>
 
     <record id='tag_two' model='estate.property.tag'>
-      <field name='name'>Luxury</field>
+      <field name='name'>cozy</field>
       <field name='color'>11</field>
     </record>
 
     <record id='tag_three' model='estate.property.tag'>
-      <field name='name'>Furnished</field>
+      <field name='name'>exceptional</field>
       <field name='color'>10</field>
     </record>
 
     <record id='estate_property_record_two' model='estate.property'>
-      <field name='name'>Space Villa</field>
+      <field name='number'/>
+      <field name='name'>House in Brussels</field>
       <field name='description'>A nice and big villa and space and others.</field>
       <field name='property_type_id' ref='type_three'/>
       <field name='postcode'>2000</field>
@@ -46,7 +47,8 @@
     </record>
     
     <record id='estate_property_record_four' model='estate.property'>
-      <field name='name'>Test House</field>
+      <field name='number'/>
+      <field name='name'>Apartment in Namur</field>
       <field name='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique asperiores explicabo officiis? Recusandae distinctio numquam nam earum error. Quibusdam, eius?</field>
       <field name='property_type_id' ref='type_one'/>
       <field name='postcode'>3201</field>
@@ -64,7 +66,8 @@
     </record>
 
     <record id='estate_property_record_one' model='estate.property'>
-      <field name='name'>Big House</field>
+      <field name='number'/>
+      <field name='name'>Castle in Bouillon</field>
       <field name='description'>A nice and big villa</field>
       <field name='property_type_id' ref='type_one'/>
       <field name='postcode'>12345</field>
@@ -82,7 +85,8 @@
     </record>
 
     <record id='estate_property_record_three' model='estate.property'>
-      <field name='name'>Apartment</field>
+      <field name='number'/>
+      <field name='name'>House in Arlon</field>
       <field name='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique asperiores explicabo officiis? Recusandae distinctio numquam nam earum error. Quibusdam, eius?</field>
       <field name='property_type_id' ref='type_two'/>
       <field name='postcode'>1270</field>

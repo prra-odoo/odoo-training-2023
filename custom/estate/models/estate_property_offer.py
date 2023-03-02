@@ -29,7 +29,6 @@ class EstatePropertyOffer(models.Model):
     @api.model
     def create(self, vals_list):
         record = self.env['estate.property'].browse(vals_list['property_id'])
-        print(record)
         record.state = 'offer received'
         if((vals_list['price']) <= record.best_price):
             higher_price = int(record.best_price)
