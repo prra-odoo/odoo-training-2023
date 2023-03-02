@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<odoo>
+  <record id="test_model_action" model="ir.actions.act_window">
+    <field name="name"> Propertys</field>
+    <field name="res_model">estate.property</field>
+    <field name="context">{'search_default_state':True}</field>
+    <!-- <field name="view_mode">tree,form</field> -->
+  </record>
+<!--             List(Tree)  View Estate Property    -->
+   <record id="estate_propert_view_tree" model="ir.ui.view">
+        <field name="name">estate_property_view</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <tree string="Channel" expand='1' decoration-success="state=='offer received'" decoration-muted="state=='sold'" decoration-danger="state=='canceled'">
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="date_availability"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+<!--           Form View Estate_Property-->
+  <record id="estate_property_view_form" model="ir.ui.view"> 
+    <field name="name">estate_property_fromView </field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+        <form string="estate_form">
+          <header>
+            <!-- stat Buttons -->
+            <button class="oe_highligh" name="sold_action_button" type="object"  string="Sold" />
+            <button class="oe_highlight" name="cancel_action_button" type="object"  string="Cancel"/>
+                  <!-- options="{'clickable':'1'}" -->
+            <field name="state" widget='statusbar' />
+          </header>
+          <sheet>
+            <!-- Add a Ribbon -->
+            <widget name='web_ribbon' title='Sold' bg_color="bg-success" attrs='{"invisible": [("state", "not in", ["sold"])]}'/>
+            <widget name='web_ribbon' title='Canceled' bg_color='bg-danger' attrs='{"invisible": [("state", "not in", ["canceled"])]}'/>
+            <!-- Customer Name in Heading -->
+              <h1 string="Customer Name">
+                <field name="name" placeholder="Name"/>
+             </h1>
+              <p>
+                <!--    Color changing tags -->
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+              </p>
+            <group> 
+              <group>
+                <field name="property_type_ID" string="Property Type"/>
+                <field name="postcode"/>
+                <field name="date_availability"/> 
+              </group>
+
+                <group>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="best_offer"/>
+                </group>
+            </group>
+
+         <notebook>
+          <!-- Description Tab -->
+                <page string="Description">
+                  <group>
+                     <field string="Bedrooms" name="bedrooms"/>
+                     <field string="living Area(sqm)" name="living_area"/>
+                     <field name="facades"/>
+                     <field string="Description" name="description"/>
+                     <field name="garden"/>
+                     <!--    It is important to note that a field used in an attrs must be present in the view.  -->
+                     <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                     <field name="garden_orientation" attrs="{'invisible':[('garden', '=', False)]}"/>
+                     <field name="total_area"></field>
+                  </group>
+                </page>
+          <!-- Offers Tab -->
+                <page string="Offers">
+                  <field name="offer_ids" attrs="{'readonly':[('state','in',['offer accepted','sold','canceled'])]}"/>
+                </page>
+          <!--   Other Info Tab -->
+                <page string="Other Info">
+                <group>
+                  <field name="salesperson_id"/>
+                  <field name="buyer_id"/>
+                </group>
+                </page>
+        </notebook>
+          </sheet>
+        </form>
+    </field>
+  </record>
+<!-- Search View -->
+  <record id="search_estate_list" model="ir.ui.view">
+    <field name="name">Estate_Property_Search</field>
+    <field name="model">estate.property</field>
+    <field name="arch" type="xml">
+      <search>
+        <!-- <filter name="available" string="Available" domain="[('state', 'in', ['new','offer_received'])]" help="Show only Available" default="1"/> -->
+        <field name="name"/>
+        <field name="bedrooms"/>
+        <field name="postcode"/>
+        <field name="expected_price"/>
+        <field name="garden_area"/>
+        <field name="living_area" filter_domain="[('living_area','>=','self)]"/>
+         <!-- <filter name="state" string="Available" domain="['|',('state', '=', 'new'), ('state','=','offer received')]"/> -->
+         <filter name="state" string="Available" domain="[('state', 'in', ['new','offer_received'])]"/>
+         <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+         <filter string="Bedrooms" name="Bedrooms" context="{'group_by':'bedrooms', 'residual_visible':True}"/>
+         <group expand="1" string="Group By">
+        </group>
+        <filter string="Postcode" name="Postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+      </search>
+    </field>
+  </record>
+
+
+
+  <record id="res_users_model_view_form" model="ir.ui.view">
+    <field name="name">res.users.form.view</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//notebook" position="inside">
+              <page string = "Real Estate Properties">
+                  <field name="property_ids"/>
+              </page>
+        </xpath>
+    </field>
+</record>
+</odoo>

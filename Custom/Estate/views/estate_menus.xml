@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="test_menu_root" name="estate property">
+    <!-- Advertisement -->
+    <menuitem id="test_first_level_menu" name="Advertisement">
+        <menuitem id="test_model_menu_action" action="test_model_action"/>
+    </menuitem>
+    <!-- Setting section -->
+    <menuitem id="estate_property_type" name="Setting">
+    <!-- Property Type -->
+        <menuitem id="property_type_action" action="estate_property_type_action"/>
+    <!-- Property Tag -->
+        <menuitem id="property_tag_action" action="estate_property_tags_action"/>
+    </menuitem>
+    </menuitem>
+</odoo>
