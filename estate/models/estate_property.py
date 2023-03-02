@@ -24,6 +24,7 @@ class EstateProperty(models.Model):
 # -*- Field Selction -*-
     name = fields.Char(required=True)
     description = fields.Text()
+    property_seq = fields.Char(string="Seq. No.", readonly=True, required=True, default=lambda self:('New'))
     postcode = fields.Char(required=True)
     date_availability = fields.Date(
         default=lambda self: fields.Date.today() + relativedelta(months=3), copy=False)
@@ -58,6 +59,11 @@ class EstateProperty(models.Model):
     property_type_id = fields.Many2one(comodel_name='estate.property.type',index=True)
     tag_ids = fields.Many2many(comodel_name='estate.property.tags',relation='tag_table',required=True)
     offer_ids=fields.One2many(comodel_name='estate.property.offers',inverse_name='property_id') 
+    is_favorite = fields.Boolean()
+    kanban_state = fields.Selection(
+        [('normal', 'grey'),
+        ('done', 'green'),
+        ('blocked','red')], string='Kanban State')
 
 # -*- Business Logic Selction -*-
     @api.depends("garden_area", "living_area")
@@ -142,3 +148,8 @@ class EstateProperty(models.Model):
         for record in self:
             if record.state not in ['new','cancelled']:
                 raise UserError("Property can only delete when state is in new or cancelled")
+
+    @api.model
+    def create(self, vals):
+        vals['property_seq'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty, self).create(vals)

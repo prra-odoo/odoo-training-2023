@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+        <!-- Type Demo Data -->
+        <record id="property_type_1" model="estate.property.type">
+            <field name="name">Home</field>
+        </record>
+        <record id="property_type_2" model="estate.property.type">
+            <field name="name">Apartment</field>
+        </record>
+        <record id="property_type_3" model="estate.property.type">
+            <field name="name">Villa</field>
+        </record>
+        <!-- Tag Demo Data -->
+        <record id="property_tag_1" model="estate.property.tags">
+            <field name="name">cozy</field>
+            <field name="tags_color">3</field>
+        </record>
+        <record id="property_tag_2" model="estate.property.tags">
+            <field name="name">renovated</field>
+            <field name="tags_color">8</field>
+        </record>
+        <record id="property_tag_3" model="estate.property.tags">
+            <field name="name">scratch</field>
+            <field name="tags_color">9</field>
+        </record>
+        <!-- Property Demo Data  -->
         <record id="demo_property_estate" model="estate.property">
             <field name="name">supan</field>
+            <field name="property_type_id" ref="property_type_1"/>
+            <field name="tag_ids" eval="[(3, 0, [ref('property_tag_1')])]" />
             <field name="description">sweet home</field>
             <field name="state">new</field>   
             <field name="postcode">380007</field> 
@@ -17,6 +43,8 @@
 
         <record id="demo1_property_estate" model="estate.property">
             <field name="name">Harikrupa</field>
+            <field name="property_type_id" ref="property_type_2"/>
+            <field name="tag_ids" eval="[(8, 0, [ref('property_tag_2')])]" />
             <field name="description">My home</field>
             <field name="state">sold</field>   
             <field name="postcode">380008</field> 
