@@ -3,6 +3,7 @@ from odoo import models,fields,api,Command
 class EstateProperty(models.Model):
     _inherit = "estate.property"
 
+
     def action_set_state_sold(self):
         partner_id = self.buyer_id.id
         move_type = "out_invoice"

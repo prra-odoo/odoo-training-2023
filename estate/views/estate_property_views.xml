@@ -4,7 +4,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="context" >{'search_default_active':True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -96,7 +96,7 @@
                             
                             <page string="Other Info">
                             <group >
-                                    <field name="buyer_id" />
+                                    <field name="buyer_id"/>
                                     <field name="seller_id" />                                   
                             </group>
                             </page>
@@ -138,4 +138,73 @@
             </search> 
         </field>
     </record> 
+
+    <!-- kanban view -->
+
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.view.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" default_group_by="property_type_id">
+                <field name="state" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_content oe_kanban_global_click o_kanban_get_form">
+                            <div>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div t-if="record.buyer_id">
+                                <field name="buyer_id" widget="many2one_avatar_partner" />
+                            </div>
+                            <div>
+                                <lable for="expected_price">Expected Price: </lable>
+                                <field name="expected_price" /><br/>
+                            </div>
+                            <div>
+                                <t t-if="record.state.raw_value=='offer_received'">
+                                    <lable for="best_price">Best Price: </lable>
+                                    <field name="best_price" />    
+                                </t>
+                            </div>
+                            <div t-if="record.state.raw_value == 'sold'">
+                                <lable for="selling_price">Selling Price: </lable>
+                                <field name="selling_price" /><br/>
+                            </div>
+                            <div>
+                                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+            <!-- <kanban default_group_by="property_type_id" records_draggable="false">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div t-if="record.buyer_id.value">
+                                <strong><field name="buyer_id" widget="many2one_avatar_partner"/></strong>
+                            </div>
+                            <div>Expected Price : 
+                                <strong><field name="expected_price"/></strong>
+                            </div>
+                            <div t-if="record.state.raw_value=='offer_received'">Best Offer :
+                                <strong><field name="best_price"/></strong>
+                            </div>
+                            <div t-if="record.state.raw_value=='sold'">Selling Price :
+                                <strong><field name="selling_price"/></strong>
+                            </div>
+                            <div>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban> -->
+        </field>
+    </record>
+
 </odoo>

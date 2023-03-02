@@ -14,11 +14,11 @@ class EstateProperty(models.Model):
         ("check_selling_price","CHECK(selling_price>=0)","A property selling price must be positive"),
     ]
     
-    name = fields.Char(required=True,string='Title')
+    name = fields.Char(string='Title')
     description = fields.Char()
     postcode = fields.Char(string='Postcode')
     date_availability = fields.Date(default = date.today() + relativedelta(months=+3),copy=False)
-    expected_price = fields.Float(required=True,string='Expected Price')
+    expected_price = fields.Float(string='Expected Price')
     selling_price = fields.Float(readonly=True,copy=False)
     bedrooms = fields.Integer(default = 2,string='Bedrooms')
     living_area = fields.Float(string='Living Area (sqm)',default=100)
@@ -51,8 +51,8 @@ class EstateProperty(models.Model):
     # Relationals Fields
     buyer_id = fields.Many2one("res.partner", string="Buyer",copy=False)
     seller_id = fields.Many2one("res.users",string="Seller",default=lambda self: self.env.user)
-    property_type_id = fields.Many2one("estate.property.type",string="Property Type",required=True)
-    tag_ids = fields.Many2many("estate.property.tag",string="Property Tag",required=True)
+    property_type_id = fields.Many2one("estate.property.type",string="Property Type")
+    tag_ids = fields.Many2many("estate.property.tag",string="Property Tag")
     offer_ids = fields.One2many("estate.property.offer","property_id")
 
     # computed fields
