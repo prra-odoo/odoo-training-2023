@@ -4,7 +4,7 @@
         <field name="name">Properties</field>
         <field name="context">{'search_default_available': True, 'search_default_current': True}</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Enter Your First Record!!
@@ -13,11 +13,20 @@
         </field>
     </record>
 
+    <record id="seq_task_order" model="ir.sequence">
+        <field name="name">Property Sequence</field>
+        <field name="code">estate.property</field>
+        <field name="prefix">PS</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Prpperties" decoration-success="state in ('off_re','off_ac')"  decoration-bf="state =='off_acc'" decoration-muted="state =='sold'">
+                <field name="seq_name"/>
                 <field name="name" />
                 <field name="postcode" />
                 <field name="property_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
@@ -30,6 +39,66 @@
             </tree>
         </field>
     </record>
+
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <!-- <kanban>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div>
+                                <strong><field name="name"/></strong>                       
+                            </div>
+                            <div>
+                                Expected Price : <field name = "expected_price"/>
+                            </div>
+                            <div t-if="record.state.raw_value = 'off_ac'">
+                                Selling Price :<field name="selling_price"/>
+                               
+                            </div>
+                            <div t-if="record.state.raw_value = 'off_re'">
+                                Best Price:<field name="best_price"/>
+                            </div>   
+                            <div>      
+                                <field name="property_tag_ids" options="{'color_field': 'color'}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban> -->
+            <kanban default_group_by="property_type_id" records_draggable ="False">
+                <field name="state"/>
+                <!-- <field name="color"/>  -->
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <field name="name"/>
+                            </div>
+                            <div>
+                                Expected Price:<field name="expected_price"/>
+                            </div>
+                            <div t-if="record.state.raw_value == 'off_re'">
+                                Best Price: <field name="best_price"/>
+                            </div>
+                            <div t-if="record.state.raw_value == 'off_ac'">
+                                Selling Price: <field name="selling_price"/>
+                            </div>
+                            <div>
+                                <field name="property_tag_ids" widget="many2many_tags" options ="{'color_field':'color'}"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+
     <record id="estate_property_view_form" model="ir.ui.view">
         <field name="name">estate.property.form</field>
         <field name="model">estate.property</field>
@@ -63,6 +132,7 @@
                             <field name="selling_price" />
                             <field name="expected_price" />
                             <field name="best_price"/>
+                            <field name="seq_name"/>
                         </group>
                     </group>
                     <notebook>

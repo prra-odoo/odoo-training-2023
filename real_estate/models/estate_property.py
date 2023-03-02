@@ -12,11 +12,12 @@ class EstateProperty(models.Model):
     _order = "id desc"
    
 
+    seq_name = fields.Char(string='Property Sequence', required=True,readonly=True, default=lambda self: ('New'))
     name = fields.Char(required=True)
     description=fields.Char()   
     postcode = fields.Char(default="0")
     date_availability = fields.Date(readonly=True, default=lambda self:(fields.Datetime.now().date()+relativedelta(months=+3)))
-    expected_price = fields.Float()
+    expected_price = fields.Float(string="Expected Price")
     selling_price = fields.Float()
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
@@ -102,18 +103,18 @@ class EstateProperty(models.Model):
          ('check_selling','CHECK (selling_price>=0)','selling price must be possitive')
     ]
     
-    # @api.constrains('selling_price','expected_price')
-    # def _check_selling_expected(self):
-    #     for record in self:
-    #         if record.selling_price < record.expected_price*0.9:
-    #             raise ValidationError("Selling Price Is Greter Then Expected Price")
-
-    @api.constrains('expected_price','selling_price')
+    @api.constrains('selling_price','expected_price')
     def _check_selling_expected(self):
-      for record in self:
-        if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
-          if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
-            raise ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
+        for record in self:
+            if record.selling_price < record.expected_price*0.9:
+                raise odoo.exceptions.ValidationError("Selling Price Is Greter Then Expected Price")
+
+    # @api.constrains('expected_price','selling_price')
+    # def _check_selling_expected(self):
+    #   for record in self:
+    #     if not float_is_zero(record.expected_price, precision_digits=2) and not float_is_zero(record.selling_price, precision_digits=2):
+    #       if float_compare(record.selling_price, record.expected_price * 0.9, precision_digits=2) == -1:
+    #         raise ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
 
     
     @api.ondelete(at_uninstall=False)
@@ -121,8 +122,12 @@ class EstateProperty(models.Model):
         for record in self:
             if record.state not in ('new','canceled'):
                 raise odoo.exceptions.AccessError("State Is Not New And Canclede")
-    
-
+                
+    #sequence 
+    @api.model
+    def create(self,vals):
+        vals['seq_name'] = self.env['ir.sequence'].next_by_code('estate.property')
+        return super(EstateProperty,self).create(vals)
    
   
 # class EstatePropertyInheritance(models.Model):
