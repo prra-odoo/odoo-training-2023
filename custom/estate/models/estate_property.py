@@ -12,10 +12,15 @@ class EstatePlan(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
    
     name = fields.Char(required=True, string="Title")
+    priority = fields.Boolean()
     property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
     property_tag_ids = fields.Many2many("estate.property.tag", string="Property Tags")
     active = fields.Boolean(default = True)
     description = fields.Text()
+    kanban_state = fields.Selection([
+        ('normal', 'Grey'),
+        ('done', 'Green'),
+        ('blocked', 'Red')], string='Kanban State')
     # state = fields.Text()
     postcode = fields.Char()
     dateavailability = fields.Date(copy=False, default=lambda self: fields.Date.today()+relativedelta(months=3))

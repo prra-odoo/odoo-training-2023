@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Property Types -->
+    <record id="property_residential" model="estate.property.types">
+        <field name="name">Villa</field>
+    </record>
+
+    
+    <!-- Properties -->
+    <record id="rec_1" model="estate.property">
+        <field name="name">House in Mumbai</field>
+        <field name="state">new</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">12345</field>
+        <field name="dateavailability">2020-02-02</field>
+        <field name="expected_price">1600000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage" eval="True"/>
+        <field name="garden" eval="True"/>
+        <field name="garden_area">100000</field>
+        <field name="garden_direction">south</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <!-- <field name="user_id" ref="base.user_admin"/> -->
+    </record>
+     <record id="rec_2" model="estate.property">
+        <field name="name">House in Chennai</field>
+        <field name="state">new</field>
+        <field name="description">Luxurious house</field>
+        <field name="postcode">12345</field>
+        <field name="dateavailability">2020-02-02</field>
+        <field name="expected_price">1600004240</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage" eval="True"/>
+        <field name="garden" eval="True"/>
+        <field name="garden_area">10000</field>
+        <field name="garden_direction">north</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <!-- <field name="user_id" ref="base.user_admin"/> -->
+    </record>
+     <record id="rec_3" model="estate.property">
+        <field name="name">Villa in Delhi</field>
+        <field name="state">new</field>
+        <field name="description">big villa</field>
+        <field name="postcode">12345</field>
+        <field name="dateavailability">2020-02-02</field>
+        <field name="expected_price">5345546</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage" eval="True"/>
+        <field name="garden" eval="True"/>
+        <field name="garden_area">100000</field>
+        <field name="garden_direction">south</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <!-- <field name="user_id" ref="base.user_admin"/> -->
+    </record>
+     <record id="rec_4" model="estate.property">
+        <field name="name">Apartment in Ahmedabad</field>
+        <field name="state">new</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">12345</field>
+        <field name="dateavailability">2020-02-02</field>
+        <field name="expected_price">160420000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage" eval="True"/>
+        <field name="garden" eval="True"/>
+        <field name="garden_area">100000</field>
+        <field name="garden_direction">south</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <!-- <field name="user_id" ref="base.user_admin"/> -->
+    </record>
+     <record id="rec_5" model="estate.property">
+        <field name="name">Villa in Goa</field>
+        <field name="state">new</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">12345</field>
+        <field name="dateavailability">2020-02-02</field>
+        <field name="expected_price">162400000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage" eval="True"/>
+        <field name="garden" eval="True"/>
+        <field name="garden_area">100000</field>
+        <field name="garden_direction">south</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <!-- <field name="user_id" ref="base.user_admin"/> -->
+    </record>
+     <record id="rec_6" model="estate.property">
+        <field name="name">Apartment in Gandhinagar</field>
+        <field name="state">new</field>
+        <field name="description">A nice and big villa</field>
+        <field name="postcode">12345</field>
+        <field name="dateavailability">2020-02-02</field>
+        <field name="expected_price">160420000</field>
+        <field name="bedrooms">6</field>
+        <field name="living_area">100</field>
+        <field name="facades">4</field>
+        <field name="garage" eval="True"/>
+        <field name="garden" eval="True"/>
+        <field name="garden_area">100000</field>
+        <field name="garden_direction">south</field>
+        <field name="property_type_id" ref="property_residential"/>
+        <!-- <field name="user_id" ref="base.user_admin"/> -->
+    </record>
+</odoo>

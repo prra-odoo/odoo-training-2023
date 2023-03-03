@@ -17,7 +17,7 @@ class EstatePropertyTypes(models.Model):
             if record.offer_ids:
                 record.offer_count=len(record.offer_ids)
             else:
-                record.offer_ids=0
+                record.offer_count=0
             
     _sql_constraints = [
         ('name_types',"UNIQUE(name)",'Property Types Must be Unique')

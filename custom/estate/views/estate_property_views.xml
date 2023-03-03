@@ -10,36 +10,72 @@
         <field name="name">estate.property.kanban.view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-        <kanban default_group_by="property_type_id" records_draggable="false">
-            <field name="state"/>
-        <templates>
-            <t t-name="kanban-box">
-                <div class="oe_kanban_global_click">
-                    <div>
-                        <field name="name"/>
-                        <div>
-                            <span>Expected Price:<field name="expected_price"/></span>
-                            <!-- Expected Price:<field name="expected_price"/> -->
-                        </div> 
-                        <div t-if="record.state.raw_value == 'offered received'">
-                            <span>Best Price:<field name="best_price"/></span>
+            <kanban default_group_by="property_type_id" records_draggable="false">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <field name="priority" widget="boolean_favorite" nolabel="1" class="me-2"/>
+                                <strong><field name="name"/></strong>
+                                <div t-if="record.buyer.value">
+                                    <i class="fa fa-user me-2"/>
+                                    <strong><field name="buyer" widget="many2one_avatar_partner"/></strong>
+                                </div>
+                                <div>
+                                    <span>Expected Price:<field name="expected_price"/></span>
+                                    <!-- Expected Price:<field name="expected_price"/> -->
+                                </div> 
+                                <div t-if="record.state.raw_value == 'offered received'">
+                                    <span>Best Price:<field name="best_price"/></span>
+                                </div>
+                                <div t-if="record.state.raw_value == 'offer accepted'">
+                                    <span>Selling Price:<field name="selling_price"/></span>
+                                </div>
+                                <div >
+                                    <field name="property_tag_ids" options="{'color_field':'color'}" widget="many2many_tags"/>
+                                    
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="kanban_state" widget="state_selection"/>
+                                </div>
+                            </div>    
                         </div>
-                        <div t-if="record.state.raw_value == 'offer accepted'">
-                            <span>Selling Price:<field name="selling_price"/></span>
-                        </div>
-                        <div >
-                            <field name="property_tag_ids" options="{'color_field':'color'}"/>
-                        </div>
-                    </div>    
-                </div>
-                <!-- <div t-if="record.state.raw_value == 'new'">
-                    This is new!
-                </div> -->
-            </t>
-        </templates>
-        </kanban>
+                        <!-- <div t-if="record.state.raw_value == 'new'">
+                            This is new!
+                        </div> -->
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
+    <!-- <div class="oe_kanban_global_click"> -->
+                            <!-- <div>
+                                <field name="is_favorite" widget="boolean_favorite" nolabel="1" class="me-2"/>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div t-if="record.buyer_id.value">
+                                <i class="fa fa-user me-2"/>
+                                <strong><field name="buyer_id" widget="many2one_avatar_partner"/></strong>
+                            </div>
+                            <div>Expected Price : 
+                                <strong><field name="expected_price"/></strong>
+                            </div>
+                            <div t-if="record.state.raw_value=='offer_received'">Best Offer :
+                                <strong><field name="best_price"/></strong>
+                            </div>
+                            <div t-if="record.state.raw_value=='sold'">Selling Price :
+                                <strong><field name="selling_price"/></strong>
+                            </div>
+                            <div>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="kanban_state" widget="state_selection"/>
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                </div> -->
     <record id="estate_property_view_tree" model="ir.ui.view">
         <field name="name">estate.property.tree.view</field>
         <field name="model">estate.property</field>
