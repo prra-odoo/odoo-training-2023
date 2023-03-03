@@ -37,6 +37,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many('estate.property.offer', 'property_id')
     total_area = fields.Float(compute="_compute_area")
     best_price = fields.Float(compute="_compute_bestprice", default=0)
+    color = fields.Integer(compute="_compute_color")
 
     _sql_constraints = [
         ("check_expected_price", "CHECK(expected_price > 0)",
@@ -104,3 +105,17 @@ class EstateProperty(models.Model):
             if (record.state not in ["new", "canceled"]):
                 raise exceptions.UserError(
                     "Only new and canceled properties can be deleted!")
+            
+    @api.depends("state")
+    def _compute_color(self):
+        for record in self:
+            if(record.state == 'new'):
+                record.color = 3
+            elif(record.state == 'offer received'):
+                record.color = 4
+            elif(record.state == 'offer accepted'):
+                record.color = 7
+            elif(record.state == 'sold'):
+                record.color = 10
+            elif(record.state == 'canceled'):
+                record.color = 1

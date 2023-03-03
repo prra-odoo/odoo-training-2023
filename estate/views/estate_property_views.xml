@@ -107,46 +107,35 @@
             </search>
         </field>
     </record>
+   
     <record id="estate_property_view_kanban" model="ir.ui.view">
         <field name="name">estate.property.kanban</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="property_type_id" records_draggable="False">
-            <field name="state"/>
+            <kanban default_group_by="property_type_id" records_draggable="False" >
+            <field name="state" />
             <field name="buyer_id"/>
+            <field name="color"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
+                        <div class="oe_kanban_global_click" t-attf-class="#{kanban_color(record.color.value)}">
                             <strong>
                                 <field name="name" />
                             </strong>
-                            <t t-if="record.buyer_id.value">
-                                <div class="text-muted">
-                                    <span class="fa fa-user me-2" aria-label="Partner" title="Partner"/><t t-esc="record.buyer_id.value"/>
-                                </div>
-                            </t>
-                            <t>
-                                <div class="text-muted">
-                                    Expected price: <field name="expected_price" />
-                                </div>
-                            </t>
-                            <t t-if='record.state.raw_value == "offer received"'>
-                                <div class="text-muted">
-                                    Best price: <field name="best_price" />
-                                </div>
-                            </t>
-                            <t t-if='record.state.raw_value == "offer accepted"'>
-                                <div class="text-muted">
-                                    Selling price: <field name="selling_price" />
-                                </div>
-                            </t>
-                            <t>
-                                <div class="text-muted">
-                                    <field name="tag_ids" options="{'color_field': 'color'}"/>
-                                </div>
-                            </t>
+                            <div t-if="record.buyer_id.value" class="text-muted">
+                                <span class="fa fa-user me-2"/>
+                                <field name="buyer_id"/>
+                            </div>
+                            <div class="text-muted">
+                                Expected price: <field name="expected_price" />
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer received'" class="text-muted">
+                                Best price: <field name="best_price" />
+                            </div>
+                            <div t-if="record.state.raw_value == 'offer accepted'" class="text-muted">
+                                Selling price: <field name="selling_price" />
+                            </div>
                         </div>
-                        
                     </t>
                 </templates>
             </kanban>
