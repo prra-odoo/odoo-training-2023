@@ -2,12 +2,11 @@ from odoo import fields,models
 
 class Users(models.Model):
     _inherit = "res.users"
-    _inherits = {'estate.property': 'property_ids'}
 
-    property_ids = fields.One2many("estate.property","user_id",
+    property_ids = fields.One2many("estate.property","salesmans_id",
                                     string = "Properties", 
-                                    domain = "[('state','in',('new','Offer Received'))]",
+                                    domain = "[('state','in',('new','received'))]",
                                     required=True,
-                                    ondelete='cascade'
+                                    ondelete='cascade',
+                                    store=True
                                     )
-    # test = fields.Char(string="test")

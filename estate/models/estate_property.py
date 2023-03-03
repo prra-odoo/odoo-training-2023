@@ -18,7 +18,6 @@ class EstateProperty(models.Model):
         )
     ]
     
-
     name = fields.Char(required=True)
     description = fields.Char()
     postcode = fields.Char(default="0")
@@ -39,8 +38,7 @@ class EstateProperty(models.Model):
         help  = "Select Direction",
         compute="_compute_garden",
         readonly=False
-        )
-         
+        )    
     active = fields.Boolean("Active",default=True)
     state = fields.Selection(
         string = "Status",
@@ -50,34 +48,39 @@ class EstateProperty(models.Model):
         copy=False,
         tracking = True
         )
-    
     property_type_id = fields.Many2one('estate.property.type',string="Property Type")
     property_tag_ids = fields.Many2many('estate.property.tag', string="Property Tag", relation="tag_table")
     offer_ids = fields.One2many('estate.property.offer',"property_id",string="Offers")
-    
     buyer_id = fields.Many2one('res.partner',copy=False, readonly=True)
     salesmans_id = fields.Many2one('res.users', default=lambda self:self.env.user)
-    user_id = fields.Many2one('res.users',string="User")
-
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
     best_price = fields.Float(compute = "_compute_best_offer" ,string="Best Price", readonly=True)
     #ir.sequence
     property_seq = fields.Char(string='Property ID',required=True,readonly=True,
                                 default=lambda self: ('New'))
+    color = fields.Integer(compute="_compute_color",default=4)
+    is_prior = fields.Boolean(default=False,string="Favorite")
 
-    @api.model
-    def create(self,vals):
-        vals['property_seq'] = self.env['ir.sequence'].next_by_code('estate.property')
-        print(vals['property_seq'])
-        return super(EstateProperty,self).create(vals)
+    @api.depends('state')
+    def _compute_color(self):
+        for record in self:
+            if (record.state == 'new'):
+                record.color = 4
+            elif (record.state == 'received'):
+                record.color = 5
+            elif (record.state == 'accepted'):
+                record.color = 2
+            elif (record.state == 'sold'):
+                record.color = 10
+            elif (record.state == 'canceled'):
+                record.color = 1
+            else:
+                record.color = 0
 
-   
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
-
-    
 
     #api.depends use to set dependancy on function. parameters field change value or on save action  then call this function
     @api.depends('offer_ids')
@@ -92,9 +95,6 @@ class EstateProperty(models.Model):
                 if(record.state == 'received'):
                     if(not record.offer_ids):
                         record.state = 'new'
-
-
-    
     
     # api.onchange use to set dependancy on function when parameter field change data it call automatically
     @api.depends('garden')
@@ -118,8 +118,18 @@ class EstateProperty(models.Model):
                 
                     raise ValidationError('Selling price is more less than experted price ')
     
-    
-    
+    @api.ondelete(at_uninstall = False)
+    def _unlink_except_posted_or_approved(self):
+        if (self.state not in ['new','canceled']):
+            raise UserError("New or Canceled Property can not be deleted")
+        # return()
+
+    @api.model
+    def create(self,vals):
+        vals['property_seq'] = self.env['ir.sequence'].next_by_code('estate.property')
+        print(vals['property_seq'])
+        return super(EstateProperty,self).create(vals)
+
     #sold button action
     def action_do_sold(self):
         for record in self:
@@ -134,10 +144,3 @@ class EstateProperty(models.Model):
         for record in self:
             record.state = "canceled"
         return True
-    
-    @api.ondelete(at_uninstall = False)
-    def _unlink_except_posted_or_approved(self):
-        if (self.state not in ['new','canceled']):
-            raise UserError("New or Canceled Property can not be deleted")
-        # return()
-

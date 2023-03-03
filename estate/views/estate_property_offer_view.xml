@@ -24,9 +24,7 @@
                 <button name="action_do_refuse" title="Reject" type="object" icon="fa-close" attrs="{'invisible':[('status','!=', False)]}"/>
                 <field name="validity"/>
                 <field name="date_deadline" />
-                <field name="property_type_id">
-                    
-                </field>
+                <field name="property_type_id"/>
                 <field name="status" invisible="1"/>
             </tree>
         </field>
@@ -37,25 +35,19 @@
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
             <form string="Property Offers">
-                
-                    
                 <sheet>
                     <group>
                         <group>
                             <field name="price"/>
                             <field name="partner_id"/>
-                            
                         </group>
                         <group>
                             <field name="validity"/>
-                            <field name="date_deadline" />
-                            
+                            <field name="date_deadline" />    
                         </group>
-                    </group>
-                            
+                    </group>          
                 </sheet>
             </form>
         </field>
     </record>
-    
 </odoo>

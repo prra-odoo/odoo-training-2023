@@ -1,5 +1,5 @@
 {
-    'name': "Estate Account",
+    'name': "Estate Project",
     'version': '1.0',
     'depends': ['estate','project'],
     'author': "ZEPA",

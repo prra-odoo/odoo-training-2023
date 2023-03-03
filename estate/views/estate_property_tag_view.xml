@@ -24,12 +24,12 @@
                 <sheet>
                     <h1>
                         <field name="name" />
-                    </h1>
-                    
+                    </h1> 
                 </sheet>
             </form>
         </field>
     </record>
+    
     <record id="estate_property_view_search" model="ir.ui.view">
         <field name="name">estate.property.search</field>
         <field name="model">estate.property.tag</field>

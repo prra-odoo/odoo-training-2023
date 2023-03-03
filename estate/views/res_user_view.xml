@@ -6,27 +6,12 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
+                <!-- position :- after,before,inside,replace,attributes -->
                 <xpath expr="//page[@name='preferences']" position="after">
-                    <page string="Real Estate Properties(After)" name="properties">
+                    <page string="Real Estate Properties" name="properties">
                         <field name="property_ids"/>
                     </page>
                 </xpath>
-                <xpath expr="//page[@name='preferences']" position="before">
-                    <page string="Real Estate Properties (before)" name="properties">
-                        <field name="property_ids"/>
-                    </page>
-                </xpath>
-                <xpath expr="//page[@name='preferences']" position="inside">
-                        <field name="property_ids"/>
-                </xpath>
-                <!-- <xpath expr="//page[@name='preferences']" position="replace">
-                    <page string="Real Estate Properties (replace)" name="properties">
-                        <field name="property_ids"/>
-                    </page>
-                </xpath> -->
-                <field name="login" position = "attributes">
-                    <attribute name="placeholder">"from Attrs "</attribute>
-                </field>
             </field> 
         </record>
     </data>
