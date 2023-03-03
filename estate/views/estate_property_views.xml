@@ -189,16 +189,14 @@
                             <div class="oe_kanban_content">
                                 <strong>Expected price:</strong>
                                 <field name="expected_price"/>
-                                <t t-if='record.state.raw_value=="offer_recieved"'>
-                                    <strong>Best price:</strong>
-                                    <field name="best_price"/>   
-                                </t>
                             </div>
-                            <div>
-                                <t t-if='record.state.raw_value=="sold"'>
-                                    <strong>Selling price:</strong>
-                                    <field name="selling_price"/>
-                                </t>
+                            <div t-if='record.state.raw_value=="offer_recieved"'>
+                                <strong>Best price:</strong>
+                                <field name="best_price"/>   
+                            </div>
+                            <div t-if='record.state.raw_value=="sold"'>
+                                <strong>Selling price:</strong>
+                                <field name="selling_price"/>  
                             </div>
                             <div>
                                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'tags_color'}"/>
