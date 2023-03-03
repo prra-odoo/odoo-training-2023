@@ -16,8 +16,8 @@ class EstatePropertyOffer(models.Model):
     ],
     copy=False,
     )
-    partner_id = fields.Many2one("res.partner",string="buyer",required=True)
-    property_id = fields.Many2one("estate.property",string="Property ID",required=True)
+    partner_id = fields.Many2one("res.partner",string="buyer")
+    property_id = fields.Many2one("estate.property",string="Property ID")
     property_type_id = fields.Many2one(related="property_id.property_type_id")
     validity = fields.Integer(default = 7)
     date_deadline = fields.Date(compute = "_compute_date_deadline",inverse="_inverse_date_deadline")
@@ -55,7 +55,7 @@ class EstatePropertyOffer(models.Model):
     @api.model
     def create(self, vals):
         if vals['price'] < self.env['estate.property'].browse(vals['property_id']).expected_price:
-            raise UserError("xx")
+            raise UserError("Price can't be less than expected price")
         else:
             self.env['estate.property'].browse(vals['property_id']).state = "offer_received"
         return super(EstatePropertyOffer,self).create(vals)
