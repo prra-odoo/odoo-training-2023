@@ -46,6 +46,7 @@
            <button name="action_sold" states="new,offer_received" string="SOLD"/>
            <button name="action_sold" states="offer_accepted" class="oe_highlight" type="object" string="SOLD"/>
            <button name="action_cancel" type="object" states="new,offer_received,offer_accepted" string="CANCEL"/>
+
            <field widget="statusbar" name="state" options="{'clickable':1}" statusbar_visible="new,offer_received,offer_accepted,sold"/>
         </header>
         <sheet>
@@ -120,7 +121,7 @@
     <field name="model">estate.property</field>
     <field name="arch" type="xml">
 
-    <kanban>
+    <kanban default_group_by="property_type_id" records_draggable ="False">
       <field name="state"/>
       <templates>
         <t t-name="kanban-box">

@@ -7,14 +7,15 @@ class EstateProperty(models.Model):
 
     
     def action_sold(self):
-      self.env["account.move"].create(
+      for record in self:
+        self.env["account.move"].create(
         {
-            "partner_id":self.buyer_id.id,
+            "partner_id":record.buyer_id.id,
             "move_type": "out_invoice",
             "line_ids": [
                 (0,0, 
-                 {   'name': self.name, 
-                     'price_unit': self.selling_price * 0.06,
+                 {   'name': record.name, 
+                     'price_unit': record.selling_price * 0.06,
                      'quantity':1
                  }),
                  Command.create({
