@@ -50,7 +50,7 @@ class EstateProperty(models.Model):
                     ('done', 'Ready'),
                     ('blocked', 'Blocked')], string='Status',
                     copy=False, default='normal', required=True)
-    
+        
     #compute for total_area
     
     @api.depends("living_area","garden_area") #decorator

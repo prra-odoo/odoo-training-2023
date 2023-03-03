@@ -60,8 +60,28 @@
                             </div> 
                             <field name = "tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/> 
                             
-                        </div>
-                        
+                            <div class="oe_kanban_footer">
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="state" widget="priority"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="salesperson_id" widget="many2one_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="oe_kanban_footer">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name = "state" widget="priority"/>
+                                </div>
+                            <div class="oe_kanban_bottom_right">
+                                <field name="salesperson_id" widget="many2one_avatar_user" t-if="record.salesperson_id.raw_value"/>
+                            </div>
+
+                            </div> -->
+                            
+                        </div>                      
                     </t>
                 </templates>
             </kanban>
