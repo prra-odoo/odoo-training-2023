@@ -16,6 +16,13 @@ class EstateProperty(models.Model):
         ('0', 'Low'),
         ('1', 'High'),
     ], default='0', index=True, tracking=True)
+  
+    kanban_state = fields.Selection([
+        ('normal', 'In Progress'),
+        ('done', 'Ready'),
+        ('blocked', 'Blocked')], string='Status',
+        copy=False, default='normal', required=True)
+    kanbancolor=fields.Integer(compute="_compute_color")
     active=fields.Boolean(default=True)
     description=fields.Text()
     postcode=fields.Char()
@@ -147,3 +154,17 @@ class EstateProperty(models.Model):
         vals['seq_pr']=self.env['ir.sequence'].next_by_code('estate.property')
         return super(EstateProperty,self).create(vals)
         
+
+    def _compute_color(self):
+        for rec in self:
+            
+            if rec.state =='new':
+                rec.kanbancolor=2
+            elif rec.state =='offer received':
+                rec.kanbancolor=10
+            elif rec.state =='offer accepted':
+                rec.kanbancolor=3
+            elif rec.state =='sold':
+                rec.kanbancolor=4
+            else:
+                rec.kanbancolor=0

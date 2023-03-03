@@ -148,46 +148,45 @@
         <field name="name">estate.property.kanban</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-        <kanban default_group_by="property_type_id" records_draggable="False">
-        <templates>
-        <field name="state"/>
-        <t t-name="kanban-box">
-            <div class="oe_kanban_global_click">
-            <div class="oe_kanban_details">
-            <h4 class='oe_kanban_title'>
-                <field name="priority" class="me-2" widget="priority"/>                  
-                <field name="name"/>
-            </h4>
-            <div class="text-muted">
-            <div >
-             <span>Expected Price:</span>
-                <field icon="fa-book" name="expected_price"/>
-
-            </div>
-            <div>
-            </div>
-            <div t-if="record.state.raw_value!= 'new'">
-            <span>Best Offer:</span>
-                <field name="best_offer"/>
-            </div>
-            <div t-if="record.state.raw_value !='new' and record.state.raw_value !='offer received' and record.state.raw_value !='canceled' ">
-            <!-- <button icon="fa-rupee"/> -->
-             <span>Selling Price:</span>
-                 <field name="selling_price" widget="icon" options="{'icon':'fa-book'}"/>
-            </div>
-            <div>
-                <field name="tag_ids" options="{'color_field':'color'}"/>
-            </div>
-            </div>
-            <div class="oe_kanban_bottom_right">
-            <field name="user_id" widget="many2one_avatar_user" class="float-end"/>
-            </div>
-            </div>
-
-            </div>
-        </t>    
-    </templates>     
-        </kanban>
+            <kanban default_group_by="property_type_id" records_draggable="False">
+                <field name="state"/>
+                <field name="kanbancolor"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.kanbancolor.raw_value)}">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <h4 class='oe_kanban_title'>
+                                        <field name="priority" class="me-2" widget="priority"/>                  
+                                        <field name="name"/>
+                                   </h4>
+                                    <div class="text-muted">
+                                        <div >
+                                            <span>Expected Price:</span>
+                                            <field icon="fa-book" name="expected_price"/>
+                                        </div>
+                                        <div t-if="record.state.raw_value!= 'new'">
+                                            <span>Best Offer:</span>
+                                            <field name="best_offer"/>
+                                        </div>
+                                        <div t-if="record.state.raw_value !='new' and record.state.raw_value !='offer received' and record.state.raw_value !='canceled' ">
+                                           <span>Selling Price:</span>
+                                            <field name="selling_price" widget="icon" options="{'icon':'fa-book'}"/>
+                                        </div>
+                                        <div>
+                                           <field name="tag_ids" options="{'color_field':'color'}"/>
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right" >
+                                       <field name="user_id" widget="many2one_avatar_user" class="float-end"/>
+                                        <field name="kanban_state" widget="state_selection" class="float-end"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>    
+                </templates>     
+            </kanban>
         </field>
     </record>
 

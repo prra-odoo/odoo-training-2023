@@ -34,10 +34,10 @@ class EstatePropertyOffer(models.Model):
     @api.depends('date_deadline')
     def _inverse_date(self):
         for record in self:
-            if record.date_deadline > fields.Date.today():
+            # if record.date_deadline > fields.Date.today():
                   record.validity = (record.date_deadline - fields.Date.today()).days
-            else:
-                record.validity=0
+            # else:
+            #     record.validity=0
 
     def accept_action(self):
                 
