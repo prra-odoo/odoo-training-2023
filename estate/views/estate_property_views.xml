@@ -116,17 +116,17 @@
                                 <i class="fa fa-user me-2"/>
                                 <strong><field name="buyer_id" widget="many2one_avatar_partner"/></strong>
                             </div>
-                            <div>Expected Price : 
-                                <strong><field name="expected_price"/></strong>
+                            <div>
+                                <strong>Expected Price : <field name="expected_price"/></strong>
                             </div>
-                            <div t-if="record.state.raw_value=='offer_received'">Best Offer :
-                                <strong><field name="best_price"/></strong>
+                            <div t-if="record.state.raw_value=='offer_received'">
+                                <strong>Best Offer : <field name="best_price"/></strong>
                             </div>
-                            <div t-if="record.state.raw_value=='sold'">Selling Price :
-                                <strong><field name="selling_price"/></strong>                          
+                            <div t-if="record.state.raw_value=='sold'">
+                                <strong>Selling Price : <field name="selling_price"/></strong>                          
                             </div>
                             <div>
-                                <field name="tag_ids" widget="many2many_tags"/>
+                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'colors'}"/>
                             </div>
                             <!-- <div class="o_kanban_record_bottom"> -->
                                 <!-- <div class="oe_kanban_bottom_left">
@@ -178,7 +178,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">kanban,tree,form</field>
         <field name="context">{'search_default_available':True}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

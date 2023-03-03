@@ -46,7 +46,7 @@ class EstateProperty(models.Model):
     offer_ids = fields.One2many('estate.property.offer', 'property_id', string='Offer')
     total_area = fields.Integer(compute='_compute_total_area', string='Total Area')
     best_price = fields.Float(compute='_compute_best_price', string='Best Offer')
-    status = fields.Char()
+    # status = fields.Char()
     is_favorite = fields.Boolean()
     kanban_state = fields.Selection(
         [('normal', 'grey'),
@@ -86,8 +86,8 @@ class EstateProperty(models.Model):
 
     def action_sold(self):
         for record in self:
-            if(record.status != "Canceled"):
-                record.status = "Accepted"
+            if(record.state != "canceled"):
+                # record.status = "Accepted"
                 record.state = "sold"
             else:
                 raise UserError("Canceled property can't be sold")
@@ -95,8 +95,8 @@ class EstateProperty(models.Model):
     
     def action_cancel(self):
         for record in self:
-            if(record.status != "Accepted"):
-                record.status = "Canceled"
+            if(record.state != "sold"):
+                # record.status = "Canceled"
                 record.state = "canceled"
             else:
                 raise UserError("Sold property can't be canceled")
