@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="inherit_report_user_property_offers" inherit_id="estate.report_user_property_offers">
+            <xpath expr="//div[@class='offerstatus']" position="after">
+                <div t-if="property.state=='sold'">
+                    <strong>Invoice has already been created.</strong>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="inherit_report_property_offers" inherit_id="estate.report_property_offers">
+            <xpath expr="//div[@class='offerstatus']" position="after">
+                <div t-if="property.state=='sold'">
+                    <strong>Invoice has already been created.</strong>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
