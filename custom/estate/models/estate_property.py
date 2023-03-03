@@ -33,6 +33,8 @@ class EstateProperty(models.Model):
         copy = False,
         tracking = True,
     )
+    kanbancolor = fields.Integer('Color Index', compute='set_kanban_color')
+    priority = fields.Selection([('0', 'Low'),('1', 'High')])
     offer_ids = fields.One2many('estate.property.offer', 'property_id')
     best_price = fields.Float(compute='_compute_best_price')
     total_area = fields.Integer(compute='_compute_total_area')
@@ -66,6 +68,20 @@ class EstateProperty(models.Model):
     #     for record in self:
     #         if (record.state not in ('new','canceled')):
     #             raise UserError('Only new and canceled properties can be delete')
+
+    def set_kanban_color(self):
+        for record in self:
+            if record.state == 'new':
+                kanbancolor = 0
+            elif record.state == 'offer received':
+                kanbancolor = 10
+            elif record.state == 'offer accepted':
+                kanbancolor = 10
+            elif record.state == 'sold':
+                kanbancolor = 4
+            else:
+                kanbancolor = 9
+            record.kanbancolor = kanbancolor 
 
     @api.constrains('selling_price','expected_price')
     def _check_selling_price(self):
