@@ -56,6 +56,11 @@ class EstateProperty(models.Model):
    total_area=fields.Float(compute="_compute_total_area" , tracking = True)
    best_price=fields.Float(compute="_compute_best_price")
    seq_name = fields.Char(string='Property Reference', required=True,readonly=True, default=lambda self: ('New'))
+   favorite = fields.Boolean()
+   kanban_state = fields.Selection([
+      ('normal','Grey'),
+      ('done','Green'),
+      ('blocked','Red')], string='Kanban State')
 
    @api.depends("garden_area","living_area")
    def _compute_total_area(self):
