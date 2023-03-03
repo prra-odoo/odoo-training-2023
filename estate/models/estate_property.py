@@ -75,7 +75,20 @@ class EstateProperty(models.Model):
     #         else:
     #             record.garden_area = 0
     #             record.garden_orientation = ''
-            
+    
+    color = fields.Integer(compute="_compute_color")     
+    @api.depends('state')
+    def _compute_color(self):
+        for record in self:
+            if(record.state == 'offer accepted'):
+                record.color = 10
+            elif(record.state == 'offer received'):
+                record.color = 4
+            elif(record.state == 'new'):
+                record.color = 3
+            else:
+                record.color = 1
+       
     def action_sold(self):
         for record in self:
             record.state = 'sold'
@@ -115,3 +128,5 @@ class EstateProperty(models.Model):
         for record in self:
             if(record.state not in ['new','cancelled']):
                 raise exceptions.UserError("Only new and cancelled properties can be deleted.")
+
+            

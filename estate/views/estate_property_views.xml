@@ -178,9 +178,10 @@
             <field name="model">estate.property</field>
             <field name="arch" type="xml">
                 <kanban default_group_by="property_type_id" records_draggable='False'>
+                    <field name="color"/>
                     <templates>
                         <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
+                            <div t-attf-class="oe_kanban_color_#{record.color.raw_value} oe_kanban_global_click">
                                 <b><field name="name"/></b><br/>
                                 <field name="state" invisible='1'/><br/>
                                 Best Price : <field name="best_price" t-if="record.state.raw_value == 'offer received'"/><br/>
