@@ -166,25 +166,40 @@
                 <template>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
-                            <field name="name" />
-                            <br/>
-                            <field class="fa fa-user" name="user_id"/>
-                            <div class="text-muted">
-                            <span>Expected Price:
-                                <field  name="expected_price"/>
-                            </span>
+                            <div class="oe_kanban_details">
+                                <h4 class="oe_kanban_title">
+                                    <field name="priority" widget="boolean_favorite" nolabel="1" class="me-2"/>
+                                    <field name="name"/>
+                                </h4>
+                                <div class="col-10">
+                                    <t t-if='record.partner_id.value'>
+                                        <i class="fa fa-user me-2"/>
+                                    <field name="partner_id" widget="many2one_avatar_partner"/>
+                                    </t>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <strong>Expected price:</strong>
+                                    <field name="expected_price"/>
+                                    <br/>
+                                    <t t-if='record.state.raw_value=="offer_received"'>
+                                        <strong>Best price:</strong>
+                                        <field name="best_offer"/>
+                                    </t>
+                                </div>
+                                <div>
+                                    <t t-if='record.state.raw_value=="sold"'>
+                                        <strong>Selling price:</strong>
+                                        <field name="selling_price"/>
+                                    </t>
+                                </div>
+                                <div>
+                                    <field name="property_tag_id" widget="many2many_tags" options="{'color_field': 'color_tag'}"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="kanban_state" widget="state_selection" class="me-2"/>
+                                    <field name="user_id" widget="many2one_avatar_user" class="float-end"/>
+                                </div>
                             </div>
-                            <div t-if="record.state.raw_value == 'offer_received'" class="text-muted">
-                                <span>Best Price:
-                                    <field name="best_offer"/>
-                                </span>
-                            </div>
-                            <div t-if="record.state.raw_value == 'offer_accepted' or record.state.raw_value == 'sold'" class="text-muted">
-                                <span>Selling Price:
-                                    <field name="selling_price"/>
-                                </span>
-                            </div>
-                            <field name="property_tag_id" options="{'color_field': 'color_tag'}"/>
                         </div>
                     </t>
                 </template>

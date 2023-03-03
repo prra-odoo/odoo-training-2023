@@ -16,9 +16,9 @@ class EstateProperty(models.Model):
     name = fields.Char(required=True)
     description = fields.Text()
     user_id = fields.Many2one('res.users', string='Salesperson',
-                              index=True, default=lambda self: self.env.user,tracking=True)
+                              index=True, default=lambda self: self.env.user, tracking=True)
     partner_id = fields.Many2one(
-        'res.partner', string='Buyer', index=True, readonly=True,tracking=True)
+        'res.partner', string='Buyer', index=True, readonly=True, tracking=True)
     property_type_id = fields.Many2one(
         'estate.property.type', index=True)
     property_tag_id = fields.Many2many(
@@ -27,7 +27,7 @@ class EstateProperty(models.Model):
     date_availability = fields.Date(
         default=lambda self: fields.Datetime.now() + relativedelta(months=3), copy=False)
     expected_price = fields.Float()
-    selling_price = fields.Float(readonly=True, copy=False,tracking=True)
+    selling_price = fields.Float(readonly=True, copy=False, tracking=True)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -38,11 +38,14 @@ class EstateProperty(models.Model):
     total_area = fields.Integer(
         compute="_compute_total_area", string="Total Area")
     best_offer = fields.Float(
-        compute="_compute_best_offer", string="Best Offer",tracking=True)
+        compute="_compute_best_offer", string="Best Offer", tracking=True)
     garden_orientation = fields.Selection(
         string='Garden Orientattion',
         selection=[('north', 'North'), ('south', 'South'),
                    ('east', 'East'), ('west', 'West')], compute='_compute_garden', readonly=False, store=True
+    )
+    priority = fields.Selection(
+        selection=[('0', 'low'), ('1', 'high')]
     )
     active = fields.Boolean(default=True)
     state = fields.Selection(
@@ -50,7 +53,11 @@ class EstateProperty(models.Model):
         selection=[('new', 'New'), ('offer_received', 'Offer received'), ('offer_accepted', 'Offer Accepted'),
                    ('sold', 'Sold'), ('cancelled', 'Cancelled')],
         required=True,
-        copy=False,tracking=True
+        copy=False, tracking=True
+    )
+    kanban_state = fields.Selection(
+        selection=[('new', 'grey'), ('offer_received', 'blue'), ('offer_accepted', 'yellow'),
+                   ('sold', 'green'), ('cancelled', 'red')]
     )
     offers_id = fields.One2many('estate.property.offer', 'property_id')
 
