@@ -4,7 +4,7 @@
         <field name="name">Properties</field>
         <field name="context">{'search_default_available': True, 'search_default_current': True}</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Enter Your First Record!!
@@ -44,51 +44,31 @@
         <field name="name">estate.property.kanban</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <!-- <kanban>
+            <kanban default_group_by="property_type_id" records_draggable="False">
                 <field name="state"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click">
+                        <div class="oe_kanban_global_click">
                             <div>
-                                <strong><field name="name"/></strong>                       
+                                <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
+                                <strong><field name="name"/></strong> 
                             </div>
+                            <div><field name= "buyers_id"/></div>
                             <div>
                                 Expected Price : <field name = "expected_price"/>
                             </div>
-                            <div t-if="record.state.raw_value = 'off_ac'">
+                            <div t-if="record.state.raw_value == 'off_ac'">
                                 Selling Price :<field name="selling_price"/>
                                
                             </div>
-                            <div t-if="record.state.raw_value = 'off_re'">
+                            <div t-if="record.state.raw_value == 'off_re'">
                                 Best Price:<field name="best_price"/>
                             </div>   
                             <div>      
                                 <field name="property_tag_ids" options="{'color_field': 'color'}"/>
                             </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban> -->
-            <kanban default_group_by="property_type_id" records_draggable ="False">
-                <field name="state"/>
-                <!-- <field name="color"/>  -->
-                <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
                             <div>
-                                <field name="name"/>
-                            </div>
-                            <div>
-                                Expected Price:<field name="expected_price"/>
-                            </div>
-                            <div t-if="record.state.raw_value == 'off_re'">
-                                Best Price: <field name="best_price"/>
-                            </div>
-                            <div t-if="record.state.raw_value == 'off_ac'">
-                                Selling Price: <field name="selling_price"/>
-                            </div>
-                            <div>
-                                <field name="property_tag_ids" widget="many2many_tags" options ="{'color_field':'color'}"/>
+                                <field name="salesmen_id" widget="many2one_avatar_user"/>
                             </div>
                         </div>
                     </t>
@@ -109,6 +89,7 @@
                     <button name="action_sold"  type="object" string="Sold" class="oe_highlight" attrs="{'invisible':[('state','in',('new','sold','off_re'))]}"/>
                     <button name="action_sold"  type="object" string="Sold" attrs="{'invisible':[('state','not in',('new','off_re'))]}"/>
                     <button name="action_cancle" type="object" string="Cancle" attrs="{'invisible':[('state','=','sold')]}"/>
+                    <!-- <button name="%(estate_property_report_action)d" type="action" string="Print" icon="fa-print"/> -->
                     <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,off_re,off_ac,sold"/>
 
                 </header>
@@ -126,6 +107,7 @@
                             <field name="property_type_id" options="{'no_create':True}"/>
                             <field name="postcode" />
                             <field name="date_availability" />
+                            <field name="is_favorite"/>
                            
                         </group>
                         <group>
