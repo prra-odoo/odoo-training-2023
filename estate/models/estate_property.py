@@ -58,7 +58,7 @@ class EstateProperty(models.Model):
         string='Offers')
     total_area=fields.Float(compute="_compute_total_area")
     best_price=fields.Float(compute="_compute_best_price",store=True)
-   
+    favourite=fields.Boolean('Is Favourite')
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):
