@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="res_users">
+        <t t-call="estate.estate_property" />
+    </template>
+
+
+</odoo>

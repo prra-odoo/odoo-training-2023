@@ -22,7 +22,7 @@ class EstateProperty(models.Model):
     postcode = fields.Char()
     date_availability = fields.Date(
         string='Available From', copy=False, default=lambda self: fields.Datetime.now() + relativedelta(months=3))
-    expected_price = fields.Float(required=True)
+    expected_price = fields.Float(required=True, default=100)
     selling_price = fields.Float(copy=False, readonly=True)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer(string='Living Area (sqm)')
@@ -73,6 +73,8 @@ class EstateProperty(models.Model):
     garden_area = fields.Integer(
         compute="_compute_garden_area", string='Garden Area (sqm)',
         inverse="_inverse_garden_area", store=True)
+
+    is_favorite = fields.Boolean()
 
     @api.depends("garden_area", "living_area")
     def _compute_total_area(self):
