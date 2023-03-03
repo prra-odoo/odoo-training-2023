@@ -66,6 +66,7 @@ class EstateRealProperty(models.Model):
         required=True, tracking=True
     )
     total_area = fields.Float(compute='_compute_total')
+    color=fields.Integer(default=4,compute="_compute_color")
 
     @api.depends('garden_area', 'living_area')
     def _compute_total(self):
@@ -129,5 +130,20 @@ class EstateRealProperty(models.Model):
     def _unlink_except_active_user(self):
         if self.state in ['recieved','accepted','sold']:
             raise UserError("Only new and cancelled properties can be deleted")
+    @api.depends('state')
+    def _compute_color(self):
+        for record in self:
+            if(record.state=='new'):
+                record.color=4
+            elif(record.state=="recieved"):
+                record.color=3
+            elif(record.state=="cancelled"):
+                record.color=8
+            elif(record.state=="accepted"):
+                record.color=10
+            elif(record.state=="sold"):
+                record.color=3
+            
+
     
    
