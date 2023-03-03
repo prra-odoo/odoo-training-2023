@@ -107,8 +107,8 @@ class EstateProperty(models.Model):
 	@api.depends("offer_ids.price")
 	def _offer_price(self):
 		for record in self:
-			if self.offer_ids:
-				record.best_price = max(self.offer_ids.mapped('price'))
+			if record.offer_ids:
+				record.best_price = max(record.offer_ids.mapped('price'))
 			else:
 				record.best_price=0
 	@api.depends("garden")
