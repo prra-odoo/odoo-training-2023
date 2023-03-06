@@ -8,6 +8,9 @@
     'summary':'Real estate Property account',
     'installable':True,
     'application':True,
-    'license': 'LGPL-3'
+    'license': 'LGPL-3',
+    'data' : [
+        'report/property_offer_inherit_report.xml',
+    ]
     
 }

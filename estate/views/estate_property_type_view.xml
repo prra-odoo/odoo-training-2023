@@ -54,7 +54,7 @@
                                     <field name="state"/>
                                 </tree>
                             </field>
-                        </page>
+                        </page> 
                     </notebook>    
                 </sheet>
             </form>
