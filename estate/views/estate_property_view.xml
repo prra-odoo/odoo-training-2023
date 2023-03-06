@@ -78,7 +78,6 @@
                             <div class="oe_kanban_bottom_right">
                                 <field name="salesperson_id" widget="many2one_avatar_user" t-if="record.salesperson_id.raw_value"/>
                             </div>
-
                             </div> -->
                             
                         </div>                      

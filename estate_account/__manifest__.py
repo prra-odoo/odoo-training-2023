@@ -1,6 +1,7 @@
 {
-    
-    'name':'estate_account',
-    'depends' : ['estate','account'],
-    
+    "name": "estate_account",
+    "depends": ["estate", "account"],
+    "data": [
+        "reports/report.xml",
+    ],
 }

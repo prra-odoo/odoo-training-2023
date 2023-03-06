@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <odoo>
-    <template id="estate.estate_property_report">
+        <!-- 2....................  main template for property offers ................. -->
+
+    <template id="estate_property_report">
         <t t-foreach="docs" t-as = "property">
             <t t-call ="web.html_container">
                 <t t-call="web.external_layout">
-                    
                     <div class="page">
                         <h1>
                             <strong> <span t-field="property.name"/> </strong>
@@ -25,24 +26,85 @@
         </t>
     </template>
 
-    <template id="estate.report_estate_property">
-        <t t-foreach="docs" t-as = "property">
+
+
+        <!-- 7 sub-template to call offers in tabular way -->
+
+    <template id="estate_property_offer">            
+        <div class="page">
+            <t t-if = "property.offer_ids" > 
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Price</th>
+                            <th>Partner</th>
+                            <th>Validity(days)</th>
+                            <th>Deadline</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                            <tr t-foreach="offers" t-as="offer">
+                                <td> <span t-field="offer.price"/> </td>
+                                <td> <span t-field="offer.partner_id"/> </td>
+                                <td> <span t-field="offer.validity"/> </td>
+                                <td> <span t-field="offer.date_deadline"/> </td>
+                                <td> <span t-field="offer.state"/> </td>
+                            </tr>
+                    </tbody>
+                </table>
+            </t>
+            <t t-else=""> <span> <h1> There are no offers </h1> </span> </t>
+        </div>
+    </template>
+
+
+        <!-- 3 .................... salesman properties template .............. -->
+
+
+    <template id="report_estate_property">
+        <t t-foreach="docs" t-as = "salesperson">
             <t t-call ="web.html_container">
-                <t t-call="web.external_layout">
-                    
+                <t t-call="web.external_layout">                    
                     <div class="page">
                         <h1>
-                            <strong> Salesman : <span t-field="property.name"/> </strong>
+                            <strong> Salesman : <span t-field="salesperson.name"/> </strong>
                         </h1>
-                            <strong> Salesman : <span t-field="property.name"/> </strong>
+                            <t  t-if = "salesperson.property_ids">
+                                <t t-set="properties" t-value="salesperson.mapped('property_ids')" />
+                                    <t t-foreach="properties" t-as = "property">
+                                    <div>
+                                        <h1> <strong> <span t-field="property.name"/> </strong> </h1>
+                                        <strong>Expected Price: </strong> 
+                                        <span t-field="property.expected_price"/><br/>
+                                        <strong>status: </strong>
+                                        <span t-field="property.state"/>
+                                        <t t-call = "estate.estate_property_offer"/>
+                                    </div>
+                                    </t>
+
+                            </t>
+                            <strong t-else=""> No offers have been made yet !!! </strong>
                     </div>
                 </t>
             </t>
         </t>    
     </template>
 
+
+    <!-- <template id = "estate_account_report_id" inherit_id="estate.estate_property_report">
+    
+        <xpath expr="//span[@t-field = 'property.state']" position = "after">
+
+            <span t-if="property.state == 'sold'" >
+
+                <div> <strong> Invoice Is Alrady Created !!!!!!!!!!!! </strong> </div>
+
+            </span>
+                <p t-else="" />
+        </xpath>
+    
+    </template> -->
+
 </odoo>
-
-    
-    
-

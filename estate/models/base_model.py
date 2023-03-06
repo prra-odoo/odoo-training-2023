@@ -1,11 +1,11 @@
-from odoo import models,fields
+from odoo import models, fields
 
 
 class BaseModel(models.Model):
-    _name="base.model"
-    _description="Base Model"
-    
+    _name = "base.model"
+    _description = "Base Model"
+
     price = fields.Char()
-    date= fields.Date()
+    date = fields.Date()
     postcode = fields.Char()
     test = fields.Char()
