@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    
     <record id="estate1_property_offers_report" model="ir.actions.report">
         <field name="name">Estate Property</field>
         <field name="model">estate.property</field>

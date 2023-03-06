@@ -41,7 +41,6 @@ class EstateModel(models.Model):
     offer_ids = fields.One2many('estate.property.offer',"property_id")
     total_area = fields.Integer(compute="_compute_total_area")
     best_offer= fields.Integer(compute="_compute_best_price")
-    user_id = fields.Many2one('res.users')
     seq_name = fields.Char(string='Sequence', default=lambda self: ('New'))
     # estate_delig_ids = fields.One2many('estate.deligation.test','estate_delig')
     
@@ -91,8 +90,9 @@ class EstateModel(models.Model):
                     record.state="offer received"
             elif record.state =="canceled":
                 record.state="canceled"
-            else:
-                record.state="new"
+            # else:
+            #     record.state="new"
+
             record.best_offer = max(record.mapped("offer_ids.price"),default=0)
 
     @api.depends("garden")
@@ -120,12 +120,6 @@ class EstateModel(models.Model):
                 raise UserError("Sold property cant't be cancelled")
             else:
                 record.state="canceled"
-            #CLASSIC INHERITANCE
-class ResUsers(models.Model):
-    _inherit="res.users"
-
-    property_ids = fields.One2many('estate.property','user_id',domain=[('state','in',['new','offer received'])])
-    testing = fields.Char()
 
 
 
