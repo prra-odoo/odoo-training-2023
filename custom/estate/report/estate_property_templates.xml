@@ -50,7 +50,7 @@
                             <strong>Status: </strong>
                             <span t-field="property.state"/>
                         </div>
-                        <div t-if='property.mapped("offer_ids")'>
+                        <div class="offers_table" t-if='property.mapped("offer_ids")'>
                             <t t-call="estate.tables"/>
                         </div>
                         <div t-else=""><strong>how there are no offers yet :(</strong></div>

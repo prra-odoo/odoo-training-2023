@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="estate_property_offers" model="ir.actions.report">
-        <field name="name">Estate Property</field>
+        <field name="name">Offers</field>
         <field name="model">estate.property</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">estate.report_property_offers</field>
@@ -10,7 +10,7 @@
     </record>
 
     <record id="estate_res_users" model="ir.actions.report">
-        <field name="name">Res Users</field>
+        <field name="name">Report</field>
         <field name="model">res.users</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">estate.report_users_property</field>

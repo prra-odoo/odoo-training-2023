@@ -1,16 +1,10 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id='res_users_view_form' model='ir.ui.view'>
-    <field name='name'>res.users.view.form.inherit.users</field>
-    <field name='model'>res.users</field>
-    <field name='inherit_id' ref='base.view_users_form'/>
-    <!-- <field name='mode'>primary</field> -->
-    <field name='arch' type='xml'>
-        <xpath expr='//page[@name="preferences"]' position='after'>
-            <page string='Available Properties' name='available_properties'>
-                <field name='property_ids' nolabel='1'/>
-            </page>
+    <template id="report_account_invoice" inherit_id="estate.report_property_offers">
+        <xpath expr="//div[hasclass('offers_table')]" position="before">
+            <div t-if="property.state == 'sold'">
+                <strong>!!! Invoice has already been created !!!</strong>
+            </div>
         </xpath>
-    </field>
-    </record>
+    </template>
 </odoo>
