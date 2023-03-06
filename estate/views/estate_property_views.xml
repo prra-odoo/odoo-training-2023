@@ -122,11 +122,13 @@
     <field name="arch" type="xml">
 
     <kanban default_group_by="property_type_id" records_draggable ="False">
+      <field name="color_kanban"/>
       <field name="state"/>
       <templates>
         <t t-name="kanban-box">
-          <div>
-            <div class="oe_kanban_global_click">
+        
+          <div t-attf-class="{{'oe_kanban_color_' + kanban_getcolor(record.color_kanban.value) }} oe_kanban_global_click">
+            <div>
                 <b><field name="name"/></b>
             </div>
             <div>
