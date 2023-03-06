@@ -61,6 +61,22 @@ class EstateProperty(models.Model):
       ('normal','Grey'),
       ('done','Green'),
       ('blocked','Red')], string='Kanban State')
+   color = fields.Integer(compute="_compute_color",default=4)
+
+   @api.depends("state")
+   def _compute_color(self):
+      for record in self:
+         if(record.state=="new"):
+            record.color = 4
+         elif(record.state=="offer_received"):
+            record.color = 8
+         elif(record.state=="offer_accepted"):
+            record.color = 3
+         elif(record.state=="sold"):
+            record.color = 10
+         else:
+            record.color = 1
+
 
    @api.depends("garden_area","living_area")
    def _compute_total_area(self):
@@ -119,7 +135,7 @@ class EstateProperty(models.Model):
    # CRUD operations
 
    @api.ondelete(at_uninstall=False)
-   def _unlink_except_available(self):
+   def unlink_except_available(self):
       for record in self:
          if record.state not in ['new','cancelled']:
             raise UserError("Only new and canceled properties can be deleted.")

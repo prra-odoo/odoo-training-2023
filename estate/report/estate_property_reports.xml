@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
         <record id="report_estate_offer" model="ir.actions.report">
-        <field name="name">Estate property offer report</field>
+        <field name="name">Property Offers report</field>
         <field name="model">estate.property</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">estate.report_estate_property_offers</field>
         <field name="report_file">estate.report_estate_property_offers</field>
+        <!-- report file name is not necessary it is optional -->
         <field name="binding_model_id" ref="model_estate_property"/>
-        <field name="binding_type">report</field>
         </record>
 
 
@@ -17,7 +17,6 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">estate.estate_property_offers_salesperson</field>
         <field name="report_file">estate.estate_property_offers_salesperson</field>
-        <field name="binding_model_id" ref="base.model_res_users"/>
-        <field name="binding_type">report</field> 
+        <field name="binding_model_id" ref="model_res_users"/>
     </record>
 </odoo>

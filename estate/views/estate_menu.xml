@@ -9,9 +9,6 @@
             <menuitem id="estate_third_level_property_types_menu" name="Property Types" action="estate_property_type_action" />
             <menuitem id="estate_third_level_property_tags_menu" name="Property Tags" action="estate_property_tag_action" />
         </menuitem>
-        <menuitem id="estatet" name="offers">
-            <menuitem id="weew" name="offers" action=""/>
-        </menuitem>
     </menuitem>
 </odoo>
    
