@@ -20,7 +20,7 @@
                             </b>
                             <span t-field="property.seller_id" />
                         </div>
-                        <div>
+                        <div name="estate_account_sold">
                             <b>
                                 <strong>Status: </strong>
                             </b>
@@ -81,26 +81,42 @@
                         <h1>
                             <span t-field="user.name" />
                         </h1>
-                        <!-- <h2>
+                        <h2>
                             <span t-field="user.company_id"/>
                         </h2>
                         <h2>
                             <span t-field="user.email"/>
-                        </h2> -->
-                        <div t-set="properties" t-value="user.mapped('property_ids')">
-                            <div t-foreach="properties" t-as="property">
-                                <div><strong><span t-field="property.name"/></strong></div>
-                                <div><strong>Expected Price:</strong><span t-field="property.expected_price"/></div>
-                                <div><strong>Status:</strong><span t-field="property.state"/></div>
+                        </h2>
+                        <t t-if='user.property_ids'>
+                        <t t-foreach='user.property_ids' t-as='property'>
+                            <h1>
+                                <strong><span t-field="property.name"/></strong>
+                            </h1>
+                            <div>
+                                <strong>Expected Price: </strong>
+                                <span t-field="property.expected_price"/>
                             </div>
-
-                        </div>
+                            <div>
+                                    <strong>Status: </strong>
+                                    <span t-field="property.state"/>
+                            </div>
+                                <t t-if='property.offer_ids'>
+                                    <t t-call="estate.estate_property_offers_section"/>
+                                </t>
+                                <t t-else="">
+                                    <span><strong>There are no Offers!!</strong></span>
+                                </t>
+                        </t>
+                        </t>
                     </div> 
 
                 </t>
             </t>
         </t>
         
+    </template>
+    <template id="estate_property_template_inheritance" inherit_id="">
+
     </template>
 
 
