@@ -157,7 +157,7 @@
                                 <field name="buyer_id" widget="many2one_avatar_partner" />
                             </div>
                             <div>
-                                <lable for="expected_price">Expected Price: </lable>
+                                <lable for="expected_price">Expected Price: </lable>    
                                 <field name="expected_price" /><br/>
                             </div>
                             <div>
@@ -177,33 +177,6 @@
                     </t>
                 </templates>
             </kanban>
-            <!-- <kanban default_group_by="property_type_id" records_draggable="false">
-                <field name="state"/>
-                <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <div>
-                                <strong><field name="name"/></strong>
-                            </div>
-                            <div t-if="record.buyer_id.value">
-                                <strong><field name="buyer_id" widget="many2one_avatar_partner"/></strong>
-                            </div>
-                            <div>Expected Price : 
-                                <strong><field name="expected_price"/></strong>
-                            </div>
-                            <div t-if="record.state.raw_value=='offer_received'">Best Offer :
-                                <strong><field name="best_price"/></strong>
-                            </div>
-                            <div t-if="record.state.raw_value=='sold'">Selling Price :
-                                <strong><field name="selling_price"/></strong>
-                            </div>
-                            <div>
-                                <field name="tag_ids" widget="many2many_tags"/>
-                            </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban> -->
         </field>
     </record>
 

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Template for users -->
-
     <!-- Template for estate -->
     <template id="estate_property_offer_report">
         <t t-foreach="docs" t-as="property">
@@ -46,20 +44,44 @@
             </t>
         </t>
     </template>
-
+    
     <!-- Template for users -->
     <template id="res_users_offer_report">
         <t t-foreach="docs" t-as="user">
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
                     <div class="page">
+                        <div>
+                            <lable for="user.name"><h1><strong>Salesman :</strong><span t-field="user.name"/></h1></lable>
+                        </div>
+
                         <div t-foreach='user.property_ids' t-as='property'>
-                            <div t-if="user.property_ids">
-                                <t t-call="estate.property_offers"/>
+                            <div t-if="property.offer_ids">
+                                <div>
+                                    <h1><span t-field="property.name"/></h1>     
+                                </div>
+
+                                <div>
+                                    <h2>
+                                        <strong>Expected Price: </strong>
+                                        <span t-field="property.expected_price"/>
+                                    </h2>
+                                </div>
+        
+                                <div>
+                                    <h2>
+                                        <strong>Status: </strong>
+                                        <span t-field="property.state"/>
+                                    </h2>
+                                </div>
+
+                                <div>
+                                    <t t-call="estate.property_offers"/>
+                                </div><br/>
                             </div>
                             <div t-else="">
                                 <strong> No Offers have been made yet :-( </strong>
-                            </div>
+                            </div><br/>
                         </div>
                     </div>
                 </t>
@@ -67,7 +89,7 @@
         </t>
     </template>
 
-    <!-- Table  -->
+    <!-- Table Template -->
     <template id="property_offers">
         <table class="table">
             <thead>

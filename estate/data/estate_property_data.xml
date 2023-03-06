@@ -1,38 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="estate_property_data1" model="estate.property">
-        <field name="name">test 1</field>
-        <field name="postcode">1111</field>
-        <field name="expected_price">1000</field>
-        <field name="facades">2</field>
-        <field name="garage">True</field>
-    </record>  
+        <!-- Property Tags -->
+        <record id="property_cozy" model="estate.property.tag">
+            <field name="name">Cozy</field>
+        </record>
 
-    <record id="estate_property_data2" model="estate.property">
-        <field name="name">test 2</field>
-        <field name="postcode">2222</field>
-        <field name="expected_price">2000</field>
-        <field name="facades">2</field>
-        <field name="garage">False</field>
-    </record>    
-    
-    <record id="estate_property_data3" model="estate.property">
-        <field name="name">test 3</field>
-        <field name="postcode">3333</field>
-        <field name="expected_price">3000</field>
-        <field name="facades">2</field>
-        <field name="garage">True</field>
-    </record>    
-    
-    <record id="estate_property_data4" model="estate.property">
-        <field name="name">test 4</field>
-        <field name="postcode">4444</field>
-        <field name="expected_price">4000</field>
-        <field name="facades">2</field>
-        <field name="garage">False</field>
-    </record>
-
+        <record id="property_renovated" model="estate.property.tag">
+            <field name="name">renovated</field>
+        </record>
         <!-- Property Types  -->
         <record id="property_residential" model="estate.property.type">
             <field name="name">Residential</field>
@@ -51,6 +27,40 @@
         </record>
     
         <!-- Properties -->
+
+        <record id="estate_property_data1" model="estate.property">
+            <field name="name">test 1</field>
+            <field name="postcode">1111</field>
+            <field name="expected_price">1000</field>
+            <field name="facades">2</field>
+            <field name="garage">True</field>
+            <field name="tag_ids" eval="[(4, ref('property_cozy'))]"/>
+        </record>  
+    
+        <record id="estate_property_data2" model="estate.property">
+            <field name="name">test 2</field>
+            <field name="postcode">2222</field>
+            <field name="expected_price">2000</field>
+            <field name="facades">2</field>
+            <field name="garage">False</field>
+        </record>    
+        
+        <record id="estate_property_data3" model="estate.property">
+            <field name="name">test 3</field>
+            <field name="postcode">3333</field>
+            <field name="expected_price">3000</field>
+            <field name="facades">2</field>
+            <field name="garage">True</field>
+        </record>    
+        
+        <record id="estate_property_data4" model="estate.property">
+            <field name="name">test 4</field>
+            <field name="postcode">4444</field>
+            <field name="expected_price">4000</field>
+            <field name="facades">2</field>
+            <field name="garage">False</field>
+        </record>
+
         <record id="villa" model="estate.property">
             <field name="name">Big Villa</field>
             <field name="state">new</field>
