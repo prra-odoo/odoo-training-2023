@@ -2,7 +2,7 @@
 <odoo>
     <record id="estate_property_report_action" model="ir.actions.report">
         <field name="name">Property Offers</field>
-        <field name="model">res.users</field>
+        <field name="model">estate.property</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">real_estate.report_property_offers</field>
         <field name="report_file">real_estate.report_property_offers</field>

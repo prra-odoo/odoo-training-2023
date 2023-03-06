@@ -5,11 +5,11 @@
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
                     <div class="page">
-                            <div>
-                                <strong>Salesmen : </strong>
-                                <span t-field="property.salesmen_id"/>
-                            </div>
-                    
+                        <div>
+                            <strong>Salesmen : </strong>
+                            <span t-field="property.salesmen_id"/>
+                        </div>
+            
                         <h2>
                             <span t-field="property.name"/>
                         </h2>
@@ -17,6 +17,11 @@
                             <strong>Expected Price: </strong>
                             <span t-field="property.expected_price"/>
                         </div>
+                        <div>
+                            <strong>Status:</strong>
+                            <span t-field="property.state"/>
+                        </div>
+
 
                         <t t-if="property.state !='new'">
                             <!-- <table class="table">
@@ -62,6 +67,8 @@
         </t>
     </template>
 
+    <!-- Split the table portion of the offers  -->
+
     <template id="report_properties_offers1"> 
        <table class="table">
            <thead>
@@ -96,33 +103,48 @@
        </table>      
     </template>
 
-    <template id="report_property_resusers">       
-        <t t-foreach="docs" t-as="properties">
+    <!-- sub-templete -->
+    <template id="report_property_resusers">
+        <t t-foreach="docs" t-as="user">
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
-                    <div class="page">
+                   <div class="page">
                         <div>
-                            <strong>Salesmen : </strong>
-                            <span t-field="properties.name"/>
+                            <strong>Salesman:</strong>
+                            <span t-field="user.name"/>
+
+                            <div t-set="property" t-value="user.mapped('property_ids')"/>
+                            <div t-foreach="property" t-as="properties">
+
+                            <div>
+                                <strong><span t-field="properties.name"/></strong>
+                            </div>
+                            <div>
+                                <strong>Expected Price:</strong>
+                                <span t-field="properties.expected_price"/>
+                            </div>
+
+                            <div>
+                                <strong>Status:</strong>
+                                <span t-field="properties.state"/>
+                            </div>
+
+
+                             <t t-if="properties.state not in ['new','cancelled']">
+                               <t t-call="real_estate.report_properties_offers1"/>
+                             </t>
+
+                             <t t-else="">
+                              <p>
+                                  No Offers Yet!!
+                              </p> 
+                              </t>
+
+                             </div>
                         </div>
-                        <t t-foreach="properties.property_ids" t-as="pid">
-                        <h2>
-                            <span t-field="pid.name"/>
-                        </h2>
-                        <div>
-                            <strong>Expected Price: </strong>
-                            <span t-field="pid.expected_price"/>
-                        </div>
-                       
-                        
-                        <t t-if="pid.state !='new'">
-                            <t t-set ="property" t-value="pid"/> 
-                            <t t-call="real_estate.report_properties_offers1"/>
-                        </t> 
-                        </t>                   
-                    </div>
+                   </div>
                 </t>
             </t>
-        </t>                       
+        </t>
     </template>
 </odoo>
