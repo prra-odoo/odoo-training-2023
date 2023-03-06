@@ -4,4 +4,5 @@ class ResUsers(models.Model):
     
 
     property_ids = fields.One2many("estate.property","seller_id",domain="[('state', 'in', ['new','offer received'])]")
-    one = fields.Char()
+    mobile = fields.Char()
+    address = fields.Char()

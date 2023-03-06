@@ -10,6 +10,12 @@
                     <field name="property_ids"/>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <group>
+                    <field name="address" class="oe_inline"/>
+                    <field name="mobile" class="oe_inline"/>
+                </group>
+            </xpath>
         </field>
     </record>
 </odoo>
