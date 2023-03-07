@@ -115,12 +115,11 @@ class EstateProperty(models.Model):
                 raise ValidationError(
                     "The selling price must be at least 90% of the expected price! You must reduce the expected price if want to accept this offer")
 
-    @api.constrains('name')
-    def valid_name(self):
-        for record in self:
-            # breakpoint()
-            if not re.match(r'^[a-zA-Z ]+$', record.name):
-                raise ValidationError("Invalid property name.")
+    # @api.constrains('name')
+    # def valid_name(self):
+    #     for record in self:
+    #         if not re.match(r'^[a-zA-Z ]+$', record.name):
+    #             raise ValidationError("Invalid property name.")
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_state_new_received(self):

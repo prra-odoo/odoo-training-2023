@@ -2,7 +2,7 @@
 {
     'name': "Estate Account"   , 
     'depends':['estate','account'], 
-    'data':[
+    'data':[ 'report/estate_property_template.xml',
     ],
     'demo':[ 
     ],

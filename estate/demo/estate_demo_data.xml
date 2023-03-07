@@ -15,7 +15,7 @@
         <field name="description">A nice and big villa</field>
         <field name="postcode">12345</field>
         <field name="date_availability">2020-02-02</field>
-        <field name="expected_price">1600000</field>
+        <field name="expected_price">300000</field>
         <field name="bedrooms">6</field>
         <field name="living_area">100</field>
         <field name="facades">4</field>
@@ -24,7 +24,7 @@
         <field name="garden_area">100000</field>
         <field name="garden_orientation">south</field>
         <field name="property_type_id" ref="property_type_1"/>
-        <field name="offers_id" eval="[Command.clear(), Command.create({'price': 10011100000}),Command.create({'price': 9999999322})]"/>
+        <field name="offers_id" eval="[Command.clear(), Command.create({'price': 400000}),Command.create({'price': 500000})]"/>
     </record>
     
     <record id="property2" model="estate.property">
