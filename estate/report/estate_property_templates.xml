@@ -16,7 +16,7 @@
                             <strong>Expected Price: </strong>
                             <span t-field="property.expected_price"/>
                             <br/>
-                            <div>
+                            <div name="status">
                                 <strong>Status :</strong>
                                 <span t-field="property.state"/>
                             </div>

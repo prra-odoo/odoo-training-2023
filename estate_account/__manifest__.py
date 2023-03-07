@@ -4,5 +4,7 @@
     'depends': ['estate', 'account'],
     'application': True,
     'license' : 'LGPL-3',
-    'data' : []
+    'data' : [
+            'report/estate_property_report_inheritance.xml'
+        ]
 }
