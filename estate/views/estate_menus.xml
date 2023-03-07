@@ -10,4 +10,10 @@
             <menuitem id="estate_tags_model_menu_action" action="estate_property_tags_action"/>
         </menuitem>
     </menuitem>
+    <record id="website_menu_properties" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/properties</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">50</field>
+    </record>
 </odoo> 

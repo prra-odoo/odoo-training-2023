@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="index">
+		<t t-call="website.layout">
+            <t t-set="title">test</t>
+            <div class="oe_structure">
+                <div class="container">
+					<t t-foreach="property" t-as="prop">
+						<p>Name:<t t-esc="prop.name"/>
+						Bedrooms:<t t-esc="prop.bedrooms"/></p>
+					</t>
+				</div>
+			</div>
+		</t>
+	</template>
+	<template id="properties">
+		<t t-call="website.layout">
+            <t t-set="title">Property</t>
+            <div class="oe_structure">
+                <div class="container">
+					<t t-foreach="property" t-as="prop">
+						<t t-if="prop.state!='sold' or prop.state!='cancelled'">
+						<p>Name:<t t-esc="prop.name"/></p>
+						</t>
+					</t>
+				</div>
+			</div>
+		</t>
+	</template>
+</odoo>

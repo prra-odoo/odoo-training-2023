@@ -55,4 +55,14 @@
             <field name="garage">True</field>
             <field name="garden">False</field>
         </record>
+
+         <record id="padilla" model="estate.teachers">
+            <field name="name">Diana Padilla</field>
+        </record>
+        <record id="carroll" model="estate.teachers">
+            <field name="name">Jody Carroll</field>
+        </record>
+        <record id="vaughn" model="estate.teachers">
+            <field name="name">Lester Vaughn</field>
+        </record>
 </odoo>
