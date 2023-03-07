@@ -97,6 +97,7 @@
                     <field name='activity_ids'/>
                 </div>
                 <sheet>
+                    <field name='image' class='oe_avatar' widget='image'/>
                     <widget name='web_ribbon' title='Sold' bg_color='bg-success' attrs='{"invisible": [("state", "not in", ["sold"])]}'/>
                     <widget name='web_ribbon' title='Canceled' bg_color='bg-danger' attrs='{"invisible": [("state", "not in", ["canceled"])]}'/>
                     <div>

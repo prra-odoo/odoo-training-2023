@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>    
+    <record id="estate_group_user" model="res.groups">
+        <field name="name">Agent</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage"/>
+    </record>
+
+    <record id="estate_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage"/>
+        <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/>
+    </record>
+
+    <record id="estate_rule_property_visibility_manager" model="ir.rule"> 
+        <field name="name">Manager can see and modify all the properties</field> 
+        <field name="model_id" ref="model_estate_property"/> 
+        <field name="groups" eval="[(4, ref ('estate.estate_group_manager'))]"/> 
+        <field name="perm_read" eval="True"/> 
+        <field name="perm_write" eval="True"/> 
+        <field name="perm_create" eval="True"/> 
+        <field name="perm_unlink" eval="True"/> 
+        <field name="domain_force">[(1, '=', 1)]</field> 
+    </record>
+
+    <record id="estate_rule_property_visibility_user" model="ir.rule"> 
+        <field name="name">User can only see and modify his / her property</field> 
+        <field name="model_id" ref="model_estate_property"/> 
+        <field name="groups" eval="[(4, ref ('estate.estate_group_user'))]"/> 
+        <field name="perm_read" eval="True"/> 
+        <field name="perm_write" eval="True"/> 
+        <field name="perm_create" eval="False"/> 
+        <field name="perm_unlink" eval="False"/> 
+        <field name="domain_force">['|',('seller_id', '=', False),('seller_id', '=', user.id)]</field> 
+    </record>
+</odoo>

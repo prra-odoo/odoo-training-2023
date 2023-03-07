@@ -91,4 +91,50 @@
             </t>
         </t>
     </template>
+
+    <template id="index">
+        <t t-set="_bg" t-value="image"/>
+        <t t-call="website.layout">
+            <t t-set="title">Property</t>
+            <div class="o_wevent_events_list">
+                <div class="container">
+                    <div class="row">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col">
+                                 <div class="d-block h-100 w-100">
+                                    <div class="card p-3 m-3">
+                                        <h1><t t-esc="property.name"/></h1>
+                                        <t t-set="types" t-value="property.mapped('property_type_id')"/>
+                                        <div t-foreach="types" t-as="type">
+                                            <p><t t-esc="type.property_name"/></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="oe_structure">
+                <div class="container">
+                    <div class="row">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col">
+                                 <div class="d-block h-100 w-100">
+                                    <img t-att-src="'/web/image/estate.property/%s/image' % id" alt="Property"/>
+                                    <div class="card p-3 m-3">
+                                        <h1><t t-esc="property.name"/></h1>
+                                        <t t-set="types" t-value="property.mapped('property_type_id')"/>
+                                        <div t-foreach="types" t-as="type">
+                                            <p><t t-esc="type.property_name"/></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div> -->
+        </t>
+    </template>
 </odoo>
