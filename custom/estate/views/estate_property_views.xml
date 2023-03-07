@@ -14,33 +14,35 @@
                 <field name="state"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <div>
-                                <field name="priority" widget="boolean_favorite" nolabel="1" class="me-2"/>
-                                <strong><field name="name"/></strong>
-                                <div t-if="record.buyer.value">
-                                    <i class="fa fa-user me-2"/>
-                                    <strong><field name="buyer" widget="many2one_avatar_partner"/></strong>
-                                </div>
+                        <!-- <div t-attf-class="{{'oe_kanbancolor' + kanban_getcolor(record.color.raw_value) }} oe_kanban_global_click"> -->
+                            <div class="oe_kanban_global_click">
                                 <div>
-                                    <span>Expected Price:<field name="expected_price"/></span>
-                                    <!-- Expected Price:<field name="expected_price"/> -->
-                                </div> 
-                                <div t-if="record.state.raw_value == 'offered received'">
-                                    <span>Best Price:<field name="best_price"/></span>
+                                    <field name="priority" widget="boolean_favorite" nolabel="1" class="me-2"/>
+                                    <strong><field name="name"/></strong>
+                                    <div t-if="record.buyer.value">
+                                        <i class="fa fa-user me-2"/>
+                                        <strong><field name="buyer" widget="many2one_avatar_partner"/></strong>
+                                    </div>
+                                    <div>
+                                        <span>Expected Price:<field name="expected_price"/></span>
+                                        <!-- Expected Price:<field name="expected_price"/> -->
+                                    </div> 
+                                    <div t-if="record.state.raw_value == 'offered received'">
+                                        <span>Best Price:<field name="best_price"/></span>
+                                    </div>
+                                    <div t-if="record.state.raw_value == 'offer accepted'">
+                                        <span>Selling Price:<field name="selling_price"/></span>
+                                    </div>
+                                    <div >
+                                        <field name="property_tag_ids" options="{'color_field':'color'}" widget="many2many_tags"/>
+                                        
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="kanban_state" widget="state_selection"/>
+                                    </div>
                                 </div>
-                                <div t-if="record.state.raw_value == 'offer accepted'">
-                                    <span>Selling Price:<field name="selling_price"/></span>
-                                </div>
-                                <div >
-                                    <field name="property_tag_ids" options="{'color_field':'color'}" widget="many2many_tags"/>
-                                    
-                                </div>
-                                <div class="oe_kanban_bottom_right">
-                                    <field name="kanban_state" widget="state_selection"/>
-                                </div>
-                            </div>    
-                        </div>
+                            </div>        
+                        <!-- </div> -->
                         <!-- <div t-if="record.state.raw_value == 'new'">
                             This is new!
                         </div> -->

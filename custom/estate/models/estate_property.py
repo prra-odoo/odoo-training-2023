@@ -10,7 +10,7 @@ class EstatePlan(models.Model):
     _order = "id desc"
     _inherit="estate.inheritance"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-   
+
     name = fields.Char(required=True, string="Title")
     priority = fields.Boolean()
     property_type_id = fields.Many2one("estate.property.types",string = "Property Types")
@@ -52,7 +52,7 @@ class EstatePlan(models.Model):
     status = fields.Selection(copy=False,selection=[('accepted','Accepted'),('refused','Refused')])
     offer_ids = fields.One2many("estate.property.offer","property_id",required=True)
     totalarea = fields.Float(compute="_total_area")
-
+    color = fields.Integer(compute="_compute_color",default=4)
     living_area = fields.Float()
     garden_area = fields.Float(compute="_compute_garden_area",inverse="_inverse_garden_area")
 
@@ -139,3 +139,17 @@ class EstatePlan(models.Model):
     def create(self,vals):
         vals['seq_name'] = self.env['ir.sequence'].next_by_code('estate.property')
         return super(EstatePlan,self).create(vals)
+    
+    @api.depends("state")
+    def _compute_color(self):
+        for record in self:
+            if(record.state=="new"):
+                record.color = 4
+            elif(record.state=="offer_received"):
+                record.color = 8
+            elif(record.state=="offer_accepted"):
+                record.color = 3
+            elif(record.state=="sold"):
+                record.color = 10
+            else:
+                record.color = 1
