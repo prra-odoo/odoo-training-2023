@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<template id="estate_account_templates" inherit_id="estate.report_property">
+            <xpath expr="//div[@name='state_div']" position="inside">
+                <div>
+                    <strong>Invoice has been created!!!!</strong>
+                </div>
+            </xpath>
+
+</template>
+
+</odoo>

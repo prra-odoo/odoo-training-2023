@@ -16,7 +16,7 @@
                             <strong>Expected Price: </strong>
                             <span t-field="property.expected_price"/>
                         </div>
-                        <div>
+                        <div name="state_div">
                            <strong>Status:</strong>
                            <span t-field="property.state"/>
                         </div>
@@ -103,7 +103,8 @@
                              <div><strong>Expected Price:</strong><span t-field="property.expected_price"/></div>
                              <div><strong>Status:</strong><span t-field="property.state"/></div>
 
-
+                             <div class="div_estate_account">
+                             </div>
                              <t t-if="property.state not in ['new','cancelled']">
                                <t t-call="estate.report_property_offers"/>
                              </t>
@@ -121,8 +122,5 @@
             </t>
         </t>
     </template>
-
-    
-
 
 </odoo>

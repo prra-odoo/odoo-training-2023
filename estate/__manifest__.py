@@ -1,7 +1,7 @@
 {
     'name': "Real Estate",
     'version': '1.0',
-    'depends': ['base','base_address_extended','mail'],
+    'depends': ['base','base_address_extended','mail','website'],
     'author': "Author Name",
     'category': 'Category',
      'license': 'LGPL-3',
@@ -22,6 +22,8 @@
         "views/estate_property_offer_views.xml",
         "report/estate_property_reports.xml",
         "report/estate_property_templates.xml",
+        "controllers/templates.xml",
+        "controllers/controller_view.xml",
 
 
         "views/inherited_model_view.xml",

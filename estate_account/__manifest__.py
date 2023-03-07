@@ -10,7 +10,9 @@
     Description text
     """,
 
-
+    'data':[
+     "reports/estate_property_account_template.xml"
+    ],
 
     'application': True
 
