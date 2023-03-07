@@ -1,0 +1,14 @@
+<odoo>
+    <template id="properties_template">>
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <p><t t-esc="property.name + ' '"/><t t-esc="property.state"/></p>
+                    </t>
+                </div>
+            </div>
+        </t>        
+    </template>
+</odoo>
