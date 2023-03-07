@@ -30,6 +30,8 @@ class EstateProperty(models.Model):
     last_seen = fields.Datetime("Last Seen", default=lambda self: fields.Datetime.now())
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True,copy=False)
+    image = fields.Binary(string='Image')
+    created_date = fields.Date(string='Created Date', default=fields.Date.today())
     bedrooms = fields.Integer(default="2")
     living_area = fields.Integer()
     facades = fields.Integer()

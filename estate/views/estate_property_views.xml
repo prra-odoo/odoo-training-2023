@@ -22,22 +22,6 @@
         <field name="number_next">1</field>
         <field name="number_increment">1</field>
     </record>
-    <!-- kanban view -->
-    <!-- <record id="estate_properties_views_kanban" model="ir.ui.view">
-    <field name="name">Properties Kanban View</field>
-    <field name="model">estate.property</field>
-    <field name="arch" type="xml">
-        <kanban>
-            <templates>
-                <t t-name="kanban-box">
-                    <div class="oe_kanban_global_click">
-                        <field name="name"/>
-                    </div>
-                </t>
-            </templates>
-        </kanban>
-    </field>
-    </record> -->
     <record model="ir.ui.view" id="kanban_view_properties">
     <field name="name">Properties Kanban View</field>
     <field name="model">estate.property</field>
@@ -96,23 +80,27 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Tree View" decoration-bf="state=='offer accepted'" decoration-success="state=='offer received' or state=='offer   accepted'" decoration-muted="state=='sold'">
-                <field name="id"/>
-                <field name="seq_name"/>
                 <field name="name"/>
-                <field name="property_type_id"/>
-                <field name="postcode"/>
-                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
-                <field name="bedrooms"/>
-                <field name="living_area"/>
-                <field name="expected_price"/>
-                <field name="selling_price"/>            
+                <field name="description"/>
+                <field name="selling_price"/>
+                <field name="created_date"/>
+                <field name="image" widget="image"/>
+                <!-- <field name="image" widget="image" width="64" height="64"/> -->
                 <field name="state"/>
-                <field name="tag_ids"/>
-                <field name="date_availability" optional="hide"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
+                <!-- <field name="bedrooms"/> -->
+                <!-- <field name="id"/> -->
+                <!-- <field name="seq_name"/> -->
+                <!-- <field name="property_type_id"/> -->
+                <!-- <field name="postcode"/> -->
+                <!-- <field name="living_area"/> -->
+                <!-- <field name="expected_price"/>
+                
+                <field name="date_availability" optional="hide"/> -->
                 <!-- <field name="last_seen"/> -->
                 <!-- <field name="living_area"/> -->
                 <!-- <field name="facades"/> -->
-                <!-- <field name="state"/> -->
+                <!-- <field name="state"/>-->
                 
             </tree>
         </field>

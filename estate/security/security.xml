@@ -12,3 +12,9 @@
 </odoo>
 
 <!-- The 'implied_ids' field in the estate_group_manager record specifies that the estate_group_manager group implies the estate_group_user group. This means that users who belong to the estate_group_manager group will also have the permissions of the estate_group_user group. -->
+<!-- 0: action to unlink one or more existing records from the current record
+1: action to create a new record and link it to the current record
+2: action to update one or more existing records linked to the current record
+3: action to unlink all existing records from the current record and replace them with a new set of records
+4: action to add one or more existing records to the current record
+5: action to remove one or more existing records from the current record without deleting them -->
