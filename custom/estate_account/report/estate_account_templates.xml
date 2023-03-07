@@ -1,19 +1,16 @@
 <odoo>
-    <template id="estate_account_template_sold" inherit_id="estate.estate_property_template_offers">
-        <t t-foreach="docs" t-as="account">
-            <t t-call="web.html_container">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <xpath expr="//div[@name='estate_account_sold']" position="after">
-                            <div t-if="account.state =='sold'">
-                                <strong>Invoice has been  created!!!!</strong>
-                            </div>
-                        </xpath>
+    <template id="estate_account_templates"
+        inherit_id="estate.estate_property_template_offers">
 
-                    </div>
-                </t>
-            </t>
-        </t>
+
+            <xpath expr="//div[@name='estate_account_sold']" position="after">
+                <div t-if="property.state =='sold'">
+                    <strong>Invoice has been created!!!!</strong>
+                </div>
+            </xpath>
+
+
+
     </template>
 
 

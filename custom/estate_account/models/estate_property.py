@@ -2,7 +2,7 @@
 from odoo import models,fields,api,Command
 
 class EstateRealProperty(models.Model):
-    _name="estate.property"
+    _name="estate.real.property"
     _inherit="estate.real.property"
     
     def action_sold(self):
@@ -21,5 +21,5 @@ class EstateRealProperty(models.Model):
                 ],
         })
         
-        return super().action_sold()
+        return super(EstateRealProperty,self).action_sold()
         
