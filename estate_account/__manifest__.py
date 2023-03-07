@@ -7,5 +7,9 @@
     'category':'Category',
     'summary':'Estate Account Tranning Module',
     'license':'LGPL-3',
-    'installable':True
+    'installable':True,
+
+    'data' : [
+        'reports/estate_account_templetes.xml'
+    ]
 }

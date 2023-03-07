@@ -17,10 +17,14 @@
                             <strong>Expected Price: </strong>
                             <span t-field="property.expected_price"/>
                         </div>
-                        <div>
+                        <div class="oe-muted">
                             <strong>Status:</strong>
                             <span t-field="property.state"/>
                         </div>
+
+                        <!-- <div t-if="property.state == 'sold'">
+                            <p>Invoice Already Has Been Created !!!</p>
+                        </div> -->
 
 
                         <t t-if="property.state !='new'">
@@ -124,7 +128,7 @@
                                 <span t-field="properties.expected_price"/>
                             </div>
 
-                            <div>
+                            <div class='oe-muted'>
                                 <strong>Status:</strong>
                                 <span t-field="properties.state"/>
                             </div>

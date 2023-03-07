@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="index">
+        <title>Academy</title>
+        <t t-call ="website.layout"/>
+        <t t-foreach="teachers" t-as="teacher">
+            <p><t t-esc="teacher"/></p>
+        </t>
+    </template>
+    <!-- <odoo>
+        <data>
+            <record id="controller_menu" model="website.menu">
+                <field name="name">Properties</field>
+                <field name="url">/real_estate</field>
+                <field name="parent_id" ref="website.main_menu"/>
+                <field name="sequence" type="int">80</field>
+            </record>
+        </data>
+    </odoo> -->
+</odoo>
