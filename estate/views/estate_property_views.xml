@@ -71,6 +71,7 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" placeholder="eg. zeel patel"/></h1>
                         </div>
+                        <field name="property_img" widget="image"/>
                         <group>
                         <group>
                             <field name="postcode"/>

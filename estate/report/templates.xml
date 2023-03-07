@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<template id="estate_property_web_view">
+    <t t-call="website.layout">
+        <t t-set="title">Estate Property</t>
+        <div class="oe_structure">
+            <div class="container" style="background:#c3c3c3">
+                <div class="row col-sm ">
+                <t t-foreach="properties" t-as="property">
+                    <!-- <div class="row">    
+                        <div class="column">
+                            <div class="card" style="width:300px">
+                                <div class="card-body">
+                                    <img t-attf-src="image_data_uri(property.property_img)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="property.name"/>
+                                    <p><t t-esc="property.id"/> <t t-esc="property.name"/></p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>         -->
+                    <div class="col-sm-4">
+                    <div class="card" style="margin:50px;">
+                        <div class="o_kanban_image">
+                            <img alt="Avatar" t-attf-src="data:image/png;base64,#{property.property_img}" height="300px" width="300px"/>
+                        </div>
+                        
+                        <div class="card-body">
+                          <h4 class="card-title"><t t-esc="property.name"/></h4>
+                          <p class="card-text"><t t-esc="property.state"/></p>
+                          
+                        </div>
+                    </div>
+                </div>
+                    
+                </t>
+            </div>
+                
+                
+            </div>
+        </div>
+    </t>
+</template>
+</odoo>

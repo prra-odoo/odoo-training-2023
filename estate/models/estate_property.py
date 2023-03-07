@@ -55,6 +55,7 @@ class EstateProperty(models.Model):
     salesmans_id = fields.Many2one('res.users', default=lambda self:self.env.user)
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
     best_price = fields.Float(compute = "_compute_best_offer" ,string="Best Price", readonly=True)
+    property_img = fields.Binary()
     #ir.sequence
     property_seq = fields.Char(string='Property ID',required=True,readonly=True,
                                 default=lambda self: ('New'))
@@ -115,7 +116,6 @@ class EstateProperty(models.Model):
                and
                not (float_is_zero(value=record.expected_price, precision_digits=2))):
                 if(float_compare(value1=record.selling_price, value2=(record.expected_price* 0.9), precision_digits=2) == -1):
-                
                     raise ValidationError('Selling price is more less than experted price ')
     
     @api.ondelete(at_uninstall = False)

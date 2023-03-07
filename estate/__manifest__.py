@@ -4,7 +4,7 @@
     'application': True,
     'sequence':1,
     'version': '1.0',
-    'depends': ['base','mail'],
+    'depends': ['base','mail','website'],
     'author': "ZEPA",
     'category': 'Category',
     'summary': """
@@ -15,6 +15,7 @@
 
     'data' : [
         'security/ir.model.access.csv',
+        'report/templates.xml',
         'report/estate_property_template.xml',
         'report/property_res_user_template.xml',
         'report/estate_property_report.xml',
