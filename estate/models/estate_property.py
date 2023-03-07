@@ -12,6 +12,7 @@ class EstateProperty(models.Model):
         "Last seen", default=lambda self: fields.Datetime().now())
     description = fields.Text()
     postcode = fields.Char()
+    image = fields.Image()
     date_availability = fields.Date(
         "Available from", default=lambda self: fields.Date.today()+relativedelta(months=3))
     expected_price = fields.Float()

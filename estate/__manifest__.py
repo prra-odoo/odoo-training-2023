@@ -1,11 +1,13 @@
 {
     "name":"Estate",
-    "depends" : [],
+    "depends" : ["website"],
     "installable" : True,
     "application" : True,
+    "category" : "Estate /Brokerage",
     "data" : [
-        "demo/demo_data.xml",
         "security/ir.model.access.csv",
+        "demo/demo_data.xml",
+        "security/security.xml",
         "views/estate_property_views.xml",
         "views/estate_property_offer_views.xml",
         'views/estate_property_type_views.xml',
