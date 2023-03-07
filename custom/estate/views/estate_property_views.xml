@@ -189,5 +189,10 @@
             </kanban>
         </field>
     </record>
+    <record id="property_menu" model="website.menu">
+    <field name="name">Properties</field>
+    <field name="url">/estate</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    </record>
 
 </odoo>

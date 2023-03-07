@@ -74,7 +74,6 @@
                             <strong>Salesman:</strong>
                             <span t-field="users.name"/>
                         </h1>
-
                         <div>
                         <!-- <t t-set="props" t-value="users.mapped('property_ids')"/> -->
                         <t t-if="users.property_ids">

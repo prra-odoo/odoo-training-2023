@@ -22,4 +22,4 @@ class EstateProperty(models.Model):
                        'tax_ids':False
                     })]
         })
-        return super(EstateProperty,self).sold_action() 
+        return super(EstateProperty,self).sold_action()
