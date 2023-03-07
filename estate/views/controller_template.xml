@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!-- 1 for static access -->
+
+    <!-- <template id="index">
+        <title>Real Estate</title>
+        <t t-foreach="properties" t-as="property">
+            <p><t t-esc="property"/></p>
+        </t>
+    </template> -->
+
+    <!-- 2 for dynamic access -->
+
+    <!-- <template id="index">
+        <title>Real Estate</title>
+        <t t-foreach="properties" t-as="property">
+            <p><t t-esc="property.id"/> <t t-esc="property.name"/> </p>
+        </t>
+    </template> -->
+
+    <!-- 3 for displaying on website -->
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <div>
+                            <t t-esc="property.name"/>
+                            <t t-esc="property.property_type_id"/>
+                            <t t-esc="property.tag_ids"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template> 
+
+    <!-- 4 URLs and routing -->
+
+    <!-- <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <p>
+                            <a t-attf-href="/estate/{{ slug(property) }}">
+                            <t t-esc="property.name"/></a>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t> -->
+    <!-- </template> --> -->
+
+    <!-- <template id="offers">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <h3><t t-esc="offer.name"/></h3>
+                    <h3><t t-esc="offer.price"/></h3>
+                </div>
+            </div>
+            <div class="oe_structure"/>
+        </t>
+    </template> -->
+
+
+</odoo>
