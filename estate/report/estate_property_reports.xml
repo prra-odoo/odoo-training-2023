@@ -10,7 +10,7 @@
     </record>
 
     <record id="estate_property_user_report" model="ir.actions.report">
-        <field name="name">Estate property</field>
+        <field name="name">Estate propertyyy</field>
         <field name="model">res.users</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">estate.report_property_users</field>
