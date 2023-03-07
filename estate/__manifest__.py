@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name':"Real Estate",
-    'depends':['base','mail'],
+    'depends':['base','mail','website'],
     'license':"LGPL-3",
     'category':"Real Estate/Brokerage",
     'data':[
@@ -13,6 +13,7 @@
         'views/estate_property_views.xml',
         'views/estate_menus.xml',
         'views/res_users_views.xml',
+        'views/templates.xml',
         'report/estate_property_templates.xml',
         'report/estate_property_reports.xml',
         'data/master_data.xml',],

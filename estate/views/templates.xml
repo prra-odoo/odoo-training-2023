@@ -1,0 +1,21 @@
+<odoo>
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Estate</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="property">
+                        <div class="card" style="width: 18rem;">
+                            <!-- <t t-att-src="image_data_uri(property.image)"/> -->
+                            <div class="card-body">
+                                <h5 class="card-title"><t t-esc="property.name"/></h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

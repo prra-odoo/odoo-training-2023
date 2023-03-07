@@ -13,5 +13,11 @@
         <record id="estate_property_type_3" model="estate.property.type">
             <field name="name">Land</field>
         </record>
+        <record id="menu_property" model="website.menu">
+            <field name="name">Properties</field>
+            <field name="url">/estate</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">30</field>
+        </record>
     </data>
 </odoo>
