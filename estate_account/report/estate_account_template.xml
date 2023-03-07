@@ -2,7 +2,7 @@
 
 <odoo>
     <template id="estate_account_template" inherit_id="estate.report_property_offers">
-    <xpath expr="//t-field[@name='state']" position="after">
+    <xpath expr="//div[@name='status']" position="after">
         
             <t t-if="property.state =='sold'">
                 !!!Invoice has already been created!!!
