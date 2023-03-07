@@ -128,15 +128,10 @@
                             <div>
                                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'colors'}"/>
                             </div>
-                            <!-- <div class="o_kanban_record_bottom"> -->
-                                <!-- <div class="oe_kanban_bottom_left">
-                                    <field name="activity_ids" widget="kanban_activity"/>
-                                </div> -->
                                 <div class="oe_kanban_bottom_right float-end">
                                     <field name="kanban_state" class="me-2" widget="state_selection"/>
                                     <field name="user_id" widget="many2one_avatar_user"/>
                                 </div>
-                            <!-- </div> -->
                         </div>
                     </t>
                 </templates>

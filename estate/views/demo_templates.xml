@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="properties" t-as="prop">
+                        <!-- <p>Name:<t t-esc="prop.name"/> -->
+                        <!-- Bedrooms:<t t-esc="prop.bedrooms"/></p> -->
+                        <div class="container">
+  							<div class="row">
+    							<div class="col">col1</div>
+    							<div class="col">col2</div>
+  							</div>
+                            <div class="row">
+                                <div class="col">col1</div>
+                                <div class="col">col2</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">col1</div>
+                                <div class="col">col2</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">col1</div>
+                                <div class="col">col2</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">col1</div>
+                                <div class="col">col2</div>
+                            </div>
+						</div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
