@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="properties">
+        <title>Real Estate</title>
+        <t t-foreach="property" t-as="prop">
+            <p><t t-esc="prop.id"/> <t t-esc="prop.name"/></p></t>
+    </template>
+</odoo>

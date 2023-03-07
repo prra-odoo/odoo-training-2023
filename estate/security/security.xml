@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- agent group -->
+    <record id="estate_group_user" model="res.groups">
+        <field name="name">Agent</field>
+        <field name="category_id" ref="base.module_category_estate_brokerage"/>
+    </record>
+
+
+
+    <!-- manager group -->
+    <record id="estate_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="base.module_category_estate_brokerage"/>
+        <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/>  
+    </record>
+
+    <!-- <record id="estate_group_customer" model="res.groups">
+        <field name="name">Customer</field>
+        <field name="category_id" ref="base.module_category_estate_brokerage"/>
+        <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/>  
+    </record> -->
+</odoo>
