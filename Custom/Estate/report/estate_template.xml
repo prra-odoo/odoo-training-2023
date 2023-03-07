@@ -34,7 +34,7 @@
             </t>
         </t>
     </template>
-
+    
     <template id="res_user_offer_report">
         <t t-foreach="docs" t-as="user">
             <t t-call="web.html_container">
@@ -58,7 +58,7 @@
                                     <span t-field="property.state"/>
                                 </div>
                                 <t t-if='property.offer_ids'>
-                                    <t t-call="estate.property_offers"/>
+                                    <t t-call="Estate.property_offers"/>
                                 </t>
                                 <t t-else="">
                                     <span><strong>There are no Offers!!</strong></span>
