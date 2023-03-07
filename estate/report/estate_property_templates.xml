@@ -27,7 +27,7 @@
                             </h2>
                         </div>
 
-                        <div>
+                        <div id="status_div">
                             <h2>
                                 <strong>Status: </strong>
                                 <span t-field="property.state"/>

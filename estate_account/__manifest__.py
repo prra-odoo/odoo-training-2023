@@ -1,10 +1,11 @@
 {
     'name' : 'Estate Accout',
-    'installable': True,
-    'application': True,
     'depends': ['base','estate','account'],
     'data': [
+        'report/estate_account_report.xml',
     ],
     'license' : 'LGPL-3',
-    'auto_install': True
+    'installable': True,
+    'application': True,
+    'auto_install': True,
 }
