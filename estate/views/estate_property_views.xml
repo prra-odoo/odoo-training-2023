@@ -84,7 +84,7 @@
                 <field name="description"/>
                 <field name="selling_price"/>
                 <field name="created_date"/>
-                <field name="image" widget="image"/>
+                <!-- <field name="image" widget="image"/> -->
                 <!-- <field name="image" widget="image" width="64" height="64"/> -->
                 <field name="state"/>
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
@@ -123,7 +123,9 @@
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" states = "sold"/> 
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" states="cancelled"/>
                     <label for="name" string="Property Name"/>
-                    <h1><field name="name" class="oe_inline" placeholder="My new house"/></h1>              
+                    <h1><field name="name" class="oe_inline" placeholder="My new house"/></h1> 
+                    <field name="image" widget="image"/>
+             
                 <group>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field':'color'}" nolabel="1" placeholder="Tags" colspan="2"/>
                 </group>

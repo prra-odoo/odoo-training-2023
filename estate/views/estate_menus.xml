@@ -10,4 +10,9 @@
             <menuitem id="estate_property_tag" action="estate_property_tag_action"/>
         </menuitem>
     </menuitem>
+    <record id="website_menu_properties" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="url">/properties</field>
+    </record>
 </odoo>
