@@ -97,7 +97,8 @@
                             <page string="Other Info">
                             <group >
                                     <field name="buyer_id"/>
-                                    <field name="seller_id" />                                   
+                                    <field name="seller_id" />         
+                                    <field name="property_image" widget="image" style="max-width: 100px; max-height: 100px;"/>                          
                             </group>
                             </page>
                         </notebook>

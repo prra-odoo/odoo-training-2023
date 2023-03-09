@@ -1,16 +1,82 @@
 <odoo>
+    <record id="menu_property" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/test1</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <!-- <field name="sequence" type="int">30</field> -->
+    </record>
 
     <template id="test">
         <t t-call="website.layout">
-            <t t-set="title">Property</t>
+            <t t-set="title">Properties</t>
             <div class="oe_structure">
-                <div class="container">
+                <div class="card-group">
                     <t t-foreach="prop" t-as="properties">
-                        <t t-esc="properties.name"/><br/>   
+                        <div class="col-3 mt-2 mb-3 mx-5">
+                            <a t-attf-href="/test/{{ slug(properties) }}">
+                            <div class="card">
+                                <img class="card-img-top" t-attf-src="data:image/*;base64,{{properties.property_image}}" style="width:450px" height="400px"/>
+                                <div class="card-body" align='center'>
+                                    <h4><p><t t-esc="properties.name"/></p></h4>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
                     </t>
                 </div>
+            </div>
+            <div class="d-flex justify-content-center my-3">
+                <t t-call="website.pager"/>
             </div>
         </t>
     </template>
 
+
+    
+
+    <template id="test1">
+        <t t-call="website.layout">
+            <t t-set="title">Test</t>
+            <div class="oe_structure">
+                <center>
+                <img class="card-img-top" t-attf-src="data:image/*;base64,{{props.property_image}}" style="width:800px; height:700px" height="400px"/><br/>
+                <t t-esc="props.name"/><br/>
+                <!-- <t t-esc="props.postcode"/><br/> -->
+                <t t-esc="props.date_availability"/><br/>
+                <t t-esc="props.bedrooms"/><br/>   
+                </center> 
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Price</th>
+                            <th>Partner</th>
+                            <th>Validity(days)</th>
+                            <th>Deadline</th>
+                            <th>State</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="offers" t-value="props.mapped('offer_ids')"/>
+                        <tr t-foreach="offers" t-as="offer">
+                            <td>
+                                <span t-field="offer.price"/>
+                            </td>
+                            <td>
+                                <span t-field="offer.partner_id"/>
+                            </td>
+                            <td>
+                                <span t-field="offer.validity"/>
+                            </td>
+                            <td>
+                                <span t-field="offer.date_deadline"/>
+                            </td>
+                            <td>
+                                <span t-field="offer.status"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
 </odoo>

@@ -6,3 +6,7 @@
 Note: don't hesitate to go through bootstrap documentation - https://getbootstrap.com/docs/4.3/getting-started/introduction/ to benefit from available classes / components / utilities.
 
 3: In the grid (on the top of the page), add one date-picker, which will allow you to select date, and a button next to it (named 'Listed After'). This will allow you to filter the properties that are created after the selected date, in descending order.
+
+
+
+

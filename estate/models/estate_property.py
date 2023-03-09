@@ -46,6 +46,7 @@ class EstateProperty(models.Model):
     ],
     default='new',
     )
+    property_image = fields.Binary()
     
 
     # Relationals Fields
