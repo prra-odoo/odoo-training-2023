@@ -59,7 +59,8 @@
                             <field name="name" />
                         </h1>
                     </div>
-                    <group name="main">
+                    
+                    <group name="main" col="3">
                         <group name="group_left">
                             <field name="property_type_id" options="{'no_create': True , 'no_edit': True}"/>
                             <field name="postcode" />
@@ -71,6 +72,9 @@
                             <field name="best_price"/>
                             <field name="selling_price" />
                             <field name="seq_name"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" nolabel="1"/>
                         </group>
                     </group>
                     <!-- Add a menu tab below in the form -->

@@ -62,6 +62,7 @@ class EstateProperty(models.Model):
       ('done','Green'),
       ('blocked','Red')], string='Kanban State')
    color = fields.Integer(compute="_compute_color",default=4)
+   image=fields.Image()
 
    @api.depends("state")
    def _compute_color(self):

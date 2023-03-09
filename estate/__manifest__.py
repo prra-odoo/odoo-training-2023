@@ -1,6 +1,6 @@
 {
     'name':'Real estate',
-    'depends' : ['mail'],
+    'depends' : ['mail','website'],
     'summary':'This is a real estate module',
     'author':'Arjun Panchal',
     'version':'1.0',
