@@ -4,3 +4,4 @@ estate.access_estate_property_type,access_estate_property_type,estate.model_esta
 estate.access_estate_property_tag,access_estate_property_tag,estate.model_estate_property_tag,base.group_user,1,1,1,1
 estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,base.group_user,1,1,1,1
 estate.access_proto_inherit,access_proto_inherit,estate.model_proto_inherit,base.group_user,1,1,1,1
+estate.access_teachers,access_teachers,estate.model_teachers,base.group_user,1,1,1,1

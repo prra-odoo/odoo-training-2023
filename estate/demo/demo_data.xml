@@ -169,6 +169,17 @@
             <field name="date_deadline" eval="str(datetime.now().year)+'-02-12'" />
         </record>
 
+        <record id="padilla" model="teachers">
+            <field name="name">Diana Padilla</field>
+        </record>
+
+        <record id="carroll" model="teachers">
+            <field name="name">Jody Carroll</field>
+        </record>
+
+        <record id="vaughn" model="teachers">
+            <field name="name">Lester Vaughn</field>
+        </record>
 
     </data>
 </odoo>

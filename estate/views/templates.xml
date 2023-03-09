@@ -1,0 +1,57 @@
+<odoo>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Estate</t>
+            <div class="oe_structure">
+                <!-- <div class="container">
+                    <t t-foreach="property_list" t-as="property">
+                        <p>
+                            
+                        </p>
+                    </t>
+                </div> -->
+                <div class="container">
+                    <div class="row">
+                        <t t-foreach="property_list" t-as="property">
+                            <div class="col-sm m-3">
+                                <div class="card shadow p-3 mb-5 bg-white rounded"
+                                    style="width: 18rem;">
+                                    <img class="card-img-top" src="..." alt="Card image cap" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <t t-esc="property.name" />
+                                        </h5>
+                                        <p class="card-text">Some quick example text to build on the
+                                            card title and make up the bulk of the card's content.</p>
+
+                                        <a t-attf-href="/estate/{{ slug(property) }}"
+                                            class="btn btn-primary">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="biography">
+        <t t-call="website.layout">
+            <t t-set="title">Academy</t>
+            <div class="oe_structure" />
+            <div class="oe_structure">
+                <div class="container">
+                    <h3 t-field="property.name" />
+                    <p>Last modified: <i t-field="property.write_date"
+                            t-options='{"widget": "relative"}' /></p>
+                    <div t-field="property.expected_price" />
+                </div>
+            </div>
+            <div class="oe_structure" />
+        </t>
+    </template>
+
+
+</odoo>
