@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Property</t>
+            <div class="container my-5">
+                <div class="row gy-4">
+                    <t t-foreach="properties" t-as="property">
+                        <div class="col">
+                            <div class="card shadow-sm d-flex border-0 bg-secondary rounded overflow-hidden" style="width: 18rem;">
+                                <t t-if='property.image'>            
+                                    <img t-att-src='image_data_uri(property.image)' style="width: 18rem; height:18rem;"/>
+                                </t>
+                                <div class="card-body d-flex flex-column align-items-start justify-content-center">
+                                    <h5 class="card-title"><a class="text-dark" style="" t-attf-href="/properties/{{ slug(property) }}"><t t-esc="property.name"/></a></h5>
+                                    <t t-set="types" t-value="property.mapped('property_type_id')"/>
+                                    <t t-foreach="types" t-as="type">
+                                        <span class="o_force_ltr"><t t-esc="type.property_name"/></span>
+                                    </t>
+                                    <div t-if="property.tag_ids" class="d-flex justify-content-between mt-2">
+                                        <t t-set="tags" t-value="property.mapped('tag_ids')"/>
+                                        <div class="d-flex flex-row">
+                                            <div t-foreach="tags" t-as="tag" t-esc="tag.name"
+                                                t-attf-class="badge rounded-pill o_tag_color_#{tag.color} d-inline-block"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <div t-if="pager" class="d-flex justify-content-center">
+                        <t t-call="website.pager"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="property">
+        <t t-call="website.layout">
+            <t t-set="title">Property</t>
+            <div class="container my-5">
+                <div class="row gy-4">
+                    <t t-foreach="properties" t-as="property">
+                        <div class="card shadow-sm p-4">
+                            <div class="row">
+                                <div class="col">
+                                    <h2><t t-esc="properties.name"/></h2>
+                                    <t t-set="types" t-value="property.mapped('property_type_id')"/>
+                                    <t t-foreach="types" t-as="type">
+                                        <h5><t t-esc="type.property_name"/></h5><br/>
+                                    </t>
+                                    <t t-if='property.best_price'> 
+                                        <span>Best Price: <t t-esc="properties.best_price"/></span><br/>
+                                    </t>
+                                    <span>Bedrooms: <t t-esc="properties.bedrooms"/></span><br/>
+                                    <span>Living Area: <t t-esc="properties.living_area"/></span><br/>
+                                    <span t-if="property.garage">Garage: <t t-esc="properties.garage"/></span><br/>
+                                    <span><t t-esc="properties.description"/></span><br/>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="rounded overflow-hidden" style="width: 18rem; height:18rem;">
+                                        <t t-if='property.image'>            
+                                            <img t-att-src='image_data_uri(property.image)' style="width: 100%; height:100%;"/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="offers_table" t-if='property.mapped("offer_ids")'>
+                                <t t-call="estate.tables"/>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>         

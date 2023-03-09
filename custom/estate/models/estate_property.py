@@ -14,7 +14,7 @@ class EstateProperty(models.Model):
     number = fields.Char(string='Property No.',default=lambda self: ('New'))
     active = fields.Boolean(default=True)
     description = fields.Text()
-    image = fields.Binary()
+    image = fields.Image()
     postcode = fields.Char()
     expected_price = fields.Float()
     date_availability = fields.Date(copy=False, string='Available From', default=lambda self: fields.Date.today()+relativedelta(months=3))

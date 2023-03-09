@@ -15,6 +15,5 @@
         <field name="name">Properties</field>
         <field name="url">/properties</field>
         <field name="parent_id" ref="website.main_menu"/>
-        <field name="sequence">50</field>
     </record>
 </odoo>

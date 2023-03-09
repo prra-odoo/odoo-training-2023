@@ -18,6 +18,7 @@
         'views/estate_property_tag_views.xml',
         'views/estate_menus.xml',
         'views/users_views.xml',
+        'controllers/estate_website_template.xml'
     ],
     'demo': [
         'demo/estate_demo.xml',
