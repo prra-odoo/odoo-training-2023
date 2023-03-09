@@ -14,7 +14,7 @@
     ],
     'demo':[ 'demo/estate_demo_data.xml',
     ],
-
+    'assests':['static/src/css/style.css'],
     'application': True,
     'license': 'LGPL-3',
     'images': ['static/description/icon.png']

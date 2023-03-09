@@ -60,6 +60,7 @@ class EstateProperty(models.Model):
                    ('sold', 'green'), ('cancelled', 'red')]
     )
     offers_id = fields.One2many('estate.property.offer', 'property_id')
+    property_image = fields.Binary()
 
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
