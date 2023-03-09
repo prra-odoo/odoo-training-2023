@@ -51,6 +51,7 @@ class EstateProperty(models.Model):
     salesmen_id=fields.Many2one('res.users',default=lambda self:self.env.user)
 
     is_favorite=fields.Boolean()
+    image=fields.Image()
 
     #sum of the living_area and the garden_area.
     @api.depends("living_area","garden_area")

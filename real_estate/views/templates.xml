@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- add menu in the website  -->
+    <record id="menu_properties" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/estate/estate/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+
+    <template id="index">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class="card-group">
+                        <t t-foreach="property" t-as="prop">
+                            <div class="col-md-2 mt-2 mb-3 mx-5">
+                                <a t-attf-href="/estate/estate/{{ slug(prop) }}" class="text-decoration-none">
+                                <div class="card" >
+                                    <img alt="Avatar" t-attf-src="data:image/png;base64,#{prop.image}" width="320px" height="250px" />
+                                    <div class="card-body">
+                                        <center>
+                                            <h4 class="card-title" style="font-size: 22px; font-weight: bold; color: #333;">
+                                                <t t-esc="prop.name"/>
+                                            </h4>
+                                            <p  style="font-size: 16px; color: #666;">
+                                                    Expected Price: <t t-esc="prop.expected_price"/>
+                                            </p>
+                                        </center>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                   <div class="products_pager form-inline justify-content-center mt-3">
+                       <t t-call="website.pager">
+                       <t t-set="_classes">mt-2 ml-md-2</t>
+                       </t>
+                   </div>
+            </div>
+        </t>
+    </template>
+
+   
+
+    <template id="website_view">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div style="margin-top:20px">
+                    <span t-field="properties.name"/><br/>
+                    Expected Price :<span t-field="properties.expected_price"/>
+                </div>
+                    <img alt="Avatar" t-attf-src="data:image/png;base64,#{properties.image}" height="200px" style="margin-left:40%;margin-top:50px" />   
+            </div>
+        </t>
+    </template>
+</odoo>

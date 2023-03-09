@@ -1,9 +1,26 @@
 from odoo import http
 
-class Academy(http.Controller):
+class Estate(http.Controller):
 
-    @http.route('/academy/academy/', auth='public',website=True)
-    def index(self, **kw):
+    @http.route(['/estate/estate/','/estate/estate/page/<int:page>'], auth='public',website=True)
+    def index(self,page=0, **kw):
+        
+        Property= http.request.env['estate.property']
+        total=Property.sudo().search_count([])
+        pager = http.request.website.pager(
+        url='/estate/estate/',
+        total=total,
+        page=page,
+        step=3,
+        )
+
         return http.request.render('real_estate.index', {
-            'teachers': ["Diana Padilla", "Jody Caroll", "Lester Vaughn"],
+            'property': Property.search([('state','not in',('sold','canceled'))],limit=3,offset=pager['offset'],order='id desc'),
+            'pager': pager,
+        })
+
+    @ http.route('/estate/estate/<model("estate.property"):property>/', auth = "public", website = True)
+    def property_list(self, property):
+        return http.request.render('real_estate.website_view',{
+            'properties': property,
         })
