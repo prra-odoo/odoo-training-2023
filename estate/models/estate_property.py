@@ -13,7 +13,7 @@ class EstateProperty(models.Model):
 	name=fields.Char(string='Name',
 			required=True,
 			help="this is for name")
-
+	property_img=fields.Image(string="Image")
 	discription=fields.Char(string='Discription',
 			help="this is for discription",
 			size=300)

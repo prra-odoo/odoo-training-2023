@@ -1,0 +1,44 @@
+<odoo>
+
+    <template id="index">
+         <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+                <div class="container" style="padding:3em 0">
+                    <div class="row col-sm gy-3">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col-sm-3">
+                                <a t-attf-href="/estate/estate/{{ slug(property) }}" class="text-decoration-none">
+                                    <div class="card me-3">
+                                        <img t-attf-src="data:image/png;base64,#{property.property_img}" height="200px" width="200px" alt="Property Image" class="card-img-top"/>
+                                        <div class="card-body">
+                                            <t t-esc="property.name" class="card-title"/>
+                                                <p class="card-text">
+                                                    <p class="card-text">
+                                                    Expected Price:
+                                                    <t t-esc="property.expected_price"/>
+                                                    </p>
+                                                    <t t-set="tag" t-value="property.mapped('tag_ids')"/>
+                                                    <t t-foreach="tag" t-as="t">
+                                                        <span t-field="t.name"  class="badge rounded-pill bg-info text-dark"/>
+                                                    </t>
+                                                </p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                            </div>
+                            
+                        </t>
+                        <div class="products_pager form-inline justify-content-center mt-3">
+                                <t t-call="website.pager">
+                                    <!-- <t t-set="_classes">mt-2 ml-md-2</t> -->
+                                </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

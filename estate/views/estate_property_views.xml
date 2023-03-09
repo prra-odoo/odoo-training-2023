@@ -33,13 +33,10 @@
                     <button name="action_sold" type="object" string="Sold" class="oe_highlight" attrs="{'invisible':[('state','in',('new','sold','offer received'))]}"/>
                     <button name="action_sold" type="object" string="Sold" attrs="{'invisible':[('state','not in',('new','offer received'))]}"/>
                     <button name="action_cancle" type="object" string="Cancle" attrs="{'invisible': [('state','=','sold')]}"/>
-                    <!-- <button name="%(estate.report_estate_property_badge)d" type="action" string="Print" icon="fa-print"/> -->
+                    
                     <field name="state" widget="statusbar" options="{'clickable':'1'}" statusbar_visible="new,offer received,offer accepted,sold" attrs="{'invisible':[('state','in',('sold','canceled'))]}"/>
                     <field name="stage_id2" widget="statusbar" statusbar_visible="new,offer received,offer accepted,sold" attrs="{'invisible':[('state','in',('new','offer received','offer accepted'))]}"/>
-                    <!--<field name="stage_id" widget="statusbar" class="o_field_statusbar"
-                            options="{'clickable': '1', 'fold_field': 'fold'}"
-                            domain="['|', ('team_id', '=', team_id), ('team_id', '=', False)]"
-                            attrs="{'invisible': ['|', ('active', '=', False), ('type', '=', 'lead')]}"/>-->
+                    
                 </header>
                 
                 <sheet>
@@ -70,7 +67,7 @@
                     <separator/>
                     <notebook>
                         <page string="Description">
-
+                            <field name="property_img" widget="image" options='{"size": [200, 200]}'/>
                             <group>
                                 <separator/>
                                 <field name="discription"/>

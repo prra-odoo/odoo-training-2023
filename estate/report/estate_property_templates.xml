@@ -106,5 +106,35 @@
             </t>
         </t>
     </template>
+    <template id="website_property_view">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container" style="margin-top:3em">
+                    <div>
+                        <h2>
+                            <span t-field="property.name"/>
+                        </h2>
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <img t-attf-src="data:image/png;base64,#{property.property_img}" width="300px" alt="Property Image"/>
+                            </div>
+                            <div >
+                                <b><u>
+                                Expected price:
+                                <span t-field="property.expected_price"/>
+                                </b></u>
+                                </br>
+                                <span t-field="discription"/></br>
+                                <t t-set="tag" t-value="property.mapped('tag_ids')"/>
+                                                    <t t-foreach="tag" t-as="t">
+                                                        <span t-field="t.name"  class="badge rounded-pill bg-info text-dark"/>
+                                                    </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
     
 </odoo>
