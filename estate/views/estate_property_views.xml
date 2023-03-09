@@ -118,6 +118,7 @@
                         <group>
                             <field name="best_offer"/>
                             <field name="buyer_id"/>
+                            <field name="image"/>
                         </group>
                         <notebook>
                             <page string="Description">

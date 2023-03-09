@@ -14,7 +14,7 @@
               'views/estate_property_offer_views.xml',
               'views/estate_property_types_views.xml',
               'views/res_users_views.xml',
-              'views/templates.xml',
+              'controller/templates.xml',
               'views/estate_property_menus.xml',
               'data/estate_property_master_data.xml'        
              ],
