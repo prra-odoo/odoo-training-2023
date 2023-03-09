@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+	<record id="website_menu_properties" model="website.menu">
+		<field name="name">Properties</field>
+		<field name="url">/properties</field>
+		<field name="parent_id" ref="website.main_menu"/>
+		<field name="sequence">40</field>
+	</record>
 	<template id="index">
 		<t t-call="website.layout">
-            <t t-set="title">test</t>
-            <div class="oe_structure">
-                <div class="container">
+			<t t-set="title">test</t>
+			<div class="oe_structure">
+				<div class="container">
 					<t t-foreach="property" t-as="prop">
 						<p>Name:<t t-esc="prop.name"/>
 						Bedrooms:<t t-esc="prop.bedrooms"/></p>
@@ -15,13 +21,120 @@
 	</template>
 	<template id="properties">
 		<t t-call="website.layout">
-            <t t-set="title">Property</t>
-            <div class="oe_structure">
-                <div class="container">
-					<t t-foreach="property" t-as="prop">
-						<t t-if="prop.state!='sold' or prop.state!='cancelled'">
-						<p>Name:<t t-esc="prop.name"/></p>
+			<t t-set="title">Properties</t>
+			<div class="oe_structure">
+				<div class="card-group">
+					<t t-foreach="properties" t-as="prop">
+						<div class="col-3 mt-2 mb-3 mx-5">
+							<div class="card shadow p-3 mb-5 bg-white rounded">	
+								<img class="card-img-top bg-image hover-zoom" t-attf-src="data:image/*;base64,{{prop.property_image}}" style="width:100%;height:100%"/>
+								<div class="card-body">
+									<h4><t t-esc="prop.name"/></h4>
+									<hr/>
+									<t t-esc="prop.description"/><br></br>
+									<hr/>
+									<a t-attf-href="/properties/{{ slug(prop) }}" class="text-decoration-none card-group">
+										<button type="button" class="btn btn-info">Info
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</t>
+				</div>
+				<div t-if="pager" class="o_portal_pager d-flex justify-content-center">
+					<t t-call="website.pager"/>
+				</div>
+			</div>
+		</t>	
+	</template>
+	<template id="property_details_view">
+		<t t-call="website.layout">
+			<div class="container" style="margin-top:50px">
+				<div class="d-flex justify-content-around">
+					<a href="/properties">All Property</a>
+					<hr/>
+					<div>
+						<h1 class="text-success">
+							<t t-esc="plot.name"/>
+						</h1>
+						<t t-set="tag" t-value="plot.mapped('tag_ids')"/>
+						<t t-foreach="tag" t-as="t">
+							<span t-field="t.name" options="{'color_field': 'plot.tags_color'}"/>
 						</t>
+						<div class="mt-3">
+							<p>
+								<strong>Property Type: </strong>
+								<t t-esc="plot.property_type_id.name"/>
+							</p>
+							<p>
+								<strong>Postcode: </strong>
+								<t t-esc="plot.postcode"/>
+							</p>
+							<p>
+								<strong>Available From: </strong>
+								<t t-esc="plot.date_availability"/>
+							</p>
+							<p>
+								<strong>Expected Price: </strong>
+								<t t-esc="plot.expected_price"/>
+							</p>
+							<p ><strong>Best Offer: </strong><t t-esc="plot.best_price"/></p>
+						</div>
+					</div>
+					<div>
+						<div class="mt-5">
+							<h4 class="text-decoration-underline text-info">Property Info:</h4>
+							<p><strong>Bedrooms: </strong><t t-esc="plot.bedrooms"/></p>
+							<p><strong>Living Area(sqm): </strong><t t-esc="plot.living_area"/></p>
+							<t t-if="plot.garden=='True'">
+								<p><strong>Garden Area:</strong><t t-esc="plot.garden"/></p>
+							</t>
+						</div>
+					</div>
+					<div>
+						<div class="bg-image hover-zoom ms-25">
+							<img t-attf-src="data:image/*;base64,{{plot.property_image}}" style="width:50%;height:50%"/>
+						</div>
+					</div>
+				</div>
+				<div class="mt-5">
+					<h4 class="text-decoration-underline text-info">Offer Details:</h4>
+					<t t-if='plot.offer_ids'>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Price</th>
+									<th>Partner</th>
+									<th>Validity(Days)</th>
+									<th>Deadline</th>
+									<th>State</th>
+								</tr>
+							</thead>    
+							<tbody>
+								<t t-set="offers" t-value="plot.mapped('offer_ids')"/>
+								<tr t-foreach="offers" t-as="offer">
+									<td>
+										<span t-field="offer.price"/>
+									</td>
+									<td>
+										<span t-field="offer.buyer_id"/>
+									</td>
+									<td>
+										<span t-field="offer.validity"/>
+									</td>
+									<td>
+										<span t-field="offer.date_deadline"/>
+									</td>
+									<td>
+										<span t-field="offer.status"/>
+									</td> 
+								</tr>
+							</tbody>
+						</table>
+					</t>
+					<t t-else="">
+						<span><strong>There are no Offers!!</strong></span>
 					</t>
 				</div>
 			</div>
