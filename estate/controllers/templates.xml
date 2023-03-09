@@ -1,10 +1,91 @@
 <odoo>
 
     <template id="index">
-        <title>Academy</title>
-        <t t-foreach="teachers" t-as="teacher">
-            <p><t t-esc="teacher"/></p>
+         <t t-call="website.layout">
+            <t t-set="title">Properties</t>
+            <div class="oe_structure">
+              <input id="birth_date" type="date" name="birth_date" class="form-control o_website_form_input o_website_form_date"/>
+              <button id="listed_after"/>
+
+                <div class="container">
+                    <div class="row gy-5">
+                      <t t-foreach="properties" t-as="property">
+
+                        <div class="col-sm-3">
+                        <a t-attf-href="/estate/{{ slug(property) }}">
+
+                        <div class="card" style="width: 18rem;">
+                         <img class="card-img-top" t-attf-src="data:image/png;base64,#{property.property_image}" height="200px" width="200px" alt="Property Image"/>
+                         <div class="card-body">
+                              
+                           <h5 class="card-title"> <t t-esc="property.name"/></h5>
+                            <div class="card-text"> 
+                               <p>Price: <t t-esc="property.expected_price"/></p>
+                               <t t-set="tag" t-value="property.mapped('tag_ids')"/>
+                               <t t-foreach="tag" t-as="t">
+                                 <span t-field="t.name" class="badge rounded-pill bg-info text-dark"/>
+
+                                
+                               </t>
+                            </div>
+
+                         </div>
+                        </div>
+                        </a>
+                        </div>
+                    </t>
+                 </div>
+                 <div>
+                   <t t-call="website.pager"/>
+                
+                 </div>
+
+                </div>
+            </div>
         </t>
     </template>
 
+
+
+
+    <template id="property_template">
+     <t t-call="website.layout">
+        <t t-set="title"><t t-esc="properties.name"/></t>
+        <div class="oe_structure"/>
+        <div class="oe_structure">
+            <div class="container">
+            <div style="display:flex">
+             <table class="table" style="width:70%;">
+               <tr>
+                 <td><h3><t t-esc="properties.name"/></h3></td>
+               </tr>
+               <tr>
+                 <td>Expected Price:<t t-esc="properties.expected_price"/></td>
+               </tr>
+               <tr>
+                 <td>Description:<t t-esc="properties.description"/></td>
+               </tr>
+             </table>
+               <img t-attf-src="data:image/png;base64,#{properties.property_image}" height="300px" width="400px" alt="Property Image"/>
+             </div>
+              
+
+                <div>
+                </div>
+            </div>
+        </div>
+        <div class="oe_structure"/>
+     </t>
+    </template>
+
 </odoo>
+
+
+<!-- <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div> -->

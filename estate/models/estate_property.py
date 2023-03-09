@@ -73,6 +73,7 @@ class EstateProperty(models.Model):
     salesperson_id=fields.Many2one('res.users',string="Salesman",default=lambda self:self.env.user)
     tag_ids=fields.Many2many('estate.property.tag',relation="tag_property")
     offer_ids=fields.One2many('estate.property.offer','property_id',string="Offer")
+    property_image=fields.Binary(string="Image here")
     color_kanban=fields.Integer(default=1)
 
 
