@@ -86,20 +86,109 @@
             </t>
         </t>
     </template>
+
+    <template id="about">
+        <t t-call="website.layout">
+            <t t-set="title">Property</t>
+            <div class="oe_structure"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class="card" style="width: 70rem;margin: 15px;flex-direction: row;justify-content: space-between">
+                                <t t-if="property.image">
+                                    <img class="card-img-top" t-att-src="image_data_uri(property.image)" alt="Card image cap" style="overflow: auto;width: 50%"/>
+                                </t>
+                                <div style="display: flex;flex-direction: column; width: 20rem;margin: auto;align-items: flex-start">
+                                <h1 t-field="property.name"></h1>    
+                                <t t-if="property.description">
+                                    <p t-field="property.description"/>
+                                </t>
+                                <div>
+                                    <span>Expected price: &#8377;</span>
+                                    <span t-field="property.expected_price" />
+                                </div>
+                                <t t-if="property.best_price">
+                                    <div>
+                                        <span>Best price: &#8377;</span>
+                                        <span t-field="property.best_price" />
+                                    </div>
+                                </t>
+                                <t t-if="property.selling_price">
+                                    <div>
+                                        <span>Selling price: &#8377;</span>
+                                        <span t-field="property.selling_price" />
+                                    </div>
+
+                                </t>
+                                    <div>
+                                        <span>Bedrooms: </span>
+                                        <span t-field="property.bedrooms" />
+                                    </div>
+                                <t t-if="property.tag_ids">
+                                    <t t-foreach="property.tag_ids" t-as="tag">
+                                        <span t-if="tag.color"
+                                          t-attf-class="badge mr4 o_tag_color_5" style="background-color: #814968">
+                                        <span t-out="tag.name"/>
+                                    </span>
+
+                                    </t>
+                                </t>
+                                <div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="oe_structure"/>
+        </t>
+    </template>
+
     <template id="index">
         <t t-call="website.layout">
             <title>Academy</title>
             <div class="oe_structure">
                 <div class="container">
                     <div class="row">
-                    <t t-foreach="properties" t-as="property">
-                        <div class="card" style="width: 18rem;">
-                            <t t-set="img" t-value="property.image" />
-                             <img class="card-img-top" t-att-src="image_data_uri(property.image)" alt="Card image cap" />
-                            <div class="card-body">
-                                <h5 class="card-title"><t t-esc="property.name" /></h5>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <nav aria-label="..." style="display: flex;justify-content: center">
+                        <ul class="pagination" style="margin: 20px">
+                            <t t-if="properties['id'] == 1">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="/property/1">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="/property/1">Next</a>
+                                </li>
+                            </t>
+                            <t t-else="">
+                                <li class="page-item">
+                                    <a class="page-link" href="/property/" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="/property/">1</a></li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="/property/1">Next</a>
+                                </li>
+                            </t>
+                        
+                        </ul>
+                    </nav>
+                    <t t-foreach="properties['data']" t-as="property">
+                        <div class="card" style="width: 25rem;margin: 15px">
+                            <t t-if="property.image">
+                        
+                                <img class="card-img-top" t-att-src="image_data_uri(property.image)" alt="Card image cap" />
+                    
+                            </t>
+                            <div class="card-body" style="display: flex;justify-content: space-between">
+                                <h5 class="card-title" style="font-weight: 400"><t t-esc="property.name" /></h5>
+                                <p style="font-weight: 400;color: #808080"><span>&#8377;</span><t t-esc="property.expected_price" /></p>
                             </div>
+                            <a t-attf-href="/property/{{ slug(property) }}" class="btn btn-primary" style="margin-bottom: 10px">Details</a>
                         </div>
                     </t>
                     </div>
@@ -107,4 +196,5 @@
             </div>
         </t>
     </template>
+    
 </odoo>
