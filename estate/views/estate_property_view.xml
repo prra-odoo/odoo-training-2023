@@ -101,6 +101,7 @@
                 </header>
                 <sheet>
                     <div class="Title">
+                        <field name = "image" widget="image" options="{'size':[150,150]}"/>
                         <h1>  <field name="name"/> </h1>
                         <br/>
                 </div>

@@ -13,6 +13,7 @@ class EstateProperty(models.Model):
     description = fields.Char()
     _order = "id desc"
     postcode = fields.Char()
+    image = fields.Image()
     date_availability = fields.Date(
         copy=False,
         default=lambda self: fields.Date.today() + relativedelta_proxy(months=3),

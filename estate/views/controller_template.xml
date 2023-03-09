@@ -25,19 +25,90 @@
     <template id="index">
         <t t-call="website.layout">
             <t t-set="title">Real Estate</t>
-            <div class="oe_structure">
-                <div class="container">
-                    <t t-foreach="properties" t-as="property">
-                        <div>
-                            <t t-esc="property.name"/>
-                            <t t-esc="property.property_type_id"/>
-                            <t t-esc="property.tag_ids"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class ="row">
+                            <t t-foreach="properties" t-as="property">
+                                
+                                <div class="card shadow-lg p-2 mb-5 bg-white rounded" style="width: 15rem; margin : 15px">
+                                    <img t-att-src='image_data_uri(property.image)'/>
+                                        <div class="card-body">
+                                            <h5 class="card-title" t-field = "property.name"></h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            <a t-attf-href="/properties/{{ slug(property) }}" class="btn btn-primary">See Property</a>
+                                        </div>
+                                </div>    
+                            </t>
+                            <div t-if="pager" class="d-flex justify-content-center">
+                                <t t-call="website.pager"/>
+                            </div>
                         </div>
-                    </t>
-                </div>
-            </div>
+                    </div>
+              </div>
+            </t>
+    </template> 
+
+
+    <template id="second_page">
+        <t t-call="website.layout">
+            <t t-set="title">Real Estate</t>
+            <div class="oe_structure">
+                <div class = "bg-black">
+                    <div class="container d-flex justify-content-between shadow-lg w-100 p-3">
+
+                        <div>
+                             <h1 class="text-danger"> <p t-field ="property.name"/> </h1>
+                        
+                            <h3 class = "text-primary"> Price  -> <t t-esc ="property.expected_price"/> </h3>
+                            <h3 class = "text-primary"> Living Area -> <t t-esc ="property.living_area"/> </h3>
+                            <h3 class = "text-primary"> Garden -> <t t-esc ="property.garden_area" class = "text-primary"/> </h3>
+                        </div>
+                    <div class="card , shadow-lg p-2 mb-5 bg-white rounded" style="width: 35rem;">
+                            <img t-att-src='image_data_uri(property.image)'/>
+                        </div>
+
+                        </div>
+                    </div>
+
+                <div>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">price</th>
+                            <th scope="col">validity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            </tr>
+                            <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            </tr>
+                            <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            </tr>
+                        </tbody>
+                </table>
+                </div>       
+            </div>  
         </t>
     </template> 
+
+
+
+
 
     <!-- 4 URLs and routing -->
 

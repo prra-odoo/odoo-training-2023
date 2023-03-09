@@ -11,7 +11,14 @@
         <menuitem id="estate_property_type_menu_action" action="estate_property_type_action"/>
         <menuitem id="estate_property_tags_menu_action" action="estate_property_tags_action"/>
     </menuitem>
-    
+
 </menuitem>
+
+        <record id = "website_property_menu" model = "website.menu">
+            <field name = "name">Properties</field>
+            <field name = "url">properties</field>
+            <field name = "parent_id" ref = "website.main_menu"/>
+            <field name="sequence">50</field>
+        </record>
 
 </odoo>
