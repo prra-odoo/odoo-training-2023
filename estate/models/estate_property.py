@@ -59,6 +59,8 @@ class EstateProperty(models.Model):
     total_area=fields.Float(compute="_compute_total_area")
     best_price=fields.Float(compute="_compute_best_price",store=True)
     favourite=fields.Boolean('Is Favourite')
+    property_img=fields.Image(max_width=128,max_height=128 )
+    
 
     @api.depends('living_area','garden_area')
     def _compute_total_area(self):

@@ -12,7 +12,7 @@
         
     'data': [
         'security/ir.model.access.csv',
-        
+        'report/estate_property_website_templates.xml',
         'report/estate_property_templates.xml',
         'report/estate_property_reports.xml',
         'report/res_user_template.xml',

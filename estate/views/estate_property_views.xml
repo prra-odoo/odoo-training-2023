@@ -26,7 +26,8 @@
                 
                 <sheet>
                
-                <widget name="web_ribbon" title="Sold" bg_color="bg-danger" attrs="{'invisible' : [('state','!=','sold')]}"/>                                    
+                <widget name="web_ribbon" title="Sold" bg_color="bg-danger" attrs="{'invisible' : [('state','!=','sold')]}"/> 
+                <group><field name="property_img" widget="image" nolabel="1"/></group>                                   
                     <h1>                
                         <field name = "name" placeholder="Name"/>
                     </h1>                    
