@@ -15,7 +15,7 @@
 
     'data' : [
         'security/ir.model.access.csv',
-        'report/templates.xml',
+        'views/templates.xml',
         'report/estate_property_template.xml',
         'report/property_res_user_template.xml',
         'report/estate_property_report.xml',

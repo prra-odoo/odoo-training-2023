@@ -55,7 +55,7 @@ class EstateProperty(models.Model):
     salesmans_id = fields.Many2one('res.users', default=lambda self:self.env.user)
     total_area = fields.Float(string='Total Area', readonly=True, compute = "_compute_total_area")
     best_price = fields.Float(compute = "_compute_best_offer" ,string="Best Price", readonly=True)
-    property_img = fields.Binary()
+    property_img = fields.Image()
     #ir.sequence
     property_seq = fields.Char(string='Property ID',required=True,readonly=True,
                                 default=lambda self: ('New'))

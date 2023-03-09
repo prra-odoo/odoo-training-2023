@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="properties_menu" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/estate</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">2</field>
+    </record>
+    <template id="estate_property_web_view">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Property</t>
+            
+                <nav t-attf-class="navbar navbar-light navbar-expand-lg right float-end" style="width:100%;">
+                    <form>
+                        
+                        <label>Property name</label><input type="text" name="search_name"/>
+                        <label>Date</label><input type="date" name="search_date"/>
+                            <button class="btn oe_search_button btn-primary" type="submit"  title="search">
+                                <i class="fa fa-search"/>
+                            </button>
+                        
+                    </form>
+                </nav>
+            <div class="oe_structure">
+                <div class="container" style="margin-top:20px;margin-bottom:20px">
+                    <div class="row col-sm ">
+                        <t t-foreach="properties" t-as="property">
+                            <div class="col-sm-4">
+                                <a t-attf-href="/estate/property/{{ slug(property) }}">
+                                    <div class="card" style="margin-top:25px;border-radius:12px" >
+                                        <div>
+                                            <img alt="Avatar" t-attf-src="data:image/png;base64,#{property.property_img}" height="300px" />
+                                        </div>                        
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <t t-esc="property.name"/>
+                                            </h4>
+                                            <p class="card-text">
+                                                <t t-esc="property.expected_price"/><br/>
+                                                <t t-esc="property.create_date"/><br />
+                                                <div class="tags">
+                                                    <t t-foreach="property.property_tag_ids" t-as="offer">
+                                                        <label class="label"><span t-field="offer.name" class="badge rounded-pill bg-info text-dark"/></label>
+                                                    </t>
+                                                </div>
+                                            </p>                          
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>                    
+                        </t>
+                        
+                    </div>
+                </div>
+                <div style="margin-botton:20px" class="pagination justify-content-center ">
+                    <t t-call="website.pager" />
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="estate_property_details_web_view">
+        <t t-call="website.layout">
+            <t t-set="title">Estate Property</t>
+            <div class="oe_structure">
+                <div class="container" style="margin-top:20px;margin-bottom:20px">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1><t t-esc="property.name"/></h1>
+                            <p class="oe-muted"><t t-esc="property.description"/></p>
+                        </div>
+                        <div class="col-6">
+                            <!-- <img t-att-src="image_data_uri(property.property_img)" alt="Property Image"/> -->
+                            <img alt="Avatar" t-attf-src="data:image/png;base64,#{property.property_img}" height="300px" />
+                        </div>
+                    </div>
+                    <div>
+                        <p style="font-size:20px">Expected Price : <t t-esc="property.expected_price"/></p>
+                        
+                        
+                    </div>
+                    
+                    <h4>Offers</h4>
+                    <t t-if="property.offer_ids">
+                        <table style="width:100%" class="table">
+                        <tr>
+                            <th>Partner</th>
+                            <th>Price</th>
+                            <th>Deadline</th>
+                            <th>status</th>
+                        </tr>
+                        <t t-foreach="property.offer_ids" t-as="offer">
+                            <tr>
+                                <td>
+                                    <t t-esc="offer.price"/>
+                                </td>
+                                <td>
+                                    <t t-esc="offer.partner_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="offer.date_deadline"/>
+                                </td>
+                                <td>
+                                    <t t-esc="offer.status"/>
+                                </td>
+                            </tr>
+                        </t>
+                        </table>
+                    </t>
+                    <t t-else="">
+                        <h6>No offers on this property</h6>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
