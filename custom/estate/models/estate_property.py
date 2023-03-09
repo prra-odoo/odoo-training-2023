@@ -12,6 +12,7 @@ class EstateProperty(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name=fields.Char(required=True) 
+    p_image=fields.Binary()
     priority = fields.Selection([
         ('0', 'Low'),
         ('1', 'High'),
