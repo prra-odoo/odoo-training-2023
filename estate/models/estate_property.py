@@ -40,7 +40,8 @@ class EstateProperty(models.Model):
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
     tag_ids = fields.Many2many("estate.property.tag", string="Tags", relation="tag_ids_m2m")
     offer_ids = fields.One2many("estate.property.offer","property_id", string="Offers")
-    
+    image = fields.Binary()
+
     total_area = fields.Float(compute="_compute_total_area")
     @api.depends("living_area","garden_area")
     def _compute_total_area(self):

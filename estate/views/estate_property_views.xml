@@ -44,9 +44,12 @@
                 <sheet>
                     <widget name="web_ribbon" title="Sold" bg_color="bg-success" attrs="{'invisible': [('state', '!=', 'sold')]}"/>
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
-                    <label for="name" string="Property Name"/>
-                    <h1><field name="name" placeholder="My New House"/></h1>
-                    <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <div>
+                        <field name="image" nolabel='1' widget="image" style="margin-right:15px;" class="oe_avatar"/>
+                        <label for="name" string="Property Name"/>
+                        <h1><field name="name" placeholder="New House"/></h1>
+                        <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    </div><br/><br/>    
                     <group>
                         <!-- example of prototype inheritance
                         <group>

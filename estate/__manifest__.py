@@ -1,6 +1,6 @@
 {
     'name':"Real Estate",
-    'depends': ['base','mail','website'],
+    'depends': ['base','mail','website','website_blog','website_event'],
     'application': True,
     'license' : 'LGPL-3',
     'data' : [
