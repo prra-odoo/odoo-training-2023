@@ -48,7 +48,7 @@
                         </h1>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field':'colors'}"/>
                     </div>
-                    <group>
+                    <group col="3">
                         <group>
                             <field name="property_type_id" options="{'no_create':True, 'no_open':True}"/>
                             <field name="postcode"/>
@@ -59,6 +59,9 @@
                             <field name="expected_price"/>
                             <field name="best_price"/>
                             <field name="selling_price"/>
+                        </group>
+                        <group>
+                            <field name="property_img" widget="image" nolabel="1"/>
                         </group>
                     </group>
                     <notebook>

@@ -1,38 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="menu_properties" model="website.menu">
+        <field name="name">Properties</field>
+        <field name="url">/properties</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
     <template id="index">
         <t t-call="website.layout">
             <t t-set="title">Properties</t>
             <div class="oe_structure">
-                <div class="container">
+                <div class="card-group">
                     <t t-foreach="properties" t-as="prop">
-                        <!-- <p>Name:<t t-esc="prop.name"/> -->
-                        <!-- Bedrooms:<t t-esc="prop.bedrooms"/></p> -->
-                        <div class="container">
-  							<div class="row">
-    							<div class="col">col1</div>
-    							<div class="col">col2</div>
-  							</div>
-                            <div class="row">
-                                <div class="col">col1</div>
-                                <div class="col">col2</div>
+                        <div class="col-md-3 mt-2 mb-3 mx-5">
+                            <div class="card text-white bg-white rounded shadow p-2 mb-3" style="height:38rem; width:25rem;">
+                                <img class="card-img-top" t-attf-src="data:image/*;base64,{{prop.property_img}}" style="height:17rem; width:24rem;"/>
+                                <div class="card-body">
+                                    <center>
+                                        <h4 class="text-primary"><t t-esc="prop.name"/></h4>
+                                        <hr/>
+                                        <t t-foreach="prop.tag_ids" t-as="t">
+                                            <span t-field="t.name" class="badge mb-3" style="color: black; background: #e8b610"/>
+                                        </t>
+                                        <p>Expected Price: <t t-esc="prop.expected_price"/></p>
+                                        <p>Best Offer: <t t-esc="prop.best_price"/></p>
+                                        <p>Available From: <t t-esc="prop.date_availability"/></p>
+                                        <a t-attf-href="/properties/{{ slug(prop) }}" class="text-decoration-none btn btn-outline-primary">More Details</a>
+                                    </center>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <small class="text-muted bg-white rounded"><p>Last modified: <i t-field="prop.write_date" t-options='{"widget": "relative"}'/></p></small>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col">col1</div>
-                                <div class="col">col2</div>
-                            </div>
-                            <div class="row">
-                                <div class="col">col1</div>
-                                <div class="col">col2</div>
-                            </div>
-                            <div class="row">
-                                <div class="col">col1</div>
-                                <div class="col">col2</div>
-                            </div>
-						</div>
+                        </div>
                     </t>
+                </div>
+                <div t-if="pager" class="o_portal_pager d-flex mb-3 justify-content-center">
+                    <t t-call="website.pager"/>
                 </div>
             </div>
         </t>
+    </template>
+    <template id="property_details_view">
+        <t t-call="website.layout">
+            <t t-set="title">Property Details</t>
+            <div class="container mt-3">
+                <h1 class="text-primary">
+                    <t t-esc="property.name"/>
+                </h1>
+                <t t-set="tag" t-value="property.mapped('tag_ids')"/>
+                <t t-foreach="tag" t-as="t">
+                    <span t-field="t.name" class="badge rounded-pill bg-info text-dark"/>
+                </t>
+                <div>
+                    <img class="float-end" t-attf-src="data:image/*;base64,{{property.property_img}}" style="width:30%;height:25%"/>
+                </div>
+                <div class="mt-3">
+
+                    <p class="text-wrap">
+                        <strong>Property Type: </strong>
+                        <t t-esc="property.property_type_id.name"/>
+                    </p>
+                    <p>
+                        <strong>Postcode: </strong>
+                        <t t-esc="property.postcode"/>
+                    </p>
+                    <p>
+                        <strong>Available From: </strong>
+                        <t t-esc="property.date_availability"/>
+                    </p>
+                    <p>
+                        <strong>Expected Price: </strong>
+                        <t t-esc="property.expected_price"/>
+                    </p>
+                    <p ><strong>Best Offer: </strong><t t-esc="property.best_price"/></p>
+                </div>
+                <div class="mt-4">
+                    <h4 class="text-decoration-underline text-info mb-3">Property Info:</h4>
+                    <p><strong>Description: </strong><t t-esc="property.description"/></p>
+                    <p><strong>Bedrooms: </strong><t t-esc="property.bedrooms"/></p>
+                </div>
+                <div class="mt-4 mb-5">
+                    <h4 class="text-decoration-underline text-info">Property Offers:</h4>
+                    <t t-if="property.offer_ids">
+                        <t t-call="estate.property_offers"/>
+                    </t>
+                    <t t-else="">
+                        <b><span>There is no property offers !!</span></b>
+                    </t>
+                </div>
+
+            </div>
+        </t>
+    </template>
+    <template id="property_offers">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Partner</th>
+                    <th>Validity(Days)</th>
+                    <th>Deadline</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                <tr t-foreach="offers" t-as="offer">
+                    <td>
+                        <span t-field="offer.price"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.partner_id"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.validity"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.deadline_date"/>
+                    </td>
+                    <td>
+                        <span t-field="offer.status"/>
+                    </td> 
+                </tr>
+            </tbody>
+        </table>
     </template>
 </odoo>

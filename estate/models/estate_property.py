@@ -19,6 +19,7 @@ class EstateProperty(models.Model):
     name = fields.Char(required=True)
     property_seq = fields.Char(string='Property Reference', required=True, readonly=True, default=lambda self:('New'))
     description = fields.Text()
+    property_img = fields.Binary()
     postcode = fields.Char()
     date_availability = fields.Date(string='Availability Date', default=lambda self: fields.Date.today()+relativedelta(months=+3), copy=False)
     expected_price = fields.Float(string='Expected Price',required=True)
