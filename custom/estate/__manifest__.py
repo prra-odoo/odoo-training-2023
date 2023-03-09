@@ -5,7 +5,11 @@
     'application': True,
     'category': 'Real Estate/Brokerage',
     'data':[
+        
         'controllers/template.xml',
+        'controllers/controller_view.xml',
+        
+        
         
         'security/security.xml',
         

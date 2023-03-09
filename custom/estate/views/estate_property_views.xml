@@ -28,7 +28,7 @@
                     <widget name="web_ribbon" title="Sold" bg_color="bg-info" attrs="{'invisible': [('state', '!=', 'sold')]}"/>
  
                     
-                    
+                    <field name="image" widget="image" class="oe_avatar" />
                     <h1><field name="name" nolabel="1"/></h1>
                 
                     <group>
