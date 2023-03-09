@@ -33,6 +33,7 @@ class EstateModel(models.Model):
                       ('sold', 'Sold'), ('canceled', 'Canceled')  ],
                       default='new')
     active = fields.Boolean(default=True)
+    image = fields.Image(string="image")
     # Linking Others Modules
     property_type_ID= fields.Many2one('estate.property.type',string="estate_type_partner")
     buyer_id=fields.Many2one('res.partner')

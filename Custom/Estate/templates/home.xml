@@ -6,10 +6,87 @@
             <t t-set="title">Academy</t>
             <div class="oe_structure">
                 <div class="container">
-                    <t t-foreach="property" t-as="p">
-                        <p><t t-esc="p.id"/> <t t-esc="p.name"/></p>
-                    </t>
+
+                        <div class="row">
+                             <t t-foreach = "property" t-as="p">
+                                <div class="col-sm  mx-1 mt-2 " >
+
+                                    <div class="card" style="width: 18rem;">
+                                        <img t-attf-src="data:image/*;base64,{{p.image}}" class="card-img-top" style="width:200px" height="200px"/>
+                                        <div class="card-body">
+                                          <h5 class="card-title"><t t-esc="p.name"> </t></h5>
+                                          <p class="card-text">  
+                                      <t t-esc="p.expected_price"> </t>
+                                        </p>
+                                        <a t-attf-href="/property/{{ slug(p) }}" class="text-decoration-none">
+                                            Go
+                                        </a>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </t>
+
+                        </div>
                 </div>
+
+                
+
+            </div>
+            <div class="d-flex justify-content-center my-3">
+                <t t-call="website.pager"/>
+            </div>
+            
+        </t>
+    </template>
+
+    <template id="property_details_view">
+        <t t-call="website.layout">
+            <t t-set="title">Estate-Info</t>
+            <div class="oe_structure">
+                <div class="container">
+                    <div class="">
+                        <!-- first div -->   
+                            <div class="text-center " style=":hover transform: scale(1.5);">
+                                <img t-attf-src="data:image/*;base64,{{plot.image}}"
+                                    style="width:50%;"
+                                    class="card-img-top"
+                                />
+                            </div>
+                            <hr/>
+                            <!-- Second div -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class=""> Name :    <t t-esc="plot.name"> </t>         </div>
+                                    
+                                     <div>Expected Price :       <t t-esc="plot.expected_price"> </t></div>
+                                </div>
+
+                                <div class="col">
+                                   
+                                    <div>Postcode :  <t t-esc="plot.postcode"> </t> </div>
+                                    <div>Garden Area :  <t t-esc="plot.garden_area"> </t> </div>
+                                    
+                                </div>
+
+                                <div class="col">
+                                     <div>Bedrooms :
+                                    <t t-esc="plot.bedrooms"> </t>
+
+                                     </div>
+                                     <div class="mb-3">Living Area :
+                                <t t-esc="plot.living_area"> </t>
+
+                                     </div>
+                                </div>
+
+                                </div>
+                    </div>
+
+                    </div>
+                        
+                        
             </div>
         </t>
     </template>

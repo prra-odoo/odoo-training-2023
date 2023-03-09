@@ -38,6 +38,7 @@
             <field name="state" widget='statusbar' />
           </header>
           <sheet>
+            <field name="image" widget="image" class="oe_avatar"/>
             <!-- Add a Ribbon -->
             <widget name='web_ribbon' title='Sold' bg_color="bg-success" attrs='{"invisible": [("state", "not in", ["sold"])]}'/>
             <widget name='web_ribbon' title='Canceled' bg_color='bg-danger' attrs='{"invisible": [("state", "not in", ["canceled"])]}'/>
@@ -45,6 +46,7 @@
               <h1 string="Customer Name">
                 <field name="name" placeholder="Name"/>
              </h1>
+              
               <p>
                 <!--    Color changing tags -->
                 <field name="tag_ids" widget="many2many_tags" soption="{'color_field': 'color'}"/>
@@ -56,11 +58,13 @@
                 <field name="date_availability"/> 
               </group>
 
+              
                 <group>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="best_offer"/>
-                </group>
+                </group>    
+                
             </group>
 
          <notebook>
