@@ -15,7 +15,7 @@
     <field name='name'>estate.property.type.tree</field>
     <field name='model'>estate.property.type</field>
     <field name='arch' type='xml'>
-      <tree string='Estate Property Tree'>
+      <tree string='Estate Property Type Tree'>
         <field name='sequence' widget='handle'/>
         <field name='property_name'/>
       </tree>

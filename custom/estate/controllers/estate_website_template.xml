@@ -12,7 +12,7 @@
                                     <img t-att-src='image_data_uri(property.image)' style="width: 18rem; height:18rem;"/>
                                 </t>
                                 <div class="card-body d-flex flex-column align-items-start justify-content-center">
-                                    <h5 class="card-title"><a class="text-dark" style="" t-attf-href="/properties/{{ slug(property) }}"><t t-esc="property.name"/></a></h5>
+                                    <h5 class="card-title"><t t-esc="property.name"/></h5>
                                     <t t-set="types" t-value="property.mapped('property_type_id')"/>
                                     <t t-foreach="types" t-as="type">
                                         <span class="o_force_ltr"><t t-esc="type.property_name"/></span>
@@ -24,6 +24,7 @@
                                                 t-attf-class="badge rounded-pill o_tag_color_#{tag.color} d-inline-block"/>
                                         </div>
                                     </div>
+                                    <a t-attf-href="/properties/{{ slug(property) }}" class="btn btn-primary mt-2">See More</a>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +43,15 @@
             <div class="container my-5">
                 <div class="row gy-4">
                     <t t-foreach="properties" t-as="property">
-                        <div class="card shadow-sm p-4">
+                        <div class="card shadow-sm p-5">
+                            <nav>
+                                <div>
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a t-attf-href="/properties">Our Properties</a></li>
+                                        <li class="breadcrumb-item active"><span t-field="property.name"/></li>
+                                    </ol>
+                                </div>
+                            </nav>
                             <div class="row">
                                 <div class="col">
                                     <h2><t t-esc="properties.name"/></h2>
@@ -50,9 +59,7 @@
                                     <t t-foreach="types" t-as="type">
                                         <h5><t t-esc="type.property_name"/></h5><br/>
                                     </t>
-                                    <t t-if='property.best_price'> 
-                                        <span>Best Price: <t t-esc="properties.best_price"/></span><br/>
-                                    </t>
+                                    <span t-if='property.best_price'>Best Price: <t t-esc="properties.best_price"/></span><br/>
                                     <span>Bedrooms: <t t-esc="properties.bedrooms"/></span><br/>
                                     <span>Living Area: <t t-esc="properties.living_area"/></span><br/>
                                     <span t-if="property.garage">Garage: <t t-esc="properties.garage"/></span><br/>
@@ -66,7 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="offers_table" t-if='property.mapped("offer_ids")'>
+                            <div class="offers_table mt-5" t-if='property.mapped("offer_ids")'>
                                 <t t-call="estate.tables"/>
                             </div>
                         </div>

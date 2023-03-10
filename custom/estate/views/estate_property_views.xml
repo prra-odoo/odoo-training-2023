@@ -16,6 +16,7 @@
         <field name='name'>estate.property.kanban</field>
         <field name='model'>estate.property</field>
         <field name='arch' type='xml'>
+            
             <kanban default_group_by='property_type_id' class='o_kanban_dashboard o_project_kanban o_emphasize_colors'> 
                 <field name='state'/>
                 <field name='property_type_id' readonly='1'/>
@@ -53,6 +54,9 @@
         <field name='name'>estate.property.tree</field>
         <field name='model'>estate.property</field>
         <field name='arch' type='xml'>
+            <!-- <header>
+                <button type="action" string="Add Offers" name="%(estate.estate_wizard_offer_action)d"/>
+            </header> -->
             <tree string='Estate Property Tree' 
             decoration-success='state in ("offer received","offer accepted")'
             decoration-bf='state=="offer accepted"'

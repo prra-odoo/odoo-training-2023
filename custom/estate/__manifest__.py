@@ -10,6 +10,7 @@
     'data': [
         'security/estate_security.xml',
         'security/ir.model.access.csv',
+        'wizard/estate_wizard_offer_views.xml',
         'report/estate_property_reports.xml',
         'report/estate_property_templates.xml',
         'views/estate_property_offer_views.xml',
@@ -18,7 +19,7 @@
         'views/estate_property_tag_views.xml',
         'views/estate_menus.xml',
         'views/users_views.xml',
-        'controllers/estate_website_template.xml'
+        'controllers/estate_website_template.xml',
     ],
     'demo': [
         'demo/estate_demo.xml',
