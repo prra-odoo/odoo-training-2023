@@ -11,6 +11,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
+        'wizard/add_offer_wizard_views.xml',
         'views/estate_property_view.xml',
         'views/estate_property_tag_view.xml',
         'views/estate_property_offer_view.xml',

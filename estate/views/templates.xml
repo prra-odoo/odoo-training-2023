@@ -3,25 +3,36 @@
     <!-- add menu in the website  -->
     <record id="menu_properties" model="website.menu">
         <field name="name">Properties</field>
-        <field name="url">/</field>
+        <field name="url">/estate</field>
         <field name="parent_id" ref="website.main_menu"/>
-        <field name="sequence" type="int">60</field>
+        <field name="sequence" type="int">10</field>
     </record>
     <template id="index">
         <t t-call="website.layout">
             <t t-set="title">Real Estate Properties</t>
             <div class="oe_structure">
-                <div class="card-group">
+                <div class = "d-grid gap-2 d-md-flex justify-content-md-start">
+                <form type="get" action="/estate/">
+                    <div class="d-flex justify-content-between">
+                        <input id="date_picker" type="date" name="date_picker" class="o_website_form_input o_website_form_date btn-outline-secondary"/>   
+                        <button name="Listed After" type="submit" class="btn btn-outline-info" default_order="prop desc">Listed After</button>
+                    </div>
+                </form>
+                </div>
+                <div class="card-group">                   
                     <t t-foreach="properties" t-as="prop">
                         <div class="col-md-2 mt-2 mb-3 mx-5">
                             <a t-attf-href="/estate/{{ slug(prop) }}" class="text-decoration-none">
                                 <div class="card" >
-                                    <img alt="Avatar" t-attf-src="data:image/png;base64,#{prop.image}" width="320px" height="250px" />
+                                    <img alt="Avatar" t-attf-src="data:image/png;base64,#{prop.image}" width="360px" height="250px" />
                                     <div class="card-body">
                                         <center>
                                             <h4 class="card-title" style="font-size: 22px; font-weight: bold; color: #333;">
                                                 <t t-esc="prop.name"/>
                                             </h4>
+                                            <t t-foreach="prop.tag_ids" t-as="t">
+                                                <span t-field="t.name" class="badge" style="color: black; background: #e8b610"/>
+                                            </t>
                                             <p  style="font-size: 16px; color: #666;">
                                                         Expected Price:
                                                 <t t-esc="prop.expected_price"/>
@@ -29,6 +40,19 @@
                                                         State:
                                                 <t t-esc="prop.state"/>
                                             </p>
+                                            <p>Best Offer:
+                                                <t t-esc="prop.best_price"/>
+                                            </p>
+                                            <p>Available From:
+                                                <t t-esc="prop.date_availability"/>
+                                            </p>
+                                            <div class="card-footer bg-white">
+                                                <small class="text-muted bg-white rounded">
+                                                    <p>Last modified:
+                                                        <i t-field="prop.write_date" t-options='{"widget": "relative"}'/>
+                                                    </p>
+                                                </small>
+                                            </div>
                                         </center>
                                     </div>
                                 </div>
@@ -50,6 +74,21 @@
                     <t t-esc="property.name"/>
                 </h1>
                 <t t-set="tag" t-value="property.mapped('tag_ids')"/>
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/estate">properties</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <t t-esc="property.name"/>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
                 <t t-foreach="tag" t-as="t">
                     <span t-field="t.name" class="badge rounded-pill bg-info text-dark"/>
                 </t>
