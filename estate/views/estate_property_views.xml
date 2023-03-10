@@ -6,6 +6,9 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="tree_view" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'" decoration-danger="state=='canceled'">
+                <header>
+                    <button class="oe_stat_button" name="%(action_estate_property_wizard)d" type="action" string="Add offer"/> 
+                </header>
                 <field name="property_seq"/>
                 <field name="name" string="Title"/>
                 <field name="property_type_id"/>
@@ -116,7 +119,7 @@
                                 <strong><field name="name"/></strong>
                             </div>
                             <div t-if="record.buyer_id.value">
-                                <i class="fa fa-user me-2"/>
+                                <i class="fa fa-user me-2" title="User"/>
                                 <strong><field name="buyer_id" widget="many2one_avatar_partner"/></strong>
                             </div>
                             <div>
