@@ -11,7 +11,11 @@
         <field name="name">estate_property_view</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
+          <header>
+            <button type="action" name="%(Estate.launch_the_wizard)d"  string="Search for Flat Property"/>
+              </header>
             <tree string="Channel" expand='1' decoration-success="state=='offer received'" decoration-muted="state=='sold'" decoration-danger="state=='canceled'">
+                                
                 <field name="name"/>
                 <field name="seq_name"/>
                 <field name="postcode"/>

@@ -19,7 +19,6 @@ class Academy(http.Controller):
     #      return http.request.render('Estate.index', {
     #          'property': property.search([]),
     #      })
-     
      @http.route('/property/<model("estate.property"):property>', auth='public', website=True)
      def index1(self, property):
         return http.request.render('Estate.property_details_view',{

@@ -1,9 +1,13 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_estate_property1,access_estate_property,model_estate_property,base.group_user,1,1,1,0
-access_estate_property_type1,access_estate_property_type,model_estate_property_type,base.group_user,1,1,1,0
-access_estate_property_tag1,access_estate_property_tag,model_estate_property_tag,base.group_user,1,1,1,0
-access_estate_property_offer1,access_estate_property_offer,model_estate_property_offer,base.group_user,1,1,1,0
-access_res_users1,access_res_users,model_res_users,base.group_user,1,1,1,0
+
+
+
+
+access_estate_property1,access_estate_property,model_estate_property,Estate.estate_group_user,1,1,1,0
+access_estate_property_type1,access_estate_property_type,model_estate_property_type,Estate.estate_group_user,1,1,1,0
+access_estate_property_tag1,access_estate_property_tag,model_estate_property_tag,Estate.estate_group_user,1,1,1,0
+access_estate_property_offer1,access_estate_property_offer,model_estate_property_offer,Estate.estate_group_user,1,1,1,0
+access_res_users1,access_res_users,model_res_users,Estate.estate_group_user,1,1,1,0
 
 
 
@@ -12,4 +16,6 @@ access_estate_property_type,access_estate_property_type,model_estate_property_ty
 access_estate_property_tag,access_estate_property_tag,model_estate_property_tag,Estate.estate_group_manager,1,1,1,0
 access_estate_property_offer,access_estate_property_offer,model_estate_property_offer,Estate.estate_group_manager,1,1,1,0
 access_res_users,access_res_users,model_res_users,Estate.estate_group_manager,1,1,1,0
-Estate.access_estate_property_prototype,access_estate_property_prototype,Estate.model_estate_property_prototype,base.group_user,1,1,1,1
+Estate.access_estate_property_prototype,access_estate_property_prototype,Estate.model_estate_property_prototype,Estate.estate_group_manager,1,1,1,0
+
+Estate.access_real_estate_wizhard,access_real_estate_wizhard,Estate.model_real_estate_wizard,base.group_user,1,1,1,1

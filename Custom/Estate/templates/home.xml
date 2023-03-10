@@ -46,45 +46,75 @@
             <t t-set="title">Estate-Info</t>
             <div class="oe_structure">
                 <div class="container">
-                    <div class="">
+
+                    <hr/>
+
+                    <div class="d-flex justify-content-around">
                         <!-- first div -->   
-                            <div class="text-center " style=":hover transform: scale(1.5);">
-                                <img t-attf-src="data:image/*;base64,{{plot.image}}"
-                                    style="width:50%;"
-                                    class="card-img-top"
-                                />
-                            </div>
-                            <hr/>
+                            
                             <!-- Second div -->
-                            <div class="row">
-                                <div class="col">
-                                    <div class=""> Name :    <t t-esc="plot.name"> </t>         </div>
-                                    
-                                     <div>Expected Price :       <t t-esc="plot.expected_price"> </t></div>
+                            
+                                <div class="col border shadow mt-5 mb-3 text-center">
+                                    <div class="p-2 "> Name : <t t-esc="plot.name"> </t> </div>
+                                     <div class="p-2">Expected Price :       <t t-esc="plot.expected_price"> </t></div>
+                                    <div class="p-2">Postcode :  <t t-esc="plot.postcode"> </t> </div>
                                 </div>
 
-                                <div class="col">
-                                   
-                                    <div>Postcode :  <t t-esc="plot.postcode"> </t> </div>
-                                    <div>Garden Area :  <t t-esc="plot.garden_area"> </t> </div>
-                                    
+
+                                <div class="text-center " style=":hover transform: scale(1.5);">
+                                    <img t-attf-src="data:image/*;base64,{{plot.image}}"
+                                        style="width:50%;"
+                                        class="card-img-top"
+                                    />
                                 </div>
 
-                                <div class="col">
-                                     <div>Bedrooms :
-                                    <t t-esc="plot.bedrooms"> </t>
-
-                                     </div>
-                                     <div class="mb-3">Living Area :
-                                <t t-esc="plot.living_area"> </t>
-
-                                     </div>
+                                <div class="col border shadow mt-5 mb-3">
+                                     <div class="p-2">Bedrooms : <t t-esc="plot.bedrooms"> </t></div>
+                                     <div class=" p-2">Living Area : <t t-esc="plot.living_area"> </t> </div>
+                                    <div class="p-2">Garden Area :  <t t-esc="plot.garden_area"> </t> </div>
+                                    <!-- <t t-esc="plot.offer_ids.price"> </t>  -->
                                 </div>
 
-                                </div>
+                        
                     </div>
+                    <hr/>
 
                     </div>
+                    <div class="text-center mt-5 h2">OFFERS</div>
+
+                    <table class="table ">
+                        <thead>
+                          <tr>
+                            
+                            <th scope="col">Price</th>
+                            <th scope="col">Buyer</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Date Deadline</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="offers" t-value="plot.mapped('offer_ids')"/>
+                            <tr t-foreach="offers" t-as="offer">
+                                <td>
+                                    <span t-field="offer.price"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.partner_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.validity"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.date_deadline"/>
+                                </td>
+                                <td>
+                                    <span t-field="offer.status"/>
+                                </td> 
+                            </tr>
+                        
+                        </tbody>
+                      </table>
                         
                         
             </div>
