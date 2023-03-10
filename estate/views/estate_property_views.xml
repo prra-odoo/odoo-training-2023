@@ -37,6 +37,9 @@
 		<field name="model">estate.property</field>
 		<field name="arch" type="xml">
 			<tree string="List_View" decoration-success="state=='offer_recieved' or state=='offer_accepted'" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
+				<header>
+                    <button name="%(launch_the_wizard)d" string="Add Offer" type="action" class="oe_highlight"/>
+                </header>
 				<field name="name"/>
 				<field name="property_seq"/>
 				<field name="property_type_id" string="Property Type"/>
@@ -185,7 +188,7 @@
                             </h4>
                             <div class="col-10">
                             <t t-if='record.buyer_id.value'>
-                            	<i class="fa fa-user me-2"/>
+                            	<i class="fa fa-user me-2" title="user"/>
                                 <field name="buyer_id" widget="many2one_avatar_partner"/>
                             </t>
                             </div>
