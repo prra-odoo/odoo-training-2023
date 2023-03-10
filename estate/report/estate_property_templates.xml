@@ -11,19 +11,19 @@
                         <div>
                             <strong>Salesman: </strong>
                             <t t-esc="property" />
-                            <!-- <span t-field="property.salesman_id" /> -->
+                            <span t-field="property.salesman_id" />
                         </div>
                         <div>
                             <strong>Expected Price: </strong>
-                            <!-- <span t-field="property.expected_price" /> -->
+                            <span t-field="property.expected_price" />
                         </div>
                         <div>
                             <strong>Status: </strong>
-                            <!-- <span t-field="property.state" /> -->
+                            <span t-field="property.state" />
                         </div>
 
                         <!-- Getting all the OFFERS -->
-                        <!-- <t t-call="estate.estate_property_offer" /> -->
+                        <t t-call="estate.estate_property_offer" />
 
 
                     </div>

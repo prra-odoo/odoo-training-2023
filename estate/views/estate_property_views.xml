@@ -20,6 +20,11 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
+            <header>
+                <button id="apply_offer" string="offers" name="%(apply_offer_wizard)d"
+                    type="action"
+                    class="btn-primary" />
+            </header>
             <tree string="Channel" decoration-success="state in ['OR','OA']"
                 decoration-bf="state in ['OA']" decoration-muted="state in ['S']">
                 <field name="name" string='Title' />

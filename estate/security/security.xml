@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_group_user" model="res.groups">
+        <field name="name">Agent</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage" />
+    </record>
+
+    <record id="estate_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage" />
+        <field name="implied_ids" eval="[(4, ref('estate_group_user'))]" />
+    </record>
+
+    <record id="agent_rule_id" model="ir.rule">
+        <field name="name">This is agent record rule.</field>
+        <field name="model_id" ref="model_estate_property" />
+
+        <!-- This below field has no effect, since we have already given the permission to read,
+        in the csv file. -->
+        <!-- <field name="perm_read" eval="True" /> -->
+        <field name="perm_write" eval="True" />
+        <!-- <field name="perm_create" eval="False" /> -->
+        <field name="groups" eval="[Command.link(ref('estate_group_user'))]" />
+        <field name="domain_force">[
+            '|', ('salesman_id', '=', user.id),
+            ('salesman_id', '=', False)]
+        </field>
+    </record>
+
+    <record id="manager_rule_id" model="ir.rule">
+        <field name="name">This is manager record rule.</field>
+        <field name="model_id" ref="model_estate_property" />
+        <field name="groups" eval="[Command.link(ref('estate_group_manager'))]" />
+    </record>
+</odoo>

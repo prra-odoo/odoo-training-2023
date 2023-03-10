@@ -4,7 +4,7 @@ from odoo import http
 
 class Estate(http.Controller):
 
-    @http.route('/estate', auth='public', website="true")
+    @http.route('/properties', auth='public', website="true")
     def index(self, **kw):
         estate_property_req_obj = http.request.env['estate.property']
         # estate.index --> moduleName.template id
@@ -23,7 +23,7 @@ class Estate(http.Controller):
     # def teacher(self, id):
     #     return '<h1>{} ({})</h1>'.format(id, type(id).__name__)
 
-    @http.route('/estate/<model("estate.property"):property>/', auth='public', website=True)
+    @http.route('/properties/<model("estate.property"):property>/', auth='public', website=True)
     def teacher(self, property):
         return http.request.render('estate.biography', {
             'property': property

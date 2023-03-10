@@ -5,12 +5,5 @@
         <t t-call="estate.estate_property" />
     </template>
 
-    <record id="report_res_users" model="ir.actions.report">
-        <field name="name">Salesman Properties</field>
-        <field name="model">res.users</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">estate.res_users</field>
-        <field name="report_file">estate.res_users</field>
-        <field name="binding_model_id" ref="base.model_res_users" />
-    </record>
+
 </odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- DEFINING the ACTION -->
+    <record id="apply_offer_wizard" model="ir.actions.act_window">
+        <field name="name">Apply to offer to multiple properties.</field>
+        <field name="res_model">estate.offer</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_estate_property" />
+    </record>
+
+
+    <!-- FORM VIEW -->
+    <record id="estate_offer_view_form" model="ir.ui.view">
+        <field name="name">estate.offer.form</field>
+        <field name="model">estate.offer</field>
+        <field name="arch" type="xml">
+            <form string="Form View String">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
