@@ -10,6 +10,9 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
+            <header>
+                <button name="%(offer_wizard_action)d" type="action" string="ADD OFFER" class="btn-primary"/>
+            </header>
             <tree string="Channel" expand="1" decoration-success="state in ['offer received','offer accepted']" decoration-bf="state == 'offer accepted'" decoration-muted="state == 'sold'">
                 <field name="name" string="Title"/>
                 <field name="property_type_id" string="Property Type"/>

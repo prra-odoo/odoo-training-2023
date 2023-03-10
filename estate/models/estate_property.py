@@ -120,3 +120,4 @@ class EstateProperty(models.Model):
                 record.color = 10
             elif(record.state == 'canceled'):
                 record.color = 1
+    
