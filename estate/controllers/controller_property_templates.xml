@@ -56,16 +56,33 @@
             <div class="oe_structure mb-5" style="margin:50px;">
                 <div class="container text-center mb-5">
                     <div class="card shadow-lg p-3 mb-5">
-                        <i t-field="prop.image" t-options='{"widget":"image"}' style="float:right;height:100%;width:100%"/>
+                        <!-- <i t-field="property.image" t-options='{"widget":"image"}'/> -->
+                        
                         <div class="card-body">
-                            <h5 class="card-title"><span t-field="prop.name"/></h5>
-                            <span class="text-muted" t-field="prop.property_type_id.name"/>
-                            <div class="text-muted">State : <span t-esc="prop.state"/></div>
-                            <div>Last Modified : <i t-field="prop.write_date" t-options='{"widget":"relative"}'/></div>
-                            <div>Expected Price : <span t-field="prop.expected_price"/></div>
-                            <div>Best Offer : <span t-field="prop.best_price"/></div>
-                            <div>Seller : <span t-field="prop.salesperson_id"/></div>
-                            <div>Tags : <span t-field="prop.tag_ids"/></div>
+                            <t t-if="property.image">
+                                <img t-att-src="image_data_uri(property.image)" alt="image" class="oe_avatar" 
+                                    style="width:25rem;
+                                        height:20em;
+                                        float:right;
+                                        margin:25px;
+                                        border:5px solid black;
+                                        border-radius:80px;"/>
+                            </t>
+                            
+                            <div style="font-size:x-large;margin:50px;float:left;">
+                                <h2 class="card-title"><span t-field="property.name"/></h2>
+                                <h3><span class="text-muted" t-field="property.property_type_id.name"/></h3>
+                                <div class="text-muted">State : <span t-esc="property.state"/></div>
+                                <div>Last Modified : <i t-field="property.write_date" t-options='{"widget":"relative"}'/></div>
+                                <div>Expected Price : <span t-field="property.expected_price"/></div>
+                                <div>Best Offer : <span t-field="property.best_price"/></div>
+                                <div>Seller : <span t-field="property.salesperson_id"/></div>
+                                <div>Tags : <span t-field="property.tag_ids"/></div>
+                            </div>
+                            
+                            <t t-if="property.offer_ids">
+                                <t t-call="estate.offer_template"/>
+                            </t>
                         </div>
                     </div>
                 </div>

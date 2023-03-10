@@ -32,5 +32,5 @@ class Properties(http.Controller):
     @http.route('/properties/<model("estate.property"):properties>/',auth='public',website=True)
     def property(self,properties):
         return http.request.render('estate.template_controller',{
-            'prop' : properties
+            'property' : properties
         })
