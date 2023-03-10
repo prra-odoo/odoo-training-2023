@@ -6,6 +6,10 @@ class Estate(http.Controller):
     def index(self,page=0, **kw):
         
         Property= http.request.env['estate.property']
+        domain = [('state','not in',('sold','canceled'))]
+        date= kw.get('date_picker')
+        if(date):
+            domain.append(('create_date','>=',date))
         total=Property.sudo().search_count([])
         pager = http.request.website.pager(
         url='/estate/estate/',
@@ -15,7 +19,7 @@ class Estate(http.Controller):
         )
 
         return http.request.render('real_estate.index', {
-            'property': Property.search([('state','not in',('sold','canceled'))],limit=3,offset=pager['offset'],order='id desc'),
+            'property': Property.search(domain,limit=3,offset=pager['offset'],order='id desc'),
             'pager': pager,
         })
 

@@ -12,6 +12,12 @@
         <t t-call="website.layout">
             <t t-set="title">Real Estate</t>
             <div class="oe_structure">
+                <form type="get" action="/estate/estate">
+                    <div class="d-flex justify-content-between">
+                        <input id="date_picker" type="date" name="date_picker" class="o_website_form_input o_website_form_date"/>
+                        <button name="Submit" type="submit" class="btn">Submit</button>
+                    </div>
+                </form>
                 <div class="card-group">
                         <t t-foreach="property" t-as="prop">
                             <div class="col-md-2 mt-2 mb-3 mx-5">
@@ -47,11 +53,43 @@
     <template id="website_view">
         <t t-call="website.layout">
             <div class="oe_structure">
-                <div style="margin-top:20px">
-                    <span t-field="properties.name"/><br/>
-                    Expected Price :<span t-field="properties.expected_price"/>
+                <div class="container mt-3">
+                    
+                    <div>
+                        <img class="float-end" t-attf-src="data:image/*;base64,{{properties.image}}" style="width:30%;height:25%"/>
+                    </div>
+                    
+                    <h1 class="text-secondary">
+                        <t t-esc="properties.name"/>
+                    </h1>
+                    <div>
+                    <p>   
+                        <strong>Expected Price :</strong>
+                        <span t-field="properties.expected_price"/>
+                    </p> 
+                    <p>
+                        <strong>Property Type: </strong>
+                        <t t-esc="properties.property_type_id.name"/>
+                    </p>
+                    <p>
+                        <strong>Postcode: </strong>
+                        <t t-esc="properties.postcode"/>
+                    </p>
+                    <p>
+                        <strong>Best Offer: </strong>
+                        <t t-esc="properties.best_price"/>
+                    </p>
+                    <p>
+                        <strong>Date Availibility: </strong>
+                        <t t-esc="properties.date_availability"/>
+                    </p>
+                    </div>
+                    <t t-set="tags" t-value="properties.mapped('property_tag_ids')"/>
+                    <t t-foreach="tags" t-as="tag">
+                    <span t-field="tag.name" class="badge rounded-pill bg-info text-dark"/>
+                     </t>
                 </div>
-                    <img alt="Avatar" t-attf-src="data:image/png;base64,#{properties.image}" height="200px" style="margin-left:40%;margin-top:50px" />   
+                 
             </div>
         </t>
     </template>

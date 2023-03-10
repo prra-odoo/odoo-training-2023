@@ -25,7 +25,11 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
+            
             <tree string="Prpperties" decoration-success="state in ('off_re','off_ac')"  decoration-bf="state =='off_acc'" decoration-muted="state =='sold'">
+                <header>
+                    <button type="action" name="%(estate_property_wizard_action)d" string="Add Offer" />
+                </header>
                 <field name="seq_name"/>
                 <field name="name" />
                 <field name="postcode" />

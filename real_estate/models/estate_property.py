@@ -98,6 +98,9 @@ class EstateProperty(models.Model):
                  raise UserError("Sold properties not be cancelled.")
             else:
                 record.state="canceled"
+
+    
+
            
 
     #expected price must be strictly positive,selling price must be positive
