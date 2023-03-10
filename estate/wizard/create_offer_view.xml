@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+
+    <record id="create_offer_model_wizard_view_form" model="ir.ui.view">
+        <field name="name">create.offer.wizard.form</field>
+        <field name="model">create.offer.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group class="oe_title">
+                    <field name="property_id"/>
+                    <field name="price"/>
+                    <field name="partner_id"/>
+                </group>     
+            </form>
+        <footer>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>
+            <button string="Submit" class="btn-secondary" special="save"/>
+        </footer>
+    </field>
+
+            
+    </record>
+
+    <record id="create_offer_wizard_action" model="ir.actions.act_window">
+        <field name="name">create offer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.offer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="create_offer_model_wizard_view_form"/>
+        <field name="binding_model_id" ref="model_estate_property" />      
+        <field name="target">new</field>
+    </record>
+
+    <!-- <record id="test_model_view_form" model="ir.ui.view">
+        <field name="name">estate.property.form.wizard</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+        <form>
+        <header >
+           <button name="create_wizard" string="Create Wizard" class="oe_highlight" type="object"/>
+        </header>
+        </form>       
+        </field> -->
+
+
+        
+
+</odoo>

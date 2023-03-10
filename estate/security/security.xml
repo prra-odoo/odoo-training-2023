@@ -13,4 +13,37 @@
         <field name="implied_ids" eval = "[(4, ref('estate_group_user'))]" />
     </record>
 
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4, ref('estate.estate_group_manager'))]"/>
+    </record>
+
+    <record id="agent_record_rule" model="ir.rule">
+        <field name="name">Only See His Properties</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="groups" eval="[Command.link(ref('estate.estate_group_user'))]"/>
+        <field name="domain_force">[
+        '|', ('salesperson_id', '=', user.id),
+             ('salesperson_id', '=', False)
+        ]
+    </field>
+    
+    
+    </record>
+
+        <record id="managere_record_rule" model="ir.rule">
+            <field name="name">Manager Can See Everything </field>
+            <field name="model_id" ref="model_estate_property"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[Command.link(ref('estate.estate_group_manager'))]"/>
+    </record> 
+
+
+
 </odoo>

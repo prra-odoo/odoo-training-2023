@@ -3,8 +3,9 @@
     "depends": ["mail", "website"],
     "category": "estate/Brokerage",
     "data": [
-        "security/ir.model.access.csv",
         "security/security.xml",
+        "security/ir.model.access.csv",
+        "wizard/create_offer_view.xml",
         "views/estate_property_offer_view.xml",
         "views/estate_property_view.xml",
         "views/estate_property_type_view.xml",

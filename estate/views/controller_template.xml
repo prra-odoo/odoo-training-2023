@@ -53,54 +53,53 @@
         <t t-call="website.layout">
             <t t-set="title">Real Estate</t>
             <div class="oe_structure">
-                <div class = "bg-black">
-                    <div class="container d-flex justify-content-between shadow-lg w-100 p-3">
 
-                        <div>
-                             <h1 class="text-danger"> <p t-field ="property.name"/> </h1>
-                        
-                            <h3 class = "text-primary"> Price  -> <t t-esc ="property.expected_price"/> </h3>
-                            <h3 class = "text-primary"> Living Area -> <t t-esc ="property.living_area"/> </h3>
-                            <h3 class = "text-primary"> Garden -> <t t-esc ="property.garden_area" class = "text-primary"/> </h3>
-                        </div>
-                    <div class="card , shadow-lg p-2 mb-5 bg-white rounded" style="width: 35rem;">
-                            <img t-att-src='image_data_uri(property.image)'/>
-                        </div>
-
+                <div class = "card d-flex justify-content-center w- p-8" >
+                    <h1 class = "text-center bg-primary-light"> <p t-field ="property.name"/> </h1>
+                    <div class = "bg-secondary-light">
+                        <div class="d-flex justify-content-around shadow-lg w-100 p-3">
+                            <div>
+                            <h1 class="text-dark"> Price : <t t-esc ="property.expected_price"/> </h1>
+                            <h1 class="text-dark"> Living Area : <t t-esc ="property.living_area"/> </h1>
+                            <t t-set = "tags" t-value = "property.mapped('tag_ids')" />
+                                <t t-foreach = "tags" t-as = "tag" >
+                                    <h1 class="text-dark"> Tags: <p t-esc ="tag.name" class="badge rounded-pill bg-info text-dark" /></h1>
+                                </t>
+                            </div>
+                            <div class="card , shadow-sm p-2 mb-10 bg-white rounded" style="width: 25rem;">
+                                <img t-att-src='image_data_uri(property.image)'/>
+                            </div>
                         </div>
                     </div>
 
                 <div>
-                    <table class="table">
+
+                    <table class="table" style="margin-top : 5rem">
                         <thead class="thead-dark">
                             <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">price</th>
-                            <th scope="col">validity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Partner</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">state</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
+
+                        <t t-set="offers" t-value="property.mapped('offer_ids')"/>
+                            <tr t-foreach="offers" t-as="offer">
+                                <th scope="row"><span t-field="offer.id"/></th>
+                                <td> <span t-field="offer.price"/> </td>
+                                <td> <span t-field="offer.partner_id"/> </td>
+                                <td> <span t-field="offer.validity"/> </td>
+                                <td> <span t-field="offer.date_deadline"/> </td>
+                                <td> <span t-field="offer.state"/> </td>
                             </tr>
                         </tbody>
                 </table>
+
+                </div>
                 </div>       
             </div>  
         </t>
