@@ -1,1 +1,1 @@
-from . import models,demo,controller
+from . import models,demo,controller,wizard

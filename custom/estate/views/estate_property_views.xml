@@ -12,6 +12,9 @@
         <field name="arch" type="xml">
             <tree string="Channel" decoration-success="state in ['offer accepted','offer received']"
                                    decoration-bf="state=='offer accepted'" decoration-muted="state=='sold'" >
+                <header>
+                <button type="action" string="Make offer" name="%(estate_wizard_action)d"/>
+                </header>
                 <field name="seq_pr"/>
                 <field name="name" string="Title"/>
                 <field name="property_type_id"/>

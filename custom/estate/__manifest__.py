@@ -16,7 +16,8 @@
             'views/estate_property_types_views.xml',
             'views/estate_property_views.xml',
             'views/estate_menus.xml',
-            'controller/templates.xml'
+            'controller/templates.xml',
+            'wizard/estate_create_offer_view.xml'
     ],
     'demo':[ 'demo/estate_demo_data.xml',],
     'images':['static/description/icon.png'],

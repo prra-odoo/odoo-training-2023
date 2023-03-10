@@ -4,11 +4,9 @@
     <template id="index">
         <title>Real Estate</title>
     <t t-call="website.layout">
-
-
         <t t-foreach="es_data" t-as="property">
             <t t-if="property.state!='sold'">
-        <div style="display:inline-block; margin:1%;">
+        <div style="display:inline-block; margin:1px;">
             <a t-attf-href="/estate/{{slug(property)}}" style="text-decoration:none">
                 <div class="card" style="width:500px;height:500px;border:1px solid #35979c; background-color:#35979c;">
                     <img class="card-img-top" t-attf-src="data:image/*;base64,{{property.p_image}}" style="width:100%;height:100%;"/>
@@ -34,10 +32,19 @@
     </template>
     <template id="page">
     <t t-call="website.layout">
-    <a t-attf-href="/estate" style="text-decoration:none">
-    <button type="button" class="btn btn-info">Back to Properties</button></a>
-    <div style=" margin:50px; border:1px solid black; padding:1%; height:90%;" >
-                    <img class="float-end card-img-top" t-attf-src="data:image/*;base64,{{data.p_image}}" style="width:30%;height:400px"/>
+    <!-- <a t-attf-href="/estate" style="text-decoration:none">
+    <button type="button" class="btn btn-info">Back to Properties</button></a> -->
+    <div style="border:0px solid black; padding:1%; height:90%; margin:auto; width:1200px " >
+        <nav aria-label="breadcrumb" style="background-color:#d3eceb">
+            <ol class="breadcrumb">
+                 <li class="breadcrumb-item"><a href="/estate">Properties</a></li>
+                 <li class="breadcrumb-item active" aria-current="page"><span t-field="data.name"/></li>
+            </ol>
+        </nav>
+              <!-- <img class="float-end card-img-top" t-attf-src="data:image/*;base64,{{data.p_image}}" style="width:30%;height:400px"/> -->
+                    <div style="height:20rem; width:25rem" class="float-end">
+                    <img class="card-img-top" t-attf-src="data:image/*;base64,{{data.p_image}}" style="height:100%; width:100%"/>
+                    </div>
                         <h1 class="card-title"><span t-field="data.name"/></h1>
                         <t t-foreach="data.tag_ids" t-as="t">
                                 <p t-esc="t.name" class="badge rounded-pill bg-info text-dark"/>
@@ -55,42 +62,41 @@
                         <p class="card-text">Total Area: <t t-esc="data.total_area"/></p>
                                              
                         <t t-if="data.offer_ids">
-                        <table class="table table-dark">
+                        <h4 style="background-color:#d3eceb">Offers</h4>
+                        <table class="table">
                        <thead>
-                                <tr>
-                                    <th>Price</th>
+                                <tr class="bg-info">
                                     <th>Partner</th>
-                                    <th>Validity(days)</th>
+                                    <th>Price</th>
+                                    <!-- <th>Validity(days)</th> -->
                                     <th>Deadline</th>
-                                    <th>State</th>
+                                    <!-- <th>State</th> -->
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-set="offers" t-value="data.mapped('offer_ids')"/>
-                                <tr t-foreach="offers" t-as="offer">
-                                    <td>
-                                        <span t-field="offer.price"/>
-                                    </td>
+                                <tr class="table-primary" t-foreach="offers" t-as="offer">
                                     <td>
                                         <span t-field="offer.partner_id"/>
                                     </td>
                                     <td>
-                                        <span t-field="offer.validity"/>
+                                        ₹<span t-field="offer.price"/>
                                     </td>
+                                    <!-- <td>
+                                        <span t-field="offer.validity"/>
+                                    </td> -->
                                     <td>
                                         <span t-field="offer.date_deadline"/>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <span t-field="offer.status"/>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </tbody>
                         </table>
                         </t>
     </div>
-
     </t>
-
     </template>
 </odoo>
