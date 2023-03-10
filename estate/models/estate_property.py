@@ -137,6 +137,14 @@ class EstateProperty(models.Model):
          else:
             self.state="cancelled"
        
+    def make_offer(self):
+        return {
+            'name': ('Real Estate Wizard'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'estate.wizard',
+            'view_mode': 'form',
+            'target': 'new'
+      }
 
 
     @api.ondelete(at_uninstall=False)

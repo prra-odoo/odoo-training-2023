@@ -22,6 +22,9 @@
    <field name="model">estate.property</field>
    <field name="arch" type="xml">
         <tree string="Properties" expand="1" decoration-success="state in ('offer_received','offer_accepted')" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'">
+          <header>
+           <button name="make_offer" class="oe_highlight" type="object" string="ADD OFFER"/>
+          </header>
            <field name="sequence" widget="handle"/>
            <field name="name" />
            <field name="property_type_id"/>
