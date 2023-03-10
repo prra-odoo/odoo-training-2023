@@ -126,8 +126,12 @@ class EstateProperty(models.Model):
     def create(self,vals):
         vals['seq_name']=self.env['ir.sequence'].next_by_code('estate.property')
         return super(EstateProperty,self).create(vals)
-            
-    
+     
+    def offer(self):
+        return {'type': 'ir.actions.act_window',
+                'res_model' : 'properies.offer.wizard',
+                'view_mode' : 'form',
+                'target' : 'new'}
  
 
 class ResUsers(models.Model):

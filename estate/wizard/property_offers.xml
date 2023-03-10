@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="multipal_offer_wizard_action" model="ir.actions.act_window">
+        <field name="name">Multipal Offer</field>
+        <field name="res_model">properies.offer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="properties_offer_wizard_form" model="ir.ui.view">
+        <field name="name">Property Offer Wizard</field>
+        <field name="model">properies.offer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Properties Offer">
+                
+                <sheet>
+                   
+                    <group>
+                        <group>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="make_offer" string="Make an Offer" class="btn-primary" type="object"/>
+                    <button name="cancel" string="Cancel" class="btn-secondary" special="cancel"/>
+
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

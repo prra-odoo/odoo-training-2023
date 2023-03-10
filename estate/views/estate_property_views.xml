@@ -98,6 +98,9 @@
                   decoration-success="state == 'offer_received' or state == 'offer_accepted'" 
                   decoration-bf="state == 'offer_accepted'" 
                   decoration-muted="state =='sold'">
+                 <header>
+                    <button type="object" name="offer" string="Add Offers" />
+                </header>
                 <field name="state" invisible='1'/>
                 <field name="seq_name"/>
                 <field name="name"/>

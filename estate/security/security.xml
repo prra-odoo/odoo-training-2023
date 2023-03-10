@@ -1,4 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="estate_group_user" model="res.groups">
+        <field name="name">Agent</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage"/>    
+        <field name="comment">Real estate agents can manage the properties under their care, or properties which are not specifically under the care of any agent.</field>
+    </record>  
 
+    <record id="estate_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="base.module_category_real_estate_brokerage"/>    
+        <field name="comment">Real estate managers can configure the system (manage available types and tags) as well as oversee every property in the pipeline.</field>
+        <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/>
+    </record>   
+
+    <record id="estate_rule_manager" model="ir.rule">
+    <field name="name">A description of the rule's role</field>
+    <field name="model_id" ref="model_estate_property"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="True"/>
+    <field name="perm_unlink" eval="True"/>
+    <field name="groups" eval="[Command.link(ref('estate.estate_group_manager'))]"/>
+    <field name="domain_force">[(1, '=', 1)]</field>
+</record>
+
+<record id="estate_rule_user" model="ir.rule">
+    <field name="name">A description of the rule's role</field>
+    <field name="model_id" ref="model_estate_property"/>
+    <field name="perm_read" eval="True"/>
+    <field name="perm_write" eval="True"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+    <field name="groups" eval="[Command.link(ref('estate.estate_group_user'))]"/>
+    <field name="domain_force">[
+        '|', ('seller_id', '=', user.id),
+             ('seller_id', '=', False)
+    ]</field>
+</record>
 </odoo>
+
+
+
+<!-- eval index
+0: action to unlink one or more existing records from the current record
+1: action to create a new record and link it to the current record
+2: action to update one or more existing records linked to the current record
+3: action to unlink all existing records from the current record and replace them with a new set of records
+4: action to add one or more existing records to the current record
+5: action to remove one or more existing records from the current record without deleting them -->

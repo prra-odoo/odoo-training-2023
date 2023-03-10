@@ -3,7 +3,7 @@
     'version': '1.0',
     'depends': ['base','mail','website'],
     'author': "Author Name",
-    'category': 'Category',
+    'category': 'Real Estate/Brokerage',
     'license': 'LGPL-3',
     
     'description': """
@@ -11,7 +11,9 @@
     """,
         
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
+        'wizard/property_offers.xml',
         'report/estate_property_website_templates.xml',
         'report/estate_property_templates.xml',
         'report/estate_property_reports.xml',
