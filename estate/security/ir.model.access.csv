@@ -4,15 +4,4 @@ estate.access_estate_property_type,access_estate_property_type,estate.model_esta
 estate.access_estate_property_tag,access_estate_property_tag,estate.model_estate_property_tag,base.group_user,1,1,1,1
 estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,base.group_user,1,1,1,1
 estate.access_estate_x,access_estate_x,estate.model_estate_x,base.group_user,1,1,1,1
-
-estate.access_estate_property,access_estate_property,estate.model_estate_property,estate.estate_group_manager,1,1,1,0
-estate.access_estate_property_type,access_estate_property_type,estate.model_estate_property_type,estate.estate_group_manager,1,1,1,1
-estate.access_estate_property_tag,access_estate_property_tag,estate.model_estate_property_tag,estate.estate_group_manager,1,1,1,1
-estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,estate.estate_group_manager,1,1,1,1
-estate.access_estate_x,access_estate_x,estate.model_estate_x,estate.estate_group_manager,1,1,1,1
-
-estate.access_estate_property,access_estate_property,estate.model_estate_property,estate.estate_group_user,1,1,1,0
-estate.access_estate_property_type,access_estate_property_type,estate.model_estate_property_type,estate.estate_group_user,1,0,0,0
-estate.access_estate_property_tag,access_estate_property_tag,estate.model_estate_property_tag,estate.estate_group_user,1,0,0,0
-estate.access_estate_property_offer,access_estate_property_offer,estate.model_estate_property_offer,estate.estate_group_user,1,1,1,1
-estate.access_estate_x,access_estate_x,estate.model_estate_x,estate.estate_group_user,1,1,1,1
+estate.access_offer_wizard,access_offer_wizard,estate.model_offer_wizard,base.group_user,1,1,1,1

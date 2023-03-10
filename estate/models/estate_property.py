@@ -106,6 +106,10 @@ class EstateProperty(models.Model):
                 record.state = "canceled"
         return True   
     
+    # def test(self):
+    #     for record in self:
+    #         print(record)
+    #     return True
     # Sql Constraints
 
 

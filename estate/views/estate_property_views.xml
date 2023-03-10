@@ -18,6 +18,9 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
+            <header>
+                <button string="Add Offer" type="action" name="%(estate.offer_wizard_action)d" class="oe_highlight"/>
+            </header>
             <tree string="Property" decoration-success="state=='offer_received' or state=='offer_accepted'" decoration-bf="state=='offer_accepted'" decoration-muted="state=='sold'" >
                 <field name="name" />
                 <field name="property_type_id" />
