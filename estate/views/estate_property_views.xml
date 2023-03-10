@@ -78,8 +78,9 @@
     <record id="estate_properties_views_list" model="ir.ui.view">
         <field name="name">Properties</field>
         <field name="model">estate.property</field>
-        <field name="arch" type="xml">
+        <field name="arch" type="xml"> 
             <tree string="Tree View" decoration-bf="state=='offer accepted'" decoration-success="state=='offer received' or state=='offer   accepted'" decoration-muted="state=='sold'">
+                <header> <button type="action" name="%(estate_property_wizard)d" string="Add Offer"/></header>
                 <field name="name"/>
                 <field name="description"/>
                 <field name="selling_price"/>

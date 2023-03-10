@@ -5,7 +5,7 @@ class Controllers(http.Controller):
 
     @http.route(['/properties/','/properties/page/<int:page>'], auth='public', website=True)
     def index(self,page=0,search='', **kw):
-        domain=[]
+        domain=[('state', 'in', ['new','offer received'])]
         if search:
             domain.append(('name','ilike',search))
         Properties = http.request.env['estate.property'].search(domain)
@@ -28,4 +28,3 @@ class Controllers(http.Controller):
         return http.request.render('estate.template_controller',{
             'prop' : properties
         })
-    

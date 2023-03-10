@@ -16,10 +16,21 @@
                 <body>
                     <t t-call="website.layout">
                         <form action="/properties/">
-                            <t t-call="website.website_search_box">
-                                <t t-set="action" t-value= "'/properties/'"/>
-                            </t>
-                        </form>
+                            <div class="oe_unremovable w-100" style="width:800px; margin:20px;">
+                                <div style="width:300px;float:right;margin-right:85px;padding:10px;">
+                                <t t-call="website.website_search_box">
+                                    <t t-set="action" t-value= "'/properties'"/>
+                                </t>
+                            </div>
+                            <div class="s_website_form_datetime input-group date col-md-8 ps-0"
+                                data-target-input="nearest"
+                                id="DatePickerID" style="width:300px;"><span style="margin:20px;">Enter Date :</span>   
+                                <input type="date" name="datepicker"
+                                    class="form-control"/>
+                            </div>
+                </div>
+            </form><br/><br/>
+
                         <t t-set="title">Properties</t>
                         <div class="oe_structure">
                             <div class="container">
@@ -53,7 +64,7 @@
             </html>
         </template>
         
-       <template id="template_controller">
+    <template id="template_controller">
     <html>
         <head>
             <title t-esc="status_message">Properties</title>
@@ -86,40 +97,41 @@
                                 <div>Selling Price: <span t-field="prop.selling_price"/></div>
                                 <div>Salesman: <span t-field="prop.seller_id"/></div>
                             </div>
-                        </div>
+                        
                         <div style="width:50vw;" class="card shadow-lg p-4 mb-5 mt-4">
                             <h5 class="card-title">Offers</h5>
-                            <table class="table">
+                    <table class="table">
                             <thead>
                                 <tr>
                                     <th>Price</th>
                                     <th>Partner</th>
                                     <th>Validity(days)</th>
                                     <th>Deadline</th>
-                                    <th>State</th>
+                                    
                                 </tr>
                             </thead>
-                    <tbody>
-                        <t t-set="offers" t-value="prop.mapped('offer_ids')"/>
-                        <tr t-foreach="offers" t-as="offer">
-                            <td>
-                                <span t-field="offer.price"/>
-                            </td>
-                            <td>
-                                <span t-field="offer.partner_id"/>
-                            </td>
-                            <td>
-                                <span t-field="offer.validity"/>
-                            </td>
-                            <td>
-                                <span t-field="offer.date_deadline"/>
-                            </td>
-                            <td>
-                                <span t-field="offer.status"/>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tbody>
+                                <t t-set="offers" t-value="prop.mapped('offer_ids')"/>
+                                <tr t-foreach="offers" t-as="offer">
+                                    <td>
+                                        <span t-field="offer.price"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.partner_id"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.validity"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.date_deadline"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="offer.status"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                    </table>
+                        </div>
                         </div>
                     </div>
                 </div>

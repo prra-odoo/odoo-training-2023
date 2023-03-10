@@ -1,2 +1,2 @@
 #--coding: utf-8 -
-from . import models,controller
+from . import models,controller,wizard
