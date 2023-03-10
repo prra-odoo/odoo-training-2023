@@ -140,7 +140,7 @@
                                         <span t-field="prop.description"/><br/>
                                         <t t-set="tag" t-value="prop.mapped('property_tag_ids')"/>
                                         <t t-foreach="tag" t-as="t">
-                                            <span t-field="t.name"  class="badge rounded-pill bg-info text-dark mt-3"/>
+                                            <span t-field="t.name"  class="badge rounded-pill bg-info text-dark mt-2"/>
                                         </t>
                                         <!-- <span t-esc="prop.date_availability" /> -->
                                         <div class="prop-info mt-3">  
@@ -159,30 +159,48 @@
                                                 <div>Garden Area: <span t-field="prop.garden_area"/> sqm</div>
                                                 <div>Garden Orientation: <span t-field="prop.garden_orientation"/></div>
                                             </div>
-                                        </div>  
-                                        <t t-set="offer" t-value="prop.mapped('offer_ids')"/>
-                                            <t t-foreach="offer" t-as="t">
-                                                <span t-field="t.partner_id"/>
-                                                <span t-field="t.price"/>
-                                                <span t-field="t.status"/><br/>
-                                            </t>
+                                        </div>
+                                            <div style="width:47vw;" class="card shadow-lg p-4 mb-4 mt-4">
+                                                <h5 class="card-title">Offers</h5>
+                                                <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Price</th>
+                                                        <th>Partner</th>
+                                                        <th>Validity(days)</th>
+                                                        <th>Deadline</th>
+                                                        <th>State</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-set="offers" t-value="prop.mapped('offer_ids')"/>
+                                                    <tr t-foreach="offers" t-as="offer">
+                                                        <td>
+                                                            <span t-field="offer.price"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="offer.partner_id"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="offer.validity"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="offer.date_deadline"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="offer.status"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <div>Last Modified: <i t-field="prop.write_date" t-options='{"widget":"relative"}'/></div>
-                                        <input id="toggle-event" type="checkbox" data-toggle="toggle"/>
-                                            <div id="console-event"></div>
-                                            <script>
-                                              $(function() {
-                                                $('#toggle-event').change(function() {
-                                                  $('#console-event').html('Toggle: ' + $(this).prop('checked'))
-                                                })
-                                              })
-                                            </script>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="oe_structure"/>
                     </t>
                 </body>
             </html>

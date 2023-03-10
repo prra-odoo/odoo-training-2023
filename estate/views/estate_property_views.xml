@@ -30,7 +30,8 @@
         <field name="arch" type="xml">
             <tree string="Tree View" decoration-bf="state=='offer accepted'" decoration-danger="state=='cancelled'" decoration-info="state=='new'"
             decoration-success="state=='offer recieved' or state=='offer accepted'" decoration-muted="state=='sold'" >
-                <field name="name"/>
+            <header> <button type="action" name="%(estate_property_wizard)d" string="Add Offer"/></header>    
+            <field name="name"/>
                 <field name="seq_name"/>
                 <field name="property_type_id"/>
                 <field name="postcode"/>
