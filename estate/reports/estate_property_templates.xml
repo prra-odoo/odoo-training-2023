@@ -72,9 +72,16 @@
     </template>
 
     <template id="offer_template">
-        <table class="table">
-            <thead>
-                <tr>
+        <table class="table table-secondary table-bordered border-info">
+            <caption style="caption-side:top;
+                text-align:center;
+                font-size:xx-large;
+                font-weight:550;color:black;
+                margin-top:40px;">
+                Offers
+            </caption>
+            <thead class="table-dark">
+                <tr style="color:white;">
                     <th>Price</th>
                     <th>Partner</th>
                     <th>Validity(days)</th>

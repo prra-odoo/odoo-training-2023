@@ -9,6 +9,7 @@
             <menuitem id="estate_property_menu_action_tags" action="estate_property_tags_action"/>        
         </menuitem>
     </menuitem>
+    
     <record id="menu_properties" model="website.menu">
             <field name="name">Properties</field>
             <field name="url">/properties</field>

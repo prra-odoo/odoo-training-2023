@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_view_form" model="ir.ui.view">
+        <field name="name">wizard.view.form</field>
+        <field name="model">wizard.add.offer</field>
+        <field name="arch" type="xml">
+            <form string="Channel">
+                <field name="price"/>
+                <field name="partner_id"/>
+                <field name="status"/>
+                <button string="Make An Offer" class="btn btn-primary" type="object" name="make_an_offer"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" type="object" name="make_an_offer"/>
+            </form>
+        </field>
+    </record>
+</odoo>

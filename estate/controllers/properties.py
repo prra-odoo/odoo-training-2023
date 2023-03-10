@@ -11,7 +11,7 @@ class Properties(http.Controller):
 
     @http.route(['/properties','/properties/page/<int:page>'], auth='public', website=True)
     def index(self,page=0,search='', **kw):
-        domain=[]
+        domain=[('state','in',['new','offer received','offer accepted']),('active','=',True)]
         if search:
             domain.append(('name','ilike',search))
         Properties = http.request.env['estate.property'].search(domain)
@@ -20,10 +20,10 @@ class Properties(http.Controller):
             url = '/properties',
             total = total_properties,
             page = page,
-            step = 4,
+            step = 3,
             url_args = None,
         )
-        package = http.request.env['estate.property'].search(domain,limit=4,offset=pager['offset'],order='id desc')
+        package = http.request.env['estate.property'].search(domain,limit=3,offset=pager['offset'],order='id desc')
         return http.request.render('estate.properties_template',{
             'properties' : package,
             'pager' : pager,

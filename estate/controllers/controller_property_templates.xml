@@ -5,7 +5,6 @@
             <form action="/estate/estate/">
                 <!-- <t t-call="website_event.event_time"/> -->
                 <!-- <t t-call="website_blog.date_selector"/> -->
-                
                 <div class="oe_unremovable w-100" style="width:800px; margin:20px;">
                     <div style="width:300px;float:right;margin-right:85px;padding:10px;">
                         <t t-call="website.website_search_box">
@@ -24,10 +23,10 @@
             <t t-set="title">Properties</t>
             <div class="oe_structure">
                 <div class="container text-center mb-5">
-                    <div class="row row-cols-4">
+                    <div class="row">
                         <t t-foreach="properties" t-as="property">
                             <div class="col">
-                                <div class="card shadow-lg p-3 mb-5" style="width:18rem; height :30em;">
+                                <div class="card shadow-lg p-3 mb-5" style="width:360px;height:550px;">
                                     <t t-if="property.image">
                                         <img t-att-src="image_data_uri(property.image)" alt="image" class="oe_avatar h-100"/>
                                     </t>
@@ -35,7 +34,7 @@
                                         <h5 class="card-title"><span t-field="property.name"/></h5>
                                         <span class="text-muted" t-field="property.property_type_id.name"/>
                                         <div>State : <span t-esc="property.state"/></div>
-                                        <div>Expected Price : <span t-esc="property.expected_price"/></div>
+                                        <div>Expected Price : <span t-esc="property.expected_price"/></div><br/>
                                         <center><a t-attf-href="/properties/{{ slug(property) }}" class="btn btn-primary" width="100%">Details</a></center>
                                     </div>
                                 </div>
@@ -57,19 +56,25 @@
                 <div class="container text-center mb-5">
                     <div class="card shadow-lg p-3 mb-5">
                         <!-- <i t-field="property.image" t-options='{"widget":"image"}'/> -->
-                        
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="http://localhost:8069/properties">Properties</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Property Details</li>
+                            </ol>
+                        </nav>
+
                         <div class="card-body">
                             <t t-if="property.image">
                                 <img t-att-src="image_data_uri(property.image)" alt="image" class="oe_avatar" 
                                     style="width:25rem;
                                         height:20em;
                                         float:right;
-                                        margin:25px;
+                                        margin:15px;
                                         border:5px solid black;
                                         border-radius:80px;"/>
                             </t>
                             
-                            <div style="font-size:x-large;margin:50px;float:left;">
+                            <div style="font-size:x-large;margin:30px;float:left;">
                                 <h2 class="card-title"><span t-field="property.name"/></h2>
                                 <h3><span class="text-muted" t-field="property.property_type_id.name"/></h3>
                                 <div class="text-muted">State : <span t-esc="property.state"/></div>
@@ -80,9 +85,10 @@
                                 <div>Tags : <span t-field="property.tag_ids"/></div>
                             </div>
                             
+                            <div style="margin:30px;">
                             <t t-if="property.offer_ids">
                                 <t t-call="estate.offer_template"/>
-                            </t>
+                            </t></div>
                         </div>
                     </div>
                 </div>
@@ -90,38 +96,3 @@
         </t>
     </template>
 </odoo>
-
-    <!-- <template id="properties_template">
-        <t t-call="website.layout">
-            <t t-set="title">Properties | My Website</t>
-            <div class="oe_structure">
-                <div class="container">
-                        <t t-foreach="properties" t-as="property">
-                        <p><t t-esc="property.name + ' '"/><t t-esc="property.state"/></p>
-                    </t> 
-
-                    <div class="container text-center">
-                        <div class="row row-cols-3">
-                            <t t-foreach="properties" t-as="property">
-                                <div class="col">
-                                    <div class="card shadow-lg p-3 mb-5" style="width: 18rem;height :20em;">
-                                        <t t-if="property.image">
-                                            <img t-att-src="image_data_uri(property.image)" alt="image" class="oe_avatar"/>
-                                        </t>
-                                        <div class="card-body">
-                                            <h5 class="card-title"><t t-esc="property.name"/></h5>
-                                            <h6 class="card-subtitle mb-2 text-muted"><t t-esc="property.property_type_id.name"/></h6>
-                                            <p class="card-text">
-                                                    <t t-esc="'State : ' + property.state"/>
-                                                    <t t-esc="property.expected_price"/> 
-                                            </p>                        
-                                        </div>
-                                    </div>
-                                </div>
-                            </t>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </t>        
-    </template> -->

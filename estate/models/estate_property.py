@@ -129,4 +129,16 @@ class EstateProperty(models.Model):
             if(record.state not in ['new','cancelled']):
                 raise exceptions.UserError("Only new and cancelled properties can be deleted.")
 
-            
+    def offers_wizard(self):
+        # for single record
+        # self.ensure_one()
+
+        return {
+            'name': "Add Offer(s)",
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'wizard.add.offer',
+            'target': 'new',
+        }
+           
+    

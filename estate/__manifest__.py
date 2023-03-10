@@ -4,8 +4,8 @@
     'application': True,
     'license' : 'LGPL-3',
     'data' : [
-        'security/security.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/res_users_views.xml',
         'views/estate_property_offer_views.xml',
         'views/estate_property_views.xml',
@@ -14,7 +14,8 @@
         'reports/estate_property_reports.xml',
         'reports/estate_property_templates.xml',
         'controllers/controller_property_templates.xml',
-        'views/estate_menus.xml',],
+        'views/estate_menus.xml',
+        'wizards/wizard_views.xml'],
     'demo' : [
         'demo/estate_property_demo_data.xml'
     ],
