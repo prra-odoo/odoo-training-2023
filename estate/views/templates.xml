@@ -12,13 +12,11 @@
             
                 <nav t-attf-class="navbar navbar-light navbar-expand-lg right float-end" style="width:100%;">
                     <form>
-                        
                         <label>Property name</label><input type="text" name="search_name"/>
                         <label>Date</label><input type="date" name="search_date"/>
-                            <button class="btn oe_search_button btn-primary" type="submit"  title="search">
-                                <i class="fa fa-search"/>
-                            </button>
-                        
+                        <button class="btn oe_search_button btn-primary" type="submit"  title="search">
+                            <i class="fa fa-search"/>
+                        </button>
                     </form>
                 </nav>
             <div class="oe_structure">
@@ -26,7 +24,7 @@
                     <div class="row col-sm ">
                         <t t-foreach="properties" t-as="property">
                             <div class="col-sm-4">
-                                <a t-attf-href="/estate/property/{{ slug(property) }}">
+                                <a t-attf-href="/estate/properties/{{ slug(property) }}">
                                     <div class="card" style="margin-top:25px;border-radius:12px" >
                                         <div>
                                             <img alt="Avatar" t-attf-src="data:image/png;base64,#{property.property_img}" height="300px" />
@@ -59,7 +57,30 @@
         </t>
     </template>
 
-    <template id="estate_property_details_web_view">
+    <template id="property_details">
+        <t t-call="website.layout">
+            <t t-set="title"> Property Details</t>
+            <div class="oe_structure">
+
+                <div class="oe_container">
+
+                    <h2 t-field ="docs.name" class="text-center"/><br/>
+                    <span>Expected Price:</span>
+                    <t t-esc="docs.expected_price"/><br/>
+                    <span> Property Type:</span>
+                    <t t-esc="docs.property_type_id.name"/><br/>
+                    <span> Salesman</span>
+                    <t t-esc="docs.seller_id.name"/><br/>
+                    <span> Total Area:</span>
+                     <t t-esc="docs.total_area"/><br/>
+                    <span> Best Price</span>
+                     <t t-esc="docs.best_price"/><br/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="real_estate_property_details_web_view">
         <t t-call="website.layout">
             <t t-set="title">Estate Property</t>
             <div class="oe_structure">
@@ -70,7 +91,6 @@
                             <p class="oe-muted"><t t-esc="property.description"/></p>
                         </div>
                         <div class="col-6">
-                            <!-- <img t-att-src="image_data_uri(property.property_img)" alt="Property Image"/> -->
                             <img alt="Avatar" t-attf-src="data:image/png;base64,#{property.property_img}" height="300px" />
                         </div>
                     </div>

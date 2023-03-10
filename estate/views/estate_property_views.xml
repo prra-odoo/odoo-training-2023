@@ -29,11 +29,17 @@
                 decoration-success = use to row red
                 decoration-bf = use to row bold
              -->
+             
             <tree string="Channel" decoration-muted="state == 'sold'" 
                                    decoration-success="state in ('accepted','received')" 
                                    decoration-bf="state == 'accepted'"
                                    decoration-info="state== 'new'"
                                    decoration-danger = "state=='canceled'">
+                                 
+                                   <header>
+                                    <button type="object" name="offer" string="Add Offers" />
+                                </header>
+                                 
                 <field name="property_seq"/>
                 <field name="name"/>
                 <field name="postcode"/>

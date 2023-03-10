@@ -6,7 +6,7 @@
     'version': '1.0',
     'depends': ['base','mail','website'],
     'author': "ZEPA",
-    'category': 'Category',
+    'category': 'Real Estate/Brokerage',
     'summary': """
     Real Estate module Training
     """,
@@ -14,8 +14,11 @@
     'license': 'LGPL-3',
 
     'data' : [
+        'security/security.xml',
         'security/ir.model.access.csv',
+        'wizard/property_offers_view.xml',
         'views/templates.xml',
+        'views/estate_property_website_templates.xml',
         'report/estate_property_template.xml',
         'report/property_res_user_template.xml',
         'report/estate_property_report.xml',

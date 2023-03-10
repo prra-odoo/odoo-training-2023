@@ -144,3 +144,9 @@ class EstateProperty(models.Model):
         for record in self:
             record.state = "canceled"
         return True
+    
+    def offer(self):
+        return {'type': 'ir.actions.act_window',
+                'res_model' : 'properies.offer.wizard',
+                'view_mode' : 'form',
+                'target' : 'new'}
