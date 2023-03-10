@@ -50,6 +50,7 @@ class EstateProperty(models.Model):
     best_offer = fields.Float(compute="_compute_best_offer")
     color = fields.Integer(compute="_compute_color",default=4)
     is_favorite = fields.Boolean(default=False,string="Favorite")
+    image = fields.Image()
 
     @api.depends("state")
     def _compute_color(self):

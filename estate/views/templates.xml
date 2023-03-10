@@ -1,21 +1,101 @@
 <odoo>
-    <template id="index">
-        <t t-call="website.layout">
-            <t t-set="title">Estate</t>
-            <div class="oe_structure">
-                <div class="container">
-                    <t t-foreach="properties" t-as="property">
-                        <div class="card" style="width: 18rem;">
-                            <!-- <t t-att-src="image_data_uri(property.image)"/> -->
-                            <div class="card-body">
-                                <h5 class="card-title"><t t-esc="property.name"/></h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+    <template id="properties">
+		<t t-call="website.layout">
+			<t t-set="title">Properties</t>
+			<div class="oe_structure">
+				<div class="card-group">
+					<t t-foreach="properties" t-as="prop">
+						<div class="col-2 mt-2 mb-3 mx-3">
+							<div class="card shadow p-3 mb-5 bg-white rounded">	
+                                <t t-if="prop.image">
+								<img class="card-img-top bg-image hover-zoom" t-attf-src="data:image/*;base64,{{prop.image}}" style="width:100%;height:100%"/>
+                                </t>
+								<div class="card-body">
+									<h4><t t-esc="prop.name"/></h4>
+									<hr/>
+									<strong>Expected Price : </strong><t t-esc="prop.expected_price"/><br></br>
+									<hr/>
+                                    <t t-if="prop.best_offer">
+                                    <strong>Best Offer : </strong><t t-esc="prop.best_offer"/><br></br>
+									<hr/>
+                                    </t>
+									<a t-attf-href="/estate/{{ slug(prop) }}" class="text-decoration-none card-group">
+										<button type="button" class="btn btn-info">Info
+										</button>
+									</a>
+								</div>
+							</div>
+						</div>
+					</t>
+				</div>
+				<div t-if="pager" class="o_portal_pager d-flex justify-content-center mb-3">
+					<t t-call="website.pager"/>
+				</div>
+			</div>
+		</t>	
+	</template>
+	<template id="property_details_view">
+		<t t-call="website.layout">
+			<div class="container" style="margin-top:50px">
+				<div class="d-flex justify-content-around">
+					<a href="/estate"> All Properties</a>
+					<hr/>
+					<div>
+						<h1 class="text-success">
+							<t t-esc="property.name"/>
+						</h1>
+						<h4 class="text-decoration-underline text-info">Property Info:</h4>
+						<t t-set="tag" t-value="property.mapped('tag_ids')"/>
+						<t t-foreach="tag" t-as="t">
+							<span t-field="t.name" options="{'color_field': 'property.tags_color'}"/>
+						</t>
+                        <div class="d-flex flex-row">
+                            <div class="mt-3 d-flex flex-column">
+                                <p>
+                                    <strong>Property Type: </strong>
+                                    <t t-esc="property.property_type_id.name"/>
+                                </p>
+                                <p>
+                                    <strong>Postcode: </strong>
+                                    <t t-esc="property.postcode"/>
+                                </p>
+                                <p>
+                                    <strong>Available From: </strong>
+                                    <t t-esc="property.date_availability"/>
+                                </p>
+                                <p>
+                                    <strong>Expected Price: </strong>
+                                    <t t-esc="property.expected_price"/>
+                                </p>
+                                <p ><strong>Best Offer: </strong><t t-esc="property.best_offer"/></p>
+                            </div>
+                            <div class="mt-3 d-flex flex-column">
+                                    <p><strong>Bedrooms: </strong><t t-esc="property.bedrooms"/></p>
+                                    <p><strong>Living Area(sqm): </strong><t t-esc="property.living_area"/></p>
+                                    <t t-if="property.garden=='True'">
+                                        <p><strong>Garden Area:</strong><t t-esc="property.garden"/></p>
+                                    </t>
                             </div>
                         </div>
-                    </t>
-                </div>
-            </div>
-        </t>
-    </template>
+                    </div>
+					<div>
+						<div class="bg-image hover-zoom ms-25">
+                            <t t-if="property.image">
+							<img t-attf-src="data:image/*;base64,{{property.image}}" style="width:50%;height:50%" alt="Property Image not Found"/>
+                            </t>
+						</div>
+					</div>
+				</div>
+				<div class="mt-5">
+					<h4 class="text-decoration-underline text-info">Offer Details:</h4>
+					<t t-if='property.offer_ids'>
+                        <t t-call="estate.offers_template"/>
+					</t>
+					<t t-else="">
+						<span><strong>There are no offers yet.</strong></span>
+					</t>
+				</div>
+			</div>
+		</t>
+	</template>
 </odoo>

@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from . import models,data,controllers
+from . import models,data,controllers,wizard

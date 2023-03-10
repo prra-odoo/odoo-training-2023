@@ -10,6 +10,10 @@
         <field name="implied_ids" eval="[(4,ref('estate_group_user'))]"/>
     </record>
 
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4, ref('estate.estate_group_manager'))]"/>
+    </record>
+
     <record id="agent_rule" model="ir.rule">
         <field name="name">Agent Rules</field>
         <field name="model_id" ref="model_estate_property"/>

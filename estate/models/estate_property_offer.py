@@ -64,7 +64,10 @@ class EstatePropertyOffer(models.Model):
     @api.model_create_multi
     def create(self,vals_list):
         for vals in vals_list:
-            best_offer = self.env['estate.property'].browse(vals['property_id']).best_offer
+            prop = self.env['estate.property'].browse(vals['property_id'])
+            if(prop.state=="new"):
+                prop.state="offer_received"
+            best_offer = prop.best_offer
             if(vals['price']<best_offer):
                 raise exceptions.UserError("Offer Price cannot be less than %d."%best_offer)
         return super(EstatePropertyOffer,self).create(vals_list)
