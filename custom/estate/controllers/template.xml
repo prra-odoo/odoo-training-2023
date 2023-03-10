@@ -24,9 +24,15 @@
 
                                             </p>
                                             <div class="card-footer">
-                                                <span class="badge mr4  o_tag_color_8">
+                                                <!-- <span class="badge mr4  o_tag_color_8">
                                                     <t t-esc="teacher.buyer_id.name"/>
-                                                </span>
+                                                </span> -->
+                                            <p>
+                                            <t t-set="tag" t-value="teacher.mapped('tag_ids')"/>
+                                            <t t-foreach="tag" t-as="t">
+                                                <span t-field="t.name"  class="badge rounded-pill bg-info text-dark"/>
+                                            </t>
+                                            </p>
                                             </div>
                                   
                                         </div>
@@ -49,7 +55,7 @@
         </t>
     </template>
 
-    <template id="index_template">
+   <!--  <template id="index_template">
         <t t-call="website.layout">
            <t t-set="title"><t t-esc="properties.name"/></t>
            <div class="oe_structure"/>
@@ -63,7 +69,32 @@
            </div>
            <div class="oe_structure"/>
         </t>
-       </template>
+       </template> -->
+       <template id="index_template">
+        <t t-call="website.layout">
+            <div class="oe_structure mb-5" style="margin:50px;">
+                <div class="container text-center mb-5">
+                    <div class="card shadow-lg p-3 mb-5">
+                        <i t-field="properties.image" t-options='{"widget":"image"}' style="float:right;height:100%;width:100%"/>
+                        <div class="card-body">
+                            <h5 class="card-title"><span t-field="properties.name"/></h5>
+                            <span class="text-muted" t-field="properties.property_type_id.name"/>
+                            <div class="text-muted">State : <span t-esc="properties.state"/></div>
+                            <div>Last Modified : <i t-field="properties.write_date" t-options='{"widget":"relative"}'/></div>
+                            <div>Expected Price : <span t-field="properties.expected_price"/></div>
+                            <div>Best Offer : <span t-field="properties.best_price"/></div>
+                            <div>Seller : <span t-field="properties.seller_id"/></div>
+                            <div>Tags : <span t-field="properties.tag_ids"/></div>
+                           <!--  <t t-if="properties.offer_ids">
+                                <t t-call="estate.estate_property_offers_section" />
+            
+                            </t> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
     
 
 </odoo>

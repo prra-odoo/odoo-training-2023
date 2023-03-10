@@ -16,6 +16,7 @@
                         <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                         <button type="object" name="action_sold" string="Sold" class='oe_highlight' states="accepted"/>
                         <button type="object" name="action_cancelled" string="Cancel" class='oe_highlight' states="accepted"/>
+                        
                     </header>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" />
@@ -120,7 +121,13 @@
         <field name="name">Property</field>
         <field name="model">estate.real.property</field>
         <field name="arch" type="xml">
+    
+           
+            
             <tree string="Channel" decoration-success="state=='recieved' or state=='accepted'" decoration-muted="state=='sold'" decoration-bf="state=='accepted'">
+                <header>
+                    <button string="Create offer" type="action" name="%(estate_property_wizard)d"/>
+                </header>
                 <field name="name"/>
                 <field name="postcode"/>
                 <field name="expected_price"/>

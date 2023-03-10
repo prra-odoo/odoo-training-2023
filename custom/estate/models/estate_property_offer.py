@@ -14,7 +14,7 @@ class EstatePropertyOffer(models.Model):
     _order="price desc"
     _inherits={'estate.real.property':'property_id'}
 
-    
+   
     price = fields.Float()
     status = fields.Selection(string="select the status",
                               selection=[("accepted", "Accepted"),

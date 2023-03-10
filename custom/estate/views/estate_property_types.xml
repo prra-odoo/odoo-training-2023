@@ -22,6 +22,8 @@
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
             <form string="Types">
+                
+                
                 <sheet>
             
                     <div class="oe_button_box" name="button_box">

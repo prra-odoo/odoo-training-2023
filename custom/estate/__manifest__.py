@@ -6,14 +6,12 @@
     'category': 'Real Estate/Brokerage',
     'data':[
         
+        
         'controllers/template.xml',
         'controllers/controller_view.xml',
-        
-        
-        
         'security/security.xml',
-        
         'security/ir.model.access.csv',
+        'wizard/estate_wizard.xml',
         'report/estate_property_reports.xml',
         'report/estate_property_templates.xml',
         

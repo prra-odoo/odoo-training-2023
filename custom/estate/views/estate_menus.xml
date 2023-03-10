@@ -9,6 +9,8 @@
         <menuitem id="estate_first_level_menu2" name="Settings" sequence="2">
             <menuitem id="estate_model_menu_action2" action="real_estate_property_action_types" name="Property Types"/>
             <menuitem id="estate_model_menu_action3" action="real_estate_property_action_tags" name="Property Tags"/>
+            
+
         </menuitem>
     </menuitem>
 </odoo>
