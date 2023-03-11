@@ -138,6 +138,8 @@
                                         <field name="garden_area" attrs="{'readonly':[('garden','=',False)], 'invisible': [('garden', '=', False)]}" />
                                         <field name="garden_orientation" attrs="{'readonly':[('garden','=',False)], 'invisible': [('garden', '=', False)]}"/>
                                         <field name="active"/>
+                                        <field name="image1"/>
+                                        <field name="image2"/>
                                     </group>                                   
                                 </group>
                             </page>

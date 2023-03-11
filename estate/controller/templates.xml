@@ -91,8 +91,6 @@
                 <head>
                     <title t-esc="status_message">Properties</title>
                     <link rel="stylesheet" href="/web/static/lib/bootstrap/dist/css/bootstrap.css"/>
-                    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
-                    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
                     <style>
 
                         .card{
@@ -132,9 +130,53 @@
                                           <li class="breadcrumb-item active" aria-current="page"><span t-field="prop.name"/></li>
                                         </ol>
                                       </nav>
-                                    <t t-if="prop.image">
+                                      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                          <div class="carousel-item active">
+                                            <t t-if="prop.image">
+                                                <img t-att-src="image_data_uri(prop.image)" alt="image" class="prop_img d-block w-100"/>
+                                            </t>
+                                            <div class="carousel-caption d-none d-md-block">
+                                              <h5>The Main View</h5>
+                                              <p>Eye Catching Homes You Might Be Looking For!</p>
+                                            </div>
+                                          </div>
+                                          <div class="carousel-item">
+                                            <t t-if="prop.image1">
+                                                <img t-att-src="image_data_uri(prop.image1)" alt="image" class="prop_img d-block w-100"/>
+                                            </t>
+                                            <div class="carousel-caption d-none d-md-block">
+                                              <h5>Bedroom View</h5>
+                                              <p>The Cozy Bedroom Space For Your Comfort!</p>
+                                            </div>
+                                          </div>
+                                          <div class="carousel-item">
+                                            <t t-if="prop.image2">
+                                                <img t-att-src="image_data_uri(prop.image2)" alt="image" class="prop_img d-block w-100"/>
+                                            </t>
+                                            <div class="carousel-caption d-none d-md-block">
+                                              <h5>Kitchen View</h5>
+                                              <p>Amazing Cooking Space To Blow Your Minds!</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                          <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                          <span class="visually-hidden">Next</span>
+                                        </button>
+                                      </div>
+                                    <!-- <t t-if="prop.image">
                                         <img t-att-src="image_data_uri(prop.image)" alt="image" class="prop_img"/>
-                                    </t>
+                                    </t> -->
                                     <div class="card-body">
                                         <h5 class="card-title"><span t-field="prop.name"/></h5>
                                         <span t-field="prop.description"/><br/>

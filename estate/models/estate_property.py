@@ -128,6 +128,8 @@ class EstateProperty(models.Model):
 
     #website
     image = fields.Image()
+    image1 = fields.Image()
+    image2 = fields.Image()
 
     
 
