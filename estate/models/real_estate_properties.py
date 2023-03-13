@@ -15,7 +15,6 @@ class EstatePropertyModel(models.Model):
         )
     ]
     _order="id desc"
-    _inherit="estate.property.x"
 
     name = fields.Char(required=True)
     description = fields.Char()
@@ -104,8 +103,7 @@ class EstatePropertyModel(models.Model):
                     raise exceptions.ValidationError("Selling price cannot be lower than 90 percent of the expected price!")
                 
     @api.ondelete(at_uninstall=False)
-    def _unlink_if_new_or_canceled(self,vals):
+    def _unlink_if_new_or_canceled(self):
         for record in self:
-            if record.state not in ('new','canceled'):
+            if record.state not in ['new','canceled']:
                 raise exceptions.UserError("Only new and canceled properties can be deleted")
-            return super().create(vals)

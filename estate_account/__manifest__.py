@@ -1,12 +1,11 @@
 {
 	'name': "Estate Account",
-	'depends':['base','estate','account'],
+	'depends':['estate','account'],
 	'version': '1.0',
-	'sequence': -200,
+	'sequence': -99,
 	'author': 'sankalp (schh)',
 	'category': '',
 	'installable':True,
-	'application':True,
 	'license': 'LGPL-3',
 	'summary': '',
 	'data': [

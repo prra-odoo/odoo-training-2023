@@ -16,11 +16,10 @@
         'views/estate_property_type_view.xml',
         'views/res_users_views.xml',
         'views/estate_property_tags_view.xml',
-        'views/estate_menus.xml'
+        'views/estate_menus.xml',
+        'data/master_data.xml'
+    ],
+    'demo':[
+        'demo/demo_data.xml'
     ]
 }
-
-# ,
-#     'demo':[
-#         'demo/demo_data.xml'
-#     ]
