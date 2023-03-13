@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="estate_property_types_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record id="estate_property_type_view_list" model="ir.ui.view">
+        <field name="name">estate.property.type.view.tree</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Title"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="estate_property_type_view_form" model="ir.ui.view">
+        <field name="name">estate.property.type.view.form</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Channel">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="%(action_open_offers)d"
+                                type="action" icon="fa-money">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="offer_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Offers
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <field name="property_ids" string="Properties"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="estate_property_type_view_search" model="ir.ui.view">
+        <field name="name">estate.property.type.view.search</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <search string="Channel">
+                <field name="name" string="Title"/>
+            </search>
+        </field>
+    </record>
+</odoo>
